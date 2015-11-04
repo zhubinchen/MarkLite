@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/ios/!svn/ver/42/album/project/PhotosLibrary/ziplib/minizip
+END
+ioapi.c
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/ios/!svn/ver/42/album/project/PhotosLibrary/ziplib/minizip/ioapi.c
+END
+zip.c
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/ios/!svn/ver/42/album/project/PhotosLibrary/ziplib/minizip/zip.c
+END
+unzip.c
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/ios/!svn/ver/42/album/project/PhotosLibrary/ziplib/minizip/unzip.c
+END
+crypt.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/ios/!svn/ver/42/album/project/PhotosLibrary/ziplib/minizip/crypt.h
+END
+ioapi.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/ios/!svn/ver/42/album/project/PhotosLibrary/ziplib/minizip/ioapi.h
+END
+mztools.c
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/ios/!svn/ver/42/album/project/PhotosLibrary/ziplib/minizip/mztools.c
+END
+zip.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/ios/!svn/ver/42/album/project/PhotosLibrary/ziplib/minizip/zip.h
+END
+unzip.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/ios/!svn/ver/42/album/project/PhotosLibrary/ziplib/minizip/unzip.h
+END
+mztools.h
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/ios/!svn/ver/42/album/project/PhotosLibrary/ziplib/minizip/mztools.h
+END
