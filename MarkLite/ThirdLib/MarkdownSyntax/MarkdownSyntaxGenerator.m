@@ -28,6 +28,9 @@ NSRegularExpression *NSRegularExpressionFromMarkdownSyntaxType(MarkdownSyntaxTyp
             return regexp("`(.*?)`", 0);
         case MarkdownSyntaxCodeBlock:
             return regexp("```([\\s\\S]*?)```", 0);
+        case MarkdownSyntaxImplicitCodeBlock:
+            return regexp("```([\\s\\S]*?)```", 0);
+//            return regexp("^ {4,}(.*)", NSRegularExpressionAnchorsMatchLines);
         case MarkdownSyntaxBlockquotes:
             return regexp("\n(&gt;|\\>)(.*)",0);
         case MarkdownSyntaxSeparate://分割线
@@ -72,6 +75,8 @@ NSDictionary *AttributesFromMarkdownSyntaxType(MarkdownSyntaxType v) {
             return @{NSForegroundColorAttributeName : [UIColor brownColor]};
         case MarkdownSyntaxCodeBlock:
             return @{NSBackgroundColorAttributeName : [UIColor colorWithWhite:0.96 alpha:1]};
+        case MarkdownSyntaxImplicitCodeBlock:
+            return @{NSBackgroundColorAttributeName : [UIColor colorWithWhite:0.5 alpha:1]};
         case MarkdownSyntaxBlockquotes:
             return @{NSForegroundColorAttributeName : [UIColor redColor]};
         case MarkdownSyntaxSeparate:

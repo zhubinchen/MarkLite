@@ -13,7 +13,7 @@
 #import "FileItemCell.h"
 #import "UserDefault.h"
 
-@interface ProjectViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
+@interface ProjectViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIViewControllerPreviewingDelegate>
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
 
 @property (weak, nonatomic) IBOutlet UITableView *fileListView;
@@ -27,6 +27,21 @@
     NSMutableArray *dataArray;
     Item *root;
     UserDefault *defaults;
+}
+
+- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location
+{
+    if ([self.presentedViewController isKindOfClass:[CodeViewController class]]) {
+        return nil;
+    }
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
+    return [sb instantiateViewControllerWithIdentifier:@"code"];
+}
+
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    
+    // deep press: bring up the commit view controller (pop)
+    [self showViewController:viewControllerToCommit sender:self];
 }
 
 - (void)viewDidLoad {
@@ -52,6 +67,7 @@
         [defaults addProject:project];
     }
     dataArray = root.itemsCanReach.mutableCopy;
+    
 }
 
 - (Item*)openWorkSpace:(NSString *)name
@@ -92,7 +108,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FileItemCell *cell = (FileItemCell*)[tableView dequeueReusableCellWithIdentifier:@"fileItemCell" forIndexPath:indexPath];
-    
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)
+    {
+        [self registerForPreviewingWithDelegate:self sourceView:cell];
+    }
     Item *item = dataArray[indexPath.row];
     cell.item = item;
     cell.onAdd = ^(){

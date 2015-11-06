@@ -14,9 +14,26 @@
 
 @implementation AppDelegate
 
+-(void)createItem
+{
+    //自定义icon 的初始化方法
+    //    UIApplicationShortcutIcon *icon1 = [UIApplicationShortcutIcon iconWithTemplateImageName:@"your_icon"];
+    //    UIMutableApplicationShortcutItem *item0 = [[UIMutableApplicationShortcutItem alloc] initWithType:@"com.your.helloWorld" localizedTitle:@"Title" localizedSubtitle:@"sub Title" icon:icon1 userInfo:nil];
+    //这种是随意没有icon 的
+    UIMutableApplicationShortcutItem *item1 = [[UIMutableApplicationShortcutItem alloc] initWithType:@"test.com.A" localizedTitle:@"三条A"];
+    UIMutableApplicationShortcutItem *item2 = [[UIMutableApplicationShortcutItem alloc] initWithType:@"test.com.B" localizedTitle:@"三条B"];
+    UIMutableApplicationShortcutItem *item3 = [[UIMutableApplicationShortcutItem alloc] initWithType:@"test.com.C" localizedTitle:@"三条C"];
+    
+    NSArray *addArr = @[item2,item3,item1];
+    //为什么这两句话可以不用，因为我们可以在plist 里面 加入 UIApplicationShortcutItems
+    //    NSArray *existArr = [UIApplication sharedApplication].shortcutItems;
+    //    [UIApplication sharedApplication].shortcutItems = [existArr arrayByAddingObjectsFromArray:addArr];
+    [UIApplication sharedApplication].shortcutItems = addArr;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [self createItem];
     return YES;
 }
 

@@ -8,6 +8,7 @@
 
 #import "PreviewViewController.h"
 #import "FileManager.h"
+#import "MMMarkdown.h"
 
 @interface PreviewViewController () <UIWebViewDelegate>
 
@@ -33,8 +34,11 @@
     [super viewWillAppear:animated];
     NSString *path = [FileManager sharedManager].currentFilePath;
     NSLog(@"%@",path);
-    NSString *htmlStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    
+    NSString *markDown = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    NSString *formatHtmlFile = [[NSBundle mainBundle] pathForResource:@"format" ofType:@"html"];
+    NSString *format = [NSString stringWithContentsOfFile:formatHtmlFile encoding:NSUTF8StringEncoding error:nil];
+    NSString *htmlStr = [MMMarkdown HTMLStringWithMarkdown:markDown extensions:MMMarkdownExtensionsGitHubFlavored error:nil];
+    htmlStr = [NSString stringWithFormat:format,htmlStr];
     [_webView loadHTMLString:htmlStr baseURL:[NSURL fileURLWithPath:path]];
 }
 

@@ -15,6 +15,7 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
     MarkdownSyntaxQuotes,
     MarkdownSyntaxInlineCode,
     MarkdownSyntaxCodeBlock,
+    MarkdownSyntaxImplicitCodeBlock,
     MarkdownSyntaxBlockquotes,
     MarkdownSyntaxSeparate,
     MarkdownSyntaxULLists,
