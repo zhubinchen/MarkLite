@@ -8,7 +8,7 @@
 
 #import "PreviewViewController.h"
 #import "FileManager.h"
-#import "MMMarkdown.h"
+#import "GHMarkdownParser.h"
 
 @interface PreviewViewController () <UIWebViewDelegate>
 
@@ -23,10 +23,20 @@
     
     if (!kIsPhone) {
         _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, _size.width, _size.height)];
+        _webView.scalesPageToFit = NO;
         [self setupNav];
         [self.view addSubview:_webView];
     }
     _webView.delegate = self;
+    NSString *title = [[FileManager sharedManager].currentFilePath componentsSeparatedByString:@"/"].lastObject;
+    if (title) {
+        self.title = [title stringByDeletingPathExtension];
+    }
+}
+
+- (IBAction)back:(id)sender
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -37,9 +47,12 @@
     NSString *markDown = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     NSString *formatHtmlFile = [[NSBundle mainBundle] pathForResource:@"format" ofType:@"html"];
     NSString *format = [NSString stringWithContentsOfFile:formatHtmlFile encoding:NSUTF8StringEncoding error:nil];
-    NSString *htmlStr = [MMMarkdown HTMLStringWithMarkdown:markDown extensions:MMMarkdownExtensionsGitHubFlavored error:nil];
-    htmlStr = [NSString stringWithFormat:format,htmlStr];
-    [_webView loadHTMLString:htmlStr baseURL:[NSURL fileURLWithPath:path]];
+    GHMarkdownParser *parser = [[GHMarkdownParser alloc] init];
+    parser.options = kGHMarkdownAutoLink; // for example
+    parser.githubFlavored = YES;
+    NSString *html = [parser HTMLStringFromMarkdownString:markDown];
+    html = [NSString stringWithFormat:format,html];
+    [_webView loadHTMLString:html baseURL:[NSURL fileURLWithPath:path]];
 }
 
 - (void)setupNav

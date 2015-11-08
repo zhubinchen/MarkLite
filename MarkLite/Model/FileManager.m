@@ -64,18 +64,21 @@
     NSString *fileName;
     while ((fileName = [childFilesEnumerator nextObject]) != nil){
         
-        if (![fileName hasSuffix:@".DS_Store"]) {
-            [_fileList addObject:fileName];
+        if ([fileName hasSuffix:@".DS_Store"] || [fileName hasPrefix:@"_MACOSX"]) {
+            continue;
         }
+        [_fileList addObject:fileName];
     }
 }
 
 - (void)createFolder:(NSString *)path
 {
     NSError *error = nil;
-    
-    [fm createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
-    
+    NSString* fullPath = [self fullPathForPath:path];
+    if (![fm fileExistsAtPath:fullPath]) {
+        [fm createDirectoryAtPath:fullPath withIntermediateDirectories:YES attributes:nil error:&error];
+        NSLog(@"creating dir:%@",fullPath);
+    }
     NSAssert(!error, error.description);
 }
 
@@ -85,7 +88,7 @@
 
     if (![fm fileExistsAtPath:fullPath]) {
         [fm createFileAtPath:fullPath contents:content attributes:nil];
-        NSLog(@"creating file");
+        NSLog(@"creating file:%@",fullPath);
     }
 }
 

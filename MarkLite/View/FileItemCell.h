@@ -15,12 +15,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *typeIcon;
 @property (weak, nonatomic) IBOutlet UITextField *nameText;
 @property (weak, nonatomic) IBOutlet UIButton *addBtn;
-@property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
 
 @property (nonatomic,strong) Item *item;
 
 @property (nonatomic,copy) void(^onAdd)();
-
-@property (nonatomic,copy) void(^onTrash)();
 
 @end

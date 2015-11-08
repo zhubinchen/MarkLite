@@ -5,12 +5,8 @@
 
 #import "MarkdownSyntaxModel.h"
 
+@implementation MarkdownSyntaxModel
 
-
-
-@implementation MarkdownSyntaxModel {
-
-}
 - (instancetype)initWithType:(enum MarkdownSyntaxType) type range:(NSRange) range {
     self = [super init];
     if (self == nil) {
@@ -26,6 +22,5 @@
 + (instancetype)modelWithType:(enum MarkdownSyntaxType) type range:(NSRange) range {
     return [[self alloc] initWithType:type range:range];
 }
-
 
 @end

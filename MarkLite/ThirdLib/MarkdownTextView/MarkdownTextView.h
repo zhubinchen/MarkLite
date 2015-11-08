@@ -7,7 +7,6 @@
 
 @class MarkdownSyntaxGenerator;
 
-
 @interface MarkdownTextView : UITextView <UITextViewDelegate>
 
 - (void)updateSyntax;

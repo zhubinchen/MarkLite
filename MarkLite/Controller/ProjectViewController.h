@@ -13,4 +13,6 @@
 
 - (Item*)openWorkSpace:(NSString*)name;
 
+- (void)newProject;
+
 @end

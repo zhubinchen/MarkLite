@@ -20,18 +20,17 @@ NSRegularExpression *NSRegularExpressionFromMarkdownSyntaxType(MarkdownSyntaxTyp
             return regexp("(\\*\\*|__)(.*?)\\1", 0);
         case MarkdownSyntaxEmphasis://强调
             return regexp("\\s(\\*|_)(.*?)\\1\\s", 0);
-        case MarkdownSyntaxDeletions:
+        case MarkdownSyntaxDeletions://删除
             return regexp("\\~\\~(.*?)\\~\\~", 0);
         case MarkdownSyntaxQuotes://引用
             return regexp("\\:\\\"(.*?)\\\"\\:", 0);
-        case MarkdownSyntaxInlineCode:
-            return regexp("`(.*?)`", 0);
-        case MarkdownSyntaxCodeBlock:
+        case MarkdownSyntaxInlineCode://內联代码块
+            return regexp("`{1,2}[^`](.*?)`{1,2}", 0);
+        case MarkdownSyntaxCodeBlock://```包围的代码块
             return regexp("```([\\s\\S]*?)```", 0);
-        case MarkdownSyntaxImplicitCodeBlock:
-            return regexp("```([\\s\\S]*?)```", 0);
-//            return regexp("^ {4,}(.*)", NSRegularExpressionAnchorsMatchLines);
-        case MarkdownSyntaxBlockquotes:
+        case MarkdownSyntaxImplicitCodeBlock://4个缩进也算代码块
+            return regexp("(^\\s*$\\n)?(( {4}|\\t).*(\\n|\\z))+", NSRegularExpressionAnchorsMatchLines);
+        case MarkdownSyntaxBlockquotes://引用块
             return regexp("\n(&gt;|\\>)(.*)",0);
         case MarkdownSyntaxSeparate://分割线
             return regexp("-{3,}|\\*{3,}|_{3,}",0);
@@ -62,7 +61,7 @@ NSDictionary *AttributesFromMarkdownSyntaxType(MarkdownSyntaxType v) {
                 };
             }
         case MarkdownSyntaxLinks:
-            return @{NSForegroundColorAttributeName : [UIColor blueColor]};
+            return @{NSForegroundColorAttributeName:[UIColor blueColor],NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
         case MarkdownSyntaxBold:
             return @{NSFontAttributeName : [UIFont boldSystemFontOfSize:14]};
         case MarkdownSyntaxEmphasis:
@@ -74,9 +73,9 @@ NSDictionary *AttributesFromMarkdownSyntaxType(MarkdownSyntaxType v) {
         case MarkdownSyntaxInlineCode:
             return @{NSForegroundColorAttributeName : [UIColor brownColor]};
         case MarkdownSyntaxCodeBlock:
-            return @{NSBackgroundColorAttributeName : [UIColor colorWithWhite:0.96 alpha:1]};
+            return @{NSBackgroundColorAttributeName : [UIColor colorWithWhite:0.95 alpha:1]};
         case MarkdownSyntaxImplicitCodeBlock:
-            return @{NSBackgroundColorAttributeName : [UIColor colorWithWhite:0.5 alpha:1]};
+            return @{NSBackgroundColorAttributeName : [UIColor colorWithWhite:0.95 alpha:1]};
         case MarkdownSyntaxBlockquotes:
             return @{NSForegroundColorAttributeName : [UIColor redColor]};
         case MarkdownSyntaxSeparate:
@@ -86,7 +85,7 @@ NSDictionary *AttributesFromMarkdownSyntaxType(MarkdownSyntaxType v) {
         case MarkdownSyntaxOLLists:
             return @{NSForegroundColorAttributeName : [UIColor greenColor]};
         case MarkdownSyntaxLable:
-            return @{NSForegroundColorAttributeName : [UIColor blueColor]};
+            return @{NSForegroundColorAttributeName:[UIColor blueColor],NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
         case NumberOfMarkdownSyntax:
             break;
     }

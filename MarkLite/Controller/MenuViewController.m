@@ -26,8 +26,6 @@
     self.title = @"选项";
     
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     
     items = @[@[@"字体",@"键盘"],@[@"常见问题",@"意见反馈"],@[@"给我打分",@"推荐给好友"],@[@"关于"]];

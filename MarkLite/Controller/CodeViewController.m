@@ -22,10 +22,7 @@
     PreviewViewController *preViewVc;
     UIPopoverController *popVc;
     FileManager *fm;
-    
-    float lastOffsetY;
 }
-
 
 - (NSArray<id<UIPreviewActionItem>> *)previewActionItems {
     
@@ -67,14 +64,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    preview = [[UIBarButtonItem alloc]initWithTitle:@"预览" style:UIBarButtonItemStylePlain target:self action:@selector(preview)];
-
     _editView.delegate = self;
-    
-
-//    UIView *v = [[UIView alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 40, -40, 40, 40)];
-//    v.backgroundColor = [UIColor colorWithRGBString:@"eeff00"];
-//    [_editView.keyboard addSubview:v];
     
     if (kIsPhone) {
         [self loadFile];
@@ -94,57 +84,20 @@
     self.tabBarItem.title = @"代码";
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    if (kIsPhone) {
-        self.navigationItem.rightBarButtonItem = preview;
-    } else {
-        self.tabBarController.navigationItem.rightBarButtonItem = preview;
-    }
-}
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    self.navigationItem.rightBarButtonItem = nil;
     [self saveFile];
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    if (kIsPhone) {
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-    }
     return YES;
 }
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView
 {
-    if (kIsPhone) {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-    }
     return YES;
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (!kIsPhone) {
-        return;
-    }
-    if (scrollView.contentOffset.y < -40) {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-    }
-    if (scrollView.contentOffset.y - lastOffsetY > 100) {
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-    } else if (scrollView.contentOffset.y - lastOffsetY < -100) {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-    }
-
-    lastOffsetY = scrollView.contentOffset.y;
-}
-
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-{
-    lastOffsetY = 0;
 }
 
 - (void)loadFile
@@ -160,7 +113,7 @@
     [self.editView updateSyntax];
 }
 
-- (void)preview
+- (IBAction)preview:(id)sender
 {
     if (kIsPhone) {
         [self performSegueWithIdentifier:@"preview" sender:self];

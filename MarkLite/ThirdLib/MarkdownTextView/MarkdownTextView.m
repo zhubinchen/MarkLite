@@ -12,7 +12,10 @@
 
 @end
 
-@implementation MarkdownTextView 
+@implementation MarkdownTextView
+{
+    dispatch_queue_t updateQueue;
+}
 
 - (id)initWithCoder:(NSCoder *) coder {
     self = [super initWithCoder:coder];
@@ -21,11 +24,13 @@
     }
     [[NSNotificationCenter defaultCenter]
         addObserver:self selector:@selector(didTextChangeText:) name:UITextViewTextDidChangeNotification object:nil];
+    updateQueue = dispatch_queue_create("update", DISPATCH_QUEUE_CONCURRENT);
     [self updateSyntax];
     return self;
 }
 
 - (void)dealloc {
+    updateQueue = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -41,13 +46,17 @@
 }
 
 - (void)updateSyntax {
-    NSArray *models = [self.markdownSyntaxGenerator syntaxModelsForText:self.text];
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
-    for (MarkdownSyntaxModel *model in models) {
-        [attributedString addAttributes:AttributesFromMarkdownSyntaxType(
-            model.type) range:model.range];
-    }
-    [self updateAttributedText:attributedString];
+    dispatch_async(updateQueue, ^{
+        NSArray *models = [self.markdownSyntaxGenerator syntaxModelsForText:self.text];
+        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
+        for (MarkdownSyntaxModel *model in models) {
+            [attributedString addAttributes:AttributesFromMarkdownSyntaxType(
+                                                                             model.type) range:model.range];
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateAttributedText:attributedString];
+        });
+    });
 }
 
 - (void)updateAttributedText:(NSAttributedString *) attributedString {

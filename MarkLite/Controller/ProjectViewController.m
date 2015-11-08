@@ -13,7 +13,7 @@
 #import "FileItemCell.h"
 #import "UserDefault.h"
 
-@interface ProjectViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIViewControllerPreviewingDelegate>
+@interface ProjectViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIViewControllerPreviewingDelegate,UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
 
 @property (weak, nonatomic) IBOutlet UITableView *fileListView;
@@ -29,6 +29,8 @@
     UserDefault *defaults;
 }
 
+#pragma mark 3dTouch
+
 - (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location
 {
     if ([self.presentedViewController isKindOfClass:[CodeViewController class]]) {
@@ -39,17 +41,15 @@
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
-    
-    // deep press: bring up the commit view controller (pop)
     [self showViewController:viewControllerToCommit sender:self];
 }
 
+#pragma mark 生命周期
 - (void)viewDidLoad {
     [super viewDidLoad];
         
     if (kIsPhone) {
         self.title = @"代码";
-        [self setupNav];
     } else {
         self.title = @"MarkLite";
         [self setupTabbar];
@@ -67,8 +67,19 @@
         [defaults addProject:project];
     }
     dataArray = root.itemsCanReach.mutableCopy;
-    
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.tabBarController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(newProject)];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    self.tabBarController.navigationItem.rightBarButtonItem = nil;
+}
+
+#pragma mark 功能逻辑
 
 - (Item*)openWorkSpace:(NSString *)name
 {
@@ -89,12 +100,83 @@
     return ret;
 }
 
-- (void)refresh
+- (void)foldWithIndex:(int)index
 {
-    dataArray = root.itemsCanReach.mutableCopy;
-    [self.fileListView reloadData];
+    NSArray *children = [dataArray[index] itemsCanReach];
+    [dataArray removeObjectsInArray:children];
+    
+    [self.fileListView beginUpdates];
+    
+    NSMutableArray *indexPaths = [NSMutableArray array];
+    for (int i = 0; i < children.count; i++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index+i+1 inSection:0];
+        [indexPaths addObject:indexPath];
+    }
+    
+    [self.fileListView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
+    
+    [self.fileListView endUpdates];
 }
 
+- (void)openWithIndex:(int)index
+{
+    NSArray *children = [dataArray[index] itemsCanReach];
+    [dataArray insertObjects:children atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index+1, children.count)]];
+    
+    [self.fileListView beginUpdates];
+    
+    NSMutableArray *indexPaths = [NSMutableArray array];
+    for (int i = 0; i < children.count; i++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index+i+1 inSection:0];
+        [indexPaths addObject:indexPath];
+    }
+    
+    [self.fileListView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
+    
+    [self.fileListView endUpdates];
+}
+
+
+- (void)addFileWithParent:(Item*)parent
+{
+    int index = 0;
+    for (Item *i in dataArray) {
+        index ++;
+        if (i == parent) {
+            break;
+        }
+    }
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"新建文件或目录" message:@"请输入文件或目录名，如创建文件应输入文件类型" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+        if (buttonIndex == 0) {
+            NSString *name = [alert textFieldAtIndex:0].text;
+            NSString *path = [parent.name stringByAppendingPathComponent:name];
+            Item *i = [[Item alloc]init];
+            i.name = path;
+            i.open = YES;
+            if (i.folder) {
+                [fm createFolder:path];
+            }else{
+                [fm createFile:path Content:[NSData data]];
+            }
+            
+            [parent addChild:i];
+            [dataArray insertObject:i atIndex:0];
+            
+            dataArray = root.itemsCanReach.mutableCopy;
+            [self.fileListView reloadData];
+        }
+    };
+    [alert show];
+}
+
+- (void)newProject
+{
+    [self addFileWithParent:root];
+}
+
+#pragma mark UITableViewDataSource & UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -103,6 +185,35 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return dataArray.count;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return  UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Item *i = dataArray[indexPath.row];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"定要删除该文件？" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+        if (buttonIndex == 0) {
+            [i removeFromParent];
+            NSArray *children = [i itemsCanReach];
+            [dataArray removeObjectsInArray:children];
+            [dataArray removeObject:i];
+            NSMutableArray *indexPaths = [NSMutableArray array];
+            for (int i = 0; i < children.count +1; i++) {
+                NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row+i inSection:0];
+                [indexPaths addObject:index];
+            }
+            
+            [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
+            [fm deleteFile:i.name];
+        }
+        [alert releaseBlock];
+    };
+    [alert show];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -115,12 +226,7 @@
     Item *item = dataArray[indexPath.row];
     cell.item = item;
     cell.onAdd = ^(){
-        
-    };
-    
-    cell.onTrash = ^(){
-        [item removeFromParent];
-        [self refresh];
+        [self addFileWithParent:item];
     };
     
     return cell;
@@ -155,42 +261,6 @@
     }
 }
 
-- (void)foldWithIndex:(int)index
-{
-    NSArray *children = [dataArray[index] itemsCanReach];
-    [dataArray removeObjectsInArray:children];
-
-    [self.fileListView beginUpdates];
-    
-    NSMutableArray *indexPaths = [NSMutableArray array];
-    for (int i = 0; i < children.count; i++) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index+i+1 inSection:0];
-        [indexPaths addObject:indexPath];
-    }
-    
-    [self.fileListView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
-    
-    [self.fileListView endUpdates];
-}
-
-- (void)openWithIndex:(int)index
-{
-    NSArray *children = [dataArray[index] itemsCanReach];
-    [dataArray insertObjects:children atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index+1, children.count)]];
-
-    [self.fileListView beginUpdates];
-    
-    NSMutableArray *indexPaths = [NSMutableArray array];
-    for (int i = 0; i < children.count; i++) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index+i+1 inSection:0];
-        [indexPaths addObject:indexPath];
-    }
-    
-    [self.fileListView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
-    
-    [self.fileListView endUpdates];
-}
-
 - (void)setupTabbar
 {
     UITabBarItem *new = [[UITabBarItem alloc]initWithTitle:@"新建" image:[[UIImage imageNamed:@"New"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] tag:0];
@@ -202,39 +272,6 @@
     [history setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont boldSystemFontOfSize:10]} forState:UIControlStateNormal];
     
     self.tabBar.items = @[new,history];
-}
-
-- (void)setupNav
-{
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
-    
-    self.tabBarController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newProject)];
-}
-
-- (void)newProject
-{
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"新建工程" message:@"请输入工程名" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    [alert show];
-}
-
-- (void)historyProject
-{
-    
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0) {
-        NSString *name = [alertView textFieldAtIndex:0].text;
-        root = [self openWorkSpace:name];
-        NSDictionary *project = @{@"name":name};
-        [defaults addProject:project];
-        dataArray = root.itemsCanReach;
-    }
-    
-    [self refresh];
 }
 
 @end

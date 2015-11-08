@@ -8,6 +8,7 @@
 
 #import "TabBarController.h"
 #import "MenuViewController.h"
+#import "ProjectViewController.h"
 
 @interface TabBarController ()
 
@@ -17,9 +18,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
-    [self setupNav];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
 
 - (void)setSelectedViewController:(UIViewController *)selectedViewController
@@ -31,22 +32,10 @@
         [self setSelectedViewController:self.selectedViewController];
         return;
     }
-    
     [super setSelectedViewController:selectedViewController];
     self.title = selectedViewController.title;
 }
 
-- (void)setupNav
-{
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
-    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 /*
 #pragma mark - Navigation
