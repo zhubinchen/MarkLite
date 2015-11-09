@@ -21,6 +21,18 @@
     return self;
 }
 
+- (NSArray *)items
+{
+    NSMutableArray *ret = [NSMutableArray array];
+    
+    for (Item *i in self.children) {
+        [ret addObject:i];
+        [ret addObjectsFromArray:i.itemsCanReach];
+    }
+    
+    return ret;
+}
+
 - (NSArray*)itemsCanReach
 {
     NSMutableArray *ret = [NSMutableArray array];
@@ -32,6 +44,27 @@
         }
     }
     
+    return ret;
+}
+
+- (NSArray *)searchResult:(NSString *)searchText
+{
+    self.open = YES;
+    NSMutableArray *ret = [NSMutableArray array];
+
+    for (Item *i in self.children) {
+        NSArray *array = [i searchResult:searchText];
+        NSString *name = [i.name componentsSeparatedByString:@"/"].lastObject;
+
+        if (array.count || [name containsString:searchText]) {
+            [ret addObject:i];
+        }
+        
+        if (array.count) {
+            [ret addObjectsFromArray:[i searchResult:searchText]];
+        }
+    }
+
     return ret;
 }
 

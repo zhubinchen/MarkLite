@@ -24,6 +24,10 @@
 
 @property (nonatomic,strong,readonly)   NSArray   *itemsCanReach;
 
+@property (nonatomic,strong,readonly)   NSArray   *items;
+
+- (NSArray*)searchResult:(NSString*)searchText;
+
 - (void)addChild:(Item*)item;
 
 - (BOOL)isEqual:(Item*)object;

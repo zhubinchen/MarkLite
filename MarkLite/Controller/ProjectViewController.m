@@ -102,9 +102,14 @@
 
 - (void)foldWithIndex:(int)index
 {
-    NSArray *children = [dataArray[index] itemsCanReach];
+    NSArray *children;
+    if (self.searchBar.text.length) {
+        children = [dataArray[index] searchResult:self.searchBar.text];
+    }else{
+        children = [dataArray[index] itemsCanReach];
+    }
     [dataArray removeObjectsInArray:children];
-    
+
     [self.fileListView beginUpdates];
     
     NSMutableArray *indexPaths = [NSMutableArray array];
@@ -120,7 +125,12 @@
 
 - (void)openWithIndex:(int)index
 {
-    NSArray *children = [dataArray[index] itemsCanReach];
+    NSArray *children;
+    if (self.searchBar.text.length) {
+        children = [dataArray[index] searchResult:self.searchBar.text];
+    }else{
+        children = [dataArray[index] itemsCanReach];
+    }
     [dataArray insertObjects:children atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index+1, children.count)]];
     
     [self.fileListView beginUpdates];
@@ -174,6 +184,16 @@
 - (void)newProject
 {
     [self addFileWithParent:root];
+}
+
+- (void)searchWithWord:(NSString*)word
+{
+    if (word.length == 0) {
+        dataArray = root.itemsCanReach.mutableCopy;
+    }else {
+        dataArray = [root searchResult:word].mutableCopy;
+    }
+    [self.fileListView reloadData];
 }
 
 #pragma mark UITableViewDataSource & UITableViewDelegate
@@ -259,6 +279,31 @@
     } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangeFile" object:nil];
     }
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    [self searchWithWord:searchText];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
+    searchBar.text = @"";
+    [self searchWithWord:@""];
+}
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
+{
+    searchBar.showsCancelButton = YES;
+    [searchBar setCancelButtonTitle:@"取消"];
+    return YES;
+}
+
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+{
+    searchBar.showsCancelButton = NO;
+    return YES;
 }
 
 - (void)setupTabbar
