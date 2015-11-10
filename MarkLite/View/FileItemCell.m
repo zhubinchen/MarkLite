@@ -15,13 +15,14 @@
 
 - (void)setItem:(Item *)item
 {
+    _item = item;
     CGFloat begin = item.deep * 30 - 22;
-    if (!item.folder) {
+    if (item.type != FileTypeFolder) {
         begin -= 30;
     }
     _iconSpace.constant = begin;
-    _addBtn.hidden = !item.folder;
-    _typeIcon.hidden = !item.folder;
+    _addBtn.hidden = item.type != FileTypeFolder;
+    _typeIcon.hidden = item.type != FileTypeFolder;
     NSArray *path = [item.name componentsSeparatedByString:@"/"];
     
     long level = path.count - 1;

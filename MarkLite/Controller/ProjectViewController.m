@@ -9,9 +9,11 @@
 #import "ProjectViewController.h"
 #import "FileManager.h"
 #import "CodeViewController.h"
+#import "PreviewViewController.h"
 #import "Item.h"
 #import "FileItemCell.h"
 #import "UserDefault.h"
+#import "UserConfigure.h"
 
 @interface ProjectViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIViewControllerPreviewingDelegate,UISearchBarDelegate>
 @property (weak, nonatomic) IBOutlet UITabBar *tabBar;
@@ -25,8 +27,8 @@
 {
     FileManager *fm;
     NSMutableArray *dataArray;
-    Item *root;
     UserDefault *defaults;
+    Item *root;
 }
 
 #pragma mark 3dTouch
@@ -36,8 +38,16 @@
     if ([self.presentedViewController isKindOfClass:[CodeViewController class]]) {
         return nil;
     }
+    FileItemCell *cell = (FileItemCell*)[previewingContext sourceView];
+    Item *i = cell.item;
+    [fm openFile:i.name];
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
-    return [sb instantiateViewControllerWithIdentifier:@"code"];
+    if (i.type == FileTypeImage) {
+        return [sb instantiateViewControllerWithIdentifier:@"preview"];
+    }
+    CodeViewController *vc = [sb instantiateViewControllerWithIdentifier:@"code"];
+    vc.projectVc = self;
+    return vc;
 }
 
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
@@ -58,15 +68,11 @@
     fm = [FileManager sharedManager];
     defaults = [UserDefault sharedDefault];
     
-    if (defaults.oldUser) {
-        NSDictionary *lastProject = [defaults projectHistory].lastObject;
-        root = [self openWorkSpace:lastProject[@"name"]];
-    } else {
-        root = [self openWorkSpace:@"Template"];
-        NSDictionary *project = @{@"name":@"Template"};
-        [defaults addProject:project];
-    }
+    NSString *path = [NSString pathWithComponents:@[[NSString documentPath],@"Project"]];
+    root = [self openWorkSpace:path];
     dataArray = root.itemsCanReach.mutableCopy;
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(recievedNotification:) name:@"launchFormShortCutItem" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -81,12 +87,23 @@
 
 #pragma mark 功能逻辑
 
-- (Item*)openWorkSpace:(NSString *)name
+- (void)recievedNotification:(NSNotification*)noti
 {
-    fm.workSpace = name;
+    NSDictionary *dic = [UserConfigure sharedConfigure].launchOptions;
+    if ([dic[@"type"] isEqualToString:@"new"]) {
+        [self newProject];
+    }else if ([dic[@"type"] isEqualToString:@"open"]) {
+        [[FileManager sharedManager] openFile:dic[@"path"]];
+        [self performSegueWithIdentifier:@"code" sender:self];
+    }
+}
+
+- (Item*)openWorkSpace:(NSString *)path
+{
+    fm.workSpace = path;
     
     Item *ret = [[Item alloc]init];
-    ret.name = name;
+    ret.name = path;
     ret.open = YES;
     
     for (NSString *name in fm.fileList) {
@@ -156,16 +173,20 @@
             break;
         }
     }
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"新建文件或目录" message:@"请输入文件或目录名，如创建文件应输入文件类型" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
-        if (buttonIndex == 0) {
-            NSString *name = [alert textFieldAtIndex:0].text;
+    
+    if (SYSTEM_VERSION >= 8.0) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"新建文件或文件夹" message:@"如果创建文件应输入文件扩展名（如 readme.md）" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addTextFieldWithConfigurationHandler:nil];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+            NSString *name = alert.textFields[0].text;
+            if (name.length < 1) {
+                return ;
+            }
             NSString *path = [parent.name stringByAppendingPathComponent:name];
             Item *i = [[Item alloc]init];
             i.name = path;
             i.open = YES;
-            if (i.folder) {
+            if (i.type == FileTypeFolder) {
                 [fm createFolder:path];
             }else{
                 [fm createFile:path Content:[NSData data]];
@@ -176,9 +197,47 @@
             
             dataArray = root.itemsCanReach.mutableCopy;
             [self.fileListView reloadData];
-        }
-    };
-    [alert show];
+            
+            if (i.type == FileTypeText) {
+                [[FileManager sharedManager] openFile:i.name];
+                [self performSegueWithIdentifier:@"code" sender:self];
+            }
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        [alert addAction:okAction];
+        [alert addAction:cancelAction];
+        [self presentViewController:alert animated:YES completion:nil];
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"新建文件或文件夹" message:@"如果创建文件应输入文件扩展名（如 readme.md）" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+            if (buttonIndex == 1) {
+                [[alert textFieldAtIndex:0] resignFirstResponder];
+                NSString *name = [alert textFieldAtIndex:0].text;
+                NSString *path = [parent.name stringByAppendingPathComponent:name];
+                Item *i = [[Item alloc]init];
+                i.name = path;
+                i.open = YES;
+                if (i.type == FileTypeFolder) {
+                    [fm createFolder:path];
+                }else{
+                    [fm createFile:path Content:[NSData data]];
+                }
+                
+                [parent addChild:i];
+                [dataArray insertObject:i atIndex:0];
+                
+                dataArray = root.itemsCanReach.mutableCopy;
+                [self.fileListView reloadData];
+                
+                if (i.type == FileTypeText) {
+                    [[FileManager sharedManager] openFile:i.name];
+                    [self performSegueWithIdentifier:@"code" sender:self];
+                }
+            }
+        };
+        [alert show];
+    }
 }
 
 - (void)newProject
@@ -205,11 +264,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return dataArray.count;
-}
-
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return  UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -260,8 +314,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Item *i = dataArray[indexPath.row];
-    
-    if (i.folder) {
+
+    if (i.type == FileTypeFolder) {
         if (!i.open) {
             i.open = YES;
             [self openWithIndex:(int)indexPath.row];
@@ -273,11 +327,11 @@
     }
     
     [fm openFile:i.name];
-    
-    if (kIsPhone) {
+
+    if (i.type == FileTypeImage) {
+        [self performSegueWithIdentifier:@"preview" sender:self];
+    }else {
         [self performSegueWithIdentifier:@"code" sender:self];
-    } else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangeFile" object:nil];
     }
 }
 
@@ -317,6 +371,11 @@
     [history setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont boldSystemFontOfSize:10]} forState:UIControlStateNormal];
     
     self.tabBar.items = @[new,history];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+
 }
 
 @end

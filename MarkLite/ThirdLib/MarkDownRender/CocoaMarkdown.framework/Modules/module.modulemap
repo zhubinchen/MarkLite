@@ -1,0 +1,6 @@
+framework module CocoaMarkdown {
+  umbrella header "CocoaMarkdown.h"
+
+  export *
+  module * { export * }
+}

@@ -8,7 +8,7 @@
 
 #import "PreviewViewController.h"
 #import "FileManager.h"
-#import "GHMarkdownParser.h"
+#import <CocoaMarkdown/CocoaMarkdown.h>
 
 @interface PreviewViewController () <UIWebViewDelegate>
 
@@ -28,31 +28,32 @@
         [self.view addSubview:_webView];
     }
     _webView.delegate = self;
-    NSString *title = [[FileManager sharedManager].currentFilePath componentsSeparatedByString:@"/"].lastObject;
-    if (title) {
-        self.title = [title stringByDeletingPathExtension];
-    }
-}
-
-- (IBAction)back:(id)sender
-{
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     NSString *path = [FileManager sharedManager].currentFilePath;
-    NSLog(@"%@",path);
-    NSString *markDown = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    NSString *formatHtmlFile = [[NSBundle mainBundle] pathForResource:@"format" ofType:@"html"];
-    NSString *format = [NSString stringWithContentsOfFile:formatHtmlFile encoding:NSUTF8StringEncoding error:nil];
-    GHMarkdownParser *parser = [[GHMarkdownParser alloc] init];
-    parser.options = kGHMarkdownAutoLink; // for example
-    parser.githubFlavored = YES;
-    NSString *html = [parser HTMLStringFromMarkdownString:markDown];
-    html = [NSString stringWithFormat:format,html];
-    [_webView loadHTMLString:html baseURL:[NSURL fileURLWithPath:path]];
+    NSArray *arr = [path componentsSeparatedByString:@"."];
+    NSString *ex = arr.lastObject;
+    if ([ex isEqualToString:@"png"] || [ex isEqualToString:@"jpeg"] || [ex isEqualToString:@"jpg"] || [ex isEqualToString:@"gif"]) {
+        NSURL *url = [NSURL fileURLWithPath:path];
+        [_webView loadRequest:[NSURLRequest requestWithURL:url]];
+    }else{
+        CMDocument *doc = [[CMDocument alloc]initWithContentsOfFile:path options:CMDocumentOptionsSmart];
+        CMHTMLRenderer *render = [[CMHTMLRenderer alloc]initWithDocument:doc];
+//        NSString *markDown = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        NSString *formatHtmlFile = [[NSBundle mainBundle] pathForResource:@"format" ofType:@"html"];
+        NSString *format = [NSString stringWithContentsOfFile:formatHtmlFile encoding:NSUTF8StringEncoding error:nil];
+//        GHMarkdownParser *parser = [[GHMarkdownParser alloc] init];
+//        parser.options = kGHMarkdownAutoLink; // for example
+//        parser.githubFlavored = YES;
+//        NSString *html = [parser HTMLStringFromMarkdownString:markDown];
+        NSString *html = [render render];
+        html = [NSString stringWithFormat:format,html];
+        NSLog(@"%@",html);
+        [_webView loadHTMLString:html baseURL:[NSURL fileURLWithPath:path]];
+    }
 }
 
 - (void)setupNav

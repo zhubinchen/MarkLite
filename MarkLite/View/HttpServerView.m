@@ -52,7 +52,7 @@
             [server setType:@"_http._tcp."];
         }
         
-        NSString *webPath = [FileManager sharedManager].currentWorkSpacePath;
+        NSString *webPath = [FileManager sharedManager].currentFilePath;
         
         [server setDocumentRoot:webPath];
         [server setPort:[config[@"port"] intValue]];

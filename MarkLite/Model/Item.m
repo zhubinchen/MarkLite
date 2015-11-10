@@ -17,6 +17,7 @@
 {
     if (self = [super init]) {
         self.children = [NSMutableArray array];
+        _type = FileTypeOther;
     }
     return self;
 }
@@ -77,7 +78,17 @@
 - (void)setName:(NSString *)name
 {
     _name = name;
-    _folder = ![name containsString:@"."];
+    NSArray *arr = [name componentsSeparatedByString:@"."];
+    if (arr.count > 1) {
+        NSString *ex = arr.lastObject;
+        if ([ex isEqualToString:@"png"] || [ex isEqualToString:@"jpeg"] || [ex isEqualToString:@"jpg"] || [ex isEqualToString:@"gif"]) {
+            _type = FileTypeImage;
+        }else{
+            _type = FileTypeText;
+        }
+    }else{
+        _type = FileTypeFolder;
+    }
 }
 
 - (void)addChild:(Item *)item

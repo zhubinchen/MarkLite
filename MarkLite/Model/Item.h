@@ -8,15 +8,22 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum : NSUInteger {
+    FileTypeImage,
+    FileTypeText,
+    FileTypeFolder,
+    FileTypeOther,
+} FileType;
+
 @interface Item : NSObject
 
-@property (nonatomic,strong)            NSString *name;
+@property (nonatomic,strong)            NSString  *name;
 
-@property (nonatomic,assign,readonly)   BOOL      folder;
+@property (nonatomic,assign,readonly)   FileType  type;
 
 @property (nonatomic,assign)            BOOL      open;
 
-@property (nonatomic,weak)              Item     *parent;
+@property (nonatomic,weak)              Item      *parent;
 
 @property (nonatomic,assign,readonly)   NSInteger  deep;
 

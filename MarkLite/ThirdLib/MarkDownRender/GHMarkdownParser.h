@@ -24,7 +24,6 @@ typedef enum {
 } GHMarkdownOptions;
 
 
-
 /** Parses human-readable input in the Markdown format and converts it to HTML. */
 @interface GHMarkdownParser : NSObject
 

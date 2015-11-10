@@ -299,7 +299,6 @@
 @end
 
 
-
 @interface LxResourceListFTPRequest : LxFTPRequest
 
 @property (nonatomic,strong) NSMutableData * listData;

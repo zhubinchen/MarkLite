@@ -92,13 +92,14 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="preview:" destination="VQd-1Y-qDA" id="8ys-bV-Gm4"/>
+                                <segue destination="rmd-nM-PLW" kind="show" id="Ow3-lL-ZNM"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="editView" destination="X25-s7-0iO" id="U6h-ub-gSN"/>
-                        <segue destination="Nlu-ss-v5v" kind="presentation" identifier="preview" id="s1y-m5-6H7"/>
+                        <segue destination="rmd-nM-PLW" kind="show" identifier="preview" id="nAh-oH-Cz0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PqM-uW-6q0" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -617,40 +618,20 @@
             </objects>
             <point key="canvasLocation" x="-3187.5" y="-2594.5"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="tI3-Ns-kN8">
-            <objects>
-                <navigationController id="Nlu-ss-v5v" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RLc-d0-fnj">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.14117647059999999" green="0.65490196079999996" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </textAttributes>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="rmd-nM-PLW" kind="relationship" relationship="rootViewController" id="TaX-mT-gd1"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="B7A-L2-afV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-3923.5" y="-1008.5"/>
-        </scene>
         <!--预览-->
         <scene sceneID="az1-GD-zbF">
             <objects>
-                <viewController title="预览" automaticallyAdjustsScrollViewInsets="NO" id="rmd-nM-PLW" customClass="PreviewViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="preview" title="预览" automaticallyAdjustsScrollViewInsets="NO" id="rmd-nM-PLW" customClass="PreviewViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="te8-2F-9Ou"/>
                         <viewControllerLayoutGuide type="bottom" id="GsE-QU-kvE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="S83-Hl-wAf">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d4j-sb-Kdj">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
                         </subviews>
@@ -662,14 +643,7 @@
                             <constraint firstItem="d4j-sb-Kdj" firstAttribute="leading" secondItem="S83-Hl-wAf" secondAttribute="leading" id="lgG-bO-hOf"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="预览" id="lAk-Vl-tnM">
-                        <barButtonItem key="leftBarButtonItem" title="返回" id="dej-LO-ahJ">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="back:" destination="rmd-nM-PLW" id="o7s-8p-ebg"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="预览" id="lAk-Vl-tnM"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="webView" destination="d4j-sb-Kdj" id="pjH-H3-xEJ"/>
@@ -677,7 +651,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CXz-ml-4dY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3923.5" y="-234.5"/>
+            <point key="canvasLocation" x="-3179.5" y="-1766.5"/>
         </scene>
         <!--选项-->
         <scene sceneID="SHJ-cL-s36">
@@ -814,6 +788,7 @@
                         <outlet property="fileListView" destination="CTd-xk-UGY" id="067-7n-sSl"/>
                         <outlet property="searchBar" destination="hgt-J9-INt" id="Bwy-gj-DQa"/>
                         <segue destination="VQd-1Y-qDA" kind="show" identifier="code" id="n2c-A2-qau"/>
+                        <segue destination="rmd-nM-PLW" kind="show" identifier="preview" id="GZ3-Ny-S2m"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yo8-UD-Mb3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -834,4 +809,7 @@
         <image name="Toolbox.png" width="25" height="25"/>
         <image name="Upload.png" width="100" height="100"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="nAh-oH-Cz0"/>
+    </inferredMetricsTieBreakers>
 </document>

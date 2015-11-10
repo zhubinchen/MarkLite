@@ -16,6 +16,9 @@
 
 #define kIsPhone ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
 
+#define SYSTEM_VERSION   [[UIDevice currentDevice].systemVersion floatValue]
+
+
 /**
  *  创建目录，存在就不创建
  */

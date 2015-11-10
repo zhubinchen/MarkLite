@@ -14,8 +14,6 @@
 
 @property (nonatomic,strong,readonly) NSString *currentFilePath;
 
-@property (nonatomic,strong,readonly) NSString *currentWorkSpacePath;
-
 @property (nonatomic,strong,readonly) NSMutableArray *fileList;
 
 + (instancetype)sharedManager;

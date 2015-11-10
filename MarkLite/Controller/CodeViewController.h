@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "EditView.h"
 
+@class ProjectViewController;
+
 @interface CodeViewController : UIViewController
 
 @property (nonatomic,weak) IBOutlet EditView *editView;
+
+@property (nonatomic,weak) ProjectViewController *projectVc;
 
 @end
 

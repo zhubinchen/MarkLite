@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-
 @interface NSString (GHMarkdownParser)
 
 @property (nonatomic, readonly) NSString *HTMLStringFromMarkdown;

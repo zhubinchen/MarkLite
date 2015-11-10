@@ -9,6 +9,7 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
     MarkdownSyntaxUnknown,
     MarkdownSyntaxHeaders,
     MarkdownSyntaxLinks,
+    MarkdownSyntaxImages,
     MarkdownSyntaxBold,
     MarkdownSyntaxEmphasis,
     MarkdownSyntaxDeletions,
@@ -20,6 +21,7 @@ typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
     MarkdownSyntaxSeparate,
     MarkdownSyntaxULLists,
     MarkdownSyntaxOLLists,
+    MarkdownSyntaxTitle,
     MarkdownSyntaxLable,
     NumberOfMarkdownSyntax,
 };

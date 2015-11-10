@@ -14,11 +14,18 @@
 
 @end
 
+static TabBarController *tabVc = nil;
 @implementation TabBarController
+
++ (instancetype)currentViewContoller
+{
+    return tabVc;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
+    tabVc = self;
     [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
@@ -35,7 +42,6 @@
     [super setSelectedViewController:selectedViewController];
     self.title = selectedViewController.title;
 }
-
 
 /*
 #pragma mark - Navigation

@@ -53,7 +53,7 @@
     requset.username = config[@"name"];
     requset.password = config[@"passwd"];
     
-    NSString *path = [FileManager sharedManager].currentWorkSpacePath;
+    NSString *path = [FileManager sharedManager].currentFilePath;
     requset.localFileURL = [NSURL fileURLWithPath:path];
     NSLog(@"%@",requset.serverURL);
 

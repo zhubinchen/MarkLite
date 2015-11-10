@@ -10,4 +10,6 @@
 
 @interface TabBarController : UITabBarController
 
++ (instancetype)currentViewContoller;
+
 @end

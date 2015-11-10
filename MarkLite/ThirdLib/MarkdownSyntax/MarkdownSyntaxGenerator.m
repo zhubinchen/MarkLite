@@ -14,8 +14,10 @@ NSRegularExpression *NSRegularExpressionFromMarkdownSyntaxType(MarkdownSyntaxTyp
             return nil;
         case MarkdownSyntaxHeaders://标题
             return regexp("(#+)(.*)", NSRegularExpressionAnchorsMatchLines);
-        case MarkdownSyntaxLinks://链接（还有图片）
-            return regexp("!?\\[([^\\[]+)\\]\\(([^\\)]+)\\)", 0);
+        case MarkdownSyntaxLinks://链接
+            return regexp("\\[.+\\]\\([^\\)]+\\)", 0);
+        case MarkdownSyntaxImages://图片
+            return regexp("!\\[[^\\]]+\\]\\([^\\)]+\\)", 0);
         case MarkdownSyntaxBold://粗体
             return regexp("(\\*\\*|__)(.*?)\\1", 0);
         case MarkdownSyntaxEmphasis://强调
@@ -38,8 +40,10 @@ NSRegularExpression *NSRegularExpressionFromMarkdownSyntaxType(MarkdownSyntaxTyp
             return regexp("^-{1,2}[\\s]+", NSRegularExpressionAnchorsMatchLines);
         case MarkdownSyntaxOLLists://有序列表
             return regexp("^[0-9]+\\.(.*)", NSRegularExpressionAnchorsMatchLines);
+        case MarkdownSyntaxTitle://大标题
+            return regexp(".*\\n=+[(\\s)|=]+", 0);
         case MarkdownSyntaxLable://html标签
-            return regexp("^<[a-z]+(\\s.*?)?>.+<\\/>$|^<[a-z]+(\\s.*?)?/>$", NSRegularExpressionAnchorsMatchLines);
+            return regexp("<[a-z,0-9]+(\\s.*?)?>.+<\\/.*>|<[a-z,0-9]+(\\s.*?)?\\/>", 0);
         case NumberOfMarkdownSyntax:
             break;
     }
@@ -52,16 +56,14 @@ NSDictionary *AttributesFromMarkdownSyntaxType(MarkdownSyntaxType v) {
             return @{};
         case MarkdownSyntaxHeaders:
             if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-                return @{
-                    NSFontAttributeName : [UIFont boldSystemFontOfSize:[UIFont buttonFontSize]]
-                };
+                return @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
             } else {
-                return @{
-                    NSFontAttributeName : [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline]
-                };
+                return @{NSFontAttributeName : [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline] };
             }
         case MarkdownSyntaxLinks:
             return @{NSForegroundColorAttributeName:[UIColor blueColor],NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
+        case MarkdownSyntaxImages:
+            return @{NSForegroundColorAttributeName:[UIColor orangeColor],NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
         case MarkdownSyntaxBold:
             return @{NSFontAttributeName : [UIFont boldSystemFontOfSize:14]};
         case MarkdownSyntaxEmphasis:
@@ -81,9 +83,12 @@ NSDictionary *AttributesFromMarkdownSyntaxType(MarkdownSyntaxType v) {
         case MarkdownSyntaxSeparate:
             return @{NSForegroundColorAttributeName : [UIColor purpleColor]};
         case MarkdownSyntaxULLists:
-            return @{NSForegroundColorAttributeName : [UIColor greenColor]};
+            return @{NSForegroundColorAttributeName : [UIColor lightGrayColor]};
         case MarkdownSyntaxOLLists:
-            return @{NSForegroundColorAttributeName : [UIColor greenColor]};
+            return @{NSForegroundColorAttributeName : [UIColor lightGrayColor]};
+        case MarkdownSyntaxTitle:
+            return @{NSForegroundColorAttributeName : [UIColor cyanColor],
+                     NSFontAttributeName : [UIFont boldSystemFontOfSize:19]};
         case MarkdownSyntaxLable:
             return @{NSForegroundColorAttributeName:[UIColor blueColor],NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
         case NumberOfMarkdownSyntax:

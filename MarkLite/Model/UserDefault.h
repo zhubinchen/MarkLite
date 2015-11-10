@@ -10,6 +10,8 @@
 
 @interface UserDefault : NSObject
 
+@property (nonatomic,strong) NSMutableArray *fileHistory;
+
 @property (nonatomic,assign,readonly) BOOL oldUser;
 
 @property (nonatomic,strong,readonly) NSArray *projectHistory;

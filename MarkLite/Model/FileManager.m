@@ -39,27 +39,23 @@
 {
     _workSpace = workSpace;
     
-    NSString *docPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    _currentWorkSpacePath = [NSString pathWithComponents:@[docPath,workSpace]];
-    NSLog(@"%@",_currentWorkSpacePath);
-
-    if (![fm fileExistsAtPath:_currentWorkSpacePath]) {
+    if (![fm fileExistsAtPath:_workSpace]) {
         
-        [fm createDirectoryAtPath:_currentWorkSpacePath withIntermediateDirectories:YES attributes:nil error:nil];
-        NSLog(@"creating workSpace:%@",_currentWorkSpacePath);
+        [fm createDirectoryAtPath:_workSpace withIntermediateDirectories:YES attributes:nil error:nil];
+        NSLog(@"creating workSpace:%@",_workSpace);
         
         ZipArchive *zipArchive = [[ZipArchive alloc]init];
         
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"template" ofType:@"zip"];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"Example" ofType:@"zip"];
         NSLog(@"%@",path);
         
         [zipArchive UnzipOpenFile:path];
         
-        [zipArchive UnzipFileTo:_currentWorkSpacePath overWrite:YES];
+        [zipArchive UnzipFileTo:_workSpace overWrite:YES];
     }
     
     
-    NSEnumerator *childFilesEnumerator = [[fm subpathsAtPath:_currentWorkSpacePath] objectEnumerator];
+    NSEnumerator *childFilesEnumerator = [[fm subpathsAtPath:_workSpace] objectEnumerator];
     
     NSString *fileName;
     while ((fileName = [childFilesEnumerator nextObject]) != nil){
@@ -109,6 +105,7 @@
 
 - (NSData*)openFile:(NSString *)path
 {
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangeFile" object:nil];
     path = [self fullPathForPath:path];
     _currentFilePath = path;
     return [fm contentsAtPath:path];
@@ -116,7 +113,7 @@
 
 - (NSString *)fullPathForPath:(NSString *)path
 {
-    return [NSString pathWithComponents:@[_currentWorkSpacePath,path]];
+    return [NSString pathWithComponents:@[_workSpace,path]];
 }
 
 @end
