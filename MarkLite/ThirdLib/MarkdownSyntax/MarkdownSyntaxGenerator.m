@@ -4,7 +4,7 @@
 
 
 #import "MarkdownSyntaxGenerator.h"
-
+#import "HighLightModel.h"
 
 #define regexp(reg,option) [NSRegularExpression regularExpressionWithPattern:@reg options:option error:NULL]
 
@@ -37,7 +37,7 @@ NSRegularExpression *NSRegularExpressionFromMarkdownSyntaxType(MarkdownSyntaxTyp
         case MarkdownSyntaxSeparate://分割线
             return regexp("-{3,}|\\*{3,}|_{3,}",0);
         case MarkdownSyntaxULLists://无序列表
-            return regexp("^-{1,2}[\\s]+", NSRegularExpressionAnchorsMatchLines);
+            return regexp("^[-|\\*|\\+][\\s]+(.*)", NSRegularExpressionAnchorsMatchLines);
         case MarkdownSyntaxOLLists://有序列表
             return regexp("^[0-9]+\\.(.*)", NSRegularExpressionAnchorsMatchLines);
         case MarkdownSyntaxTitle://大标题
@@ -51,50 +51,65 @@ NSRegularExpression *NSRegularExpressionFromMarkdownSyntaxType(MarkdownSyntaxTyp
 }
 
 NSDictionary *AttributesFromMarkdownSyntaxType(MarkdownSyntaxType v) {
+    HighLightModel *model = [[HighLightModel alloc]init];
     switch (v) {
         case MarkdownSyntaxUnknown:
-            return @{};
+            break;
         case MarkdownSyntaxHeaders:
-            if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-                return @{NSFontAttributeName : [UIFont boldSystemFontOfSize:17]};
-            } else {
-                return @{NSFontAttributeName : [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline] };
-            }
+            model.size = 17;
+            break;
         case MarkdownSyntaxLinks:
-            return @{NSForegroundColorAttributeName:[UIColor blueColor],NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
+            model.textColor = [UIColor blueColor];
+            model.underLine = YES;
+            break;
         case MarkdownSyntaxImages:
-            return @{NSForegroundColorAttributeName:[UIColor orangeColor],NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
+            model.textColor = [UIColor orangeColor];
+            model.underLine = YES;
+            break;
         case MarkdownSyntaxBold:
-            return @{NSFontAttributeName : [UIFont boldSystemFontOfSize:14]};
+            model.strong = YES;
+            model.size = 18;
+            break;
         case MarkdownSyntaxEmphasis:
-            return @{NSFontAttributeName : [UIFont boldSystemFontOfSize:16]};
+            model.strong = YES;
+            model.size = 16;
+            break;
         case MarkdownSyntaxDeletions:
-            return @{NSStrikethroughStyleAttributeName : @(NSUnderlineStyleSingle)};
+            model.deletionLine = YES;
+            break;
         case MarkdownSyntaxQuotes:
-            return @{NSForegroundColorAttributeName : [UIColor orangeColor]};
-        case MarkdownSyntaxInlineCode:
-            return @{NSForegroundColorAttributeName : [UIColor brownColor]};
+            model.textColor = [UIColor orangeColor];
+            break;
         case MarkdownSyntaxCodeBlock:
-            return @{NSBackgroundColorAttributeName : [UIColor colorWithWhite:0.95 alpha:1]};
+            model.backgroundColor = [UIColor colorWithWhite:0.92 alpha:1];
+            break;
         case MarkdownSyntaxImplicitCodeBlock:
-            return @{NSBackgroundColorAttributeName : [UIColor colorWithWhite:0.95 alpha:1]};
+            model.backgroundColor = [UIColor colorWithWhite:0.92 alpha:1];
+            break;
         case MarkdownSyntaxBlockquotes:
-            return @{NSForegroundColorAttributeName : [UIColor redColor]};
+            model.textColor = [UIColor redColor];
+            break;
         case MarkdownSyntaxSeparate:
             return @{NSForegroundColorAttributeName : [UIColor purpleColor]};
         case MarkdownSyntaxULLists:
-            return @{NSForegroundColorAttributeName : [UIColor lightGrayColor]};
+            model.textColor = [UIColor grayColor];
+            break;
         case MarkdownSyntaxOLLists:
-            return @{NSForegroundColorAttributeName : [UIColor lightGrayColor]};
+            model.textColor = [UIColor grayColor];
+            break;
+        case MarkdownSyntaxInlineCode:
+            model.textColor = [UIColor brownColor];
+            break;
         case MarkdownSyntaxTitle:
-            return @{NSForegroundColorAttributeName : [UIColor cyanColor],
-                     NSFontAttributeName : [UIFont boldSystemFontOfSize:19]};
+            model.textColor = [UIColor cyanColor];
+            model.size = 19;
+            break;
         case MarkdownSyntaxLable:
             return @{NSForegroundColorAttributeName:[UIColor blueColor],NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
         case NumberOfMarkdownSyntax:
             break;
     }
-    return nil;
+    return model.attribute;
 }
 
 

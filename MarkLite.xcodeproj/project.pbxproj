@@ -16,6 +16,7 @@
 		073E27701BF1ADD300C9DFE0 /* KeyboardBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 073E276F1BF1ADD300C9DFE0 /* KeyboardBar.m */; };
 		073E27721BF1ADEA00C9DFE0 /* KeyboardBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 073E27711BF1ADEA00C9DFE0 /* KeyboardBar.xib */; };
 		07991A341BF1D89200B608FD /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07991A331BF1D89200B608FD /* CocoaMarkdown.framework */; };
+		07A7F1531BF49E2D00405A1F /* HighLightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A7F1521BF49E2D00405A1F /* HighLightModel.m */; };
 		07C3EB1B1BE89B8300F3425C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3EB1A1BE89B8300F3425C /* main.m */; };
 		07C3EB1E1BE89B8300F3425C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3EB1D1BE89B8300F3425C /* AppDelegate.m */; };
 		07C3EB261BE89B8300F3425C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07C3EB251BE89B8300F3425C /* Images.xcassets */; };
@@ -137,6 +138,8 @@
 		073E276F1BF1ADD300C9DFE0 /* KeyboardBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardBar.m; sourceTree = "<group>"; };
 		073E27711BF1ADEA00C9DFE0 /* KeyboardBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KeyboardBar.xib; sourceTree = "<group>"; };
 		07991A331BF1D89200B608FD /* CocoaMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaMarkdown.framework; sourceTree = "<group>"; };
+		07A7F1511BF49E2D00405A1F /* HighLightModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighLightModel.h; sourceTree = "<group>"; };
+		07A7F1521BF49E2D00405A1F /* HighLightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighLightModel.m; sourceTree = "<group>"; };
 		07C3EB151BE89B8300F3425C /* MarkLite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkLite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07C3EB191BE89B8300F3425C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07C3EB1A1BE89B8300F3425C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -331,6 +334,8 @@
 				0700B51C1BE9D1E100C3206D /* MarkdownSyntaxGenerator.m */,
 				0700B51D1BE9D1E100C3206D /* MarkdownSyntaxModel.h */,
 				0700B51E1BE9D1E100C3206D /* MarkdownSyntaxModel.m */,
+				07A7F1511BF49E2D00405A1F /* HighLightModel.h */,
+				07A7F1521BF49E2D00405A1F /* HighLightModel.m */,
 			);
 			path = MarkdownSyntax;
 			sourceTree = "<group>";
@@ -866,6 +871,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0700B4D91BE8B81B00C3206D /* Item.m in Sources */,
+				07A7F1531BF49E2D00405A1F /* HighLightModel.m in Sources */,
 				073E27701BF1ADD300C9DFE0 /* KeyboardBar.m in Sources */,
 				07C3EC611BE89DEB00F3425C /* unzip.c in Sources */,
 				07C3EC5C1BE89DEB00F3425C /* CYRTextStorage.m in Sources */,
