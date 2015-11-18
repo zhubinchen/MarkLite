@@ -17,7 +17,6 @@
         _textColor = [UIColor blackColor];
         _backgroundColor = [UIColor clearColor];
         _deletionLine = NO;
-        _underLine = NO;
         _strong = NO;
     }
     return self;
@@ -35,8 +34,7 @@
              NSFontAttributeName : font,
              NSBackgroundColorAttributeName : _backgroundColor,
              NSForegroundColorAttributeName : _textColor,
-             NSStrikethroughStyleAttributeName : @(_deletionLine ? NSUnderlineStyleSingle : NSUnderlineStyleNone),
-             NSUnderlineStyleAttributeName : @(_underLine ? NSUnderlineStyleSingle : NSUnderlineStyleNone)
+             NSStrikethroughStyleAttributeName : @(_deletionLine ? NSUnderlineStyleSingle : NSUnderlineStyleNone)
              };
 }
 

@@ -49,6 +49,10 @@
     dispatch_async(updateQueue, ^{
         NSArray *models = [self.markdownSyntaxGenerator syntaxModelsForText:self.text];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
+        [attributedString addAttributes:@{
+                                         NSFontAttributeName : [UIFont systemFontOfSize:15],
+                                         NSForegroundColorAttributeName : [UIColor darkGrayColor]
+                                         } range:NSMakeRange(0, attributedString.length)];
         for (MarkdownSyntaxModel *model in models) {
             [attributedString addAttributes:AttributesFromMarkdownSyntaxType(
                                                                              model.type) range:model.range];

@@ -15,7 +15,18 @@
 		0700B5471BEA1C5200C3206D /* format.html in Resources */ = {isa = PBXBuildFile; fileRef = 0700B5461BEA1C5200C3206D /* format.html */; };
 		073E27701BF1ADD300C9DFE0 /* KeyboardBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 073E276F1BF1ADD300C9DFE0 /* KeyboardBar.m */; };
 		073E27721BF1ADEA00C9DFE0 /* KeyboardBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 073E27711BF1ADEA00C9DFE0 /* KeyboardBar.xib */; };
-		07991A341BF1D89200B608FD /* CocoaMarkdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07991A331BF1D89200B608FD /* CocoaMarkdown.framework */; };
+		07A577541BFC2785009CE0FD /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A5773D1BFC2785009CE0FD /* hoedown_html_patch.c */; };
+		07A577571BFC2785009CE0FD /* autolink.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A577431BFC2785009CE0FD /* autolink.c */; };
+		07A577581BFC2785009CE0FD /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A577451BFC2785009CE0FD /* buffer.c */; };
+		07A577591BFC2785009CE0FD /* document.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A577471BFC2785009CE0FD /* document.c */; };
+		07A5775A1BFC2785009CE0FD /* escape.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A577491BFC2785009CE0FD /* escape.c */; };
+		07A5775B1BFC2785009CE0FD /* html.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A5774B1BFC2785009CE0FD /* html.c */; };
+		07A5775C1BFC2785009CE0FD /* html_blocks.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A5774D1BFC2785009CE0FD /* html_blocks.c */; };
+		07A5775D1BFC2785009CE0FD /* html_smartypants.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A5774E1BFC2785009CE0FD /* html_smartypants.c */; };
+		07A5775E1BFC2785009CE0FD /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A5774F1BFC2785009CE0FD /* stack.c */; };
+		07A5775F1BFC2785009CE0FD /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A577511BFC2785009CE0FD /* version.c */; };
+		07A577671BFC6746009CE0FD /* libhandlebars-objc-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A577651BFC6746009CE0FD /* libhandlebars-objc-ios.a */; };
+		07A577681BFC6746009CE0FD /* libhandlebars-objc-ios_i386.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A577661BFC6746009CE0FD /* libhandlebars-objc-ios_i386.a */; };
 		07A7F1531BF49E2D00405A1F /* HighLightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A7F1521BF49E2D00405A1F /* HighLightModel.m */; };
 		07C3EB1B1BE89B8300F3425C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3EB1A1BE89B8300F3425C /* main.m */; };
 		07C3EB1E1BE89B8300F3425C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3EB1D1BE89B8300F3425C /* AppDelegate.m */; };
@@ -137,7 +148,28 @@
 		073E276E1BF1ADD300C9DFE0 /* KeyboardBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardBar.h; sourceTree = "<group>"; };
 		073E276F1BF1ADD300C9DFE0 /* KeyboardBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardBar.m; sourceTree = "<group>"; };
 		073E27711BF1ADEA00C9DFE0 /* KeyboardBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KeyboardBar.xib; sourceTree = "<group>"; };
-		07991A331BF1D89200B608FD /* CocoaMarkdown.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CocoaMarkdown.framework; sourceTree = "<group>"; };
+		07A5773D1BFC2785009CE0FD /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
+		07A5773E1BFC2785009CE0FD /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
+		07A577431BFC2785009CE0FD /* autolink.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = autolink.c; sourceTree = "<group>"; };
+		07A577441BFC2785009CE0FD /* autolink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autolink.h; sourceTree = "<group>"; };
+		07A577451BFC2785009CE0FD /* buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = buffer.c; sourceTree = "<group>"; };
+		07A577461BFC2785009CE0FD /* buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffer.h; sourceTree = "<group>"; };
+		07A577471BFC2785009CE0FD /* document.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = document.c; sourceTree = "<group>"; };
+		07A577481BFC2785009CE0FD /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
+		07A577491BFC2785009CE0FD /* escape.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = escape.c; sourceTree = "<group>"; };
+		07A5774A1BFC2785009CE0FD /* escape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = escape.h; sourceTree = "<group>"; };
+		07A5774B1BFC2785009CE0FD /* html.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = html.c; sourceTree = "<group>"; };
+		07A5774C1BFC2785009CE0FD /* html.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = html.h; sourceTree = "<group>"; };
+		07A5774D1BFC2785009CE0FD /* html_blocks.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = html_blocks.c; sourceTree = "<group>"; };
+		07A5774E1BFC2785009CE0FD /* html_smartypants.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = html_smartypants.c; sourceTree = "<group>"; };
+		07A5774F1BFC2785009CE0FD /* stack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stack.c; sourceTree = "<group>"; };
+		07A577501BFC2785009CE0FD /* stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
+		07A577511BFC2785009CE0FD /* version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = version.c; sourceTree = "<group>"; };
+		07A577521BFC2785009CE0FD /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+		07A577641BFC6746009CE0FD /* HBHandlebars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HBHandlebars.h; sourceTree = "<group>"; };
+		07A577651BFC6746009CE0FD /* libhandlebars-objc-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libhandlebars-objc-ios.a"; sourceTree = "<group>"; };
+		07A577661BFC6746009CE0FD /* libhandlebars-objc-ios_i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libhandlebars-objc-ios_i386.a"; sourceTree = "<group>"; };
+		07A5776A1BFC67A2009CE0FD /* HoedownHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoedownHelper.h; sourceTree = "<group>"; };
 		07A7F1511BF49E2D00405A1F /* HighLightModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighLightModel.h; sourceTree = "<group>"; };
 		07A7F1521BF49E2D00405A1F /* HighLightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighLightModel.m; sourceTree = "<group>"; };
 		07C3EB151BE89B8300F3425C /* MarkLite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkLite.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -319,8 +351,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07A577681BFC6746009CE0FD /* libhandlebars-objc-ios_i386.a in Frameworks */,
 				07C6A51F1BEB4ADA00ACCE88 /* libz.1.2.5.tbd in Frameworks */,
-				07991A341BF1D89200B608FD /* CocoaMarkdown.framework in Frameworks */,
+				07A577671BFC6746009CE0FD /* libhandlebars-objc-ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,12 +382,49 @@
 			path = MarkdownTextView;
 			sourceTree = "<group>";
 		};
-		0700B52C1BEA0D5400C3206D /* MarkDownRender */ = {
+		07A5773B1BFC2785009CE0FD /* Hoedown */ = {
 			isa = PBXGroup;
 			children = (
-				07991A331BF1D89200B608FD /* CocoaMarkdown.framework */,
+				07A5776A1BFC67A2009CE0FD /* HoedownHelper.h */,
+				07A5773D1BFC2785009CE0FD /* hoedown_html_patch.c */,
+				07A5773E1BFC2785009CE0FD /* hoedown_html_patch.h */,
+				07A577631BFC6746009CE0FD /* HBHandlebars */,
+				07A577421BFC2785009CE0FD /* src */,
 			);
-			path = MarkDownRender;
+			path = Hoedown;
+			sourceTree = "<group>";
+		};
+		07A577421BFC2785009CE0FD /* src */ = {
+			isa = PBXGroup;
+			children = (
+				07A577431BFC2785009CE0FD /* autolink.c */,
+				07A577441BFC2785009CE0FD /* autolink.h */,
+				07A577451BFC2785009CE0FD /* buffer.c */,
+				07A577461BFC2785009CE0FD /* buffer.h */,
+				07A577471BFC2785009CE0FD /* document.c */,
+				07A577481BFC2785009CE0FD /* document.h */,
+				07A577491BFC2785009CE0FD /* escape.c */,
+				07A5774A1BFC2785009CE0FD /* escape.h */,
+				07A5774B1BFC2785009CE0FD /* html.c */,
+				07A5774C1BFC2785009CE0FD /* html.h */,
+				07A5774D1BFC2785009CE0FD /* html_blocks.c */,
+				07A5774E1BFC2785009CE0FD /* html_smartypants.c */,
+				07A5774F1BFC2785009CE0FD /* stack.c */,
+				07A577501BFC2785009CE0FD /* stack.h */,
+				07A577511BFC2785009CE0FD /* version.c */,
+				07A577521BFC2785009CE0FD /* version.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		07A577631BFC6746009CE0FD /* HBHandlebars */ = {
+			isa = PBXGroup;
+			children = (
+				07A577641BFC6746009CE0FD /* HBHandlebars.h */,
+				07A577651BFC6746009CE0FD /* libhandlebars-objc-ios.a */,
+				07A577661BFC6746009CE0FD /* libhandlebars-objc-ios_i386.a */,
+			);
+			path = HBHandlebars;
 			sourceTree = "<group>";
 		};
 		07C3EB0C1BE89B8300F3425C = {
@@ -427,8 +497,8 @@
 			children = (
 				07C3EB431BE89DEB00F3425C /* CodeViewController.h */,
 				07C3EB441BE89DEB00F3425C /* CodeViewController.m */,
-				07C3EB451BE89DEB00F3425C /* DocumentViewController.h */,
 				07C3EB461BE89DEB00F3425C /* DocumentViewController.m */,
+				07C3EB451BE89DEB00F3425C /* DocumentViewController.h */,
 				07C3EB471BE89DEB00F3425C /* MenuViewController.h */,
 				07C3EB481BE89DEB00F3425C /* MenuViewController.m */,
 				07C3EB491BE89DEB00F3425C /* PreviewViewController.h */,
@@ -501,7 +571,7 @@
 		07C3EB7B1BE89DEB00F3425C /* ThirdLib */ = {
 			isa = PBXGroup;
 			children = (
-				0700B52C1BEA0D5400C3206D /* MarkDownRender */,
+				07A5773B1BFC2785009CE0FD /* Hoedown */,
 				0700B51A1BE9D1E100C3206D /* MarkdownSyntax */,
 				0700B51F1BE9D1E100C3206D /* MarkdownTextView */,
 				07C3EC971BE89FDA00F3425C /* FTP */,
@@ -877,10 +947,13 @@
 				07C3EC5C1BE89DEB00F3425C /* CYRTextStorage.m in Sources */,
 				07C3EC601BE89DEB00F3425C /* mztools.c in Sources */,
 				07C3EC451BE89DEB00F3425C /* HTTPErrorResponse.m in Sources */,
+				07A5775B1BFC2785009CE0FD /* html.c in Sources */,
 				07C3EC151BE89DEB00F3425C /* ToolViewController.m in Sources */,
 				07C3EC581BE89DEB00F3425C /* qrspec.c in Sources */,
 				07C3EC131BE89DEB00F3425C /* ProjectViewController.m in Sources */,
 				07C3EC9A1BE89FDA00F3425C /* LxFTPRequest.m in Sources */,
+				07A5775C1BFC2785009CE0FD /* html_blocks.c in Sources */,
+				07A5775F1BFC2785009CE0FD /* version.c in Sources */,
 				07C3EC501BE89DEB00F3425C /* DispatchQueueLogFormatter.m in Sources */,
 				07C3EC401BE89DEB00F3425C /* MultipartMessageHeader.m in Sources */,
 				07C3EC3A1BE89DEB00F3425C /* DDRange.m in Sources */,
@@ -898,8 +971,11 @@
 				0700B5221BE9D1E100C3206D /* MarkdownSyntaxGenerator.m in Sources */,
 				07C3EC531BE89DEB00F3425C /* QRCodeGenerator.m in Sources */,
 				07C3EC941BE89EA600F3425C /* ZBCTrackButton.m in Sources */,
+				07A5775E1BFC2785009CE0FD /* stack.c in Sources */,
 				07C3EC0F1BE89DEB00F3425C /* CodeViewController.m in Sources */,
 				07C3EC441BE89DEB00F3425C /* HTTPDynamicFileResponse.m in Sources */,
+				07A5775A1BFC2785009CE0FD /* escape.c in Sources */,
+				07A5775D1BFC2785009CE0FD /* html_smartypants.c in Sources */,
 				07C3EC561BE89DEB00F3425C /* qrencode.c in Sources */,
 				07C3EC621BE89DEB00F3425C /* zip.c in Sources */,
 				07C3EC791BE89DEB00F3425C /* QrCodeView.m in Sources */,
@@ -919,6 +995,7 @@
 				07C3EC571BE89DEB00F3425C /* qrinput.c in Sources */,
 				07C3EC541BE89DEB00F3425C /* bitstream.c in Sources */,
 				07C3EC6C1BE89DEB00F3425C /* EditView.m in Sources */,
+				07A577581BFC2785009CE0FD /* buffer.c in Sources */,
 				0700B5181BE9B68100C3206D /* Utils.m in Sources */,
 				07C3EC431BE89DEB00F3425C /* HTTPDataResponse.m in Sources */,
 				07C3EC5A1BE89DEB00F3425C /* split.c in Sources */,
@@ -937,7 +1014,10 @@
 				07C3EC411BE89DEB00F3425C /* MultipartMessageHeaderField.m in Sources */,
 				07C3EC5E1BE89DEB00F3425C /* CYRToken.m in Sources */,
 				07C3EC3C1BE89DEB00F3425C /* HTTPConnection.m in Sources */,
+				07A577571BFC2785009CE0FD /* autolink.c in Sources */,
 				07C3EC6B1BE89DEB00F3425C /* CloudView.m in Sources */,
+				07A577591BFC2785009CE0FD /* document.c in Sources */,
+				07A577541BFC2785009CE0FD /* hoedown_html_patch.c in Sources */,
 				07C3EC461BE89DEB00F3425C /* HTTPFileResponse.m in Sources */,
 				0700B5241BE9D1E100C3206D /* MarkdownTextView.m in Sources */,
 				07C3EC421BE89DEB00F3425C /* HTTPAsyncFileResponse.m in Sources */,
@@ -1060,6 +1140,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MarkLite/ThirdLib/MarkDownRender",
+					"$(PROJECT_DIR)/MarkLite/ThirdLib/Hoedown",
+					"$(PROJECT_DIR)/MarkLite/ThirdLib/Hoedown/HBHandlebars",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "zhubch.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1086,6 +1168,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/MarkLite/ThirdLib/MarkDownRender",
+					"$(PROJECT_DIR)/MarkLite/ThirdLib/Hoedown",
+					"$(PROJECT_DIR)/MarkLite/ThirdLib/Hoedown/HBHandlebars",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "zhubch.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -6,23 +6,21 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSUInteger, MarkdownSyntaxType){
-    MarkdownSyntaxUnknown,
     MarkdownSyntaxHeaders,
+    MarkdownSyntaxTitle,
     MarkdownSyntaxLinks,
     MarkdownSyntaxImages,
     MarkdownSyntaxBold,
     MarkdownSyntaxEmphasis,
     MarkdownSyntaxDeletions,
     MarkdownSyntaxQuotes,
-    MarkdownSyntaxCodeBlock,
-    MarkdownSyntaxImplicitCodeBlock,
     MarkdownSyntaxBlockquotes,
     MarkdownSyntaxSeparate,
     MarkdownSyntaxULLists,
     MarkdownSyntaxOLLists,
     MarkdownSyntaxInlineCode,
-    MarkdownSyntaxTitle,
-    MarkdownSyntaxLable,
+    MarkdownSyntaxCodeBlock,
+    MarkdownSyntaxImplicitCodeBlock,
     NumberOfMarkdownSyntax,
 };
 

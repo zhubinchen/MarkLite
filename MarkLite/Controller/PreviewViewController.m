@@ -8,7 +8,7 @@
 
 #import "PreviewViewController.h"
 #import "FileManager.h"
-#import <CocoaMarkdown/CocoaMarkdown.h>
+#import "HoedownHelper.h"
 
 @interface PreviewViewController () <UIWebViewDelegate>
 
@@ -40,19 +40,14 @@
         NSURL *url = [NSURL fileURLWithPath:path];
         [_webView loadRequest:[NSURLRequest requestWithURL:url]];
     }else{
-        CMDocument *doc = [[CMDocument alloc]initWithContentsOfFile:path options:CMDocumentOptionsSmart];
-        CMHTMLRenderer *render = [[CMHTMLRenderer alloc]initWithDocument:doc];
-//        NSString *markDown = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        hoedown_renderer *render = CreateHTMLRenderer();
+        NSString *markdown = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        NSString *html = HTMLFromMarkdown(markdown, HOEDOWN_EXT_BLOCK|HOEDOWN_EXT_SPAN|HOEDOWN_EXT_FLAGS, YES, @"", render, CreateHTMLTOCRenderer());
         NSString *formatHtmlFile = [[NSBundle mainBundle] pathForResource:@"format" ofType:@"html"];
         NSString *format = [NSString stringWithContentsOfFile:formatHtmlFile encoding:NSUTF8StringEncoding error:nil];
-//        GHMarkdownParser *parser = [[GHMarkdownParser alloc] init];
-//        parser.options = kGHMarkdownAutoLink; // for example
-//        parser.githubFlavored = YES;
-//        NSString *html = [parser HTMLStringFromMarkdownString:markDown];
-        NSString *html = [render render];
-        html = [NSString stringWithFormat:format,html];
-        NSLog(@"%@",html);
-        [_webView loadHTMLString:html baseURL:[NSURL fileURLWithPath:path]];
+        NSString *finalHtml = [format stringByReplacingOccurrencesOfString:@"#_html_place_holder_#" withString:html];
+        NSLog(@"%@",finalHtml);
+        [_webView loadHTMLString:finalHtml baseURL:[NSURL fileURLWithPath:path]];
     }
 }
 
