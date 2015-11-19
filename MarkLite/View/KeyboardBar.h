@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KeyboardBar : UIToolbar
-
+@interface KeyboardBar : UIView
+@property (nonatomic,weak) id<UIKeyInput> editView;
+@property (nonatomic,weak) UIViewController *vc;
 @end

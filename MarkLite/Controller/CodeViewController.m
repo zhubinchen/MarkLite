@@ -10,6 +10,7 @@
 #import "PreviewViewController.h"
 #import "EditView.h"
 #import "ZBCKeyBoard.h"
+#import "KeyboardBar.h"
 #import "FileManager.h"
 #import "UserConfigure.h"
 #import "ProjectViewController.h"
@@ -43,6 +44,10 @@
     
     _editView.delegate = self;
     
+    KeyboardBar *bar = [[KeyboardBar alloc]init];
+    bar.editView = _editView;
+    bar.vc = self;
+    _editView.inputAccessoryView = bar;
     if (kIsPhone) {
         [self loadFile];
     } else {

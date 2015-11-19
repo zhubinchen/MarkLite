@@ -11,14 +11,11 @@
 typedef enum : NSUInteger {
     ZBCKeyBoardStyleFlat,//扁平
     ZBCKeyBoardStyleColorfull,//炫彩
-    ZBCKeyBoardStyleSimulate//仿真
+    ZBCKeyBoardStyleSimulate//拟物
 } ZBCKeyBoardStyle;
 
 static const NSUInteger ZBCKeyBoardStyleDefault = ZBCKeyBoardStyleFlat;
 
-/**
- *  屎上最牛逼键盘，目前没有之一
- */
 @interface ZBCKeyBoard : UIView
 
 @property (nonatomic,assign) id<UIKeyInput> editView;

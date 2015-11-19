@@ -13,8 +13,6 @@
 		0700B5231BE9D1E100C3206D /* MarkdownSyntaxModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0700B51E1BE9D1E100C3206D /* MarkdownSyntaxModel.m */; };
 		0700B5241BE9D1E100C3206D /* MarkdownTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0700B5211BE9D1E100C3206D /* MarkdownTextView.m */; };
 		0700B5471BEA1C5200C3206D /* format.html in Resources */ = {isa = PBXBuildFile; fileRef = 0700B5461BEA1C5200C3206D /* format.html */; };
-		073E27701BF1ADD300C9DFE0 /* KeyboardBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 073E276F1BF1ADD300C9DFE0 /* KeyboardBar.m */; };
-		073E27721BF1ADEA00C9DFE0 /* KeyboardBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 073E27711BF1ADEA00C9DFE0 /* KeyboardBar.xib */; };
 		07A577541BFC2785009CE0FD /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A5773D1BFC2785009CE0FD /* hoedown_html_patch.c */; };
 		07A577571BFC2785009CE0FD /* autolink.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A577431BFC2785009CE0FD /* autolink.c */; };
 		07A577581BFC2785009CE0FD /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A577451BFC2785009CE0FD /* buffer.c */; };
@@ -27,6 +25,9 @@
 		07A5775F1BFC2785009CE0FD /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A577511BFC2785009CE0FD /* version.c */; };
 		07A577671BFC6746009CE0FD /* libhandlebars-objc-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A577651BFC6746009CE0FD /* libhandlebars-objc-ios.a */; };
 		07A577681BFC6746009CE0FD /* libhandlebars-objc-ios_i386.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A577661BFC6746009CE0FD /* libhandlebars-objc-ios_i386.a */; };
+		07A5778D1BFC7BF9009CE0FD /* KeyboardBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A5778C1BFC7BF9009CE0FD /* KeyboardBar.m */; };
+		07A577941BFC8A2F009CE0FD /* add_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A577921BFC8A2F009CE0FD /* add_image.png */; };
+		07A577971BFC8AD7009CE0FD /* add_link.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A577961BFC8AD7009CE0FD /* add_link.png */; };
 		07A7F1531BF49E2D00405A1F /* HighLightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A7F1521BF49E2D00405A1F /* HighLightModel.m */; };
 		07C3EB1B1BE89B8300F3425C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3EB1A1BE89B8300F3425C /* main.m */; };
 		07C3EB1E1BE89B8300F3425C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3EB1D1BE89B8300F3425C /* AppDelegate.m */; };
@@ -145,9 +146,6 @@
 		0700B5201BE9D1E100C3206D /* MarkdownTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkdownTextView.h; sourceTree = "<group>"; };
 		0700B5211BE9D1E100C3206D /* MarkdownTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkdownTextView.m; sourceTree = "<group>"; };
 		0700B5461BEA1C5200C3206D /* format.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = format.html; sourceTree = "<group>"; };
-		073E276E1BF1ADD300C9DFE0 /* KeyboardBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardBar.h; sourceTree = "<group>"; };
-		073E276F1BF1ADD300C9DFE0 /* KeyboardBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardBar.m; sourceTree = "<group>"; };
-		073E27711BF1ADEA00C9DFE0 /* KeyboardBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KeyboardBar.xib; sourceTree = "<group>"; };
 		07A5773D1BFC2785009CE0FD /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
 		07A5773E1BFC2785009CE0FD /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
 		07A577431BFC2785009CE0FD /* autolink.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = autolink.c; sourceTree = "<group>"; };
@@ -170,6 +168,11 @@
 		07A577651BFC6746009CE0FD /* libhandlebars-objc-ios.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libhandlebars-objc-ios.a"; sourceTree = "<group>"; };
 		07A577661BFC6746009CE0FD /* libhandlebars-objc-ios_i386.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libhandlebars-objc-ios_i386.a"; sourceTree = "<group>"; };
 		07A5776A1BFC67A2009CE0FD /* HoedownHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HoedownHelper.h; sourceTree = "<group>"; };
+		07A5778B1BFC7BF9009CE0FD /* KeyboardBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardBar.h; sourceTree = "<group>"; };
+		07A5778C1BFC7BF9009CE0FD /* KeyboardBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardBar.m; sourceTree = "<group>"; };
+		07A577911BFC7D2C009CE0FD /* ZBCKeyboardDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZBCKeyboardDefines.h; sourceTree = "<group>"; };
+		07A577921BFC8A2F009CE0FD /* add_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_image.png; sourceTree = "<group>"; };
+		07A577961BFC8AD7009CE0FD /* add_link.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_link.png; sourceTree = "<group>"; };
 		07A7F1511BF49E2D00405A1F /* HighLightModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighLightModel.h; sourceTree = "<group>"; };
 		07A7F1521BF49E2D00405A1F /* HighLightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighLightModel.m; sourceTree = "<group>"; };
 		07C3EB151BE89B8300F3425C /* MarkLite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkLite.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -533,6 +536,8 @@
 			children = (
 				07D056571BF07DF000DC9D08 /* Example.zip */,
 				0700B5461BEA1C5200C3206D /* format.html */,
+				07A577961BFC8AD7009CE0FD /* add_link.png */,
+				07A577921BFC8A2F009CE0FD /* add_image.png */,
 				07C3EB5B1BE89DEB00F3425C /* Code@2x.png */,
 				07C3EB5C1BE89DEB00F3425C /* Code@3x.png */,
 				07C3EB5D1BE89DEB00F3425C /* Document.png */,
@@ -785,9 +790,8 @@
 		07C3EBF51BE89DEB00F3425C /* View */ = {
 			isa = PBXGroup;
 			children = (
-				073E276E1BF1ADD300C9DFE0 /* KeyboardBar.h */,
-				073E276F1BF1ADD300C9DFE0 /* KeyboardBar.m */,
-				073E27711BF1ADEA00C9DFE0 /* KeyboardBar.xib */,
+				07A5778B1BFC7BF9009CE0FD /* KeyboardBar.h */,
+				07A5778C1BFC7BF9009CE0FD /* KeyboardBar.m */,
 				07C3EBF61BE89DEB00F3425C /* CloudView.h */,
 				07C3EBF71BE89DEB00F3425C /* CloudView.m */,
 				07C3EBF81BE89DEB00F3425C /* EditView.h */,
@@ -812,6 +816,7 @@
 				07C3EC7F1BE89EA600F3425C /* left_press@2x.png */,
 				07C3EC801BE89EA600F3425C /* up@2x.png */,
 				07C3EC811BE89EA600F3425C /* up_press@2x.png */,
+				07A577911BFC7D2C009CE0FD /* ZBCKeyboardDefines.h */,
 				07C3EC821BE89EA600F3425C /* ZBCKeyBoard.h */,
 				07C3EC831BE89EA600F3425C /* ZBCKeyBoard.m */,
 				07C3EC841BE89EA600F3425C /* ZBCKeyButton.h */,
@@ -912,11 +917,12 @@
 				07C3EC271BE89DEB00F3425C /* Plus.png in Resources */,
 				07C3EC211BE89DEB00F3425C /* Minu.png in Resources */,
 				07C3EC241BE89DEB00F3425C /* Next.png in Resources */,
+				07A577971BFC8AD7009CE0FD /* add_link.png in Resources */,
 				07C3EC1C1BE89DEB00F3425C /* Document.png in Resources */,
-				073E27721BF1ADEA00C9DFE0 /* KeyboardBar.xib in Resources */,
 				07C3EC1D1BE89DEB00F3425C /* Folder@2x.png in Resources */,
 				07C3EC901BE89EA600F3425C /* up_press@2x.png in Resources */,
 				07C3EC2E1BE89DEB00F3425C /* Keyboard@2x.png in Resources */,
+				07A577941BFC8A2F009CE0FD /* add_image.png in Resources */,
 				07C3EC8B1BE89EA600F3425C /* down@2x.png in Resources */,
 				07C3EC8F1BE89EA600F3425C /* up@2x.png in Resources */,
 				07C3EC2C1BE89DEB00F3425C /* Help@2x.png in Resources */,
@@ -942,7 +948,6 @@
 			files = (
 				0700B4D91BE8B81B00C3206D /* Item.m in Sources */,
 				07A7F1531BF49E2D00405A1F /* HighLightModel.m in Sources */,
-				073E27701BF1ADD300C9DFE0 /* KeyboardBar.m in Sources */,
 				07C3EC611BE89DEB00F3425C /* unzip.c in Sources */,
 				07C3EC5C1BE89DEB00F3425C /* CYRTextStorage.m in Sources */,
 				07C3EC601BE89DEB00F3425C /* mztools.c in Sources */,
@@ -1020,6 +1025,7 @@
 				07A577541BFC2785009CE0FD /* hoedown_html_patch.c in Sources */,
 				07C3EC461BE89DEB00F3425C /* HTTPFileResponse.m in Sources */,
 				0700B5241BE9D1E100C3206D /* MarkdownTextView.m in Sources */,
+				07A5778D1BFC7BF9009CE0FD /* KeyboardBar.m in Sources */,
 				07C3EC421BE89DEB00F3425C /* HTTPAsyncFileResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
