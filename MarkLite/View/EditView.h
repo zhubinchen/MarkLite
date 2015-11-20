@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MarkdownTextView.h"
 
 @class ZBCKeyBoard;
 
-@interface EditView : MarkdownTextView
+@interface EditView : UITextView
 
 @property (nonatomic,strong) ZBCKeyBoard *keyboard;
+
+- (void)updateSyntax;
 
 @end

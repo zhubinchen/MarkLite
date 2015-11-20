@@ -9,6 +9,7 @@
 #import "PreviewViewController.h"
 #import "FileManager.h"
 #import "HoedownHelper.h"
+#import "Item.h"
 
 @interface PreviewViewController () <UIWebViewDelegate>
 
@@ -17,9 +18,14 @@
 @end
 
 @implementation PreviewViewController
+{
+    FileManager *fm;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    fm = [FileManager sharedManager];
     
     if (!kIsPhone) {
         _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, _size.width, _size.height)];
@@ -33,7 +39,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSString *path = [FileManager sharedManager].currentFilePath;
+    NSString *path = [fm fullPathForPath:[fm currentItem].path];
     NSArray *arr = [path componentsSeparatedByString:@"."];
     NSString *ex = arr.lastObject;
     if ([ex isEqualToString:@"png"] || [ex isEqualToString:@"jpeg"] || [ex isEqualToString:@"jpg"] || [ex isEqualToString:@"gif"]) {

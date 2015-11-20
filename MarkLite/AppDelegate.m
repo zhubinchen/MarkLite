@@ -21,6 +21,7 @@
     if (launchOptions[UIApplicationLaunchOptionsShortcutItemKey]) {
         return false;
     }
+//    [UITextView setupHook];
     return YES;
 }
 

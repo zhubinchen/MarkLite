@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Item.h"
 
 @interface FileManager : NSObject
 
 @property (nonatomic,strong) NSString *workSpace;
 
-@property (nonatomic,strong,readonly) NSString *currentFilePath;
+@property (nonatomic,strong) Item *root;
 
-@property (nonatomic,strong,readonly) NSMutableArray *fileList;
+@property (nonatomic,strong) Item *currentItem;
 
 + (instancetype)sharedManager;
 
@@ -24,8 +25,8 @@
 
 - (void)deleteFile:(NSString*)path;
 
-- (void)moveFile:(NSString*)path toNewPath:(NSString*)newPath;
+- (BOOL)moveFile:(NSString*)path toNewPath:(NSString*)newPath;
 
-- (NSData*)openFile:(NSString*)path;
+- (NSString *)fullPathForPath:(NSString *)path;
 
 @end

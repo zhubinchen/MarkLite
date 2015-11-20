@@ -12,11 +12,9 @@
 #import "PreviewViewController.h"
 #import "Item.h"
 #import "FileItemCell.h"
-#import "UserDefault.h"
 #import "UserConfigure.h"
 
 @interface ProjectViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIViewControllerPreviewingDelegate,UISearchBarDelegate>
-@property (weak, nonatomic) IBOutlet UITabBar *tabBar;
 
 @property (weak, nonatomic) IBOutlet UITableView *fileListView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -25,10 +23,9 @@
 
 @implementation ProjectViewController
 {
+    Item *root;
     FileManager *fm;
     NSMutableArray *dataArray;
-    UserDefault *defaults;
-    Item *root;
 }
 
 #pragma mark 3dTouch
@@ -39,10 +36,10 @@
         return nil;
     }
     FileItemCell *cell = (FileItemCell*)[previewingContext sourceView];
-    Item *i = cell.item;
-    [fm openFile:i.name];
+    fm.currentItem = cell.item;
+    
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
-    if (i.type == FileTypeImage) {
+    if (cell.item.type == FileTypeImage) {
         return [sb instantiateViewControllerWithIdentifier:@"preview"];
     }
     CodeViewController *vc = [sb instantiateViewControllerWithIdentifier:@"code"];
@@ -57,20 +54,9 @@
 #pragma mark 生命周期
 - (void)viewDidLoad {
     [super viewDidLoad];
-        
-    if (kIsPhone) {
-        self.title = @"代码";
-    } else {
-        self.title = @"MarkLite";
-        [self setupTabbar];
-    }
 
     fm = [FileManager sharedManager];
-    defaults = [UserDefault sharedDefault];
     
-    NSString *path = [NSString pathWithComponents:@[[NSString documentPath],@"Project"]];
-    root = [self openWorkSpace:path];
-    dataArray = root.itemsCanReach.mutableCopy;
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(recievedNotification:) name:@"launchFormShortCutItem" object:nil];
 }
@@ -78,6 +64,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.tabBarController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(newProject)];
+    root = fm.root;
+    dataArray = root.itemsCanReach.mutableCopy;
+    [self.fileListView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -93,28 +82,15 @@
     if ([dic[@"type"] isEqualToString:@"new"]) {
         [self newProject];
     }else if ([dic[@"type"] isEqualToString:@"open"]) {
-        [[FileManager sharedManager] openFile:dic[@"path"]];
+        for (Item *i in root.children) {
+            if ([i.path isEqualToString:dic[@"path"]]) {
+                fm.currentItem = i;
+                break;
+            }
+        }
+        
         [self performSegueWithIdentifier:@"code" sender:self];
     }
-}
-
-- (Item*)openWorkSpace:(NSString *)path
-{
-    fm.workSpace = path;
-    
-    Item *ret = [[Item alloc]init];
-    ret.name = path;
-    ret.open = YES;
-    
-    for (NSString *name in fm.fileList) {
-        Item *temp = [[Item alloc]init];
-        temp.open = YES;
-        temp.name = name;
-        [ret addChild:temp];
-    }
-    dataArray = root.itemsCanReach.mutableCopy;
-
-    return ret;
 }
 
 - (void)foldWithIndex:(int)index
@@ -182,9 +158,9 @@
             if (name.length < 1) {
                 return ;
             }
-            NSString *path = [parent.name stringByAppendingPathComponent:name];
+            NSString *path = [parent.path stringByAppendingPathComponent:name];
             Item *i = [[Item alloc]init];
-            i.name = path;
+            i.path = path;
             i.open = YES;
             if (i.type == FileTypeFolder) {
                 [fm createFolder:path];
@@ -193,13 +169,12 @@
             }
             
             [parent addChild:i];
-            [dataArray insertObject:i atIndex:0];
             
             dataArray = root.itemsCanReach.mutableCopy;
             [self.fileListView reloadData];
             
             if (i.type == FileTypeText) {
-                [[FileManager sharedManager] openFile:i.name];
+                fm.currentItem = i;
                 [self performSegueWithIdentifier:@"code" sender:self];
             }
         }];
@@ -214,9 +189,9 @@
             if (buttonIndex == 1) {
                 [[alert textFieldAtIndex:0] resignFirstResponder];
                 NSString *name = [alert textFieldAtIndex:0].text;
-                NSString *path = [parent.name stringByAppendingPathComponent:name];
+                NSString *path = [parent.path stringByAppendingPathComponent:name];
                 Item *i = [[Item alloc]init];
-                i.name = path;
+                i.path = path;
                 i.open = YES;
                 if (i.type == FileTypeFolder) {
                     [fm createFolder:path];
@@ -225,13 +200,12 @@
                 }
                 
                 [parent addChild:i];
-                [dataArray insertObject:i atIndex:0];
                 
                 dataArray = root.itemsCanReach.mutableCopy;
                 [self.fileListView reloadData];
                 
                 if (i.type == FileTypeText) {
-                    [[FileManager sharedManager] openFile:i.name];
+                    fm.currentItem = i;
                     [self performSegueWithIdentifier:@"code" sender:self];
                 }
             }
@@ -283,7 +257,7 @@
             }
             
             [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
-            [fm deleteFile:i.name];
+            [fm deleteFile:i.path];
         }
         [alert releaseBlock];
     };
@@ -299,10 +273,10 @@
     }
     Item *item = dataArray[indexPath.row];
     cell.item = item;
-    cell.onAdd = ^(){
+    cell.newFileBlock = ^(){
         [self addFileWithParent:item];
     };
-    
+   
     return cell;
 }
 
@@ -323,11 +297,13 @@
             [self foldWithIndex:(int)indexPath.row];
             i.open = NO;
         }
+        FileItemCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        cell.item = i;
         return;
     }
     
-    [fm openFile:i.name];
-
+    fm.currentItem = i;
+    
     if (i.type == FileTypeImage) {
         [self performSegueWithIdentifier:@"preview" sender:self];
     }else {
@@ -358,19 +334,6 @@
 {
     searchBar.showsCancelButton = NO;
     return YES;
-}
-
-- (void)setupTabbar
-{
-    UITabBarItem *new = [[UITabBarItem alloc]initWithTitle:@"新建" image:[[UIImage imageNamed:@"New"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] tag:0];
-    
-    UITabBarItem *history = [[UITabBarItem alloc]initWithTitle:@"历史" image:[[UIImage imageNamed:@"History"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] tag:0];
-    
-    [new setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont boldSystemFontOfSize:10]} forState:UIControlStateNormal];
-    
-    [history setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont boldSystemFontOfSize:10]} forState:UIControlStateNormal];
-    
-    self.tabBar.items = @[new,history];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

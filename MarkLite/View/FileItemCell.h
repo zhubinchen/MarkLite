@@ -18,6 +18,6 @@
 
 @property (nonatomic,strong) Item *item;
 
-@property (nonatomic,copy) void(^onAdd)();
+@property (nonatomic,copy) void(^newFileBlock)();
 
 @end

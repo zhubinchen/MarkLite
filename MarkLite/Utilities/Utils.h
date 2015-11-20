@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <objc/runtime.h>
 
 #define kScreenHeight ([UIScreen mainScreen].bounds.size.height)
 #define kScreenWidth ([UIScreen mainScreen].bounds.size.width)
@@ -312,4 +313,10 @@ static inline NSString* imagePath(NSString *name){
 @property (nonatomic,assign) IBInspectable NSUInteger maxLength;
 
 @end
+
+//@interface UITextView(Utils)
+//
+//+ (void)setupHook;
+//
+//@end
 

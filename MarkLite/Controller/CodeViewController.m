@@ -14,8 +14,11 @@
 #import "FileManager.h"
 #import "UserConfigure.h"
 #import "ProjectViewController.h"
+#import "Item.h"
 
-@interface CodeViewController () <UITextViewDelegate>
+@interface CodeViewController () <UITextViewDelegate,UITextFieldDelegate>
+
+@property (nonatomic,weak) IBOutlet UITextField *nameField;
 
 @end
 
@@ -24,6 +27,8 @@
     UIBarButtonItem *preview;
     PreviewViewController *preViewVc;
     UIPopoverController *popVc;
+    Item *item;
+    FileManager *fm;
 }
 
 - (NSArray<id<UIPreviewActionItem>> *)previewActionItems {
@@ -42,12 +47,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    fm = [FileManager sharedManager];
+    item = fm.currentItem;
+    
+    _nameField.text = item.name;
     _editView.delegate = self;
     
     KeyboardBar *bar = [[KeyboardBar alloc]init];
     bar.editView = _editView;
     bar.vc = self;
     _editView.inputAccessoryView = bar;
+   
     if (kIsPhone) {
         [self loadFile];
     } else {
@@ -82,17 +92,30 @@
     return YES;
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    if ([textField.text containsString:@"."] | [textField.text containsString:@"/"] | [textField.text containsString:@"*"]) {
+        [self showToast:@"请不要输入'./*'等特殊字符"];
+        return NO;
+    }
+    NSString *oldPath = item.path;
+    NSString *newPath = [[item.parent.path stringByAppendingPathComponent:textField.text] stringByAppendingPathExtension:item.extention];
+    BOOL ret = [fm moveFile:oldPath toNewPath:newPath];
+    if (ret) {
+        item.path = newPath;
+    }
+    NSLog(@"%i",ret);
+    return YES;
+}
+
 - (void)loadFile
 {
-    NSString *path = [FileManager sharedManager].currentFilePath;
+    NSString *path = [fm fullPathForPath:item.path];
     NSString *htmlStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-
-    NSArray *temp = [[FileManager sharedManager].currentFilePath componentsSeparatedByString:@"/"];
-    self.title = temp[temp.count - 1];
     
     self.editView.text = htmlStr;
     [self.editView updateSyntax];
-    
     for (NSDictionary *dic in [UserConfigure sharedConfigure].fileHisory) {
         if ([dic[@"path"] isEqualToString:path]) {
             return;
@@ -102,7 +125,7 @@
     if ([UserConfigure sharedConfigure].fileHisory.count >= 3) {
         [[UserConfigure sharedConfigure].fileHisory removeObjectAtIndex:0];
     }
-    [[UserConfigure sharedConfigure].fileHisory addObject:@{@"name":self.title,@"path":[path stringByReplacingOccurrencesOfString:[FileManager sharedManager].workSpace withString:@""]}];
+    [[UserConfigure sharedConfigure].fileHisory addObject:@{@"name":self.title,@"path":[path stringByReplacingOccurrencesOfString:fm.workSpace withString:@""]}];
     [[UserConfigure sharedConfigure] saveToFile];
     [self createShortCutItem:[UserConfigure sharedConfigure].fileHisory];
 }
@@ -115,10 +138,20 @@
 
     for (int i = (int)fileHistory.count - 1; i >= 0; i--) {
         NSDictionary *dic = fileHistory[i];
-        UIApplicationShortcutItem *item = [[UIApplicationShortcutItem alloc] initWithType:@"open" localizedTitle:dic[@"name"] localizedSubtitle:dic[@"path"] icon:editIcon userInfo:nil];
-        [items addObject:item];
+        UIApplicationShortcutItem *shortCut = [[UIApplicationShortcutItem alloc] initWithType:@"open" localizedTitle:dic[@"name"] localizedSubtitle:dic[@"path"] icon:editIcon userInfo:nil];
+        [items addObject:shortCut];
     }
     [UIApplication sharedApplication].shortcutItems = items;
+}
+
+- (IBAction)undo:(id)sender
+{
+    [self.undoManager undo];
+}
+
+- (IBAction)redo:(id)sender
+{
+    [self.undoManager redo];
 }
 
 - (IBAction)preview:(id)sender
@@ -142,7 +175,7 @@
 - (void)saveFile
 {
     NSData *content = [self.editView.text dataUsingEncoding:NSUTF8StringEncoding];
-    [content writeToFile:[FileManager sharedManager].currentFilePath atomically:YES];
+    [content writeToFile:[fm fullPathForPath:item.path] atomically:YES];
 }
 
  #pragma mark - Navigation

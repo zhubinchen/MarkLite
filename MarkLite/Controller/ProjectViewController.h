@@ -8,10 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class Item;
 @interface ProjectViewController : UIViewController
-
-- (Item*)openWorkSpace:(NSString*)name;
 
 - (void)newProject;
 

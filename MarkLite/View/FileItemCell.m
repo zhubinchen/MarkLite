@@ -23,17 +23,20 @@
     _iconSpace.constant = begin;
     _addBtn.hidden = item.type != FileTypeFolder;
     _typeIcon.hidden = item.type != FileTypeFolder;
-    NSArray *path = [item.name componentsSeparatedByString:@"/"];
     
-    long level = path.count - 1;
+    if (item.open) {
+        _typeIcon.image = [UIImage imageNamed:@"folder_open"];
+    }else{
+        _typeIcon.image = [UIImage imageNamed:@"folder"];
+    }
     
-    self.nameText.text = path[level];
+    self.nameText.text = [item.path componentsSeparatedByString:@"/"].lastObject;
     
     line.frame = CGRectMake(item.deep * 30 - 22 , 39.5, kScreenWidth - item.deep * 30 + 22, 0.5);
 }
 
 - (IBAction)addBtnClicked:(id)sender {
-    self.onAdd(_item);
+    self.newFileBlock();
 }
 
 - (void)awakeFromNib
@@ -51,7 +54,6 @@
     }else {
         self.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     }
-    // Configure the view for the selected state
 }
 
 @end

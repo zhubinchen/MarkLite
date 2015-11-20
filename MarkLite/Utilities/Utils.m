@@ -628,3 +628,59 @@ static void (^block)(NSInteger,UIAlertView*) = nil;
 }
 
 @end
+
+//@implementation UITextView (Utils)
+//
+//+ (void)setupHook
+//{
+//    static BOOL install = NO;
+//    if (!install) {
+//        install = YES;
+//        Class klass = [UITextView class];
+//        Method orgMethod = class_getInstanceMethod(klass, @selector(replaceRange:withText:));
+//        Method myMethod = class_getInstanceMethod(klass, @selector(myReplaceRange:withText:));
+//        method_exchangeImplementations(orgMethod, myMethod);
+//        orgMethod = class_getInstanceMethod(klass, @selector(setMarkedText:selectedRange:));
+//        myMethod = class_getInstanceMethod(klass, @selector(mySetMarkedText:selectedRange:));
+//        method_exchangeImplementations(orgMethod, myMethod);
+//        orgMethod = class_getInstanceMethod(klass, @selector(insertText:));
+//        myMethod = class_getInstanceMethod(klass, @selector(myInsertText:));
+//        method_exchangeImplementations(orgMethod, myMethod);
+//        orgMethod = class_getInstanceMethod(klass, @selector(deleteBackward));
+//        myMethod = class_getInstanceMethod(klass, @selector(myDeleteBackward));
+//        method_exchangeImplementations(orgMethod, myMethod);
+//    }
+//}
+//
+//- (void)myReplaceRange:(UITextRange *)range withText:(NSString *)text
+//{
+//    [self.undoManager beginUndoGrouping];
+//    [self myReplaceRange:range withText:text];
+//    [self.undoManager endUndoGrouping];
+//}
+//
+//- (void)mySetMarkedText:(NSString *)text selectedRange:(NSRange)range
+//{
+//    if (0 < text.length) {
+//        [self.undoManager beginUndoGrouping];
+//        [self mySetMarkedText:text selectedRange:range];
+//        [self.undoManager endUndoGrouping];
+//    }
+//}
+//
+//-(void)myInsertText:(NSString *)text
+//{
+//    [self.undoManager beginUndoGrouping];
+//    [self myInsertText:text];
+//    [self.undoManager endUndoGrouping];
+//}
+//
+//-(void)myDeleteBackward
+//{
+//    [self.undoManager beginUndoGrouping];
+//    [self myDeleteBackward];
+//    [self.undoManager endUndoGrouping];
+//}
+//
+//@end
+

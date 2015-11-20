@@ -30,14 +30,19 @@
 {
     if (self = [super init]) {
         fm = [NSFileManager defaultManager];
-        _fileList = [NSMutableArray array];
     }
     return self;
 }
 
+- (void)setRoot:(Item *)root
+{
+    _root = root;
+    _workSpace = [NSString pathWithComponents:@[[NSString documentPath],_root.path]];
+}
+
 - (void)setWorkSpace:(NSString *)workSpace
 {
-    _workSpace = workSpace;
+    _workSpace = [NSString pathWithComponents:@[[NSString documentPath],workSpace]];
     
     if (![fm fileExistsAtPath:_workSpace]) {
         
@@ -58,12 +63,18 @@
     NSEnumerator *childFilesEnumerator = [[fm subpathsAtPath:_workSpace] objectEnumerator];
     
     NSString *fileName;
+    _root = [[Item alloc]init];
+    _root.path = workSpace;
+    _root.open = YES;
     while ((fileName = [childFilesEnumerator nextObject]) != nil){
         
         if ([fileName hasSuffix:@".DS_Store"] || [fileName hasPrefix:@"_MACOSX"]) {
             continue;
         }
-        [_fileList addObject:fileName];
+        Item *temp = [[Item alloc]init];
+        temp.open = YES;
+        temp.path = fileName;
+        [_root addChild:temp];
     }
 }
 
@@ -93,22 +104,18 @@
     NSError *error = nil;
 
     [fm removeItemAtPath:[self fullPathForPath:path] error:&error];
-    NSAssert(!error, error.description);
 }
 
-- (void)moveFile:(NSString *)path toNewPath:(NSString *)newPath
+- (BOOL)moveFile:(NSString *)path toNewPath:(NSString *)newPath
 {
     NSError *error = nil;
-    [fm moveItemAtPath:path toPath:newPath error:&error];
-    NSAssert(!error, error.description);
-}
+    [fm moveItemAtPath:[self fullPathForPath:path] toPath:[self fullPathForPath:newPath] error:&error];
 
-- (NSData*)openFile:(NSString *)path
-{
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"ChangeFile" object:nil];
-    path = [self fullPathForPath:path];
-    _currentFilePath = path;
-    return [fm contentsAtPath:path];
+    if (error) {
+        NSLog(@"%@",error);
+        return NO;
+    }
+    return YES;
 }
 
 - (NSString *)fullPathForPath:(NSString *)path

@@ -9,7 +9,6 @@
 #import "ToolViewController.h"
 #import "HTTPServer.h"
 #import "FileManager.h"
-#import "HttpServerView.h"
 #import "QRCodeGenerator.h"
 
 @interface ToolViewController ()

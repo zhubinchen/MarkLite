@@ -55,9 +55,9 @@
 
     for (Item *i in self.children) {
         NSArray *array = [i searchResult:searchText];
-        NSString *name = [i.name componentsSeparatedByString:@"/"].lastObject;
+        NSString *path = [i.path componentsSeparatedByString:@"/"].lastObject;
 
-        if (array.count || [name containsString:searchText]) {
+        if (array.count || [path containsString:searchText]) {
             [ret addObject:i];
         }
         
@@ -71,14 +71,17 @@
 
 - (void)setParent:(Item *)parent
 {
+    if (parent == nil) {
+        return;
+    }
     _parent = parent;
     _deep = self.parent.deep + 1;
 }
 
-- (void)setName:(NSString *)name
+- (void)setPath:(NSString *)path
 {
-    _name = name;
-    NSArray *arr = [name componentsSeparatedByString:@"."];
+    _path = path;
+    NSArray *arr = [path componentsSeparatedByString:@"."];
     if (arr.count > 1) {
         NSString *ex = arr.lastObject;
         if ([ex isEqualToString:@"png"] || [ex isEqualToString:@"jpeg"] || [ex isEqualToString:@"jpg"] || [ex isEqualToString:@"gif"]) {
@@ -86,14 +89,17 @@
         }else{
             _type = FileTypeText;
         }
+        _extention = ex;
     }else{
         _type = FileTypeFolder;
+        _extention = @"";
     }
+    _name = [[path componentsSeparatedByString:@"/"].lastObject componentsSeparatedByString:@"."].firstObject;
 }
 
 - (void)addChild:(Item *)item
 {
-    if (last != nil && [item.name hasPrefix:last.name]) {
+    if (last != nil && [item.path hasPrefix:last.path]) {
         [last addChild:item];
         return;
     }
@@ -103,20 +109,50 @@
     last = item;
 }
 
-- (BOOL)isEqual:(Item *)object
-{
-    return [self.name isEqualToString:object.name];
-}
-
 - (void)removeFromParent
 {
     [_parent.children removeObject:self];
     _parent = nil;
 }
 
+- (BOOL)isEqual:(Item *)object
+{
+    return [self.path isEqualToString:object.path];
+}
+
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%@:%@",self.name,self.children];
+    return [NSString stringWithFormat:@"%@:%@",self.path,self.children];
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+    
+    [aCoder encodeObject:self.children forKey:@"children"];
+    [aCoder encodeObject:self.path forKey:@"path"];
+    [aCoder encodeInteger:self.tag forKey:@"tag"];
+    [aCoder encodeObject:self.parent forKey:@"parent"];
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+    if (self=[super init]) {
+        self.path = [aDecoder decodeObjectForKey:@"path"];
+        self.parent = [aDecoder decodeObjectForKey:@"parent"];
+        self.tag = [aDecoder decodeIntegerForKey:@"tag"];
+        self.children=[[aDecoder decodeObjectForKey:@"children"] mutableCopy];
+        if (self.children == nil) {
+            self.children = [NSMutableArray array];
+        }
+        _open = YES;
+    }
+    return self;
+}
+
+- (BOOL)archive
+{
+    NSString *path = [[NSString documentPath] stringByAppendingPathComponent:@"root.plist"];
+    
+    return [NSKeyedArchiver archiveRootObject:self toFile:path];
 }
 
 @end

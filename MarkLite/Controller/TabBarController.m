@@ -8,13 +8,15 @@
 
 #import "TabBarController.h"
 #import "MenuViewController.h"
-#import "ProjectViewController.h"
+#import "FileManager.h"
+#import "Item.h"
 
 @interface TabBarController ()
 
 @end
 
 static TabBarController *tabVc = nil;
+
 @implementation TabBarController
 
 + (instancetype)currentViewContoller
@@ -24,10 +26,24 @@ static TabBarController *tabVc = nil;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     tabVc = self;
+    
     [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    
+    Item *root = nil;
+    FileManager *fm = [FileManager sharedManager];
+
+    NSString *plistPath = [[NSString documentPath] stringByAppendingPathComponent:@"root.plist"];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
+        root = [NSKeyedUnarchiver unarchiveObjectWithFile:plistPath];
+        fm.root = root;
+    }else {
+        FileManager *fm = [FileManager sharedManager];
+        fm.workSpace = @"Project";
+        root = fm.root;
+        [root archive];
+    }
 }
 
 - (void)setSelectedViewController:(UIViewController *)selectedViewController
@@ -40,7 +56,8 @@ static TabBarController *tabVc = nil;
         return;
     }
     [super setSelectedViewController:selectedViewController];
-    self.title = selectedViewController.title;
+    NSArray *titles = @[@"MarkLite",@"目录",@"选项"];
+    self.title = titles[self.selectedIndex];
 }
 
 /*

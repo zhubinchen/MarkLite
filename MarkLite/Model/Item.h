@@ -17,21 +17,27 @@ typedef enum : NSUInteger {
 
 @interface Item : NSObject
 
-@property (nonatomic,strong)            NSString  *name;
-
-@property (nonatomic,assign,readonly)   FileType  type;
+@property (nonatomic,strong)            NSString  *path;
 
 @property (nonatomic,assign)            BOOL      open;
 
-@property (nonatomic,weak)              Item      *parent;
-
-@property (nonatomic,assign,readonly)   NSInteger  deep;
+@property (nonatomic,assign)            NSInteger tag;
 
 @property (nonatomic,strong)            NSMutableArray     *children;
+
+@property (nonatomic,weak)              Item      *parent;
+
+@property (nonatomic,assign,readonly)   NSInteger deep;
+
+@property (nonatomic,assign,readonly)   FileType  type;
 
 @property (nonatomic,strong,readonly)   NSArray   *itemsCanReach;
 
 @property (nonatomic,strong,readonly)   NSArray   *items;
+
+@property (nonatomic,strong,readonly)   NSString  *extention;
+
+@property (nonatomic,strong,readonly)   NSString  *name;
 
 - (NSArray*)searchResult:(NSString*)searchText;
 
@@ -40,5 +46,7 @@ typedef enum : NSUInteger {
 - (BOOL)isEqual:(Item*)object;
 
 - (void)removeFromParent;
+
+- (BOOL)archive;
 
 @end
