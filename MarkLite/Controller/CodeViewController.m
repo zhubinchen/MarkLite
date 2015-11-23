@@ -19,6 +19,7 @@
 @interface CodeViewController () <UITextViewDelegate,UITextFieldDelegate>
 
 @property (nonatomic,weak) IBOutlet UITextField *nameField;
+@property (nonatomic,weak) IBOutlet UIView *tagView;
 
 @end
 
@@ -29,6 +30,8 @@
     UIPopoverController *popVc;
     Item *item;
     FileManager *fm;
+    UIView *selectTagView;
+    UIVisualEffectView *blurView;
 }
 
 - (NSArray<id<UIPreviewActionItem>> *)previewActionItems {
@@ -58,6 +61,10 @@
     bar.vc = self;
     _editView.inputAccessoryView = bar;
    
+    NSArray *rgbArray = @[@"F14143",@"EA8C2F",@"E6BB32",@"56BA38",@"379FE6",@"BA66D0"];
+    _tagView.backgroundColor = [UIColor colorWithRGBString:rgbArray[item.tag] alpha:0.9];
+    [_tagView showBorderWithColor:[UIColor colorWithWhite:0.1 alpha:0.1] radius:8 width:1.5];
+
     if (kIsPhone) {
         [self loadFile];
     } else {
@@ -170,6 +177,64 @@
 
         [popVc presentPopoverFromBarButtonItem:self.tabBarController.navigationItem.rightBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
     }
+}
+
+- (IBAction)changeTag:(id)sender
+{
+    if (selectTagView == nil) {
+        UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+        blurView = [[UIVisualEffectView alloc]initWithEffect:effect];
+        blurView.frame = _editView.frame;
+        blurView.alpha = 0.2;
+        blurView.userInteractionEnabled = YES;
+        
+        UIControl *control = [[UIControl alloc]initWithFrame:blurView.bounds];
+        [control addTarget:self action:@selector(selectedTag:) forControlEvents:UIControlEventTouchDown];
+        [blurView.contentView addSubview:control];
+        
+        selectTagView = [[UIView alloc]initWithFrame:CGRectMake(kScreenWidth - 36, 35, 36, 0)];
+        selectTagView.backgroundColor = [UIColor whiteColor];
+        [selectTagView showShadowWithColor:[UIColor grayColor] offset:CGSizeMake(-2, -2)];
+        selectTagView.clipsToBounds = YES;
+        NSArray *rgbArray = @[@"F14143",@"EA8C2F",@"E6BB32",@"56BA38",@"379FE6",@"BA66D0"];
+        for (int i = 0; i < rgbArray.count; i++) {
+            UIView *v = [[UIView alloc]initWithFrame:CGRectMake(10, i*36 + 10, 16, 16)];
+            v.backgroundColor = [UIColor colorWithRGBString:rgbArray[i] alpha:0.9];
+            [v showBorderWithColor:[UIColor colorWithWhite:0.1 alpha:0.1] radius:8 width:1.5];
+            [selectTagView addSubview:v];
+            UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, i*36, 36, 36)];
+            btn.tag = i;
+            [btn addTarget:self action:@selector(selectedTag:) forControlEvents:UIControlEventTouchUpInside];
+            [selectTagView addSubview:btn];
+        }
+    }
+    
+    [self.view addSubview:blurView];
+    [self.view addSubview:selectTagView];
+
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        selectTagView.frame = CGRectMake(kScreenWidth - 36, 35, 36, 36*6);
+        blurView.alpha = 0.97;
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+- (void)selectedTag:(UIButton*)sender
+{
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        selectTagView.frame = CGRectMake(kScreenWidth - 36, 35, 36, 0);
+        blurView.alpha = 0.2;
+    } completion:^(BOOL finished) {
+        [blurView removeFromSuperview];
+    }];
+    
+    if (![sender isKindOfClass:[UIButton class]]) {
+        return;
+    }
+    NSArray *rgbArray = @[@"F14143",@"EA8C2F",@"E6BB32",@"56BA38",@"379FE6",@"BA66D0"];
+    item.tag = sender.tag;
+    _tagView.backgroundColor = [UIColor colorWithRGBString:rgbArray[sender.tag] alpha:0.9];
 }
 
 - (void)saveFile

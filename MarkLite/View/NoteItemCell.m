@@ -12,15 +12,16 @@
 
 - (void)setItem:(Item *)item
 {
+    _item = item;
     _nameLabel.text = item.name;
     
     NSArray *rgbArray = @[@"F14143",@"EA8C2F",@"E6BB32",@"56BA38",@"379FE6",@"BA66D0"];
-    self.tagView.backgroundColor = [UIColor colorWithRGBString:rgbArray[item.tag]];
+    self.tagView.backgroundColor = [UIColor colorWithRGBString:rgbArray[item.tag] alpha:0.9];
 }
 
 - (void)awakeFromNib {
     // Initialization code
-    [self.tagView showBorderWithColor:[UIColor colorWithWhite:0.1 alpha:0.1] radius:8 width:1];
+    [self.tagView showBorderWithColor:[UIColor colorWithWhite:0.1 alpha:0.1] radius:8 width:1.5];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

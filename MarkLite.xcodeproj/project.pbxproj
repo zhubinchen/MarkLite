@@ -32,8 +32,6 @@
 		07A5779D1BFDA0DE009CE0FD /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A5779B1BFDA0DE009CE0FD /* folder.png */; };
 		07A5779F1BFDA209009CE0FD /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A5779E1BFDA209009CE0FD /* libsqlite3.0.tbd */; };
 		07A577A11BFDA256009CE0FD /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07A577A01BFDA256009CE0FD /* libicucore.tbd */; };
-		07A577A31BFDA480009CE0FD /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A577A21BFDA480009CE0FD /* plus.png */; };
-		07A577A91BFEBF1E009CE0FD /* list@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07A577A81BFEBF1E009CE0FD /* list@2x.png */; };
 		07A577D01BFEE67E009CE0FD /* NoteListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A577CF1BFEE67E009CE0FD /* NoteListViewController.m */; };
 		07A577D31BFEF437009CE0FD /* NoteItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A577D21BFEF437009CE0FD /* NoteItemCell.m */; };
 		07A7F1531BF49E2D00405A1F /* HighLightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A7F1521BF49E2D00405A1F /* HighLightModel.m */; };
@@ -52,8 +50,7 @@
 		07C3EC161BE89DEB00F3425C /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3EB531BE89DEB00F3425C /* FileManager.m */; };
 		07C3EC191BE89DEB00F3425C /* UserDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3EB591BE89DEB00F3425C /* UserDefault.m */; };
 		07C3EC201BE89DEB00F3425C /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07C3EB611BE89DEB00F3425C /* menu@2x.png */; };
-		07C3EC251BE89DEB00F3425C /* Options@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07C3EB661BE89DEB00F3425C /* Options@2x.png */; };
-		07C3EC261BE89DEB00F3425C /* Options@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07C3EB671BE89DEB00F3425C /* Options@3x.png */; };
+		07C3EC251BE89DEB00F3425C /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07C3EB661BE89DEB00F3425C /* settings@2x.png */; };
 		07C3EC2A1BE89DEB00F3425C /* FeedBack@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07C3EB6C1BE89DEB00F3425C /* FeedBack@2x.png */; };
 		07C3EC2B1BE89DEB00F3425C /* Font@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07C3EB6D1BE89DEB00F3425C /* Font@2x.png */; };
 		07C3EC2C1BE89DEB00F3425C /* Help@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07C3EB6E1BE89DEB00F3425C /* Help@2x.png */; };
@@ -118,6 +115,11 @@
 		07C6A51F1BEB4ADA00ACCE88 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07C6A51E1BEB4ADA00ACCE88 /* libz.1.2.5.tbd */; };
 		07D056581BF07DF000DC9D08 /* Example.zip in Resources */ = {isa = PBXBuildFile; fileRef = 07D056571BF07DF000DC9D08 /* Example.zip */; };
 		07D0565B1BF0992400DC9D08 /* UserConfigure.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D0565A1BF0992400DC9D08 /* UserConfigure.m */; };
+		07F2309B1BFF2E2100B0D8E0 /* redo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07F230991BFF2E2100B0D8E0 /* redo@2x.png */; };
+		07F2309C1BFF2E2100B0D8E0 /* undo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07F2309A1BFF2E2100B0D8E0 /* undo@2x.png */; };
+		07F230A21BFF8EBF00B0D8E0 /* file@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07F230A11BFF8EBF00B0D8E0 /* file@2x.png */; };
+		07F230A41BFF912400B0D8E0 /* note@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07F230A31BFF912400B0D8E0 /* note@2x.png */; };
+		07F230A61BFF950900B0D8E0 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 07F230A51BFF950900B0D8E0 /* plus.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -163,8 +165,6 @@
 		07A5779B1BFDA0DE009CE0FD /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder.png; sourceTree = "<group>"; };
 		07A5779E1BFDA209009CE0FD /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		07A577A01BFDA256009CE0FD /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
-		07A577A21BFDA480009CE0FD /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
-		07A577A81BFEBF1E009CE0FD /* list@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "list@2x.png"; sourceTree = "<group>"; };
 		07A577CE1BFEE67E009CE0FD /* NoteListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteListViewController.h; sourceTree = "<group>"; };
 		07A577CF1BFEE67E009CE0FD /* NoteListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteListViewController.m; sourceTree = "<group>"; };
 		07A577D11BFEF437009CE0FD /* NoteItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteItemCell.h; sourceTree = "<group>"; };
@@ -199,8 +199,7 @@
 		07C3EB581BE89DEB00F3425C /* UserDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefault.h; sourceTree = "<group>"; };
 		07C3EB591BE89DEB00F3425C /* UserDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserDefault.m; sourceTree = "<group>"; };
 		07C3EB611BE89DEB00F3425C /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
-		07C3EB661BE89DEB00F3425C /* Options@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Options@2x.png"; sourceTree = "<group>"; };
-		07C3EB671BE89DEB00F3425C /* Options@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Options@3x.png"; sourceTree = "<group>"; };
+		07C3EB661BE89DEB00F3425C /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
 		07C3EB6C1BE89DEB00F3425C /* FeedBack@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FeedBack@2x.png"; sourceTree = "<group>"; };
 		07C3EB6D1BE89DEB00F3425C /* Font@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Font@2x.png"; sourceTree = "<group>"; };
 		07C3EB6E1BE89DEB00F3425C /* Help@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Help@2x.png"; sourceTree = "<group>"; };
@@ -314,6 +313,11 @@
 		07D056571BF07DF000DC9D08 /* Example.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Example.zip; sourceTree = "<group>"; };
 		07D056591BF0992400DC9D08 /* UserConfigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserConfigure.h; sourceTree = "<group>"; };
 		07D0565A1BF0992400DC9D08 /* UserConfigure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserConfigure.m; sourceTree = "<group>"; };
+		07F230991BFF2E2100B0D8E0 /* redo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "redo@2x.png"; sourceTree = "<group>"; };
+		07F2309A1BFF2E2100B0D8E0 /* undo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "undo@2x.png"; sourceTree = "<group>"; };
+		07F230A11BFF8EBF00B0D8E0 /* file@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "file@2x.png"; sourceTree = "<group>"; };
+		07F230A31BFF912400B0D8E0 /* note@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "note@2x.png"; sourceTree = "<group>"; };
+		07F230A51BFF950900B0D8E0 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -498,16 +502,18 @@
 			isa = PBXGroup;
 			children = (
 				07D056571BF07DF000DC9D08 /* Example.zip */,
-				07A577A81BFEBF1E009CE0FD /* list@2x.png */,
+				07F230A31BFF912400B0D8E0 /* note@2x.png */,
+				07F230A11BFF8EBF00B0D8E0 /* file@2x.png */,
 				0700B5461BEA1C5200C3206D /* format.html */,
+				07F230A51BFF950900B0D8E0 /* plus.png */,
+				07F230991BFF2E2100B0D8E0 /* redo@2x.png */,
+				07F2309A1BFF2E2100B0D8E0 /* undo@2x.png */,
 				07A577961BFC8AD7009CE0FD /* add_link.png */,
 				07A577921BFC8A2F009CE0FD /* add_image.png */,
 				07A5779A1BFDA0DE009CE0FD /* folder_open.png */,
 				07A5779B1BFDA0DE009CE0FD /* folder.png */,
 				07C3EB611BE89DEB00F3425C /* menu@2x.png */,
-				07A577A21BFDA480009CE0FD /* plus.png */,
-				07C3EB661BE89DEB00F3425C /* Options@2x.png */,
-				07C3EB671BE89DEB00F3425C /* Options@3x.png */,
+				07C3EB661BE89DEB00F3425C /* settings@2x.png */,
 				07C3EB6B1BE89DEB00F3425C /* Setting */,
 			);
 			path = Resource;
@@ -834,11 +840,12 @@
 				07C3EC8C1BE89EA600F3425C /* down_press@2x.png in Resources */,
 				07C3EC201BE89DEB00F3425C /* menu@2x.png in Resources */,
 				07C3EC8A1BE89EA600F3425C /* bg.png in Resources */,
-				07A577A91BFEBF1E009CE0FD /* list@2x.png in Resources */,
-				07A577A31BFDA480009CE0FD /* plus.png in Resources */,
+				07F230A41BFF912400B0D8E0 /* note@2x.png in Resources */,
 				07C3EB401BE89DCE00F3425C /* Main_iPad.storyboard in Resources */,
+				07F230A21BFF8EBF00B0D8E0 /* file@2x.png in Resources */,
 				07C3EC301BE89DEB00F3425C /* Star@2x.png in Resources */,
-				07C3EC261BE89DEB00F3425C /* Options@3x.png in Resources */,
+				07F230A61BFF950900B0D8E0 /* plus.png in Resources */,
+				07F2309B1BFF2E2100B0D8E0 /* redo@2x.png in Resources */,
 				07C3EC511BE89DEB00F3425C /* README.txt in Resources */,
 				07C3EB411BE89DCE00F3425C /* Main_iPhone.storyboard in Resources */,
 				07A5779C1BFDA0DE009CE0FD /* folder_open.png in Resources */,
@@ -854,7 +861,8 @@
 				07C3EC8F1BE89EA600F3425C /* up@2x.png in Resources */,
 				07C3EC2C1BE89DEB00F3425C /* Help@2x.png in Resources */,
 				07C3EB261BE89B8300F3425C /* Images.xcassets in Resources */,
-				07C3EC251BE89DEB00F3425C /* Options@2x.png in Resources */,
+				07F2309C1BFF2E2100B0D8E0 /* undo@2x.png in Resources */,
+				07C3EC251BE89DEB00F3425C /* settings@2x.png in Resources */,
 				07C3EC2D1BE89DEB00F3425C /* Info@2x.png in Resources */,
 				07C3EC2F1BE89DEB00F3425C /* Share@2x.png in Resources */,
 				07C3EC8E1BE89EA600F3425C /* left_press@2x.png in Resources */,

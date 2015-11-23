@@ -18,6 +18,9 @@
 static TabBarController *tabVc = nil;
 
 @implementation TabBarController
+{
+    Item *root;
+}
 
 + (instancetype)currentViewContoller
 {
@@ -31,7 +34,6 @@ static TabBarController *tabVc = nil;
     [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     
-    Item *root = nil;
     FileManager *fm = [FileManager sharedManager];
 
     NSString *plistPath = [[NSString documentPath] stringByAppendingPathComponent:@"root.plist"];
@@ -39,22 +41,17 @@ static TabBarController *tabVc = nil;
         root = [NSKeyedUnarchiver unarchiveObjectWithFile:plistPath];
         fm.root = root;
     }else {
+        
         FileManager *fm = [FileManager sharedManager];
         fm.workSpace = @"Project";
         root = fm.root;
         [root archive];
     }
+    
 }
 
 - (void)setSelectedViewController:(UIViewController *)selectedViewController
 {
-    if (!kIsPhone && [selectedViewController isKindOfClass:[MenuViewController class]]) {
-       
-        [self performSegueWithIdentifier:@"menu" sender:self];
-        [self setSelectedIndex:self.selectedIndex];
-        [self setSelectedViewController:self.selectedViewController];
-        return;
-    }
     [super setSelectedViewController:selectedViewController];
     NSArray *titles = @[@"MarkLite",@"目录",@"选项"];
     self.title = titles[self.selectedIndex];
