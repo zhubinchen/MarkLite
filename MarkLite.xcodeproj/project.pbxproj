@@ -13,6 +13,7 @@
 		0700B5231BE9D1E100C3206D /* MarkdownSyntaxModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0700B51E1BE9D1E100C3206D /* MarkdownSyntaxModel.m */; };
 		0700B5471BEA1C5200C3206D /* format.html in Resources */ = {isa = PBXBuildFile; fileRef = 0700B5461BEA1C5200C3206D /* format.html */; };
 		0799BD9D1C045B7700AEAAFA /* sort_options@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0799BD9C1C045B7700AEAAFA /* sort_options@2x.png */; };
+		0799BDA11C04675400AEAAFA /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 0799BDA01C04675400AEAAFA /* check.png */; };
 		07A577541BFC2785009CE0FD /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A5773D1BFC2785009CE0FD /* hoedown_html_patch.c */; };
 		07A577571BFC2785009CE0FD /* autolink.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A577431BFC2785009CE0FD /* autolink.c */; };
 		07A577581BFC2785009CE0FD /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A577451BFC2785009CE0FD /* buffer.c */; };
@@ -134,6 +135,7 @@
 		0700B51E1BE9D1E100C3206D /* MarkdownSyntaxModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkdownSyntaxModel.m; sourceTree = "<group>"; };
 		0700B5461BEA1C5200C3206D /* format.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = format.html; sourceTree = "<group>"; };
 		0799BD9C1C045B7700AEAAFA /* sort_options@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sort_options@2x.png"; sourceTree = "<group>"; };
+		0799BDA01C04675400AEAAFA /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
 		07A5773D1BFC2785009CE0FD /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
 		07A5773E1BFC2785009CE0FD /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
 		07A577431BFC2785009CE0FD /* autolink.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = autolink.c; sourceTree = "<group>"; };
@@ -500,6 +502,7 @@
 			children = (
 				07D056571BF07DF000DC9D08 /* Example.zip */,
 				07F230A31BFF912400B0D8E0 /* note@2x.png */,
+				0799BDA01C04675400AEAAFA /* check.png */,
 				07F230A11BFF8EBF00B0D8E0 /* file@2x.png */,
 				0700B5461BEA1C5200C3206D /* format.html */,
 				0799BD9C1C045B7700AEAAFA /* sort_options@2x.png */,
@@ -850,6 +853,7 @@
 				07C3EC2B1BE89DEB00F3425C /* Font@2x.png in Resources */,
 				07C3EB291BE89B8300F3425C /* LaunchScreen.xib in Resources */,
 				07D056581BF07DF000DC9D08 /* Example.zip in Resources */,
+				0799BDA11C04675400AEAAFA /* check.png in Resources */,
 				07C3EC8D1BE89EA600F3425C /* left@2x.png in Resources */,
 				07A577971BFC8AD7009CE0FD /* add_link.png in Resources */,
 				07C3EC901BE89EA600F3425C /* up_press@2x.png in Resources */,

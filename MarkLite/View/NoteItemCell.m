@@ -16,7 +16,7 @@
     _item = item;
     _nameLabel.text = item.name;
     _pathLabel.text = [NSString stringWithFormat:@"位置:%@",item.path];
-    NSDictionary *attr = [[NSFileManager defaultManager] attributesOfItemAtPath:[[FileManager sharedManager] fullPathForPath:item.path] error:nil];
+    NSDictionary *attr = [[FileManager sharedManager] attributeOfItem:item];
     long size = [attr[NSFileSize] integerValue];
     NSString *date = [attr[NSFileModificationDate] formatDate];
     _sizeLabel.text = [NSString stringWithFormat:@"%.2f KB",size / 1000.0];

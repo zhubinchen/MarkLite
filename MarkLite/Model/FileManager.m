@@ -128,4 +128,9 @@
     return [NSString pathWithComponents:@[_workSpace,path]];
 }
 
+- (NSDictionary *)attributeOfItem:(Item *)item
+{
+    return [fm attributesOfItemAtPath:[self fullPathForPath:item.path] error:nil];
+}
+
 @end

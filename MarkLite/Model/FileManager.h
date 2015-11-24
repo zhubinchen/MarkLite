@@ -29,4 +29,6 @@
 
 - (NSString *)fullPathForPath:(NSString *)path;
 
+- (NSDictionary*)attributeOfItem:(Item*)item;
+
 @end

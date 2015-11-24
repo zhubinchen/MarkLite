@@ -156,9 +156,4 @@
     return [NSKeyedArchiver archiveRootObject:self toFile:path];
 }
 
-- (NSComparisonResult)compare:(Item*)other
-{
-    return [_createTime compare:other.createTime];
-}
-
 @end
