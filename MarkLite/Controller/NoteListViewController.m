@@ -7,11 +7,12 @@
 //
 
 #import "NoteListViewController.h"
+#import "CodeViewController.h"
 #import "FileManager.h"
 #import "NoteItemCell.h"
 #import "Item.h"
 
-@interface NoteListViewController ()
+@interface NoteListViewController () <UITableViewDelegate,UITableViewDataSource,UIViewControllerPreviewingDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *noteListView;
 
@@ -22,7 +23,9 @@
     NSMutableArray *dataArray;
     FileManager *fm;
     Item *root;
+    UIView *optionsView;
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -39,8 +42,32 @@
         }
         return NO;
     }];
-    dataArray = [root.items filteredArrayUsingPredicate:pre].mutableCopy;
+    dataArray = [[root.items filteredArrayUsingPredicate:pre] sortedArrayUsingSelector:@selector(compare:)].mutableCopy;
     [self.noteListView reloadData];
+}
+
+- (NSArray*)rightItems
+{
+    UIBarButtonItem *new = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(newNote)];
+    return @[new];
+}
+
+- (NSArray*)leftItems
+{
+    UIBarButtonItem *sort = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"sort_options"] style:UIBarButtonItemStylePlain target:self action:@selector(showOptions)];
+    return @[sort];
+}
+
+- (void)newNote
+{
+    
+}
+
+- (void)showOptions
+{
+    if (optionsView == nil) {
+        optionsView = [UIView alloc]initWithFrame:<#(CGRect)#>
+    }
 }
 
 #pragma mark UITableViewDataSource & UITableViewDelegate
@@ -81,10 +108,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NoteItemCell *cell = (NoteItemCell*)[tableView dequeueReusableCellWithIdentifier:@"noteItemCell" forIndexPath:indexPath];
-//    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)
-//    {
-//        [self registerForPreviewingWithDelegate:self sourceView:cell];
-//    }
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)
+    {
+        [self registerForPreviewingWithDelegate:self sourceView:cell];
+    }
     Item *item = dataArray[indexPath.row];
     cell.item = item;
     
@@ -93,7 +120,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 80;
+    return 85;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -102,5 +129,26 @@
     fm.currentItem = i;
     [self performSegueWithIdentifier:@"code" sender:self];
 }
+
+#pragma mark 3dTouch
+
+- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location
+{
+    if ([self.presentedViewController isKindOfClass:[CodeViewController class]]) {
+        return nil;
+    }
+    NoteItemCell *cell = (NoteItemCell*)[previewingContext sourceView];
+    fm.currentItem = cell.item;
+    
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
+    CodeViewController *vc = [sb instantiateViewControllerWithIdentifier:@"code"];
+    vc.projectVc = self;
+    return vc;
+}
+
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
 
 @end

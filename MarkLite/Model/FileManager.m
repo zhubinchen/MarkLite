@@ -68,13 +68,18 @@
     _root.open = YES;
     while ((fileName = [childFilesEnumerator nextObject]) != nil){
         
-        if ([fileName hasSuffix:@".DS_Store"] || [fileName hasPrefix:@"_MACOSX"]) {
+        if ([fileName hasSuffix:@".DS_Store"] || [fileName hasPrefix:@"__MACOSX"]) {
             continue;
         }
         Item *temp = [[Item alloc]init];
         temp.open = YES;
         temp.path = fileName;
         [_root addChild:temp];
+        
+        if (temp.type == FileTypeText) {
+            NSDictionary *attr = [fm attributesOfItemAtPath:[self fullPathForPath:fileName] error:nil];
+            temp.createTime = attr[NSFileCreationDate];
+        }
     }
 }
 

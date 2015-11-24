@@ -11,6 +11,13 @@
 #import "FileManager.h"
 #import "Item.h"
 
+@interface UIViewController ()
+
+@property (readonly) NSArray *rightItems;
+@property (readonly) NSArray *leftItems;
+
+@end
+
 @interface TabBarController ()
 
 @end
@@ -41,19 +48,27 @@ static TabBarController *tabVc = nil;
         root = [NSKeyedUnarchiver unarchiveObjectWithFile:plistPath];
         fm.root = root;
     }else {
-        
         FileManager *fm = [FileManager sharedManager];
-        fm.workSpace = @"Project";
+        fm.workSpace = @"Root";
         root = fm.root;
         [root archive];
     }
-    
 }
 
 - (void)setSelectedViewController:(UIViewController *)selectedViewController
 {
+    if ([selectedViewController respondsToSelector:@selector(rightItems)]) {
+        self.navigationItem.rightBarButtonItems = selectedViewController.rightItems;
+    }else{
+        self.navigationItem.rightBarButtonItems = nil;
+    }
+    if ([selectedViewController respondsToSelector:@selector(leftItems)]) {
+        self.navigationItem.leftBarButtonItems = selectedViewController.leftItems;
+    }else{
+        self.navigationItem.leftBarButtonItems = nil;
+    }
     [super setSelectedViewController:selectedViewController];
-    NSArray *titles = @[@"MarkLite",@"目录",@"选项"];
+    NSArray *titles = @[@"MarkLite",@"文件",@"选项"];
     self.title = titles[self.selectedIndex];
 }
 

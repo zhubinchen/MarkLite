@@ -19,6 +19,8 @@ typedef enum : NSUInteger {
 
 @property (nonatomic,strong)            NSString  *path;
 
+@property (nonatomic,strong)            NSDate  *createTime;
+
 @property (nonatomic,assign)            BOOL      open;
 
 @property (nonatomic,assign)            NSInteger tag;

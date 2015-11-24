@@ -240,7 +240,7 @@
         <!--工程目录-->
         <scene sceneID="ULf-Zl-YDU">
             <objects>
-                <viewController title="工程目录" id="EXx-IR-Fab" customClass="ProjectViewController" sceneMemberID="viewController">
+                <viewController title="工程目录" id="EXx-IR-Fab" customClass="FileListViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="oZY-1m-yqI"/>
                         <viewControllerLayoutGuide type="bottom" id="Ug8-QO-G1H"/>

@@ -1,12 +1,12 @@
 //
-//  ProjectViewController.m
+//  FileListViewController.m
 //  MarkLite
 //
 //  Created by zhubch on 15-3-27.
 //  Copyright (c) 2015年 zhubch. All rights reserved.
 //
 
-#import "ProjectViewController.h"
+#import "FileListViewController.h"
 #import "FileManager.h"
 #import "CodeViewController.h"
 #import "PreviewViewController.h"
@@ -14,41 +14,18 @@
 #import "FileItemCell.h"
 #import "UserConfigure.h"
 
-@interface ProjectViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIViewControllerPreviewingDelegate,UISearchBarDelegate>
+@interface FileListViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIViewControllerPreviewingDelegate,UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *fileListView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
 
-@implementation ProjectViewController
+@implementation FileListViewController
 {
     Item *root;
     FileManager *fm;
     NSMutableArray *dataArray;
-}
-
-#pragma mark 3dTouch
-
-- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location
-{
-    if ([self.presentedViewController isKindOfClass:[CodeViewController class]]) {
-        return nil;
-    }
-    FileItemCell *cell = (FileItemCell*)[previewingContext sourceView];
-    fm.currentItem = cell.item;
-    
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
-    if (cell.item.type == FileTypeImage) {
-        return [sb instantiateViewControllerWithIdentifier:@"preview"];
-    }
-    CodeViewController *vc = [sb instantiateViewControllerWithIdentifier:@"code"];
-    vc.projectVc = self;
-    return vc;
-}
-
-- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
-    [self showViewController:viewControllerToCommit sender:self];
 }
 
 #pragma mark 生命周期
@@ -57,22 +34,21 @@
 
     fm = [FileManager sharedManager];
     
-    
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(recievedNotification:) name:@"launchFormShortCutItem" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.tabBarController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(newProject)];
     root = fm.root;
     dataArray = root.itemsCanReach.mutableCopy;
     [self.fileListView reloadData];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (NSArray*)rightItems
 {
-    self.tabBarController.navigationItem.rightBarButtonItem = nil;
+    return @[[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(newProject)]];
 }
+
 
 #pragma mark 功能逻辑
 
@@ -340,5 +316,29 @@
 {
 
 }
+
+#pragma mark 3dTouch
+
+- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location
+{
+    if ([self.presentedViewController isKindOfClass:[CodeViewController class]]) {
+        return nil;
+    }
+    FileItemCell *cell = (FileItemCell*)[previewingContext sourceView];
+    fm.currentItem = cell.item;
+    
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
+    if (cell.item.type == FileTypeImage) {
+        return [sb instantiateViewControllerWithIdentifier:@"preview"];
+    }
+    CodeViewController *vc = [sb instantiateViewControllerWithIdentifier:@"code"];
+    vc.projectVc = self;
+    return vc;
+}
+
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    [self showViewController:viewControllerToCommit sender:self];
+}
+
 
 @end

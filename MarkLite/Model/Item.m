@@ -126,17 +126,18 @@
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder{
-    
     [aCoder encodeObject:self.children forKey:@"children"];
     [aCoder encodeObject:self.path forKey:@"path"];
     [aCoder encodeInteger:self.tag forKey:@"tag"];
     [aCoder encodeObject:self.parent forKey:@"parent"];
+    [aCoder encodeObject:self.createTime forKey:@"createTime"];
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
     if (self=[super init]) {
         self.path = [aDecoder decodeObjectForKey:@"path"];
+        self.createTime = [aDecoder decodeObjectForKey:@"createTime"];
         self.parent = [aDecoder decodeObjectForKey:@"parent"];
         self.tag = [aDecoder decodeIntegerForKey:@"tag"];
         self.children=[[aDecoder decodeObjectForKey:@"children"] mutableCopy];
@@ -153,6 +154,11 @@
     NSString *path = [[NSString documentPath] stringByAppendingPathComponent:@"root.plist"];
     
     return [NSKeyedArchiver archiveRootObject:self toFile:path];
+}
+
+- (NSComparisonResult)compare:(Item*)other
+{
+    return [_createTime compare:other.createTime];
 }
 
 @end

@@ -1,5 +1,5 @@
 //
-//  ProjectViewController.h
+//  FileListViewController.h
 //  MarkLite
 //
 //  Created by zhubch on 15-3-27.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ProjectViewController : UIViewController
+@interface FileListViewController : UIViewController
 
 - (void)newProject;
 

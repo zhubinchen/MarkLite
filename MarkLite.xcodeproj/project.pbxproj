@@ -12,6 +12,7 @@
 		0700B5221BE9D1E100C3206D /* MarkdownSyntaxGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0700B51C1BE9D1E100C3206D /* MarkdownSyntaxGenerator.m */; };
 		0700B5231BE9D1E100C3206D /* MarkdownSyntaxModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0700B51E1BE9D1E100C3206D /* MarkdownSyntaxModel.m */; };
 		0700B5471BEA1C5200C3206D /* format.html in Resources */ = {isa = PBXBuildFile; fileRef = 0700B5461BEA1C5200C3206D /* format.html */; };
+		0799BD9D1C045B7700AEAAFA /* sort_options@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0799BD9C1C045B7700AEAAFA /* sort_options@2x.png */; };
 		07A577541BFC2785009CE0FD /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A5773D1BFC2785009CE0FD /* hoedown_html_patch.c */; };
 		07A577571BFC2785009CE0FD /* autolink.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A577431BFC2785009CE0FD /* autolink.c */; };
 		07A577581BFC2785009CE0FD /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A577451BFC2785009CE0FD /* buffer.c */; };
@@ -44,9 +45,8 @@
 		07C3EC0F1BE89DEB00F3425C /* CodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3EB441BE89DEB00F3425C /* CodeViewController.m */; };
 		07C3EC111BE89DEB00F3425C /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3EB481BE89DEB00F3425C /* MenuViewController.m */; };
 		07C3EC121BE89DEB00F3425C /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3EB4A1BE89DEB00F3425C /* PreviewViewController.m */; };
-		07C3EC131BE89DEB00F3425C /* ProjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3EB4C1BE89DEB00F3425C /* ProjectViewController.m */; };
+		07C3EC131BE89DEB00F3425C /* FileListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3EB4C1BE89DEB00F3425C /* FileListViewController.m */; };
 		07C3EC141BE89DEB00F3425C /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3EB4E1BE89DEB00F3425C /* TabBarController.m */; };
-		07C3EC151BE89DEB00F3425C /* ToolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3EB501BE89DEB00F3425C /* ToolViewController.m */; };
 		07C3EC161BE89DEB00F3425C /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3EB531BE89DEB00F3425C /* FileManager.m */; };
 		07C3EC191BE89DEB00F3425C /* UserDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3EB591BE89DEB00F3425C /* UserDefault.m */; };
 		07C3EC201BE89DEB00F3425C /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07C3EB611BE89DEB00F3425C /* menu@2x.png */; };
@@ -133,6 +133,7 @@
 		0700B51D1BE9D1E100C3206D /* MarkdownSyntaxModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkdownSyntaxModel.h; sourceTree = "<group>"; };
 		0700B51E1BE9D1E100C3206D /* MarkdownSyntaxModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkdownSyntaxModel.m; sourceTree = "<group>"; };
 		0700B5461BEA1C5200C3206D /* format.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = format.html; sourceTree = "<group>"; };
+		0799BD9C1C045B7700AEAAFA /* sort_options@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sort_options@2x.png"; sourceTree = "<group>"; };
 		07A5773D1BFC2785009CE0FD /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
 		07A5773E1BFC2785009CE0FD /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
 		07A577431BFC2785009CE0FD /* autolink.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = autolink.c; sourceTree = "<group>"; };
@@ -188,12 +189,10 @@
 		07C3EB481BE89DEB00F3425C /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
 		07C3EB491BE89DEB00F3425C /* PreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
 		07C3EB4A1BE89DEB00F3425C /* PreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
-		07C3EB4B1BE89DEB00F3425C /* ProjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectViewController.h; sourceTree = "<group>"; };
-		07C3EB4C1BE89DEB00F3425C /* ProjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectViewController.m; sourceTree = "<group>"; };
+		07C3EB4B1BE89DEB00F3425C /* FileListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileListViewController.h; sourceTree = "<group>"; };
+		07C3EB4C1BE89DEB00F3425C /* FileListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileListViewController.m; sourceTree = "<group>"; };
 		07C3EB4D1BE89DEB00F3425C /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		07C3EB4E1BE89DEB00F3425C /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
-		07C3EB4F1BE89DEB00F3425C /* ToolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolViewController.h; sourceTree = "<group>"; };
-		07C3EB501BE89DEB00F3425C /* ToolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolViewController.m; sourceTree = "<group>"; };
 		07C3EB521BE89DEB00F3425C /* FileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileManager.h; sourceTree = "<group>"; };
 		07C3EB531BE89DEB00F3425C /* FileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileManager.m; sourceTree = "<group>"; };
 		07C3EB581BE89DEB00F3425C /* UserDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserDefault.h; sourceTree = "<group>"; };
@@ -471,14 +470,12 @@
 				07C3EB481BE89DEB00F3425C /* MenuViewController.m */,
 				07A577CE1BFEE67E009CE0FD /* NoteListViewController.h */,
 				07A577CF1BFEE67E009CE0FD /* NoteListViewController.m */,
+				07C3EB4B1BE89DEB00F3425C /* FileListViewController.h */,
+				07C3EB4C1BE89DEB00F3425C /* FileListViewController.m */,
 				07C3EB491BE89DEB00F3425C /* PreviewViewController.h */,
 				07C3EB4A1BE89DEB00F3425C /* PreviewViewController.m */,
-				07C3EB4B1BE89DEB00F3425C /* ProjectViewController.h */,
-				07C3EB4C1BE89DEB00F3425C /* ProjectViewController.m */,
 				07C3EB4D1BE89DEB00F3425C /* TabBarController.h */,
 				07C3EB4E1BE89DEB00F3425C /* TabBarController.m */,
-				07C3EB4F1BE89DEB00F3425C /* ToolViewController.h */,
-				07C3EB501BE89DEB00F3425C /* ToolViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -505,6 +502,7 @@
 				07F230A31BFF912400B0D8E0 /* note@2x.png */,
 				07F230A11BFF8EBF00B0D8E0 /* file@2x.png */,
 				0700B5461BEA1C5200C3206D /* format.html */,
+				0799BD9C1C045B7700AEAAFA /* sort_options@2x.png */,
 				07F230A51BFF950900B0D8E0 /* plus.png */,
 				07F230991BFF2E2100B0D8E0 /* redo@2x.png */,
 				07F2309A1BFF2E2100B0D8E0 /* undo@2x.png */,
@@ -857,6 +855,7 @@
 				07C3EC901BE89EA600F3425C /* up_press@2x.png in Resources */,
 				07C3EC2E1BE89DEB00F3425C /* Keyboard@2x.png in Resources */,
 				07A577941BFC8A2F009CE0FD /* add_image.png in Resources */,
+				0799BD9D1C045B7700AEAAFA /* sort_options@2x.png in Resources */,
 				07C3EC8B1BE89EA600F3425C /* down@2x.png in Resources */,
 				07C3EC8F1BE89EA600F3425C /* up@2x.png in Resources */,
 				07C3EC2C1BE89DEB00F3425C /* Help@2x.png in Resources */,
@@ -885,9 +884,8 @@
 				07C3EC601BE89DEB00F3425C /* mztools.c in Sources */,
 				07C3EC451BE89DEB00F3425C /* HTTPErrorResponse.m in Sources */,
 				07A5775B1BFC2785009CE0FD /* html.c in Sources */,
-				07C3EC151BE89DEB00F3425C /* ToolViewController.m in Sources */,
 				07C3EC581BE89DEB00F3425C /* qrspec.c in Sources */,
-				07C3EC131BE89DEB00F3425C /* ProjectViewController.m in Sources */,
+				07C3EC131BE89DEB00F3425C /* FileListViewController.m in Sources */,
 				07C3EC9A1BE89FDA00F3425C /* LxFTPRequest.m in Sources */,
 				07A5775C1BFC2785009CE0FD /* html_blocks.c in Sources */,
 				07A5775F1BFC2785009CE0FD /* version.c in Sources */,

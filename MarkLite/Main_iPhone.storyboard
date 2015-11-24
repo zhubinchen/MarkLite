@@ -144,7 +144,6 @@
                             <constraint firstAttribute="trailing" secondItem="X25-s7-0iO" secondAttribute="trailing" id="vpz-Qz-q3V"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="代码" image="Code.png" id="JiB-uj-56o"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Tf8-QR-852">
                         <barButtonItem key="backBarButtonItem" title="编辑" id="gl4-yi-PkN"/>
@@ -170,6 +169,7 @@
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="editView" destination="X25-s7-0iO" id="U6h-ub-gSN"/>
@@ -180,7 +180,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PqM-uW-6q0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3923.5" y="-1720.5"/>
+            <point key="canvasLocation" x="-3891.5" y="-1720.5"/>
         </scene>
         <!--预览-->
         <scene sceneID="az1-GD-zbF">
@@ -215,12 +215,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CXz-ml-4dY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3187.5" y="-1720.5"/>
+            <point key="canvasLocation" x="-3187.5" y="-1712.5"/>
         </scene>
         <!--笔记-->
         <scene sceneID="gOy-2g-hjU">
             <objects>
-                <viewController title="笔记" id="O8T-WH-Ngn" customClass="NoteListViewController" sceneMemberID="viewController">
+                <viewController title="笔记" hidesBottomBarWhenPushed="YES" id="O8T-WH-Ngn" customClass="NoteListViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="93D-dR-36j"/>
                         <viewControllerLayoutGuide type="bottom" id="w7a-86-iLT"/>
@@ -229,12 +229,12 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="86" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="4Di-yM-3uD">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="86" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4Di-yM-3uD">
                                 <rect key="frame" x="0.0" y="44" width="375" height="510"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="noteItemCell" rowHeight="80" id="9O4-0I-Kch" customClass="NoteItemCell">
-                                        <rect key="frame" x="0.0" y="49.5" width="375" height="80"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9O4-0I-Kch" id="2QA-5b-Z0P">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
@@ -249,20 +249,11 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昨天 14:30" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zHV-Uc-iZl">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12.3 KB" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zHV-Uc-iZl">
                                                     <rect key="frame" x="287" y="8" width="80" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="80" id="DzV-yh-8bw"/>
                                                         <constraint firstAttribute="height" constant="21" id="zKE-z0-kwh"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCO-dc-shm">
-                                                    <rect key="frame" x="8" y="37" width="359" height="40"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="40" id="hPR-z3-qml"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -276,25 +267,47 @@
                                                         <constraint firstAttribute="width" constant="16" id="t5h-vQ-mWE"/>
                                                     </constraints>
                                                 </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="路径:/abd/aa" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H8c-CQ-ccc">
+                                                    <rect key="frame" x="16" y="34" width="351" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="kaS-TM-Lo8"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.2548388761" green="0.64471736680000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上次修改:2015-11-11" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2At-Pn-k9U">
+                                                    <rect key="frame" x="16" y="60" width="351" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="9xB-Gc-Ups"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="2At-Pn-k9U" firstAttribute="top" secondItem="H8c-CQ-ccc" secondAttribute="bottom" constant="5" id="0rZ-mk-3Dh"/>
                                                 <constraint firstItem="umW-CD-CYg" firstAttribute="top" secondItem="2QA-5b-Z0P" secondAttribute="top" constant="8" id="2kd-zi-dZx"/>
-                                                <constraint firstItem="SCO-dc-shm" firstAttribute="top" secondItem="umW-CD-CYg" secondAttribute="bottom" constant="8" id="DBv-Ag-bEO"/>
+                                                <constraint firstItem="H8c-CQ-ccc" firstAttribute="leading" secondItem="2QA-5b-Z0P" secondAttribute="leading" constant="16" id="4cl-xr-QoL"/>
+                                                <constraint firstAttribute="trailing" secondItem="2At-Pn-k9U" secondAttribute="trailing" constant="8" id="4hq-5o-qnE"/>
+                                                <constraint firstItem="2At-Pn-k9U" firstAttribute="leading" secondItem="2QA-5b-Z0P" secondAttribute="leading" constant="16" id="7BL-k6-SHX"/>
                                                 <constraint firstAttribute="trailing" secondItem="zHV-Uc-iZl" secondAttribute="trailing" constant="8" id="MQe-nR-lvM"/>
                                                 <constraint firstItem="CF0-oL-yKY" firstAttribute="leading" secondItem="2QA-5b-Z0P" secondAttribute="leading" constant="8" id="TZY-7Q-ypY"/>
-                                                <constraint firstItem="SCO-dc-shm" firstAttribute="leading" secondItem="2QA-5b-Z0P" secondAttribute="leading" constant="8" id="g0H-ab-cXC"/>
                                                 <constraint firstItem="umW-CD-CYg" firstAttribute="centerY" secondItem="CF0-oL-yKY" secondAttribute="centerY" id="g7o-lN-cZZ"/>
                                                 <constraint firstItem="umW-CD-CYg" firstAttribute="leading" secondItem="CF0-oL-yKY" secondAttribute="trailing" constant="5" id="iDt-Jw-2KL"/>
-                                                <constraint firstAttribute="trailing" secondItem="SCO-dc-shm" secondAttribute="trailing" constant="8" id="qNM-MC-8vC"/>
+                                                <constraint firstAttribute="trailing" secondItem="H8c-CQ-ccc" secondAttribute="trailing" constant="8" id="iii-JI-L2m"/>
+                                                <constraint firstItem="H8c-CQ-ccc" firstAttribute="top" secondItem="zHV-Uc-iZl" secondAttribute="bottom" constant="5" id="paw-8T-wwU"/>
                                                 <constraint firstItem="zHV-Uc-iZl" firstAttribute="bottom" secondItem="umW-CD-CYg" secondAttribute="bottom" id="tPF-KH-VoO"/>
                                                 <constraint firstAttribute="trailing" secondItem="umW-CD-CYg" secondAttribute="trailing" constant="80" id="xDn-pw-Mzk"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="contentLabel" destination="SCO-dc-shm" id="VT2-lh-lOG"/>
                                             <outlet property="nameLabel" destination="umW-CD-CYg" id="ynR-BO-rEL"/>
+                                            <outlet property="pathLabel" destination="H8c-CQ-ccc" id="hrQ-72-oZE"/>
+                                            <outlet property="sizeLabel" destination="zHV-Uc-iZl" id="zsD-Jn-tBR"/>
                                             <outlet property="tagView" destination="CF0-oL-yKY" id="hl7-LO-VgQ"/>
-                                            <outlet property="timeLabel" destination="zHV-Uc-iZl" id="Ugy-fv-187"/>
+                                            <outlet property="timeLabel" destination="2At-Pn-k9U" id="NcX-3N-8dL"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -333,6 +346,7 @@
                     <connections>
                         <outlet property="noteListView" destination="4Di-yM-3uD" id="Nee-cM-iAu"/>
                         <segue destination="VQd-1Y-qDA" kind="show" identifier="code" id="F5f-nG-XfB"/>
+                        <segue destination="rmd-nM-PLW" kind="show" identifier="preview" id="jkb-0q-YIz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NZY-eD-wsm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -369,10 +383,10 @@
             </objects>
             <point key="canvasLocation" x="-2684.5" y="-2572.5"/>
         </scene>
-        <!--目录-->
+        <!--文件-->
         <scene sceneID="Q4w-7j-rbt">
             <objects>
-                <viewController title="目录" id="FOL-Xe-NU3" customClass="ProjectViewController" sceneMemberID="viewController">
+                <viewController title="文件" hidesBottomBarWhenPushed="YES" id="FOL-Xe-NU3" customClass="FileListViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UFd-XL-7RV"/>
                         <viewControllerLayoutGuide type="bottom" id="xz7-c3-tds"/>
@@ -471,8 +485,8 @@
                             <constraint firstItem="CTd-xk-UGY" firstAttribute="top" secondItem="hgt-J9-INt" secondAttribute="bottom" id="tt2-E5-sQl"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="目录" image="file.png" id="Pzb-Eb-NvF"/>
-                    <navigationItem key="navigationItem" title="笔记" id="Nna-lA-LHx">
+                    <tabBarItem key="tabBarItem" title="文件" image="file.png" id="Pzb-Eb-NvF"/>
+                    <navigationItem key="navigationItem" title="文件" id="Nna-lA-LHx">
                         <barButtonItem key="backBarButtonItem" title=" " id="7JA-JI-yHX"/>
                     </navigationItem>
                     <connections>
@@ -488,7 +502,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Code.png" width="25" height="25"/>
         <image name="file.png" width="25" height="25"/>
         <image name="folder.png" width="100" height="100"/>
         <image name="note.png" width="25" height="25"/>
@@ -496,7 +509,7 @@
         <image name="settings.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GZ3-Ny-S2m"/>
-        <segue reference="n2c-A2-qau"/>
+        <segue reference="jkb-0q-YIz"/>
+        <segue reference="F5f-nG-XfB"/>
     </inferredMetricsTieBreakers>
 </document>

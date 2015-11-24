@@ -7,6 +7,7 @@
 //
 
 #import "NoteItemCell.h"
+#import "FileManager.h"
 
 @implementation NoteItemCell
 
@@ -14,7 +15,13 @@
 {
     _item = item;
     _nameLabel.text = item.name;
-    
+    _pathLabel.text = [NSString stringWithFormat:@"位置:%@",item.path];
+    NSDictionary *attr = [[NSFileManager defaultManager] attributesOfItemAtPath:[[FileManager sharedManager] fullPathForPath:item.path] error:nil];
+    long size = [attr[NSFileSize] integerValue];
+    NSString *date = [attr[NSFileModificationDate] formatDate];
+    _sizeLabel.text = [NSString stringWithFormat:@"%.2f KB",size / 1000.0];
+    _timeLabel.text = [NSString stringWithFormat:@"上次修改:%@",date];
+
     NSArray *rgbArray = @[@"F14143",@"EA8C2F",@"E6BB32",@"56BA38",@"379FE6",@"BA66D0"];
     self.tagView.backgroundColor = [UIColor colorWithRGBString:rgbArray[item.tag] alpha:0.9];
 }
