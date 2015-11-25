@@ -7,7 +7,7 @@
 //
 
 #import "NoteListViewController.h"
-#import "CodeViewController.h"
+#import "EditViewController.h"
 #import "FileManager.h"
 #import "NoteItemCell.h"
 #import "Item.h"
@@ -79,7 +79,7 @@
         }
         
         control = [[UIControl alloc]initWithFrame:self.view.bounds];
-        control.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.2];
+        control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
         [control addSubview:optionsView];
         [control addTarget:self action:@selector(choosedOption:) forControlEvents:UIControlEventTouchUpInside];
 
@@ -92,6 +92,7 @@
     if (control.superview) {
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             optionsView.frame = CGRectMake(0, -120, kScreenWidth, 120);
+            control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
         } completion:^(BOOL finished) {
             if (finished) {
                 [control removeFromSuperview];
@@ -102,6 +103,7 @@
 
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             optionsView.frame = CGRectMake(0, 0, kScreenWidth, 120);
+            control.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
         } completion:^(BOOL finished) {
             //
         }];
@@ -113,6 +115,7 @@
     UIView *optionsView = [control viewWithTag:1];
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         optionsView.frame = CGRectMake(0, -120, kScreenWidth, 120);
+        control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     } completion:^(BOOL finished) {
         if (finished) {
             [control removeFromSuperview];
@@ -224,14 +227,14 @@
 
 - (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location
 {
-    if ([self.presentedViewController isKindOfClass:[CodeViewController class]]) {
+    if ([self.presentedViewController isKindOfClass:[EditViewController class]]) {
         return nil;
     }
     NoteItemCell *cell = (NoteItemCell*)[previewingContext sourceView];
     fm.currentItem = cell.item;
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
-    CodeViewController *vc = [sb instantiateViewControllerWithIdentifier:@"code"];
+    EditViewController *vc = [sb instantiateViewControllerWithIdentifier:@"code"];
     vc.projectVc = self;
     return vc;
 }

@@ -1,12 +1,12 @@
 //
-//  CodeViewController.m
+//  EditViewController.m
 //  MarkLite
 //
 //  Created by zhubch on 15-3-31.
 //  Copyright (c) 2015年 zhubch. All rights reserved.
 //
 
-#import "CodeViewController.h"
+#import "EditViewController.h"
 #import "PreviewViewController.h"
 #import "EditView.h"
 #import "ZBCKeyBoard.h"
@@ -16,14 +16,14 @@
 #import "FileListViewController.h"
 #import "Item.h"
 
-@interface CodeViewController () <UITextViewDelegate,UITextFieldDelegate>
+@interface EditViewController () <UITextViewDelegate,UITextFieldDelegate>
 
 @property (nonatomic,weak) IBOutlet UITextField *nameField;
 @property (nonatomic,weak) IBOutlet UIView *tagView;
 
 @end
 
-@implementation CodeViewController
+@implementation EditViewController
 {
     UIBarButtonItem *preview;
     PreviewViewController *preViewVc;
@@ -31,7 +31,7 @@
     Item *item;
     FileManager *fm;
     UIView *selectTagView;
-    UIVisualEffectView *blurView;
+    UIControl *control;
 }
 
 - (NSArray<id<UIPreviewActionItem>> *)previewActionItems {
@@ -182,19 +182,13 @@
 - (IBAction)changeTag:(id)sender
 {
     if (selectTagView == nil) {
-        UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-        blurView = [[UIVisualEffectView alloc]initWithEffect:effect];
-        blurView.frame = _editView.frame;
-        blurView.alpha = 0.2;
-        blurView.userInteractionEnabled = YES;
         
-        UIControl *control = [[UIControl alloc]initWithFrame:blurView.bounds];
+        control = [[UIControl alloc]initWithFrame:self.view.bounds];
+        control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
         [control addTarget:self action:@selector(selectedTag:) forControlEvents:UIControlEventTouchDown];
-        [blurView.contentView addSubview:control];
         
-        selectTagView = [[UIView alloc]initWithFrame:CGRectMake(kScreenWidth - 36, 35, 36, 0)];
+        selectTagView = [[UIView alloc]initWithFrame:CGRectMake(kScreenWidth - 36, 0, 36, 0)];
         selectTagView.backgroundColor = [UIColor whiteColor];
-        [selectTagView showShadowWithColor:[UIColor grayColor] offset:CGSizeMake(-2, -2)];
         selectTagView.clipsToBounds = YES;
         NSArray *rgbArray = @[@"F14143",@"EA8C2F",@"E6BB32",@"56BA38",@"379FE6",@"BA66D0"];
         for (int i = 0; i < rgbArray.count; i++) {
@@ -209,27 +203,35 @@
         }
     }
     
-    [self.view addSubview:blurView];
+    if (control.superview) {
+        [self selectedTag:nil];
+        return;
+    }
+    
+    [self.view addSubview:control];
     [self.view addSubview:selectTagView];
 
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        selectTagView.frame = CGRectMake(kScreenWidth - 36, 35, 36, 36*6);
-        blurView.alpha = 0.97;
+        selectTagView.frame = CGRectMake(kScreenWidth - 36, 0, 36, 36*6);
+        control.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
     } completion:^(BOOL finished) {
-        
+        if (finished) {
+            [selectTagView showShadowWithColor:[UIColor grayColor] offset:CGSizeMake(-2, 2)];
+        }
     }];
 }
 
 - (void)selectedTag:(UIButton*)sender
 {
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        selectTagView.frame = CGRectMake(kScreenWidth - 36, 35, 36, 0);
-        blurView.alpha = 0.2;
+        selectTagView.frame = CGRectMake(kScreenWidth - 36, 0, 36, 0);
+        control.backgroundColor = [UIColor colorWithWhite:0 alpha:0.0];
     } completion:^(BOOL finished) {
-        [blurView removeFromSuperview];
+        [control removeFromSuperview];
+        selectTagView.clipsToBounds = YES;
     }];
     
-    if (![sender isKindOfClass:[UIButton class]]) {
+    if (![sender isKindOfClass:[UIButton class]] || sender == nil) {
         return;
     }
     NSArray *rgbArray = @[@"F14143",@"EA8C2F",@"E6BB32",@"56BA38",@"379FE6",@"BA66D0"];

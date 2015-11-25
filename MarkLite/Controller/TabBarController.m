@@ -36,11 +36,12 @@ static TabBarController *tabVc = nil;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.navigationItem.hidesBackButton = YES;
+    [[UITabBar appearance] setTintColor:kThemeColor];
+    
     tabVc = self;
-    
-    [[UITabBar appearance] setTintColor:[UIColor whiteColor]];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    
+
     FileManager *fm = [FileManager sharedManager];
 
     NSString *plistPath = [[NSString documentPath] stringByAppendingPathComponent:@"root.plist"];
@@ -53,6 +54,7 @@ static TabBarController *tabVc = nil;
         root = fm.root;
         [root archive];
     }
+
 }
 
 - (void)setSelectedViewController:(UIViewController *)selectedViewController

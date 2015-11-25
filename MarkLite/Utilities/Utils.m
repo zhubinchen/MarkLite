@@ -332,6 +332,7 @@
     self.layer.shadowOffset = offset;
     self.layer.shadowOpacity = 0.6;
     self.layer.shadowColor = color.CGColor;
+    self.clipsToBounds = NO;
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #import "FileListViewController.h"
 #import "FileManager.h"
-#import "CodeViewController.h"
+#import "EditViewController.h"
 #import "PreviewViewController.h"
 #import "Item.h"
 #import "FileItemCell.h"
@@ -25,7 +25,12 @@
 {
     Item *root;
     FileManager *fm;
+
+    BOOL trash;
+    
     NSMutableArray *dataArray;
+    UIBarButtonItem *rightItem;
+    UIBarButtonItem *leftItem;
 }
 
 #pragma mark 生命周期
@@ -46,7 +51,15 @@
 
 - (NSArray*)rightItems
 {
-    return @[[[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(newProject)]];
+    rightItem = [[UIBarButtonItem alloc]initWithTitle:@"废纸篓" style:UIBarButtonItemStylePlain target:self action:@selector(goToTrash)];
+    return @[rightItem];
+}
+
+- (void)goToTrash
+{
+    trash = !trash;
+    rightItem.title = trash ? @"所有文件" : @"废纸篓";
+    [self.fileListView reloadData];
 }
 
 
@@ -252,7 +265,7 @@
     cell.newFileBlock = ^(){
         [self addFileWithParent:item];
     };
-   
+
     return cell;
 }
 
@@ -321,7 +334,7 @@
 
 - (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location
 {
-    if ([self.presentedViewController isKindOfClass:[CodeViewController class]]) {
+    if ([self.presentedViewController isKindOfClass:[EditViewController class]]) {
         return nil;
     }
     FileItemCell *cell = (FileItemCell*)[previewingContext sourceView];
@@ -331,7 +344,7 @@
     if (cell.item.type == FileTypeImage) {
         return [sb instantiateViewControllerWithIdentifier:@"preview"];
     }
-    CodeViewController *vc = [sb instantiateViewControllerWithIdentifier:@"code"];
+    EditViewController *vc = [sb instantiateViewControllerWithIdentifier:@"code"];
     vc.projectVc = self;
     return vc;
 }

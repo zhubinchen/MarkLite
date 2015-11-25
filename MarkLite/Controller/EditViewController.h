@@ -1,5 +1,5 @@
 //
-//  CodeViewController.h
+//  EditViewController.h
 //  MarkLite
 //
 //  Created by zhubch on 15-3-31.
@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "EditView.h"
 
-@interface CodeViewController : UIViewController
+@interface EditViewController : UIViewController
 
 @property (nonatomic,weak) IBOutlet EditView *editView;
 
