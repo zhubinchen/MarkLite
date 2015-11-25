@@ -51,7 +51,7 @@
         
         ZipArchive *zipArchive = [[ZipArchive alloc]init];
         
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"Example" ofType:@"zip"];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"Root" ofType:@"zip"];
         NSLog(@"%@",path);
         
         [zipArchive UnzipOpenFile:path];
