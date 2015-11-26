@@ -55,6 +55,12 @@ static TabBarController *tabVc = nil;
         root = fm.root;
         [root archive];
     }
+    
+    [[FileSyncManager sharedManager] downloadFile:@"Root/README.md" progressHandler:^(float percent) {
+        NSLog(@"%.2f",percent);
+    } result:^(BOOL success, NSData *data) {
+        
+    }];
 }
 
 - (void)setSelectedViewController:(UIViewController *)selectedViewController

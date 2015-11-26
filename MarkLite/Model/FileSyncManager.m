@@ -66,7 +66,7 @@
 
 - (void)downloadFile:(NSString *)key progressHandler:(void (^)(float))handler result:(void (^)(BOOL, NSData *))result
 {
-    NSString *url = [NSString stringWithFormat:@"%@",key];
+    NSString *url = [NSString stringWithFormat:@"http://7xomu7.com1.z0.glb.clouddn.com/%@",key];
 
     [HttpRequest downloadWithUrl:url progress:handler succese:^(NSData *response) {
         result(YES,response);

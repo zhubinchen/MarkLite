@@ -1,6 +1,6 @@
 //
 //  Item.h
-//  HtmlPlus
+//  MarkLite
 //
 //  Created by zhubch on 15-4-1.
 //  Copyright (c) 2015年 zhubch. All rights reserved.
@@ -15,31 +15,39 @@ typedef enum : NSUInteger {
     FileTypeOther,
 } FileType;
 
+typedef enum : NSUInteger {
+    SyncStatusSuccess,
+    SyncStatusFailed,
+    SyncStatusUnSync,
+} SyncStatus;
+
 @interface Item : NSObject
 
-@property (nonatomic,strong)            NSString  *path;
+@property (nonatomic,strong)            NSString   *path;
 
-@property (nonatomic,strong)            NSDate  *createTime;
+@property (nonatomic,strong)            NSDate     *createTime;
 
-@property (nonatomic,assign)            BOOL      open;
+@property (nonatomic,assign)            BOOL       open;
 
-@property (nonatomic,assign)            NSInteger tag;
+@property (nonatomic,assign)            NSInteger  tag;
 
 @property (nonatomic,strong)            NSMutableArray     *children;
 
-@property (nonatomic,weak)              Item      *parent;
+@property (nonatomic,weak)              Item       *parent;
 
-@property (nonatomic,assign,readonly)   NSInteger deep;
+@property (nonatomic,assign)            SyncStatus syncStatus;
 
-@property (nonatomic,assign,readonly)   FileType  type;
+@property (nonatomic,assign,readonly)   NSInteger  deep;
 
-@property (nonatomic,strong,readonly)   NSArray   *itemsCanReach;
+@property (nonatomic,assign,readonly)   FileType   type;
 
-@property (nonatomic,strong,readonly)   NSArray   *items;
+@property (nonatomic,strong,readonly)   NSArray    *itemsCanReach;
 
-@property (nonatomic,strong,readonly)   NSString  *extention;
+@property (nonatomic,strong,readonly)   NSArray    *items;
 
-@property (nonatomic,strong,readonly)   NSString  *name;
+@property (nonatomic,strong,readonly)   NSString   *extention;
+
+@property (nonatomic,strong,readonly)   NSString   *name;
 
 - (NSArray*)searchResult:(NSString*)searchText;
 
