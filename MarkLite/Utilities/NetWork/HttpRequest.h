@@ -24,6 +24,13 @@ typedef enum : NSUInteger {
 typedef void(^CompletedCallBack)(NSData *response);
 
 /**
+ *  下载进度的回调block
+ *
+ *  @param response 响应的data
+ */
+typedef void(^ProgressCallBack)(float percent);
+
+/**
  *  请求失败的回调block
  *
  *  @param errorCode 错误码   
@@ -42,6 +49,8 @@ typedef void(^FailedCallBack)(ErrorCode code);
 @property (copy,nonatomic) CompletedCallBack completedCallBack;
 
 @property (copy,nonatomic) FailedCallBack failedCallBack;
+
+@property (copy,nonatomic) ProgressCallBack progressCallBack;
 
 @property (weak,nonatomic) id<RequestDelegate> delegate;
 
@@ -73,6 +82,16 @@ typedef void(^FailedCallBack)(ErrorCode code);
 - (id)initWithUrl:(NSString*)url Method:(NSString*)method UseCache:(BOOL) useCache;
 
 - (void)start;
+
+/**
+ *  下载文件
+ *
+ *  @param url      URL
+ *  @param progress 下载进度改变后调用的block
+ *  @param succese 下载成功后调用的block
+ *  @param failed  下载失败后调用的block
+ */
++ (void)downloadWithUrl:(NSString *)url progress:(ProgressCallBack)progress succese:(CompletedCallBack)succese failed:(FailedCallBack)failed;
 
 /**
  *  发起一个get请求

@@ -12,7 +12,7 @@
 #import "PreviewViewController.h"
 #import "Item.h"
 #import "FileItemCell.h"
-#import "UserConfigure.h"
+#import "Configure.h"
 
 @interface FileListViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIViewControllerPreviewingDelegate,UISearchBarDelegate>
 
@@ -67,7 +67,7 @@
 
 - (void)recievedNotification:(NSNotification*)noti
 {
-    NSDictionary *dic = [UserConfigure sharedConfigure].launchOptions;
+    NSDictionary *dic = [Configure sharedConfigure].launchOptions;
     if ([dic[@"type"] isEqualToString:@"new"]) {
         [self newProject];
     }else if ([dic[@"type"] isEqualToString:@"open"]) {

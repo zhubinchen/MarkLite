@@ -39,6 +39,7 @@
     [aCoder encodeObject:self.name forKey:@"name"];
     [aCoder encodeObject:self.userId forKey:@"userId"];
     [aCoder encodeObject:self.password forKey:@"password"];
+    [aCoder encodeObject:self.token forKey:@"token"];
     [aCoder encodeBool:self.hasLogin forKey:@"hasLogin"];
 }
 
@@ -47,6 +48,7 @@
     if (self=[super init]) {
         self.account=[aDecoder decodeObjectForKey:@"account"];
         self.password=[aDecoder decodeObjectForKey:@"password"];
+        self.token=[aDecoder decodeObjectForKey:@"token"];
         self.name=[aDecoder decodeObjectForKey:@"name"];
         self.userId=[aDecoder decodeObjectForKey:@"userId"];
         self.hasLogin=[aDecoder decodeBoolForKey:@"hasLogin"];
@@ -56,7 +58,7 @@
 
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key
 {
-    
+
 }
 
 @end

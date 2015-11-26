@@ -21,6 +21,9 @@ static NSInteger timeoutInterval = 10;
 @end
 
 @implementation HttpRequest
+{
+    long long expectedLength;
+}
 
 + (void)setToken:(NSString *)token
 {
@@ -100,6 +103,15 @@ static NSInteger timeoutInterval = 10;
 
 #pragma mark 简便类方法
 
++ (void)downloadWithUrl:(NSString *)url progress:(ProgressCallBack)progress succese:(CompletedCallBack)succese failed:(FailedCallBack)failed
+{
+    HttpRequest *request = [[HttpRequest alloc]initWithUrl:url Method:@"GET" UseCache:NO];
+    request.completedCallBack = succese;
+    request.failedCallBack = failed;
+    request.progressCallBack = progress;
+    [request start];
+}
+
 + (void)getWithUrl:(NSString *)url UseCache:(BOOL)useCache Succese:(CompletedCallBack)succese Failed:(FailedCallBack)failed
 {
     HttpRequest *request = [[HttpRequest alloc]initWithUrl:url Method:@"GET" UseCache:useCache];
@@ -142,6 +154,10 @@ static NSInteger timeoutInterval = 10;
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     [self.responseData appendData:data];
+
+    if (self.progressCallBack) {
+        self.progressCallBack((float)self.responseData.length / expectedLength);
+    }
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
@@ -157,6 +173,7 @@ static NSInteger timeoutInterval = 10;
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
+    expectedLength = response.expectedContentLength;
     _isLoading = YES;
 }
 

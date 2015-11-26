@@ -10,6 +10,7 @@
 #import "MenuViewController.h"
 #import "FileManager.h"
 #import "Item.h"
+#import "FileSyncManager.h"
 
 @interface UIViewController ()
 
@@ -54,7 +55,6 @@ static TabBarController *tabVc = nil;
         root = fm.root;
         [root archive];
     }
-
 }
 
 - (void)setSelectedViewController:(UIViewController *)selectedViewController

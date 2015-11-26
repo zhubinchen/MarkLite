@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "UserConfigure.h"
+#import "Configure.h"
 #import "TabBarController.h"
 #import "FileManager.h"
 
@@ -27,7 +27,7 @@
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
 {
-    [UserConfigure sharedConfigure].launchOptions = @{@"type":shortcutItem.type,@"path":shortcutItem.localizedSubtitle};
+    [Configure sharedConfigure].launchOptions = @{@"type":shortcutItem.type,@"path":shortcutItem.localizedSubtitle};
     [[TabBarController currentViewContoller].navigationController popToRootViewControllerAnimated:NO];
     [TabBarController currentViewContoller].selectedIndex = 0;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"launchFormShortCutItem" object:@{@"type":shortcutItem.type,@"path":shortcutItem.localizedSubtitle}];

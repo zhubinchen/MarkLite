@@ -39,10 +39,11 @@
     user.password = _pswdField.text;
     
     NSDictionary *body = @{@"email":user.account,@"password":user.password};
-    [HttpRequest postWithUrl:@"http://192.168.1.92/AddressBook/api/login.php" Body:body Succese:^(NSData *response) {
+    [HttpRequest postWithUrl:@"http://192.168.1.92/marklite/api/login.php" Body:body Succese:^(NSData *response) {
+        NSLog(@"%@",response.toString);
         NSDictionary *dic = response.toDictionay;
-        if ([dic[@"code"] intValue] == 0) {
-            [user setValuesForKeysWithDictionary:body];
+        if (dic && [dic[@"code"] intValue] == 0) {
+            [user setValuesForKeysWithDictionary:dic[@"payload"]];
             user.hasLogin = YES;
             [user archive];
             [self performSegueWithIdentifier:@"main" sender:self];

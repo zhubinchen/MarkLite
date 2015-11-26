@@ -14,6 +14,7 @@
 @property (nonatomic,strong) NSString *name;
 @property (nonatomic,strong) NSString *password;
 @property (nonatomic,strong) NSString *userId;
+@property (nonatomic,strong) NSString *token;
 @property (nonatomic,assign) BOOL hasLogin;
 
 + (instancetype)currentUser;

@@ -12,7 +12,7 @@
 #import "ZBCKeyBoard.h"
 #import "KeyboardBar.h"
 #import "FileManager.h"
-#import "UserConfigure.h"
+#import "Configure.h"
 #import "FileListViewController.h"
 #import "Item.h"
 
@@ -123,18 +123,18 @@
     
     self.editView.text = htmlStr;
     [self.editView updateSyntax];
-    for (NSDictionary *dic in [UserConfigure sharedConfigure].fileHisory) {
+    for (NSDictionary *dic in [Configure sharedConfigure].fileHisory) {
         if ([dic[@"path"] isEqualToString:path]) {
             return;
         }
     }
     
-    if ([UserConfigure sharedConfigure].fileHisory.count >= 3) {
-        [[UserConfigure sharedConfigure].fileHisory removeObjectAtIndex:0];
+    if ([Configure sharedConfigure].fileHisory.count >= 3) {
+        [[Configure sharedConfigure].fileHisory removeObjectAtIndex:0];
     }
-    [[UserConfigure sharedConfigure].fileHisory addObject:@{@"name":self.title,@"path":[path stringByReplacingOccurrencesOfString:fm.workSpace withString:@""]}];
-    [[UserConfigure sharedConfigure] saveToFile];
-    [self createShortCutItem:[UserConfigure sharedConfigure].fileHisory];
+    [[Configure sharedConfigure].fileHisory addObject:@{@"name":self.title,@"path":[path stringByReplacingOccurrencesOfString:fm.workSpace withString:@""]}];
+    [[Configure sharedConfigure] saveToFile];
+    [self createShortCutItem:[Configure sharedConfigure].fileHisory];
 }
 
 -(void)createShortCutItem:(NSArray*)fileHistory
