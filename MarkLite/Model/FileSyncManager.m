@@ -75,6 +75,45 @@
     }];
 }
 
+- (void)update:(void (^)(BOOL))callBack
+{
+    NSString *plistPath = [[NSString documentPath] stringByAppendingPathComponent:@"root.plist"];
+    NSData *data = [NSData dataWithContentsOfFile:plistPath];
+    NSString *str = [QNUrlSafeBase64 encodeData:data];
+    
+    NSDictionary *body = @{@"userId":[User currentUser].userId,@"items":str};
+    
+    [HttpRequest postWithUrl:@"http://192.168.1.39/marklite/api/upload_file_list.php" Body:body Succese:^(NSData *response) {
+        NSDictionary *dic = response.toDictionay;
+        if (dic && [dic[@"code"] intValue] == 0) {
+            callBack(YES);
+        }else{
+            callBack(NO);
+        }
+    } Failed:^(ErrorCode code) {
+        callBack(NO);
+    }];
+}
+
+- (void)rootFromServer:(void (^)(Item *))callBack
+{
+    [HttpRequest getWithUrl:[NSString stringWithFormat:@"http://192.168.1.39/marklite/api/upload_file_list.php?userId=%@",[User currentUser].userId] UseCache:NO Succese:^(NSData *response) {
+        NSDictionary *dic = response.toDictionay;
+        if (dic && dic[@"code"] == 0) {
+            NSData *data = [QNUrlSafeBase64 decodeString:dic[@"payload"]];
+            Item *i = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            if (i) {
+                callBack(i);
+            }
+        }else{
+            callBack(nil);
+        }
+
+    } Failed:^(ErrorCode code) {
+        callBack(nil);
+    }];
+}
+
 - (void)stop
 {
     stop = YES;

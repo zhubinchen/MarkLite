@@ -32,7 +32,7 @@
     user.name = _nameField.text;
     
     NSDictionary *body = @{@"email":user.account,@"password":user.password,@"name":user.name};
-    [HttpRequest postWithUrl:@"http://192.168.1.92/AddressBook/api/regist.php" Body:body Succese:^(NSData *response) {
+    [HttpRequest postWithUrl:@"http://192.168.1.39/AddressBook/api/regist.php" Body:body Succese:^(NSData *response) {
         NSDictionary *dic = response.toDictionay;
         if ([dic[@"code"] intValue] == 0) {
             [user setValuesForKeysWithDictionary:body];

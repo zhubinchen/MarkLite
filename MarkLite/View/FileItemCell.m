@@ -18,7 +18,7 @@
     _item = item;
     CGFloat begin = item.deep * 30 - 22;
     if (item.type != FileTypeFolder) {
-        begin -= 40;
+        begin -= 24;
     }
     _iconSpace.constant = begin;
     _addBtn.hidden = item.type != FileTypeFolder;

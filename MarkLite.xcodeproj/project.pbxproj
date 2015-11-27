@@ -66,7 +66,6 @@
 		0799BEA51C06B51C00AEAAFA /* QNDes.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799BE901C06B51C00AEAAFA /* QNDes.m */; };
 		0799BEA61C06B51C00AEAAFA /* QNHex.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799BE921C06B51C00AEAAFA /* QNHex.m */; };
 		0799BED31C07006100AEAAFA /* FileSyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799BED21C07006100AEAAFA /* FileSyncManager.m */; };
-		0799BED61C07153000AEAAFA /* Record.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799BED51C07153000AEAAFA /* Record.m */; };
 		07A577541BFC2785009CE0FD /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A5773D1BFC2785009CE0FD /* hoedown_html_patch.c */; };
 		07A577571BFC2785009CE0FD /* autolink.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A577431BFC2785009CE0FD /* autolink.c */; };
 		07A577581BFC2785009CE0FD /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 07A577451BFC2785009CE0FD /* buffer.c */; };
@@ -296,8 +295,6 @@
 		0799BE921C06B51C00AEAAFA /* QNHex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNHex.m; sourceTree = "<group>"; };
 		0799BED11C07006100AEAAFA /* FileSyncManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileSyncManager.h; sourceTree = "<group>"; };
 		0799BED21C07006100AEAAFA /* FileSyncManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileSyncManager.m; sourceTree = "<group>"; };
-		0799BED41C07153000AEAAFA /* Record.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Record.h; sourceTree = "<group>"; };
-		0799BED51C07153000AEAAFA /* Record.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Record.m; sourceTree = "<group>"; };
 		07A5773D1BFC2785009CE0FD /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
 		07A5773E1BFC2785009CE0FD /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
 		07A577431BFC2785009CE0FD /* autolink.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = autolink.c; sourceTree = "<group>"; };
@@ -855,8 +852,6 @@
 				0700B4D81BE8B81B00C3206D /* Item.m */,
 				0799BE081C05A06700AEAAFA /* User.h */,
 				0799BE091C05A06700AEAAFA /* User.m */,
-				0799BED41C07153000AEAAFA /* Record.h */,
-				0799BED51C07153000AEAAFA /* Record.m */,
 				07D056591BF0992400DC9D08 /* Configure.h */,
 				07D0565A1BF0992400DC9D08 /* Configure.m */,
 				07C3EB521BE89DEB00F3425C /* FileManager.h */,
@@ -1327,7 +1322,6 @@
 				07C3EC4F1BE89DEB00F3425C /* ContextFilterLogFormatter.m in Sources */,
 				0799BE9B1C06B51C00AEAAFA /* AFURLSessionManager.m in Sources */,
 				0799BE9E1C06B51C00AEAAFA /* QNNetworkInfo.m in Sources */,
-				0799BED61C07153000AEAAFA /* Record.m in Sources */,
 				07C3EC391BE89DEB00F3425C /* DDNumber.m in Sources */,
 				07C3EC4D1BE89DEB00F3425C /* DDLog.m in Sources */,
 				07C3EC4C1BE89DEB00F3425C /* DDFileLogger.m in Sources */,

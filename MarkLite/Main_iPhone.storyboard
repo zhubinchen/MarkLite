@@ -566,7 +566,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="index.html" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ONN-eg-Gyi">
-                                                    <rect key="frame" x="40" y="7" width="302" height="30"/>
+                                                    <rect key="frame" x="37" y="7" width="305" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="xla-qg-uI4"/>
                                                     </constraints>
@@ -584,7 +584,7 @@
                                                 <constraint firstAttribute="centerY" secondItem="3ml-EC-gBw" secondAttribute="centerY" id="QWD-dG-7d2"/>
                                                 <constraint firstItem="MOW-Yg-okJ" firstAttribute="leading" secondItem="ONN-eg-Gyi" secondAttribute="trailing" id="anZ-AI-c9Y"/>
                                                 <constraint firstAttribute="trailing" secondItem="MOW-Yg-okJ" secondAttribute="trailing" constant="8" id="rdO-hk-sX7"/>
-                                                <constraint firstItem="ONN-eg-Gyi" firstAttribute="leading" secondItem="3ml-EC-gBw" secondAttribute="trailing" constant="8" id="vb0-u8-dIt"/>
+                                                <constraint firstItem="ONN-eg-Gyi" firstAttribute="leading" secondItem="3ml-EC-gBw" secondAttribute="trailing" constant="5" id="vb0-u8-dIt"/>
                                                 <constraint firstAttribute="centerY" secondItem="ONN-eg-Gyi" secondAttribute="centerY" id="zuu-Vn-NPU"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -762,8 +762,8 @@
         <image name="settings.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="nAh-oH-Cz0"/>
-        <segue reference="F5f-nG-XfB"/>
+        <segue reference="GZ3-Ny-S2m"/>
         <segue reference="kQf-aA-TUZ"/>
+        <segue reference="n2c-A2-qau"/>
     </inferredMetricsTieBreakers>
 </document>

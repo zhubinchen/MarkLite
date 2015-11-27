@@ -11,6 +11,7 @@
 #import "FileManager.h"
 #import "Item.h"
 #import "FileSyncManager.h"
+#import "User.h"
 
 @interface UIViewController ()
 
@@ -20,15 +21,12 @@
 @end
 
 @interface TabBarController ()
-
+@property (nonatomic,strong) Item *root;
 @end
 
 static TabBarController *tabVc = nil;
 
 @implementation TabBarController
-{
-    Item *root;
-}
 
 + (instancetype)currentViewContoller
 {
@@ -46,21 +44,29 @@ static TabBarController *tabVc = nil;
     FileManager *fm = [FileManager sharedManager];
 
     NSString *plistPath = [[NSString documentPath] stringByAppendingPathComponent:@"root.plist"];
+
+    
     if ([[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
-        root = [NSKeyedUnarchiver unarchiveObjectWithFile:plistPath];
-        fm.root = root;
+        _root = [NSKeyedUnarchiver unarchiveObjectWithFile:plistPath];
+        fm.root = _root;
     }else {
         FileManager *fm = [FileManager sharedManager];
         fm.workSpace = @"Root";
-        root = fm.root;
-        [root archive];
+        _root = fm.root;
+        [_root archive];
     }
-    
-    [[FileSyncManager sharedManager] downloadFile:@"Root/README.md" progressHandler:^(float percent) {
-        NSLog(@"%.2f",percent);
-    } result:^(BOOL success, NSData *data) {
-        
-    }];
+
+//    [[FileSyncManager sharedManager] downloadFile:@"Root/README.md" progressHandler:^(float percent) {
+//        NSLog(@"%.2f",percent);
+//    } result:^(BOOL success, NSData *data) {
+//        
+//    }];
+    if ([User currentUser].hasLogin) {
+        [[FileSyncManager sharedManager] rootFromServer:^(Item *item) {
+            _root = item;
+            [_root archive];
+        }];
+    }
 }
 
 - (void)setSelectedViewController:(UIViewController *)selectedViewController

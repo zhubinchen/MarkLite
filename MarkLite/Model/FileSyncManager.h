@@ -18,6 +18,10 @@
 - (void)downloadFile:(NSString*)key progressHandler:(void(^)(float percent))handler result:(void(^)(BOOL success, NSData *data))result;
 ;
 
+- (void)rootFromServer:(void(^)(Item *root))callBack;
+
+- (void)update:(void(^)(BOOL success))callBack;
+
 - (void)stop;
 
 @end

@@ -79,7 +79,7 @@
         
         if (temp.type == FileTypeText) {
             NSDictionary *attr = [fm attributesOfItemAtPath:[self fullPathForPath:fileName] error:nil];
-            temp.createTime = attr[NSFileCreationDate];
+            temp.createTime = [attr[NSFileCreationDate] formatDate];
         }
     }
 }
