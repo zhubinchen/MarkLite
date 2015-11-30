@@ -17,8 +17,8 @@ typedef enum : NSUInteger {
 
 typedef enum : NSUInteger {
     SyncStatusSuccess,
-    SyncStatusFailed,
-    SyncStatusUnSync,
+    SyncStatusUnDownload,
+    SyncStatusUnUpload,
 } SyncStatus;
 
 @interface Item : NSObject
@@ -36,6 +36,8 @@ typedef enum : NSUInteger {
 @property (nonatomic,weak)              Item       *parent;
 
 @property (nonatomic,assign)            SyncStatus syncStatus;
+
+@property (nonatomic,assign)            BOOL       needUpdate;
 
 @property (nonatomic,assign,readonly)   NSInteger  deep;
 

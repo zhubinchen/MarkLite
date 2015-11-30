@@ -12,6 +12,7 @@
 		0700B5221BE9D1E100C3206D /* MarkdownSyntaxGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0700B51C1BE9D1E100C3206D /* MarkdownSyntaxGenerator.m */; };
 		0700B5231BE9D1E100C3206D /* MarkdownSyntaxModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0700B51E1BE9D1E100C3206D /* MarkdownSyntaxModel.m */; };
 		0700B5471BEA1C5200C3206D /* format.html in Resources */ = {isa = PBXBuildFile; fileRef = 0700B5461BEA1C5200C3206D /* format.html */; };
+		079398711C0861A200FFF563 /* 根目录.zip in Resources */ = {isa = PBXBuildFile; fileRef = 079398701C0861A200FFF563 /* 根目录.zip */; };
 		0799BD9D1C045B7700AEAAFA /* sort_options@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0799BD9C1C045B7700AEAAFA /* sort_options@2x.png */; };
 		0799BDA11C04675400AEAAFA /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 0799BDA01C04675400AEAAFA /* check.png */; };
 		0799BDFD1C05818600AEAAFA /* ScrawlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799BDFC1C05818600AEAAFA /* ScrawlViewController.m */; };
@@ -19,7 +20,6 @@
 		0799BE041C05983300AEAAFA /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799BE031C05983300AEAAFA /* LoginViewController.m */; };
 		0799BE071C05985200AEAAFA /* RegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799BE061C05985200AEAAFA /* RegistViewController.m */; };
 		0799BE0A1C05A06700AEAAFA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799BE091C05A06700AEAAFA /* User.m */; };
-		0799BE0C1C05C13E00AEAAFA /* Root.zip in Resources */ = {isa = PBXBuildFile; fileRef = 0799BE0B1C05C13E00AEAAFA /* Root.zip */; };
 		0799BE471C06B20B00AEAAFA /* GTM_Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799BE101C06B20B00AEAAFA /* GTM_Base64.m */; };
 		0799BE481C06B20B00AEAAFA /* QNALAssetFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799BE121C06B20B00AEAAFA /* QNALAssetFile.m */; };
 		0799BE491C06B20B00AEAAFA /* QNAsyncRun.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799BE141C06B20B00AEAAFA /* QNAsyncRun.m */; };
@@ -183,6 +183,7 @@
 		0700B51D1BE9D1E100C3206D /* MarkdownSyntaxModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkdownSyntaxModel.h; sourceTree = "<group>"; };
 		0700B51E1BE9D1E100C3206D /* MarkdownSyntaxModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkdownSyntaxModel.m; sourceTree = "<group>"; };
 		0700B5461BEA1C5200C3206D /* format.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = format.html; sourceTree = "<group>"; };
+		079398701C0861A200FFF563 /* 根目录.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "根目录.zip"; sourceTree = "<group>"; };
 		0799BD9C1C045B7700AEAAFA /* sort_options@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sort_options@2x.png"; sourceTree = "<group>"; };
 		0799BDA01C04675400AEAAFA /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
 		0799BDFB1C05818600AEAAFA /* ScrawlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrawlViewController.h; sourceTree = "<group>"; };
@@ -195,7 +196,6 @@
 		0799BE061C05985200AEAAFA /* RegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistViewController.m; sourceTree = "<group>"; };
 		0799BE081C05A06700AEAAFA /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		0799BE091C05A06700AEAAFA /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		0799BE0B1C05C13E00AEAAFA /* Root.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Root.zip; sourceTree = "<group>"; };
 		0799BE0F1C06B20B00AEAAFA /* GTM_Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTM_Base64.h; sourceTree = "<group>"; };
 		0799BE101C06B20B00AEAAFA /* GTM_Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTM_Base64.m; sourceTree = "<group>"; };
 		0799BE111C06B20B00AEAAFA /* QNALAssetFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNALAssetFile.h; sourceTree = "<group>"; };
@@ -865,7 +865,7 @@
 		07C3EB5A1BE89DEB00F3425C /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				0799BE0B1C05C13E00AEAAFA /* Root.zip */,
+				079398701C0861A200FFF563 /* 根目录.zip */,
 				07F230A31BFF912400B0D8E0 /* note@2x.png */,
 				0799BDA01C04675400AEAAFA /* check.png */,
 				07F230A11BFF8EBF00B0D8E0 /* file@2x.png */,
@@ -1216,6 +1216,7 @@
 				07F230A61BFF950900B0D8E0 /* plus.png in Resources */,
 				07F2309B1BFF2E2100B0D8E0 /* redo@2x.png in Resources */,
 				07C3EC511BE89DEB00F3425C /* README.txt in Resources */,
+				079398711C0861A200FFF563 /* 根目录.zip in Resources */,
 				07C3EB411BE89DCE00F3425C /* Main_iPhone.storyboard in Resources */,
 				07A5779C1BFDA0DE009CE0FD /* folder_open.png in Resources */,
 				07C3EC2B1BE89DEB00F3425C /* Font@2x.png in Resources */,
@@ -1230,7 +1231,6 @@
 				07C3EC8B1BE89EA600F3425C /* down@2x.png in Resources */,
 				07C3EC8F1BE89EA600F3425C /* up@2x.png in Resources */,
 				07C3EC2C1BE89DEB00F3425C /* Help@2x.png in Resources */,
-				0799BE0C1C05C13E00AEAAFA /* Root.zip in Resources */,
 				07C3EB261BE89B8300F3425C /* Images.xcassets in Resources */,
 				07F2309C1BFF2E2100B0D8E0 /* undo@2x.png in Resources */,
 				07C3EC251BE89DEB00F3425C /* settings@2x.png in Resources */,

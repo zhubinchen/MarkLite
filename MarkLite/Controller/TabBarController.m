@@ -21,12 +21,17 @@
 @end
 
 @interface TabBarController ()
+
 @property (nonatomic,strong) Item *root;
+
 @end
 
 static TabBarController *tabVc = nil;
 
 @implementation TabBarController
+{
+    NSMutableArray *itemsToDownload;
+}
 
 + (instancetype)currentViewContoller
 {
@@ -41,30 +46,99 @@ static TabBarController *tabVc = nil;
     
     tabVc = self;
 
+    itemsToDownload = [NSMutableArray array];
+    
+    [self initializeWorkSapce];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(update:) name:@"RootNeedSaveChange" object:nil];
+}
+
+- (void)initializeWorkSapce
+{
     FileManager *fm = [FileManager sharedManager];
-
+    
     NSString *plistPath = [[NSString documentPath] stringByAppendingPathComponent:@"root.plist"];
-
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
         _root = [NSKeyedUnarchiver unarchiveObjectWithFile:plistPath];
         fm.root = _root;
-    }else {
+    }else if ([User currentUser].hasLogin) {
+        [self beginLoadingAnimation:@"正在同步..."];
+        [[FileSyncManager sharedManager] rootFromServer:^(Item *item,int error) {
+            if (item) {
+                _root = item;
+                fm.root = _root;
+                [self createFile];
+                [_root archive];
+            }else{
+                if (error == 1) {
+                    FileManager *fm = [FileManager sharedManager];
+                    fm.workSpace = @"Root";
+                    _root = fm.root;
+                    [_root archive];
+                }else{
+                    [self showToast:@"同步失败，请检查网络后重试"];
+                }
+            }
+            [self.viewControllers.firstObject reload];
+            [self stopLoadingAnimation];
+        }];
+    }else{
         FileManager *fm = [FileManager sharedManager];
         fm.workSpace = @"Root";
         _root = fm.root;
         [_root archive];
     }
+}
 
-//    [[FileSyncManager sharedManager] downloadFile:@"Root/README.md" progressHandler:^(float percent) {
-//        NSLog(@"%.2f",percent);
-//    } result:^(BOOL success, NSData *data) {
-//        
-//    }];
+- (void)createFile
+{
+    FileManager *fm = [FileManager sharedManager];
+    [fm createFolder:_root.path];
+    for (Item *i in _root.items) {
+        if (i.syncStatus != SyncStatusUnDownload) {
+            continue;
+        }
+        if (i.type == FileTypeFolder) {
+            [fm createFolder:i.path];
+            i.syncStatus = SyncStatusSuccess;
+        }else{
+            [itemsToDownload addObject:i];
+        }
+    }
+    
+    [self download];
+}
+
+- (void)download
+{
+    Item *i = itemsToDownload.firstObject;
+    if (i == nil) {
+        return;
+    }
+    [[FileSyncManager sharedManager]downloadFile:i.path progressHandler:^(float percent) {
+        NSLog(@"%.2f",percent);
+    } result:^(BOOL success, NSData *data) {
+        [itemsToDownload removeObject:i];
+        if (success) {
+            i.syncStatus = SyncStatusSuccess;
+            [[FileManager sharedManager] createFile:i.path Content:data];
+        }
+        [self download];
+    }];
+}
+
+- (void)update:(NSNotification*)noti
+{
+    _root.needUpdate = YES;
+    [_root archive];
+
     if ([User currentUser].hasLogin) {
-        [[FileSyncManager sharedManager] rootFromServer:^(Item *item) {
-            _root = item;
-            [_root archive];
+        [[FileSyncManager sharedManager]update:^(BOOL success) {
+            if (success) {
+                _root.needUpdate = NO;
+                [_root archive];
+            }
         }];
     }
 }
@@ -86,14 +160,12 @@ static TabBarController *tabVc = nil;
     self.title = titles[self.selectedIndex];
 }
 
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
+
 
 @end

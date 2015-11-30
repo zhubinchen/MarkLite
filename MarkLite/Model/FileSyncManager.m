@@ -52,7 +52,7 @@
         return stop;
     }];
     NSString *path = [[FileManager sharedManager] fullPathForPath:item.path];
-    NSString *key = item.path;
+    NSString *key = [NSString pathWithComponents:@[[User currentUser].userId,item.path.urlEncodeString]];
     NSString *token = [User currentUser].token;
     [upManager putFile:path key:key token:token complete:^(QNResponseInfo *i, NSString *k, NSDictionary *resp) {
         if (i.statusCode != 200) {
@@ -66,6 +66,7 @@
 
 - (void)downloadFile:(NSString *)key progressHandler:(void (^)(float))handler result:(void (^)(BOOL, NSData *))result
 {
+    key = [NSString pathWithComponents:@[[User currentUser].userId,key.urlEncodeString]];
     NSString *url = [NSString stringWithFormat:@"http://7xomu7.com1.z0.glb.clouddn.com/%@",key];
 
     [HttpRequest downloadWithUrl:url progress:handler succese:^(NSData *response) {
@@ -83,7 +84,7 @@
     
     NSDictionary *body = @{@"userId":[User currentUser].userId,@"items":str};
     
-    [HttpRequest postWithUrl:@"http://192.168.1.39/marklite/api/upload_file_list.php" Body:body Succese:^(NSData *response) {
+    [HttpRequest postWithUrl:@"http://192.168.1.83/marklite/api/upload_file_list.php" Body:body Succese:^(NSData *response) {
         NSDictionary *dic = response.toDictionay;
         if (dic && [dic[@"code"] intValue] == 0) {
             callBack(YES);
@@ -95,22 +96,27 @@
     }];
 }
 
-- (void)rootFromServer:(void (^)(Item *))callBack
+- (void)rootFromServer:(void (^)(Item *,int))callBack
 {
-    [HttpRequest getWithUrl:[NSString stringWithFormat:@"http://192.168.1.39/marklite/api/upload_file_list.php?userId=%@",[User currentUser].userId] UseCache:NO Succese:^(NSData *response) {
+    [HttpRequest getWithUrl:[NSString stringWithFormat:@"http://192.168.1.83/marklite/api/upload_file_list.php?userId=%@",[User currentUser].userId] UseCache:NO Succese:^(NSData *response) {
         NSDictionary *dic = response.toDictionay;
-        if (dic && dic[@"code"] == 0) {
+        if (dic && [dic[@"code"] intValue] == 0) {
             NSData *data = [QNUrlSafeBase64 decodeString:dic[@"payload"]];
-            Item *i = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-            if (i) {
-                callBack(i);
+            Item *root = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            for (Item * i in root.items) {
+                i.syncStatus = SyncStatusUnDownload;
             }
+            if (root) {
+                callBack(root,0);
+            }
+        }else if([dic[@"code"] intValue] == 1){
+            callBack(nil,1);
         }else{
-            callBack(nil);
+            callBack(nil,-1);
         }
 
     } Failed:^(ErrorCode code) {
-        callBack(nil);
+        callBack(nil,-1);
     }];
 }
 

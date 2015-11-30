@@ -15,6 +15,7 @@
 #import "Configure.h"
 #import "FileListViewController.h"
 #import "Item.h"
+#import "FileSyncManager.h"
 
 @interface EditViewController () <UITextViewDelegate,UITextFieldDelegate>
 
@@ -108,11 +109,10 @@
     }
     NSString *oldPath = item.path;
     NSString *newPath = [[item.parent.path stringByAppendingPathComponent:textField.text] stringByAppendingPathExtension:item.extention];
-    BOOL ret = [fm moveFile:oldPath toNewPath:newPath];
-    if (ret) {
-        item.path = newPath;
-    }
-    NSLog(@"%i",ret);
+    [fm moveFile:oldPath toNewPath:newPath];
+
+    item.path = newPath;
+
     return YES;
 }
 
@@ -243,6 +243,16 @@
 {
     NSData *content = [self.editView.text dataUsingEncoding:NSUTF8StringEncoding];
     [content writeToFile:[fm fullPathForPath:item.path] atomically:YES];
+    
+    [[FileSyncManager sharedManager] uploadFile:item progressHandler:^(float percent) {
+        NSLog(@"upload %@: %.2f",item.path,percent);
+    } result:^(BOOL success) {
+        if (success) {
+            item.syncStatus = SyncStatusSuccess;
+        }else{
+            item.syncStatus = SyncStatusUnUpload;
+        }
+    }];
 }
 
  #pragma mark - Navigation

@@ -36,6 +36,11 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self reload];
+}
+
+- (void)reload
+{
     root = fm.root;
     self.sortOption = self.sortOption;
 }

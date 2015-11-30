@@ -39,7 +39,7 @@
     user.password = _pswdField.text;
     
     NSDictionary *body = @{@"email":user.account,@"password":user.password};
-    [HttpRequest postWithUrl:@"http://192.168.1.39/marklite/api/login.php" Body:body Succese:^(NSData *response) {
+    [HttpRequest postWithUrl:@"http://192.168.1.83/marklite/api/login.php" Body:body Succese:^(NSData *response) {
         NSLog(@"%@",response.toString);
         NSDictionary *dic = response.toDictionay;
         if (dic && [dic[@"code"] intValue] == 0) {

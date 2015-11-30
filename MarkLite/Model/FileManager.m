@@ -49,15 +49,15 @@
         
         [fm createDirectoryAtPath:_workSpace withIntermediateDirectories:YES attributes:nil error:nil];
         NSLog(@"creating workSpace:%@",_workSpace);
-        
         ZipArchive *zipArchive = [[ZipArchive alloc]init];
         
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"Root" ofType:@"zip"];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"根目录" ofType:@"zip"];
         NSLog(@"%@",path);
         
         [zipArchive UnzipOpenFile:path];
         
         [zipArchive UnzipFileTo:_workSpace overWrite:YES];
+        [self notify];
     }
     
     
@@ -78,8 +78,10 @@
         [_root addChild:temp];
         
         if (temp.type == FileTypeText) {
-            NSDictionary *attr = [fm attributesOfItemAtPath:[self fullPathForPath:fileName] error:nil];
-            temp.createTime = [attr[NSFileCreationDate] formatDate];
+            NSMutableDictionary *attr = [fm attributesOfItemAtPath:[self fullPathForPath:fileName] error:nil].mutableCopy;
+            attr[NSFileCreationDate] = [NSDate date];
+            attr[NSFileModificationDate] = [NSDate date];
+            [fm setAttributes:attr ofItemAtPath:[self fullPathForPath:fileName] error:nil];
         }
     }
 }
@@ -92,7 +94,11 @@
         [fm createDirectoryAtPath:fullPath withIntermediateDirectories:YES attributes:nil error:&error];
         NSLog(@"creating dir:%@",fullPath);
     }
-    NSAssert(!error, error.description);
+    if (error) {
+        NSLog(@"%@",error);
+    }else{
+        [self notify];
+    }
 }
 
 - (void)createFile:(NSString *)path Content:(NSData *)content
@@ -103,6 +109,8 @@
         [fm createFileAtPath:fullPath contents:content attributes:nil];
         NSLog(@"creating file:%@",fullPath);
     }
+    
+    [self notify];
 }
 
 - (void)deleteFile:(NSString *)path
@@ -110,18 +118,23 @@
     NSError *error = nil;
 
     [fm removeItemAtPath:[self fullPathForPath:path] error:&error];
+    if (error) {
+        NSLog(@"%@",error);
+    }else{
+        [self notify];
+    }
 }
 
-- (BOOL)moveFile:(NSString *)path toNewPath:(NSString *)newPath
+- (void)moveFile:(NSString *)path toNewPath:(NSString *)newPath
 {
     NSError *error = nil;
     [fm moveItemAtPath:[self fullPathForPath:path] toPath:[self fullPathForPath:newPath] error:&error];
 
     if (error) {
         NSLog(@"%@",error);
-        return NO;
+    }else{
+        [self notify];
     }
-    return YES;
 }
 
 - (NSString *)fullPathForPath:(NSString *)path
@@ -132,6 +145,13 @@
 - (NSDictionary *)attributeOfItem:(Item *)item
 {
     return [fm attributesOfItemAtPath:[self fullPathForPath:item.path] error:nil];
+}
+
+- (void)notify
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"RootNeedSaveChange" object:_root];
+    });
 }
 
 @end

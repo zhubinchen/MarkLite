@@ -232,7 +232,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Item *i = dataArray[indexPath.row];
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"定要删除该文件？" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"确定要删除该文件？" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
     alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
         if (buttonIndex == 0) {
             [i removeFromParent];
