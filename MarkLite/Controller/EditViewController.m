@@ -211,7 +211,7 @@
     [self.view addSubview:control];
     [self.view addSubview:selectTagView];
 
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         selectTagView.frame = CGRectMake(kScreenWidth - 36, 0, 36, 36*6);
         control.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
     } completion:^(BOOL finished) {
@@ -223,7 +223,7 @@
 
 - (void)selectedTag:(UIButton*)sender
 {
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         selectTagView.frame = CGRectMake(kScreenWidth - 36, 0, 36, 0);
         control.backgroundColor = [UIColor colorWithWhite:0 alpha:0.0];
     } completion:^(BOOL finished) {

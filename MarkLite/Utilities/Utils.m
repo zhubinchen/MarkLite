@@ -523,7 +523,7 @@
     
     [window addSubview:l];
     
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:0.15 animations:^{
         l.alpha = 1.0;
     } completion:^(BOOL finished) {
         if (finished) {

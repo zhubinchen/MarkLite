@@ -11,27 +11,29 @@
 #import "FileManager.h"
 #import "NoteItemCell.h"
 #import "Item.h"
+#import "CreateNoteView.h"
 
 @interface NoteListViewController () <UITableViewDelegate,UITableViewDataSource,UIViewControllerPreviewingDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *noteListView;
 @property (assign, nonatomic) NSInteger sortOption;
+@property (nonatomic,assign)    FileManager *fm;
 
 @end
 
 @implementation NoteListViewController
 {
     NSMutableArray *dataArray;
-    FileManager *fm;
     Item *root;
     UIControl *control;
     UIImageView *imgView;
+    CreateNoteView *view;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    fm = [FileManager sharedManager];
+    _fm = [FileManager sharedManager];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -41,7 +43,7 @@
 
 - (void)reload
 {
-    root = fm.root;
+    root = _fm.root;
     self.sortOption = self.sortOption;
 }
 
@@ -53,13 +55,29 @@
 
 - (NSArray*)leftItems
 {
-    UIBarButtonItem *sort = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"sort_options"] style:UIBarButtonItemStylePlain target:self action:@selector(showOptions)];
+//    UIBarButtonItem *sort = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"sort_options"] style:UIBarButtonItemStylePlain target:self action:@selector(showOptions)];
+    UIBarButtonItem *sort = [[UIBarButtonItem alloc]initWithTitle:@"排序" style:UIBarButtonItemStylePlain target:self action:@selector(showOptions)];
     return @[sort];
 }
 
 - (void)newNote
 {
+    __weak typeof(self) __self = self;
+    if (view == nil) {
+        view = [CreateNoteView instance];
+        view.didCreateNote = ^(Item *i){
+            __self.fm.currentItem = i;
+            [__self performSegueWithIdentifier:@"code" sender:__self];
+        };
+        view.vc = __self;
+    }
     
+    if (view.isShow) {
+        [view remove];
+    }else{
+        view.root = root;
+        [view showOnView:self.view];
+    }
 }
 
 - (void)showOptions
@@ -95,7 +113,7 @@
     
     UIView *optionsView = [control viewWithTag:1];
     if (control.superview) {
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             optionsView.frame = CGRectMake(0, -120, kScreenWidth, 120);
             control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
         } completion:^(BOOL finished) {
@@ -106,7 +124,7 @@
     }else {
         [self.view addSubview:control];
 
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             optionsView.frame = CGRectMake(0, 0, kScreenWidth, 120);
             control.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
         } completion:^(BOOL finished) {
@@ -118,7 +136,7 @@
 - (void)choosedOption:(UIButton*)optionBtn
 {
     UIView *optionsView = [control viewWithTag:1];
-    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         optionsView.frame = CGRectMake(0, -120, kScreenWidth, 120);
         control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     } completion:^(BOOL finished) {
@@ -155,12 +173,12 @@
             NSNumber *tag2 = [NSNumber numberWithInteger:item2.tag];
             return [tag1 compare:tag2];
         }else if(_sortOption == 2){
-            NSDate *date1 = [fm attributeOfItem:obj1][NSFileCreationDate];
-            NSDate *date2 = [fm attributeOfItem:obj2][NSFileCreationDate];
+            NSDate *date1 = [_fm attributeOfItem:obj1][NSFileCreationDate];
+            NSDate *date2 = [_fm attributeOfItem:obj2][NSFileCreationDate];
             return [date1 compare:date2];
         }else{
-            NSDate *date1 = [fm attributeOfItem:obj1][NSFileModificationDate];
-            NSDate *date2 = [fm attributeOfItem:obj2][NSFileModificationDate];
+            NSDate *date1 = [_fm attributeOfItem:obj1][NSFileModificationDate];
+            NSDate *date2 = [_fm attributeOfItem:obj2][NSFileModificationDate];
             return [date1 compare:date2];
         }
     }].mutableCopy;
@@ -196,7 +214,7 @@
             }
             
             [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
-            [fm deleteFile:i.path];
+            [_fm deleteFile:i.path];
         }
         [alert releaseBlock];
     };
@@ -224,7 +242,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Item *i = dataArray[indexPath.row];
-    fm.currentItem = i;
+    _fm.currentItem = i;
     [self performSegueWithIdentifier:@"code" sender:self];
 }
 
@@ -236,7 +254,7 @@
         return nil;
     }
     NoteItemCell *cell = (NoteItemCell*)[previewingContext sourceView];
-    fm.currentItem = cell.item;
+    _fm.currentItem = cell.item;
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
     EditViewController *vc = [sb instantiateViewControllerWithIdentifier:@"code"];
