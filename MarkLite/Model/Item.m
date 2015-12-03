@@ -28,7 +28,7 @@
     
     for (Item *i in self.children) {
         [ret addObject:i];
-        [ret addObjectsFromArray:i.itemsCanReach];
+        [ret addObjectsFromArray:i.items];
     }
     
     return ret;

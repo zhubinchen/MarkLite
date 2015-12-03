@@ -15,7 +15,7 @@
 
 #import "Utils.h"
 
-#define kThemeColor [UIColor colorWithRGBString:@"24A7E9"]
+#define kThemeColor [UIColor colorWithRGBString:@"2C3E50"]
 
 #endif
 

@@ -25,8 +25,6 @@
 {
     Item *root;
     FileManager *fm;
-
-    BOOL trash;
     
     NSMutableArray *dataArray;
     UIBarButtonItem *rightItem;
@@ -51,15 +49,12 @@
 
 - (NSArray*)rightItems
 {
-    rightItem = [[UIBarButtonItem alloc]initWithTitle:@"废纸篓" style:UIBarButtonItemStylePlain target:self action:@selector(goToTrash)];
+    rightItem = [[UIBarButtonItem alloc]initWithTitle:@"最近删除" style:UIBarButtonItemStylePlain target:self action:@selector(goToTrash)];
     return @[rightItem];
 }
 
 - (void)goToTrash
 {
-    trash = !trash;
-    rightItem.title = trash ? @"所有文件" : @"废纸篓";
-    [self.fileListView reloadData];
 }
 
 
