@@ -16,6 +16,7 @@
 #import "FileListViewController.h"
 #import "Item.h"
 #import "FileSyncManager.h"
+#import "User.h"
 
 @interface EditViewController () <UITextViewDelegate,UITextFieldDelegate>
 
@@ -52,7 +53,6 @@
     [super viewDidLoad];
     
     fm = [FileManager sharedManager];
-    item = fm.currentItem;
     
     _nameField.text = item.name;
     _editView.delegate = self;
@@ -69,8 +69,13 @@
     if (kIsPhone) {
         [self loadFile];
     } else {
-        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(loadFile) name:@"ChangeFile" object:nil];
+        [fm addObserver:self forKeyPath:@"currentItem" options:NSKeyValueObservingOptionNew context:NULL];
     }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
+{
+    [self loadFile];
 }
 
 - (void)setTitle:(NSString *)title
@@ -104,7 +109,7 @@
 {
     [textField resignFirstResponder];
     if ([textField.text containsString:@"."] | [textField.text containsString:@"/"] | [textField.text containsString:@"*"]) {
-        [self showToast:@"请不要输入'./*'等特殊字符"];
+        showToast(@"请不要输入'./*'等特殊字符");
         return NO;
     }
     NSString *oldPath = item.path;
@@ -118,6 +123,8 @@
 
 - (void)loadFile
 {
+    item = fm.currentItem;
+
     NSString *path = [fm fullPathForPath:item.path];
     NSString *htmlStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     
@@ -244,6 +251,9 @@
     NSData *content = [self.editView.text dataUsingEncoding:NSUTF8StringEncoding];
     [content writeToFile:[fm fullPathForPath:item.path] atomically:YES];
     
+    if (![User currentUser].hasLogin) {
+        return;
+    }
     [[FileSyncManager sharedManager] uploadFile:item progressHandler:^(float percent) {
         NSLog(@"upload %@: %.2f",item.path,percent);
     } result:^(BOOL success) {

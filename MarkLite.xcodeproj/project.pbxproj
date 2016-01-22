@@ -14,7 +14,6 @@
 		0700B5471BEA1C5200C3206D /* format.html in Resources */ = {isa = PBXBuildFile; fileRef = 0700B5461BEA1C5200C3206D /* format.html */; };
 		07829B201C0C4FBA00F2CBC8 /* CreateNoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07829B1F1C0C4FBA00F2CBC8 /* CreateNoteView.m */; };
 		07829B241C0C4FD300F2CBC8 /* CreateNoteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07829B231C0C4FD300F2CBC8 /* CreateNoteView.xib */; };
-		07829B291C0C55D600F2CBC8 /* FileItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07829B271C0C55D600F2CBC8 /* FileItemCell.xib */; };
 		079398711C0861A200FFF563 /* 根目录.zip in Resources */ = {isa = PBXBuildFile; fileRef = 079398701C0861A200FFF563 /* 根目录.zip */; };
 		0799BD9D1C045B7700AEAAFA /* sort_options@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0799BD9C1C045B7700AEAAFA /* sort_options@2x.png */; };
 		0799BDA11C04675400AEAAFA /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 0799BDA01C04675400AEAAFA /* check.png */; };
@@ -89,6 +88,7 @@
 		07A577D01BFEE67E009CE0FD /* NoteListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A577CF1BFEE67E009CE0FD /* NoteListViewController.m */; };
 		07A577D31BFEF437009CE0FD /* NoteItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A577D21BFEF437009CE0FD /* NoteItemCell.m */; };
 		07A7F1531BF49E2D00405A1F /* HighLightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A7F1521BF49E2D00405A1F /* HighLightModel.m */; };
+		07AEDF4E1C279E9500D05D2C /* minus.png in Resources */ = {isa = PBXBuildFile; fileRef = 07AEDF4D1C279E9500D05D2C /* minus.png */; };
 		07C3EB1B1BE89B8300F3425C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3EB1A1BE89B8300F3425C /* main.m */; };
 		07C3EB1E1BE89B8300F3425C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3EB1D1BE89B8300F3425C /* AppDelegate.m */; };
 		07C3EB261BE89B8300F3425C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07C3EB251BE89B8300F3425C /* Images.xcassets */; };
@@ -166,6 +166,9 @@
 		07C3EC9A1BE89FDA00F3425C /* LxFTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07C3EC991BE89FDA00F3425C /* LxFTPRequest.m */; };
 		07C6A51F1BEB4ADA00ACCE88 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07C6A51E1BEB4ADA00ACCE88 /* libz.1.2.5.tbd */; };
 		07D0565B1BF0992400DC9D08 /* Configure.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D0565A1BF0992400DC9D08 /* Configure.m */; };
+		07F02A151C50BF3900D5C5BE /* SplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F02A141C50BF3900D5C5BE /* SplitViewController.m */; };
+		07F02A181C50D88700D5C5BE /* Object.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F02A171C50D88700D5C5BE /* Object.m */; };
+		07F02A1B1C50D8E700D5C5BE /* Proxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F02A1A1C50D8E700D5C5BE /* Proxy.m */; };
 		07F2309B1BFF2E2100B0D8E0 /* redo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07F230991BFF2E2100B0D8E0 /* redo@2x.png */; };
 		07F2309C1BFF2E2100B0D8E0 /* undo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07F2309A1BFF2E2100B0D8E0 /* undo@2x.png */; };
 		07F230A21BFF8EBF00B0D8E0 /* file@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07F230A11BFF8EBF00B0D8E0 /* file@2x.png */; };
@@ -187,7 +190,6 @@
 		07829B1E1C0C4FBA00F2CBC8 /* CreateNoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateNoteView.h; sourceTree = "<group>"; };
 		07829B1F1C0C4FBA00F2CBC8 /* CreateNoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateNoteView.m; sourceTree = "<group>"; };
 		07829B231C0C4FD300F2CBC8 /* CreateNoteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateNoteView.xib; sourceTree = "<group>"; };
-		07829B271C0C55D600F2CBC8 /* FileItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileItemCell.xib; sourceTree = "<group>"; };
 		079398701C0861A200FFF563 /* 根目录.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "根目录.zip"; sourceTree = "<group>"; };
 		0799BD9C1C045B7700AEAAFA /* sort_options@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sort_options@2x.png"; sourceTree = "<group>"; };
 		0799BDA01C04675400AEAAFA /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 		07A577D21BFEF437009CE0FD /* NoteItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteItemCell.m; sourceTree = "<group>"; };
 		07A7F1511BF49E2D00405A1F /* HighLightModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighLightModel.h; sourceTree = "<group>"; };
 		07A7F1521BF49E2D00405A1F /* HighLightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighLightModel.m; sourceTree = "<group>"; };
+		07AEDF4D1C279E9500D05D2C /* minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minus.png; sourceTree = "<group>"; };
 		07C3EB151BE89B8300F3425C /* MarkLite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkLite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07C3EB191BE89B8300F3425C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07C3EB1A1BE89B8300F3425C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -471,6 +474,12 @@
 		07C6A51E1BEB4ADA00ACCE88 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = usr/lib/libz.1.2.5.tbd; sourceTree = SDKROOT; };
 		07D056591BF0992400DC9D08 /* Configure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Configure.h; sourceTree = "<group>"; };
 		07D0565A1BF0992400DC9D08 /* Configure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Configure.m; sourceTree = "<group>"; };
+		07F02A131C50BF3900D5C5BE /* SplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitViewController.h; sourceTree = "<group>"; };
+		07F02A141C50BF3900D5C5BE /* SplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplitViewController.m; sourceTree = "<group>"; };
+		07F02A161C50D88700D5C5BE /* Object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Object.h; sourceTree = "<group>"; };
+		07F02A171C50D88700D5C5BE /* Object.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Object.m; sourceTree = "<group>"; };
+		07F02A191C50D8E700D5C5BE /* Proxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Proxy.h; sourceTree = "<group>"; };
+		07F02A1A1C50D8E700D5C5BE /* Proxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Proxy.m; sourceTree = "<group>"; };
 		07F230991BFF2E2100B0D8E0 /* redo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "redo@2x.png"; sourceTree = "<group>"; };
 		07F2309A1BFF2E2100B0D8E0 /* undo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "undo@2x.png"; sourceTree = "<group>"; };
 		07F230A11BFF8EBF00B0D8E0 /* file@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "file@2x.png"; sourceTree = "<group>"; };
@@ -830,6 +839,12 @@
 				0799BDFC1C05818600AEAAFA /* ScrawlViewController.m */,
 				07C3EB4D1BE89DEB00F3425C /* TabBarController.h */,
 				07C3EB4E1BE89DEB00F3425C /* TabBarController.m */,
+				07F02A131C50BF3900D5C5BE /* SplitViewController.h */,
+				07F02A141C50BF3900D5C5BE /* SplitViewController.m */,
+				07F02A161C50D88700D5C5BE /* Object.h */,
+				07F02A171C50D88700D5C5BE /* Object.m */,
+				07F02A191C50D8E700D5C5BE /* Proxy.h */,
+				07F02A1A1C50D8E700D5C5BE /* Proxy.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -859,6 +874,7 @@
 				0799BDA01C04675400AEAAFA /* check.png */,
 				07F230A11BFF8EBF00B0D8E0 /* file@2x.png */,
 				0700B5461BEA1C5200C3206D /* format.html */,
+				07AEDF4D1C279E9500D05D2C /* minus.png */,
 				0799BD9C1C045B7700AEAAFA /* sort_options@2x.png */,
 				07F230A51BFF950900B0D8E0 /* plus.png */,
 				07F230991BFF2E2100B0D8E0 /* redo@2x.png */,
@@ -1100,7 +1116,6 @@
 				07A577D21BFEF437009CE0FD /* NoteItemCell.m */,
 				07C3EBFA1BE89DEB00F3425C /* FileItemCell.h */,
 				07C3EBFB1BE89DEB00F3425C /* FileItemCell.m */,
-				07829B271C0C55D600F2CBC8 /* FileItemCell.xib */,
 				07829B1E1C0C4FBA00F2CBC8 /* CreateNoteView.h */,
 				07829B1F1C0C4FBA00F2CBC8 /* CreateNoteView.m */,
 				07829B231C0C4FD300F2CBC8 /* CreateNoteView.xib */,
@@ -1220,13 +1235,13 @@
 				07A577971BFC8AD7009CE0FD /* add_link.png in Resources */,
 				07C3EC901BE89EA600F3425C /* up_press@2x.png in Resources */,
 				07C3EC2E1BE89DEB00F3425C /* Keyboard@2x.png in Resources */,
-				07829B291C0C55D600F2CBC8 /* FileItemCell.xib in Resources */,
 				07A577941BFC8A2F009CE0FD /* add_image.png in Resources */,
 				0799BD9D1C045B7700AEAAFA /* sort_options@2x.png in Resources */,
 				07C3EC8B1BE89EA600F3425C /* down@2x.png in Resources */,
 				07C3EC8F1BE89EA600F3425C /* up@2x.png in Resources */,
 				07C3EC2C1BE89DEB00F3425C /* Help@2x.png in Resources */,
 				07C3EB261BE89B8300F3425C /* Images.xcassets in Resources */,
+				07AEDF4E1C279E9500D05D2C /* minus.png in Resources */,
 				07F2309C1BFF2E2100B0D8E0 /* undo@2x.png in Resources */,
 				07C3EC251BE89DEB00F3425C /* settings@2x.png in Resources */,
 				07C3EC2D1BE89DEB00F3425C /* Info@2x.png in Resources */,
@@ -1247,6 +1262,7 @@
 			files = (
 				0799BE521C06B20B00AEAAFA /* QNResponseInfo.m in Sources */,
 				0799BE591C06B20B00AEAAFA /* QNFormUpload.m in Sources */,
+				07F02A181C50D88700D5C5BE /* Object.m in Sources */,
 				0700B4D91BE8B81B00C3206D /* Item.m in Sources */,
 				07A7F1531BF49E2D00405A1F /* HighLightModel.m in Sources */,
 				07829B201C0C4FBA00F2CBC8 /* CreateNoteView.m in Sources */,
@@ -1276,6 +1292,7 @@
 				07C3EC921BE89EA600F3425C /* ZBCKeyButton.m in Sources */,
 				0799BE5C1C06B20B00AEAAFA /* QNUploadOption.m in Sources */,
 				07C3EC631BE89DEB00F3425C /* ZipArchive.mm in Sources */,
+				07F02A151C50BF3900D5C5BE /* SplitViewController.m in Sources */,
 				07C3EC141BE89DEB00F3425C /* TabBarController.m in Sources */,
 				07C3EC471BE89DEB00F3425C /* HTTPRedirectResponse.m in Sources */,
 				07C3EC481BE89DEB00F3425C /* WebSocket.m in Sources */,
@@ -1334,6 +1351,7 @@
 				07C3EC6C1BE89DEB00F3425C /* EditView.m in Sources */,
 				07A577581BFC2785009CE0FD /* buffer.c in Sources */,
 				0700B5181BE9B68100C3206D /* Utils.m in Sources */,
+				07F02A1B1C50D8E700D5C5BE /* Proxy.m in Sources */,
 				0799BED31C07006100AEAAFA /* FileSyncManager.m in Sources */,
 				0799BE571C06B20B00AEAAFA /* QNFileRecorder.m in Sources */,
 				07C3EC431BE89DEB00F3425C /* HTTPDataResponse.m in Sources */,
@@ -1493,6 +1511,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "zhubch.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -1522,6 +1541,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "zhubch.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

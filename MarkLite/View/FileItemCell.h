@@ -15,9 +15,13 @@
 @property (weak, nonatomic) IBOutlet UIImageView *typeIcon;
 @property (weak, nonatomic) IBOutlet UITextField *nameText;
 @property (weak, nonatomic) IBOutlet UIButton *addBtn;
+@property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
 
 @property (nonatomic,strong) Item *item;
 
-@property (nonatomic,copy) void(^newFileBlock)();
+@property (nonatomic,copy) void(^newFileBlock)(Item *i);
+@property (nonatomic,copy) void(^deleteFileBlock)(Item *i);
+
+@property (nonatomic,assign) BOOL edit;
 
 @end

@@ -68,7 +68,7 @@
         view = [CreateNoteView instance];
         view.didCreateNote = ^(Item *i){
             __self.fm.currentItem = i;
-            [__self performSegueWithIdentifier:@"code" sender:__self];
+            [__self performSegueWithIdentifier:@"edit" sender:__self];
         };
         view.vc = __self;
     }
@@ -244,7 +244,9 @@
 {
     Item *i = dataArray[indexPath.row];
     _fm.currentItem = i;
-    [self performSegueWithIdentifier:@"code" sender:self];
+    if (kIsPhone) {
+        [self performSegueWithIdentifier:@"edit" sender:self];
+    }
 }
 
 #pragma mark 3dTouch
@@ -258,7 +260,7 @@
     _fm.currentItem = cell.item;
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
-    EditViewController *vc = [sb instantiateViewControllerWithIdentifier:@"code"];
+    EditViewController *vc = [sb instantiateViewControllerWithIdentifier:@"edit"];
     vc.projectVc = self;
     return vc;
 }
@@ -266,6 +268,5 @@
 - (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
     [self showViewController:viewControllerToCommit sender:self];
 }
-
 
 @end

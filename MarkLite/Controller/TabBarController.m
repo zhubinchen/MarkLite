@@ -63,7 +63,7 @@ static TabBarController *tabVc = nil;
         _root = [NSKeyedUnarchiver unarchiveObjectWithFile:plistPath];
         fm.root = _root;
     }else if ([User currentUser].hasLogin) {
-        [self beginLoadingAnimation:@"正在同步..."];
+        beginLoadingAnimation(@"正在同步...");
         [[FileSyncManager sharedManager] rootFromServer:^(Item *item,int error) {
             if (item) {
                 _root = item;
@@ -77,11 +77,11 @@ static TabBarController *tabVc = nil;
                     _root = fm.root;
                     [_root archive];
                 }else{
-                    [self showToast:@"同步失败，请检查网络后重试"];
+                    showToast(@"同步失败，请检查网络后重试");
                 }
             }
             [self.viewControllers.firstObject reload];
-            [self stopLoadingAnimation];
+            stopLoadingAnimation();
         }];
     }else{
         FileManager *fm = [FileManager sharedManager];

@@ -27,12 +27,6 @@
     
     fm = [FileManager sharedManager];
     
-    if (!kIsPhone) {
-        _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, _size.width, _size.height)];
-        _webView.scalesPageToFit = NO;
-        [self setupNav];
-        [self.view addSubview:_webView];
-    }
     _webView.delegate = self;
 }
 
@@ -55,16 +49,6 @@
         NSLog(@"%@",finalHtml);
         [_webView loadHTMLString:finalHtml baseURL:[NSURL fileURLWithPath:path]];
     }
-}
-
-- (void)setupNav
-{
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor],NSFontAttributeName:[UIFont systemFontOfSize:18]}];
-    self.navigationController.navigationBar.translucent = NO;
-    UIImage *navBg = [UIImage imageWithColor:[UIColor colorWithRGBString:@"10eeee"] size:CGSizeMake(1000, 64)];
-    [self.navigationController.navigationBar setBackgroundImage:[navBg imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView

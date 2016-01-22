@@ -28,7 +28,7 @@
     
     NSMutableArray *dataArray;
     UIBarButtonItem *rightItem;
-    UIBarButtonItem *leftItem;
+    BOOL edit;
 }
 
 #pragma mark 生命周期
@@ -49,12 +49,15 @@
 
 - (NSArray*)rightItems
 {
-    rightItem = [[UIBarButtonItem alloc]initWithTitle:@"最近删除" style:UIBarButtonItemStylePlain target:self action:@selector(goToTrash)];
+    rightItem = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(edit)];
     return @[rightItem];
 }
 
-- (void)goToTrash
+- (void)edit
 {
+    edit = !edit;
+    rightItem.title = edit ? @"完成":@"编辑";
+    [self.fileListView reloadData];
 }
 
 
@@ -123,7 +126,6 @@
     [self.fileListView endUpdates];
 }
 
-
 - (void)addFileWithParent:(Item*)parent
 {
     int index = 0;
@@ -190,7 +192,7 @@
                 
                 if (i.type == FileTypeText) {
                     fm.currentItem = i;
-                    [self performSegueWithIdentifier:@"code" sender:self];
+                    [self performSegueWithIdentifier:@"edit" sender:self];
                 }
             }
         };
@@ -224,30 +226,6 @@
     return dataArray.count;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    Item *i = dataArray[indexPath.row];
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"确定要删除该文件？" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
-    alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
-        if (buttonIndex == 0) {
-            [i removeFromParent];
-            NSArray *children = [i itemsCanReach];
-            [dataArray removeObjectsInArray:children];
-            [dataArray removeObject:i];
-            NSMutableArray *indexPaths = [NSMutableArray array];
-            for (int i = 0; i < children.count +1; i++) {
-                NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row+i inSection:0];
-                [indexPaths addObject:index];
-            }
-            
-            [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
-            [fm deleteFile:i.path];
-        }
-        [alert releaseBlock];
-    };
-    [alert show];
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FileItemCell *cell = (FileItemCell*)[tableView dequeueReusableCellWithIdentifier:@"fileItemCell" forIndexPath:indexPath];
@@ -256,11 +234,33 @@
         [self registerForPreviewingWithDelegate:self sourceView:cell];
     }
     Item *item = dataArray[indexPath.row];
+    cell.edit = edit;
     cell.item = item;
-    cell.newFileBlock = ^(){
+    cell.newFileBlock = ^(Item *i){
         [self addFileWithParent:item];
     };
 
+    cell.deleteFileBlock = ^(Item *i){
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"确定要删除该文件？" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+        alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+            if (buttonIndex == 0) {
+                [item removeFromParent];
+                NSArray *children = [i itemsCanReach];
+                [dataArray removeObjectsInArray:children];
+                [dataArray removeObject:i];
+                NSMutableArray *indexPaths = [NSMutableArray array];
+                for (int i = 0; i < children.count +1; i++) {
+                    NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row+i inSection:0];
+                    [indexPaths addObject:index];
+                }
+                
+                [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
+                [fm deleteFile:i.path];
+            }
+            [alert releaseBlock];
+        };
+        [alert show];
+    };
     return cell;
 }
 
@@ -288,10 +288,12 @@
     
     fm.currentItem = i;
     
-    if (i.type == FileTypeImage) {
-        [self performSegueWithIdentifier:@"preview" sender:self];
-    }else {
-        [self performSegueWithIdentifier:@"code" sender:self];
+    if (kIsPhone) {
+        if (i.type == FileTypeImage) {
+            [self performSegueWithIdentifier:@"preview" sender:self];
+        }else {
+            [self performSegueWithIdentifier:@"edit" sender:self];
+        }
     }
 }
 
@@ -320,11 +322,6 @@
     return YES;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-
-}
-
 #pragma mark 3dTouch
 
 - (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location
@@ -339,7 +336,7 @@
     if (cell.item.type == FileTypeImage) {
         return [sb instantiateViewControllerWithIdentifier:@"preview"];
     }
-    EditViewController *vc = [sb instantiateViewControllerWithIdentifier:@"code"];
+    EditViewController *vc = [sb instantiateViewControllerWithIdentifier:@"edit"];
     vc.projectVc = self;
     return vc;
 }

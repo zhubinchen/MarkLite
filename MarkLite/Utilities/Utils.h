@@ -19,34 +19,6 @@
 
 #define SYSTEM_VERSION   [[UIDevice currentDevice].systemVersion floatValue]
 
-
-/**
- *  创建目录，存在就不创建
- */
-static inline BOOL createDirectory(NSString *path){
-    BOOL isDir = NO;
-
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    BOOL existed = [fileManager fileExistsAtPath:path isDirectory:&isDir];
-    if (!(isDir ==YES && existed ==YES)) {
-        return [fileManager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-    
-    return YES;
-}
-
-static inline NSString* voicePath(NSString *name){
-    NSString *docPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSString *voiceDirPath = [docPath stringByAppendingPathComponent:@"voice"];
-    return [voiceDirPath stringByAppendingPathComponent:name];
-}
-
-static inline NSString* imagePath(NSString *name){
-    NSString *docPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSString *imageDirPath = [docPath stringByAppendingPathComponent:@"image"];
-    return [imageDirPath stringByAppendingPathComponent:name];
-}
-
 @interface NSObject (Utils)
 
 @end
@@ -71,8 +43,6 @@ static inline NSString* imagePath(NSString *name){
 
 @property (nonatomic,readonly) BOOL isValidPassword;
 
-@property (nonatomic,readonly) BOOL isValidZipCode;
-
 @property (nonatomic,readonly) NSString *md5Hash;
 
 @property (nonatomic,readonly) NSString *urlEncodeString;
@@ -85,16 +55,6 @@ static inline NSString* imagePath(NSString *name){
 + (instancetype)uniqueString;
 
 /**
- *  数据库字段名转成属性名
- */
-- (NSString*)convertFromUpCase;
-
-/**
- *  属性名转数据库字段名
- */
-- (NSString*)convertFromLowCase;
-
-/**
  *  获取显示这个字符串所需size
  *
  *  @param font    显示的字体
@@ -103,17 +63,6 @@ static inline NSString* imagePath(NSString *name){
  *  @return 所需size
  */
 - (CGSize)sizeWithFont:(UIFont *)font maxSize:(CGSize)maxSize;
-
-/**
- *  @author zhipeng, 15-09-16 22:09:53
- *
- *  是否是int
- *
- *  @param string <#string description#>
- *
- *  @return <#return value description#>
- */
-- (BOOL)isPureInt;
 
 /**
  *  当前时间
@@ -176,8 +125,6 @@ static inline NSString* imagePath(NSString *name){
  *  边框半径。支持可视化修改
  */
 @property (nonatomic,assign) IBInspectable CGFloat borderRadius;
-
-//@property (nonatomic,strong) IBInspectable NSString *backgroundRGB;
 
 - (UIImage*)snapInRect:(CGRect)rect;
 
@@ -273,27 +220,6 @@ static inline NSString* imagePath(NSString *name){
 
 @end
 
-@interface UIViewController (Utils)
-
-/**
- *  显示一个android风格的toast
- *
- *  @param message 显示的内容
- */
-- (void)showToast:(NSString*)message;
-
-/**
- *  显示一个简单的活动指示器
- */
-- (void)beginLoadingAnimation:(NSString*)message;
-
-/**
- *  隐藏活动指示器
- */
-- (void)stopLoadingAnimation;
-
-@end
-
 @interface UIAlertView (Utils)
 
 /**
@@ -302,7 +228,7 @@ static inline NSString* imagePath(NSString *name){
 @property (nonatomic) void(^clickedButton)(NSInteger,UIAlertView*);
 
 /**
- *  然而这个block并不会被自动释放，所以你需要这个方法
+ *  然而这个block并不会被自动释放
  */
 - (void)releaseBlock;
 
@@ -313,6 +239,104 @@ static inline NSString* imagePath(NSString *name){
 @property (nonatomic,assign) IBInspectable NSUInteger maxLength;
 
 @end
+
+/**
+ *  创建目录，存在就不创建
+ */
+static inline BOOL createDirectory(NSString *path){
+    BOOL isDir = NO;
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL existed = [fileManager fileExistsAtPath:path isDirectory:&isDir];
+    if (!(isDir ==YES && existed ==YES)) {
+        return [fileManager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
+    return YES;
+}
+
+static inline void showToast(NSString *message){
+    
+    UIWindow *window=[[[UIApplication sharedApplication] delegate] window];
+    
+    UIView *oldView = [window viewWithTag:52684653];
+    
+    [oldView removeFromSuperview];
+    
+    if (message.length < 1) {
+        return;
+    }
+    CGSize  size = [message sizeWithFont:[UIFont systemFontOfSize:14] maxSize:CGSizeMake(kScreenWidth - 20, 40)];
+    CGFloat w = size.width + 20;
+    CGFloat h = size.height + 10;
+    
+    UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake((kScreenWidth - w) * 0.5,kScreenHeight - 60 - h, w, h)];
+    l.numberOfLines = 0;
+    l.text = message;
+    l.textColor = [UIColor whiteColor];
+    l.backgroundColor = [UIColor darkGrayColor];
+    l.font = [UIFont systemFontOfSize:14];
+    l.textAlignment = NSTextAlignmentCenter;
+    l.tag = 52684653;
+    [l makeRound:5];
+    l.alpha = 0.5;
+    
+    [window addSubview:l];
+    
+    [UIView animateWithDuration:0.15 animations:^{
+        l.alpha = 1.0;
+    } completion:^(BOOL finished) {
+        if (finished) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [UIView animateWithDuration:0.5 animations:^{
+                    l.alpha = 0.0;
+                } completion:^(BOOL finished) {
+                    [l removeFromSuperview];
+                }];
+            });
+        }
+    }];
+}
+
+static inline void beginLoadingAnimation(NSString *message){
+    UIWindow *window=[UIApplication sharedApplication].keyWindow;
+    
+    UIView *oldView = [window viewWithTag:52684654];
+    if (oldView) {
+        [oldView removeFromSuperview];
+    }
+    
+    UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 80, 80)];
+    v.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.8];
+    [v makeRound:5];
+    
+    UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    activity.center = CGPointMake(40, 30);
+    [activity startAnimating];
+    [v addSubview:activity];
+    
+    UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(0, 55, 86, 20)];
+    l.textAlignment = NSTextAlignmentCenter;
+    l.textColor = [UIColor whiteColor];
+    l.font = [UIFont systemFontOfSize:12];
+    l.text = message;
+    [v addSubview:l];
+    
+    UIView *bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    bg.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.1];
+    bg.tag = 52684654;
+    v.center = bg.center;
+    [bg addSubview:v];
+    
+    [window addSubview:bg];
+}
+
+static inline void stopLoadingAnimation(){
+    UIWindow *window=[UIApplication sharedApplication].keyWindow;
+    
+    UIView *v = [window viewWithTag:52684654];
+    [v removeFromSuperview];
+}
 
 //@interface UITextView(Utils)
 //

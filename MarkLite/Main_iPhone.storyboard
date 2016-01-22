@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="xIz-R9-HHY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="xIz-R9-HHY">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
@@ -473,7 +473,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="noteListView" destination="4Di-yM-3uD" id="Nee-cM-iAu"/>
-                        <segue destination="VQd-1Y-qDA" kind="show" identifier="code" id="F5f-nG-XfB"/>
+                        <segue destination="VQd-1Y-qDA" kind="show" identifier="edit" id="F5f-nG-XfB"/>
                         <segue destination="rmd-nM-PLW" kind="show" identifier="preview" id="jkb-0q-YIz"/>
                     </connections>
                 </viewController>
@@ -545,7 +545,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MOW-Yg-okJ">
-                                                    <rect key="frame" x="342" y="9" width="25" height="25"/>
+                                                    <rect key="frame" x="310" y="9" width="25" height="25"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="Xak-4k-b2v"/>
@@ -566,7 +566,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="index.html" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ONN-eg-Gyi">
-                                                    <rect key="frame" x="37" y="7" width="305" height="30"/>
+                                                    <rect key="frame" x="37" y="7" width="273" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="xla-qg-uI4"/>
                                                     </constraints>
@@ -576,20 +576,37 @@
                                                         <outlet property="delegate" destination="tCS-w1-8ee" id="FbK-Ul-cOf"/>
                                                     </connections>
                                                 </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gE-h0-c1F">
+                                                    <rect key="frame" x="342" y="9" width="25" height="25"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="25" id="Qq7-pt-tgZ"/>
+                                                        <constraint firstAttribute="width" constant="25" id="nYo-Sh-SdO"/>
+                                                    </constraints>
+                                                    <state key="normal" image="minus.png">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="deleteBtnClicked:" destination="tCS-w1-8ee" eventType="touchUpInside" id="hio-uu-aqr"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="8gE-h0-c1F" secondAttribute="trailing" constant="8" id="1tW-aY-vRz"/>
                                                 <constraint firstAttribute="centerY" secondItem="MOW-Yg-okJ" secondAttribute="centerY" id="2Ex-42-9RY"/>
                                                 <constraint firstItem="3ml-EC-gBw" firstAttribute="leading" secondItem="NR1-AU-vhm" secondAttribute="leading" constant="8" id="IMp-SU-s1C"/>
                                                 <constraint firstAttribute="centerY" secondItem="3ml-EC-gBw" secondAttribute="centerY" id="QWD-dG-7d2"/>
                                                 <constraint firstItem="MOW-Yg-okJ" firstAttribute="leading" secondItem="ONN-eg-Gyi" secondAttribute="trailing" id="anZ-AI-c9Y"/>
-                                                <constraint firstAttribute="trailing" secondItem="MOW-Yg-okJ" secondAttribute="trailing" constant="8" id="rdO-hk-sX7"/>
+                                                <constraint firstItem="8gE-h0-c1F" firstAttribute="centerY" secondItem="NR1-AU-vhm" secondAttribute="centerY" id="pgC-Wl-NVg"/>
+                                                <constraint firstAttribute="trailing" secondItem="MOW-Yg-okJ" secondAttribute="trailing" constant="40" id="rdO-hk-sX7"/>
                                                 <constraint firstItem="ONN-eg-Gyi" firstAttribute="leading" secondItem="3ml-EC-gBw" secondAttribute="trailing" constant="5" id="vb0-u8-dIt"/>
                                                 <constraint firstAttribute="centerY" secondItem="ONN-eg-Gyi" secondAttribute="centerY" id="zuu-Vn-NPU"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="addBtn" destination="MOW-Yg-okJ" id="mCr-vw-Ugc"/>
+                                            <outlet property="deleteBtn" destination="8gE-h0-c1F" id="Avo-lk-mf4"/>
                                             <outlet property="iconSpace" destination="IMp-SU-s1C" id="s6S-d9-WId"/>
                                             <outlet property="nameText" destination="ONN-eg-Gyi" id="rcP-FA-7l0"/>
                                             <outlet property="typeIcon" destination="3ml-EC-gBw" id="Lou-RQ-vJq"/>
@@ -620,7 +637,7 @@
                     <connections>
                         <outlet property="fileListView" destination="CTd-xk-UGY" id="067-7n-sSl"/>
                         <outlet property="searchBar" destination="hgt-J9-INt" id="Bwy-gj-DQa"/>
-                        <segue destination="VQd-1Y-qDA" kind="show" identifier="code" id="n2c-A2-qau"/>
+                        <segue destination="VQd-1Y-qDA" kind="show" identifier="edit" id="n2c-A2-qau"/>
                         <segue destination="rmd-nM-PLW" kind="show" identifier="preview" id="GZ3-Ny-S2m"/>
                     </connections>
                 </viewController>
@@ -757,13 +774,14 @@
     <resources>
         <image name="file.png" width="25" height="25"/>
         <image name="folder.png" width="100" height="100"/>
+        <image name="minus.png" width="50" height="50"/>
         <image name="note.png" width="25" height="25"/>
         <image name="plus.png" width="100" height="100"/>
         <image name="settings.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sYP-wm-wiR"/>
+        <segue reference="Ow3-lL-ZNM"/>
         <segue reference="F5f-nG-XfB"/>
-        <segue reference="jkb-0q-YIz"/>
+        <segue reference="Dvd-JL-udn"/>
     </inferredMetricsTieBreakers>
 </document>

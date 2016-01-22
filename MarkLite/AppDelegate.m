@@ -10,6 +10,8 @@
 #import "Configure.h"
 #import "TabBarController.h"
 #import "FileManager.h"
+#import "Object.h"
+#import "Proxy.h"
 
 @interface AppDelegate ()
 
@@ -19,9 +21,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    if (launchOptions[UIApplicationLaunchOptionsShortcutItemKey]) {
-        return false;
-    }
+//    if (launchOptions[UIApplicationLaunchOptionsShortcutItemKey]) {
+//        return false;
+//    }
+
     return YES;
 }
 

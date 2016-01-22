@@ -21,7 +21,8 @@
         begin -= 24;
     }
     _iconSpace.constant = begin;
-    _addBtn.hidden = item.type != FileTypeFolder;
+    _addBtn.hidden = !(_edit && item.type == FileTypeFolder);
+    _deleteBtn.hidden = !_edit;
     _typeIcon.hidden = item.type != FileTypeFolder;
     
     if (item.open) {
@@ -36,7 +37,11 @@
 }
 
 - (IBAction)addBtnClicked:(id)sender {
-    self.newFileBlock();
+    self.newFileBlock(_item);
+}
+
+- (IBAction)deleteBtnClicked:(id)sender {
+    self.deleteFileBlock(_item);
 }
 
 - (void)awakeFromNib

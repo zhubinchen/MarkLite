@@ -93,7 +93,7 @@ void hoedown_patch_render_listitem(
             offset = 3;
 
         // Do task list checkbox ([x] or [ ]).
-        if (USE_TASK_LIST(state) && text->size >= 3)
+        if (text->size >= 3)
         {
             if (strncmp((char *)(text->data + offset), "[ ]", 3) == 0)
             {

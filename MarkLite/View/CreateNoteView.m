@@ -78,15 +78,15 @@
 
 - (IBAction)create:(id)sender {
     if (_nameText.text.length==0) {
-        [_vc showToast:@"请输入标题"];
+        showToast(@"请输入标题");
         return;
     }
     if ([_nameText.text containsString:@"."] | [_nameText.text containsString:@"/"] | [_nameText.text containsString:@"*"]) {
-        [_vc showToast:@"请不要输入'./*'等特殊字符"];
+        showToast(@"请不要输入'./*'等特殊字符");
         return ;
     }
     if (selecteItem == nil) {
-        [_vc showToast:@"请选择父目录"];
+        showToast(@"请选择父目录");
         return ;
     }
     [self remove];

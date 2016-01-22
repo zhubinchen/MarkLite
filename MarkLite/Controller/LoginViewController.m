@@ -32,7 +32,7 @@
 
 - (IBAction)login:(id)sender
 {
-    [self beginLoadingAnimation:@"正在登录..."];
+    beginLoadingAnimation(@"正在登录...");
     User *user = [User currentUser];
     user.account = _nameField.text;
     user.password = _pswdField.text;
@@ -47,12 +47,12 @@
             [user archive];
             [self performSegueWithIdentifier:@"main" sender:self];
         }else{
-            [self showToast:@"请检查账号和密码是否正确"];
+            showToast(@"请检查账号和密码是否正确");
         }
-        [self stopLoadingAnimation];
+        stopLoadingAnimation();
     } Failed:^(ErrorCode code) {
-        [self stopLoadingAnimation];
-        [self showToast:@"网络异常"];
+        stopLoadingAnimation();
+        showToast(@"网络异常");
     }];
 }
 

@@ -16,7 +16,6 @@
 
 - (NSDictionary *)toDictionay
 {
-//    NSString *s = [[NSString alloc]initWithData:self encoding:NSUTF8StringEncoding];
     NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:self options:0 error:nil];
     return dic;
 }
@@ -39,13 +38,12 @@
 
 - (BOOL)isValidPassword
 {
-    return YES;
-//    if (self.length == 0) {
-//        return NO;
-//    }
-//    NSRegularExpression *exp = [NSRegularExpression regularExpressionWithPattern:@"^([a-z]+(?=[0-9])|[0-9]+(?=[a-z]))[a-z0-9]+$" options:NSRegularExpressionCaseInsensitive error:nil];
-//    NSRange matchedRange = [exp rangeOfFirstMatchInString:self options:NSMatchingAnchored range:NSMakeRange(0, self.length)];
-//    return matchedRange.length == self.length;
+    if (self.length == 0) {
+        return NO;
+    }
+    NSRegularExpression *exp = [NSRegularExpression regularExpressionWithPattern:@"^([a-z]+(?=[0-9])|[0-9]+(?=[a-z]))[a-z0-9]+$" options:NSRegularExpressionCaseInsensitive error:nil];
+    NSRange matchedRange = [exp rangeOfFirstMatchInString:self options:NSMatchingAnchored range:NSMakeRange(0, self.length)];
+    return matchedRange.length == self.length;
 }
 
 - (NSAttributedString *)stringWithMiddleLine
@@ -75,17 +73,6 @@
     return matchedRange.length == self.length;
 }
 
-
-- (BOOL)isValidZipCode
-{
-    if (self.length == 0) {
-        return NO;
-    }
-    NSRegularExpression *exp = [NSRegularExpression regularExpressionWithPattern:@"^[1-9][0-9]{5}$" options:NSRegularExpressionCaseInsensitive error:nil];
-    NSRange matchedRange = [exp rangeOfFirstMatchInString:self options:NSMatchingAnchored range:NSMakeRange(0, self.length)];
-    return matchedRange.length == self.length;
-}
-
 - (NSString *)md5Hash
 {
     const char *cStr = [self UTF8String];
@@ -97,70 +84,6 @@
             result[4], result[5], result[6], result[7],
             result[8], result[9], result[10], result[11],
             result[12], result[13], result[14], result[15]];
-}
-
-- (NSString *)convertFromLowCase
-{
-    const char * srcChar = [self cStringUsingEncoding:NSUTF8StringEncoding];
-
-    char *destChar = malloc(strlen(srcChar) * sizeof(char) * 2);
-
-    int n = 0;
-    for (int i = 0; i < self.length; i++) {
-        if (srcChar[i] <= 90 && srcChar[i] >= 65) {
-            destChar[n] = '_';
-            destChar[n+1] = srcChar[i];
-            n += 2;
-        } else if(srcChar[i] >= 97 && srcChar[i] <= 122) {
-            destChar[n] = srcChar[i] - 32;
-            n++;
-        }else {
-            destChar[n] = srcChar[i];
-            n++;
-        }
-
-    }
-    
-    destChar[n] = '\0';
-    NSString *destStr = [[NSString alloc]initWithUTF8String:destChar];
-    free(destChar);
-    
-    return destStr;
-}
-
-- (NSString *)convertFromUpCase
-{
-    const char *srcChar = [self cStringUsingEncoding:NSUTF8StringEncoding];
-    char *destChar = malloc(strlen(srcChar) * sizeof(char));
-    BOOL newWord = NO;
-    int n = 0;
-    for (int i = 0; i < self.length; i++) {
-        if (srcChar[i] == '_') {
-            newWord = YES;
-            continue;
-        }
-        if (srcChar[i] < 65) {
-            destChar[n] = srcChar[i];
-            n++;
-        }else{
-            destChar[n] = newWord ? srcChar[i] : srcChar[i] + 32;
-            n++;
-        }
-        newWord = NO;
-    }
-    
-    destChar[n] = '\0';
-    NSString *destStr = [[NSString alloc]initWithUTF8String:destChar];
-    free(destChar);
-    free((void*)srcChar);
-    return destStr;
-}
-
-- (BOOL)isPureInt
-{
-    NSScanner* scan = [NSScanner scannerWithString:self];
-    int val;
-    return[scan scanInt:&val] && [scan isAtEnd];
 }
 
 + (NSString *)stringWithCurrentTime
@@ -250,12 +173,6 @@
 @dynamic borderColor;
 @dynamic borderRadius;
 @dynamic borderWidth;
-//@dynamic backgroundRGB;
-//
-//- (void)setBackgroundRGB:(NSString *)backgroundRGB
-//{
-//    self.backgroundColor = [UIColor colorWithRGBString:backgroundRGB];
-//}
 
 - (UIImage *)snap
 {
@@ -493,96 +410,6 @@
 
 @end
 
-@implementation UIViewController (Utils)
-
-- (void)showToast:(NSString *)message
-{
-    UIWindow *window=[[[UIApplication sharedApplication] delegate] window];
-
-    UIView *oldView = [self.view viewWithTag:52684653];
-
-    [oldView removeFromSuperview];
-
-    if (message.length < 1) {
-        return;
-    }
-    CGSize  size = [message sizeWithFont:[UIFont systemFontOfSize:14] maxSize:CGSizeMake(kScreenWidth - 20, 40)];
-    CGFloat w = size.width + 20;
-    CGFloat h = size.height + 10;
-
-    UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake((kScreenWidth - w) * 0.5,kScreenHeight - 60 - h, w, h)];
-    l.numberOfLines = 0;
-    l.text = message;
-    l.textColor = [UIColor whiteColor];
-    l.backgroundColor = [UIColor darkGrayColor];
-    l.font = [UIFont systemFontOfSize:14];
-    l.textAlignment = NSTextAlignmentCenter;
-    l.tag = 52684653;
-    [l makeRound:5];
-    l.alpha = 0.5;
-    
-    [window addSubview:l];
-    
-    [UIView animateWithDuration:0.15 animations:^{
-        l.alpha = 1.0;
-    } completion:^(BOOL finished) {
-        if (finished) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [UIView animateWithDuration:0.5 animations:^{
-                    l.alpha = 0.0;
-                } completion:^(BOOL finished) {
-                    [l removeFromSuperview];
-                }];
-            });
-        }
-    }];
-}
-
-- (void)beginLoadingAnimation:(NSString*)message
-{
-    UIWindow *window=[UIApplication sharedApplication].keyWindow;
-
-    UIView *oldView = [window viewWithTag:52684654];
-    if (oldView) {
-        [oldView removeFromSuperview];
-    }
-    
-    UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 80, 80)];
-    v.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.8];
-    [v makeRound:5];
-    
-    UIActivityIndicatorView *activity = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    activity.center = CGPointMake(40, 30);
-    [activity startAnimating];
-    [v addSubview:activity];
-    
-    UILabel *l = [[UILabel alloc]initWithFrame:CGRectMake(0, 55, 86, 20)];
-    l.textAlignment = NSTextAlignmentCenter;
-    l.textColor = [UIColor whiteColor];
-    l.font = [UIFont systemFontOfSize:12];
-    l.text = message;
-    [v addSubview:l];
-    
-    UIView *bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-    bg.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.1];
-    bg.tag = 52684654;
-    
-    v.center = bg.center;
-    [bg addSubview:v];
-
-    [window addSubview:bg];
-}
-
-- (void)stopLoadingAnimation
-{
-    UIWindow *window=[UIApplication sharedApplication].keyWindow;
-
-    UIView *v = [window viewWithTag:52684654];
-    [v removeFromSuperview];
-}
-
-@end
-
 static void (^block)(NSInteger,UIAlertView*) = nil;
 
 @implementation UIAlertView (Utils)
@@ -604,7 +431,7 @@ static void (^block)(NSInteger,UIAlertView*) = nil;
 
 - (void)releaseBlock
 {
-//    Block_release(block); 
+//    Block_release(block);
     block = nil;
 }
 

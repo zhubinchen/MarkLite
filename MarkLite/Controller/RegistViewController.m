@@ -25,7 +25,7 @@
 
 - (IBAction)regist:(id)sender
 {
-    [self beginLoadingAnimation:@"正在注册..."];
+    beginLoadingAnimation(@"正在注册...");
     User *user = [User currentUser];
     user.account = _nameField.text;
     user.password = _pswdField.text;
@@ -40,12 +40,12 @@
             [user archive];
             [self performSegueWithIdentifier:@"main" sender:self];
         }else{
-            [self showToast:@"注册失败"];
+            showToast(@"注册失败");
         }
-        [self stopLoadingAnimation];
+        stopLoadingAnimation();
     } Failed:^(ErrorCode code) {
-        [self stopLoadingAnimation];
-        [self showToast:@"网络异常"];
+        stopLoadingAnimation();
+        showToast(@"网络异常");
     }];
 }
 
