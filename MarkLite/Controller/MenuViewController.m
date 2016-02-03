@@ -29,10 +29,10 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     
     items = @[@[@"字体",@"键盘"],@[@"常见问题",@"意见反馈"],@[@"给我打分",@"推荐给好友"],@[@"关于"]];
-    imgNames = @[@[@"Font",@"Keyboard"],@[@"Help",@"FeedBack"],@[@"Star",@"Share"],@[@"Info"]];}
+    imgNames = @[@[@"Font",@"Keyboard"],@[@"Help",@"FeedBack"],@[@"Star",@"Share"],@[@"Info"]];
+}
 
-- (void)back
-{
+- (void)back {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -61,10 +61,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (kIsPhone) {
-        return 20;
-    }
-    return 25;
+    return kIsPhone ? 20 :25;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section

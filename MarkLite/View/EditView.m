@@ -58,8 +58,7 @@
                                           NSForegroundColorAttributeName : [UIColor darkGrayColor]
                                           } range:NSMakeRange(0, attributedString.length)];
         for (MarkdownSyntaxModel *model in models) {
-            [attributedString addAttributes:AttributesFromMarkdownSyntaxType(
-                                                                             model.type) range:model.range];
+            [attributedString addAttributes:AttributesFromMarkdownSyntaxType(model.type) range:model.range];
         }
         dispatch_async(dispatch_get_main_queue(), ^{
             [self updateAttributedText:attributedString];

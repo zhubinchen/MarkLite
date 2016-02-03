@@ -10,8 +10,6 @@
 #import "Configure.h"
 #import "TabBarController.h"
 #import "FileManager.h"
-#import "Object.h"
-#import "Proxy.h"
 
 @interface AppDelegate ()
 

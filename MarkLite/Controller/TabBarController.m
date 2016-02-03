@@ -40,9 +40,8 @@ static TabBarController *tabVc = nil;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.navigationItem.hidesBackButton = YES;
-    [[UITabBar appearance] setTintColor:kThemeColor];
+    [[UITabBar appearance] setTintColor:[UIColor redColor]];
     
     tabVc = self;
 

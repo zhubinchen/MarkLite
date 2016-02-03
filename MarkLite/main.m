@@ -2,8 +2,8 @@
 //  main.m
 //  MarkLite
 //
-//  Created by zhubch on 11/3/15.
-//  Copyright (c) 2015 zhubch. All rights reserved.
+//  Created by zhubch on 2/3/16.
+//  Copyright © 2016 zhubch. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

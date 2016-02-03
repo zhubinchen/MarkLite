@@ -26,13 +26,21 @@
     [super viewDidLoad];
     
     fm = [FileManager sharedManager];
-    
+    if (kIsPhone) {
+        [self loadFile];
+    } else {
+        [fm addObserver:self forKeyPath:@"currentItem" options:NSKeyValueObservingOptionNew context:NULL];
+    }
     _webView.delegate = self;
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
-    [super viewWillAppear:animated];
+    [self loadFile];
+}
+
+- (void)loadFile
+{
     NSString *path = [fm fullPathForPath:[fm currentItem].path];
     NSArray *arr = [path componentsSeparatedByString:@"."];
     NSString *ex = arr.lastObject;
@@ -51,6 +59,7 @@
     }
 }
 
+
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
     NSLog(@"zzz");
@@ -59,6 +68,11 @@
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
     NSLog(@"xxx");
+}
+
+- (void)dealloc
+{
+    [fm removeObserver:self forKeyPath:@"currentItem" context:NULL];
 }
 
 @end
