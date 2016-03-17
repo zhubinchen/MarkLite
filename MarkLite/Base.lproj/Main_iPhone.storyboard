@@ -285,7 +285,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="510"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="noteItemCell" rowHeight="80" id="9O4-0I-Kch" customClass="NoteItemCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="noteItemCell" rowHeight="80" id="9O4-0I-Kch" customClass="NoteItemCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9O4-0I-Kch" id="2QA-5b-Z0P">
@@ -704,7 +704,7 @@
         <image name="settings.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GZ3-Ny-S2m"/>
+        <segue reference="jkb-0q-YIz"/>
         <segue reference="Dvd-JL-udn"/>
         <segue reference="F5f-nG-XfB"/>
     </inferredMetricsTieBreakers>

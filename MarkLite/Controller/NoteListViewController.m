@@ -39,6 +39,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self reload];
+    _fm.currentItem = dataArray.firstObject;
 }
 
 - (void)reload
