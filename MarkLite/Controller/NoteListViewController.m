@@ -105,6 +105,7 @@
         control = [[UIControl alloc]initWithFrame:self.view.bounds];
         control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
         [control addSubview:optionsView];
+    
         [control addTarget:self action:@selector(choosedOption:) forControlEvents:UIControlEventTouchUpInside];
 
         imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"check"]];
@@ -201,8 +202,9 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Item *i = dataArray[indexPath.row];
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"定要删除该文件？" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
-    alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+    
+    ActionSheet *sheet = [[ActionSheet alloc]initWithTitle:@"删除后不和恢复，确定要删除吗？" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles: nil];
+    sheet.clickedButton = ^(NSInteger buttonIndex,ActionSheet *alert){
         if (buttonIndex == 0) {
             [i removeFromParent];
             NSArray *children = [i itemsCanReach];
@@ -217,9 +219,8 @@
             [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
             [_fm deleteFile:i.path];
         }
-        [alert releaseBlock];
     };
-    [alert show];
+    [sheet showInView:self.view];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -231,7 +232,7 @@
     }
     Item *item = dataArray[indexPath.row];
     cell.item = item;
-    
+
     return cell;
 }
 
@@ -244,7 +245,7 @@
 {
     Item *i = dataArray[indexPath.row];
     _fm.currentItem = i;
-    if (kIsPhone) {
+    if (kDevicePhone) {
         [self performSegueWithIdentifier:@"edit" sender:self];
     }
 }

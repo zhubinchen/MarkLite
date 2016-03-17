@@ -169,9 +169,9 @@
         [alert addAction:cancelAction];
         [self presentViewController:alert animated:YES completion:nil];
     }else{
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"新建文件或文件夹" message:@"如果创建文件应输入文件扩展名（如 readme.md）" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        AlertView *alert = [[AlertView alloc]initWithTitle:@"新建文件或文件夹" message:@"如果创建文件应输入文件扩展名（如 readme.md）" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-        alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+        alert.clickedButton = ^(NSInteger buttonIndex,AlertView *alert){
             if (buttonIndex == 1) {
                 [[alert textFieldAtIndex:0] resignFirstResponder];
                 NSString *name = [alert textFieldAtIndex:0].text;
@@ -236,13 +236,22 @@
     Item *item = dataArray[indexPath.row];
     cell.edit = edit;
     cell.item = item;
+    cell.nameText.enabled = edit;
     cell.newFileBlock = ^(Item *i){
         [self addFileWithParent:item];
     };
+    
+    cell.renameFileBlock = ^(Item *i,NSString *newName){
+        NSString *oldPath = i.path;
+        NSString *newPath = [[i.parent.path stringByAppendingPathComponent:newName] stringByAppendingPathExtension:i.extention];
+        [fm moveFile:oldPath toNewPath:newPath];
+        
+        i.path = newPath;
+    };
 
     cell.deleteFileBlock = ^(Item *i){
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"确定要删除该文件？" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
-        alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+        ActionSheet *sheet = [[ActionSheet alloc]initWithTitle:@"删除后不和恢复，确定要删除吗？" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles: nil];
+        sheet.clickedButton = ^(NSInteger buttonIndex,ActionSheet *alert){
             if (buttonIndex == 0) {
                 [item removeFromParent];
                 NSArray *children = [i itemsCanReach];
@@ -257,9 +266,8 @@
                 [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
                 [fm deleteFile:i.path];
             }
-            [alert releaseBlock];
         };
-        [alert show];
+        [sheet showInView:self.view];
     };
     return cell;
 }
@@ -288,9 +296,8 @@
     
     fm.currentItem = i;
     
-    if (kIsPhone) {
+    if (kDevicePhone) {
         if (i.type == FileTypeImage) {
-            [self performSegueWithIdentifier:@"preview" sender:self];
         }else {
             [self performSegueWithIdentifier:@"edit" sender:self];
         }

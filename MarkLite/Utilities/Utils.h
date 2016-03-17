@@ -1,6 +1,6 @@
 //
 //  Utils.h
-//  GolfPKiOS
+//  Utils
 //
 //  Created by zhubch on 15/7/28.
 //  Copyright (c) 2015年 Robusoft. All rights reserved.
@@ -11,11 +11,14 @@
 #import <objc/runtime.h>
 
 #define kScreenHeight ([UIScreen mainScreen].bounds.size.height)
+
 #define kScreenWidth ([UIScreen mainScreen].bounds.size.width)
 
-#define kIsSimulator [[UIDevice currentDevice].model hasSuffix:@"Simulator"]
+#define kDeviceSimulator [[UIDevice currentDevice].model hasSuffix:@"Simulator"]
 
-#define kIsPhone ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+#define kDevicePhone ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone)
+
+#define kDevicePad   ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
 
 #define SYSTEM_VERSION   [[UIDevice currentDevice].systemVersion floatValue]
 
@@ -161,22 +164,20 @@
 /**
  *  保持比例缩放到不超过最大尺寸，如果图片大小本来就小于最大尺寸则不缩放
  *
- *  @param image 要缩放的image
  *  @param size  指定最大不超过的尺寸
  *
  *  @return return 缩放后的图片
  */
-+ (UIImage *)imageWithImage:(UIImage *)image scaledWithMaxSize:(CGSize)size;
+- (UIImage *)scaleWithMaxSize:(CGSize)size;
 
 /**
  *  不保持比例缩放到指定大小
  *
- *  @param image 要缩放的image
  *  @param size  指定尺寸
  *
  *  @return return 缩放后的图片
  */
-+ (UIImage*)imageWithImage:(UIImage*)image scaledToSize:(CGSize)newSize;
+- (UIImage *)scaleToSize:(CGSize)newSize;
 
 /**
  *  根据颜色生成指定大小的image
@@ -214,23 +215,27 @@
  */
 + (instancetype)colorWithRGBString:(NSString *)hexStr;
 
-+ (UIColor *)colorWithRGBString:(NSString *)hexStr alpha:(CGFloat)alpha;
++ (instancetype)colorWithRGBString:(NSString *)hexStr alpha:(CGFloat)alpha;
 
 + (instancetype)colorWithImage:(UIImage *)image fillSize:(CGSize)size;
 
 @end
 
-@interface UIAlertView (Utils)
+/**
+ *  支持block回调的AlertView
+ */
+@interface AlertView:UIAlertView
+
+@property (nonatomic,strong) void(^clickedButton)(NSInteger,AlertView*);
+
+@end
 
 /**
- *  代替delegate
+ *  支持block回调的ActionSheet
  */
-@property (nonatomic) void(^clickedButton)(NSInteger,UIAlertView*);
+@interface ActionSheet:UIActionSheet <UIActionSheetDelegate>
 
-/**
- *  然而这个block并不会被自动释放
- */
-- (void)releaseBlock;
+@property (nonatomic,strong) void(^clickedButton)(NSInteger,ActionSheet*);
 
 @end
 

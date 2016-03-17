@@ -26,7 +26,7 @@
     [super viewDidLoad];
     
     fm = [FileManager sharedManager];
-    if (kIsPhone) {
+    if (kDevicePhone) {
         [self loadFile];
     } else {
         [fm addObserver:self forKeyPath:@"currentItem" options:NSKeyValueObservingOptionNew context:NULL];
@@ -72,7 +72,9 @@
 
 - (void)dealloc
 {
-    [fm removeObserver:self forKeyPath:@"currentItem" context:NULL];
+    if (kDevicePad) {
+        [fm removeObserver:self forKeyPath:@"currentItem" context:NULL];
+    }
 }
 
 @end

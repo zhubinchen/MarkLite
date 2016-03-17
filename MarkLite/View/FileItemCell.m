@@ -31,9 +31,20 @@
         _typeIcon.image = [UIImage imageNamed:@"folder"];
     }
     
-    self.nameText.text = [item.path componentsSeparatedByString:@"/"].lastObject;
-    
+    self.nameText.text = _edit ? item.name : [item.path componentsSeparatedByString:@"/"].lastObject;
     line.frame = CGRectMake(item.deep * 30 - 22 , 39.5, kScreenWidth - item.deep * 30 + 22, 0.5);
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    if ([textField.text containsString:@"."] | [textField.text containsString:@"/"] | [textField.text containsString:@"*"]) {
+        showToast(@"请不要输入'./*'等特殊字符");
+        return NO;
+    }
+    
+    self.renameFileBlock(_item,textField.text);
+    return YES;
 }
 
 - (IBAction)addBtnClicked:(id)sender {

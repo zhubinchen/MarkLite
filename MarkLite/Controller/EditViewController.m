@@ -18,10 +18,7 @@
 #import "FileSyncManager.h"
 #import "User.h"
 
-@interface EditViewController () <UITextViewDelegate,UITextFieldDelegate>
-
-@property (nonatomic,weak) IBOutlet UITextField *nameField;
-@property (nonatomic,weak) IBOutlet UIView *tagView;
+@interface EditViewController () <UITextViewDelegate>
 
 @end
 
@@ -32,7 +29,6 @@
     UIPopoverController *popVc;
     Item *item;
     FileManager *fm;
-    UIView *selectTagView;
     UIControl *control;
 }
 
@@ -54,7 +50,6 @@
     
     fm = [FileManager sharedManager];
     
-    _nameField.text = item.name;
     _editView.delegate = self;
     
     KeyboardBar *bar = [[KeyboardBar alloc]init];
@@ -62,11 +57,11 @@
     bar.vc = self;
     _editView.inputAccessoryView = bar;
    
-    NSArray *rgbArray = @[@"F14143",@"EA8C2F",@"E6BB32",@"56BA38",@"379FE6",@"BA66D0"];
-    _tagView.backgroundColor = [UIColor colorWithRGBString:rgbArray[item.tag] alpha:0.9];
-    [_tagView showBorderWithColor:[UIColor colorWithWhite:0.1 alpha:0.1] radius:8 width:1.5];
+//    NSArray *rgbArray = @[@"F14143",@"EA8C2F",@"E6BB32",@"56BA38",@"379FE6",@"BA66D0"];
+//    _tagView.backgroundColor = [UIColor colorWithRGBString:rgbArray[item.tag] alpha:0.9];
+//    [_tagView showBorderWithColor:[UIColor colorWithWhite:0.1 alpha:0.1] radius:8 width:1.5];
 
-    if (kIsPhone) {
+    if (kDevicePhone) {
         [self loadFile];
     } else {
         [fm addObserver:self forKeyPath:@"currentItem" options:NSKeyValueObservingOptionNew context:NULL];
@@ -77,18 +72,6 @@
 {
     [self loadFile];
 }
-
-- (void)setTitle:(NSString *)title
-{
-    [super setTitle:title];
-    
-    if (kIsPhone) {
-        return;
-    }
-    self.tabBarController.title = title;
-    self.tabBarItem.title = @"代码";
-}
-
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -105,26 +88,12 @@
     return YES;
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    if ([textField.text containsString:@"."] | [textField.text containsString:@"/"] | [textField.text containsString:@"*"]) {
-        showToast(@"请不要输入'./*'等特殊字符");
-        return NO;
-    }
-    NSString *oldPath = item.path;
-    NSString *newPath = [[item.parent.path stringByAppendingPathComponent:textField.text] stringByAppendingPathExtension:item.extention];
-    [fm moveFile:oldPath toNewPath:newPath];
-
-    item.path = newPath;
-
-    return YES;
-}
-
 - (void)loadFile
 {
     item = fm.currentItem;
 
+    self.title = item.name;
+    
     NSString *path = [fm fullPathForPath:item.path];
     NSString *htmlStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     
@@ -139,7 +108,8 @@
     if ([Configure sharedConfigure].fileHisory.count >= 3) {
         [[Configure sharedConfigure].fileHisory removeObjectAtIndex:0];
     }
-    [[Configure sharedConfigure].fileHisory addObject:@{@"name":self.title,@"path":[path stringByReplacingOccurrencesOfString:fm.workSpace withString:@""]}];
+
+    [[Configure sharedConfigure].fileHisory addObject:@{@"name":item.name,@"path":[path stringByReplacingOccurrencesOfString:fm.workSpace withString:@""]}];
     [[Configure sharedConfigure] saveToFile];
     [self createShortCutItem:[Configure sharedConfigure].fileHisory];
 }
@@ -158,19 +128,9 @@
     [UIApplication sharedApplication].shortcutItems = items;
 }
 
-- (IBAction)undo:(id)sender
-{
-    [self.undoManager undo];
-}
-
-- (IBAction)redo:(id)sender
-{
-    [self.undoManager redo];
-}
-
 - (IBAction)preview:(id)sender
 {
-    if (kIsPhone) {
+    if (kDevicePhone) {
         [self performSegueWithIdentifier:@"preview" sender:self];
     } else {
         if (popVc == nil) {
@@ -186,65 +146,65 @@
     }
 }
 
-- (IBAction)changeTag:(id)sender
-{
-    if (selectTagView == nil) {
-        
-        control = [[UIControl alloc]initWithFrame:self.view.bounds];
-        control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
-        [control addTarget:self action:@selector(selectedTag:) forControlEvents:UIControlEventTouchDown];
-        
-        selectTagView = [[UIView alloc]initWithFrame:CGRectMake(kScreenWidth - 36, 0, 36, 0)];
-        selectTagView.backgroundColor = [UIColor whiteColor];
-        selectTagView.clipsToBounds = YES;
-        NSArray *rgbArray = @[@"F14143",@"EA8C2F",@"E6BB32",@"56BA38",@"379FE6",@"BA66D0"];
-        for (int i = 0; i < rgbArray.count; i++) {
-            UIView *v = [[UIView alloc]initWithFrame:CGRectMake(10, i*36 + 10, 16, 16)];
-            v.backgroundColor = [UIColor colorWithRGBString:rgbArray[i] alpha:0.9];
-            [v showBorderWithColor:[UIColor colorWithWhite:0.1 alpha:0.1] radius:8 width:1.5];
-            [selectTagView addSubview:v];
-            UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, i*36, 36, 36)];
-            btn.tag = i;
-            [btn addTarget:self action:@selector(selectedTag:) forControlEvents:UIControlEventTouchUpInside];
-            [selectTagView addSubview:btn];
-        }
-    }
-    
-    if (control.superview) {
-        [self selectedTag:nil];
-        return;
-    }
-    
-    [self.view addSubview:control];
-    [self.view addSubview:selectTagView];
-
-    [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        selectTagView.frame = CGRectMake(kScreenWidth - 36, 0, 36, 36*6);
-        control.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
-    } completion:^(BOOL finished) {
-        if (finished) {
-            [selectTagView showShadowWithColor:[UIColor grayColor] offset:CGSizeMake(-2, 2)];
-        }
-    }];
-}
-
-- (void)selectedTag:(UIButton*)sender
-{
-    [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        selectTagView.frame = CGRectMake(kScreenWidth - 36, 0, 36, 0);
-        control.backgroundColor = [UIColor colorWithWhite:0 alpha:0.0];
-    } completion:^(BOOL finished) {
-        [control removeFromSuperview];
-        selectTagView.clipsToBounds = YES;
-    }];
-    
-    if (![sender isKindOfClass:[UIButton class]] || sender == nil) {
-        return;
-    }
-    NSArray *rgbArray = @[@"F14143",@"EA8C2F",@"E6BB32",@"56BA38",@"379FE6",@"BA66D0"];
-    item.tag = sender.tag;
-    _tagView.backgroundColor = [UIColor colorWithRGBString:rgbArray[sender.tag] alpha:0.9];
-}
+//- (IBAction)changeTag:(id)sender
+//{
+//    if (selectTagView == nil) {
+//        
+//        control = [[UIControl alloc]initWithFrame:self.view.bounds];
+//        control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+//        [control addTarget:self action:@selector(selectedTag:) forControlEvents:UIControlEventTouchDown];
+//        
+//        selectTagView = [[UIView alloc]initWithFrame:CGRectMake(kScreenWidth - 36, 0, 36, 0)];
+//        selectTagView.backgroundColor = [UIColor whiteColor];
+//        selectTagView.clipsToBounds = YES;
+//        NSArray *rgbArray = @[@"F14143",@"EA8C2F",@"E6BB32",@"56BA38",@"379FE6",@"BA66D0"];
+//        for (int i = 0; i < rgbArray.count; i++) {
+//            UIView *v = [[UIView alloc]initWithFrame:CGRectMake(10, i*36 + 10, 16, 16)];
+//            v.backgroundColor = [UIColor colorWithRGBString:rgbArray[i] alpha:0.9];
+//            [v showBorderWithColor:[UIColor colorWithWhite:0.1 alpha:0.1] radius:8 width:1.5];
+//            [selectTagView addSubview:v];
+//            UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, i*36, 36, 36)];
+//            btn.tag = i;
+//            [btn addTarget:self action:@selector(selectedTag:) forControlEvents:UIControlEventTouchUpInside];
+//            [selectTagView addSubview:btn];
+//        }
+//    }
+//    
+//    if (control.superview) {
+//        [self selectedTag:nil];
+//        return;
+//    }
+//    
+//    [self.view addSubview:control];
+//    [self.view addSubview:selectTagView];
+//
+//    [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+//        selectTagView.frame = CGRectMake(kScreenWidth - 36, 0, 36, 36*6);
+//        control.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
+//    } completion:^(BOOL finished) {
+//        if (finished) {
+//            [selectTagView showShadowWithColor:[UIColor grayColor] offset:CGSizeMake(-2, 2)];
+//        }
+//    }];
+//}
+//
+//- (void)selectedTag:(UIButton*)sender
+//{
+//    [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+//        selectTagView.frame = CGRectMake(kScreenWidth - 36, 0, 36, 0);
+//        control.backgroundColor = [UIColor colorWithWhite:0 alpha:0.0];
+//    } completion:^(BOOL finished) {
+//        [control removeFromSuperview];
+//        selectTagView.clipsToBounds = YES;
+//    }];
+//    
+//    if (![sender isKindOfClass:[UIButton class]] || sender == nil) {
+//        return;
+//    }
+//    NSArray *rgbArray = @[@"F14143",@"EA8C2F",@"E6BB32",@"56BA38",@"379FE6",@"BA66D0"];
+//    item.tag = sender.tag;
+//    _tagView.backgroundColor = [UIColor colorWithRGBString:rgbArray[sender.tag] alpha:0.9];
+//}
 
 - (void)saveFile
 {
@@ -267,7 +227,9 @@
 
 - (void)dealloc
 {
-    [fm removeObserver:self forKeyPath:@"currentItem" context:NULL];
+    if (kDevicePad){
+        [fm removeObserver:self forKeyPath:@"currentItem" context:NULL];
+    }
 }
 
  #pragma mark - Navigation

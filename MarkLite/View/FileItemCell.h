@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Item.h"
 
-@interface FileItemCell : UITableViewCell
+@interface FileItemCell : UITableViewCell <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *iconSpace;
 @property (weak, nonatomic) IBOutlet UIImageView *typeIcon;
@@ -20,6 +20,7 @@
 @property (nonatomic,strong) Item *item;
 
 @property (nonatomic,copy) void(^newFileBlock)(Item *i);
+@property (nonatomic,copy) void(^renameFileBlock)(Item *i,NSString *newName);
 @property (nonatomic,copy) void(^deleteFileBlock)(Item *i);
 
 @property (nonatomic,assign) BOOL edit;

@@ -41,7 +41,6 @@ static TabBarController *tabVc = nil;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.hidesBackButton = YES;
-    [[UITabBar appearance] setTintColor:[UIColor redColor]];
     
     tabVc = self;
 
@@ -50,6 +49,11 @@ static TabBarController *tabVc = nil;
     [self initializeWorkSapce];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(update:) name:@"RootNeedSaveChange" object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSLog(@"zzzz");
 }
 
 - (void)initializeWorkSapce

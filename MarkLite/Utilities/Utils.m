@@ -1,6 +1,6 @@
 //
 //  Utils.m
-//  GolfPKiOS
+//  Utils
 //
 //  Created by zhubch on 15/7/28.
 //  Copyright (c) 2015年 Robusoft. All rights reserved.
@@ -265,23 +265,23 @@
     return UIImageJPEGRepresentation(self, 1);
 }
 
-+ (UIImage *)imageWithImage:(UIImage *)image scaledWithMaxSize:(CGSize)size
+- (UIImage *)scaleWithMaxSize:(CGSize)size
 {
-    CGSize imgSize = image.size;
+    CGSize imgSize = self.size;
     if (imgSize.width > size.width) {
         imgSize = CGSizeMake(size.width, size.width / imgSize.width * imgSize.height);
     }
     if (imgSize.height > size.height) {
         imgSize = CGSizeMake(size.height / imgSize.height * imgSize.width, size.height);
     }
-    return [self imageWithImage:image scaledToSize:imgSize];
+    return [self scaleToSize:imgSize];
 }
 
-+ (UIImage *)imageWithImage:(UIImage *)image scaledToSize:(CGSize)newSize
+- (UIImage *)scaleToSize:(CGSize)newSize
 {
     UIGraphicsBeginImageContext(newSize);
     
-    [image drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    [self drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
     
     UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
     
@@ -289,6 +289,7 @@
     
     return newImage;
 }
+
 + (UIImage *)imageWithColor:(UIColor *)color size:(CGSize)size
 
 {
@@ -410,30 +411,40 @@
 
 @end
 
-static void (^block)(NSInteger,UIAlertView*) = nil;
 
-@implementation UIAlertView (Utils)
+@implementation AlertView
 
-@dynamic clickedButton;
-
-- (void)setClickedButton:(void (^)(NSInteger buttonIndex,UIAlertView* alertView))clickedButton
+- (void)setClickedButton:(void (^)(NSInteger buttonIndex,AlertView* alertView))clickedButton
 {
-    block = clickedButton;
+    _clickedButton = clickedButton;
     self.delegate = self;
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (block) {
-        block(buttonIndex,alertView);
+    if (_clickedButton) {
+        _clickedButton(buttonIndex,self);
     }
 }
 
-- (void)releaseBlock
+@end
+
+
+@implementation ActionSheet
+
+- (void)setClickedButton:(void (^)(NSInteger buttonIndex,ActionSheet* alertView))clickedButton
 {
-//    Block_release(block);
-    block = nil;
+    _clickedButton = clickedButton;
+    self.delegate = self;
 }
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (_clickedButton) {
+        _clickedButton(buttonIndex,self);
+    }
+}
+
 
 @end
 

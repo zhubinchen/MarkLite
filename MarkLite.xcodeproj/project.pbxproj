@@ -24,7 +24,6 @@
 		079917B31C61EA3900E5F3A2 /* Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 079916811C61EA3800E5F3A2 /* Document.png */; };
 		079917B41C61EA3900E5F3A2 /* file@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 079916821C61EA3800E5F3A2 /* file@2x.png */; };
 		079917B51C61EA3900E5F3A2 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 079916831C61EA3800E5F3A2 /* folder.png */; };
-		079917B61C61EA3900E5F3A2 /* Folder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 079916841C61EA3800E5F3A2 /* Folder@2x.png */; };
 		079917B71C61EA3900E5F3A2 /* folder_open.png in Resources */ = {isa = PBXBuildFile; fileRef = 079916851C61EA3800E5F3A2 /* folder_open.png */; };
 		079917B81C61EA3900E5F3A2 /* format.html in Resources */ = {isa = PBXBuildFile; fileRef = 079916861C61EA3800E5F3A2 /* format.html */; };
 		079917B91C61EA3900E5F3A2 /* History@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 079916871C61EA3800E5F3A2 /* History@2x.png */; };
@@ -164,7 +163,6 @@
 		0799183F1C61EA3900E5F3A2 /* FileItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 079917A31C61EA3900E5F3A2 /* FileItemCell.m */; };
 		079918401C61EA3900E5F3A2 /* KeyboardBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 079917A51C61EA3900E5F3A2 /* KeyboardBar.m */; };
 		079918411C61EA3900E5F3A2 /* NoteItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 079917A71C61EA3900E5F3A2 /* NoteItemCell.m */; };
-		0799184C1C61EAAB00E5F3A2 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 079918481C61EAAB00E5F3A2 /* Main_iPad.storyboard */; };
 		0799184D1C61EAAB00E5F3A2 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0799184A1C61EAAB00E5F3A2 /* Main_iPhone.storyboard */; };
 		079918641C61EC6900E5F3A2 /* EditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 079918511C61EC6900E5F3A2 /* EditViewController.m */; };
 		079918651C61EC6900E5F3A2 /* FileListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 079918531C61EC6900E5F3A2 /* FileListViewController.m */; };
@@ -180,6 +178,8 @@
 		079918711C61EC9E00E5F3A2 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 079918701C61EC9E00E5F3A2 /* libicucore.tbd */; };
 		079918731C61ECA800E5F3A2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 079918721C61ECA800E5F3A2 /* libsqlite3.tbd */; };
 		079918751C61ECB300E5F3A2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 079918741C61ECB300E5F3A2 /* libz.tbd */; };
+		079918801C61FB9600E5F3A2 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0799187E1C61FB9600E5F3A2 /* Main_iPad.storyboard */; };
+		079918881C62034100E5F3A2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 079918871C62034100E5F3A2 /* ViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -208,7 +208,6 @@
 		079916811C61EA3800E5F3A2 /* Document.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Document.png; sourceTree = "<group>"; };
 		079916821C61EA3800E5F3A2 /* file@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "file@2x.png"; sourceTree = "<group>"; };
 		079916831C61EA3800E5F3A2 /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder.png; sourceTree = "<group>"; };
-		079916841C61EA3800E5F3A2 /* Folder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Folder@2x.png"; sourceTree = "<group>"; };
 		079916851C61EA3800E5F3A2 /* folder_open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder_open.png; sourceTree = "<group>"; };
 		079916861C61EA3800E5F3A2 /* format.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = format.html; sourceTree = "<group>"; };
 		079916871C61EA3800E5F3A2 /* History@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "History@2x.png"; sourceTree = "<group>"; };
@@ -459,7 +458,6 @@
 		079917A51C61EA3900E5F3A2 /* KeyboardBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardBar.m; sourceTree = "<group>"; };
 		079917A61C61EA3900E5F3A2 /* NoteItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteItemCell.h; sourceTree = "<group>"; };
 		079917A71C61EA3900E5F3A2 /* NoteItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteItemCell.m; sourceTree = "<group>"; };
-		079918491C61EAAB00E5F3A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		0799184B1C61EAAB00E5F3A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		0799184E1C61EB0A00E5F3A2 /* MarkLitePrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkLitePrefix.pch; sourceTree = "<group>"; };
 		079918501C61EC6900E5F3A2 /* EditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditViewController.h; sourceTree = "<group>"; };
@@ -486,6 +484,9 @@
 		079918701C61EC9E00E5F3A2 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		079918721C61ECA800E5F3A2 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		079918741C61ECB300E5F3A2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		0799187F1C61FB9600E5F3A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		079918861C62034100E5F3A2 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		079918871C62034100E5F3A2 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -538,8 +539,8 @@
 				0799179C1C61EA3900E5F3A2 /* View */,
 				079916631C61E9FF00E5F3A2 /* Assets.xcassets */,
 				079916651C61E9FF00E5F3A2 /* LaunchScreen.storyboard */,
-				079918481C61EAAB00E5F3A2 /* Main_iPad.storyboard */,
 				0799184A1C61EAAB00E5F3A2 /* Main_iPhone.storyboard */,
+				0799187E1C61FB9600E5F3A2 /* Main_iPad.storyboard */,
 				079916681C61E9FF00E5F3A2 /* Info.plist */,
 				079916571C61E9FF00E5F3A2 /* Supporting Files */,
 			);
@@ -583,7 +584,6 @@
 				079916811C61EA3800E5F3A2 /* Document.png */,
 				079916821C61EA3800E5F3A2 /* file@2x.png */,
 				079916831C61EA3800E5F3A2 /* folder.png */,
-				079916841C61EA3800E5F3A2 /* Folder@2x.png */,
 				079916851C61EA3800E5F3A2 /* folder_open.png */,
 				079916861C61EA3800E5F3A2 /* format.html */,
 				079916871C61EA3800E5F3A2 /* History@2x.png */,
@@ -1150,10 +1150,10 @@
 			children = (
 				0799179D1C61EA3900E5F3A2 /* CreateNoteView.h */,
 				0799179E1C61EA3900E5F3A2 /* CreateNoteView.m */,
+				079917A21C61EA3900E5F3A2 /* FileItemCell.h */,
 				0799179F1C61EA3900E5F3A2 /* CreateNoteView.xib */,
 				079917A01C61EA3900E5F3A2 /* EditView.h */,
 				079917A11C61EA3900E5F3A2 /* EditView.m */,
-				079917A21C61EA3900E5F3A2 /* FileItemCell.h */,
 				079917A31C61EA3900E5F3A2 /* FileItemCell.m */,
 				079917A41C61EA3900E5F3A2 /* KeyboardBar.h */,
 				079917A51C61EA3900E5F3A2 /* KeyboardBar.m */,
@@ -1186,6 +1186,8 @@
 				079918611C61EC6900E5F3A2 /* SplitViewController.m */,
 				079918621C61EC6900E5F3A2 /* TabBarController.h */,
 				079918631C61EC6900E5F3A2 /* TabBarController.m */,
+				079918861C62034100E5F3A2 /* ViewController.h */,
+				079918871C62034100E5F3A2 /* ViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1252,6 +1254,7 @@
 				079917B11C61EA3900E5F3A2 /* Code@2x.png in Resources */,
 				079918341C61EA3900E5F3A2 /* left@2x.png in Resources */,
 				079917C21C61EA3900E5F3A2 /* redo@2x.png in Resources */,
+				079918801C61FB9600E5F3A2 /* Main_iPad.storyboard in Resources */,
 				079917C51C61EA3900E5F3A2 /* FeedBack@2x.png in Resources */,
 				079918371C61EA3900E5F3A2 /* up_press@2x.png in Resources */,
 				079917CC1C61EA3900E5F3A2 /* settings@2x.png in Resources */,
@@ -1292,8 +1295,6 @@
 				079917AE1C61EA3900E5F3A2 /* add_image.png in Resources */,
 				079917C41C61EA3900E5F3A2 /* Server@3x.png in Resources */,
 				079917CA1C61EA3900E5F3A2 /* Share@2x.png in Resources */,
-				079917B61C61EA3900E5F3A2 /* Folder@2x.png in Resources */,
-				0799184C1C61EAAB00E5F3A2 /* Main_iPad.storyboard in Resources */,
 				079917BA1C61EA3900E5F3A2 /* History@3x.png in Resources */,
 				079917B31C61EA3900E5F3A2 /* Document.png in Resources */,
 			);
@@ -1306,6 +1307,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				079918881C62034100E5F3A2 /* ViewController.m in Sources */,
 				079918121C61EA3900E5F3A2 /* MarkdownSyntaxModel.m in Sources */,
 				079917AA1C61EA3900E5F3A2 /* FileSyncManager.m in Sources */,
 				079918651C61EC6900E5F3A2 /* FileListViewController.m in Sources */,
@@ -1438,20 +1440,20 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		079918481C61EAAB00E5F3A2 /* Main_iPad.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				079918491C61EAAB00E5F3A2 /* Base */,
-			);
-			name = Main_iPad.storyboard;
-			sourceTree = "<group>";
-		};
 		0799184A1C61EAAB00E5F3A2 /* Main_iPhone.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				0799184B1C61EAAB00E5F3A2 /* Base */,
 			);
 			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		0799187E1C61FB9600E5F3A2 /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0799187F1C61FB9600E5F3A2 /* Base */,
+			);
+			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1594,6 +1596,7 @@
 				0799166D1C61E9FF00E5F3A2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -70,9 +70,9 @@
             [alert addAction:cancelAction];
             [self.vc presentViewController:alert animated:YES completion:nil];
         }else{
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加链接" message:@"请输入链接" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            AlertView *alert = [[AlertView alloc]initWithTitle:@"添加链接" message:@"请输入链接" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-            alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+            alert.clickedButton = ^(NSInteger buttonIndex,AlertView *alert){
                 if (buttonIndex == 1) {
                     [[alert textFieldAtIndex:0] resignFirstResponder];
                 }

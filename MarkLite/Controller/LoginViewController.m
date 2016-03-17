@@ -22,7 +22,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     if ([User currentUser].hasLogin) {
         UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
         UIViewController *vc = [board instantiateViewControllerWithIdentifier:@"main_tab"];

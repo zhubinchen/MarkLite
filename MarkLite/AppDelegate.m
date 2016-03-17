@@ -19,10 +19,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-//    if (launchOptions[UIApplicationLaunchOptionsShortcutItemKey]) {
-//        return false;
-//    }
-
+    if (launchOptions && launchOptions[UIApplicationLaunchOptionsShortcutItemKey]) {
+        return NO;
+    }
+    [[UITabBar appearance] setTintColor:[UIColor redColor]];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     return YES;
 }
 
