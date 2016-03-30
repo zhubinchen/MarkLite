@@ -26,11 +26,13 @@
     [super viewDidLoad];
     
     fm = [FileManager sharedManager];
+   
     if (kDevicePhone) {
         [self loadFile];
     } else {
         [fm addObserver:self forKeyPath:@"currentItem" options:NSKeyValueObservingOptionNew context:NULL];
     }
+    
     _webView.delegate = self;
 }
 
@@ -58,7 +60,6 @@
         [_webView loadHTMLString:finalHtml baseURL:[NSURL fileURLWithPath:path]];
     }
 }
-
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {

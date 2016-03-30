@@ -7,6 +7,8 @@
 //
 
 #import "MenuViewController.h"
+#import "SelectViewController.h"
+#import "Configure.h"
 
 @interface MenuViewController ()
 
@@ -28,8 +30,8 @@
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     
-    items = @[@[@"字体",@"键盘"],@[@"常见问题",@"意见反馈"],@[@"给我打分",@"推荐给好友"],@[@"关于"]];
-    imgNames = @[@[@"Font",@"Keyboard"],@[@"Help",@"FeedBack"],@[@"Star",@"Share"],@[@"Info"]];
+    items = @[@[@"键盘辅助"],@[@"渲染样式"],@[@"好评鼓励",@"向我吐槽"],@[@"关于"]];
+    imgNames = @[@[@"Keyboard"],@[@"Help"],@[@"Star",@"FeedBack"],@[@"Info"]];
 }
 
 - (void)back {
@@ -67,6 +69,37 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 0.1;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SelectViewController *vc = [[SelectViewController alloc]init];
+
+    if (indexPath.section == 0) {
+//        if (indexPath.row == 0) {
+//            NSArray *options = @[@"清新蓝",@"极客黑",@"卖萌粉"];
+//            vc.selectOptions = options;
+//            vc.title = @"选择主题";
+//            vc.didSelected = ^(int index){
+//                [Configure sharedConfigure].theme = options[index];
+//            };
+//        }else {
+            vc.selectOptions = @[@"开启",@"关闭"];
+            vc.title = @"键盘辅助";
+            vc.didSelected = ^(int index){
+                [Configure sharedConfigure].keyboardAssist = index == 0;
+            };
+//        }
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if (indexPath.section == 1) {
+        vc.selectOptions = @[@"Clearness",@"Clearness Dark",@"Github",@"Github2",@"Solarized Dark",@"Solarized Light"];
+        vc.title = @"选择样式";
+        vc.didSelected = ^(int index){
+            
+        };
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
 }
 
 /*

@@ -49,7 +49,7 @@
 
 - (NSArray*)rightItems
 {
-    rightItem = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(edit)];
+    rightItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(edit)];
     return @[rightItem];
 }
 

@@ -704,8 +704,8 @@
         <image name="settings.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jkb-0q-YIz"/>
         <segue reference="Dvd-JL-udn"/>
         <segue reference="F5f-nG-XfB"/>
+        <segue reference="nAh-oH-Cz0"/>
     </inferredMetricsTieBreakers>
 </document>

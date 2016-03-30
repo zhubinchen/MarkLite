@@ -14,6 +14,10 @@
 
 @property (nonatomic,strong) NSDictionary *launchOptions;
 
+@property (nonatomic,strong) NSString *theme;
+
+@property (nonatomic,assign) BOOL keyboardAssist;
+
 + (instancetype)sharedConfigure;
 
 - (BOOL)saveToFile;

@@ -22,8 +22,9 @@
     if (launchOptions && launchOptions[UIApplicationLaunchOptionsShortcutItemKey]) {
         return NO;
     }
-    [[UITabBar appearance] setTintColor:[UIColor redColor]];
+    [[UITabBar appearance] setTintColor:kThemeColor];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor whiteColor]}];
     return YES;
 }
 

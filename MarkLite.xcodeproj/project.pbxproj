@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		075047741CABA6F40031852F /* SelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075047731CABA6F40031852F /* SelectViewController.m */; };
 		079916591C61E9FF00E5F3A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 079916581C61E9FF00E5F3A2 /* main.m */; };
 		0799165C1C61E9FF00E5F3A2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799165B1C61E9FF00E5F3A2 /* AppDelegate.m */; };
 		079916641C61E9FF00E5F3A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 079916631C61E9FF00E5F3A2 /* Assets.xcassets */; };
@@ -171,7 +172,6 @@
 		079918681C61EC6900E5F3A2 /* NoteListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 079918591C61EC6900E5F3A2 /* NoteListViewController.m */; };
 		079918691C61EC6900E5F3A2 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799185B1C61EC6900E5F3A2 /* PreviewViewController.m */; };
 		0799186A1C61EC6900E5F3A2 /* RegistViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799185D1C61EC6900E5F3A2 /* RegistViewController.m */; };
-		0799186B1C61EC6900E5F3A2 /* ScrawlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799185F1C61EC6900E5F3A2 /* ScrawlViewController.m */; };
 		0799186C1C61EC6900E5F3A2 /* SplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 079918611C61EC6900E5F3A2 /* SplitViewController.m */; };
 		0799186D1C61EC6900E5F3A2 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 079918631C61EC6900E5F3A2 /* TabBarController.m */; };
 		0799186F1C61EC9300E5F3A2 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0799186E1C61EC9300E5F3A2 /* libresolv.tbd */; };
@@ -179,10 +179,11 @@
 		079918731C61ECA800E5F3A2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 079918721C61ECA800E5F3A2 /* libsqlite3.tbd */; };
 		079918751C61ECB300E5F3A2 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 079918741C61ECB300E5F3A2 /* libz.tbd */; };
 		079918801C61FB9600E5F3A2 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0799187E1C61FB9600E5F3A2 /* Main_iPad.storyboard */; };
-		079918881C62034100E5F3A2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 079918871C62034100E5F3A2 /* ViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		075047721CABA6F40031852F /* SelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectViewController.h; sourceTree = "<group>"; };
+		075047731CABA6F40031852F /* SelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectViewController.m; sourceTree = "<group>"; };
 		079916541C61E9FF00E5F3A2 /* MarkLite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkLite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		079916581C61E9FF00E5F3A2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0799165A1C61E9FF00E5F3A2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -474,8 +475,6 @@
 		0799185B1C61EC6900E5F3A2 /* PreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
 		0799185C1C61EC6900E5F3A2 /* RegistViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistViewController.h; sourceTree = "<group>"; };
 		0799185D1C61EC6900E5F3A2 /* RegistViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistViewController.m; sourceTree = "<group>"; };
-		0799185E1C61EC6900E5F3A2 /* ScrawlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrawlViewController.h; sourceTree = "<group>"; };
-		0799185F1C61EC6900E5F3A2 /* ScrawlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrawlViewController.m; sourceTree = "<group>"; };
 		079918601C61EC6900E5F3A2 /* SplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SplitViewController.h; sourceTree = "<group>"; };
 		079918611C61EC6900E5F3A2 /* SplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SplitViewController.m; sourceTree = "<group>"; };
 		079918621C61EC6900E5F3A2 /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
@@ -485,8 +484,6 @@
 		079918721C61ECA800E5F3A2 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		079918741C61ECB300E5F3A2 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		0799187F1C61FB9600E5F3A2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		079918861C62034100E5F3A2 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		079918871C62034100E5F3A2 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -506,6 +503,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0750476A1CABA5BD0031852F /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				075047721CABA6F40031852F /* SelectViewController.h */,
+				075047731CABA6F40031852F /* SelectViewController.m */,
+			);
+			name = Menu;
+			sourceTree = "<group>";
+		};
+		0750476B1CABA5F20031852F /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				079918541C61EC6900E5F3A2 /* LoginViewController.h */,
+				079918551C61EC6900E5F3A2 /* LoginViewController.m */,
+				0799185C1C61EC6900E5F3A2 /* RegistViewController.h */,
+				0799185D1C61EC6900E5F3A2 /* RegistViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		0750476C1CABA61A0031852F /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				079918601C61EC6900E5F3A2 /* SplitViewController.h */,
+				079918611C61EC6900E5F3A2 /* SplitViewController.m */,
+				079918621C61EC6900E5F3A2 /* TabBarController.h */,
+				079918631C61EC6900E5F3A2 /* TabBarController.m */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
 		0799164B1C61E9FF00E5F3A2 = {
 			isa = PBXGroup;
 			children = (
@@ -1166,28 +1194,19 @@
 		0799184F1C61EC6900E5F3A2 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0750476B1CABA5F20031852F /* Login */,
+				0750476A1CABA5BD0031852F /* Menu */,
+				0750476C1CABA61A0031852F /* Main */,
 				079918501C61EC6900E5F3A2 /* EditViewController.h */,
 				079918511C61EC6900E5F3A2 /* EditViewController.m */,
 				079918521C61EC6900E5F3A2 /* FileListViewController.h */,
 				079918531C61EC6900E5F3A2 /* FileListViewController.m */,
-				079918541C61EC6900E5F3A2 /* LoginViewController.h */,
-				079918551C61EC6900E5F3A2 /* LoginViewController.m */,
 				079918561C61EC6900E5F3A2 /* MenuViewController.h */,
 				079918571C61EC6900E5F3A2 /* MenuViewController.m */,
 				079918581C61EC6900E5F3A2 /* NoteListViewController.h */,
 				079918591C61EC6900E5F3A2 /* NoteListViewController.m */,
 				0799185A1C61EC6900E5F3A2 /* PreviewViewController.h */,
 				0799185B1C61EC6900E5F3A2 /* PreviewViewController.m */,
-				0799185C1C61EC6900E5F3A2 /* RegistViewController.h */,
-				0799185D1C61EC6900E5F3A2 /* RegistViewController.m */,
-				0799185E1C61EC6900E5F3A2 /* ScrawlViewController.h */,
-				0799185F1C61EC6900E5F3A2 /* ScrawlViewController.m */,
-				079918601C61EC6900E5F3A2 /* SplitViewController.h */,
-				079918611C61EC6900E5F3A2 /* SplitViewController.m */,
-				079918621C61EC6900E5F3A2 /* TabBarController.h */,
-				079918631C61EC6900E5F3A2 /* TabBarController.m */,
-				079918861C62034100E5F3A2 /* ViewController.h */,
-				079918871C62034100E5F3A2 /* ViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1223,6 +1242,7 @@
 				TargetAttributes = {
 					079916531C61E9FF00E5F3A2 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = HX6HU45L64;
 					};
 				};
 			};
@@ -1307,7 +1327,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				079918881C62034100E5F3A2 /* ViewController.m in Sources */,
 				079918121C61EA3900E5F3A2 /* MarkdownSyntaxModel.m in Sources */,
 				079917AA1C61EA3900E5F3A2 /* FileSyncManager.m in Sources */,
 				079918651C61EC6900E5F3A2 /* FileListViewController.m in Sources */,
@@ -1324,6 +1343,7 @@
 				0799182C1C61EA3900E5F3A2 /* unzip.c in Sources */,
 				079918401C61EA3900E5F3A2 /* KeyboardBar.m in Sources */,
 				0799183A1C61EA3900E5F3A2 /* ZBCSwipeButton.m in Sources */,
+				075047741CABA6F40031852F /* SelectViewController.m in Sources */,
 				079917DA1C61EA3900E5F3A2 /* AFURLConnectionOperation.m in Sources */,
 				079918641C61EC6900E5F3A2 /* EditViewController.m in Sources */,
 				079918161C61EA3900E5F3A2 /* QNCrc32.m in Sources */,
@@ -1345,7 +1365,6 @@
 				079917DB1C61EA3900E5F3A2 /* AFURLRequestSerialization.m in Sources */,
 				079918001C61EA3900E5F3A2 /* HTTPErrorResponse.m in Sources */,
 				0799180A1C61EA3900E5F3A2 /* ContextFilterLogFormatter.m in Sources */,
-				0799186B1C61EC6900E5F3A2 /* ScrawlViewController.m in Sources */,
 				079917FE1C61EA3900E5F3A2 /* HTTPDataResponse.m in Sources */,
 				0799181D1C61EA3900E5F3A2 /* QNHttpManager.m in Sources */,
 				079917A81C61EA3900E5F3A2 /* Configure.m in Sources */,
@@ -1545,6 +1564,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/MarkLite/MarkLitePrefix.pch";
 				INFOPLIST_FILE = MarkLite/Info.plist;
@@ -1563,6 +1583,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/MarkLite/MarkLitePrefix.pch";
 				INFOPLIST_FILE = MarkLite/Info.plist;
