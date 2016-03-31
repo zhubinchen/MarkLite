@@ -51,11 +51,6 @@ static TabBarController *tabVc = nil;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(update:) name:@"RootNeedSaveChange" object:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    NSLog(@"zzzz");
-}
-
 - (void)initializeWorkSapce
 {
     FileManager *fm = [FileManager sharedManager];
@@ -76,7 +71,7 @@ static TabBarController *tabVc = nil;
             }else{
                 if (error == 1) {
                     FileManager *fm = [FileManager sharedManager];
-                    fm.workSpace = @"Root";
+                    [fm initWorkSpace];
                     _root = fm.root;
                     [_root archive];
                 }else{
@@ -88,7 +83,7 @@ static TabBarController *tabVc = nil;
         }];
     }else{
         FileManager *fm = [FileManager sharedManager];
-        fm.workSpace = @"Root";
+        [fm initWorkSpace];
         _root = fm.root;
         [_root archive];
     }

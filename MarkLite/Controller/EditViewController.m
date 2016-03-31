@@ -128,23 +128,34 @@
     [UIApplication sharedApplication].shortcutItems = items;
 }
 
-- (IBAction)preview:(id)sender
-{
-    if (kDevicePhone) {
-        [self performSegueWithIdentifier:@"preview" sender:self];
-    } else {
-        if (popVc == nil) {
-            PreviewViewController *vc = [[PreviewViewController alloc]init];
-            vc.view.backgroundColor =[UIColor whiteColor];
-            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-            popVc.popoverContentSize = CGSizeMake(320,360);
-            vc.size = popVc.popoverContentSize;
-            popVc = [[UIPopoverController alloc] initWithContentViewController:nav];
-        }
-
-        [popVc presentPopoverFromBarButtonItem:self.tabBarController.navigationItem.rightBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+- (IBAction)fullScreen:(UIBarButtonItem*)sender{
+    if (self.splitViewController.preferredDisplayMode == UISplitViewControllerDisplayModePrimaryHidden) {
+        self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
+        sender.title = @"全屏";
+    }else{
+        self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
+        sender.title = @"还原";
     }
 }
+
+//- (IBAction)preview:(id)sender
+//{
+//    self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
+//    if (kDevicePhone) {
+//        [self performSegueWithIdentifier:@"preview" sender:self];
+//    } else {
+//        if (popVc == nil) {
+//            PreviewViewController *vc = [[PreviewViewController alloc]init];
+//            vc.view.backgroundColor =[UIColor whiteColor];
+//            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+//            popVc.popoverContentSize = CGSizeMake(320,360);
+//            vc.size = popVc.popoverContentSize;
+//            popVc = [[UIPopoverController alloc] initWithContentViewController:nav];
+//        }
+//
+//        [popVc presentPopoverFromBarButtonItem:self.tabBarController.navigationItem.rightBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+//    }
+//}
 
 //- (IBAction)changeTag:(id)sender
 //{

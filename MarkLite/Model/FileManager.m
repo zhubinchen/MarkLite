@@ -39,11 +39,12 @@
 {
     _root = root;
     _workSpace = [NSString pathWithComponents:@[[NSString documentPath],_root.path]];
+    NSLog(@"creating workSpace:%@",_workSpace);
 }
 
-- (void)setWorkSpace:(NSString *)workSpace
+- (void)initWorkSpace
 {
-    _workSpace = [NSString pathWithComponents:@[[NSString documentPath],workSpace]];
+    _workSpace = [NSString pathWithComponents:@[[NSString documentPath],@"MarkLite_Root"]];
     
     if (![fm fileExistsAtPath:_workSpace]) {
         
@@ -51,12 +52,13 @@
         NSLog(@"creating workSpace:%@",_workSpace);
         ZipArchive *zipArchive = [[ZipArchive alloc]init];
         
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"根目录" ofType:@"zip"];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"MarkLite_Root" ofType:@"zip"];
         NSLog(@"%@",path);
         
         [zipArchive UnzipOpenFile:path];
         
-        [zipArchive UnzipFileTo:_workSpace overWrite:YES];
+        [zipArchive UnzipFileTo:[NSString documentPath] overWrite:YES];
+
         [self notify];
     }
     
@@ -65,7 +67,7 @@
     
     NSString *fileName;
     _root = [[Item alloc]init];
-    _root.path = workSpace;
+    _root.path = @"MarkLite_Root";
     _root.open = YES;
     while ((fileName = [childFilesEnumerator nextObject]) != nil){
         

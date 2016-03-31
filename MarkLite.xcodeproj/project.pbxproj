@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		075047741CABA6F40031852F /* SelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075047731CABA6F40031852F /* SelectViewController.m */; };
+		075047DE1CACBF920031852F /* FileItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075047DC1CACBF920031852F /* FileItemCell.xib */; };
+		075047E11CACC0280031852F /* FileItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 075047E01CACC0280031852F /* FileItemCell.m */; };
+		075047E31CACC5970031852F /* MarkLite_Root.zip in Resources */ = {isa = PBXBuildFile; fileRef = 075047E21CACC5970031852F /* MarkLite_Root.zip */; };
 		079916591C61E9FF00E5F3A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 079916581C61E9FF00E5F3A2 /* main.m */; };
 		0799165C1C61E9FF00E5F3A2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799165B1C61E9FF00E5F3A2 /* AppDelegate.m */; };
 		079916641C61E9FF00E5F3A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 079916631C61E9FF00E5F3A2 /* Assets.xcassets */; };
@@ -49,12 +52,6 @@
 		079917CC1C61EA3900E5F3A2 /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0799169B1C61EA3800E5F3A2 /* settings@2x.png */; };
 		079917CD1C61EA3900E5F3A2 /* sort_options@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0799169C1C61EA3800E5F3A2 /* sort_options@2x.png */; };
 		079917CE1C61EA3900E5F3A2 /* undo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0799169D1C61EA3800E5F3A2 /* undo@2x.png */; };
-		079917CF1C61EA3900E5F3A2 /* help.md in Sources */ = {isa = PBXBuildFile; fileRef = 0799169F1C61EA3800E5F3A2 /* help.md */; };
-		079917D01C61EA3900E5F3A2 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 079916A01C61EA3800E5F3A2 /* README.md */; };
-		079917D11C61EA3900E5F3A2 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 079916A21C61EA3800E5F3A2 /* README.md */; };
-		079917D21C61EA3900E5F3A2 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 079916A41C61EA3800E5F3A2 /* README.md */; };
-		079917D31C61EA3900E5F3A2 /* screenshot.gif in Resources */ = {isa = PBXBuildFile; fileRef = 079916A51C61EA3800E5F3A2 /* screenshot.gif */; };
-		079917D41C61EA3900E5F3A2 /* 根目录.zip in Resources */ = {isa = PBXBuildFile; fileRef = 079916A61C61EA3800E5F3A2 /* 根目录.zip */; };
 		079917D51C61EA3900E5F3A2 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 079916AA1C61EA3800E5F3A2 /* AFHTTPRequestOperation.m */; };
 		079917D61C61EA3900E5F3A2 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 079916AC1C61EA3800E5F3A2 /* AFHTTPRequestOperationManager.m */; };
 		079917D71C61EA3900E5F3A2 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 079916AE1C61EA3800E5F3A2 /* AFHTTPSessionManager.m */; };
@@ -161,7 +158,6 @@
 		0799183C1C61EA3900E5F3A2 /* CreateNoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799179E1C61EA3900E5F3A2 /* CreateNoteView.m */; };
 		0799183D1C61EA3900E5F3A2 /* CreateNoteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0799179F1C61EA3900E5F3A2 /* CreateNoteView.xib */; };
 		0799183E1C61EA3900E5F3A2 /* EditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 079917A11C61EA3900E5F3A2 /* EditView.m */; };
-		0799183F1C61EA3900E5F3A2 /* FileItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 079917A31C61EA3900E5F3A2 /* FileItemCell.m */; };
 		079918401C61EA3900E5F3A2 /* KeyboardBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 079917A51C61EA3900E5F3A2 /* KeyboardBar.m */; };
 		079918411C61EA3900E5F3A2 /* NoteItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 079917A71C61EA3900E5F3A2 /* NoteItemCell.m */; };
 		0799184D1C61EAAB00E5F3A2 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0799184A1C61EAAB00E5F3A2 /* Main_iPhone.storyboard */; };
@@ -184,6 +180,10 @@
 /* Begin PBXFileReference section */
 		075047721CABA6F40031852F /* SelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectViewController.h; sourceTree = "<group>"; };
 		075047731CABA6F40031852F /* SelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectViewController.m; sourceTree = "<group>"; };
+		075047DC1CACBF920031852F /* FileItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileItemCell.xib; sourceTree = "<group>"; };
+		075047DF1CACC0280031852F /* FileItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileItemCell.h; sourceTree = "<group>"; };
+		075047E01CACC0280031852F /* FileItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileItemCell.m; sourceTree = "<group>"; };
+		075047E21CACC5970031852F /* MarkLite_Root.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = MarkLite_Root.zip; sourceTree = "<group>"; };
 		079916541C61E9FF00E5F3A2 /* MarkLite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkLite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		079916581C61E9FF00E5F3A2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0799165A1C61E9FF00E5F3A2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -233,12 +233,6 @@
 		0799169B1C61EA3800E5F3A2 /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
 		0799169C1C61EA3800E5F3A2 /* sort_options@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sort_options@2x.png"; sourceTree = "<group>"; };
 		0799169D1C61EA3800E5F3A2 /* undo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "undo@2x.png"; sourceTree = "<group>"; };
-		0799169F1C61EA3800E5F3A2 /* help.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = help.md; sourceTree = "<group>"; };
-		079916A01C61EA3800E5F3A2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		079916A21C61EA3800E5F3A2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		079916A41C61EA3800E5F3A2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		079916A51C61EA3800E5F3A2 /* screenshot.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = screenshot.gif; sourceTree = "<group>"; };
-		079916A61C61EA3800E5F3A2 /* 根目录.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "根目录.zip"; sourceTree = "<group>"; };
 		079916A91C61EA3800E5F3A2 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		079916AA1C61EA3800E5F3A2 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		079916AB1C61EA3800E5F3A2 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -453,8 +447,6 @@
 		0799179F1C61EA3900E5F3A2 /* CreateNoteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateNoteView.xib; sourceTree = "<group>"; };
 		079917A01C61EA3900E5F3A2 /* EditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditView.h; sourceTree = "<group>"; };
 		079917A11C61EA3900E5F3A2 /* EditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditView.m; sourceTree = "<group>"; };
-		079917A21C61EA3900E5F3A2 /* FileItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileItemCell.h; sourceTree = "<group>"; };
-		079917A31C61EA3900E5F3A2 /* FileItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileItemCell.m; sourceTree = "<group>"; };
 		079917A41C61EA3900E5F3A2 /* KeyboardBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeyboardBar.h; sourceTree = "<group>"; };
 		079917A51C61EA3900E5F3A2 /* KeyboardBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeyboardBar.m; sourceTree = "<group>"; };
 		079917A61C61EA3900E5F3A2 /* NoteItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteItemCell.h; sourceTree = "<group>"; };
@@ -630,8 +622,7 @@
 				0799169B1C61EA3800E5F3A2 /* settings@2x.png */,
 				0799169C1C61EA3800E5F3A2 /* sort_options@2x.png */,
 				0799169D1C61EA3800E5F3A2 /* undo@2x.png */,
-				0799169E1C61EA3800E5F3A2 /* 根目录 */,
-				079916A61C61EA3800E5F3A2 /* 根目录.zip */,
+				075047E21CACC5970031852F /* MarkLite_Root.zip */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -648,34 +639,6 @@
 				0799169A1C61EA3800E5F3A2 /* Star@2x.png */,
 			);
 			path = Setting;
-			sourceTree = "<group>";
-		};
-		0799169E1C61EA3800E5F3A2 /* 根目录 */ = {
-			isa = PBXGroup;
-			children = (
-				0799169F1C61EA3800E5F3A2 /* help.md */,
-				079916A01C61EA3800E5F3A2 /* README.md */,
-				079916A11C61EA3800E5F3A2 /* 文件夹2 */,
-				079916A31C61EA3800E5F3A2 /* 未命名文件夹 */,
-			);
-			path = "根目录";
-			sourceTree = "<group>";
-		};
-		079916A11C61EA3800E5F3A2 /* 文件夹2 */ = {
-			isa = PBXGroup;
-			children = (
-				079916A21C61EA3800E5F3A2 /* README.md */,
-			);
-			path = "文件夹2";
-			sourceTree = "<group>";
-		};
-		079916A31C61EA3800E5F3A2 /* 未命名文件夹 */ = {
-			isa = PBXGroup;
-			children = (
-				079916A41C61EA3800E5F3A2 /* README.md */,
-				079916A51C61EA3800E5F3A2 /* screenshot.gif */,
-			);
-			path = "未命名文件夹";
 			sourceTree = "<group>";
 		};
 		079916A71C61EA3800E5F3A2 /* ThirdLib */ = {
@@ -1178,11 +1141,12 @@
 			children = (
 				0799179D1C61EA3900E5F3A2 /* CreateNoteView.h */,
 				0799179E1C61EA3900E5F3A2 /* CreateNoteView.m */,
-				079917A21C61EA3900E5F3A2 /* FileItemCell.h */,
 				0799179F1C61EA3900E5F3A2 /* CreateNoteView.xib */,
+				075047DF1CACC0280031852F /* FileItemCell.h */,
+				075047E01CACC0280031852F /* FileItemCell.m */,
+				075047DC1CACBF920031852F /* FileItemCell.xib */,
 				079917A01C61EA3900E5F3A2 /* EditView.h */,
 				079917A11C61EA3900E5F3A2 /* EditView.m */,
-				079917A31C61EA3900E5F3A2 /* FileItemCell.m */,
 				079917A41C61EA3900E5F3A2 /* KeyboardBar.h */,
 				079917A51C61EA3900E5F3A2 /* KeyboardBar.m */,
 				079917A61C61EA3900E5F3A2 /* NoteItemCell.h */,
@@ -1273,6 +1237,7 @@
 				079917BC1C61EA3900E5F3A2 /* Minu.png in Resources */,
 				079917B11C61EA3900E5F3A2 /* Code@2x.png in Resources */,
 				079918341C61EA3900E5F3A2 /* left@2x.png in Resources */,
+				075047E31CACC5970031852F /* MarkLite_Root.zip in Resources */,
 				079917C21C61EA3900E5F3A2 /* redo@2x.png in Resources */,
 				079918801C61FB9600E5F3A2 /* Main_iPad.storyboard in Resources */,
 				079917C51C61EA3900E5F3A2 /* FeedBack@2x.png in Resources */,
@@ -1281,9 +1246,7 @@
 				0799183D1C61EA3900E5F3A2 /* CreateNoteView.xib in Resources */,
 				079918351C61EA3900E5F3A2 /* left_press@2x.png in Resources */,
 				079918311C61EA3900E5F3A2 /* bg.png in Resources */,
-				079917D41C61EA3900E5F3A2 /* 根目录.zip in Resources */,
 				079917BB1C61EA3900E5F3A2 /* menu@2x.png in Resources */,
-				079917D31C61EA3900E5F3A2 /* screenshot.gif in Resources */,
 				079917CD1C61EA3900E5F3A2 /* sort_options@2x.png in Resources */,
 				079917BD1C61EA3900E5F3A2 /* minus.png in Resources */,
 				079917C01C61EA3900E5F3A2 /* note@2x.png in Resources */,
@@ -1294,6 +1257,7 @@
 				079917B01C61EA3900E5F3A2 /* check.png in Resources */,
 				079917C31C61EA3900E5F3A2 /* Server@2x.png in Resources */,
 				079918331C61EA3900E5F3A2 /* down_press@2x.png in Resources */,
+				075047DE1CACBF920031852F /* FileItemCell.xib in Resources */,
 				079917BF1C61EA3900E5F3A2 /* New@3x.png in Resources */,
 				079917B41C61EA3900E5F3A2 /* file@2x.png in Resources */,
 				079916671C61E9FF00E5F3A2 /* LaunchScreen.storyboard in Resources */,
@@ -1332,7 +1296,6 @@
 				079918651C61EC6900E5F3A2 /* FileListViewController.m in Sources */,
 				079917EA1C61EA3900E5F3A2 /* autolink.c in Sources */,
 				079918151C61EA3900E5F3A2 /* QNAsyncRun.m in Sources */,
-				079917CF1C61EA3900E5F3A2 /* help.md in Sources */,
 				079918211C61EA3900E5F3A2 /* QNUserAgent.m in Sources */,
 				079918301C61EA3900E5F3A2 /* Utils.m in Sources */,
 				079917E31C61EA3900E5F3A2 /* QNDnspodFree.m in Sources */,
@@ -1355,9 +1318,7 @@
 				079917EF1C61EA3900E5F3A2 /* html_blocks.c in Sources */,
 				079917AD1C61EA3900E5F3A2 /* User.m in Sources */,
 				079918281C61EA3900E5F3A2 /* QNUploadOption.m in Sources */,
-				0799183F1C61EA3900E5F3A2 /* FileItemCell.m in Sources */,
 				079918081C61EA3900E5F3A2 /* DDLog.m in Sources */,
-				079917D21C61EA3900E5F3A2 /* README.md in Sources */,
 				0799186A1C61EC6900E5F3A2 /* RegistViewController.m in Sources */,
 				079918101C61EA3900E5F3A2 /* HighLightModel.m in Sources */,
 				0799183B1C61EA3900E5F3A2 /* ZBCTrackButton.m in Sources */,
@@ -1372,6 +1333,7 @@
 				079918241C61EA3900E5F3A2 /* QNConfiguration.m in Sources */,
 				079917F61C61EA3900E5F3A2 /* HTTPAuthenticationRequest.m in Sources */,
 				0799186C1C61EC6900E5F3A2 /* SplitViewController.m in Sources */,
+				075047E11CACC0280031852F /* FileItemCell.m in Sources */,
 				079917D51C61EA3900E5F3A2 /* AFHTTPRequestOperation.m in Sources */,
 				079918221C61EA3900E5F3A2 /* QNReachability.m in Sources */,
 				079917E41C61EA3900E5F3A2 /* QNHijackingDetectWrapper.m in Sources */,
@@ -1383,7 +1345,6 @@
 				079918191C61EA3900E5F3A2 /* QNPHAssetFile.m in Sources */,
 				079917DE1C61EA3900E5F3A2 /* QNDnsManager.m in Sources */,
 				079917F51C61EA3900E5F3A2 /* DDRange.m in Sources */,
-				079917D11C61EA3900E5F3A2 /* README.md in Sources */,
 				079917D81C61EA3900E5F3A2 /* AFNetworkReachabilityManager.m in Sources */,
 				079918111C61EA3900E5F3A2 /* MarkdownSyntaxGenerator.m in Sources */,
 				079917F01C61EA3900E5F3A2 /* html_smartypants.c in Sources */,
@@ -1431,7 +1392,6 @@
 				0799183E1C61EA3900E5F3A2 /* EditView.m in Sources */,
 				079918011C61EA3900E5F3A2 /* HTTPFileResponse.m in Sources */,
 				079917ED1C61EA3900E5F3A2 /* escape.c in Sources */,
-				079917D01C61EA3900E5F3A2 /* README.md in Sources */,
 				079917FB1C61EA3900E5F3A2 /* MultipartMessageHeader.m in Sources */,
 				0799180D1C61EA3900E5F3A2 /* GCDAsyncSocket.m in Sources */,
 				079918071C61EA3900E5F3A2 /* DDFileLogger.m in Sources */,
@@ -1574,7 +1534,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/MarkLite/ThirdLib/MarkDownRender",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = zhubch.MarkLite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhubch.MarkLite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1593,7 +1553,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/MarkLite/ThirdLib/MarkDownRender",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = zhubch.MarkLite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhubch.MarkLite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

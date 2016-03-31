@@ -218,7 +218,6 @@
                         <barButtonItem key="rightBarButtonItem" title="渲染" id="WQp-jO-Vcc">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <action selector="preview:" destination="VQd-1Y-qDA" id="8ys-bV-Gm4"/>
                                 <segue destination="rmd-nM-PLW" kind="show" id="Ow3-lL-ZNM"/>
                             </connections>
                         </barButtonItem>
