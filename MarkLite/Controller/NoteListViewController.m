@@ -78,7 +78,7 @@
         [view remove];
     }else{
         view.root = root;
-        [view showOnView:self.view];
+        [view show];
     }
 }
 

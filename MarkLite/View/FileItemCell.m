@@ -16,7 +16,7 @@
 - (void)setItem:(Item *)item
 {
     _item = item;
-    CGFloat begin = item.deep * 30 - 22;
+    CGFloat begin = (item.deep+_shift) * 30 - 22;
     if (item.type != FileTypeFolder) {
         begin -= 24;
     }
@@ -32,7 +32,7 @@
     }
     
     self.nameText.text = _edit ? item.name : [item.path componentsSeparatedByString:@"/"].lastObject;
-    line.frame = CGRectMake(item.deep * 30 - 22 , 39.5, kScreenWidth - item.deep * 30 + 22, 0.5);
+    line.frame = CGRectMake(begin , 39.5, kScreenWidth - item.deep * 30 + 22, 0.5);
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

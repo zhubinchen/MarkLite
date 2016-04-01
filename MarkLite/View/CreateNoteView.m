@@ -12,16 +12,18 @@
 
 @implementation CreateNoteView
 {
-    NSArray *dataArray;
+    NSMutableArray *dataArray;
     UIControl *control;
     Item *selecteItem;
 }
 
-- (void)showOnView:(UIView *)view
+- (void)show
 {
+    UIWindow *window=[UIApplication sharedApplication].keyWindow;
+
     _isShow = YES;
     if (control == nil) {
-        control = [[UIControl alloc]initWithFrame:view.bounds];
+        control = [[UIControl alloc]initWithFrame:window.bounds];
         control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
         [control addTarget:self action:@selector(remove) forControlEvents:UIControlEventTouchDown];
         [control addSubview:self];
@@ -31,13 +33,13 @@
         self.layer.shadowColor = [UIColor grayColor].CGColor;
         self.layer.shadowRadius = 5;
         self.layer.cornerRadius = 5;
-        self.center = control.center;
     }
     
-    [view addSubview:control];
+    [window addSubview:control];
     
-    [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         control.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
+        self.center = control.center;
     } completion:^(BOOL finished) {
         //
     }];
@@ -46,8 +48,9 @@
 - (void)remove
 {
     _isShow = NO;
-    [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+        self.frame = CGRectMake(kScreenWidth * 0.05, kScreenHeight, kScreenWidth * 0.9, kScreenWidth * 0.9 *1.4);
     } completion:^(BOOL finished) {
         if (finished) {
             [control removeFromSuperview];
@@ -58,7 +61,7 @@
 + (instancetype)instance
 {
     CreateNoteView *view = [[NSBundle mainBundle]loadNibNamed:@"CreateNoteView" owner:self options:nil].firstObject;
-    view.frame = CGRectMake(0, 0, kScreenWidth * 0.9, kScreenWidth * 0.9 *1.4);
+    view.frame = CGRectMake(kScreenWidth * 0.05, kScreenHeight, kScreenWidth * 0.9, kScreenWidth * 0.9 *1.4);
     [view.folderListView registerNib:[UINib nibWithNibName:@"FileItemCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"fileItemCell"];
     return view;
 }
@@ -72,7 +75,8 @@
         }
         return NO;
     }];
-    dataArray = [root.items filteredArrayUsingPredicate:pre];
+    dataArray = [root.items filteredArrayUsingPredicate:pre].mutableCopy;
+    [dataArray insertObject:root atIndex:0];
     [self.folderListView reloadData];
 }
 
@@ -117,6 +121,7 @@
 {
     FileItemCell *cell = (FileItemCell*)[tableView dequeueReusableCellWithIdentifier:@"fileItemCell" forIndexPath:indexPath];
     Item *item = dataArray[indexPath.row];
+    cell.shift = 1;
     cell.item = item;
     cell.addBtn.hidden = YES;
     

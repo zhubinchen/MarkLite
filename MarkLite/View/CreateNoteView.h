@@ -20,7 +20,7 @@
 
 + (instancetype)instance;
 
-- (void)showOnView:(UIView*)view;
+- (void)show;
 
 - (void)remove;
 

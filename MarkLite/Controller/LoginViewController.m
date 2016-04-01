@@ -22,7 +22,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    if ([User currentUser].hasLogin) {
+    if (![User currentUser].hasLogin) {
         UIStoryboard *board = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
         UIViewController *vc = [board instantiateViewControllerWithIdentifier:@"main_tab"];
         [self.navigationController pushViewController:vc animated:NO];

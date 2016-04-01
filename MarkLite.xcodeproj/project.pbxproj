@@ -11,6 +11,7 @@
 		075047DE1CACBF920031852F /* FileItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075047DC1CACBF920031852F /* FileItemCell.xib */; };
 		075047E11CACC0280031852F /* FileItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 075047E01CACC0280031852F /* FileItemCell.m */; };
 		075047E31CACC5970031852F /* MarkLite_Root.zip in Resources */ = {isa = PBXBuildFile; fileRef = 075047E21CACC5970031852F /* MarkLite_Root.zip */; };
+		075047E61CACF5E80031852F /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075047E51CACF5E80031852F /* AboutViewController.m */; };
 		079916591C61E9FF00E5F3A2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 079916581C61E9FF00E5F3A2 /* main.m */; };
 		0799165C1C61E9FF00E5F3A2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799165B1C61E9FF00E5F3A2 /* AppDelegate.m */; };
 		079916641C61E9FF00E5F3A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 079916631C61E9FF00E5F3A2 /* Assets.xcassets */; };
@@ -23,17 +24,12 @@
 		079917AE1C61EA3900E5F3A2 /* add_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 0799167C1C61EA3800E5F3A2 /* add_image.png */; };
 		079917AF1C61EA3900E5F3A2 /* add_link.png in Resources */ = {isa = PBXBuildFile; fileRef = 0799167D1C61EA3800E5F3A2 /* add_link.png */; };
 		079917B01C61EA3900E5F3A2 /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 0799167E1C61EA3800E5F3A2 /* check.png */; };
-		079917B11C61EA3900E5F3A2 /* Code@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0799167F1C61EA3800E5F3A2 /* Code@2x.png */; };
-		079917B21C61EA3900E5F3A2 /* Code@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 079916801C61EA3800E5F3A2 /* Code@3x.png */; };
 		079917B31C61EA3900E5F3A2 /* Document.png in Resources */ = {isa = PBXBuildFile; fileRef = 079916811C61EA3800E5F3A2 /* Document.png */; };
 		079917B41C61EA3900E5F3A2 /* file@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 079916821C61EA3800E5F3A2 /* file@2x.png */; };
 		079917B51C61EA3900E5F3A2 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 079916831C61EA3800E5F3A2 /* folder.png */; };
 		079917B71C61EA3900E5F3A2 /* folder_open.png in Resources */ = {isa = PBXBuildFile; fileRef = 079916851C61EA3800E5F3A2 /* folder_open.png */; };
 		079917B81C61EA3900E5F3A2 /* format.html in Resources */ = {isa = PBXBuildFile; fileRef = 079916861C61EA3800E5F3A2 /* format.html */; };
-		079917B91C61EA3900E5F3A2 /* History@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 079916871C61EA3800E5F3A2 /* History@2x.png */; };
-		079917BA1C61EA3900E5F3A2 /* History@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 079916881C61EA3800E5F3A2 /* History@3x.png */; };
 		079917BB1C61EA3900E5F3A2 /* menu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 079916891C61EA3800E5F3A2 /* menu@2x.png */; };
-		079917BC1C61EA3900E5F3A2 /* Minu.png in Resources */ = {isa = PBXBuildFile; fileRef = 0799168A1C61EA3800E5F3A2 /* Minu.png */; };
 		079917BD1C61EA3900E5F3A2 /* minus.png in Resources */ = {isa = PBXBuildFile; fileRef = 0799168B1C61EA3800E5F3A2 /* minus.png */; };
 		079917BE1C61EA3900E5F3A2 /* New@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0799168C1C61EA3800E5F3A2 /* New@2x.png */; };
 		079917BF1C61EA3900E5F3A2 /* New@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0799168D1C61EA3800E5F3A2 /* New@3x.png */; };
@@ -184,6 +180,8 @@
 		075047DF1CACC0280031852F /* FileItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileItemCell.h; sourceTree = "<group>"; };
 		075047E01CACC0280031852F /* FileItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileItemCell.m; sourceTree = "<group>"; };
 		075047E21CACC5970031852F /* MarkLite_Root.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = MarkLite_Root.zip; sourceTree = "<group>"; };
+		075047E41CACF5E80031852F /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		075047E51CACF5E80031852F /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		079916541C61E9FF00E5F3A2 /* MarkLite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkLite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		079916581C61E9FF00E5F3A2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0799165A1C61E9FF00E5F3A2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -204,17 +202,12 @@
 		0799167C1C61EA3800E5F3A2 /* add_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_image.png; sourceTree = "<group>"; };
 		0799167D1C61EA3800E5F3A2 /* add_link.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_link.png; sourceTree = "<group>"; };
 		0799167E1C61EA3800E5F3A2 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
-		0799167F1C61EA3800E5F3A2 /* Code@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Code@2x.png"; sourceTree = "<group>"; };
-		079916801C61EA3800E5F3A2 /* Code@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Code@3x.png"; sourceTree = "<group>"; };
 		079916811C61EA3800E5F3A2 /* Document.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Document.png; sourceTree = "<group>"; };
 		079916821C61EA3800E5F3A2 /* file@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "file@2x.png"; sourceTree = "<group>"; };
 		079916831C61EA3800E5F3A2 /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder.png; sourceTree = "<group>"; };
 		079916851C61EA3800E5F3A2 /* folder_open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder_open.png; sourceTree = "<group>"; };
 		079916861C61EA3800E5F3A2 /* format.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = format.html; sourceTree = "<group>"; };
-		079916871C61EA3800E5F3A2 /* History@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "History@2x.png"; sourceTree = "<group>"; };
-		079916881C61EA3800E5F3A2 /* History@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "History@3x.png"; sourceTree = "<group>"; };
 		079916891C61EA3800E5F3A2 /* menu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu@2x.png"; sourceTree = "<group>"; };
-		0799168A1C61EA3800E5F3A2 /* Minu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Minu.png; sourceTree = "<group>"; };
 		0799168B1C61EA3800E5F3A2 /* minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minus.png; sourceTree = "<group>"; };
 		0799168C1C61EA3800E5F3A2 /* New@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "New@2x.png"; sourceTree = "<group>"; };
 		0799168D1C61EA3800E5F3A2 /* New@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "New@3x.png"; sourceTree = "<group>"; };
@@ -500,6 +493,8 @@
 			children = (
 				075047721CABA6F40031852F /* SelectViewController.h */,
 				075047731CABA6F40031852F /* SelectViewController.m */,
+				075047E41CACF5E80031852F /* AboutViewController.h */,
+				075047E51CACF5E80031852F /* AboutViewController.m */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -599,17 +594,12 @@
 				0799167C1C61EA3800E5F3A2 /* add_image.png */,
 				0799167D1C61EA3800E5F3A2 /* add_link.png */,
 				0799167E1C61EA3800E5F3A2 /* check.png */,
-				0799167F1C61EA3800E5F3A2 /* Code@2x.png */,
-				079916801C61EA3800E5F3A2 /* Code@3x.png */,
 				079916811C61EA3800E5F3A2 /* Document.png */,
 				079916821C61EA3800E5F3A2 /* file@2x.png */,
 				079916831C61EA3800E5F3A2 /* folder.png */,
 				079916851C61EA3800E5F3A2 /* folder_open.png */,
 				079916861C61EA3800E5F3A2 /* format.html */,
-				079916871C61EA3800E5F3A2 /* History@2x.png */,
-				079916881C61EA3800E5F3A2 /* History@3x.png */,
 				079916891C61EA3800E5F3A2 /* menu@2x.png */,
-				0799168A1C61EA3800E5F3A2 /* Minu.png */,
 				0799168B1C61EA3800E5F3A2 /* minus.png */,
 				0799168C1C61EA3800E5F3A2 /* New@2x.png */,
 				0799168D1C61EA3800E5F3A2 /* New@3x.png */,
@@ -1234,8 +1224,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				079917CB1C61EA3900E5F3A2 /* Star@2x.png in Resources */,
-				079917BC1C61EA3900E5F3A2 /* Minu.png in Resources */,
-				079917B11C61EA3900E5F3A2 /* Code@2x.png in Resources */,
 				079918341C61EA3900E5F3A2 /* left@2x.png in Resources */,
 				075047E31CACC5970031852F /* MarkLite_Root.zip in Resources */,
 				079917C21C61EA3900E5F3A2 /* redo@2x.png in Resources */,
@@ -1251,7 +1239,6 @@
 				079917BD1C61EA3900E5F3A2 /* minus.png in Resources */,
 				079917C01C61EA3900E5F3A2 /* note@2x.png in Resources */,
 				079917C61C61EA3900E5F3A2 /* Font@2x.png in Resources */,
-				079917B91C61EA3900E5F3A2 /* History@2x.png in Resources */,
 				0799180C1C61EA3900E5F3A2 /* README.txt in Resources */,
 				079917B81C61EA3900E5F3A2 /* format.html in Resources */,
 				079917B01C61EA3900E5F3A2 /* check.png in Resources */,
@@ -1266,7 +1253,6 @@
 				079917C11C61EA3900E5F3A2 /* plus.png in Resources */,
 				079917C81C61EA3900E5F3A2 /* Info@2x.png in Resources */,
 				079918041C61EA3900E5F3A2 /* About.txt in Resources */,
-				079917B21C61EA3900E5F3A2 /* Code@3x.png in Resources */,
 				079918361C61EA3900E5F3A2 /* up@2x.png in Resources */,
 				079916641C61E9FF00E5F3A2 /* Assets.xcassets in Resources */,
 				079917BE1C61EA3900E5F3A2 /* New@2x.png in Resources */,
@@ -1279,7 +1265,6 @@
 				079917AE1C61EA3900E5F3A2 /* add_image.png in Resources */,
 				079917C41C61EA3900E5F3A2 /* Server@3x.png in Resources */,
 				079917CA1C61EA3900E5F3A2 /* Share@2x.png in Resources */,
-				079917BA1C61EA3900E5F3A2 /* History@3x.png in Resources */,
 				079917B31C61EA3900E5F3A2 /* Document.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1382,6 +1367,7 @@
 				079918141C61EA3900E5F3A2 /* QNALAssetFile.m in Sources */,
 				079918031C61EA3900E5F3A2 /* WebSocket.m in Sources */,
 				079917AB1C61EA3900E5F3A2 /* Item.m in Sources */,
+				075047E61CACF5E80031852F /* AboutViewController.m in Sources */,
 				079918181C61EA3900E5F3A2 /* QNFile.m in Sources */,
 				079917FF1C61EA3900E5F3A2 /* HTTPDynamicFileResponse.m in Sources */,
 				079917F21C61EA3900E5F3A2 /* version.c in Sources */,
@@ -1525,6 +1511,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/MarkLite/MarkLitePrefix.pch";
 				INFOPLIST_FILE = MarkLite/Info.plist;
@@ -1536,6 +1523,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhubch.MarkLite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1544,6 +1532,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/MarkLite/MarkLitePrefix.pch";
 				INFOPLIST_FILE = MarkLite/Info.plist;
@@ -1555,6 +1544,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhubch.MarkLite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

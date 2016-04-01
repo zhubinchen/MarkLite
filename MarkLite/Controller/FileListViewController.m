@@ -14,7 +14,7 @@
 #import "FileItemCell.h"
 #import "Configure.h"
 
-@interface FileListViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIViewControllerPreviewingDelegate,UISearchBarDelegate>
+@interface FileListViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIViewControllerPreviewingDelegate,UISearchBarDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *fileListView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
@@ -29,6 +29,7 @@
     NSMutableArray *dataArray;
     UIBarButtonItem *rightItem;
     BOOL edit;
+    Item *selectParent;
 }
 
 #pragma mark 生命周期
@@ -56,7 +57,11 @@
 - (void)edit
 {
     edit = !edit;
-    rightItem.title = edit ? @"完成":@"编辑";
+    if (edit) {
+        [dataArray insertObject:root atIndex:0];
+    }else{
+        [dataArray removeObject:root];
+    }
     [self.fileListView reloadData];
 }
 
@@ -128,6 +133,8 @@
 
 - (void)addFileWithParent:(Item*)parent
 {
+    selectParent = parent;
+    
     int index = 0;
     for (Item *i in dataArray) {
         index ++;
@@ -136,68 +143,87 @@
         }
     }
     
-    if (SYSTEM_VERSION >= 8.0) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"新建文件或文件夹" message:@"如果创建文件应输入文件扩展名（如 readme.md）" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addTextFieldWithConfigurationHandler:nil];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            NSString *name = alert.textFields[0].text;
-            if (name.length < 1) {
-                return ;
-            }
-            NSString *path = [parent.path stringByAppendingPathComponent:name];
+    ActionSheet *sheet = [[ActionSheet alloc]initWithTitle:@"请选择要进行的操作" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"新建文本",@"创建文件夹",@"选取图片或视频", nil];
+    sheet.clickedButton = ^(NSInteger buttonIndex,ActionSheet *sheet){
+        if (buttonIndex == 2) {
+            UIImagePickerController *vc = [[UIImagePickerController alloc]init];
+            vc.delegate = self;
+            vc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentViewController:vc animated:YES completion:nil];
+            return ;
+        }else if (buttonIndex == 0 || buttonIndex == 1) {
+            FileType type = buttonIndex == 0 ? FileTypeText : FileTypeFolder;
+            AlertView *alert = [[AlertView alloc]initWithTitle:@"新建文本" message:@"请输入文件名" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+            alert.clickedButton = ^(NSInteger buttonIndex,AlertView *alert){
+                if (buttonIndex == 1) {
+                    [[alert textFieldAtIndex:0] resignFirstResponder];
+                    NSString *name = [alert textFieldAtIndex:0].text;
+                    if (type == FileTypeText) {
+                        name = [name stringByAppendingString:@".md"];
+                    }
+                    NSString *path = [parent.path stringByAppendingPathComponent:name];
+                    Item *i = [[Item alloc]init];
+                    i.path = path;
+                    i.open = YES;
+                    if (i.type == FileTypeFolder) {
+                        [fm createFolder:path];
+                    }else{
+                        [fm createFile:path Content:[NSData data]];
+                    }
+                    
+                    [parent addChild:i];
+                    
+                    dataArray = root.itemsCanReach.mutableCopy;
+                    [self.fileListView reloadData];
+                    
+                    if (i.type == FileTypeText) {
+                        fm.currentItem = i;
+                        if (kDevicePhone) {
+                            [self performSegueWithIdentifier:@"edit" sender:self];
+                        }
+                    }
+                }
+            };
+            [alert show];
+        }
+    };
+    
+    [sheet showInView:self.view];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    AlertView *alert = [[AlertView alloc]initWithTitle:@"新建文本" message:@"请输入文件名" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    alert.clickedButton = ^(NSInteger buttonIndex,AlertView *alert){
+        if (buttonIndex == 1) {
+            [[alert textFieldAtIndex:0] resignFirstResponder];
+            NSString *name = [alert textFieldAtIndex:0].text;
+            name = [name stringByAppendingString:@".jpeg"];
+            NSString *path = [selectParent.path stringByAppendingPathComponent:name];
             Item *i = [[Item alloc]init];
             i.path = path;
             i.open = YES;
-            if (i.type == FileTypeFolder) {
-                [fm createFolder:path];
-            }else{
-                [fm createFile:path Content:[NSData data]];
-            }
+            UIImage *img = [info objectForKey:UIImagePickerControllerOriginalImage];
+            NSData *data = UIImageJPEGRepresentation(img, 0.5);
+            [fm createFile:path Content:data];
             
-            [parent addChild:i];
+            [selectParent addChild:i];
             
             dataArray = root.itemsCanReach.mutableCopy;
+            fm.currentItem = i;
             [self.fileListView reloadData];
             
-            if (i.type == FileTypeText) {
-                fm.currentItem = i;
-                [self performSegueWithIdentifier:@"code" sender:self];
+            if (kDevicePhone) {
+                [self performSegueWithIdentifier:@"preview" sender:self];
             }
-        }];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-        [alert addAction:okAction];
-        [alert addAction:cancelAction];
-        [self presentViewController:alert animated:YES completion:nil];
-    }else{
-        AlertView *alert = [[AlertView alloc]initWithTitle:@"新建文件或文件夹" message:@"如果创建文件应输入文件扩展名（如 readme.md）" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-        alert.clickedButton = ^(NSInteger buttonIndex,AlertView *alert){
-            if (buttonIndex == 1) {
-                [[alert textFieldAtIndex:0] resignFirstResponder];
-                NSString *name = [alert textFieldAtIndex:0].text;
-                NSString *path = [parent.path stringByAppendingPathComponent:name];
-                Item *i = [[Item alloc]init];
-                i.path = path;
-                i.open = YES;
-                if (i.type == FileTypeFolder) {
-                    [fm createFolder:path];
-                }else{
-                    [fm createFile:path Content:[NSData data]];
-                }
-                
-                [parent addChild:i];
-                
-                dataArray = root.itemsCanReach.mutableCopy;
-                [self.fileListView reloadData];
-                
-                if (i.type == FileTypeText) {
-                    fm.currentItem = i;
-                    [self performSegueWithIdentifier:@"edit" sender:self];
-                }
-            }
-        };
+        }
+    };
+
+    [picker dismissViewControllerAnimated:YES completion:^{
         [alert show];
-    }
+    }];
 }
 
 - (void)newProject
@@ -234,9 +260,14 @@
         [self registerForPreviewingWithDelegate:self sourceView:cell];
     }
     Item *item = dataArray[indexPath.row];
+    cell.shift = edit ? 1 : 0;
     cell.edit = edit;
     cell.item = item;
     cell.nameText.enabled = edit;
+    
+    if (item == root) {
+        cell.nameText.enabled = NO;
+    }
     cell.newFileBlock = ^(Item *i){
         [self addFileWithParent:item];
     };
@@ -250,6 +281,10 @@
     };
 
     cell.deleteFileBlock = ^(Item *i){
+        if (i == root) {
+            showToast(@"根目录不可删除");
+            return ;
+        }
         ActionSheet *sheet = [[ActionSheet alloc]initWithTitle:@"删除后不和恢复，确定要删除吗？" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles: nil];
         sheet.clickedButton = ^(NSInteger buttonIndex,ActionSheet *alert){
             if (buttonIndex == 0) {
@@ -298,6 +333,7 @@
     
     if (kDevicePhone) {
         if (i.type == FileTypeImage) {
+            [self performSegueWithIdentifier:@"preview" sender:self];
         }else {
             [self performSegueWithIdentifier:@"edit" sender:self];
         }

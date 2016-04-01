@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *addBtn;
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
 
+@property (nonatomic,assign) int  shift;
 @property (nonatomic,strong) Item *item;
 
 @property (nonatomic,copy) void(^newFileBlock)(Item *i);
