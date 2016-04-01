@@ -255,11 +255,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FileItemCell *cell = (FileItemCell*)[tableView dequeueReusableCellWithIdentifier:@"fileItemCell" forIndexPath:indexPath];
-    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)
+    Item *item = dataArray[indexPath.row];
+
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable && item.type != FileTypeFolder)
     {
         [self registerForPreviewingWithDelegate:self sourceView:cell];
     }
-    Item *item = dataArray[indexPath.row];
     cell.shift = edit ? 1 : 0;
     cell.edit = edit;
     cell.item = item;

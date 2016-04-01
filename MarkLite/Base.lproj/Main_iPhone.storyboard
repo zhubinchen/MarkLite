@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="xIz-R9-HHY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="xIz-R9-HHY">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--入口-->
@@ -187,7 +187,7 @@
         <!--代码-->
         <scene sceneID="2Ei-cz-bKK">
             <objects>
-                <viewController storyboardIdentifier="code" title="代码" hidesBottomBarWhenPushed="YES" id="VQd-1Y-qDA" customClass="EditViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="edit" title="代码" hidesBottomBarWhenPushed="YES" id="VQd-1Y-qDA" customClass="EditViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="p9f-gj-Mso"/>
                         <viewControllerLayoutGuide type="bottom" id="Znb-cf-QhM"/>

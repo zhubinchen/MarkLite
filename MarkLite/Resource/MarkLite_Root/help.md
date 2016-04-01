@@ -286,12 +286,11 @@ or (in MathML)
 ### Jekyll front-matter
 If you like, I can display Jekyll front-matter in a nice table. Just make sure you put the front-matter at the very beginning of the file, and fence it with `---`. For example:
 
-```
 ---
 title: "Macdown is my friend"
 date: 2014-06-06 20:00:00
 ---
-```
+
 
 ### Render newline literally
 Normally I require you to put two spaces and a newline (aka return) at the end of a line in order to create a line break. If you like, I can render a newline any time you end a line with a newline. However, if you enable this, markdown that looks lovely when I render it might look pretty funky when you let some *other* program render it.
