@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -14,10 +14,36 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cml-Re-Rh9">
+                                <rect key="frame" x="20" y="401" width="280" height="38.5"/>
+                                <string key="text">Copyright (c) 2015年 zhubch. 
+    All rights reserved.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0gD-Pz-kP7">
+                                <rect key="frame" x="100" y="140" width="120" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="Awt-xp-O7P"/>
+                                    <constraint firstAttribute="width" constant="120" id="X56-Gx-tL0"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.20392156859999999" green="0.20392156859999999" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="0gD-Pz-kP7" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="YcK-BL-pu0"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="cml-Re-Rh9" secondAttribute="bottom" constant="40" id="ZqQ-MC-oNC"/>
+                            <constraint firstItem="cml-Re-Rh9" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="fyh-V4-aPM"/>
+                            <constraint firstAttribute="trailing" secondItem="cml-Re-Rh9" secondAttribute="trailing" constant="20" id="lFm-RX-Nde"/>
+                            <constraint firstItem="cml-Re-Rh9" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="20" id="mt6-0Q-lTq"/>
+                            <constraint firstItem="0gD-Pz-kP7" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="120" id="uJj-1a-t8x"/>
+                        </constraints>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

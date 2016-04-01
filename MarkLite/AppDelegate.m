@@ -31,8 +31,11 @@
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler
 {
     [Configure sharedConfigure].launchOptions = @{@"type":shortcutItem.type,@"path":shortcutItem.localizedSubtitle};
-    [[TabBarController currentViewContoller].navigationController popToRootViewControllerAnimated:NO];
-    [TabBarController currentViewContoller].selectedIndex = 0;
+    if (kDevicePhone) {
+        [[TabBarController currentViewContoller].navigationController popToViewController:[TabBarController currentViewContoller].navigationController.viewControllers[1] animated:NO];
+        [TabBarController currentViewContoller].selectedIndex = 0;
+    }
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"launchFormShortCutItem" object:@{@"type":shortcutItem.type,@"path":shortcutItem.localizedSubtitle}];
     completionHandler(YES);
 }

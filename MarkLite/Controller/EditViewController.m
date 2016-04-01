@@ -111,7 +111,7 @@
 
     [[Configure sharedConfigure].fileHisory addObject:@{@"name":item.name,@"path":[path stringByReplacingOccurrencesOfString:fm.workSpace withString:@""]}];
     [[Configure sharedConfigure] saveToFile];
-    [self createShortCutItem:[Configure sharedConfigure].fileHisory];
+//    [self createShortCutItem:[Configure sharedConfigure].fileHisory];
 }
 
 -(void)createShortCutItem:(NSArray*)fileHistory

@@ -12,8 +12,9 @@
 #import "NoteItemCell.h"
 #import "Item.h"
 #import "CreateNoteView.h"
+#import "Configure.h"
 
-@interface NoteListViewController () <UITableViewDelegate,UITableViewDataSource,UIViewControllerPreviewingDelegate>
+@interface NoteListViewController () <UITableViewDelegate,UITableViewDataSource,UIViewControllerPreviewingDelegate,UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *noteListView;
 @property (assign, nonatomic) NSInteger sortOption;
@@ -28,6 +29,7 @@
     UIControl *control;
     UIImageView *imgView;
     CreateNoteView *view;
+    NSString *searchWord;
 }
 
 - (void)viewDidLoad {
@@ -166,6 +168,12 @@
         return NO;
     }];
     NSArray *arr = [root.items filteredArrayUsingPredicate:pre];
+    if (searchWord.length == 0) {
+        arr = [root.items filteredArrayUsingPredicate:pre].mutableCopy;
+    }else {
+        arr = [[root searchResult:searchWord] filteredArrayUsingPredicate:pre] .mutableCopy;
+    }
+
     dataArray = [arr sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Item *item1 = obj1;
         Item *item2 = obj2;
@@ -249,6 +257,33 @@
     if (kDevicePhone) {
         [self performSegueWithIdentifier:@"edit" sender:self];
     }
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    searchWord = searchText;
+    self.sortOption = _sortOption;
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    searchWord = @"";
+    [searchBar resignFirstResponder];
+    self.sortOption = _sortOption;
+    searchBar.text = @"";
+}
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
+{
+    searchBar.showsCancelButton = YES;
+    [searchBar setCancelButtonTitle:@"取消"];
+    return YES;
+}
+
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+{
+    searchBar.showsCancelButton = NO;
+    return YES;
 }
 
 #pragma mark 3dTouch

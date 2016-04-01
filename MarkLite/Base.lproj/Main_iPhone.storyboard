@@ -370,12 +370,11 @@
                             <searchBar contentMode="redraw" placeholder="搜索" translatesAutoresizingMaskIntoConstraints="NO" id="dfg-aj-tmF">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="Tju-hy-A1C"/>
                                     <constraint firstAttribute="height" constant="44" id="g0F-Lb-yEF"/>
                                 </constraints>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <outlet property="delegate" destination="FOL-Xe-NU3" id="B0I-wn-Nw7"/>
+                                    <outlet property="delegate" destination="O8T-WH-Ngn" id="uXG-yM-g4A"/>
                                 </connections>
                             </searchBar>
                         </subviews>
@@ -705,6 +704,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="Dvd-JL-udn"/>
         <segue reference="F5f-nG-XfB"/>
-        <segue reference="nAh-oH-Cz0"/>
+        <segue reference="jkb-0q-YIz"/>
     </inferredMetricsTieBreakers>
 </document>
