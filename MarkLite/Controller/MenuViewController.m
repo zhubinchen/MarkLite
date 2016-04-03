@@ -9,6 +9,7 @@
 #import "MenuViewController.h"
 #import "SelectViewController.h"
 #import "Configure.h"
+#import "AboutViewController.h"
 
 @interface MenuViewController ()
 
@@ -105,6 +106,9 @@
             NSString *url = @"mailto:cheng4741@gmail.com?subject=MarkLite%20Report&body=??";
             [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
         }
+    }else{
+        UIViewController *vc = [[AboutViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

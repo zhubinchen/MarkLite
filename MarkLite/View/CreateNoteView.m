@@ -10,6 +10,9 @@
 #import "FileItemCell.h"
 #import "FileManager.h"
 
+static CGFloat w;
+static CGFloat h;
+
 @implementation CreateNoteView
 {
     NSMutableArray *dataArray;
@@ -50,7 +53,7 @@
     _isShow = NO;
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
-        self.frame = CGRectMake(kScreenWidth * 0.05, kScreenHeight, kScreenWidth * 0.9, kScreenWidth * 0.9 *1.4);
+        self.frame = CGRectMake(w * 0.05, kScreenHeight, w, h);
     } completion:^(BOOL finished) {
         if (finished) {
             [control removeFromSuperview];
@@ -58,10 +61,22 @@
     }];
 }
 
+- (void)reset
+{
+    UIWindow *window=[UIApplication sharedApplication].keyWindow;
+
+    control.frame = window.bounds;
+
+    self.frame = CGRectMake(w * 0.05, kScreenHeight, w, h);
+}
+
 + (instancetype)instance
 {
     CreateNoteView *view = [[NSBundle mainBundle]loadNibNamed:@"CreateNoteView" owner:self options:nil].firstObject;
-    view.frame = CGRectMake(kScreenWidth * 0.05, kScreenHeight, kScreenWidth * 0.9, kScreenWidth * 0.9 *1.4);
+    w = MIN(kScreenWidth, kScreenHeight) * 0.9;
+    h = kDevicePhone ? w * 1.4 : w;
+    view.frame = CGRectMake(w * 0.05, kScreenHeight, w, h);
+
     [view.folderListView registerNib:[UINib nibWithNibName:@"FileItemCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"fileItemCell"];
     return view;
 }

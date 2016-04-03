@@ -2,7 +2,7 @@
 //  AboutViewController.m
 //  MarkLite
 //
-//  Created by zhubch on 3/31/16.
+//  Created by zhubch on 4/1/16.
 //  Copyright © 2016 zhubch. All rights reserved.
 //
 
@@ -16,7 +16,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+    self.title = @"关于";
+    
+    NSString *htmlStr = [NSString stringWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"about" ofType:@"html" ]encoding:NSUTF8StringEncoding error:nil];
+    [self.webView loadHTMLString:htmlStr baseURL:nil];
+    self.webView.scalesPageToFit = YES;
+    self.webView.scrollView.showsHorizontalScrollIndicator = NO;
 }
 
 - (void)didReceiveMemoryWarning {

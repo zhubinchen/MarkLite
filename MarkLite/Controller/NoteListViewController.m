@@ -286,6 +286,12 @@
     return YES;
 }
 
+- (void)viewWillLayoutSubviews
+{
+    [view remove];
+    [view reset];
+}
+
 #pragma mark 3dTouch
 
 - (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location

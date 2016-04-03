@@ -18,29 +18,39 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cml-Re-Rh9">
-                                <rect key="frame" x="20" y="401" width="280" height="38.5"/>
+                                <rect key="frame" x="20" y="411" width="280" height="38.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="38.5" id="L2l-sV-Dzk"/>
+                                    <constraint firstAttribute="width" constant="280" id="P5k-xx-AYv"/>
+                                </constraints>
                                 <string key="text">Copyright (c) 2015年 zhubch. 
     All rights reserved.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="16"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0gD-Pz-kP7">
-                                <rect key="frame" x="100" y="140" width="120" height="120"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MarkLite" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IhF-fK-1dL">
+                                <rect key="frame" x="115" y="320" width="91" height="27"/>
+                                <fontDescription key="fontDescription" name="TimesNewRomanPSMT" family="Times New Roman" pointSize="24"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="page.png" translatesAutoresizingMaskIntoConstraints="NO" id="oTm-Ee-Cx0">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="Awt-xp-O7P"/>
-                                    <constraint firstAttribute="width" constant="120" id="X56-Gx-tL0"/>
+                                    <constraint firstAttribute="width" constant="320" id="rqH-zQ-JcW"/>
+                                    <constraint firstAttribute="height" constant="480" id="sh2-kS-i2R"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.20392156859999999" green="0.20392156859999999" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.062745098039215685" green="0.066666666666666666" blue="0.062745098039215685" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="0gD-Pz-kP7" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="YcK-BL-pu0"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="cml-Re-Rh9" secondAttribute="bottom" constant="40" id="ZqQ-MC-oNC"/>
-                            <constraint firstItem="cml-Re-Rh9" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="fyh-V4-aPM"/>
-                            <constraint firstAttribute="trailing" secondItem="cml-Re-Rh9" secondAttribute="trailing" constant="20" id="lFm-RX-Nde"/>
-                            <constraint firstItem="cml-Re-Rh9" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="20" id="mt6-0Q-lTq"/>
-                            <constraint firstItem="0gD-Pz-kP7" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="120" id="uJj-1a-t8x"/>
+                            <constraint firstItem="IhF-fK-1dL" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Ecp-2I-nTs"/>
+                            <constraint firstItem="cml-Re-Rh9" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Nbl-IH-gwT"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="cml-Re-Rh9" secondAttribute="bottom" constant="30" id="UMP-0b-X5a"/>
+                            <constraint firstAttribute="trailing" secondItem="oTm-Ee-Cx0" secondAttribute="trailing" id="Ylb-EC-cwK"/>
+                            <constraint firstItem="oTm-Ee-Cx0" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="gCR-hE-VlD"/>
+                            <constraint firstItem="IhF-fK-1dL" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="300" id="vJY-mC-aKV"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -50,4 +60,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="page.png" width="1280" height="1920"/>
+    </resources>
 </document>

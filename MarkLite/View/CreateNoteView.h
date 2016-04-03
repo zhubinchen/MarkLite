@@ -20,6 +20,8 @@
 
 + (instancetype)instance;
 
+- (void)reset;
+
 - (void)show;
 
 - (void)remove;

@@ -34,6 +34,10 @@
     }
     
     _webView.delegate = self;
+    
+    if (fm.currentItem) {
+        [self loadFile];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
