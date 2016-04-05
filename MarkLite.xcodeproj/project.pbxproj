@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		072EFDD71CB386BF00FB8747 /* MarkLite_Root.zip in Resources */ = {isa = PBXBuildFile; fileRef = 072EFDD61CB386BF00FB8747 /* MarkLite_Root.zip */; };
+		072EFDD91CB3A1C100FB8747 /* MarkLite_Root.zip in Resources */ = {isa = PBXBuildFile; fileRef = 072EFDD81CB3A1C100FB8747 /* MarkLite_Root.zip */; };
 		075047741CABA6F40031852F /* SelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075047731CABA6F40031852F /* SelectViewController.m */; };
 		075047DE1CACBF920031852F /* FileItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075047DC1CACBF920031852F /* FileItemCell.xib */; };
 		075047E11CACC0280031852F /* FileItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 075047E01CACC0280031852F /* FileItemCell.m */; };
@@ -176,7 +176,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		072EFDD61CB386BF00FB8747 /* MarkLite_Root.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = MarkLite_Root.zip; sourceTree = "<group>"; };
+		072EFDD81CB3A1C100FB8747 /* MarkLite_Root.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = MarkLite_Root.zip; sourceTree = "<group>"; };
 		075047721CABA6F40031852F /* SelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectViewController.h; sourceTree = "<group>"; };
 		075047731CABA6F40031852F /* SelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectViewController.m; sourceTree = "<group>"; };
 		075047DC1CACBF920031852F /* FileItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileItemCell.xib; sourceTree = "<group>"; };
@@ -611,9 +611,9 @@
 				0799168D1C61EA3800E5F3A2 /* New@3x.png */,
 				0799168E1C61EA3800E5F3A2 /* note@2x.png */,
 				078F8D111CB1070E00B9D625 /* icon.png */,
+				072EFDD81CB3A1C100FB8747 /* MarkLite_Root.zip */,
 				0799168F1C61EA3800E5F3A2 /* plus.png */,
 				079916901C61EA3800E5F3A2 /* redo@2x.png */,
-				072EFDD61CB386BF00FB8747 /* MarkLite_Root.zip */,
 				078F8D151CB10AEE00B9D625 /* page.png */,
 				079916931C61EA3800E5F3A2 /* Setting */,
 				0799169B1C61EA3800E5F3A2 /* settings@2x.png */,
@@ -1258,7 +1258,7 @@
 				079917AF1C61EA3900E5F3A2 /* add_link.png in Resources */,
 				079917C11C61EA3900E5F3A2 /* plus.png in Resources */,
 				078F8D121CB1070E00B9D625 /* icon.png in Resources */,
-				072EFDD71CB386BF00FB8747 /* MarkLite_Root.zip in Resources */,
+				072EFDD91CB3A1C100FB8747 /* MarkLite_Root.zip in Resources */,
 				079917C81C61EA3900E5F3A2 /* Info@2x.png in Resources */,
 				079918041C61EA3900E5F3A2 /* About.txt in Resources */,
 				079918361C61EA3900E5F3A2 /* up@2x.png in Resources */,
