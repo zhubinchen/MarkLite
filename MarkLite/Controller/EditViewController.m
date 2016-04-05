@@ -63,9 +63,9 @@
 //    _tagView.backgroundColor = [UIColor colorWithRGBString:rgbArray[item.tag] alpha:0.9];
 //    [_tagView showBorderWithColor:[UIColor colorWithWhite:0.1 alpha:0.1] radius:8 width:1.5];
 
-    if (kDevicePhone) {
-        [self loadFile];
-    } else {
+    [self loadFile];
+
+    if (kDevicePad) {
         [fm addObserver:self forKeyPath:@"currentItem" options:NSKeyValueObservingOptionNew context:NULL];
     }
 }
@@ -92,7 +92,19 @@
 
 - (void)loadFile
 {
+    if (fm.currentItem == nil) {
+        return;
+    }
     item = fm.currentItem;
+
+    if (item.type != FileTypeText) {
+        self.editView.text = @"无法编辑该类型文件,你可以点击渲染来查看该文件";
+        self.editView.editable = NO;
+        return;
+    }else{
+        self.editView.editable = YES;
+    }
+    
 
     self.title = item.name;
     
@@ -221,6 +233,10 @@
 
 - (void)saveFile
 {
+    if (self.editView.editable == NO) {
+        return;
+    }
+    
     NSData *content = [self.editView.text dataUsingEncoding:NSUTF8StringEncoding];
     [content writeToFile:[fm fullPathForPath:item.path] atomically:YES];
     

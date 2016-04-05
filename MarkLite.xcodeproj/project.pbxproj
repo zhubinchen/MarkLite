@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		072EFDD71CB386BF00FB8747 /* MarkLite_Root.zip in Resources */ = {isa = PBXBuildFile; fileRef = 072EFDD61CB386BF00FB8747 /* MarkLite_Root.zip */; };
 		075047741CABA6F40031852F /* SelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075047731CABA6F40031852F /* SelectViewController.m */; };
 		075047DE1CACBF920031852F /* FileItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075047DC1CACBF920031852F /* FileItemCell.xib */; };
 		075047E11CACC0280031852F /* FileItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 075047E01CACC0280031852F /* FileItemCell.m */; };
-		075047E31CACC5970031852F /* MarkLite_Root.zip in Resources */ = {isa = PBXBuildFile; fileRef = 075047E21CACC5970031852F /* MarkLite_Root.zip */; };
 		078F8D0B1CAE826B00B9D625 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 078F8D091CAE826B00B9D625 /* AboutViewController.m */; };
 		078F8D0C1CAE826B00B9D625 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 078F8D0A1CAE826B00B9D625 /* AboutViewController.xib */; };
 		078F8D0E1CAE848300B9D625 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 078F8D0D1CAE848300B9D625 /* about.html */; };
@@ -176,12 +176,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		072EFDD61CB386BF00FB8747 /* MarkLite_Root.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = MarkLite_Root.zip; sourceTree = "<group>"; };
 		075047721CABA6F40031852F /* SelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectViewController.h; sourceTree = "<group>"; };
 		075047731CABA6F40031852F /* SelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectViewController.m; sourceTree = "<group>"; };
 		075047DC1CACBF920031852F /* FileItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileItemCell.xib; sourceTree = "<group>"; };
 		075047DF1CACC0280031852F /* FileItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileItemCell.h; sourceTree = "<group>"; };
 		075047E01CACC0280031852F /* FileItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileItemCell.m; sourceTree = "<group>"; };
-		075047E21CACC5970031852F /* MarkLite_Root.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = MarkLite_Root.zip; sourceTree = "<group>"; };
 		078F8D081CAE826B00B9D625 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		078F8D091CAE826B00B9D625 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		078F8D0A1CAE826B00B9D625 /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
@@ -613,12 +613,12 @@
 				078F8D111CB1070E00B9D625 /* icon.png */,
 				0799168F1C61EA3800E5F3A2 /* plus.png */,
 				079916901C61EA3800E5F3A2 /* redo@2x.png */,
+				072EFDD61CB386BF00FB8747 /* MarkLite_Root.zip */,
 				078F8D151CB10AEE00B9D625 /* page.png */,
 				079916931C61EA3800E5F3A2 /* Setting */,
 				0799169B1C61EA3800E5F3A2 /* settings@2x.png */,
 				0799169C1C61EA3800E5F3A2 /* sort_options@2x.png */,
 				0799169D1C61EA3800E5F3A2 /* undo@2x.png */,
-				075047E21CACC5970031852F /* MarkLite_Root.zip */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -1231,7 +1231,6 @@
 			files = (
 				079917CB1C61EA3900E5F3A2 /* Star@2x.png in Resources */,
 				079918341C61EA3900E5F3A2 /* left@2x.png in Resources */,
-				075047E31CACC5970031852F /* MarkLite_Root.zip in Resources */,
 				079917C21C61EA3900E5F3A2 /* redo@2x.png in Resources */,
 				079918801C61FB9600E5F3A2 /* Main_iPad.storyboard in Resources */,
 				079917C51C61EA3900E5F3A2 /* FeedBack@2x.png in Resources */,
@@ -1259,6 +1258,7 @@
 				079917AF1C61EA3900E5F3A2 /* add_link.png in Resources */,
 				079917C11C61EA3900E5F3A2 /* plus.png in Resources */,
 				078F8D121CB1070E00B9D625 /* icon.png in Resources */,
+				072EFDD71CB386BF00FB8747 /* MarkLite_Root.zip in Resources */,
 				079917C81C61EA3900E5F3A2 /* Info@2x.png in Resources */,
 				079918041C61EA3900E5F3A2 /* About.txt in Resources */,
 				079918361C61EA3900E5F3A2 /* up@2x.png in Resources */,

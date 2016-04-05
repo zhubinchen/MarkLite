@@ -84,7 +84,7 @@
     NSArray *arr = [path componentsSeparatedByString:@"."];
     if (arr.count > 1) {
         NSString *ex = arr.lastObject;
-        if ([ex isEqualToString:@"png"] || [ex isEqualToString:@"jpeg"] || [ex isEqualToString:@"jpg"] || [ex isEqualToString:@"gif"]) {
+        if ([ex isEqualToString:@"png"] || [ex isEqualToString:@"PNG"] || [ex isEqualToString:@"jpeg"] || [ex isEqualToString:@"jpg"] || [ex isEqualToString:@"gif"]) {
             _type = FileTypeImage;
         }else{
             _type = FileTypeText;
