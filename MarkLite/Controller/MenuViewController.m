@@ -101,7 +101,7 @@
         [self.navigationController pushViewController:vc animated:YES];
     }else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
-             [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=APPID&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
+             [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1098107145&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
         }else{
             NSString *url = @"mailto:cheng4741@gmail.com?subject=MarkLite%20Report&body=??";
             [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
