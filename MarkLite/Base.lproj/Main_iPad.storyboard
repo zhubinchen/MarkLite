@@ -458,7 +458,7 @@
                             <outlet property="delegate" destination="I2i-9V-J9l" id="FZf-HM-n3Z"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="选项" image="B01CBCB8-FCD5-43F0-ACF8-7BFC3C6771BF" id="cUx-cv-8Pe"/>
+                    <tabBarItem key="tabBarItem" title="选项" image="42B96C2B-8665-4A0F-B669-8E8A45D302D6" id="cUx-cv-8Pe"/>
                     <navigationItem key="navigationItem" id="rMd-CP-7Md"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </tableViewController>
@@ -539,7 +539,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="笔记标题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3cF-G9-Ymu">
-                                                    <rect key="frame" x="29" y="8" width="211" height="21"/>
+                                                    <rect key="frame" x="27" y="8" width="213" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="gfB-pF-kyH"/>
                                                     </constraints>
@@ -558,10 +558,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M3c-Sd-HEk">
-                                                    <rect key="frame" x="8" y="10" width="16" height="16"/>
+                                                    <rect key="frame" x="16" y="10" width="6" height="16"/>
                                                     <color key="backgroundColor" red="0.72941176470000002" green="0.40000000000000002" blue="0.81568627449999997" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="16" id="0Ns-gF-3SZ"/>
+                                                        <constraint firstAttribute="width" constant="6" id="0Ns-gF-3SZ"/>
                                                         <constraint firstAttribute="height" constant="16" id="HFL-wK-cxy"/>
                                                     </constraints>
                                                 </view>
@@ -589,7 +589,7 @@
                                                 <constraint firstItem="3cF-G9-Ymu" firstAttribute="top" secondItem="pfA-GD-gcm" secondAttribute="top" constant="8" id="8ai-rO-vCG"/>
                                                 <constraint firstItem="AoK-oh-NC4" firstAttribute="bottom" secondItem="3cF-G9-Ymu" secondAttribute="bottom" id="BJu-zb-GcT"/>
                                                 <constraint firstAttribute="trailing" secondItem="iAO-8V-CoV" secondAttribute="trailing" constant="8" id="F9B-Oi-RdP"/>
-                                                <constraint firstItem="M3c-Sd-HEk" firstAttribute="leading" secondItem="pfA-GD-gcm" secondAttribute="leading" constant="8" id="LPf-5M-PIM"/>
+                                                <constraint firstItem="M3c-Sd-HEk" firstAttribute="leading" secondItem="pfA-GD-gcm" secondAttribute="leading" constant="16" id="LPf-5M-PIM"/>
                                                 <constraint firstItem="3cF-G9-Ymu" firstAttribute="leading" secondItem="M3c-Sd-HEk" secondAttribute="trailing" constant="5" id="Qgf-DZ-nio"/>
                                                 <constraint firstAttribute="trailing" secondItem="3cF-G9-Ymu" secondAttribute="trailing" constant="80" id="W8B-Gh-Igi"/>
                                                 <constraint firstAttribute="trailing" secondItem="ZYi-8v-iz0" secondAttribute="trailing" constant="8" id="dBb-Qv-W1y"/>
@@ -695,7 +695,7 @@
                                                         <action selector="addBtnClicked:" destination="5ZG-aO-wT9" eventType="touchUpInside" id="c2y-GP-Dfc"/>
                                                     </connections>
                                                 </button>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="838590FE-8EBE-40B3-AA70-B809CDB2E933" translatesAutoresizingMaskIntoConstraints="NO" id="TVO-MT-dk9">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1249948F-26A5-4354-B0F1-85109B22C53D" translatesAutoresizingMaskIntoConstraints="NO" id="TVO-MT-dk9">
                                                     <rect key="frame" x="8" y="10" width="24" height="24"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="24" id="21J-DT-Glp"/>
@@ -782,7 +782,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="838590FE-8EBE-40B3-AA70-B809CDB2E933" width="100" height="100">
+        <image name="1249948F-26A5-4354-B0F1-85109B22C53D" width="100" height="100">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -1518,7 +1518,7 @@ oACiAKQApgCoAK0AxADGAMiqGqofqiqqM6pGqkqqVapeqmOqa6puqnOqgqqGqo2qlaqiqqeqqaqrqrCq
 uKq7qsCqyKrLqt2q4KrlAAAAAAAAAgEAAAAAAAAAPgAAAAAAAAAAAAAAAAAAquc
 </mutableData>
         </image>
-        <image name="B01CBCB8-FCD5-43F0-ACF8-7BFC3C6771BF" width="25" height="25">
+        <image name="42B96C2B-8665-4A0F-B669-8E8A45D302D6" width="25" height="25">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

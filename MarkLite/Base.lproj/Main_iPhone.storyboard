@@ -293,7 +293,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="笔记标题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="umW-CD-CYg">
-                                                    <rect key="frame" x="29" y="8" width="266" height="21"/>
+                                                    <rect key="frame" x="27" y="8" width="268" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="qM6-AH-Bw8"/>
                                                     </constraints>
@@ -312,11 +312,11 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CF0-oL-yKY">
-                                                    <rect key="frame" x="8" y="10" width="16" height="16"/>
+                                                    <rect key="frame" x="16" y="10" width="6" height="16"/>
                                                     <color key="backgroundColor" red="0.72941176470588232" green="0.40000000000000002" blue="0.81568627450980391" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="Feh-gG-rTb"/>
-                                                        <constraint firstAttribute="width" constant="16" id="t5h-vQ-mWE"/>
+                                                        <constraint firstAttribute="width" constant="6" id="t5h-vQ-mWE"/>
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="路径:/abd/aa" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H8c-CQ-ccc">
@@ -345,7 +345,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="2At-Pn-k9U" secondAttribute="trailing" constant="8" id="4hq-5o-qnE"/>
                                                 <constraint firstItem="2At-Pn-k9U" firstAttribute="leading" secondItem="2QA-5b-Z0P" secondAttribute="leading" constant="16" id="7BL-k6-SHX"/>
                                                 <constraint firstAttribute="trailing" secondItem="zHV-Uc-iZl" secondAttribute="trailing" constant="8" id="MQe-nR-lvM"/>
-                                                <constraint firstItem="CF0-oL-yKY" firstAttribute="leading" secondItem="2QA-5b-Z0P" secondAttribute="leading" constant="8" id="TZY-7Q-ypY"/>
+                                                <constraint firstItem="CF0-oL-yKY" firstAttribute="leading" secondItem="2QA-5b-Z0P" secondAttribute="leading" constant="16" id="TZY-7Q-ypY"/>
                                                 <constraint firstItem="umW-CD-CYg" firstAttribute="centerY" secondItem="CF0-oL-yKY" secondAttribute="centerY" id="g7o-lN-cZZ"/>
                                                 <constraint firstItem="umW-CD-CYg" firstAttribute="leading" secondItem="CF0-oL-yKY" secondAttribute="trailing" constant="5" id="iDt-Jw-2KL"/>
                                                 <constraint firstAttribute="trailing" secondItem="H8c-CQ-ccc" secondAttribute="trailing" constant="8" id="iii-JI-L2m"/>

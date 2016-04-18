@@ -23,6 +23,7 @@
     [self.webView loadHTMLString:htmlStr baseURL:nil];
     self.webView.scalesPageToFit = YES;
     self.webView.scrollView.showsHorizontalScrollIndicator = NO;
+    self.webView.scrollView.scrollEnabled = NO;
 }
 
 - (void)didReceiveMemoryWarning {

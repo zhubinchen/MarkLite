@@ -25,8 +25,6 @@
 		079917AA1C61EA3900E5F3A2 /* FileSyncManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 079916741C61EA3800E5F3A2 /* FileSyncManager.m */; };
 		079917AB1C61EA3900E5F3A2 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 079916761C61EA3800E5F3A2 /* Item.m */; };
 		079917AD1C61EA3900E5F3A2 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 0799167A1C61EA3800E5F3A2 /* User.m */; };
-		079917AE1C61EA3900E5F3A2 /* add_image.png in Resources */ = {isa = PBXBuildFile; fileRef = 0799167C1C61EA3800E5F3A2 /* add_image.png */; };
-		079917AF1C61EA3900E5F3A2 /* add_link.png in Resources */ = {isa = PBXBuildFile; fileRef = 0799167D1C61EA3800E5F3A2 /* add_link.png */; };
 		079917B41C61EA3900E5F3A2 /* file@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 079916821C61EA3800E5F3A2 /* file@2x.png */; };
 		079917B51C61EA3900E5F3A2 /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 079916831C61EA3800E5F3A2 /* folder.png */; };
 		079917B71C61EA3900E5F3A2 /* folder_open.png in Resources */ = {isa = PBXBuildFile; fileRef = 079916851C61EA3800E5F3A2 /* folder_open.png */; };
@@ -176,6 +174,7 @@
 		07D7A4E71CC48A7E0098AD65 /* GitHub2.css in Resources */ = {isa = PBXBuildFile; fileRef = 07D7A4E11CC48A7E0098AD65 /* GitHub2.css */; };
 		07D7A4EC1CC48F890098AD65 /* Solarized Dark.css in Resources */ = {isa = PBXBuildFile; fileRef = 07D7A4EA1CC48F890098AD65 /* Solarized Dark.css */; };
 		07D7A4ED1CC48F890098AD65 /* Solarized Light.css in Resources */ = {isa = PBXBuildFile; fileRef = 07D7A4EB1CC48F890098AD65 /* Solarized Light.css */; };
+		07D7A4EF1CC4A4110098AD65 /* keyboard_down.png in Resources */ = {isa = PBXBuildFile; fileRef = 07D7A4EE1CC4A4110098AD65 /* keyboard_down.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -208,8 +207,6 @@
 		079916761C61EA3800E5F3A2 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		079916791C61EA3800E5F3A2 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		0799167A1C61EA3800E5F3A2 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		0799167C1C61EA3800E5F3A2 /* add_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_image.png; sourceTree = "<group>"; };
-		0799167D1C61EA3800E5F3A2 /* add_link.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_link.png; sourceTree = "<group>"; };
 		079916821C61EA3800E5F3A2 /* file@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "file@2x.png"; sourceTree = "<group>"; };
 		079916831C61EA3800E5F3A2 /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder.png; sourceTree = "<group>"; };
 		079916851C61EA3800E5F3A2 /* folder_open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = folder_open.png; sourceTree = "<group>"; };
@@ -479,6 +476,7 @@
 		07D7A4E11CC48A7E0098AD65 /* GitHub2.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = GitHub2.css; sourceTree = "<group>"; };
 		07D7A4EA1CC48F890098AD65 /* Solarized Dark.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "Solarized Dark.css"; sourceTree = "<group>"; };
 		07D7A4EB1CC48F890098AD65 /* Solarized Light.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "Solarized Light.css"; sourceTree = "<group>"; };
+		07D7A4EE1CC4A4110098AD65 /* keyboard_down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = keyboard_down.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -605,8 +603,6 @@
 				07D7A4D91CC484F80098AD65 /* image.html */,
 				078F8D0D1CAE848300B9D625 /* about.html */,
 				07D7A4D71CC4818B0098AD65 /* check.png */,
-				0799167C1C61EA3800E5F3A2 /* add_image.png */,
-				0799167D1C61EA3800E5F3A2 /* add_link.png */,
 				079916821C61EA3800E5F3A2 /* file@2x.png */,
 				079916831C61EA3800E5F3A2 /* folder.png */,
 				079916851C61EA3800E5F3A2 /* folder_open.png */,
@@ -614,6 +610,7 @@
 				0799168B1C61EA3800E5F3A2 /* minus.png */,
 				0799168E1C61EA3800E5F3A2 /* note@2x.png */,
 				078F8D111CB1070E00B9D625 /* icon.png */,
+				07D7A4EE1CC4A4110098AD65 /* keyboard_down.png */,
 				072EFDD81CB3A1C100FB8747 /* MarkLite_Root.zip */,
 				0799168F1C61EA3800E5F3A2 /* plus.png */,
 				079916901C61EA3800E5F3A2 /* redo@2x.png */,
@@ -1259,6 +1256,7 @@
 				079918311C61EA3900E5F3A2 /* bg.png in Resources */,
 				079917CD1C61EA3900E5F3A2 /* sort_options@2x.png in Resources */,
 				078F8D161CB10AEE00B9D625 /* page.png in Resources */,
+				07D7A4EF1CC4A4110098AD65 /* keyboard_down.png in Resources */,
 				07D7A4E51CC48A7E0098AD65 /* Clearness.css in Resources */,
 				079917BD1C61EA3900E5F3A2 /* minus.png in Resources */,
 				07D7A4E61CC48A7E0098AD65 /* GitHub.css in Resources */,
@@ -1272,7 +1270,6 @@
 				079917B41C61EA3900E5F3A2 /* file@2x.png in Resources */,
 				079916671C61E9FF00E5F3A2 /* LaunchScreen.storyboard in Resources */,
 				079917B71C61EA3900E5F3A2 /* folder_open.png in Resources */,
-				079917AF1C61EA3900E5F3A2 /* add_link.png in Resources */,
 				079917C11C61EA3900E5F3A2 /* plus.png in Resources */,
 				07D7A4EC1CC48F890098AD65 /* Solarized Dark.css in Resources */,
 				07D7A4E41CC48A7E0098AD65 /* Clearness Dark.css in Resources */,
@@ -1292,7 +1289,6 @@
 				078F8D0E1CAE848300B9D625 /* about.html in Resources */,
 				07D7A4E71CC48A7E0098AD65 /* GitHub2.css in Resources */,
 				079917C91C61EA3900E5F3A2 /* Keyboard@2x.png in Resources */,
-				079917AE1C61EA3900E5F3A2 /* add_image.png in Resources */,
 				079917CA1C61EA3900E5F3A2 /* Share@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

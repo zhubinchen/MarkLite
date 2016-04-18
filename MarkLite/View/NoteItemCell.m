@@ -21,14 +21,14 @@
     NSString *date = [attr[NSFileModificationDate] formatDate];
     _sizeLabel.text = [NSString stringWithFormat:@"%.2f KB",size / 1000.0];
     _timeLabel.text = [NSString stringWithFormat:@"上次修改:%@",date];
-
-    NSArray *rgbArray = @[@"F14143",@"EA8C2F",@"E6BB32",@"56BA38",@"379FE6",@"BA66D0"];
-    self.tagView.backgroundColor = [UIColor colorWithRGBString:rgbArray[item.tag] alpha:0.9];
+//
+//    NSArray *rgbArray = @[@"F14143",@"EA8C2F",@"E6BB32",@"56BA38",@"379FE6",@"BA66D0"];
+//    self.tagView.backgroundColor = [UIColor colorWithRGBString:rgbArray[item.tag] alpha:0.9];
 }
 
 - (void)awakeFromNib {
     // Initialization code
-    [self.tagView showBorderWithColor:[UIColor colorWithWhite:0.1 alpha:0.1] radius:8 width:1.5];
+//    [self.tagView showBorderWithColor:[UIColor colorWithWhite:0.1 alpha:0.1] radius:8 width:1.5];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

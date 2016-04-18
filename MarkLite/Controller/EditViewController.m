@@ -80,14 +80,12 @@
     NSTimeInterval interval = [info[UIKeyboardAnimationDurationUserInfoKey] floatValue];
     CGFloat height =kScreenHeight - [info[UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y;
 
-    
     [self.view layoutIfNeeded];
     [UIView animateWithDuration:interval animations:^{
         self.bottom.constant = height;
     }];
     [self updateViewConstraints];
 }
-
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
