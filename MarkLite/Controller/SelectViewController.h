@@ -12,6 +12,8 @@
 
 @property(nonatomic,strong) NSArray *selectOptions;
 
+@property(nonatomic,assign) int defaultSelect;
+
 @property(nonatomic,copy) void(^didSelected)(int index);
 
 @end

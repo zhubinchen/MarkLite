@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *iconSpace;
 @property (weak, nonatomic) IBOutlet UIImageView *typeIcon;
+@property (weak, nonatomic) IBOutlet UIImageView *checkIcon;
 @property (weak, nonatomic) IBOutlet UITextField *nameText;
 @property (weak, nonatomic) IBOutlet UIButton *addBtn;
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;

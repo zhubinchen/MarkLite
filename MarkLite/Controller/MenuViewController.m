@@ -77,26 +77,25 @@
     SelectViewController *vc = [[SelectViewController alloc]init];
 
     if (indexPath.section == 0) {
-//        if (indexPath.row == 0) {
-//            NSArray *options = @[@"清新蓝",@"极客黑",@"卖萌粉"];
-//            vc.selectOptions = options;
-//            vc.title = @"选择主题";
-//            vc.didSelected = ^(int index){
-//                [Configure sharedConfigure].theme = options[index];
-//            };
-//        }else {
-            vc.selectOptions = @[@"开启",@"关闭"];
-            vc.title = @"键盘辅助";
-            vc.didSelected = ^(int index){
-                [Configure sharedConfigure].keyboardAssist = index == 0;
-            };
-//        }
+        vc.selectOptions = @[@"开启",@"关闭"];
+        vc.title = @"键盘辅助";
+        vc.defaultSelect = [Configure sharedConfigure].keyboardAssist ? 0 : 1;
+        vc.didSelected = ^(int index){
+            [Configure sharedConfigure].keyboardAssist = index == 0;
+        };
         [self.navigationController pushViewController:vc animated:YES];
     }else if (indexPath.section == 1) {
-        vc.selectOptions = @[@"Clearness",@"Clearness Dark",@"Github",@"Github2",@"Solarized Dark",@"Solarized Light"];
+        NSArray *styles =  @[@"Clearness",@"Clearness Dark",@"Github",@"Github2",@"Solarized Dark",@"Solarized Light"];
+        vc.selectOptions = styles;
         vc.title = @"选择样式";
+        
+        for (int i = 0; i < styles.count; i++) {
+            if ([Configure sharedConfigure].style == styles[i]) {
+                vc.defaultSelect = i;
+            }
+        }
         vc.didSelected = ^(int index){
-            
+            [Configure sharedConfigure].style = styles[index];
         };
         [self.navigationController pushViewController:vc animated:YES];
     }else if (indexPath.section == 2) {

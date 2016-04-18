@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -60,6 +60,13 @@
                             <action selector="deleteBtnClicked:" destination="3NS-7u-jgU" eventType="touchUpInside" id="GQn-Gd-GY7"/>
                         </connections>
                     </button>
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check.png" translatesAutoresizingMaskIntoConstraints="NO" id="9h7-Kg-PAn">
+                        <rect key="frame" x="335" y="6.5" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="Xsy-p2-Ogk"/>
+                            <constraint firstAttribute="width" constant="30" id="w8H-Fn-1Jb"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 <constraints>
@@ -67,15 +74,18 @@
                     <constraint firstItem="sNa-xc-9x5" firstAttribute="leading" secondItem="l70-cf-8gS" secondAttribute="trailing" id="FXh-3i-gxU"/>
                     <constraint firstAttribute="centerY" secondItem="l70-cf-8gS" secondAttribute="centerY" id="NFZ-zE-LCl"/>
                     <constraint firstAttribute="centerY" secondItem="sNa-xc-9x5" secondAttribute="centerY" id="SMA-xa-YkM"/>
+                    <constraint firstAttribute="trailing" secondItem="9h7-Kg-PAn" secondAttribute="trailing" constant="10" id="V06-tM-QCt"/>
                     <constraint firstAttribute="trailing" secondItem="huf-a7-q3L" secondAttribute="trailing" constant="8" id="YBv-VM-Sa4"/>
                     <constraint firstAttribute="trailing" secondItem="sNa-xc-9x5" secondAttribute="trailing" constant="40" id="esV-dl-9Yg"/>
                     <constraint firstItem="huf-a7-q3L" firstAttribute="centerY" secondItem="403-5i-ljV" secondAttribute="centerY" id="iNF-Dd-BLd"/>
                     <constraint firstItem="l70-cf-8gS" firstAttribute="leading" secondItem="ILd-aT-GCi" secondAttribute="trailing" constant="5" id="pbY-TP-qPK"/>
+                    <constraint firstItem="9h7-Kg-PAn" firstAttribute="centerY" secondItem="403-5i-ljV" secondAttribute="centerY" id="qMQ-ml-1Gl"/>
                     <constraint firstItem="ILd-aT-GCi" firstAttribute="leading" secondItem="403-5i-ljV" secondAttribute="leading" constant="8" id="v1U-vZ-7nY"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="addBtn" destination="sNa-xc-9x5" id="m3q-8b-Hah"/>
+                <outlet property="checkIcon" destination="9h7-Kg-PAn" id="Mq6-oK-zSZ"/>
                 <outlet property="deleteBtn" destination="huf-a7-q3L" id="dRE-TA-3uq"/>
                 <outlet property="iconSpace" destination="v1U-vZ-7nY" id="3ho-G1-aPP"/>
                 <outlet property="nameText" destination="l70-cf-8gS" id="rbE-df-bWm"/>
@@ -84,6 +94,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="check.png" width="50" height="50"/>
         <image name="folder.png" width="100" height="100"/>
         <image name="minus.png" width="50" height="50"/>
         <image name="plus.png" width="100" height="100"/>

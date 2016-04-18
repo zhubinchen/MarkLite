@@ -21,6 +21,7 @@
             conf = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
         }else{
             conf = [[self alloc]init];
+            conf.keyboardAssist = YES;
         }
     });
     return conf;
@@ -55,6 +56,14 @@
         self.fileHisory = [NSMutableArray array];
     }
     return self;
+}
+
+- (NSString *)style
+{
+    if (_style.length == 0) {
+        return @"GitHub2";
+    }
+    return _style;
 }
 
 @end

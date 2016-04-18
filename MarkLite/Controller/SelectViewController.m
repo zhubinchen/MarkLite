@@ -21,6 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    selectedRow = _defaultSelect;
 }
 
 - (void)viewWillLayoutSubviews

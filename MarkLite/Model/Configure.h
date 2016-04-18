@@ -14,7 +14,7 @@
 
 @property (nonatomic,strong) NSDictionary *launchOptions;
 
-@property (nonatomic,strong) NSString *theme;
+@property (nonatomic,strong) NSString *style;
 
 @property (nonatomic,assign) BOOL keyboardAssist;
 

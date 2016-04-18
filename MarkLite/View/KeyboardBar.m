@@ -82,6 +82,8 @@
             };
             [alert show];
         }
+    }else if (btn.tag == 2){
+        
     }
 }
 

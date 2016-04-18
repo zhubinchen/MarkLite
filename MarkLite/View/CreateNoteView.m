@@ -140,6 +140,8 @@ static CGFloat h;
     cell.item = item;
     cell.addBtn.hidden = YES;
     
+    cell.checkIcon.hidden = selecteItem != item;
+
     return cell;
 }
 
@@ -151,6 +153,7 @@ static CGFloat h;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     selecteItem = dataArray[indexPath.row];
+    [tableView reloadData];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

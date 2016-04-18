@@ -19,6 +19,7 @@
 #import "User.h"
 
 @interface EditViewController () <UITextViewDelegate>
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottom;
 
 @end
 
@@ -52,7 +53,7 @@
     
     _editView.delegate = self;
     
-    if (kDevicePhone) {
+    if ([Configure sharedConfigure].keyboardAssist) {
         KeyboardBar *bar = [[KeyboardBar alloc]init];
         bar.editView = _editView;
         bar.vc = self;
@@ -68,7 +69,25 @@
     if (kDevicePad) {
         [fm addObserver:self forKeyPath:@"currentItem" options:NSKeyValueObservingOptionNew context:NULL];
     }
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardChanged:) name:UIKeyboardWillChangeFrameNotification object:nil];
 }
+
+- (void)keyboardChanged:(NSNotification*)noti
+{
+    NSDictionary *info = noti.userInfo;
+    
+    NSTimeInterval interval = [info[UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    CGFloat height =kScreenHeight - [info[UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y;
+
+    
+    [self.view layoutIfNeeded];
+    [UIView animateWithDuration:interval animations:^{
+        self.bottom.constant = height;
+    }];
+    [self updateViewConstraints];
+}
+
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
