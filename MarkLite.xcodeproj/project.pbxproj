@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		072EFDD91CB3A1C100FB8747 /* MarkLite_Root.zip in Resources */ = {isa = PBXBuildFile; fileRef = 072EFDD81CB3A1C100FB8747 /* MarkLite_Root.zip */; };
+		074649FB1CC4B067000545A0 /* more.png in Resources */ = {isa = PBXBuildFile; fileRef = 074649FA1CC4B067000545A0 /* more.png */; };
+		074649FF1CC4B3FA000545A0 /* FileOperationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 074649FD1CC4B3FA000545A0 /* FileOperationCell.m */; };
+		07464A041CC4BAC9000545A0 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 07464A011CC4BAC9000545A0 /* delete.png */; };
+		07464A051CC4BAC9000545A0 /* export.png in Resources */ = {isa = PBXBuildFile; fileRef = 07464A021CC4BAC9000545A0 /* export.png */; };
+		07464A061CC4BAC9000545A0 /* rename.png in Resources */ = {isa = PBXBuildFile; fileRef = 07464A031CC4BAC9000545A0 /* rename.png */; };
 		075047741CABA6F40031852F /* SelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075047731CABA6F40031852F /* SelectViewController.m */; };
 		075047DE1CACBF920031852F /* FileItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075047DC1CACBF920031852F /* FileItemCell.xib */; };
 		075047E11CACC0280031852F /* FileItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 075047E01CACC0280031852F /* FileItemCell.m */; };
@@ -179,6 +184,12 @@
 
 /* Begin PBXFileReference section */
 		072EFDD81CB3A1C100FB8747 /* MarkLite_Root.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = MarkLite_Root.zip; sourceTree = "<group>"; };
+		074649FA1CC4B067000545A0 /* more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more.png; sourceTree = "<group>"; };
+		074649FC1CC4B3FA000545A0 /* FileOperationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileOperationCell.h; sourceTree = "<group>"; };
+		074649FD1CC4B3FA000545A0 /* FileOperationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileOperationCell.m; sourceTree = "<group>"; };
+		07464A011CC4BAC9000545A0 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
+		07464A021CC4BAC9000545A0 /* export.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = export.png; sourceTree = "<group>"; };
+		07464A031CC4BAC9000545A0 /* rename.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rename.png; sourceTree = "<group>"; };
 		075047721CABA6F40031852F /* SelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectViewController.h; sourceTree = "<group>"; };
 		075047731CABA6F40031852F /* SelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectViewController.m; sourceTree = "<group>"; };
 		075047DC1CACBF920031852F /* FileItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileItemCell.xib; sourceTree = "<group>"; };
@@ -607,8 +618,12 @@
 				079916831C61EA3800E5F3A2 /* folder.png */,
 				079916851C61EA3800E5F3A2 /* folder_open.png */,
 				079916861C61EA3800E5F3A2 /* format.html */,
+				074649FA1CC4B067000545A0 /* more.png */,
 				0799168B1C61EA3800E5F3A2 /* minus.png */,
 				0799168E1C61EA3800E5F3A2 /* note@2x.png */,
+				07464A011CC4BAC9000545A0 /* delete.png */,
+				07464A021CC4BAC9000545A0 /* export.png */,
+				07464A031CC4BAC9000545A0 /* rename.png */,
 				078F8D111CB1070E00B9D625 /* icon.png */,
 				07D7A4EE1CC4A4110098AD65 /* keyboard_down.png */,
 				072EFDD81CB3A1C100FB8747 /* MarkLite_Root.zip */,
@@ -1142,6 +1157,8 @@
 				075047DF1CACC0280031852F /* FileItemCell.h */,
 				075047E01CACC0280031852F /* FileItemCell.m */,
 				075047DC1CACBF920031852F /* FileItemCell.xib */,
+				074649FC1CC4B3FA000545A0 /* FileOperationCell.h */,
+				074649FD1CC4B3FA000545A0 /* FileOperationCell.m */,
 				079917A01C61EA3900E5F3A2 /* EditView.h */,
 				079917A11C61EA3900E5F3A2 /* EditView.m */,
 				079917A41C61EA3900E5F3A2 /* KeyboardBar.h */,
@@ -1254,9 +1271,11 @@
 				0799183D1C61EA3900E5F3A2 /* CreateNoteView.xib in Resources */,
 				079918351C61EA3900E5F3A2 /* left_press@2x.png in Resources */,
 				079918311C61EA3900E5F3A2 /* bg.png in Resources */,
+				07464A041CC4BAC9000545A0 /* delete.png in Resources */,
 				079917CD1C61EA3900E5F3A2 /* sort_options@2x.png in Resources */,
 				078F8D161CB10AEE00B9D625 /* page.png in Resources */,
 				07D7A4EF1CC4A4110098AD65 /* keyboard_down.png in Resources */,
+				074649FB1CC4B067000545A0 /* more.png in Resources */,
 				07D7A4E51CC48A7E0098AD65 /* Clearness.css in Resources */,
 				079917BD1C61EA3900E5F3A2 /* minus.png in Resources */,
 				07D7A4E61CC48A7E0098AD65 /* GitHub.css in Resources */,
@@ -1272,10 +1291,12 @@
 				079917B71C61EA3900E5F3A2 /* folder_open.png in Resources */,
 				079917C11C61EA3900E5F3A2 /* plus.png in Resources */,
 				07D7A4EC1CC48F890098AD65 /* Solarized Dark.css in Resources */,
+				07464A051CC4BAC9000545A0 /* export.png in Resources */,
 				07D7A4E41CC48A7E0098AD65 /* Clearness Dark.css in Resources */,
 				078F8D121CB1070E00B9D625 /* icon.png in Resources */,
 				07D7A4ED1CC48F890098AD65 /* Solarized Light.css in Resources */,
 				072EFDD91CB3A1C100FB8747 /* MarkLite_Root.zip in Resources */,
+				07464A061CC4BAC9000545A0 /* rename.png in Resources */,
 				079917C81C61EA3900E5F3A2 /* Info@2x.png in Resources */,
 				079918041C61EA3900E5F3A2 /* About.txt in Resources */,
 				079918361C61EA3900E5F3A2 /* up@2x.png in Resources */,
@@ -1367,6 +1388,7 @@
 				079918171C61EA3900E5F3A2 /* QNEtag.m in Sources */,
 				0799180B1C61EA3900E5F3A2 /* DispatchQueueLogFormatter.m in Sources */,
 				0799165C1C61E9FF00E5F3A2 /* AppDelegate.m in Sources */,
+				074649FF1CC4B3FA000545A0 /* FileOperationCell.m in Sources */,
 				0799183C1C61EA3900E5F3A2 /* CreateNoteView.m in Sources */,
 				079918671C61EC6900E5F3A2 /* MenuViewController.m in Sources */,
 				079918201C61EA3900E5F3A2 /* QNStats.m in Sources */,

@@ -17,13 +17,14 @@
 @property (weak, nonatomic) IBOutlet UITextField *nameText;
 @property (weak, nonatomic) IBOutlet UIButton *addBtn;
 @property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
+@property (weak, nonatomic) IBOutlet UIButton *moreBtn;
 
 @property (nonatomic,assign) int  shift;
 @property (nonatomic,strong) Item *item;
 
 @property (nonatomic,copy) void(^newFileBlock)(Item *i);
-@property (nonatomic,copy) void(^renameFileBlock)(Item *i,NSString *newName);
 @property (nonatomic,copy) void(^deleteFileBlock)(Item *i);
+@property (nonatomic,copy) void(^moreBlock)(Item *i);
 
 @property (nonatomic,assign) BOOL edit;
 

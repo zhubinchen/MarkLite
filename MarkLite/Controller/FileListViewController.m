@@ -11,6 +11,7 @@
 #import "EditViewController.h"
 #import "PreviewViewController.h"
 #import "Item.h"
+#import "FileOperationCell.h"
 #import "FileItemCell.h"
 #import "Configure.h"
 
@@ -39,6 +40,7 @@
     fm = [FileManager sharedManager];
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(recievedNotification:) name:@"launchFormShortCutItem" object:nil];
+    [_fileListView registerNib:[UINib nibWithNibName:@"FileItemCell" bundle:nil] forCellReuseIdentifier:@"file"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -254,9 +256,51 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FileItemCell *cell = (FileItemCell*)[tableView dequeueReusableCellWithIdentifier:@"fileItemCell" forIndexPath:indexPath];
+    if ([dataArray[indexPath.row] isKindOfClass:[NSDictionary class]]) {
+        FileOperationCell *cell = [[FileOperationCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@""];
+        cell.item = dataArray[indexPath.row][@"file"];
+        cell.width = self.view.bounds.size.width;
+        cell.deleteFileBlock = ^(Item *i){
+            if (i == root) {
+                showToast(@"根目录不可删除");
+                return ;
+            }
+            ActionSheet *sheet = [[ActionSheet alloc]initWithTitle:@"删除后不可恢复，确定要删除吗？" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles: nil];
+            sheet.clickedButton = ^(NSInteger buttonIndex,ActionSheet *alert){
+                if (buttonIndex == 0) {
+                    [i removeFromParent];
+                    NSArray *children = [i itemsCanReach];
+                    [dataArray removeObject:dataArray[indexPath.row]];
+                    [dataArray removeObjectsInArray:children];
+                    [dataArray removeObject:i];
+                    NSMutableArray *indexPaths = [NSMutableArray array];
+                    for (int i = 0; i < children.count + 2; i++) {
+                        NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row+i-1 inSection:0];
+                        [indexPaths addObject:index];
+                    }
+                    
+                    [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
+                    [fm deleteFile:i.path];
+                }
+            };
+            [sheet showInView:self.view];
+        };
+        cell.renameFileBlock = ^(Item *i){
+            if (i == root) {
+                showToast(@"根目录不可重命名");
+                return ;
+            }
+        };
+        cell.exportBlock = ^(Item *i){
+            [self export:i];
+        };
+        return cell;
+    }
+    
+    FileItemCell *cell = (FileItemCell*)[tableView dequeueReusableCellWithIdentifier:@"file" forIndexPath:indexPath];
+    
     Item *item = dataArray[indexPath.row];
-
+    
     if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable && item.type != FileTypeFolder)
     {
         [self registerForPreviewingWithDelegate:self sourceView:cell];
@@ -269,16 +313,19 @@
     if (item == root) {
         cell.nameText.enabled = NO;
     }
+    
+    cell.moreBlock = ^(Item *i){
+        if (dataArray.count > indexPath.row + 1 && [dataArray[indexPath.row + 1] isKindOfClass:[NSDictionary class]]) {
+            [dataArray removeObjectAtIndex:(indexPath.row + 1)];
+            [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationMiddle];
+            return ;
+        }
+        [dataArray insertObject:@{@"file":i} atIndex:indexPath.row+1];
+        [tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationMiddle];
+    };
+
     cell.newFileBlock = ^(Item *i){
         [self addFileWithParent:item];
-    };
-    
-    cell.renameFileBlock = ^(Item *i,NSString *newName){
-        NSString *oldPath = i.path;
-        NSString *newPath = [[i.parent.path stringByAppendingPathComponent:newName] stringByAppendingPathExtension:i.extention];
-        [fm moveFile:oldPath toNewPath:newPath];
-        
-        i.path = newPath;
     };
 
     cell.deleteFileBlock = ^(Item *i){
@@ -286,10 +333,10 @@
             showToast(@"根目录不可删除");
             return ;
         }
-        ActionSheet *sheet = [[ActionSheet alloc]initWithTitle:@"删除后不和恢复，确定要删除吗？" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles: nil];
+        ActionSheet *sheet = [[ActionSheet alloc]initWithTitle:@"删除后不可恢复，确定要删除吗？" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles: nil];
         sheet.clickedButton = ^(NSInteger buttonIndex,ActionSheet *alert){
             if (buttonIndex == 0) {
-                [item removeFromParent];
+                [i removeFromParent];
                 NSArray *children = [i itemsCanReach];
                 [dataArray removeObjectsInArray:children];
                 [dataArray removeObject:i];
@@ -308,13 +355,47 @@
     return cell;
 }
 
+- (NSURL *) fileToURL:(NSString*)filename
+{
+    NSArray *fileComponents = [filename componentsSeparatedByString:@"."];
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:[fileComponents objectAtIndex:0] ofType:[fileComponents objectAtIndex:1]];
+    
+    return [NSURL fileURLWithPath:filePath];
+}
+
+- (void)export:(Item *) i{
+    NSURL *url = [NSURL fileURLWithPath:[fm fullPathForPath:i.path]];
+    NSArray *objectsToShare = @[url];
+    
+    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+    
+    // Exclude all activities except AirDrop.
+    NSArray *excludedActivities = @[UIActivityTypePostToTwitter, UIActivityTypePostToFacebook,
+                                    UIActivityTypePostToWeibo,
+                                    UIActivityTypeMessage, UIActivityTypeMail,
+                                    UIActivityTypePrint, UIActivityTypeCopyToPasteboard,
+                                    UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,
+                                    UIActivityTypeAddToReadingList, UIActivityTypePostToFlickr,
+                                    UIActivityTypePostToVimeo, UIActivityTypePostToTencentWeibo];
+    controller.excludedActivityTypes = excludedActivities;
+    
+    // Present the controller
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if ([dataArray[indexPath.row] isKindOfClass:[NSDictionary class]]) {
+        return 50;
+    }
     return 40;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if ([dataArray[indexPath.row] isKindOfClass:[NSDictionary class]]) {
+        return;
+    }
     Item *i = dataArray[indexPath.row];
 
     if (i.type == FileTypeFolder) {
