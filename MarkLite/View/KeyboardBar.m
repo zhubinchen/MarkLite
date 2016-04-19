@@ -12,7 +12,12 @@
 
 - (instancetype)init
 {
-    self = [super initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
+    CGFloat w = kScreenWidth / 12;
+    
+    if (w > 64) {
+        w = 64;
+    }
+    self = [super initWithFrame:CGRectMake(0, 0, kScreenWidth, w)];
     self.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
     [self createItem];
     return self;
@@ -22,13 +27,19 @@
 {
     UIColor *titleColor = kThemeColor;
     NSArray *titles = @[@"Tab",@"#",@"[",@"]",@"*",@"-",@"<",@">",@"/",@"`",@"!",@"keyboard"];
-    CGFloat w = (kScreenWidth-10) / (titles.count - 1);
-
+    CGFloat w = kScreenWidth / 12;
+    
+    if (w > 64) {
+        w = 64;
+    }
+    
+    CGFloat s = kDevicePhone ? 3 : 10;
+    
     for (int i = 0; i < titles.count; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.tintColor = [UIColor blueColor];
         btn.tag = i;
-        btn.frame = CGRectMake(7.5+i*((kScreenWidth-40) / (titles.count - 1)), 5, w-5, w-5);
+        btn.frame = CGRectMake(i * w + s, s, w - 2 * s, w - 2 * s);
         if (i == 0) {
             [btn setTitle:titles[i] forState:UIControlStateNormal];
             [btn setTitleColor:titleColor forState:UIControlStateNormal];

@@ -52,13 +52,6 @@
     fm = [FileManager sharedManager];
     
     _editView.delegate = self;
-    
-    if ([Configure sharedConfigure].keyboardAssist) {
-        KeyboardBar *bar = [[KeyboardBar alloc]init];
-        bar.editView = _editView;
-        bar.vc = self;
-        _editView.inputAccessoryView = bar;
-    }
    
 //    NSArray *rgbArray = @[@"F14143",@"EA8C2F",@"E6BB32",@"56BA38",@"379FE6",@"BA66D0"];
 //    _tagView.backgroundColor = [UIColor colorWithRGBString:rgbArray[item.tag] alpha:0.9];
@@ -72,6 +65,16 @@
     }
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardChanged:) name:UIKeyboardWillChangeFrameNotification object:nil];
+}
+
+- (void)viewWillLayoutSubviews
+{
+    if ([Configure sharedConfigure].keyboardAssist) {
+        KeyboardBar *bar = [[KeyboardBar alloc]init];
+        bar.editView = _editView;
+        bar.vc = self;
+        _editView.inputAccessoryView = bar;
+    }
 }
 
 - (void)keyboardChanged:(NSNotification*)noti
