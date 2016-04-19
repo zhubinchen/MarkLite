@@ -2,18 +2,19 @@
 
 ### 简介
 
-**MarkLite** 是一个免费且好用的Markdown文本编辑器，遵行 `MIT` 协议。
+**MarkLite** 是一个免费且好用的Markdown文本编辑器。
 
-可以在iPhone/iPad等iOS设备上运行，让你随时随地进行流畅的书写和阅读。MarkLite支持标准的Markdown语法之外，也支持一些常用的扩展语法，比如`数学表达式`、`Footnote`、`TodoList`等。在保持功能完整的前提下，界面尽可能地做到了简洁，不会有一些花哨但没卵用的功能。
+可以在iPhone/iPad等iOS设备上运行，让你随时随地进行流畅的书写和阅读。MarkLite支持标准的Markdown语法之外，也支持一些常用的扩展语法，比如`数学表达式`、`Footnote`、`TodoList`等。
 
 >iPad效果图:
 
 ![iPad](ScreenShot/iPad1.png)
 ![iPad](ScreenShot/iPad2.png)
+![iPad](ScreenShot/iPad3.png)
 
 >iPhone效果图:
 
-![iPhone](ScreenShot/iPhone.png)
+![iPad](ScreenShot/iPhone.png)
 
 
 ### 功能
@@ -30,10 +31,11 @@
 ### 安装
 最低支持iOS7.0。iPhone和iPad均能完美运行。
 
-* 可以从[AppStore]()免费获取
+* 可以从[AppStore]("http://itunes.apple.com/us/app/id=1098107145)免费获取
 * 也可以从[Github](https://github.com/zhubch/MarkLite)上获取源代码通过Xcode编译并安装到设备上
-
-### 使用
 
 ### 联系作者
 * email:cheng4741@gmail.com
+
+### 许可证
+**MarkLite** 使用 `MIT` 许可证，详情见 LICENSE 文件。
