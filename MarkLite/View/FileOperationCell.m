@@ -25,22 +25,22 @@
     
     CGFloat w = width / 4.0;
     for (int i = 0; i < imgNames.count; i++) {
-        UIView *v = [[UIView alloc]initWithFrame:CGRectMake(i * w + w, 0, w, 60)];
+        UIView *v = [[UIView alloc]initWithFrame:CGRectMake(i * w + w, 0, w, 40)];
         [self addSubview:v];
         
-        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(w*0.5 - 17.5, 0, 35, 35)];
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(w*0.5 - 13, 0, 28, 28)];
         [btn setImageEdgeInsets:UIEdgeInsetsMake(5, 5, 5, 5)];
         btn.tag = i;
         [btn addTarget:self action:@selector(clickedButton:) forControlEvents:UIControlEventTouchUpInside];
         [btn setImage:[UIImage imageNamed:imgNames[i]] forState:UIControlStateNormal];
         [v addSubview:btn];
         
-        btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 35, w, 15)];
+        btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 28, w, 12)];
         btn.tag = i;
         [btn addTarget:self action:@selector(clickedButton:) forControlEvents:UIControlEventTouchUpInside];
         [btn setTitle:titles[i] forState:UIControlStateNormal];
         [btn setTitleColor:kThemeColor forState:UIControlStateNormal];
-        btn.titleLabel.font = [UIFont systemFontOfSize:13];
+        btn.titleLabel.font = [UIFont systemFontOfSize:10];
         [v addSubview:btn];
     }
 }

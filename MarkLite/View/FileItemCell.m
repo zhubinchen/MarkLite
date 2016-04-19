@@ -32,7 +32,7 @@
         _typeIcon.image = [UIImage imageNamed:@"folder"];
     }
     
-    self.nameText.text = _edit ? item.name : [item.path componentsSeparatedByString:@"/"].lastObject;
+    self.nameText.text = [item.path componentsSeparatedByString:@"/"].lastObject;
     line.frame = CGRectMake(begin , 39.5, kScreenWidth - item.deep * 30 + 22, 0.5);
 }
 

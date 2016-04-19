@@ -67,7 +67,7 @@
     
     NSString *fileName;
     _root = [[Item alloc]init];
-    _root.path = @"MarkLite_Root";
+    _root.path = @"MarkLite";
     _root.open = YES;
     while ((fileName = [childFilesEnumerator nextObject]) != nil){
         

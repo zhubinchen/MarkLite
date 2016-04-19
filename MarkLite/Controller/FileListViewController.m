@@ -47,6 +47,9 @@
 {
     root = fm.root;
     dataArray = root.itemsCanReach.mutableCopy;
+    if (edit) {
+        [dataArray insertObject:root atIndex:0];
+    }
     [self.fileListView reloadData];
 }
 
@@ -164,7 +167,10 @@
                     if (type == FileTypeText) {
                         name = [name stringByAppendingString:@".md"];
                     }
-                    NSString *path = [parent.path stringByAppendingPathComponent:name];
+                    NSString *path = name;
+                    if (selectParent != root) {
+                        path = [parent.path stringByAppendingPathComponent:name];
+                    }
                     Item *i = [[Item alloc]init];
                     i.path = path;
                     i.open = YES;
@@ -177,6 +183,7 @@
                     [parent addChild:i];
                     
                     dataArray = root.itemsCanReach.mutableCopy;
+                    [dataArray insertObject:root atIndex:0];
                     [self.fileListView reloadData];
                     
                     if (i.type == FileTypeText) {
@@ -203,7 +210,11 @@
             [[alert textFieldAtIndex:0] resignFirstResponder];
             NSString *name = [alert textFieldAtIndex:0].text;
             name = [name stringByAppendingString:@".jpeg"];
-            NSString *path = [selectParent.path stringByAppendingPathComponent:name];
+            
+            NSString *path = name;
+            if (selectParent != root) {
+                path = [selectParent.path stringByAppendingPathComponent:name];
+            }
             Item *i = [[Item alloc]init];
             i.path = path;
             i.open = YES;
@@ -214,6 +225,7 @@
             [selectParent addChild:i];
             
             dataArray = root.itemsCanReach.mutableCopy;
+            [dataArray insertObject:root atIndex:0];
             fm.currentItem = i;
             [self.fileListView reloadData];
             
@@ -290,6 +302,21 @@
                 showToast(@"根目录不可重命名");
                 return ;
             }
+            AlertView *alert = [[AlertView alloc]initWithTitle:@"重命名" message:@"不用输入后缀名" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+            alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+            alert.clickedButton = ^(NSInteger buttonIndex,AlertView *alert){
+                NSString *name = [alert textFieldAtIndex:0].text;
+                name = [name componentsSeparatedByString:@"."].firstObject;
+                if (name.length == 0) {
+                    showToast(@"文件名不可为空");
+                    return ;
+                }
+                if ([name containsString:@"/"] || [name containsString:@"*"]) {
+                    showToast(@"请不要输入特殊字符");
+                    return;
+                }
+            };
+            [alert show];
         };
         cell.exportBlock = ^(Item *i){
             [self export:i];
@@ -308,11 +335,6 @@
     cell.shift = edit ? 1 : 0;
     cell.edit = edit;
     cell.item = item;
-    cell.nameText.enabled = edit;
-    
-    if (item == root) {
-        cell.nameText.enabled = NO;
-    }
     
     cell.moreBlock = ^(Item *i){
         if (dataArray.count > indexPath.row + 1 && [dataArray[indexPath.row + 1] isKindOfClass:[NSDictionary class]]) {
@@ -385,9 +407,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([dataArray[indexPath.row] isKindOfClass:[NSDictionary class]]) {
-        return 50;
-    }
     return 40;
 }
 

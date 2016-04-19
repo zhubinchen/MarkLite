@@ -47,5 +47,14 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>pdf</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
+		</dict>
+	</array>
 </dict>
 </plist>

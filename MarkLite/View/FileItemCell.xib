@@ -73,7 +73,7 @@
                             <constraint firstAttribute="width" constant="40" id="Pec-h7-8tj"/>
                             <constraint firstAttribute="height" constant="40" id="cfk-EB-rlz"/>
                         </constraints>
-                        <inset key="contentEdgeInsets" minX="7" minY="7" maxX="7" maxY="7"/>
+                        <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                         <state key="normal" image="more.png"/>
                         <connections>
                             <action selector="moreBtnClicked:" destination="3NS-7u-jgU" eventType="touchUpInside" id="7OH-yw-Y4c"/>
