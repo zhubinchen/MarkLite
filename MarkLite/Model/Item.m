@@ -117,6 +117,9 @@
 
 - (BOOL)isEqual:(Item *)object
 {
+    if (![object isKindOfClass:self.class]) {
+        return NO;
+    }
     return [self.path isEqualToString:object.path];
 }
 

@@ -85,7 +85,7 @@
         };
         [self.navigationController pushViewController:vc animated:YES];
     }else if (indexPath.section == 1) {
-        NSArray *styles =  @[@"Clearness",@"Clearness Dark",@"Github",@"Github2",@"Solarized Dark",@"Solarized Light"];
+        NSArray *styles =  @[@"Clearness",@"Clearness Dark",@"GitHub",@"GitHub2",@"Solarized Dark",@"Solarized Light"];
         vc.selectOptions = styles;
         vc.title = @"选择样式";
         

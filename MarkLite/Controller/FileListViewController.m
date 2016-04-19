@@ -65,7 +65,7 @@
     if (edit) {
         [dataArray insertObject:root atIndex:0];
     }else{
-        [dataArray removeObject:root];
+        [dataArray removeObjectAtIndex:0];
     }
     [self.fileListView reloadData];
 }
@@ -337,13 +337,16 @@
     cell.item = item;
     
     cell.moreBlock = ^(Item *i){
-        if (dataArray.count > indexPath.row + 1 && [dataArray[indexPath.row + 1] isKindOfClass:[NSDictionary class]]) {
-            [dataArray removeObjectAtIndex:(indexPath.row + 1)];
-            [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationMiddle];
+        
+        NSUInteger nextIndex = [dataArray indexOfObject:i] + 1;
+        
+        if (dataArray.count > nextIndex && [dataArray[nextIndex] isKindOfClass:[NSDictionary class]]) {
+            [dataArray removeObjectAtIndex:(nextIndex)];
+            [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:nextIndex inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationMiddle];
             return ;
         }
-        [dataArray insertObject:@{@"file":i} atIndex:indexPath.row+1];
-        [tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row+1 inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationMiddle];
+        [dataArray insertObject:@{@"file":i} atIndex:nextIndex];
+        [tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:nextIndex inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationMiddle];
     };
 
     cell.newFileBlock = ^(Item *i){
@@ -401,8 +404,7 @@
                                     UIActivityTypePostToVimeo, UIActivityTypePostToTencentWeibo];
     controller.excludedActivityTypes = excludedActivities;
     
-    // Present the controller
-    [self presentViewController:controller animated:YES completion:nil];
+//    [self presentViewController:controller animated:YES completion:nil];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
