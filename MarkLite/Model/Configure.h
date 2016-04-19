@@ -16,6 +16,8 @@
 
 @property (nonatomic,strong) NSString *style;
 
+@property (nonatomic,strong) NSDictionary *highlightColor;
+
 @property (nonatomic,assign) BOOL keyboardAssist;
 
 + (instancetype)sharedConfigure;

@@ -8,6 +8,7 @@
 
 #import "Configure.h"
 
+#define RGB(x) [UIColor colorWithRGBString:x]
 @implementation Configure
 
 + (instancetype)sharedConfigure
@@ -21,7 +22,7 @@
             conf = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
         }else{
             conf = [[self alloc]init];
-            conf.keyboardAssist = YES;
+            [conf reset];
         }
     });
     return conf;
@@ -35,17 +36,19 @@
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder{
-    
+    [aCoder encodeObject:self.highlightColor forKey:@"highlightColor"];
     [aCoder encodeObject:self.fileHisory forKey:@"fileHisory"];
+    [aCoder encodeObject:self.style forKey:@"style"];
+    [aCoder encodeBool:self.keyboardAssist forKey:@"keyboardAssist"];
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
     if (self=[super init]) {
         self.fileHisory=[[aDecoder decodeObjectForKey:@"fileHisory"] mutableCopy];
-        if (self.fileHisory == nil) {
-            self.fileHisory = [NSMutableArray array];
-        }
+        self.highlightColor = [aDecoder decodeObjectForKey:@"highlightColor"];
+        self.style = [aDecoder decodeObjectForKey:@"style"];
+        self.keyboardAssist = [aDecoder decodeBoolForKey:@"keyboardAssist"];
     }
     return self;
 }
@@ -53,17 +56,27 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        self.fileHisory = [NSMutableArray array];
     }
     return self;
 }
 
-- (NSString *)style
+- (void)reset
 {
-    if (_style.length == 0) {
-        return @"GitHub2";
-    }
-    return _style;
+    _fileHisory = [NSMutableArray array];
+    
+    _highlightColor = @{
+                        @"title":RGB(@"488FE1"),
+                        @"link":RGB(@"0200FF"),
+                        @"image":RGB(@"A250DC"),
+                        @"bold":RGB(@"000000"),
+                        @"quotes":RGB(@"057500"),
+                        @"deletion":RGB(@"916132"),
+                        @"separate":RGB(@"BD1586"),
+                        @"list":RGB(@"BD4346"),
+                        @"code":RGB(@"6D6D6D"),
+                        };
+    _style = @"GitHub2";
+    _keyboardAssist = YES;
 }
 
 @end

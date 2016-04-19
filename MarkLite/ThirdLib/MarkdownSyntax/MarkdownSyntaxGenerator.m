@@ -5,6 +5,7 @@
 
 #import "MarkdownSyntaxGenerator.h"
 #import "HighLightModel.h"
+#import "Configure.h"
 
 #define regexp(reg,option) [NSRegularExpression regularExpressionWithPattern:@reg options:option error:NULL]
 
@@ -48,54 +49,60 @@ NSRegularExpression *NSRegularExpressionFromMarkdownSyntaxType(MarkdownSyntaxTyp
 
 NSDictionary *AttributesFromMarkdownSyntaxType(MarkdownSyntaxType v) {
     HighLightModel *model = [[HighLightModel alloc]init];
+    NSDictionary *colors = [Configure sharedConfigure].highlightColor;
     switch (v) {
         case MarkdownSyntaxHeaders:
-            model.textColor = [UIColor cyanColor];
+            model.textColor = colors[@"title"];
             model.size = 17;
             break;
         case MarkdownSyntaxTitle:
-            model.textColor = [UIColor cyanColor];
+            model.textColor = colors[@"title"];
             model.size = 17;
             break;
         case MarkdownSyntaxLinks:
-            model.textColor = [UIColor blueColor];
+            model.textColor = colors[@"link"];
             break;
         case MarkdownSyntaxImages:
-            model.textColor = [UIColor magentaColor];
+            model.textColor = colors[@"image"];
             break;
         case MarkdownSyntaxBold:
+            model.textColor = colors[@"bold"];
             model.strong = YES;
             break;
         case MarkdownSyntaxEmphasis:
+            model.textColor = colors[@"bold"];
             model.strong = YES;
             break;
         case MarkdownSyntaxDeletions:
+            model.textColor = colors[@"deletion"];
             model.deletionLine = YES;
             break;
         case MarkdownSyntaxQuotes:
-            model.textColor = [UIColor colorWithRed:5/255.0 green:177/255.0 blue:0.0 alpha:1];
+            model.textColor = colors[@"quotes"];
             break;
         case MarkdownSyntaxBlockquotes:
-            model.textColor = [UIColor colorWithRed:5/255.0 green:177/255.0 blue:0.0 alpha:1];
+            model.textColor = colors[@"quotes"];
             break;
         case MarkdownSyntaxSeparate:
-            return @{NSForegroundColorAttributeName : [UIColor purpleColor]};
+            model.textColor = colors[@"separate"];
+            break;
         case MarkdownSyntaxULLists:
-            model.textColor = [UIColor orangeColor];
+            model.textColor = colors[@"list"];
             break;
         case MarkdownSyntaxOLLists:
-            model.textColor = [UIColor orangeColor];
+            model.textColor = colors[@"list"];
             break;
         case MarkdownSyntaxInlineCode:
-            model.textColor = [UIColor brownColor];
+            model.backgroundColor = [UIColor colorWithWhite:0.97 alpha:1];
+            model.textColor = colors[@"code"];
             break;
         case MarkdownSyntaxCodeBlock:
             model.backgroundColor = [UIColor colorWithWhite:0.97 alpha:1];
-            model.textColor = [UIColor grayColor];
+            model.textColor = colors[@"code"];
             break;
         case MarkdownSyntaxImplicitCodeBlock:
-            model.textColor = [UIColor grayColor];
             model.backgroundColor = [UIColor colorWithWhite:0.97 alpha:1];
+            model.textColor = colors[@"code"];
             break;
         case NumberOfMarkdownSyntax:
             break;

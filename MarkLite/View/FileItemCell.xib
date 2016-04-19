@@ -37,6 +37,7 @@
                     </imageView>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="index.html" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l70-cf-8gS">
                         <rect key="frame" x="37" y="7" width="273" height="30"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="6LL-mh-vhV"/>
                         </constraints>
