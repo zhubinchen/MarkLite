@@ -68,6 +68,7 @@
 
     if (kDevicePad) {
         [fm addObserver:self forKeyPath:@"currentItem" options:NSKeyValueObservingOptionNew context:NULL];
+        [[Configure sharedConfigure] addObserver:self forKeyPath:@"keyboardAssist" options:NSKeyValueObservingOptionNew context:NULL];
     }
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardChanged:) name:UIKeyboardWillChangeFrameNotification object:nil];
@@ -89,7 +90,18 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
-    [self loadFile];
+    if ([keyPath isEqualToString:@"currentItem"]) {
+        [self loadFile];
+    }else{
+        if ([change[@"new"] boolValue]) {
+            KeyboardBar *bar = [[KeyboardBar alloc]init];
+            bar.editView = _editView;
+            bar.vc = self;
+            _editView.inputAccessoryView = bar;
+        }else{
+            _editView.inputAccessoryView = nil;
+        }
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -275,6 +287,7 @@
 {
     if (kDevicePad){
         [fm removeObserver:self forKeyPath:@"currentItem" context:NULL];
+        [[Configure sharedConfigure] removeObserver:self forKeyPath:@"keyboardAssist"];
     }
 }
 

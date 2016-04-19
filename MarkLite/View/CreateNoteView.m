@@ -53,7 +53,7 @@ static CGFloat h;
     _isShow = NO;
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
-        self.frame = CGRectMake(w * 0.05, kScreenHeight, w, h);
+        self.center = CGPointMake(control.center.x, kScreenHeight + self.bounds.size.height * 0.5);
     } completion:^(BOOL finished) {
         if (finished) {
             [control removeFromSuperview];
@@ -67,17 +67,21 @@ static CGFloat h;
 
     control.frame = window.bounds;
 
-    self.frame = CGRectMake(w * 0.05, kScreenHeight, w, h);
+    w = MIN(kScreenWidth, kScreenHeight) * (kDevicePhone ? 0.9 : 0.8);
+    h = kDevicePhone ? w * 1.4 : w;
+    self.frame = CGRectMake(0, 0, w, h);
+    self.center = CGPointMake(0.5*kScreenWidth, kScreenHeight + h * 0.5);
 }
 
 + (instancetype)instance
 {
     CreateNoteView *view = [[NSBundle mainBundle]loadNibNamed:@"CreateNoteView" owner:self options:nil].firstObject;
-    w = MIN(kScreenWidth, kScreenHeight) * 0.9;
+    w = MIN(kScreenWidth, kScreenHeight) * (kDevicePhone ? 0.9 : 0.8);
     h = kDevicePhone ? w * 1.4 : w;
-    view.frame = CGRectMake(w * 0.05, kScreenHeight, w, h);
+    view.frame = CGRectMake(0, 0, w, h);
+    view.center = CGPointMake(0.5*kScreenWidth, kScreenHeight + h * 0.5);
 
-    [view.folderListView registerNib:[UINib nibWithNibName:@"FileItemCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"fileItemCell"];
+    [view.folderListView registerNib:[UINib nibWithNibName:@"FileItemCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"file"];
     return view;
 }
 
@@ -134,12 +138,11 @@ static CGFloat h;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FileItemCell *cell = (FileItemCell*)[tableView dequeueReusableCellWithIdentifier:@"fileItemCell" forIndexPath:indexPath];
+    FileItemCell *cell = (FileItemCell*)[tableView dequeueReusableCellWithIdentifier:@"file" forIndexPath:indexPath];
     Item *item = dataArray[indexPath.row];
     cell.shift = 1;
     cell.item = item;
-    cell.addBtn.hidden = YES;
-    
+    cell.moreBtn.hidden = YES;
     cell.checkIcon.hidden = selecteItem != item;
 
     return cell;
