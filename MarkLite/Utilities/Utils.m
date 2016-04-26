@@ -346,7 +346,7 @@
     for (UIView *subView in view.subviews) {
         if ([subView isKindOfClass:[UIButton class]]) {
             UIButton *button=(UIButton *)subView;
-            [button setTintColor:[UIColor blackColor]];
+            [button setTintColor:kThemeColor];
             [button setTitle:title forState:UIControlStateNormal];
             [button setTitle:title forState:UIControlStateHighlighted];
             break;

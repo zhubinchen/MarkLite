@@ -31,8 +31,8 @@
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     
-    items = @[@[@"键盘辅助"],@[@"渲染样式"],@[@"好评鼓励",@"向我吐槽"],@[@"关于"]];
-    imgNames = @[@[@"Keyboard"],@[@"Help"],@[@"Star",@"FeedBack"],@[@"Info"]];
+    items = @[@[@"主题",@"键盘辅助"],@[@"渲染样式"],@[@"好评鼓励",@"向我吐槽"],@[@"关于"]];
+    imgNames = @[@[@"Keyboard",@"Keyboard"],@[@"Help"],@[@"Star",@"FeedBack"],@[@"Info"]];
 }
 
 - (void)back {
@@ -77,20 +77,36 @@
     SelectViewController *vc = [[SelectViewController alloc]init];
 
     if (indexPath.section == 0) {
-        vc.selectOptions = @[@"开启",@"关闭"];
-        vc.title = @"键盘辅助";
-        vc.defaultSelect = [Configure sharedConfigure].keyboardAssist ? 0 : 1;
-        vc.didSelected = ^(int index){
-            [Configure sharedConfigure].keyboardAssist = index == 0;
-        };
-        [self.navigationController pushViewController:vc animated:YES];
+        if (indexPath.row == 0) {
+            vc.selectOptions = @[@"黑",@"绿",@"蓝",@"粉",@"白"];
+            vc.title = @"主题色";
+            
+            NSArray *colors = @[@"343434",@"00e012",@"1123ee",@"acac11",@"fefefe"];
+            for (int i = 0; i < colors.count; i++) {
+                if ([[Configure sharedConfigure].themeColor isEqualToString:colors[i]]) {
+                    vc.defaultSelect = i;
+                }
+            }
+            vc.didSelected = ^(int index){
+                [Configure sharedConfigure].themeColor = colors[index];
+            };
+            [self.navigationController pushViewController:vc animated:YES];
+        }else{
+            vc.selectOptions = @[@"开启",@"关闭"];
+            vc.title = @"键盘辅助";
+            vc.defaultSelect = [Configure sharedConfigure].keyboardAssist ? 0 : 1;
+            vc.didSelected = ^(int index){
+                [Configure sharedConfigure].keyboardAssist = index == 0;
+            };
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }else if (indexPath.section == 1) {
         NSArray *styles =  @[@"Clearness",@"Clearness Dark",@"GitHub",@"GitHub2",@"Solarized Dark",@"Solarized Light"];
         vc.selectOptions = styles;
         vc.title = @"选择样式";
         
         for (int i = 0; i < styles.count; i++) {
-            if ([Configure sharedConfigure].style == styles[i]) {
+            if ([[Configure sharedConfigure].style isEqualToString:styles[i]]) {
                 vc.defaultSelect = i;
             }
         }
