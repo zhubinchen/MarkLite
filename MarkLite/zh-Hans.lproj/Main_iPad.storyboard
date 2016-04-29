@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vUh-mm-fTg">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
@@ -458,7 +457,7 @@
                             <outlet property="delegate" destination="I2i-9V-J9l" id="FZf-HM-n3Z"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="选项" image="24733310-470E-47CE-8B52-1AE12EBEC286" id="cUx-cv-8Pe"/>
+                    <tabBarItem key="tabBarItem" title="选项" image="654EC4E9-5720-4978-8AF8-622CC8821E8F" id="cUx-cv-8Pe"/>
                     <navigationItem key="navigationItem" id="rMd-CP-7Md"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </tableViewController>
@@ -705,7 +704,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="24733310-470E-47CE-8B52-1AE12EBEC286" width="25" height="25">
+        <image name="654EC4E9-5720-4978-8AF8-622CC8821E8F" width="25" height="25">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
