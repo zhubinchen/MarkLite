@@ -13,7 +13,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ex1-Yc-MUf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.20392156862745098" green="0.20392156862745098" blue="0.20392156862745098" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -214,8 +213,8 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Tf8-QR-852">
-                        <barButtonItem key="backBarButtonItem" title="Edit" id="gl4-yi-PkN"/>
-                        <barButtonItem key="rightBarButtonItem" title="Preview" id="WQp-jO-Vcc">
+                        <barButtonItem key="backBarButtonItem" title="编辑" id="gl4-yi-PkN"/>
+                        <barButtonItem key="rightBarButtonItem" title="预览" id="WQp-jO-Vcc">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="rmd-nM-PLW" kind="show" id="Ow3-lL-ZNM"/>
@@ -259,7 +258,7 @@
                             <constraint firstItem="d4j-sb-Kdj" firstAttribute="leading" secondItem="S83-Hl-wAf" secondAttribute="leading" id="lgG-bO-hOf"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Preview" id="lAk-Vl-tnM"/>
+                    <navigationItem key="navigationItem" title="预览" id="lAk-Vl-tnM"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="webView" destination="d4j-sb-Kdj" id="pjH-H3-xEJ"/>
@@ -373,6 +372,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="g0F-Lb-yEF"/>
                                 </constraints>
+                                <color key="barTintColor" red="0.93725490199999995" green="0.95294117649999999" blue="0.98823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="O8T-WH-Ngn" id="uXG-yM-g4A"/>
@@ -390,7 +390,7 @@
                             <constraint firstAttribute="trailing" secondItem="dfg-aj-tmF" secondAttribute="trailing" id="xlO-bB-8f4"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Note" image="note.png" id="4Ts-Kx-7YU"/>
+                    <tabBarItem key="tabBarItem" title="笔记" image="note.png" id="4Ts-Kx-7YU"/>
                     <navigationItem key="navigationItem" title="MarkLite" id="BXB-mi-2EF">
                         <barButtonItem key="backBarButtonItem" title=" " id="Gxd-XO-099"/>
                     </navigationItem>
@@ -427,20 +427,17 @@
                             <outlet property="delegate" destination="gGG-Bk-wVW" id="mrW-wq-JVo"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Options" image="settings.png" id="hH6-Qu-TcX"/>
-                    <navigationItem key="navigationItem" title="Options" id="8HT-gK-gvE">
-                        <barButtonItem key="backBarButtonItem" title=" " id="oMI-r1-gjT"/>
-                    </navigationItem>
+                    <tabBarItem key="tabBarItem" title="选项" image="settings.png" id="hH6-Qu-TcX"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cwa-VT-4uI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2684.5" y="-2572.5"/>
         </scene>
-        <!--File-->
+        <!--文件-->
         <scene sceneID="Q4w-7j-rbt">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="FOL-Xe-NU3" customClass="FileListViewController" sceneMemberID="viewController">
+                <viewController title="文件" hidesBottomBarWhenPushed="YES" id="FOL-Xe-NU3" customClass="FileListViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UFd-XL-7RV"/>
                         <viewControllerLayoutGuide type="bottom" id="xz7-c3-tds"/>
@@ -479,8 +476,8 @@
                             <constraint firstItem="CTd-xk-UGY" firstAttribute="top" secondItem="hgt-J9-INt" secondAttribute="bottom" id="tt2-E5-sQl"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="File" image="file.png" id="Pzb-Eb-NvF"/>
-                    <navigationItem key="navigationItem" title="File" id="Nna-lA-LHx">
+                    <tabBarItem key="tabBarItem" title="文件" image="file.png" id="Pzb-Eb-NvF"/>
+                    <navigationItem key="navigationItem" title="文件" id="Nna-lA-LHx">
                         <barButtonItem key="backBarButtonItem" title=" " id="7JA-JI-yHX"/>
                     </navigationItem>
                     <connections>
@@ -626,8 +623,8 @@
         <image name="settings.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="F5f-nG-XfB"/>
         <segue reference="Dvd-JL-udn"/>
-        <segue reference="n2c-A2-qau"/>
-        <segue reference="nAh-oH-Cz0"/>
+        <segue reference="jkb-0q-YIz"/>
     </inferredMetricsTieBreakers>
 </document>

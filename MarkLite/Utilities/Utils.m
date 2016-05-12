@@ -326,6 +326,11 @@
 
 @dynamic cancelButton;
 
+- (void)awakeFromNib
+{
+
+}
+
 - (UIButton *)cancelButton
 {
     UIView *view=self.subviews[0];

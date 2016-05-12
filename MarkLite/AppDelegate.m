@@ -21,9 +21,9 @@
     // Override point for customization after application launch.
     
     [[UITabBar appearance] setTintColor:kThemeColor];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setBarTintColor:kThemeColor];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [[UINavigationBar appearance] setTintColor:kThemeColor];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:kThemeColor}];
     
     if (launchOptions && launchOptions[UIApplicationLaunchOptionsShortcutItemKey]) {
         return NO;

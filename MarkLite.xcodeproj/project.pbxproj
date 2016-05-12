@@ -196,14 +196,10 @@
 		075047DC1CACBF920031852F /* FileItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FileItemCell.xib; sourceTree = "<group>"; };
 		075047DF1CACC0280031852F /* FileItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileItemCell.h; sourceTree = "<group>"; };
 		075047E01CACC0280031852F /* FileItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileItemCell.m; sourceTree = "<group>"; };
-		077636501CD3024400881205 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		077636521CD3029700881205 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		077636551CD3034700881205 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.storyboard"; sourceTree = "<group>"; };
-		077636571CD3034A00881205 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		0776365A1CD3035C00881205 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/Main_iPhone.storyboard"; sourceTree = "<group>"; };
-		0776365C1CD3035F00881205 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
-		0776365D1CD3036600881205 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = "zh-Hans"; path = "zh-Hans.lproj/Main_iPad.storyboard"; sourceTree = "<group>"; };
-		0776365E1CD3036800881205 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		07853E451CE472E0007A5F3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		07853E461CE472EF007A5F3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		07853E471CE47302007A5F3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		07853E481CE47313007A5F3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		078F8D081CAE826B00B9D625 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		078F8D091CAE826B00B9D625 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		078F8D0A1CAE826B00B9D625 /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
@@ -1455,8 +1451,7 @@
 		0776364D1CD3016800881205 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				077636501CD3024400881205 /* en */,
-				077636521CD3029700881205 /* zh-Hans */,
+				07853E481CE47313007A5F3A /* Base */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1464,8 +1459,7 @@
 		079916651C61E9FF00E5F3A2 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				077636551CD3034700881205 /* zh-Hans */,
-				077636571CD3034A00881205 /* en */,
+				07853E461CE472EF007A5F3A /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1473,8 +1467,7 @@
 		0799184A1C61EAAB00E5F3A2 /* Main_iPhone.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				0776365A1CD3035C00881205 /* zh-Hans */,
-				0776365C1CD3035F00881205 /* en */,
+				07853E451CE472E0007A5F3A /* Base */,
 			);
 			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
@@ -1482,8 +1475,7 @@
 		0799187E1C61FB9600E5F3A2 /* Main_iPad.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				0776365D1CD3036600881205 /* zh-Hans */,
-				0776365E1CD3036800881205 /* en */,
+				07853E471CE47302007A5F3A /* Base */,
 			);
 			name = Main_iPad.storyboard;
 			sourceTree = "<group>";
