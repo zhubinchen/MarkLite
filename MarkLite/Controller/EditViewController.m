@@ -9,7 +9,6 @@
 #import "EditViewController.h"
 #import "PreviewViewController.h"
 #import "EditView.h"
-#import "ZBCKeyBoard.h"
 #import "KeyboardBar.h"
 #import "FileManager.h"
 #import "Configure.h"
@@ -26,11 +25,10 @@
 @implementation EditViewController
 {
     UIBarButtonItem *preview;
-    PreviewViewController *preViewVc;
-    UIPopoverController *popVc;
     Item *item;
     FileManager *fm;
     UIControl *control;
+    CGFloat lastOffsetY;
 }
 
 - (NSArray<id<UIPreviewActionItem>> *)previewActionItems {
@@ -52,10 +50,6 @@
     fm = [FileManager sharedManager];
     
     _editView.delegate = self;
-   
-//    NSArray *rgbArray = @[@"F14143",@"EA8C2F",@"E6BB32",@"56BA38",@"379FE6",@"BA66D0"];
-//    _tagView.backgroundColor = [UIColor colorWithRGBString:rgbArray[item.tag] alpha:0.9];
-//    [_tagView showBorderWithColor:[UIColor colorWithWhite:0.1 alpha:0.1] radius:8 width:1.5];
 
     [self loadFile];
 
@@ -114,12 +108,40 @@
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
+    if (kDevicePhone) {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
     return YES;
 }
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView
 {
+    if (kDevicePhone) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
     return YES;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (kDevicePad || (!_editView.isFirstResponder)) {
+        return;
+    }
+    if (scrollView.contentOffset.y < -40) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
+    if (scrollView.contentOffset.y - lastOffsetY > 100) {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    } else if (scrollView.contentOffset.y - lastOffsetY < -100) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
+    
+    lastOffsetY = scrollView.contentOffset.y;
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    lastOffsetY = 0;
 }
 
 - (void)loadFile
@@ -157,21 +179,21 @@
 
     [[Configure sharedConfigure].fileHisory addObject:@{@"name":item.name,@"path":[path stringByReplacingOccurrencesOfString:fm.workSpace withString:@""]}];
     [[Configure sharedConfigure] saveToFile];
-//    [self createShortCutItem:[Configure sharedConfigure].fileHisory];
+    [self createShortCutItem:[Configure sharedConfigure].fileHisory];
 }
 
 -(void)createShortCutItem:(NSArray*)fileHistory
 {
-    UIApplicationShortcutIcon *editIcon = [UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypeCompose];
-    UIApplicationShortcutItem *new = [[UIApplicationShortcutItem alloc] initWithType:@"new" localizedTitle:@"新建" localizedSubtitle:@"" icon:editIcon userInfo:nil];
-    NSMutableArray *items = [NSMutableArray arrayWithObject:new];
-
-    for (int i = (int)fileHistory.count - 1; i >= 0; i--) {
-        NSDictionary *dic = fileHistory[i];
-        UIApplicationShortcutItem *shortCut = [[UIApplicationShortcutItem alloc] initWithType:@"open" localizedTitle:dic[@"name"] localizedSubtitle:dic[@"path"] icon:editIcon userInfo:nil];
-        [items addObject:shortCut];
-    }
-    [UIApplication sharedApplication].shortcutItems = items;
+//    UIApplicationShortcutIcon *editIcon = [UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypeCompose];
+//    UIApplicationShortcutItem *new = [[UIApplicationShortcutItem alloc] initWithType:@"new" localizedTitle:@"新建" localizedSubtitle:@"" icon:editIcon userInfo:nil];
+//    NSMutableArray *items = [NSMutableArray arrayWithObject:new];
+//
+//    for (int i = (int)fileHistory.count - 1; i >= 0; i--) {
+//        NSDictionary *dic = fileHistory[i];
+//        UIApplicationShortcutItem *shortCut = [[UIApplicationShortcutItem alloc] initWithType:@"open" localizedTitle:dic[@"name"] localizedSubtitle:dic[@"path"] icon:editIcon userInfo:nil];
+//        [items addObject:shortCut];
+//    }
+//    [UIApplication sharedApplication].shortcutItems = items;
 }
 
 - (IBAction)fullScreen:(UIBarButtonItem*)sender{
@@ -184,84 +206,6 @@
     }
 }
 
-//- (IBAction)preview:(id)sender
-//{
-//    self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
-//    if (kDevicePhone) {
-//        [self performSegueWithIdentifier:@"preview" sender:self];
-//    } else {
-//        if (popVc == nil) {
-//            PreviewViewController *vc = [[PreviewViewController alloc]init];
-//            vc.view.backgroundColor =[UIColor whiteColor];
-//            UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-//            popVc.popoverContentSize = CGSizeMake(320,360);
-//            vc.size = popVc.popoverContentSize;
-//            popVc = [[UIPopoverController alloc] initWithContentViewController:nav];
-//        }
-//
-//        [popVc presentPopoverFromBarButtonItem:self.tabBarController.navigationItem.rightBarButtonItem permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-//    }
-//}
-
-//- (IBAction)changeTag:(id)sender
-//{
-//    if (selectTagView == nil) {
-//        
-//        control = [[UIControl alloc]initWithFrame:self.view.bounds];
-//        control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
-//        [control addTarget:self action:@selector(selectedTag:) forControlEvents:UIControlEventTouchDown];
-//        
-//        selectTagView = [[UIView alloc]initWithFrame:CGRectMake(kScreenWidth - 36, 0, 36, 0)];
-//        selectTagView.backgroundColor = [UIColor whiteColor];
-//        selectTagView.clipsToBounds = YES;
-//        NSArray *rgbArray = @[@"F14143",@"EA8C2F",@"E6BB32",@"56BA38",@"379FE6",@"BA66D0"];
-//        for (int i = 0; i < rgbArray.count; i++) {
-//            UIView *v = [[UIView alloc]initWithFrame:CGRectMake(10, i*36 + 10, 16, 16)];
-//            v.backgroundColor = [UIColor colorWithRGBString:rgbArray[i] alpha:0.9];
-//            [v showBorderWithColor:[UIColor colorWithWhite:0.1 alpha:0.1] radius:8 width:1.5];
-//            [selectTagView addSubview:v];
-//            UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, i*36, 36, 36)];
-//            btn.tag = i;
-//            [btn addTarget:self action:@selector(selectedTag:) forControlEvents:UIControlEventTouchUpInside];
-//            [selectTagView addSubview:btn];
-//        }
-//    }
-//    
-//    if (control.superview) {
-//        [self selectedTag:nil];
-//        return;
-//    }
-//    
-//    [self.view addSubview:control];
-//    [self.view addSubview:selectTagView];
-//
-//    [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-//        selectTagView.frame = CGRectMake(kScreenWidth - 36, 0, 36, 36*6);
-//        control.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
-//    } completion:^(BOOL finished) {
-//        if (finished) {
-//            [selectTagView showShadowWithColor:[UIColor grayColor] offset:CGSizeMake(-2, 2)];
-//        }
-//    }];
-//}
-//
-//- (void)selectedTag:(UIButton*)sender
-//{
-//    [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-//        selectTagView.frame = CGRectMake(kScreenWidth - 36, 0, 36, 0);
-//        control.backgroundColor = [UIColor colorWithWhite:0 alpha:0.0];
-//    } completion:^(BOOL finished) {
-//        [control removeFromSuperview];
-//        selectTagView.clipsToBounds = YES;
-//    }];
-//    
-//    if (![sender isKindOfClass:[UIButton class]] || sender == nil) {
-//        return;
-//    }
-//    NSArray *rgbArray = @[@"F14143",@"EA8C2F",@"E6BB32",@"56BA38",@"379FE6",@"BA66D0"];
-//    item.tag = sender.tag;
-//    _tagView.backgroundColor = [UIColor colorWithRGBString:rgbArray[sender.tag] alpha:0.9];
-//}
 
 - (void)saveFile
 {

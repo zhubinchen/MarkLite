@@ -13,9 +13,9 @@
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 #ifdef __OBJC__
 
-#import "Utils.h"
+#import "ZHUtils.h"
 
-#define kThemeColor [UIColor colorWithRGBString:@"1aba5a"]
+#define kThemeColor [UIColor colorWithRGBString:@"21B0E2"]
 
 #endif
 

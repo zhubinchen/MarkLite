@@ -1,18 +1,39 @@
 //
-//  Utils.m
-//  Utils
+//  ZHUtils.m
+//  ZHUtils
 //
 //  Created by zhubch on 15/7/28.
 //  Copyright (c) 2015年 Robusoft. All rights reserved.
 //
 
 #import <CommonCrypto/CommonDigest.h>
+#import "ZHUtils.h"
 
-@implementation NSObject (Utils)
+@implementation NSObject (ZHUtils)
 
 @end
 
-@implementation NSData (Utils)
+@implementation NSArray (ZHUtils)
+
+- (NSString *)toString
+{
+    NSData *data = [NSJSONSerialization dataWithJSONObject:self options:0 error:nil];
+    return data.toString;
+}
+
+@end
+
+@implementation NSDictionary(ZHUtils)
+
+- (NSString *)toString
+{
+    NSData *data = [NSJSONSerialization dataWithJSONObject:self options:0 error:nil];
+    return data.toString;
+}
+
+@end
+
+@implementation NSData (ZHUtils)
 
 - (NSDictionary *)toDictionay
 {
@@ -28,7 +49,7 @@
 
 @end
 
-@implementation NSString (Utils)
+@implementation NSString (ZHUtils)
 
 + (instancetype)uniqueString
 {
@@ -44,12 +65,6 @@
     NSRegularExpression *exp = [NSRegularExpression regularExpressionWithPattern:@"^([a-z]+(?=[0-9])|[0-9]+(?=[a-z]))[a-z0-9]+$" options:NSRegularExpressionCaseInsensitive error:nil];
     NSRange matchedRange = [exp rangeOfFirstMatchInString:self options:NSMatchingAnchored range:NSMakeRange(0, self.length)];
     return matchedRange.length == self.length;
-}
-
-- (NSAttributedString *)stringWithMiddleLine
-{
-    NSDictionary *attribtDic = @{NSStrikethroughStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
-    return [[NSMutableAttributedString alloc]initWithString:self attributes:attribtDic];
 }
 
 - (NSString *)urlEncodeString
@@ -118,7 +133,7 @@
 
 @end
 
-@implementation NSDate (Utils)
+@implementation NSDate (ZHUtils)
 
 - (NSString *)date
 {
@@ -168,7 +183,7 @@
 
 @end
 
-@implementation UIView (Utils)
+@implementation UIView (ZHUtils)
 
 @dynamic borderColor;
 @dynamic borderRadius;
@@ -254,7 +269,7 @@
 
 @end
 
-@implementation UIImage (Utils)
+@implementation UIImage (ZHUtils)
 
 - (NSData *)data
 {
@@ -322,14 +337,9 @@
 
 @end
 
-@implementation UISearchBar (Utils)
+@implementation UISearchBar (ZHUtils)
 
 @dynamic cancelButton;
-
-- (void)awakeFromNib
-{
-
-}
 
 - (UIButton *)cancelButton
 {
@@ -361,7 +371,7 @@
 
 @end
 
-@implementation UIColor (Utils)
+@implementation UIColor (ZHUtils)
 
 + (UIColor *)colorWithRGBString:(NSString *)hexStr alpha:(CGFloat)alpha
 {
@@ -417,114 +427,89 @@
 @end
 
 
-@implementation AlertView
+@implementation UIAlertView (ZHUtils)
 
-- (void)setClickedButton:(void (^)(NSInteger buttonIndex,AlertView* alertView))clickedButton
+- (void)setClickedButton:(void (^)(NSInteger buttonIndex,UIAlertView* alertView))clickedButton
 {
-    _clickedButton = clickedButton;
+    
+    [self willChangeValueForKey:@"clickedButton"];
+    objc_setAssociatedObject(self, "clickedButton",
+                             clickedButton,
+                             OBJC_ASSOCIATION_COPY_NONATOMIC);
+    [self didChangeValueForKey:@"clickedButton"];
     self.delegate = self;
+}
+
+- (void (^)(NSInteger, UIAlertView *))clickedButton
+{
+    return objc_getAssociatedObject(self, "clickedButton");
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (_clickedButton) {
-        _clickedButton(buttonIndex,self);
+    if (self.clickedButton) {
+        self.clickedButton(buttonIndex,self);
     }
 }
 
 @end
 
 
-@implementation ActionSheet
+@implementation UIActionSheet(ZHUtils)
 
-- (void)setClickedButton:(void (^)(NSInteger buttonIndex,ActionSheet* alertView))clickedButton
+- (void)setClickedButton:(void (^)(NSInteger buttonIndex,UIAlertView* alertView))clickedButton
 {
-    _clickedButton = clickedButton;
+    
+    [self willChangeValueForKey:@"clickedButton"];
+    objc_setAssociatedObject(self, "clickedButton",
+                             clickedButton,
+                             OBJC_ASSOCIATION_COPY_NONATOMIC);
+    [self didChangeValueForKey:@"clickedButton"];
     self.delegate = self;
+}
+
+- (void (^)(NSInteger, UIAlertView *))clickedButton
+{
+    return objc_getAssociatedObject(self, "clickedButton");
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (_clickedButton) {
-        _clickedButton(buttonIndex,self);
+    if (self.clickedButton) {
+        self.clickedButton(buttonIndex,self);
     }
 }
 
 
 @end
 
-@implementation TextField
+@implementation UITextField(ZHUtils)
 
-- (void)setMaxLength:(NSUInteger )maxLength
+- (void)setMaxLength:(NSUInteger)maxLength
 {
-    _maxLength = maxLength;
+    
+    [self willChangeValueForKey:@"maxLength"];
+    objc_setAssociatedObject(self, "maxLength",
+                             [NSNumber numberWithInteger:maxLength],
+                             OBJC_ASSOCIATION_ASSIGN);
+    [self didChangeValueForKey:@"maxLength"];
     [self addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+}
+
+- (NSUInteger)maxLength
+{
+    return [objc_getAssociatedObject(self, "maxLength") integerValue];
 }
 
 - (void)textFieldDidChange:(UITextField*)textField
 {
-    if (_maxLength == 0) {
+    if (self.maxLength == 0) {
         return;
     }
-    if (textField.text.length > _maxLength) {
-        textField.text = [textField.text substringToIndex:_maxLength];
+    if (textField.text.length > self.maxLength) {
+        textField.text = [textField.text substringToIndex:self.maxLength];
     }
 }
 
 @end
-
-//@implementation UITextView (Utils)
-//
-//+ (void)setupHook
-//{
-//    static BOOL install = NO;
-//    if (!install) {
-//        install = YES;
-//        Class klass = [UITextView class];
-//        Method orgMethod = class_getInstanceMethod(klass, @selector(replaceRange:withText:));
-//        Method myMethod = class_getInstanceMethod(klass, @selector(myReplaceRange:withText:));
-//        method_exchangeImplementations(orgMethod, myMethod);
-//        orgMethod = class_getInstanceMethod(klass, @selector(setMarkedText:selectedRange:));
-//        myMethod = class_getInstanceMethod(klass, @selector(mySetMarkedText:selectedRange:));
-//        method_exchangeImplementations(orgMethod, myMethod);
-//        orgMethod = class_getInstanceMethod(klass, @selector(insertText:));
-//        myMethod = class_getInstanceMethod(klass, @selector(myInsertText:));
-//        method_exchangeImplementations(orgMethod, myMethod);
-//        orgMethod = class_getInstanceMethod(klass, @selector(deleteBackward));
-//        myMethod = class_getInstanceMethod(klass, @selector(myDeleteBackward));
-//        method_exchangeImplementations(orgMethod, myMethod);
-//    }
-//}
-//
-//- (void)myReplaceRange:(UITextRange *)range withText:(NSString *)text
-//{
-//    [self.undoManager beginUndoGrouping];
-//    [self myReplaceRange:range withText:text];
-//    [self.undoManager endUndoGrouping];
-//}
-//
-//- (void)mySetMarkedText:(NSString *)text selectedRange:(NSRange)range
-//{
-//    if (0 < text.length) {
-//        [self.undoManager beginUndoGrouping];
-//        [self mySetMarkedText:text selectedRange:range];
-//        [self.undoManager endUndoGrouping];
-//    }
-//}
-//
-//-(void)myInsertText:(NSString *)text
-//{
-//    [self.undoManager beginUndoGrouping];
-//    [self myInsertText:text];
-//    [self.undoManager endUndoGrouping];
-//}
-//
-//-(void)myDeleteBackward
-//{
-//    [self.undoManager beginUndoGrouping];
-//    [self myDeleteBackward];
-//    [self.undoManager endUndoGrouping];
-//}
-//
-//@end
 

@@ -93,7 +93,7 @@
         optionsView.alpha = 0.99;
         [optionsView showShadowWithColor:[UIColor grayColor] offset:CGSizeMake(0, 5)];
         
-        NSArray *options = @[@"  按名称排序",@"  按标记排序",@"  按创建时间排序",@"  按修改时间排序"];
+        NSArray *options = @[@"  按名称排序",@"  按创建时间排序",@"  按修改时间排序"];
         for (int i = 0; i < options.count; i++) {
             UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, i*30, kScreenWidth, 30)];
             btn.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -180,10 +180,6 @@
         if (_sortOption == 0) {
             return [item1.name compare:item2.name];
         }else if(_sortOption == 1){
-            NSNumber *tag1 = [NSNumber numberWithInteger:item1.tag];
-            NSNumber *tag2 = [NSNumber numberWithInteger:item2.tag];
-            return [tag1 compare:tag2];
-        }else if(_sortOption == 2){
             NSDate *date1 = [_fm attributeOfItem:obj1][NSFileCreationDate];
             NSDate *date2 = [_fm attributeOfItem:obj2][NSFileCreationDate];
             return [date1 compare:date2];
@@ -212,8 +208,8 @@
 {
     Item *i = dataArray[indexPath.row];
     
-    ActionSheet *sheet = [[ActionSheet alloc]initWithTitle:@"删除后不和恢复，确定要删除吗？" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles: nil];
-    sheet.clickedButton = ^(NSInteger buttonIndex,ActionSheet *alert){
+    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"删除后不和恢复，确定要删除吗？" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles: nil];
+    sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
         if (buttonIndex == 0) {
             [i removeFromParent];
             NSArray *children = [i itemsCanReach];

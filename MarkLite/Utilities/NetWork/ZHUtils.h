@@ -1,6 +1,6 @@
 //
-//  Utils.h
-//  Utils
+//  ZHUtils.h
+//  ZHUtils
 //
 //  Created by zhubch on 15/7/28.
 //  Copyright (c) 2015年 Robusoft. All rights reserved.
@@ -20,16 +20,28 @@
 
 #define kDevicePad   ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad)
 
-#define SYSTEM_VERSION   [[UIDevice currentDevice].systemVersion floatValue]
+#define kSystemVersion   [[UIDevice currentDevice].systemVersion floatValue]
 
-@interface NSObject (Utils)
+@interface NSObject (ZHUtils)
+
+@end
+
+@interface NSArray (ZHUtils)
+
+- (NSString*)toString;
+
+@end
+
+@interface NSDictionary (ZHUtils)
+
+- (NSString*)toString;
 
 @end
 
 /**
  *  方便调试
  */
-@interface NSData (Utils)
+@interface NSData (ZHUtils)
 
 - (NSDictionary*)toDictionay;
 
@@ -37,7 +49,7 @@
 
 @end
 
-@interface NSString (Utils)
+@interface NSString (ZHUtils)
 
 /**
  *  判断手机号码格式合法
@@ -50,10 +62,8 @@
 
 @property (nonatomic,readonly) NSString *urlEncodeString;
 
-- (NSAttributedString*)stringWithMiddleLine;
-
 /**
- *  生成唯一的字符串
+ *  生成不重复的字符串
  */
 + (instancetype)uniqueString;
 
@@ -79,7 +89,7 @@
 
 @end
 
-@interface NSDate (Utils)
+@interface NSDate (ZHUtils)
 
 /**
  *  时间戳
@@ -110,7 +120,7 @@
 
 @end
 
-@interface UIView (Utils)
+@interface UIView (ZHUtils)
 
 /**
  *  view的截图
@@ -129,6 +139,9 @@
  */
 @property (nonatomic,assign) IBInspectable CGFloat borderRadius;
 
+/**
+ *  矩形内的截图
+ */
 - (UIImage*)snapInRect:(CGRect)rect;
 
 /**
@@ -157,7 +170,7 @@
 
 @end
 
-@interface UIImage (Utils)
+@interface UIImage (ZHUtils)
 
 @property (nonatomic,readonly) NSData *data;
 
@@ -193,7 +206,7 @@
 
 @end
 
-@interface UISearchBar (Utils)
+@interface UISearchBar (ZHUtils)
 
 @property (nonatomic,readonly) UIButton *cancelButton;
 
@@ -206,7 +219,7 @@
 
 @end
 
-@interface UIColor (Utils)
+@interface UIColor (ZHUtils)
 
 /**
  *  用16进制rgb字符串实例化对象
@@ -224,22 +237,22 @@
 /**
  *  支持block回调的AlertView
  */
-@interface AlertView:UIAlertView
+@interface UIAlertView(ZHUtils)
 
-@property (nonatomic,strong) void(^clickedButton)(NSInteger,AlertView*);
+@property (nonatomic,strong) void(^clickedButton)(NSInteger,UIAlertView*);
 
 @end
 
 /**
  *  支持block回调的ActionSheet
  */
-@interface ActionSheet:UIActionSheet <UIActionSheetDelegate>
+@interface UIActionSheet(ZHUtils) <UIActionSheetDelegate>
 
-@property (nonatomic,strong) void(^clickedButton)(NSInteger,ActionSheet*);
+@property (nonatomic,strong) void(^clickedButton)(NSInteger,UIActionSheet*);
 
 @end
 
-@interface TextField:UITextField
+@interface UITextField(ZHUtils)
 
 @property (nonatomic,assign) IBInspectable NSUInteger maxLength;
 
@@ -332,7 +345,6 @@ static inline void beginLoadingAnimation(NSString *message){
     bg.tag = 52684654;
     v.center = bg.center;
     [bg addSubview:v];
-    
     [window addSubview:bg];
 }
 
@@ -343,9 +355,10 @@ static inline void stopLoadingAnimation(){
     [v removeFromSuperview];
 }
 
-//@interface UITextView(Utils)
-//
-//+ (void)setupHook;
-//
-//@end
+static inline NSString* stringFromInt(int num){
+    return [NSString stringWithFormat:@"%d",num];
+}
 
+static inline NSString* stringFromFloat(float num){
+    return [NSString stringWithFormat:@"%.4f",num];
+}

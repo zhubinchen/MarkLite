@@ -12,7 +12,7 @@
 
 - (instancetype)init
 {
-    CGFloat w = kScreenWidth / 12;
+    CGFloat w = kScreenWidth / 10;
     
     if (w > 64) {
         w = 64;
@@ -26,8 +26,8 @@
 - (void)createItem
 {
     UIColor *titleColor = kThemeColor;
-    NSArray *titles = @[@"Tab",@"#",@"[",@"]",@"*",@"-",@"<",@">",@"/",@"`",@"!",@"keyboard"];
-    CGFloat w = kScreenWidth / 12;
+    NSArray *titles = @[@"Tab",@"#",@"!",@"[",@"]",@"*",@"-",@">",@"`",@"keyboard"];
+    CGFloat w = kScreenWidth / 10;
     
     if (w > 64) {
         w = 64;
@@ -61,9 +61,9 @@
 {
     if (btn.tag == 0) {
         [_editView insertText:@"\t"];
-    }else if (btn.tag  < 11) {
+    }else if (btn.tag  < 9) {
         [_editView insertText:btn.currentTitle];
-    }else if (btn.tag == 11){
+    }else if (btn.tag == 9){
         [_editView performSelector:@selector(resignFirstResponder)];
     }
     

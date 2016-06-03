@@ -148,8 +148,8 @@
         }
     }
     
-    ActionSheet *sheet = [[ActionSheet alloc]initWithTitle:@"请选择要进行的操作" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"新建文本",@"创建文件夹",@"选取图片或视频", nil];
-    sheet.clickedButton = ^(NSInteger buttonIndex,ActionSheet *sheet){
+    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"请选择要进行的操作" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"新建文本",@"创建文件夹",@"选取图片或视频", nil];
+    sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *sheet){
         if (buttonIndex == 2) {
             UIImagePickerController *vc = [[UIImagePickerController alloc]init];
             vc.delegate = self;
@@ -158,9 +158,9 @@
             return ;
         }else if (buttonIndex == 0 || buttonIndex == 1) {
             FileType type = buttonIndex == 0 ? FileTypeText : FileTypeFolder;
-            AlertView *alert = [[AlertView alloc]initWithTitle:@"新建文本" message:@"请输入文件名" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"新建文本" message:@"请输入文件名" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-            alert.clickedButton = ^(NSInteger buttonIndex,AlertView *alert){
+            alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
                 if (buttonIndex == 1) {
                     [[alert textFieldAtIndex:0] resignFirstResponder];
                     NSString *name = [alert textFieldAtIndex:0].text;
@@ -203,9 +203,9 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
-    AlertView *alert = [[AlertView alloc]initWithTitle:@"新建文本" message:@"请输入文件名" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"新建文本" message:@"请输入文件名" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    alert.clickedButton = ^(NSInteger buttonIndex,AlertView *alert){
+    alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
         if (buttonIndex == 1) {
             [[alert textFieldAtIndex:0] resignFirstResponder];
             NSString *name = [alert textFieldAtIndex:0].text;
@@ -277,8 +277,8 @@
                 showToast(@"根目录不可删除");
                 return ;
             }
-            ActionSheet *sheet = [[ActionSheet alloc]initWithTitle:@"删除后不可恢复，确定要删除吗？" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles: nil];
-            sheet.clickedButton = ^(NSInteger buttonIndex,ActionSheet *alert){
+            UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"删除后不可恢复，确定要删除吗？" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles: nil];
+            sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
                 if (buttonIndex == 0) {
                     [i removeFromParent];
                     NSArray *children = [i itemsCanReach];
@@ -302,9 +302,9 @@
                 showToast(@"根目录不可重命名");
                 return ;
             }
-            AlertView *alert = [[AlertView alloc]initWithTitle:@"重命名" message:@"不用输入后缀名" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"重命名" message:@"不用输入后缀名" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
             alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-            alert.clickedButton = ^(NSInteger buttonIndex,AlertView *alert){
+            alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
                 NSString *name = [alert textFieldAtIndex:0].text;
                 name = [name componentsSeparatedByString:@"."].firstObject;
                 if (name.length == 0) {
@@ -358,8 +358,8 @@
             showToast(@"根目录不可删除");
             return ;
         }
-        ActionSheet *sheet = [[ActionSheet alloc]initWithTitle:@"删除后不可恢复，确定要删除吗？" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles: nil];
-        sheet.clickedButton = ^(NSInteger buttonIndex,ActionSheet *alert){
+        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"删除后不可恢复，确定要删除吗？" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles: nil];
+        sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
             if (buttonIndex == 0) {
                 [i removeFromParent];
                 NSArray *children = [i itemsCanReach];
@@ -394,7 +394,6 @@
     
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
     
-    // Exclude all activities except AirDrop.
     NSArray *excludedActivities = @[UIActivityTypePostToTwitter, UIActivityTypePostToFacebook,
                                     UIActivityTypePostToWeibo,
                                     UIActivityTypeMessage, UIActivityTypeMail,
@@ -404,7 +403,7 @@
                                     UIActivityTypePostToVimeo, UIActivityTypePostToTencentWeibo];
     controller.excludedActivityTypes = excludedActivities;
     
-//    [self presentViewController:controller animated:YES completion:nil];
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

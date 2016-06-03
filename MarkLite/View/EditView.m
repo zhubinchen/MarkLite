@@ -7,7 +7,6 @@
 //
 
 #import "EditView.h"
-#import "ZBCKeyBoard.h"
 #import "MarkdownSyntaxGenerator.h"
 
 @interface EditView ()
