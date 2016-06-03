@@ -71,7 +71,10 @@
         view = [CreateNoteView instance];
         view.didCreateNote = ^(Item *i){
             __self.fm.currentItem = i;
-            [__self performSegueWithIdentifier:@"edit" sender:__self];
+            [__self reload];
+            if (kDevicePhone) {
+                [__self performSegueWithIdentifier:@"edit" sender:__self];
+            }
         };
         view.vc = __self;
     }

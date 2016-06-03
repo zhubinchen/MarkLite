@@ -104,6 +104,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self saveFile];
+    [self.editView resignFirstResponder];
 }
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView

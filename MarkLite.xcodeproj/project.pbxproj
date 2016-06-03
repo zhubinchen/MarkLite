@@ -18,7 +18,6 @@
 		075047741CABA6F40031852F /* SelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075047731CABA6F40031852F /* SelectViewController.m */; };
 		075047DE1CACBF920031852F /* FileItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075047DC1CACBF920031852F /* FileItemCell.xib */; };
 		075047E11CACC0280031852F /* FileItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 075047E01CACC0280031852F /* FileItemCell.m */; };
-		078541D41CEEF22E007A5F3A /* CreateNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 078541D31CEEF22E007A5F3A /* CreateNoteViewController.m */; };
 		078F8D0B1CAE826B00B9D625 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 078F8D091CAE826B00B9D625 /* AboutViewController.m */; };
 		078F8D0C1CAE826B00B9D625 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 078F8D0A1CAE826B00B9D625 /* AboutViewController.xib */; };
 		078F8D0E1CAE848300B9D625 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 078F8D0D1CAE848300B9D625 /* about.html */; };
@@ -162,8 +161,6 @@
 		07853E451CE472E0007A5F3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		07853E461CE472EF007A5F3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		07853E471CE47302007A5F3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
-		078541D21CEEF22E007A5F3A /* CreateNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateNoteViewController.h; sourceTree = "<group>"; };
-		078541D31CEEF22E007A5F3A /* CreateNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateNoteViewController.m; sourceTree = "<group>"; };
 		078F8D081CAE826B00B9D625 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		078F8D091CAE826B00B9D625 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		078F8D0A1CAE826B00B9D625 /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
@@ -872,8 +869,6 @@
 				079918591C61EC6900E5F3A2 /* NoteListViewController.m */,
 				0799185A1C61EC6900E5F3A2 /* PreviewViewController.h */,
 				0799185B1C61EC6900E5F3A2 /* PreviewViewController.m */,
-				078541D21CEEF22E007A5F3A /* CreateNoteViewController.h */,
-				078541D31CEEF22E007A5F3A /* CreateNoteViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1094,7 +1089,6 @@
 				07A4C4061D015E6500AE995A /* QNDnsManager.m in Sources */,
 				0799182E1C61EA3900E5F3A2 /* ZipArchive.mm in Sources */,
 				079917DB1C61EA3900E5F3A2 /* AFURLRequestSerialization.m in Sources */,
-				078541D41CEEF22E007A5F3A /* CreateNoteViewController.m in Sources */,
 				0799181D1C61EA3900E5F3A2 /* QNHttpManager.m in Sources */,
 				079917A81C61EA3900E5F3A2 /* Configure.m in Sources */,
 				079917D71C61EA3900E5F3A2 /* AFHTTPSessionManager.m in Sources */,

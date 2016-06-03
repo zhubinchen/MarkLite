@@ -18,6 +18,7 @@
 @implementation EditView
 {
     dispatch_queue_t updateQueue;
+    UILabel *placeholderLable;
 }
 
 - (id)initWithCoder:(NSCoder *) coder {
@@ -25,10 +26,16 @@
     if (self == nil) {
         return nil;
     }
+    placeholderLable = [[UILabel alloc]initWithFrame:CGRectMake(5, 8, 100, 20)];
+    placeholderLable.font = [UIFont systemFontOfSize:14];
+    placeholderLable.text = @"现在开始编辑吧";
+    placeholderLable.textColor = [UIColor lightGrayColor];
+    [self addSubview:placeholderLable];
     [[NSNotificationCenter defaultCenter]
      addObserver:self selector:@selector(didTextChangeText:) name:UITextViewTextDidChangeNotification object:nil];
     updateQueue = dispatch_queue_create("update", DISPATCH_QUEUE_CONCURRENT);
     [self updateSyntax];
+
     return self;
 }
 
@@ -49,6 +56,8 @@
 }
 
 - (void)updateSyntax {
+    placeholderLable.hidden = self.text.length != 0;
+
     dispatch_async(updateQueue, ^{
         NSArray *models = [self.markdownSyntaxGenerator syntaxModelsForText:self.text];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
