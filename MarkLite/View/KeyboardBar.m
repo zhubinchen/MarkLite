@@ -20,26 +20,32 @@
     self = [super initWithFrame:CGRectMake(0, 0, kScreenWidth, w)];
     self.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
     [self createItem];
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createItem) name:UIDeviceOrientationDidChangeNotification object:nil];
     return self;
 }
 
 - (void)createItem
 {
-    UIColor *titleColor = kThemeColor;
+//    for (UIView *v in self.subviews) {
+//        [v removeFromSuperview];
+//    }
+    
+    UIColor *titleColor = [UIColor colorWithRGBString:@"404040"];
     NSArray *titles = @[@"Tab",@"#",@"!",@"[",@"]",@"*",@"-",@">",@"`",@"keyboard"];
     CGFloat w = kScreenWidth / 10;
     
     if (w > 64) {
         w = 64;
     }
-    
+    CGFloat x = kScreenWidth - w * 10;
     CGFloat s = kDevicePhone ? 3 : 10;
     
     for (int i = 0; i < titles.count; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.tintColor = [UIColor blueColor];
         btn.tag = i;
-        btn.frame = CGRectMake(i * w + s, s, w - 2 * s, w - 2 * s);
+        btn.frame = CGRectMake(i * w + s + x, s, w - 2 * s, w - 2 * s);
         if (i == 0) {
             [btn setTitle:titles[i] forState:UIControlStateNormal];
             [btn setTitleColor:titleColor forState:UIControlStateNormal];

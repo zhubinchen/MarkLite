@@ -55,16 +55,19 @@
 
 - (NSArray*)rightItems
 {
-    rightItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(edit)];
+    rightItem = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(edit)];
     return @[rightItem];
 }
 
 - (void)edit
 {
     edit = !edit;
+
     if (edit) {
+        rightItem.title = @"完成";
         [dataArray insertObject:root atIndex:0];
     }else{
+        rightItem.title = @"编辑";
         [dataArray removeObjectAtIndex:0];
     }
     [self.fileListView reloadData];

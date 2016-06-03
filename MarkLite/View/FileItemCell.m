@@ -17,20 +17,17 @@
 {
     _item = item;
     CGFloat begin = (item.deep+_shift) * 30 - 22;
-    if (item.type != FileTypeFolder) {
-        begin -= 24;
+    if (item.type == FileTypeText) {
+        _typeIcon.image = [UIImage imageNamed:@"text"];
+    }else if (item.type == FileTypeImage) {
+        _typeIcon.image = [UIImage imageNamed:@"image"];
+    }else if (item.type == FileTypeFolder){
+        _typeIcon.image = [UIImage imageNamed:item.open ? @"folder_open" : @"folder"];
     }
     _iconSpace.constant = begin;
     _addBtn.hidden = !(_edit && item.type == FileTypeFolder);
     _deleteBtn.hidden = !_edit;
-    _typeIcon.hidden = item.type != FileTypeFolder;
     _moreBtn.hidden = _edit;
-    
-    if (item.open) {
-        _typeIcon.image = [UIImage imageNamed:@"folder_open"];
-    }else{
-        _typeIcon.image = [UIImage imageNamed:@"folder"];
-    }
     
     self.nameText.text = [item.path componentsSeparatedByString:@"/"].lastObject;
     line.frame = CGRectMake(begin , 39.5, kScreenWidth - item.deep * 30 + 22, 0.5);
