@@ -155,7 +155,7 @@ static TabBarController *tabVc = nil;
     }
     [super setSelectedViewController:selectedViewController];
     
-    NSArray *titles = @[@"MarkLite",NSLocalizedString(@"File",nil),NSLocalizedString(@"Options",nil)];
+    NSArray *titles = @[@"MarkLite",@"文件",@"选项"];
     self.title = titles[self.selectedIndex];
     [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} forState:UIControlStateNormal];
 }

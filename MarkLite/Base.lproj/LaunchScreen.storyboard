@@ -35,22 +35,12 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="page.png" translatesAutoresizingMaskIntoConstraints="NO" id="oTm-Ee-Cx0">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                                <color key="backgroundColor" red="0.12941176470588237" green="0.69019607843137254" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="rqH-zQ-JcW"/>
-                                    <constraint firstAttribute="height" constant="480" id="sh2-kS-i2R"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.062745098039215685" green="0.066666666666666666" blue="0.062745098039215685" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.12941176469999999" green="0.69019607839999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="IhF-fK-1dL" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Ecp-2I-nTs"/>
                             <constraint firstItem="cml-Re-Rh9" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Nbl-IH-gwT"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="cml-Re-Rh9" secondAttribute="bottom" constant="30" id="UMP-0b-X5a"/>
-                            <constraint firstAttribute="trailing" secondItem="oTm-Ee-Cx0" secondAttribute="trailing" id="Ylb-EC-cwK"/>
-                            <constraint firstItem="oTm-Ee-Cx0" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="gCR-hE-VlD"/>
                             <constraint firstItem="IhF-fK-1dL" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="300" id="vJY-mC-aKV"/>
                         </constraints>
                     </view>
@@ -61,7 +51,4 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="page.png" width="1280" height="1920"/>
-    </resources>
 </document>

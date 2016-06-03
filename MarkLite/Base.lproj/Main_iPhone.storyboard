@@ -268,53 +268,6 @@
             </objects>
             <point key="canvasLocation" x="-3187.5" y="-1712.5"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Uo7-Ic-w9D">
-            <objects>
-                <navigationController id="h9D-k5-1GO" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1BF-UG-rwu">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="a5K-Wj-xKv" kind="relationship" relationship="rootViewController" id="vtR-7p-eIp"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZQR-B7-XKn" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-4551.5" y="-1725.5"/>
-        </scene>
-        <!--选择父目录-->
-        <scene sceneID="ByZ-Ie-ASS">
-            <objects>
-                <viewController id="a5K-Wj-xKv" customClass="CreateNoteViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jdD-h5-f8r"/>
-                        <viewControllerLayoutGuide type="bottom" id="KGy-VH-Beg"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="O78-nO-To1">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dNe-uF-bR7">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="dNe-uF-bR7" firstAttribute="leading" secondItem="O78-nO-To1" secondAttribute="leading" id="PsV-U9-z9C"/>
-                            <constraint firstItem="KGy-VH-Beg" firstAttribute="top" secondItem="dNe-uF-bR7" secondAttribute="bottom" id="ZMY-x6-KXl"/>
-                            <constraint firstItem="dNe-uF-bR7" firstAttribute="top" secondItem="jdD-h5-f8r" secondAttribute="bottom" id="igL-M9-txN"/>
-                            <constraint firstAttribute="trailing" secondItem="dNe-uF-bR7" secondAttribute="trailing" id="ouX-nL-Gxe"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="选择父目录" id="aQF-Fz-JB6"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ldx-NK-RGi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-4551.5" y="-889.5"/>
-        </scene>
         <!--笔记-->
         <scene sceneID="gOy-2g-hjU">
             <objects>
@@ -445,7 +398,6 @@
                         <outlet property="noteListView" destination="4Di-yM-3uD" id="Nee-cM-iAu"/>
                         <segue destination="VQd-1Y-qDA" kind="show" identifier="edit" id="F5f-nG-XfB"/>
                         <segue destination="rmd-nM-PLW" kind="show" identifier="preview" id="jkb-0q-YIz"/>
-                        <segue destination="h9D-k5-1GO" kind="presentation" id="Opq-IN-YQ3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NZY-eD-wsm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -476,6 +428,9 @@
                         </connections>
                     </tableView>
                     <tabBarItem key="tabBarItem" title="选项" image="settings.png" id="hH6-Qu-TcX"/>
+                    <navigationItem key="navigationItem" title="选项" id="JtB-fF-Q9A">
+                        <barButtonItem key="backBarButtonItem" title=" " id="Nhq-2v-p05"/>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cwa-VT-4uI" userLabel="First Responder" sceneMemberID="firstResponder"/>

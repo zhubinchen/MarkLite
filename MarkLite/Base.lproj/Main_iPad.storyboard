@@ -14,7 +14,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="F7k-wu-Wk2">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.20392156859999999" green="0.20392156859999999" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -401,7 +400,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="syI-Yg-bFd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.20392156859999999" green="0.20392156859999999" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -422,7 +420,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="EQi-yG-8VV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.20392156859999999" green="0.20392156859999999" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -458,7 +455,7 @@
                             <outlet property="delegate" destination="I2i-9V-J9l" id="FZf-HM-n3Z"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="选项" image="9A112F19-2F48-40FE-AEE3-021DA50766AA" id="cUx-cv-8Pe"/>
+                    <tabBarItem key="tabBarItem" title="选项" image="3D0078C7-6661-42D2-B98B-51333D89FDC5" id="cUx-cv-8Pe"/>
                     <navigationItem key="navigationItem" id="rMd-CP-7Md"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </tableViewController>
@@ -474,7 +471,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="lMx-yF-98i">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.20392156859999999" green="0.20392156859999999" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -619,6 +615,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="ZsO-bD-SoR"/>
                                 </constraints>
+                                <color key="barTintColor" red="0.90588235289999997" green="0.93725490199999995" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="toM-OO-y2y" id="4RC-Jc-91M"/>
@@ -665,12 +662,13 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="gLu-oR-a6C"/>
                                 </constraints>
+                                <color key="barTintColor" red="0.90588235289999997" green="0.93725490199999995" blue="0.99215686270000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="nWz-89-KbB" id="HsC-Up-Koa"/>
                                 </connections>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="8Aw-fG-dVI">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="8Aw-fG-dVI">
                                 <rect key="frame" x="0.0" y="44" width="320" height="431"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -705,7 +703,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="9A112F19-2F48-40FE-AEE3-021DA50766AA" width="25" height="25">
+        <image name="3D0078C7-6661-42D2-B98B-51333D89FDC5" width="25" height="25">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

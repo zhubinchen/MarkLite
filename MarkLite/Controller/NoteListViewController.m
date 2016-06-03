@@ -87,7 +87,7 @@
 - (void)showOptions
 {
     if (control == nil) {
-        UIView *optionsView = [[UIView alloc]initWithFrame:CGRectMake(0, -120, kScreenWidth, 120)];
+        UIView *optionsView = [[UIView alloc]initWithFrame:CGRectMake(0, -90, kScreenWidth, 90)];
         optionsView.backgroundColor = [UIColor whiteColor];
         optionsView.tag = 1;
         optionsView.alpha = 0.99;
@@ -119,7 +119,7 @@
     UIView *optionsView = [control viewWithTag:1];
     if (control.superview) {
         [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            optionsView.frame = CGRectMake(0, -120, kScreenWidth, 120);
+            optionsView.frame = CGRectMake(0, -90, kScreenWidth, 90);
             control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
         } completion:^(BOOL finished) {
             if (finished) {
@@ -130,7 +130,7 @@
         [self.view addSubview:control];
 
         [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            optionsView.frame = CGRectMake(0, 0, kScreenWidth, 120);
+            optionsView.frame = CGRectMake(0, 0, kScreenWidth, 90);
             control.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
         } completion:^(BOOL finished) {
             //
@@ -142,7 +142,7 @@
 {
     UIView *optionsView = [control viewWithTag:1];
     [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        optionsView.frame = CGRectMake(0, -120, kScreenWidth, 120);
+        optionsView.frame = CGRectMake(0, -90, kScreenWidth, 90);
         control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     } completion:^(BOOL finished) {
         if (finished) {

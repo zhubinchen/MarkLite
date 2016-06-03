@@ -28,7 +28,7 @@
     if (launchOptions && launchOptions[UIApplicationLaunchOptionsShortcutItemKey]) {
         return NO;
     }
-//    userid/qwer/qq.md
+
     return YES;
 }
 

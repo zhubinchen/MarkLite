@@ -36,10 +36,11 @@
         [v addSubview:btn];
         
         btn = [[UIButton alloc]initWithFrame:CGRectMake(0, 28, w, 12)];
+        btn.titleLabel.textAlignment = NSTextAlignmentCenter;
         btn.tag = i;
         [btn addTarget:self action:@selector(clickedButton:) forControlEvents:UIControlEventTouchUpInside];
         [btn setTitle:titles[i] forState:UIControlStateNormal];
-        [btn setTitleColor:kThemeColor forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor colorWithRed:45/255.0 green:150/255.0 blue:240/255.0 alpha:1] forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont systemFontOfSize:10];
         [v addSubview:btn];
     }
