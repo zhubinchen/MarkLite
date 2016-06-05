@@ -10,6 +10,7 @@
 #import "Configure.h"
 #import "TabBarController.h"
 #import "FileManager.h"
+#import "NoteListViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,10 +20,8 @@
 
 - (void)gotoStartPage
 {
-    if (kDevicePhone) {
-        [[TabBarController currentViewContoller].navigationController popToViewController:[TabBarController currentViewContoller].navigationController.viewControllers[1] animated:NO];
-        [TabBarController currentViewContoller].selectedIndex = 0;
-    }
+    [[TabBarController currentViewContoller].navigationController popToViewController:[TabBarController currentViewContoller].navigationController.viewControllers[1] animated:NO];
+    [TabBarController currentViewContoller].selectedIndex = 0;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -40,17 +39,23 @@
 {
     NSString *path = url.path;
     NSString *name = [path componentsSeparatedByString:@"/"].lastObject;
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:[NSString stringWithFormat:@"收到新文件:%@",name] message:@"" delegate:nil cancelButtonTitle:@"忽略" otherButtonTitles:@"保存", nil];
+    NSData *content = [NSData dataWithContentsOfURL:url];
+    FileManager *fm = [FileManager sharedManager];
+    [fm createFile:name Content:content];
+    Item *i = [[Item alloc]init];
+    i.open = YES;
+    i.path = name;
+    [fm.root addChild:i];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:[NSString stringWithFormat:@"收到新文件:%@",name] message:@"" delegate:nil cancelButtonTitle:@"忽略" otherButtonTitles:@"打开", nil];
     alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
         if (buttonIndex == 1) {
-            NSData *content = [NSData dataWithContentsOfURL:url];
-            FileManager *fm = [FileManager sharedManager];
-            [fm createFile:name Content:content];
-            Item *i = [[Item alloc]init];
-            i.open = YES;
-            i.path = [fm.workSpace stringByAppendingPathComponent:name];
-            [fm.root addChild:i];
-            [self gotoStartPage];
+            fm.currentItem = i;
+            if (kDevicePhone) {
+                [self gotoStartPage];
+                NoteListViewController *vc = [TabBarController currentViewContoller].viewControllers.firstObject;
+                [vc reload];
+                [vc performSegueWithIdentifier:@"edit" sender:vc];
+            }
         }
     };
     [alert show];

@@ -130,21 +130,22 @@
     }
 }
 
-- (void)moveFile:(NSString *)path toNewPath:(NSString *)newPath
+- (BOOL)moveFile:(NSString *)path toNewPath:(NSString *)newPath
 {
     NSError *error = nil;
-    [fm moveItemAtPath:[self fullPathForPath:path] toPath:[self fullPathForPath:newPath] error:&error];
-
-    if (error) {
-        NSLog(@"%@",error);
-    }else{
-        [self notify];
+    if (![fm fileExistsAtPath:[self fullPathForPath:newPath]]) {
+        BOOL ret = [fm moveItemAtPath:[self fullPathForPath:path] toPath:[self fullPathForPath:newPath] error:&error];
+        if (ret) {
+            [self notify];
+        }
+        return ret;
     }
+    return NO;
 }
 
 - (NSString *)fullPathForPath:(NSString *)path
 {
-    if ([path containsString:_workSpace]) {
+    if ([path containsString:@"var/mobile/Containers"]) {
         return path;
     }
     return [NSString pathWithComponents:@[_workSpace,path]];

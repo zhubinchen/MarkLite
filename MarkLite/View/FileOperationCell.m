@@ -23,7 +23,7 @@
     NSArray *imgNames = @[@"delete",@"rename",@"export"];
     NSArray *titles = @[@"删除",@"重命名",@"导出"];
     
-    CGFloat w = _width / 4.0;
+    CGFloat w = _width / 5.0;
     for (int i = 0; i < imgNames.count; i++) {
         UIView *v = [[UIView alloc]initWithFrame:CGRectMake(i * w + w, 0, w, 40)];
         [self addSubview:v];

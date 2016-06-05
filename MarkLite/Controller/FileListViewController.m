@@ -199,7 +199,7 @@
         if (buttonIndex == 1) {
             [[alert textFieldAtIndex:0] resignFirstResponder];
             NSString *name = [alert textFieldAtIndex:0].text;
-            name = [name stringByAppendingString:@".jpeg"];
+            name = [name stringByAppendingString:@".png"];
             
             NSString *path = name;
             if (selectParent != root) {

@@ -27,7 +27,7 @@
 
 - (void)deleteFile:(NSString*)path;
 
-- (void)moveFile:(NSString*)path toNewPath:(NSString*)newPath;
+- (BOOL)moveFile:(NSString*)path toNewPath:(NSString*)newPath;
 
 - (NSString *)fullPathForPath:(NSString *)path;
 
