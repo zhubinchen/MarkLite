@@ -103,16 +103,19 @@
     }
 }
 
-- (void)createFile:(NSString *)path Content:(NSData *)content
+- (BOOL)createFile:(NSString *)path Content:(NSData *)content
 {
     NSString* fullPath = [self fullPathForPath:path];
 
     if (![fm fileExistsAtPath:fullPath]) {
-        [fm createFileAtPath:fullPath contents:content attributes:nil];
+        BOOL ret = [fm createFileAtPath:fullPath contents:content attributes:nil];
         NSLog(@"creating file:%@",fullPath);
+        if (ret) {
+            [self notify];
+        }
+        return ret;
     }
-    
-    [self notify];
+    return NO;
 }
 
 - (void)deleteFile:(NSString *)path
@@ -141,6 +144,9 @@
 
 - (NSString *)fullPathForPath:(NSString *)path
 {
+    if ([path containsString:_workSpace]) {
+        return path;
+    }
     return [NSString pathWithComponents:@[_workSpace,path]];
 }
 

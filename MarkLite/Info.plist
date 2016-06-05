@@ -7,10 +7,18 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>icon</string>
+			</array>
 			<key>CFBundleTypeName</key>
-			<string>pdf</string>
+			<string>md</string>
 			<key>LSHandlerRank</key>
 			<string>Default</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.zhubch.marklite.md</string>
+			</array>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
@@ -56,5 +64,30 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.plain-text</string>
+				<string>public.text</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>markdown</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.zhubch.marklite.md</string>
+			<key>UTTypeSize320IconFile</key>
+			<string>icon</string>
+			<key>UTTypeSize64IconFile</key>
+			<string>icon</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>md</string>
+				<key>public.mime-type</key>
+				<string>text/plain</string>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>

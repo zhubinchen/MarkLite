@@ -10,10 +10,6 @@
 
 @interface Configure : NSObject <NSCoding>
 
-@property (nonatomic,strong) NSMutableArray *fileHisory;
-
-@property (nonatomic,strong) NSDictionary *launchOptions;
-
 @property (nonatomic,strong) NSString *style;
 
 @property (nonatomic,strong) NSString *themeColor;

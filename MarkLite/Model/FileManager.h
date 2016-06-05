@@ -23,7 +23,7 @@
 
 - (void)createFolder:(NSString*)path;
 
-- (void)createFile:(NSString*)path Content:(NSData*)content;
+- (BOOL)createFile:(NSString*)path Content:(NSData*)content;
 
 - (void)deleteFile:(NSString*)path;
 

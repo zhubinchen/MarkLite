@@ -37,7 +37,6 @@
 
 -(void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:self.highlightColor forKey:@"highlightColor"];
-    [aCoder encodeObject:self.fileHisory forKey:@"fileHisory"];
     [aCoder encodeObject:self.style forKey:@"style"];
     [aCoder encodeObject:self.themeColor forKey:@"themeColor"];
     [aCoder encodeBool:self.keyboardAssist forKey:@"keyboardAssist"];
@@ -46,7 +45,6 @@
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
     if (self=[super init]) {
-        self.fileHisory=[[aDecoder decodeObjectForKey:@"fileHisory"] mutableCopy];
         self.highlightColor = [aDecoder decodeObjectForKey:@"highlightColor"];
         self.style = [aDecoder decodeObjectForKey:@"style"];
         self.themeColor = [aDecoder decodeObjectForKey:@"themeColor"];
@@ -63,9 +61,7 @@
 }
 
 - (void)reset
-{
-    _fileHisory = [NSMutableArray array];
-    
+{    
     _highlightColor = @{
                         @"title":RGB(@"488FE1"),
                         @"link":RGB(@"0200FF"),

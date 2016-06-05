@@ -31,19 +31,6 @@
     CGFloat lastOffsetY;
 }
 
-- (NSArray<id<UIPreviewActionItem>> *)previewActionItems {
-    
-    UIPreviewAction *action1 = [UIPreviewAction actionWithTitle:@"渲染" style:UIPreviewActionStyleDefault handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
-        [_projectVc performSegueWithIdentifier:@"preview" sender:self];
-    }];
-    
-    UIPreviewAction *action2 = [UIPreviewAction actionWithTitle:@"删除" style:UIPreviewActionStyleDestructive handler:^(UIPreviewAction * _Nonnull action, UIViewController * _Nonnull previewViewController) {
-        
-    }];
-    
-    return @[action1,action2];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -170,33 +157,7 @@
     
     self.editView.text = htmlStr;
     [self.editView updateSyntax];
-    for (NSDictionary *dic in [Configure sharedConfigure].fileHisory) {
-        if ([dic[@"path"] isEqualToString:path]) {
-            return;
-        }
-    }
     
-    if ([Configure sharedConfigure].fileHisory.count >= 3) {
-        [[Configure sharedConfigure].fileHisory removeObjectAtIndex:0];
-    }
-
-    [[Configure sharedConfigure].fileHisory addObject:@{@"name":item.name,@"path":[path stringByReplacingOccurrencesOfString:fm.workSpace withString:@""]}];
-    [[Configure sharedConfigure] saveToFile];
-    [self createShortCutItem:[Configure sharedConfigure].fileHisory];
-}
-
--(void)createShortCutItem:(NSArray*)fileHistory
-{
-//    UIApplicationShortcutIcon *editIcon = [UIApplicationShortcutIcon iconWithType:UIApplicationShortcutIconTypeCompose];
-//    UIApplicationShortcutItem *new = [[UIApplicationShortcutItem alloc] initWithType:@"new" localizedTitle:@"新建" localizedSubtitle:@"" icon:editIcon userInfo:nil];
-//    NSMutableArray *items = [NSMutableArray arrayWithObject:new];
-//
-//    for (int i = (int)fileHistory.count - 1; i >= 0; i--) {
-//        NSDictionary *dic = fileHistory[i];
-//        UIApplicationShortcutItem *shortCut = [[UIApplicationShortcutItem alloc] initWithType:@"open" localizedTitle:dic[@"name"] localizedSubtitle:dic[@"path"] icon:editIcon userInfo:nil];
-//        [items addObject:shortCut];
-//    }
-//    [UIApplication sharedApplication].shortcutItems = items;
 }
 
 - (IBAction)fullScreen:(UIBarButtonItem*)sender{

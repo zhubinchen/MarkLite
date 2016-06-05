@@ -39,7 +39,6 @@
 
     fm = [FileManager sharedManager];
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(recievedNotification:) name:@"launchFormShortCutItem" object:nil];
     [_fileListView registerNib:[UINib nibWithNibName:@"FileItemCell" bundle:nil] forCellReuseIdentifier:@"file"];
 }
 
@@ -75,23 +74,6 @@
 
 
 #pragma mark 功能逻辑
-
-- (void)recievedNotification:(NSNotification*)noti
-{
-    NSDictionary *dic = [Configure sharedConfigure].launchOptions;
-    if ([dic[@"type"] isEqualToString:@"new"]) {
-        [self newProject];
-    }else if ([dic[@"type"] isEqualToString:@"open"]) {
-        for (Item *i in root.children) {
-            if ([i.path isEqualToString:dic[@"path"]]) {
-                fm.currentItem = i;
-                break;
-            }
-        }
-        
-        [self performSegueWithIdentifier:@"code" sender:self];
-    }
-}
 
 - (void)foldWithIndex:(int)index
 {
@@ -180,7 +162,12 @@
                     if (i.type == FileTypeFolder) {
                         [fm createFolder:path];
                     }else{
-                        [fm createFile:path Content:[NSData data]];
+                        BOOL ret = [[FileManager sharedManager] createFile:path Content:[NSData data]];
+                        
+                        if (ret == NO) {
+                            showToast(@"出错了，请确保文件名不重复");
+                            return;
+                        }
                     }
                     
                     [parent addChild:i];
@@ -223,8 +210,12 @@
             i.open = YES;
             UIImage *img = [info objectForKey:UIImagePickerControllerOriginalImage];
             NSData *data = UIImageJPEGRepresentation(img, 0.5);
-            [fm createFile:path Content:data];
+            BOOL ret = [[FileManager sharedManager] createFile:path Content:data];
             
+            if (ret == NO) {
+                showToast(@"出错了，请确保文件名不重复");
+                return;
+            }
             [selectParent addChild:i];
             
             dataArray = root.itemsCanReach.mutableCopy;
@@ -331,10 +322,6 @@
     
     Item *item = dataArray[indexPath.row];
     
-    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable && item.type != FileTypeFolder)
-    {
-        [self registerForPreviewingWithDelegate:self sourceView:cell];
-    }
     cell.shift = edit ? 1 : 0;
     cell.edit = edit;
     cell.item = item;
@@ -469,29 +456,5 @@
     searchBar.showsCancelButton = NO;
     return YES;
 }
-
-#pragma mark 3dTouch
-
-- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location
-{
-    if ([self.presentedViewController isKindOfClass:[EditViewController class]]) {
-        return nil;
-    }
-    FileItemCell *cell = (FileItemCell*)[previewingContext sourceView];
-    fm.currentItem = cell.item;
-    
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
-    if (cell.item.type == FileTypeImage) {
-        return [sb instantiateViewControllerWithIdentifier:@"preview"];
-    }
-    EditViewController *vc = [sb instantiateViewControllerWithIdentifier:@"edit"];
-    vc.projectVc = self;
-    return vc;
-}
-
-- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
-    [self showViewController:viewControllerToCommit sender:self];
-}
-
 
 @end

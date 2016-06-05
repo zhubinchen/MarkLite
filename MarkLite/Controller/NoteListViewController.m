@@ -234,10 +234,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NoteItemCell *cell = (NoteItemCell*)[tableView dequeueReusableCellWithIdentifier:@"noteItemCell" forIndexPath:indexPath];
-    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable)
-    {
-        [self registerForPreviewingWithDelegate:self sourceView:cell];
-    }
+
     Item *item = dataArray[indexPath.row];
     cell.item = item;
 
@@ -291,24 +288,5 @@
     [view reset];
 }
 
-#pragma mark 3dTouch
-
-- (UIViewController *)previewingContext:(id<UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location
-{
-    if ([self.presentedViewController isKindOfClass:[EditViewController class]]) {
-        return nil;
-    }
-    NoteItemCell *cell = (NoteItemCell*)[previewingContext sourceView];
-    _fm.currentItem = cell.item;
-    
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:[NSBundle mainBundle]];
-    EditViewController *vc = [sb instantiateViewControllerWithIdentifier:@"edit"];
-    vc.projectVc = self;
-    return vc;
-}
-
-- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
-    [self showViewController:viewControllerToCommit sender:self];
-}
 
 @end

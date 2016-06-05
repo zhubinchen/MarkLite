@@ -14,20 +14,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sNa-xc-9x5">
-                        <rect key="frame" x="310" y="9" width="25" height="25"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="25" id="XC6-5E-Xe3"/>
-                            <constraint firstAttribute="width" constant="25" id="eCI-VD-NGe"/>
-                        </constraints>
-                        <state key="normal" image="plus.png">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <connections>
-                            <action selector="addBtnClicked:" destination="3NS-7u-jgU" eventType="touchUpInside" id="QZd-oe-C1m"/>
-                        </connections>
-                    </button>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="folder.png" translatesAutoresizingMaskIntoConstraints="NO" id="ILd-aT-GCi">
                         <rect key="frame" x="8" y="10" width="24" height="24"/>
                         <constraints>
@@ -36,7 +22,7 @@
                         </constraints>
                     </imageView>
                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="index.html" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l70-cf-8gS">
-                        <rect key="frame" x="37" y="7" width="273" height="30"/>
+                        <rect key="frame" x="37" y="7" width="263" height="30"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="6LL-mh-vhV"/>
@@ -47,13 +33,29 @@
                             <outlet property="delegate" destination="3NS-7u-jgU" id="h2u-lZ-Z0D"/>
                         </connections>
                     </textField>
-                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="huf-a7-q3L">
-                        <rect key="frame" x="342" y="9" width="25" height="25"/>
+                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sNa-xc-9x5">
+                        <rect key="frame" x="300" y="4" width="35" height="35"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="25" id="jTi-KD-TMK"/>
-                            <constraint firstAttribute="height" constant="25" id="n2y-Jn-3Ie"/>
+                            <constraint firstAttribute="height" constant="35" id="XC6-5E-Xe3"/>
+                            <constraint firstAttribute="width" constant="35" id="eCI-VD-NGe"/>
                         </constraints>
+                        <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
+                        <state key="normal" image="plus.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <connections>
+                            <action selector="addBtnClicked:" destination="3NS-7u-jgU" eventType="touchUpInside" id="QZd-oe-C1m"/>
+                        </connections>
+                    </button>
+                    <button hidden="YES" opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="huf-a7-q3L">
+                        <rect key="frame" x="332" y="4" width="35" height="35"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="35" id="jTi-KD-TMK"/>
+                            <constraint firstAttribute="height" constant="35" id="n2y-Jn-3Ie"/>
+                        </constraints>
+                        <inset key="contentEdgeInsets" minX="3" minY="3" maxX="3" maxY="3"/>
                         <state key="normal" image="minus.png">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -68,7 +70,7 @@
                             <constraint firstAttribute="width" constant="30" id="w8H-Fn-1Jb"/>
                         </constraints>
                     </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qUT-aD-Mde">
+                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qUT-aD-Mde">
                         <rect key="frame" x="330" y="2" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="Pec-h7-8tj"/>
