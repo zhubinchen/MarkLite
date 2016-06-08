@@ -32,7 +32,7 @@
 //    }
     
     UIColor *titleColor = [UIColor colorWithRGBString:@"404040"];
-    NSArray *titles = @[@"Tab",@"#",@"!",@"[",@"]",@"*",@"-",@">",@"`",@"keyboard"];
+    NSArray *titles = @[@"Tab",@"#",@"*",@"-",@">",@"`",@" ",@" ",@" ",@"keyboard"];
     CGFloat w = kScreenWidth / 10;
     
     if (w > 64) {
@@ -67,42 +67,39 @@
 {
     if (btn.tag == 0) {
         [_editView insertText:@"\t"];
-    }else if (btn.tag  < 9) {
+    }else if (btn.tag  < 6) {
         [_editView insertText:btn.currentTitle];
     }else if (btn.tag == 9){
         [_editView performSelector:@selector(resignFirstResponder)];
+    }else if (btn.tag == 6){
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加链接" message:@"请输入链接" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+            if (buttonIndex == 1) {
+                [[alert textFieldAtIndex:0] resignFirstResponder];
+            }
+            NSString *name = [alert textFieldAtIndex:0].text;
+            NSString *text = [NSString stringWithFormat:@"[链接描述](%@)",name];
+            [_editView insertText:text];
+            NSRange range = NSMakeRange(_editView.selectedRange.location - text.length + 1, 4);
+            _editView.selectedRange = range;
+        };
+        [alert show];
+    }else if (btn.tag == 7){
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加图片" message:@"请输入图片相对路径或URL" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+            if (buttonIndex == 1) {
+                [[alert textFieldAtIndex:0] resignFirstResponder];
+            }
+            NSString *name = [alert textFieldAtIndex:0].text;
+            NSString *text = [NSString stringWithFormat:@"![图片描述](%@)",name];
+            [_editView insertText:text];
+            NSRange range = NSMakeRange(_editView.selectedRange.location - text.length + 2, 4);
+            _editView.selectedRange = range;
+        };
+        [alert show];
     }
-    
-//    else if (btn.tag == 1){
-//        if (SYSTEM_VERSION >= 8.0) {
-//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"添加链接" message:@"请输入链接" preferredStyle:UIAlertControllerStyleAlert];
-//            [alert addTextFieldWithConfigurationHandler:nil];
-//            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-//                NSString *name = alert.textFields[0].text;
-//                if (name.length < 1) {
-//                    return ;
-//                }
-//                NSString *text = [NSString stringWithFormat:@"[](%@)",name];
-//                [_editView insertText:text];
-//            }];
-//            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-//            [alert addAction:okAction];
-//            [alert addAction:cancelAction];
-//            [self.vc presentViewController:alert animated:YES completion:nil];
-//        }else{
-//            AlertView *alert = [[AlertView alloc]initWithTitle:@"添加链接" message:@"请输入链接" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-//            alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-//            alert.clickedButton = ^(NSInteger buttonIndex,AlertView *alert){
-//                if (buttonIndex == 1) {
-//                    [[alert textFieldAtIndex:0] resignFirstResponder];
-//                }
-//                NSString *name = [alert textFieldAtIndex:0].text;
-//                NSString *text = [NSString stringWithFormat:@"[](%@)",name];
-//                [_editView insertText:text];
-//            };
-//            [alert show];
-//        }
-//    }
 }
 
 /*

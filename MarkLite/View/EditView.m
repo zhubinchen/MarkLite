@@ -26,6 +26,7 @@
     if (self == nil) {
         return nil;
     }
+    self.tintColor = [UIColor redColor];
     placeholderLable = [[UILabel alloc]initWithFrame:CGRectMake(5, 8, 100, 20)];
     placeholderLable.font = [UIFont systemFontOfSize:14];
     placeholderLable.text = @"现在开始编辑吧";

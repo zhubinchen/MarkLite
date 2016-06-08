@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface KeyboardBar : UIView
-@property (nonatomic,weak) id<UIKeyInput> editView;
+@property (nonatomic,weak) UITextView *editView;
 @property (nonatomic,weak) UIViewController *vc;
 @end
