@@ -25,7 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _webView.scalesPageToFit = YES;
+//    _webView.scalesPageToFit = YES;
 
     fm = [FileManager sharedManager];
    

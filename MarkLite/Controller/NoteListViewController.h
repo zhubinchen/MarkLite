@@ -10,6 +10,4 @@
 
 @interface NoteListViewController : UIViewController
 
-- (void)reload;
-
 @end

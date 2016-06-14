@@ -10,6 +10,4 @@
 
 @interface FileListViewController : UIViewController
 
-- (void)newProject;
-
 @end

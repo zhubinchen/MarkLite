@@ -40,9 +40,10 @@
     fm = [FileManager sharedManager];
     
     [_fileListView registerNib:[UINib nibWithNibName:@"FileItemCell" bundle:nil] forCellReuseIdentifier:@"file"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:@"ItemsChangedNotification" object:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)reload
 {
     root = fm.root;
     dataArray = root.itemsCanReach.mutableCopy;
@@ -50,6 +51,11 @@
         [dataArray insertObject:root atIndex:0];
     }
     [self.fileListView reloadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self reload];
 }
 
 - (NSArray*)rightItems
@@ -234,10 +240,6 @@
     }];
 }
 
-- (void)newProject
-{
-    [self addFileWithParent:root];
-}
 
 - (void)searchWithWord:(NSString*)word
 {

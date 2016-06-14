@@ -48,7 +48,7 @@ static TabBarController *tabVc = nil;
     
     [self initializeWorkSapce];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(update:) name:@"RootNeedSaveChange" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(update:) name:@"ItemsChangedNotification" object:nil];
 }
 
 - (void)initializeWorkSapce

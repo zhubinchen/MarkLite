@@ -36,6 +36,7 @@
     [super viewDidLoad];
     
     _fm = [FileManager sharedManager];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:@"ItemsChangedNotification" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -60,7 +61,6 @@
 - (NSArray*)leftItems
 {
     UIBarButtonItem *sort = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"sort_options"] style:UIBarButtonItemStylePlain target:self action:@selector(showOptions)];
-//    UIBarButtonItem *sort = [[UIBarButtonItem alloc]initWithTitle:@"排序" style:UIBarButtonItemStylePlain target:self action:@selector(showOptions)];
     return @[sort];
 }
 
@@ -211,7 +211,7 @@
 {
     Item *i = dataArray[indexPath.row];
     
-    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"删除后不和恢复，确定要删除吗？" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles: nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"删除后不可恢复，确定要删除吗？" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles: nil];
     sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
         if (buttonIndex == 0) {
             [i removeFromParent];

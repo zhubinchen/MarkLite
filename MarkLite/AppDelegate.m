@@ -10,7 +10,6 @@
 #import "Configure.h"
 #import "TabBarController.h"
 #import "FileManager.h"
-#import "NoteListViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,7 +18,7 @@
 @implementation AppDelegate
 
 - (void)gotoStartPage
-{
+{                     
     [[TabBarController currentViewContoller].navigationController popToViewController:[TabBarController currentViewContoller].navigationController.viewControllers[1] animated:NO];
     [TabBarController currentViewContoller].selectedIndex = 0;
 }
@@ -52,9 +51,6 @@
             fm.currentItem = i;
             if (kDevicePhone) {
                 [self gotoStartPage];
-                NoteListViewController *vc = [TabBarController currentViewContoller].viewControllers.firstObject;
-                [vc reload];
-                [vc performSegueWithIdentifier:@"edit" sender:vc];
             }
         }
     };
