@@ -382,6 +382,10 @@
 }
 
 - (void)export:(Item *) i sourceView:(UIView*)view{
+    if (i.type == FileTypeFolder) {
+        showToast(@"不支持文件夹导出");
+        return;
+    }
     NSURL *url = [NSURL fileURLWithPath:[fm fullPathForPath:i.path]];
     NSArray *objectsToShare = @[url];
     

@@ -157,7 +157,6 @@
     
     self.editView.text = htmlStr;
     [self.editView updateSyntax];
-    
 }
 
 - (IBAction)fullScreen:(UIBarButtonItem*)sender{
