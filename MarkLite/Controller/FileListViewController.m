@@ -31,6 +31,7 @@
     UIBarButtonItem *rightItem;
     BOOL edit;
     Item *selectParent;
+    UIPopoverPresentationController *popVc;
 }
 
 #pragma mark 生命周期
@@ -60,7 +61,7 @@
 
 - (NSArray*)rightItems
 {
-    rightItem = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(edit)];
+    rightItem = [[UIBarButtonItem alloc]initWithTitle:(edit ? @"完成":@"编辑") style:UIBarButtonItemStylePlain target:self action:@selector(edit)];
     return @[rightItem];
 }
 
@@ -314,8 +315,8 @@
             };
             [alert show];
         };
-        cell.exportBlock = ^(Item *i){
-            [self export:i];
+        cell.exportBlock = ^(Item *i,UIButton *sender){
+            [self export:i sourceView:sender];
         };
         return cell;
     }
@@ -372,7 +373,7 @@
     return cell;
 }
 
-- (NSURL *) fileToURL:(NSString*)filename
+- (NSURL *)fileToURL:(NSString*)filename
 {
     NSArray *fileComponents = [filename componentsSeparatedByString:@"."];
     NSString *filePath = [[NSBundle mainBundle] pathForResource:[fileComponents objectAtIndex:0] ofType:[fileComponents objectAtIndex:1]];
@@ -380,22 +381,30 @@
     return [NSURL fileURLWithPath:filePath];
 }
 
-- (void)export:(Item *) i{
+- (void)export:(Item *) i sourceView:(UIView*)view{
     NSURL *url = [NSURL fileURLWithPath:[fm fullPathForPath:i.path]];
     NSArray *objectsToShare = @[url];
     
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
     
-    NSArray *excludedActivities = @[UIActivityTypePostToTwitter, UIActivityTypePostToFacebook,
-                                    UIActivityTypePostToWeibo,
-                                    UIActivityTypeMessage, UIActivityTypeMail,
-                                    UIActivityTypePrint, UIActivityTypeCopyToPasteboard,
-                                    UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,
-                                    UIActivityTypeAddToReadingList, UIActivityTypePostToFlickr,
-                                    UIActivityTypePostToVimeo, UIActivityTypePostToTencentWeibo];
-    controller.excludedActivityTypes = excludedActivities;
-    
-    [self presentViewController:controller animated:YES completion:nil];
+//    NSArray *excludedActivities = @[UIActivityTypePostToTwitter, UIActivityTypePostToFacebook,
+//                                    UIActivityTypePostToWeibo,
+//                                    UIActivityTypeMessage, UIActivityTypeMail,
+//                                    UIActivityTypePrint, UIActivityTypeCopyToPasteboard,
+//                                    UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,
+//                                    UIActivityTypeAddToReadingList, UIActivityTypePostToFlickr,
+//                                    UIActivityTypePostToVimeo, UIActivityTypePostToTencentWeibo];
+//    controller.excludedActivityTypes = excludedActivities;
+
+    if (kDevicePhone) {
+        [self presentViewController:controller animated:YES completion:nil];
+    }else{
+        UIPopoverPresentationController *vc = controller.popoverPresentationController;
+        vc.sourceView = view;
+        vc.sourceRect = view.bounds;
+        vc.permittedArrowDirections = UIPopoverArrowDirectionAny;
+        [self presentViewController:controller animated:YES completion:nil];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

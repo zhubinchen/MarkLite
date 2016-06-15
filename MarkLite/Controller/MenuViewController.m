@@ -31,7 +31,7 @@
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     
-    items = @[@[@"键盘辅助"],@[@"渲染样式"],@[@"好评鼓励",@"向我吐槽"],@[@"关于"]];
+    items = @[@[@"键盘辅助"],@[@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"]];
     imgNames = @[@[@"Keyboard"],@[@"Help"],@[@"Star",@"FeedBack"],@[@"Info"]];
 }
 
@@ -102,10 +102,10 @@
         if (indexPath.row == 0) {
              [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1098107145&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
         }else{
-            NSString *url = @"mailto:cheng4741@gmail.com?subject=MarkLite%20Report&body=??";
+            NSString *url = @"mailto:cheng4741@gmail.com?subject=MarkLite%20Report&body=";
             [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
         }
-    }else{
+    }else if (indexPath.section == 3){
         UIViewController *vc = [[AboutViewController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
     }

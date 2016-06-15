@@ -15,5 +15,5 @@
 @property (nonatomic,copy) void(^deleteFileBlock)(Item *i);
 @property (nonatomic,copy) void(^renameFileBlock)(Item *i);
 @property (nonatomic,copy) void(^moveFileBlock)(Item *i);
-@property (nonatomic,copy) void(^exportBlock)(Item *i);
+@property (nonatomic,copy) void(^exportBlock)(Item *i,UIButton *btn);
 @end

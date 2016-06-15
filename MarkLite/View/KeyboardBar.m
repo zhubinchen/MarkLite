@@ -12,7 +12,7 @@
 
 - (instancetype)init
 {
-    CGFloat w = kScreenWidth / 10;
+    CGFloat w = kScreenWidth / 9;
     
     if (w > 64) {
         w = 64;
@@ -32,14 +32,14 @@
 //    }
     
     UIColor *titleColor = [UIColor colorWithRGBString:@"404040"];
-    NSArray *titles = @[@"Tab",@"#",@"*",@"-",@">",@"`",@" ",@" ",@" ",@"keyboard"];
-    CGFloat w = kScreenWidth / 10;
+    NSArray *titles = @[@"Tab",@"#",@"*",@"-",@">",@"`",@"add_image",@"add_link",@"keyboard_down"];
+    CGFloat w = kScreenWidth / 9;
     
     if (w > 64) {
         w = 64;
     }
-    CGFloat x = kScreenWidth - w * 10;
-    CGFloat s = kDevicePhone ? 3 : 10;
+    CGFloat x = kScreenWidth - w * 9;
+    CGFloat s = kDevicePhone ? 3 : 9;
     
     for (int i = 0; i < titles.count; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -50,11 +50,14 @@
             [btn setTitle:titles[i] forState:UIControlStateNormal];
             [btn setTitleColor:titleColor forState:UIControlStateNormal];
             btn.titleLabel.font = [UIFont systemFontOfSize:13];
-        }else if (i == titles.count - 1){
-            [btn setImage:[UIImage imageNamed:@"keyboard_down"] forState:UIControlStateNormal];
-        }else{
+        }else if (i < 6){
             [btn setTitle:titles[i] forState:UIControlStateNormal];
             [btn setTitleColor:titleColor forState:UIControlStateNormal];
+        }else if (i == titles.count - 1){
+            [btn setImage:[UIImage imageNamed:titles[i]] forState:UIControlStateNormal];
+        }else{
+            [btn setImage:[UIImage imageNamed:titles[i]] forState:UIControlStateNormal];
+            btn.imageEdgeInsets = UIEdgeInsetsMake(4, 4, 4, 4);
         }
         [btn showBorderWithColor:titleColor radius:3 width:1];
         btn.backgroundColor = [UIColor whiteColor];
@@ -69,36 +72,34 @@
         [_editView insertText:@"\t"];
     }else if (btn.tag  < 6) {
         [_editView insertText:btn.currentTitle];
-    }else if (btn.tag == 9){
-        [_editView performSelector:@selector(resignFirstResponder)];
     }else if (btn.tag == 6){
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加链接" message:@"请输入链接" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         alert.alertViewStyle = UIAlertViewStylePlainTextInput;
         alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
             if (buttonIndex == 1) {
-                [[alert textFieldAtIndex:0] resignFirstResponder];
+                NSString *name = [alert textFieldAtIndex:0].text;
+                NSString *text = [NSString stringWithFormat:@"[链接描述](%@)",name];
+                [_editView insertText:text];
+                NSRange range = NSMakeRange(_editView.selectedRange.location - text.length + 1, 4);
+                _editView.selectedRange = range;
             }
-            NSString *name = [alert textFieldAtIndex:0].text;
-            NSString *text = [NSString stringWithFormat:@"[链接描述](%@)",name];
-            [_editView insertText:text];
-            NSRange range = NSMakeRange(_editView.selectedRange.location - text.length + 1, 4);
-            _editView.selectedRange = range;
         };
         [alert show];
-    }else if (btn.tag == 7){
+    }else if (btn.tag == 6){
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加图片" message:@"请输入图片相对路径或URL" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         alert.alertViewStyle = UIAlertViewStylePlainTextInput;
         alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
             if (buttonIndex == 1) {
-                [[alert textFieldAtIndex:0] resignFirstResponder];
+                NSString *name = [alert textFieldAtIndex:0].text;
+                NSString *text = [NSString stringWithFormat:@"![图片描述](%@)",name];
+                [_editView insertText:text];
+                NSRange range = NSMakeRange(_editView.selectedRange.location - text.length + 2, 4);
+                _editView.selectedRange = range;
             }
-            NSString *name = [alert textFieldAtIndex:0].text;
-            NSString *text = [NSString stringWithFormat:@"![图片描述](%@)",name];
-            [_editView insertText:text];
-            NSRange range = NSMakeRange(_editView.selectedRange.location - text.length + 2, 4);
-            _editView.selectedRange = range;
         };
         [alert show];
+    }else if (btn.tag == 8){
+        [_editView performSelector:@selector(resignFirstResponder)];
     }
 }
 

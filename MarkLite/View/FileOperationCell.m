@@ -53,7 +53,7 @@
     }else if (sender.tag == 1){
         self.renameFileBlock(self.item);
     }else{
-        self.exportBlock(self.item);
+        self.exportBlock(self.item,sender);
     }
 }
 
