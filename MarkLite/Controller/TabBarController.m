@@ -10,7 +10,6 @@
 #import "MenuViewController.h"
 #import "FileManager.h"
 #import "Item.h"
-#import "FileSyncManager.h"
 #import "User.h"
 
 @interface UIViewController ()
@@ -46,99 +45,13 @@ static TabBarController *tabVc = nil;
 
     itemsToDownload = [NSMutableArray array];
     
-    [self initializeWorkSapce];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(update:) name:@"ItemsChangedNotification" object:nil];
-}
-
-- (void)initializeWorkSapce
-{
-    FileManager *fm = [FileManager sharedManager];
-    
-    NSString *plistPath = [[NSString documentPath] stringByAppendingPathComponent:@"root.plist"];
-    
-    if ([[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
-        _root = [NSKeyedUnarchiver unarchiveObjectWithFile:plistPath];
-        fm.root = _root;
-    }else if ([User currentUser].hasLogin) {
-        beginLoadingAnimation(@"正在同步...");
-        [[FileSyncManager sharedManager] rootFromServer:^(Item *item,int error) {
-            if (item) {
-                _root = item;
-                fm.root = _root;
-                [self createFile];
-                [_root archive];
-            }else{
-                if (error == 1) {
-                    FileManager *fm = [FileManager sharedManager];
-                    [fm initWorkSpace];
-                    _root = fm.root;
-                    [_root archive];
-                }else{
-                    showToast(@"同步失败，请检查网络后重试");
-                }
-            }
-            [self.viewControllers.firstObject reload];
-            stopLoadingAnimation();
-        }];
-    }else{
-        FileManager *fm = [FileManager sharedManager];
-        [fm initWorkSpace];
-        _root = fm.root;
-        [_root archive];
-    }
-}
-
-- (void)createFile
-{
-    FileManager *fm = [FileManager sharedManager];
-    [fm createFolder:_root.path];
-    for (Item *i in _root.items) {
-        if (i.syncStatus != SyncStatusUnDownload) {
-            continue;
-        }
-        if (i.type == FileTypeFolder) {
-            [fm createFolder:i.path];
-            i.syncStatus = SyncStatusSuccess;
-        }else{
-            [itemsToDownload addObject:i];
-        }
-    }
-    
-    [self download];
-}
-
-- (void)download
-{
-    Item *i = itemsToDownload.firstObject;
-    if (i == nil) {
-        return;
-    }
-    [[FileSyncManager sharedManager]downloadFile:i.path progressHandler:^(float percent) {
-        NSLog(@"%.2f",percent);
-    } result:^(BOOL success, NSData *data) {
-        [itemsToDownload removeObject:i];
-        if (success) {
-            i.syncStatus = SyncStatusSuccess;
-            [[FileManager sharedManager] createFile:i.path Content:data];
-        }
-        [self download];
-    }];
 }
 
 - (void)update:(NSNotification*)noti
 {
     _root.needUpdate = YES;
     [_root archive];
-
-    if ([User currentUser].hasLogin) {
-        [[FileSyncManager sharedManager]update:^(BOOL success) {
-            if (success) {
-                _root.needUpdate = NO;
-                [_root archive];
-            }
-        }];
-    }
 }
 
 - (void)setSelectedViewController:(UIViewController *)selectedViewController

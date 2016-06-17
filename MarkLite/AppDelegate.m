@@ -8,8 +8,8 @@
 
 #import "AppDelegate.h"
 #import "Configure.h"
-#import "TabBarController.h"
 #import "FileManager.h"
+#import "TabBarController.h"
 
 @interface AppDelegate ()
 
@@ -18,9 +18,24 @@
 @implementation AppDelegate
 
 - (void)gotoStartPage
-{                     
+{
     [[TabBarController currentViewContoller].navigationController popToViewController:[TabBarController currentViewContoller].navigationController.viewControllers[1] animated:NO];
     [TabBarController currentViewContoller].selectedIndex = 0;
+}
+
+- (void)initializeWorkSapce
+{
+    FileManager *fm = [FileManager sharedManager];
+    
+    NSString *plistPath = [[NSString documentPath] stringByAppendingPathComponent:@"root.plist"];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
+        fm.root = [NSKeyedUnarchiver unarchiveObjectWithFile:plistPath];
+    }else{
+        FileManager *fm = [FileManager sharedManager];
+        [fm initWorkSpace];
+        [fm.root archive];
+    }
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -30,7 +45,7 @@
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setBarTintColor:kThemeColor];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor whiteColor]}];
-
+    [self initializeWorkSapce];
     return YES;
 }
 
@@ -51,6 +66,7 @@
             fm.currentItem = i;
             if (kDevicePhone) {
                 [self gotoStartPage];
+                [[TabBarController currentViewContoller].selectedViewController performSegueWithIdentifier:@"edit" sender:nil];
             }
         }
     };
