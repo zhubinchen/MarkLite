@@ -10,8 +10,7 @@
 
 >iPad效果图:
 
-![iPad](ScreenShot/iPad1.png)
-![iPad](ScreenShot/iPad2.png)
+![iPad](ScreenShot/iPad.png)
 >iPhone效果图:
 
 ![iPad](ScreenShot/iPhone.png)
