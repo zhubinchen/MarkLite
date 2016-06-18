@@ -46,6 +46,8 @@
     [[UINavigationBar appearance] setBarTintColor:kThemeColor];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor whiteColor]}];
     [self initializeWorkSapce];
+    
+    
     return YES;
 }
 

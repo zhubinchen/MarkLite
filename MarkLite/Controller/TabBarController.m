@@ -46,7 +46,46 @@ static TabBarController *tabVc = nil;
     itemsToDownload = [NSMutableArray array];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(update:) name:@"ItemsChangedNotification" object:nil];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self star];
+    });
 }
+
+- (void)star
+{
+    BOOL hasStared = [[NSUserDefaults standardUserDefaults] boolForKey:@"has_stared"];
+    if (hasStared) {
+        return;
+    }
+    
+    NSDate *last = [[NSUserDefaults standardUserDefaults] objectForKey:@"last_alert"];
+    NSDate *now = [NSDate date];
+    
+
+    if (last == nil) {
+        [[NSUserDefaults standardUserDefaults] setObject:now forKey:@"last_alert"];
+        return;
+    }
+    
+    if ([now timeIntervalSinceDate:last] < 60*60*24) {
+        return;
+    }
+    
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"谢谢你的使用，如果觉得不错，请给个好评鼓励一下吧😍" message:@"" delegate:nil cancelButtonTitle:@"好评鼓励" otherButtonTitles:@"别再打扰我",@"以后再说", nil];
+    alert.clickedButton = ^(NSInteger index,UIAlertView *alert){
+        if (index == 0) {
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"has_stared"];
+            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1098107145&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
+        }else if (index == 1) {
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"has_stared"];
+        }
+    };
+    [alert show];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:now forKey:@"last_alert"];
+}
+
 
 - (void)update:(NSNotification*)noti
 {

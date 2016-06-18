@@ -15,7 +15,7 @@
 
 #import "ZHUtils.h"
 
-#define kThemeColor [UIColor colorWithRGBString:@"21B0E2"]
+#define kThemeColor [UIColor colorWithRGBString:@"16AFEB"]
 
 #endif
 
