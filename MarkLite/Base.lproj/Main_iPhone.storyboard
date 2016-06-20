@@ -195,20 +195,23 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X25-s7-0iO" customClass="EditView">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zKb-UG-wmP" customClass="EditView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no"/>
+                                <connections>
+                                    <outlet property="delegate" destination="VQd-1Y-qDA" id="qpP-Dc-jv3"/>
+                                </connections>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="X25-s7-0iO" firstAttribute="top" secondItem="p9f-gj-Mso" secondAttribute="bottom" id="4hD-rn-G9h"/>
-                            <constraint firstAttribute="bottom" secondItem="X25-s7-0iO" secondAttribute="bottom" id="J0A-XB-Lpt"/>
-                            <constraint firstItem="X25-s7-0iO" firstAttribute="leading" secondItem="M8I-d8-NKG" secondAttribute="leading" id="a4M-O0-rrS"/>
-                            <constraint firstAttribute="trailing" secondItem="X25-s7-0iO" secondAttribute="trailing" id="vpz-Qz-q3V"/>
+                            <constraint firstItem="zKb-UG-wmP" firstAttribute="leading" secondItem="M8I-d8-NKG" secondAttribute="leading" id="2dw-f2-Uad"/>
+                            <constraint firstItem="zKb-UG-wmP" firstAttribute="top" secondItem="p9f-gj-Mso" secondAttribute="bottom" id="UfB-1u-Cuc"/>
+                            <constraint firstItem="Znb-cf-QhM" firstAttribute="top" secondItem="zKb-UG-wmP" secondAttribute="bottom" id="dDw-T7-MNN"/>
+                            <constraint firstAttribute="trailing" secondItem="zKb-UG-wmP" secondAttribute="trailing" id="vpX-Je-ga3"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -224,8 +227,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="bottom" destination="J0A-XB-Lpt" id="uOm-dP-KHw"/>
-                        <outlet property="editView" destination="X25-s7-0iO" id="U6h-ub-gSN"/>
+                        <outlet property="editView" destination="zKb-UG-wmP" id="iZM-cP-EK8"/>
                         <segue destination="rmd-nM-PLW" kind="show" identifier="preview" id="nAh-oH-Cz0"/>
                     </connections>
                 </viewController>

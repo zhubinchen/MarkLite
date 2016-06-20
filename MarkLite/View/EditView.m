@@ -58,7 +58,10 @@
 
 - (void)updateSyntax {
     placeholderLable.hidden = self.text.length != 0;
-
+    
+    if (self.markedTextRange) {
+        return;
+    }
     dispatch_async(updateQueue, ^{
         NSArray *models = [self.markdownSyntaxGenerator syntaxModelsForText:self.text];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
