@@ -25,7 +25,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    _webView.scalesPageToFit = YES;
 
     fm = [FileManager sharedManager];
    
@@ -57,6 +56,8 @@
         NSString *imageHtmlFile = [[NSBundle mainBundle] pathForResource:@"image" ofType:@"html"];
         NSString *html = [NSString stringWithContentsOfFile:imageHtmlFile encoding:NSUTF8StringEncoding error:nil];
         html = [NSString stringWithFormat:html,url.absoluteString];
+        
+        _webView.scalesPageToFit = YES;
         [_webView loadHTMLString:html baseURL:nil];
     }else{
         hoedown_renderer *render = CreateHTMLRenderer();
@@ -70,6 +71,7 @@
         NSString *style = [NSString stringWithContentsOfFile:styleFile encoding:NSUTF8StringEncoding error:nil];
         NSString *finalHtml = [[format stringByReplacingOccurrencesOfString:@"#_html_place_holder_#" withString:html] stringByReplacingOccurrencesOfString:@"#_style_place_holder_#" withString:style];
         NSLog(@"%@",finalHtml);
+        _webView.scalesPageToFit = NO;
         [_webView loadHTMLString:finalHtml baseURL:[NSURL fileURLWithPath:path]];
     }
 }
