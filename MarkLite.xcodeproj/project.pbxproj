@@ -18,11 +18,12 @@
 		074649FB1CC4B067000545A0 /* more.png in Resources */ = {isa = PBXBuildFile; fileRef = 074649FA1CC4B067000545A0 /* more.png */; };
 		074649FF1CC4B3FA000545A0 /* FileOperationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 074649FD1CC4B3FA000545A0 /* FileOperationCell.m */; };
 		07464A041CC4BAC9000545A0 /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 07464A011CC4BAC9000545A0 /* delete.png */; };
-		07464A051CC4BAC9000545A0 /* export.png in Resources */ = {isa = PBXBuildFile; fileRef = 07464A021CC4BAC9000545A0 /* export.png */; };
 		07464A061CC4BAC9000545A0 /* rename.png in Resources */ = {isa = PBXBuildFile; fileRef = 07464A031CC4BAC9000545A0 /* rename.png */; };
 		075047741CABA6F40031852F /* SelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 075047731CABA6F40031852F /* SelectViewController.m */; };
 		075047DE1CACBF920031852F /* FileItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 075047DC1CACBF920031852F /* FileItemCell.xib */; };
 		075047E11CACC0280031852F /* FileItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 075047E01CACC0280031852F /* FileItemCell.m */; };
+		0774E55C1D1AE8D200ED9381 /* export@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0774E55B1D1AE8D200ED9381 /* export@2x.png */; };
+		0774E55E1D1AEBFE00ED9381 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0774E55D1D1AEBFE00ED9381 /* back@2x.png */; };
 		078F8D0B1CAE826B00B9D625 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 078F8D091CAE826B00B9D625 /* AboutViewController.m */; };
 		078F8D0C1CAE826B00B9D625 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 078F8D0A1CAE826B00B9D625 /* AboutViewController.xib */; };
 		078F8D0E1CAE848300B9D625 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 078F8D0D1CAE848300B9D625 /* about.html */; };
@@ -162,7 +163,6 @@
 		074649FC1CC4B3FA000545A0 /* FileOperationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileOperationCell.h; sourceTree = "<group>"; };
 		074649FD1CC4B3FA000545A0 /* FileOperationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileOperationCell.m; sourceTree = "<group>"; };
 		07464A011CC4BAC9000545A0 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
-		07464A021CC4BAC9000545A0 /* export.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = export.png; sourceTree = "<group>"; };
 		07464A031CC4BAC9000545A0 /* rename.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rename.png; sourceTree = "<group>"; };
 		075047721CABA6F40031852F /* SelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectViewController.h; sourceTree = "<group>"; };
 		075047731CABA6F40031852F /* SelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectViewController.m; sourceTree = "<group>"; };
@@ -170,6 +170,8 @@
 		075047DF1CACC0280031852F /* FileItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileItemCell.h; sourceTree = "<group>"; };
 		075047E01CACC0280031852F /* FileItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileItemCell.m; sourceTree = "<group>"; };
 		0774E5361D1AA0A100ED9381 /* MarkLite.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MarkLite.entitlements; sourceTree = "<group>"; };
+		0774E55B1D1AE8D200ED9381 /* export@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "export@2x.png"; sourceTree = "<group>"; };
+		0774E55D1D1AEBFE00ED9381 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		07853E451CE472E0007A5F3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		07853E461CE472EF007A5F3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		07853E471CE47302007A5F3A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
@@ -516,6 +518,7 @@
 			children = (
 				07D7A4D91CC484F80098AD65 /* image.html */,
 				078F8D0D1CAE848300B9D625 /* about.html */,
+				0774E55D1D1AEBFE00ED9381 /* back@2x.png */,
 				07D7A4D71CC4818B0098AD65 /* check.png */,
 				079916821C61EA3800E5F3A2 /* file@2x.png */,
 				071F83871D045C7D009DB0CA /* move.png */,
@@ -530,8 +533,8 @@
 				0735FAA51D0FF076005F87E7 /* add_image.png */,
 				0735FAA61D0FF076005F87E7 /* add_link.png */,
 				07464A011CC4BAC9000545A0 /* delete.png */,
-				07464A021CC4BAC9000545A0 /* export.png */,
 				078F8D111CB1070E00B9D625 /* icon.png */,
+				0774E55B1D1AE8D200ED9381 /* export@2x.png */,
 				07464A031CC4BAC9000545A0 /* rename.png */,
 				071F83811D0163B9009DB0CA /* MarkLite.zip */,
 				07D7A4EE1CC4A4110098AD65 /* keyboard_down.png */,
@@ -1038,6 +1041,7 @@
 				079917C51C61EA3900E5F3A2 /* FeedBack@2x.png in Resources */,
 				071F83821D0163BA009DB0CA /* MarkLite.zip in Resources */,
 				079917CC1C61EA3900E5F3A2 /* settings@2x.png in Resources */,
+				0774E55C1D1AE8D200ED9381 /* export@2x.png in Resources */,
 				0799183D1C61EA3900E5F3A2 /* CreateNoteView.xib in Resources */,
 				07464A041CC4BAC9000545A0 /* delete.png in Resources */,
 				071F83881D045C7D009DB0CA /* move.png in Resources */,
@@ -1056,12 +1060,12 @@
 				079917B81C61EA3900E5F3A2 /* format.html in Resources */,
 				075047DE1CACBF920031852F /* FileItemCell.xib in Resources */,
 				078F8D0C1CAE826B00B9D625 /* AboutViewController.xib in Resources */,
+				0774E55E1D1AEBFE00ED9381 /* back@2x.png in Resources */,
 				079917B41C61EA3900E5F3A2 /* file@2x.png in Resources */,
 				079916671C61E9FF00E5F3A2 /* LaunchScreen.storyboard in Resources */,
 				079917B71C61EA3900E5F3A2 /* folder_open.png in Resources */,
 				079917C11C61EA3900E5F3A2 /* plus.png in Resources */,
 				07D7A4EC1CC48F890098AD65 /* Solarized Dark.css in Resources */,
-				07464A051CC4BAC9000545A0 /* export.png in Resources */,
 				07D7A4E41CC48A7E0098AD65 /* Clearness Dark.css in Resources */,
 				078F8D121CB1070E00B9D625 /* icon.png in Resources */,
 				07D7A4ED1CC48F890098AD65 /* Solarized Light.css in Resources */,

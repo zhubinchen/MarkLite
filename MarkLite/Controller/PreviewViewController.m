@@ -21,11 +21,13 @@
 @implementation PreviewViewController
 {
     FileManager *fm;
+    NSString *htmlString;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"export"] style:UIBarButtonItemStylePlain target:self action:@selector(export)];
     fm = [FileManager sharedManager];
    
     if (kDevicePhone) {
@@ -56,7 +58,6 @@
         NSString *imageHtmlFile = [[NSBundle mainBundle] pathForResource:@"image" ofType:@"html"];
         NSString *html = [NSString stringWithContentsOfFile:imageHtmlFile encoding:NSUTF8StringEncoding error:nil];
         html = [NSString stringWithFormat:html,url.absoluteString];
-        
         _webView.scalesPageToFit = YES;
         [_webView loadHTMLString:html baseURL:nil];
     }else{
@@ -69,10 +70,41 @@
         
         NSString *styleFile = [[NSBundle mainBundle] pathForResource:[Configure sharedConfigure].style ofType:@"css"];
         NSString *style = [NSString stringWithContentsOfFile:styleFile encoding:NSUTF8StringEncoding error:nil];
-        NSString *finalHtml = [[format stringByReplacingOccurrencesOfString:@"#_html_place_holder_#" withString:html] stringByReplacingOccurrencesOfString:@"#_style_place_holder_#" withString:style];
-        NSLog(@"%@",finalHtml);
+        htmlString = [[format stringByReplacingOccurrencesOfString:@"#_html_place_holder_#" withString:html] stringByReplacingOccurrencesOfString:@"#_style_place_holder_#" withString:style];
+//        NSLog(@"%@",htmlString);
         _webView.scalesPageToFit = NO;
-        [_webView loadHTMLString:finalHtml baseURL:[NSURL fileURLWithPath:path]];
+        [_webView loadHTMLString:htmlString baseURL:[NSURL fileURLWithPath:path]];
+    }
+}
+
+- (void)export
+{
+    NSURL *url = [NSURL fileURLWithPath:[[NSString documentPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.html",[fm currentItem].name]]];
+    if (htmlString) {
+        [htmlString writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    }
+
+    NSArray *objectsToShare = @[url];
+    
+    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+    
+    //    NSArray *excludedActivities = @[UIActivityTypePostToTwitter, UIActivityTypePostToFacebook,
+    //                                    UIActivityTypePostToWeibo,
+    //                                    UIActivityTypeMessage, UIActivityTypeMail,
+    //                                    UIActivityTypePrint, UIActivityTypeCopyToPasteboard,
+    //                                    UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,
+    //                                    UIActivityTypeAddToReadingList, UIActivityTypePostToFlickr,
+    //                                    UIActivityTypePostToVimeo, UIActivityTypePostToTencentWeibo];
+    //    controller.excludedActivityTypes = excludedActivities;
+    
+    if (kDevicePhone) {
+        [self presentViewController:controller animated:YES completion:nil];
+    }else{
+        UIPopoverPresentationController *vc = controller.popoverPresentationController;
+        vc.barButtonItem = self.navigationItem.rightBarButtonItem;
+//        vc.sourceRect = view.bounds;
+        vc.permittedArrowDirections = UIPopoverArrowDirectionAny;
+        [self presentViewController:controller animated:YES completion:nil];
     }
 }
 

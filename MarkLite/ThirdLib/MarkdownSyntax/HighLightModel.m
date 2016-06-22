@@ -15,7 +15,6 @@
     if (self = [super init]) {
         _size = 15;
         _textColor = [UIColor blackColor];
-        _backgroundColor = [UIColor clearColor];
         _deletionLine = NO;
         _strong = NO;
     }
@@ -25,14 +24,14 @@
 - (NSDictionary *)attribute
 {
     UIFont *font = nil;
-    if (_strong) {
-        font = [UIFont boldSystemFontOfSize:_size];
-    }else{
-        font = [UIFont systemFontOfSize:_size];
-    }
+
+//    if (_strong) {
+//        font = [UIFont boldSystemFontOfSize:_size];
+//    }else{
+//        font = [UIFont fontWithName:@"Hiragino Sans" size:_size];
+//    }
     return @{
-             NSFontAttributeName : font,
-             NSBackgroundColorAttributeName : _backgroundColor,
+             NSFontAttributeName : [UIFont fontWithName:@"Hiragino Sans" size:_size],
              NSForegroundColorAttributeName : _textColor,
              NSStrikethroughStyleAttributeName : @(_deletionLine ? NSUnderlineStyleSingle : NSUnderlineStyleNone)
              };

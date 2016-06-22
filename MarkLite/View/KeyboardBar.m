@@ -18,7 +18,7 @@
         w = 64;
     }
     self = [super initWithFrame:CGRectMake(0, 0, kScreenWidth, w)];
-    self.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
+    self.backgroundColor = [UIColor colorWithRed:200/255.0 green:203/255.0 blue:211/255.0 alpha:1];
     [self createItem];
     
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createItem) name:UIDeviceOrientationDidChangeNotification object:nil];
@@ -59,7 +59,7 @@
             [btn setImage:[UIImage imageNamed:titles[i]] forState:UIControlStateNormal];
             btn.imageEdgeInsets = UIEdgeInsetsMake(4, 4, 4, 4);
         }
-        [btn showBorderWithColor:titleColor radius:3 width:1];
+        [btn makeRound:6];
         btn.backgroundColor = [UIColor whiteColor];
         [btn addTarget:self action:@selector(itemClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];

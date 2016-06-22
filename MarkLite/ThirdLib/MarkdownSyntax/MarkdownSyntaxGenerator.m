@@ -93,15 +93,12 @@ NSDictionary *AttributesFromMarkdownSyntaxType(MarkdownSyntaxType v) {
             model.textColor = colors[@"list"];
             break;
         case MarkdownSyntaxInlineCode:
-            model.backgroundColor = [UIColor colorWithWhite:0.97 alpha:1];
             model.textColor = colors[@"code"];
             break;
         case MarkdownSyntaxCodeBlock:
-            model.backgroundColor = [UIColor colorWithWhite:0.97 alpha:1];
             model.textColor = colors[@"code"];
             break;
         case MarkdownSyntaxImplicitCodeBlock:
-            model.backgroundColor = [UIColor colorWithWhite:0.97 alpha:1];
             model.textColor = colors[@"code"];
             break;
         case NumberOfMarkdownSyntax:

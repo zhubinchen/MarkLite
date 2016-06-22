@@ -26,7 +26,7 @@
     if (self == nil) {
         return nil;
     }
-//    self.tintColor = [UIColor redColor];
+
     placeholderLable = [[UILabel alloc]initWithFrame:CGRectMake(5, 8, 100, 20)];
     placeholderLable.font = [UIFont systemFontOfSize:14];
     placeholderLable.text = @"现在开始编辑吧";
@@ -36,7 +36,6 @@
      addObserver:self selector:@selector(didTextChangeText:) name:UITextViewTextDidChangeNotification object:nil];
     updateQueue = dispatch_queue_create("update", DISPATCH_QUEUE_CONCURRENT);
     [self updateSyntax];
-
     return self;
 }
 
@@ -66,8 +65,8 @@
         NSArray *models = [self.markdownSyntaxGenerator syntaxModelsForText:self.text];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
         [attributedString addAttributes:@{
-                                          NSFontAttributeName : [UIFont systemFontOfSize:15],
-                                          NSForegroundColorAttributeName : [UIColor darkGrayColor]
+                                          NSFontAttributeName : [UIFont fontWithName:@"Hiragino Sans" size:15],
+                                          NSForegroundColorAttributeName : [UIColor colorWithRGBString:@"536775"]
                                           } range:NSMakeRange(0, attributedString.length)];
         for (MarkdownSyntaxModel *model in models) {
             [attributedString addAttributes:AttributesFromMarkdownSyntaxType(model.type) range:model.range];

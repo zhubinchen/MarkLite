@@ -22,8 +22,8 @@
             conf = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
         }else{
             conf = [[self alloc]init];
-            [conf reset];
         }
+        [conf reset];
     });
     return conf;
 }
@@ -64,14 +64,14 @@
 {    
     _highlightColor = @{
                         @"title":RGB(@"488FE1"),
-                        @"link":RGB(@"0200FF"),
-                        @"image":RGB(@"A250DC"),
+                        @"link":RGB(@"465DC6"),
+                        @"image":RGB(@"A17A8C"),
                         @"bold":RGB(@"000000"),
-                        @"quotes":RGB(@"057500"),
+                        @"quotes":RGB(@"60736B"),
                         @"deletion":RGB(@"916132"),
                         @"separate":RGB(@"BD1586"),
-                        @"list":RGB(@"BD4346"),
-                        @"code":RGB(@"6D6D6D"),
+                        @"list":RGB(@"543429"),
+                        @"code":RGB(@"7FA684"),
                         };
     _style = @"GitHub2";
     _keyboardAssist = YES;

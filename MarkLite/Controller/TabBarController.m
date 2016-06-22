@@ -40,7 +40,7 @@ static TabBarController *tabVc = nil;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.hidesBackButton = YES;
-    
+
     tabVc = self;
 
     itemsToDownload = [NSMutableArray array];

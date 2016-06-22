@@ -45,7 +45,8 @@
         [[Configure sharedConfigure] addObserver:self forKeyPath:@"keyboardAssist" options:NSKeyValueObservingOptionNew context:NULL];
     }
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardChanged:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewWillLayoutSubviews
@@ -58,18 +59,25 @@
     }
 }
 
-- (void)keyboardChanged:(NSNotification*)noti
+- (void)keyboardShow:(NSNotification*)noti
 {
     NSDictionary *info = noti.userInfo;
+    CGFloat keyboardHeight = [[info objectForKey:@"UIKeyboardBoundsUserInfoKey"] CGRectValue].size.height;
+    CGRect begin = [[info objectForKey:@"UIKeyboardFrameBeginUserInfoKey"] CGRectValue];
+    CGRect end = [[info objectForKey:@"UIKeyboardFrameEndUserInfoKey"] CGRectValue];
     
-    NSTimeInterval interval = [info[UIKeyboardAnimationDurationUserInfoKey] floatValue];
-    CGFloat height =kScreenHeight - [info[UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y;
+    // 第三方键盘回调三次问题，监听仅执行最后一次
+    if(begin.size.height>0 && (begin.origin.y-end.origin.y>0)){
+        self.bottom.constant = keyboardHeight;
+        NSLog(@"%@",self.bottom);
+        [self.view layoutIfNeeded];
+    }
+}
 
+- (void)keyboardHide:(NSNotification*)noti
+{
+    self.bottom.constant = 0;
     [self.view layoutIfNeeded];
-    [UIView animateWithDuration:interval animations:^{
-        self.bottom.constant = height;
-    }];
-    [self updateViewConstraints];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
@@ -96,37 +104,37 @@
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    if (kDevicePhone) {
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-    }
+//    if (kDevicePhone) {
+//        [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    }
     return YES;
 }
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView
 {
-    if (kDevicePhone) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.navigationController setNavigationBarHidden:NO animated:YES];
-        });
-    }
+//    if (kDevicePhone) {
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [self.navigationController setNavigationBarHidden:NO animated:YES];
+//        });
+//    }
     return YES;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (kDevicePad || (!_editView.isFirstResponder)) {
-        return;
-    }
-    if (scrollView.contentOffset.y < -40) {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-    }
-    if (scrollView.contentOffset.y - lastOffsetY > 100) {
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-    } else if (scrollView.contentOffset.y - lastOffsetY < -100) {
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
-    }
-    
-    lastOffsetY = scrollView.contentOffset.y;
+//    if (kDevicePad || (!_editView.isFirstResponder)) {
+//        return;
+//    }
+//    if (scrollView.contentOffset.y < -40) {
+//        [self.navigationController setNavigationBarHidden:NO animated:YES];
+//    }
+//    if (scrollView.contentOffset.y - lastOffsetY > 100) {
+//        [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    } else if (scrollView.contentOffset.y - lastOffsetY < -100) {
+//        [self.navigationController setNavigationBarHidden:NO animated:YES];
+//    }
+//    
+//    lastOffsetY = scrollView.contentOffset.y;
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
@@ -142,7 +150,7 @@
     item = fm.currentItem;
 
     if (item.type != FileTypeText) {
-        self.editView.text = @"无法编辑该类型文件,你可以点击渲染来查看该文件";
+        self.editView.text = @"无法编辑该类型文件,你可以点击预览来查看该文件";
         self.editView.editable = NO;
         return;
     }else{

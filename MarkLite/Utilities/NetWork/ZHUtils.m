@@ -457,7 +457,7 @@
 
 @implementation UIActionSheet(ZHUtils)
 
-- (void)setClickedButton:(void (^)(NSInteger buttonIndex,UIAlertView* alertView))clickedButton
+- (void)setClickedButton:(void (^)(NSInteger buttonIndex,UIActionSheet* alertView))clickedButton
 {
     
     [self willChangeValueForKey:@"clickedButton"];
@@ -468,7 +468,7 @@
     self.delegate = self;
 }
 
-- (void (^)(NSInteger, UIAlertView *))clickedButton
+- (void (^)(NSInteger, UIActionSheet *))clickedButton
 {
     return objc_getAssociatedObject(self, "clickedButton");
 }
