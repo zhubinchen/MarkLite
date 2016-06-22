@@ -16,6 +16,7 @@
 #import "ZHUtils.h"
 
 #define kThemeColor [UIColor colorWithRGBString:@"16AFEB"]
+#define UBIQUITY_CONTAINER_URL @"iCloud.zhubch.MarkLite"
 
 #endif
 
