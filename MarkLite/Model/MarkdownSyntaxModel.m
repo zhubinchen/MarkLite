@@ -1,5 +1,9 @@
 //
-// Created by azu on 2013/10/26.
+//  MarkdownSyntaxModel.m
+//  MarkLite
+//
+//  Created by zhubch on 11/12/15.
+//  Copyright © 2015 zhubch. All rights reserved.
 //
 
 
