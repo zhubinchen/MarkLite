@@ -136,6 +136,7 @@
 		07B92D521D1BB25400A4127E /* plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07B92D511D1BB25400A4127E /* plus@2x.png */; };
 		07B92D541D1BB26C00A4127E /* more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07B92D531D1BB26C00A4127E /* more@2x.png */; };
 		07B92D561D1BB27E00A4127E /* move@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07B92D551D1BB27E00A4127E /* move@2x.png */; };
+		07B92DB21D1D29AB00A4127E /* FontViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B92DB01D1D29AB00A4127E /* FontViewController.m */; };
 		07D7A4DA1CC484F80098AD65 /* image.html in Resources */ = {isa = PBXBuildFile; fileRef = 07D7A4D91CC484F80098AD65 /* image.html */; };
 		07D7A4E41CC48A7E0098AD65 /* Clearness Dark.css in Resources */ = {isa = PBXBuildFile; fileRef = 07D7A4DE1CC48A7E0098AD65 /* Clearness Dark.css */; };
 		07D7A4E51CC48A7E0098AD65 /* Clearness.css in Resources */ = {isa = PBXBuildFile; fileRef = 07D7A4DF1CC48A7E0098AD65 /* Clearness.css */; };
@@ -373,6 +374,8 @@
 		07B92D511D1BB25400A4127E /* plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus@2x.png"; sourceTree = "<group>"; };
 		07B92D531D1BB26C00A4127E /* more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more@2x.png"; sourceTree = "<group>"; };
 		07B92D551D1BB27E00A4127E /* move@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "move@2x.png"; sourceTree = "<group>"; };
+		07B92DAF1D1D29AB00A4127E /* FontViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontViewController.h; sourceTree = "<group>"; };
+		07B92DB01D1D29AB00A4127E /* FontViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontViewController.m; sourceTree = "<group>"; };
 		07D7A4D91CC484F80098AD65 /* image.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = image.html; sourceTree = "<group>"; };
 		07D7A4DE1CC48A7E0098AD65 /* Clearness Dark.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "Clearness Dark.css"; sourceTree = "<group>"; };
 		07D7A4DF1CC48A7E0098AD65 /* Clearness.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = Clearness.css; sourceTree = "<group>"; };
@@ -863,6 +866,8 @@
 				079918591C61EC6900E5F3A2 /* NoteListViewController.m */,
 				0799185A1C61EC6900E5F3A2 /* PreviewViewController.h */,
 				0799185B1C61EC6900E5F3A2 /* PreviewViewController.m */,
+				07B92DAF1D1D29AB00A4127E /* FontViewController.h */,
+				07B92DB01D1D29AB00A4127E /* FontViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1106,6 +1111,7 @@
 				079918191C61EA3900E5F3A2 /* QNPHAssetFile.m in Sources */,
 				07A4C40B1D015E6500AE995A /* QNDnspodFree.m in Sources */,
 				07A4C4101D015E6500AE995A /* QNHex.m in Sources */,
+				07B92DB21D1D29AB00A4127E /* FontViewController.m in Sources */,
 				079917D81C61EA3900E5F3A2 /* AFNetworkReachabilityManager.m in Sources */,
 				079918111C61EA3900E5F3A2 /* MarkdownSyntaxGenerator.m in Sources */,
 				079917F01C61EA3900E5F3A2 /* html_smartypants.c in Sources */,

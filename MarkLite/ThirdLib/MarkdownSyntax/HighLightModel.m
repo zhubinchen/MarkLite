@@ -7,6 +7,7 @@
 //
 
 #import "HighLightModel.h"
+#import "Configure.h"
 
 @implementation HighLightModel
 
@@ -24,15 +25,8 @@
 
 - (NSDictionary *)attribute
 {
-//    UIFont *font = nil;
-
-//    if (_strong) {
-//        font = [UIFont boldSystemFontOfSize:_size];
-//    }else{
-//        font = [UIFont fontWithName:@"Hiragino Sans" size:_size];
-//    }
     return @{
-             NSFontAttributeName : [UIFont fontWithName:@"Hiragino Sans" size:_size],
+             NSFontAttributeName : [UIFont fontWithName:[Configure sharedConfigure].fontName size:_size],
              NSForegroundColorAttributeName : _textColor,
              NSBackgroundColorAttributeName : _backgroudColor,
              NSStrikethroughStyleAttributeName : @(_deletionLine ? NSUnderlineStyleSingle : NSUnderlineStyleNone)

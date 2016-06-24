@@ -31,8 +31,14 @@
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     
-    items = @[@[@"键盘辅助"],@[@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"]];
-    imgNames = @[@[@"Keyboard"],@[@"Help"],@[@"Star",@"FeedBack"],@[@"Info"]];
+    if (kDevicePad) {
+        items = @[@[@"键盘辅助",@"编辑器字体"],@[@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"]];
+        imgNames = @[@[@"Keyboard",@"Font"],@[@"Help"],@[@"Star",@"FeedBack"],@[@"Info"]];
+    }else{
+        items = @[@[@"键盘辅助"],@[@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"]];
+        imgNames = @[@[@"Keyboard"],@[@"Help"],@[@"Star",@"FeedBack"],@[@"Info"]];
+    }
+
 }
 
 - (void)back {
@@ -77,13 +83,17 @@
     SelectViewController *vc = [[SelectViewController alloc]init];
 
     if (indexPath.section == 0) {
-        vc.selectOptions = @[@"开启",@"关闭"];
-        vc.title = @"键盘辅助";
-        vc.defaultSelect = [Configure sharedConfigure].keyboardAssist ? 0 : 1;
-        vc.didSelected = ^(int index){
-            [Configure sharedConfigure].keyboardAssist = index == 0;
-        };
-        [self.navigationController pushViewController:vc animated:YES];
+        if (indexPath.row == 0) {
+            vc.selectOptions = @[@"开启",@"关闭"];
+            vc.title = @"键盘辅助";
+            vc.defaultSelect = [Configure sharedConfigure].keyboardAssist ? 0 : 1;
+            vc.didSelected = ^(int index){
+                [Configure sharedConfigure].keyboardAssist = index == 0;
+            };
+            [self.navigationController pushViewController:vc animated:YES];
+        }else{
+            [self performSegueWithIdentifier:@"font" sender:self];
+        }
     }else if (indexPath.section == 1) {
         NSArray *styles =  @[@"Clearness",@"Clearness Dark",@"GitHub",@"GitHub2",@"Solarized Dark",@"Solarized Light"];
         vc.selectOptions = styles;

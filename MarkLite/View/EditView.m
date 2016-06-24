@@ -7,6 +7,7 @@
 //
 
 #import "EditView.h"
+#import "Configure.h"
 #import "MarkdownSyntaxGenerator.h"
 
 @interface EditView ()
@@ -65,7 +66,7 @@
         NSArray *models = [self.markdownSyntaxGenerator syntaxModelsForText:self.text];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
         [attributedString addAttributes:@{
-                                          NSFontAttributeName : [UIFont fontWithName:@"Hiragino Sans" size:15],
+                                          NSFontAttributeName : [UIFont fontWithName:[Configure sharedConfigure].fontName size:15],
                                           NSForegroundColorAttributeName : [UIColor colorWithRGBString:@"1D1D44"]
                                           } range:NSMakeRange(0, attributedString.length)];
         for (MarkdownSyntaxModel *model in models) {

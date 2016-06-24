@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--入口-->
@@ -13,6 +14,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ex1-Yc-MUf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.12941176469999999" green="0.69019607839999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -88,24 +90,31 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="Tf8-QR-852">
                         <barButtonItem key="backBarButtonItem" title=" " id="gl4-yi-PkN"/>
-                        <barButtonItem key="rightBarButtonItem" title="预览" id="WQp-jO-Vcc">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <segue destination="rmd-nM-PLW" kind="show" id="Ow3-lL-ZNM"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="预览" id="dJG-lc-JA2">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="rmd-nM-PLW" kind="show" id="j9U-2J-nGb"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="字体" id="WQp-jO-Vcc">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="u3d-Hc-ksN" kind="presentation" id="lWf-jt-MVv"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="bottom" destination="dDw-T7-MNN" id="Qjd-qf-9U3"/>
                         <outlet property="editView" destination="zKb-UG-wmP" id="iZM-cP-EK8"/>
-                        <segue destination="rmd-nM-PLW" kind="show" identifier="preview" id="nAh-oH-Cz0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PqM-uW-6q0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3891.5" y="-1720.5"/>
+            <point key="canvasLocation" x="-3891.5" y="-1712.5"/>
         </scene>
         <!--预览-->
         <scene sceneID="az1-GD-zbF">
@@ -143,6 +152,65 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CXz-ml-4dY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3187.5" y="-1712.5"/>
+        </scene>
+        <!--Font View Controller-->
+        <scene sceneID="qVJ-Ml-5zu">
+            <objects>
+                <tableViewController id="FWg-09-DxF" customClass="FontViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Yzv-Fu-SSf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="dzG-vm-Bfw">
+                                <rect key="frame" x="0.0" y="113.5" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dzG-vm-Bfw" id="vAc-Mu-Pjs">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="FWg-09-DxF" id="LBV-2D-EKu"/>
+                            <outlet property="delegate" destination="FWg-09-DxF" id="MmV-Bi-15q"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="F2K-Yj-0pk">
+                        <barButtonItem key="backBarButtonItem" title=" " id="Pep-6A-lKE"/>
+                        <barButtonItem key="leftBarButtonItem" title="恢复默认" id="0dS-Yr-2j3">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="recoverDefault:" destination="FWg-09-DxF" id="gqC-0L-Feg"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="完成" id="9V0-PR-GgB">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="dismiss:" destination="FWg-09-DxF" id="4BA-LU-Wvt"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Nwk-Ua-agN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3187.5" y="-915.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="XyR-wq-DnG">
+            <objects>
+                <navigationController id="u3d-Hc-ksN" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="d3h-Ab-CXM">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="FWg-09-DxF" kind="relationship" relationship="rootViewController" id="CgJ-lF-rRZ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uvx-tz-3YT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3891.5" y="-905.5"/>
         </scene>
         <!--笔记-->
         <scene sceneID="gOy-2g-hjU">
@@ -378,7 +446,7 @@
         <image name="settings.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="nAh-oH-Cz0"/>
         <segue reference="n2c-A2-qau"/>
+        <segue reference="j9U-2J-nGb"/>
     </inferredMetricsTieBreakers>
 </document>

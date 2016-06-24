@@ -184,9 +184,12 @@
                             <outlet property="delegate" destination="I2i-9V-J9l" id="FZf-HM-n3Z"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="选项" image="1DFD615F-57B5-4550-98F0-E1ED6E6A38DF" id="cUx-cv-8Pe"/>
+                    <tabBarItem key="tabBarItem" title="选项" image="1DBDBC22-1837-4671-8954-3F6E5C411E65" id="cUx-cv-8Pe"/>
                     <navigationItem key="navigationItem" id="rMd-CP-7Md"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <segue destination="K0O-rG-JRS" kind="show" identifier="font" id="hiU-DG-dfV"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F6i-Za-6sf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -430,9 +433,52 @@
             </objects>
             <point key="canvasLocation" x="-493" y="-3482"/>
         </scene>
+        <!--Font View Controller-->
+        <scene sceneID="mTG-wU-E55">
+            <objects>
+                <tableViewController id="K0O-rG-JRS" customClass="FontViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="nHW-rh-o2e">
+                        <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="fJY-RQ-pib">
+                                <rect key="frame" x="0.0" y="49.5" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fJY-RQ-pib" id="lQP-J6-d3u">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="K0O-rG-JRS" id="bWh-Le-h5p"/>
+                            <outlet property="delegate" destination="K0O-rG-JRS" id="Oop-TR-yTN"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="LpA-yx-t0D">
+                        <barButtonItem key="backBarButtonItem" title=" " id="bMj-N0-zEh"/>
+                        <barButtonItem key="leftBarButtonItem" title="恢复默认" id="6PR-ap-HHB">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="recoverDefault:" destination="K0O-rG-JRS" id="XeL-dW-adi"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="恢复默认" id="lWn-EY-GhP">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="recoverDefault:" destination="K0O-rG-JRS" id="D38-eN-FCP"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SXb-hq-L6W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-869" y="-2139"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="1DFD615F-57B5-4550-98F0-E1ED6E6A38DF" width="25" height="25">
+        <image name="1DBDBC22-1837-4671-8954-3F6E5C411E65" width="25" height="25">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

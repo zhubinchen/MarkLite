@@ -39,6 +39,7 @@
     [aCoder encodeObject:self.highlightColor forKey:@"highlightColor"];
     [aCoder encodeObject:self.style forKey:@"style"];
     [aCoder encodeObject:self.themeColor forKey:@"themeColor"];
+    [aCoder encodeObject:self.fontName forKey:@"fontName"];
     [aCoder encodeBool:self.keyboardAssist forKey:@"keyboardAssist"];
 }
 
@@ -48,6 +49,7 @@
         self.highlightColor = [aDecoder decodeObjectForKey:@"highlightColor"];
         self.style = [aDecoder decodeObjectForKey:@"style"];
         self.themeColor = [aDecoder decodeObjectForKey:@"themeColor"];
+        self.fontName = [aDecoder decodeObjectForKey:@"fontName"];
         self.keyboardAssist = [aDecoder decodeBoolForKey:@"keyboardAssist"];
     }
     return self;
@@ -74,6 +76,7 @@
                         @"code":RGB(@"33A191"),
                         };
     _style = @"GitHub2";
+    _fontName = @"Hiragino Sans";
     _keyboardAssist = YES;
 }
 

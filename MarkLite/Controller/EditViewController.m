@@ -8,11 +8,12 @@
 
 #import "EditViewController.h"
 #import "PreviewViewController.h"
+#import "FileListViewController.h"
+#import "FontViewController.h"
 #import "EditView.h"
 #import "KeyboardBar.h"
 #import "FileManager.h"
 #import "Configure.h"
-#import "FileListViewController.h"
 #import "Item.h"
 
 @interface EditViewController () <UITextViewDelegate>
@@ -40,11 +41,18 @@
 
     if (kDevicePad) {
         [fm addObserver:self forKeyPath:@"currentItem" options:NSKeyValueObservingOptionNew context:NULL];
+        
         [[Configure sharedConfigure] addObserver:self forKeyPath:@"keyboardAssist" options:NSKeyValueObservingOptionNew context:NULL];
+        [[Configure sharedConfigure] addObserver:self forKeyPath:@"fontName" options:NSKeyValueObservingOptionNew context:NULL];
     }
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self.editView updateSyntax];
 }
 
 - (void)viewWillLayoutSubviews
@@ -81,6 +89,8 @@
 {
     if ([keyPath isEqualToString:@"currentItem"]) {
         [self loadFile];
+    }else if ([keyPath isEqualToString:@"fontName"]) {
+        [self.editView updateSyntax];
     }else{
         if ([change[@"new"] boolValue]) {
             KeyboardBar *bar = [[KeyboardBar alloc]init];
@@ -190,6 +200,7 @@
     if (kDevicePad){
         [fm removeObserver:self forKeyPath:@"currentItem" context:NULL];
         [[Configure sharedConfigure] removeObserver:self forKeyPath:@"keyboardAssist"];
+        [[Configure sharedConfigure] removeObserver:self forKeyPath:@"fontName"];
     }
 }
 
