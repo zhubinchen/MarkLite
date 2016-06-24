@@ -386,7 +386,7 @@
         showToast(@"不支持文件夹导出");
         return;
     }
-    NSURL *url = [NSURL fileURLWithPath:[fm fullPathForPath:i.path]];
+    NSURL *url = [NSURL fileURLWithPath:[fm completePath:i.path]];
     NSArray *objectsToShare = @[url];
     
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];

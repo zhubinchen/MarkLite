@@ -88,10 +88,10 @@
         [_root addChild:temp];
         
         if (temp.type == FileTypeText) {
-            NSMutableDictionary *attr = [fm attributesOfItemAtPath:[self fullPathForPath:fileName] error:nil].mutableCopy;
+            NSMutableDictionary *attr = [fm attributesOfItemAtPath:[self completePath:fileName] error:nil].mutableCopy;
             attr[NSFileCreationDate] = [NSDate date];
             attr[NSFileModificationDate] = [NSDate date];
-            [fm setAttributes:attr ofItemAtPath:[self fullPathForPath:fileName] error:nil];
+            [fm setAttributes:attr ofItemAtPath:[self completePath:fileName] error:nil];
         }
     }
 }
@@ -99,7 +99,7 @@
 - (void)createFolder:(NSString *)path
 {
     NSError *error = nil;
-    NSString* fullPath = [self fullPathForPath:path];
+    NSString* fullPath = [self completePath:path];
     if (![fm fileExistsAtPath:fullPath]) {
         [fm createDirectoryAtPath:fullPath withIntermediateDirectories:YES attributes:nil error:&error];
         NSLog(@"creating dir:%@",fullPath);
@@ -113,7 +113,7 @@
 
 - (BOOL)createFile:(NSString *)path Content:(NSData *)content
 {
-    NSString* fullPath = [self fullPathForPath:path];
+    NSString* fullPath = [self completePath:path];
 
     if (![fm fileExistsAtPath:fullPath]) {
         BOOL ret = [fm createFileAtPath:fullPath contents:content attributes:nil];
@@ -126,11 +126,19 @@
     return NO;
 }
 
+- (BOOL)saveFile:(NSString *)path Content:(NSData *)content
+{
+    if (![fm fileExistsAtPath:[self completePath:path]]) {
+        return NO;
+    }
+    return [content writeToFile:[self completePath:path] atomically:YES];
+}
+
 - (void)deleteFile:(NSString *)path
 {
     NSError *error = nil;
 
-    [fm removeItemAtPath:[self fullPathForPath:path] error:&error];
+    [fm removeItemAtPath:[self completePath:path] error:&error];
     if (error) {
         NSLog(@"%@",error);
     }else{
@@ -141,8 +149,8 @@
 - (BOOL)moveFile:(NSString *)path toNewPath:(NSString *)newPath
 {
     NSError *error = nil;
-    if (![fm fileExistsAtPath:[self fullPathForPath:newPath]]) {
-        BOOL ret = [fm moveItemAtPath:[self fullPathForPath:path] toPath:[self fullPathForPath:newPath] error:&error];
+    if (![fm fileExistsAtPath:[self completePath:newPath]]) {
+        BOOL ret = [fm moveItemAtPath:[self completePath:path] toPath:[self completePath:newPath] error:&error];
         if (ret) {
             [self notify];
         }
@@ -151,18 +159,14 @@
     return NO;
 }
 
-- (NSString *)fullPathForPath:(NSString *)path
+- (NSString *)completePath:(NSString *)path
 {
-    
-    if ([path containsString:@"var/mobile/Containers"]) {
-        return path;
-    }
     return [NSString pathWithComponents:@[_workSpace,path]];
 }
 
-- (NSDictionary *)attributeOfItem:(Item *)item
+- (NSDictionary *)attributeOfPath:(NSString *)path
 {
-    return [fm attributesOfItemAtPath:[self fullPathForPath:item.path] error:nil];
+    return [fm attributesOfItemAtPath:[self completePath:path] error:nil];
 }
 
 - (void)notify

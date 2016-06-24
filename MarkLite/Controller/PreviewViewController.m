@@ -49,7 +49,7 @@
 
 - (void)loadFile
 {
-    NSString *path = [fm fullPathForPath:[fm currentItem].path];
+    NSString *path = [fm completePath:[fm currentItem].path];
     NSArray *arr = [path componentsSeparatedByString:@"."];
     NSString *ex = arr.lastObject;
     if ([ex isEqualToString:@"png"] || [ex isEqualToString:@"jpeg"] || [ex isEqualToString:@"jpg"] || [ex isEqualToString:@"gif"]) {

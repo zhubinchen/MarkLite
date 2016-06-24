@@ -19,16 +19,21 @@
 
 + (instancetype)sharedManager;
 
+
+#pragma 以下出现的所有path均为相对workspace的路径
+
 - (void)createFolder:(NSString*)path;
 
 - (BOOL)createFile:(NSString*)path Content:(NSData*)content;
+
+- (BOOL)saveFile:(NSString*)path Content:(NSData*)content;
 
 - (void)deleteFile:(NSString*)path;
 
 - (BOOL)moveFile:(NSString*)path toNewPath:(NSString*)newPath;
 
-- (NSString *)fullPathForPath:(NSString *)path;
+- (NSString *)completePath:(NSString *)path;
 
-- (NSDictionary*)attributeOfItem:(Item*)item;
+- (NSDictionary*)attributeOfPath:(NSString*)path;
 
 @end

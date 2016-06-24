@@ -15,7 +15,11 @@ typedef enum : NSUInteger {
     FileTypeOther,
 } FileType;
 
-@interface Item : NSObject
+
+/**
+ *  代表一个文件对象，真正的文件操作由FileManager完成
+ */
+@interface Item : NSObject  
 
 @property (nonatomic,strong)            NSString   *path;      //相对MarkLite目录的路径
 
@@ -34,7 +38,7 @@ typedef enum : NSUInteger {
 
 @property (nonatomic,strong,readonly)   NSString   *extention; // 扩展名
 
-@property (nonatomic,strong,readonly)   NSString   *name; //文件名，不含扩展名
+@property (nonatomic,strong,readonly)   NSString   *name;      //文件名，不含扩展名
 
 - (NSArray*)searchResult:(NSString*)searchText;
 
