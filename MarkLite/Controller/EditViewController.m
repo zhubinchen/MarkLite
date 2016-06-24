@@ -67,7 +67,6 @@
     // 第三方键盘回调三次问题，监听仅执行最后一次
     if(begin.size.height>0 && (begin.origin.y-end.origin.y>0)){
         self.bottom.constant = keyboardHeight;
-        NSLog(@"%@",self.bottom);
         [self.view layoutIfNeeded];
     }
 }
@@ -158,7 +157,7 @@
 
     self.title = item.name;
     
-    NSString *path = [fm completePath:item.path];
+    NSString *path = [fm localPath:item.path];
     NSString *htmlStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     
     self.editView.text = htmlStr;

@@ -8,8 +8,6 @@
 
 #import "TabBarController.h"
 #import "MenuViewController.h"
-#import "FileManager.h"
-#import "Item.h"
 
 @interface UIViewController ()
 
@@ -19,8 +17,6 @@
 @end
 
 @interface TabBarController ()
-
-@property (nonatomic,strong) Item *root;
 
 @end
 
@@ -39,8 +35,6 @@ static TabBarController *tabVc = nil;
     self.navigationItem.hidesBackButton = YES;
 
     tabVc = self;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(update:) name:@"ItemsChangedNotification" object:nil];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self star];
@@ -79,12 +73,6 @@ static TabBarController *tabVc = nil;
     [alert show];
     
     [[NSUserDefaults standardUserDefaults] setObject:now forKey:@"last_alert"];
-}
-
-
-- (void)update:(NSNotification*)noti
-{
-    [_root archive];
 }
 
 - (void)setSelectedViewController:(UIViewController *)selectedViewController

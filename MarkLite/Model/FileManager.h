@@ -13,6 +13,8 @@
 
 @property (nonatomic,strong,readonly) NSString *workSpace;
 
+@property (nonatomic,strong,readonly) NSString *iCloudSpace;
+
 @property (nonatomic,strong,readonly) Item *root;
 
 @property (nonatomic,strong) Item *currentItem; //用来共享同一对象
@@ -28,11 +30,11 @@
 
 - (BOOL)saveFile:(NSString*)path Content:(NSData*)content;
 
-- (void)deleteFile:(NSString*)path;
+- (BOOL)deleteFile:(NSString*)path;
 
 - (BOOL)moveFile:(NSString*)path toNewPath:(NSString*)newPath;
 
-- (NSString *)completePath:(NSString *)path;
+- (NSString *)localPath:(NSString *)path;
 
 - (NSDictionary*)attributeOfPath:(NSString*)path;
 

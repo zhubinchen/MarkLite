@@ -24,6 +24,7 @@
     if (self = [super init]) {
         self.children = [NSMutableArray array];
         _type = FileTypeOther;
+        _open = NO;
     }
     return self;
 }
@@ -87,7 +88,7 @@
 - (void)setPath:(NSString *)path
 {
     _path = path;
-    NSLog(@"%@",path);
+
     NSArray *arr = [path componentsSeparatedByString:@"."];
     if (arr.count > 1) {
         NSString *ex = arr.lastObject;
@@ -150,7 +151,7 @@
         if (self.children == nil) {
             self.children = [NSMutableArray array];
         }
-        _open = YES;
+        _open = NO;
     }
     return self;
 }

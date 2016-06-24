@@ -8,7 +8,8 @@
 
 #import "FileManager.h"
 #import "ZipArchive.h"
-#import "CloudManager.h"
+
+#define UBIQUITY_CONTAINER_URL @"iCloud.com.zhubch.MarkLite"
 
 @implementation FileManager
 {
@@ -41,15 +42,47 @@
 
         if ([[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
             _root = [NSKeyedUnarchiver unarchiveObjectWithFile:plistPath];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [[[CloudManager alloc]init] uploadFile:plistPath];
-            });
         }else{
             [self createWorkspace];
             [_root archive];
         }
+        _root.open = YES;
+        dispatch_async(dispatch_queue_create("zbc", DISPATCH_QUEUE_CONCURRENT), ^{
+            [self createCloudspace];
+        });
     }
     return self;
+}
+
+- (void)createCloudspace
+{
+    NSURL *ubiquityURL = [[[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil]URLByAppendingPathComponent:@"Documents"];
+    if (!ubiquityURL) {
+        return ;
+    }
+    
+    _iCloudSpace = [ubiquityURL path];
+    
+    if (![fm fileExistsAtPath:_iCloudSpace]){
+        NSLog(@"create iCloudPath");
+        [fm createDirectoryAtPath:_iCloudSpace withIntermediateDirectories:YES attributes:nil error:nil];
+    } else {
+        NSLog(@"iCloudPath");
+    }
+    NSLog(@"iCloudPath: %@", _iCloudSpace);
+    
+    for (Item *i in _root.itemsCanReach) {
+        NSError *err = nil;
+        if ([fm fileExistsAtPath:[self remotePath:i.path]]) {
+            continue;
+        }
+        NSURL *localUrl = [NSURL fileURLWithPath:[self localPath:i.path]];
+        NSURL *remoteUrl = [NSURL fileURLWithPath:[self remotePath:i.path]];
+//        [fm setUbiquitous:YES itemAtURL:localUrl destinationURL:remoteUrl error:&err];
+        [fm copyItemAtURL:localUrl toURL:remoteUrl error:&err];
+//        [fm copyItemAtPath:[self localPath:i.path] toPath:[self remotePath:i.path] error:&err];
+        NSLog(@"%@",err);
+    }
 }
 
 - (void)createWorkspace
@@ -88,10 +121,10 @@
         [_root addChild:temp];
         
         if (temp.type == FileTypeText) {
-            NSMutableDictionary *attr = [fm attributesOfItemAtPath:[self completePath:fileName] error:nil].mutableCopy;
+            NSMutableDictionary *attr = [fm attributesOfItemAtPath:[self localPath:fileName] error:nil].mutableCopy;
             attr[NSFileCreationDate] = [NSDate date];
             attr[NSFileModificationDate] = [NSDate date];
-            [fm setAttributes:attr ofItemAtPath:[self completePath:fileName] error:nil];
+            [fm setAttributes:attr ofItemAtPath:[self localPath:fileName] error:nil];
         }
     }
 }
@@ -99,81 +132,145 @@
 - (void)createFolder:(NSString *)path
 {
     NSError *error = nil;
-    NSString* fullPath = [self completePath:path];
-    if (![fm fileExistsAtPath:fullPath]) {
-        [fm createDirectoryAtPath:fullPath withIntermediateDirectories:YES attributes:nil error:&error];
-        NSLog(@"creating dir:%@",fullPath);
+    NSString* localPath = [self localPath:path];
+    NSString* remotePath = [self remotePath:path];
+    if (![fm fileExistsAtPath:localPath]) {
+        [fm createDirectoryAtPath:localPath withIntermediateDirectories:YES attributes:nil error:&error];
+        NSLog(@"creating dir:%@",localPath);
+        if (error) {
+            NSLog(@"%@",error);
+        }else{
+            [self notify];
+        }
     }
-    if (error) {
-        NSLog(@"%@",error);
-    }else{
-        [self notify];
+    if (![fm fileExistsAtPath:remotePath]) {
+        [fm createDirectoryAtPath:remotePath withIntermediateDirectories:YES attributes:nil error:&error];
+        NSLog(@"creating dir:%@",remotePath);
+        if (error) {
+            NSLog(@"%@",error);
+        }
     }
 }
 
 - (BOOL)createFile:(NSString *)path Content:(NSData *)content
 {
-    NSString* fullPath = [self completePath:path];
-
-    if (![fm fileExistsAtPath:fullPath]) {
-        BOOL ret = [fm createFileAtPath:fullPath contents:content attributes:nil];
-        NSLog(@"creating file:%@",fullPath);
-        if (ret) {
-            [self notify];
-        }
-        return ret;
+    NSString* localPath = [self localPath:path];
+    NSString* remotePath = [self remotePath:path];
+    
+    if ([fm fileExistsAtPath:localPath]) {
+        return NO;
     }
-    return NO;
+    BOOL ret = [fm createFileAtPath:localPath contents:content attributes:nil];
+    NSLog(@"creating file:%@",localPath);
+    if (ret) {
+        [self notify];
+    }else{
+        return NO;
+    }
+    
+    if (![fm fileExistsAtPath:remotePath]) {
+        [fm createFileAtPath:remotePath contents:content attributes:nil];
+        NSLog(@"creating file:%@",remotePath);
+    }
+    
+    return YES;
 }
 
 - (BOOL)saveFile:(NSString *)path Content:(NSData *)content
 {
-    if (![fm fileExistsAtPath:[self completePath:path]]) {
+    NSString* localPath = [self localPath:path];
+    NSString* remotePath = [self remotePath:path];
+    
+    if (![fm fileExistsAtPath:localPath]) {
         return NO;
     }
-    return [content writeToFile:[self completePath:path] atomically:YES];
+    BOOL ret = [content writeToFile:localPath atomically:YES];
+    if (!ret) {
+        return NO;
+    }
+    if (![fm fileExistsAtPath:remotePath]) {
+        [fm createFileAtPath:remotePath contents:content attributes:nil];
+    }
+    ret = [content writeToFile:remotePath atomically:YES];
+    return YES;
 }
 
-- (void)deleteFile:(NSString *)path
+- (BOOL)deleteFile:(NSString *)path
 {
     NSError *error = nil;
 
-    [fm removeItemAtPath:[self completePath:path] error:&error];
+    NSString* localPath = [self localPath:path];
+    NSString* remotePath = [self remotePath:path];
+    
+    if (![fm fileExistsAtPath:localPath]) {
+        return NO;
+    }
+
+    [fm removeItemAtPath:localPath error:&error];
     if (error) {
         NSLog(@"%@",error);
+        return NO;
     }else{
         [self notify];
     }
+    [fm removeItemAtPath:remotePath error:&error];
+    if (error) {
+        NSLog(@"%@",error);
+    }
+    return YES;
 }
 
 - (BOOL)moveFile:(NSString *)path toNewPath:(NSString *)newPath
 {
     NSError *error = nil;
-    if (![fm fileExistsAtPath:[self completePath:newPath]]) {
-        BOOL ret = [fm moveItemAtPath:[self completePath:path] toPath:[self completePath:newPath] error:&error];
-        if (ret) {
-            [self notify];
-        }
-        return ret;
+    NSString* localPath = [self localPath:path];
+    NSString* remotePath = [self remotePath:path];
+    NSString* newLocalPath = [self localPath:newPath];
+    NSString* newremotePath = [self remotePath:newPath];
+
+    if (![fm fileExistsAtPath:localPath]) {
+        return NO;
     }
-    return NO;
+    if ([fm fileExistsAtPath:newLocalPath]) {
+        return NO;
+    }
+    BOOL ret = [fm moveItemAtPath:localPath toPath:newLocalPath error:&error];
+    if (ret) {
+        [self notify];
+    }else{
+        NSLog(@"%@",error);
+        return NO;
+    }
+    [fm moveItemAtPath:remotePath toPath:newremotePath error:&error];
+    if (error) {
+        NSLog(@"%@",error);
+    }
+    return YES;
 }
 
-- (NSString *)completePath:(NSString *)path
+- (NSString *)localPath:(NSString *)path
 {
     return [NSString pathWithComponents:@[_workSpace,path]];
 }
 
+- (NSString*)remotePath:(NSString*)path
+{
+    return [NSString pathWithComponents:@[_iCloudSpace,path]];
+}
+
 - (NSDictionary *)attributeOfPath:(NSString *)path
 {
-    return [fm attributesOfItemAtPath:[self completePath:path] error:nil];
+    return [fm attributesOfItemAtPath:[self localPath:path] error:nil];
 }
 
 - (void)notify
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"ItemsChangedNotification" object:_root];
-    });
+    [_root archive];
+
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [_root archive];
+//        [[NSNotificationCenter defaultCenter]postNotificationName:@"ItemsChangedNotification" object:_root];
+//    });
 }
 
 @end

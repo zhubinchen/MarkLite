@@ -122,7 +122,6 @@
 		07A4C40E1D015E6500AE995A /* QNResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A4C4001D015E6500AE995A /* QNResolver.m */; };
 		07A4C40F1D015E6500AE995A /* QNDes.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A4C4031D015E6500AE995A /* QNDes.m */; };
 		07A4C4101D015E6500AE995A /* QNHex.m in Sources */ = {isa = PBXBuildFile; fileRef = 07A4C4051D015E6500AE995A /* QNHex.m */; };
-		07B92D3A1D1B836B00A4127E /* CloudManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B92D391D1B836B00A4127E /* CloudManager.m */; };
 		07B92D461D1BB23C00A4127E /* add_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07B92D3B1D1BB23C00A4127E /* add_image@2x.png */; };
 		07B92D471D1BB23C00A4127E /* add_link@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07B92D3C1D1BB23C00A4127E /* add_link@2x.png */; };
 		07B92D481D1BB23C00A4127E /* check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07B92D3D1D1BB23C00A4127E /* check@2x.png */; };
@@ -360,8 +359,6 @@
 		07A4C4031D015E6500AE995A /* QNDes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNDes.m; sourceTree = "<group>"; };
 		07A4C4041D015E6500AE995A /* QNHex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QNHex.h; sourceTree = "<group>"; };
 		07A4C4051D015E6500AE995A /* QNHex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QNHex.m; sourceTree = "<group>"; };
-		07B92D381D1B836B00A4127E /* CloudManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloudManager.h; sourceTree = "<group>"; };
-		07B92D391D1B836B00A4127E /* CloudManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloudManager.m; sourceTree = "<group>"; };
 		07B92D3B1D1BB23C00A4127E /* add_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_image@2x.png"; sourceTree = "<group>"; };
 		07B92D3C1D1BB23C00A4127E /* add_link@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_link@2x.png"; sourceTree = "<group>"; };
 		07B92D3D1D1BB23C00A4127E /* check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@2x.png"; sourceTree = "<group>"; };
@@ -483,8 +480,6 @@
 				079916701C61EA3800E5F3A2 /* Configure.m */,
 				079916711C61EA3800E5F3A2 /* FileManager.h */,
 				079916721C61EA3800E5F3A2 /* FileManager.m */,
-				07B92D381D1B836B00A4127E /* CloudManager.h */,
-				07B92D391D1B836B00A4127E /* CloudManager.m */,
 				079916751C61EA3800E5F3A2 /* Item.h */,
 				079916761C61EA3800E5F3A2 /* Item.m */,
 			);
@@ -1087,7 +1082,6 @@
 				079918161C61EA3900E5F3A2 /* QNCrc32.m in Sources */,
 				07A4C4081D015E6500AE995A /* QNNetworkInfo.m in Sources */,
 				0799186D1C61EC6900E5F3A2 /* TabBarController.m in Sources */,
-				07B92D3A1D1B836B00A4127E /* CloudManager.m in Sources */,
 				079918131C61EA3900E5F3A2 /* GTM_Base64.m in Sources */,
 				079918231C61EA3900E5F3A2 /* QNFileRecorder.m in Sources */,
 				079917EF1C61EA3900E5F3A2 /* html_blocks.c in Sources */,
