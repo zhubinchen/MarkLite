@@ -19,24 +19,10 @@
 
 - (void)gotoStartPage
 {
-    [[TabBarController currentViewContoller].navigationController popToViewController:[TabBarController currentViewContoller].navigationController.viewControllers[1] animated:NO];
+    [[TabBarController currentViewContoller].navigationController popToRootViewControllerAnimated:YES];
     [TabBarController currentViewContoller].selectedIndex = 0;
 }
 
-- (void)initializeWorkSapce
-{
-    FileManager *fm = [FileManager sharedManager];
-    
-    NSString *plistPath = [[NSString documentPath] stringByAppendingPathComponent:@"root.plist"];
-    
-    if ([[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
-        fm.root = [NSKeyedUnarchiver unarchiveObjectWithFile:plistPath];
-    }else{
-        FileManager *fm = [FileManager sharedManager];
-        [fm initWorkSpace];
-        [fm.root archive];
-    }
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
@@ -44,9 +30,7 @@
     [[UITabBar appearance] setTintColor:kThemeColor];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setBarTintColor:kThemeColor];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    [self initializeWorkSapce];
-    
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor whiteColor]}];    
     
     return YES;
 }

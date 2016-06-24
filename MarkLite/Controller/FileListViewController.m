@@ -140,7 +140,7 @@
         }
     }
     
-    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"请选择要进行的操作" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"新建文本",@"创建文件夹",@"选取图片或视频", nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"请选择要进行的操作" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"新建文本",@"创建文件夹",@"选取图片", nil];
     sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *sheet){
         if (buttonIndex == 2) {
             UIImagePickerController *vc = [[UIImagePickerController alloc]init];

@@ -14,8 +14,6 @@
 #import "Configure.h"
 #import "FileListViewController.h"
 #import "Item.h"
-#import "FileSyncManager.h"
-#import "User.h"
 
 @interface EditViewController () <UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottom;
@@ -186,19 +184,6 @@
     
     NSData *content = [self.editView.text dataUsingEncoding:NSUTF8StringEncoding];
     [content writeToFile:[fm fullPathForPath:item.path] atomically:YES];
-    
-    if (![User currentUser].hasLogin) {
-        return;
-    }
-    [[FileSyncManager sharedManager] uploadFile:item progressHandler:^(float percent) {
-        NSLog(@"upload %@: %.2f",item.path,percent);
-    } result:^(BOOL success) {
-        if (success) {
-            item.syncStatus = SyncStatusSuccess;
-        }else{
-            item.syncStatus = SyncStatusUnUpload;
-        }
-    }];
 }
 
 - (void)dealloc

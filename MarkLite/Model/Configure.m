@@ -17,7 +17,7 @@
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
-        NSString *path = [[NSString documentPath] stringByAppendingPathComponent:@"Configure.plist"];
+        NSString *path = [documentPath() stringByAppendingPathComponent:@"Configure.plist"];
         if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
             conf = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
         }else{
@@ -30,7 +30,7 @@
 
 - (BOOL)saveToFile
 {
-    NSString *path = [[NSString documentPath] stringByAppendingPathComponent:@"Configure.plist"];
+    NSString *path = [documentPath() stringByAppendingPathComponent:@"Configure.plist"];
     
     return [NSKeyedArchiver archiveRootObject:self toFile:path];
 }
@@ -65,13 +65,13 @@
     _highlightColor = @{
                         @"title":RGB(@"488FE1"),
                         @"link":RGB(@"465DC6"),
-                        @"image":RGB(@"A17A8C"),
+                        @"image":RGB(@"5245AE"),
                         @"bold":RGB(@"000000"),
-                        @"quotes":RGB(@"60736B"),
-                        @"deletion":RGB(@"916132"),
+                        @"quotes":RGB(@"AE8A86"),
+                        @"deletion":RGB(@"747270"),
                         @"separate":RGB(@"BD1586"),
-                        @"list":RGB(@"543429"),
-                        @"code":RGB(@"7FA684"),
+                        @"list":RGB(@"49362E"),
+                        @"code":RGB(@"33A191"),
                         };
     _style = @"GitHub2";
     _keyboardAssist = YES;

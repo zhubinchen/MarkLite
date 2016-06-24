@@ -82,10 +82,6 @@
  */
 + (NSString*)stringWithCurrentTime;
 
-/**
- *  document目录
- */
-+ (NSString*)documentPath;
 
 @end
 
@@ -361,4 +357,8 @@ static inline NSString* stringFromInt(int num){
 
 static inline NSString* stringFromFloat(float num){
     return [NSString stringWithFormat:@"%.4f",num];
+}
+
+static inline NSString *documentPath(){
+    return NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
 }

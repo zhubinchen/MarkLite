@@ -27,7 +27,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"export"] style:UIBarButtonItemStylePlain target:self action:@selector(export)];
     fm = [FileManager sharedManager];
    
     if (kDevicePhone) {
@@ -59,6 +58,7 @@
         NSString *html = [NSString stringWithContentsOfFile:imageHtmlFile encoding:NSUTF8StringEncoding error:nil];
         html = [NSString stringWithFormat:html,url.absoluteString];
         _webView.scalesPageToFit = YES;
+        self.navigationItem.rightBarButtonItem = nil;
         [_webView loadHTMLString:html baseURL:nil];
     }else{
         hoedown_renderer *render = CreateHTMLRenderer();
@@ -74,12 +74,13 @@
 //        NSLog(@"%@",htmlString);
         _webView.scalesPageToFit = NO;
         [_webView loadHTMLString:htmlString baseURL:[NSURL fileURLWithPath:path]];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"export"] style:UIBarButtonItemStylePlain target:self action:@selector(export)];
     }
 }
 
 - (void)export
 {
-    NSURL *url = [NSURL fileURLWithPath:[[NSString documentPath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.html",[fm currentItem].name]]];
+    NSURL *url = [NSURL fileURLWithPath:[documentPath() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.html",[fm currentItem].name]]];
     if (htmlString) {
         [htmlString writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:nil];
     }

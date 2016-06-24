@@ -66,7 +66,7 @@
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
         [attributedString addAttributes:@{
                                           NSFontAttributeName : [UIFont fontWithName:@"Hiragino Sans" size:15],
-                                          NSForegroundColorAttributeName : [UIColor colorWithRGBString:@"536775"]
+                                          NSForegroundColorAttributeName : [UIColor colorWithRGBString:@"1D1D44"]
                                           } range:NSMakeRange(0, attributedString.length)];
         for (MarkdownSyntaxModel *model in models) {
             [attributedString addAttributes:AttributesFromMarkdownSyntaxType(model.type) range:model.range];

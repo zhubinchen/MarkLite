@@ -10,7 +10,6 @@
 #import "MenuViewController.h"
 #import "FileManager.h"
 #import "Item.h"
-#import "User.h"
 
 @interface UIViewController ()
 
@@ -28,9 +27,7 @@
 static TabBarController *tabVc = nil;
 
 @implementation TabBarController
-{
-    NSMutableArray *itemsToDownload;
-}
+
 
 + (instancetype)currentViewContoller
 {
@@ -42,8 +39,6 @@ static TabBarController *tabVc = nil;
     self.navigationItem.hidesBackButton = YES;
 
     tabVc = self;
-
-    itemsToDownload = [NSMutableArray array];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(update:) name:@"ItemsChangedNotification" object:nil];
     
@@ -89,7 +84,6 @@ static TabBarController *tabVc = nil;
 
 - (void)update:(NSNotification*)noti
 {
-    _root.needUpdate = YES;
     [_root archive];
 }
 

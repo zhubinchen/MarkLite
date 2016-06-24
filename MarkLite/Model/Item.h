@@ -15,41 +15,26 @@ typedef enum : NSUInteger {
     FileTypeOther,
 } FileType;
 
-typedef enum : NSUInteger {
-    SyncStatusSuccess,
-    SyncStatusUnDownload,
-    SyncStatusUnUpload,
-} SyncStatus;
-
 @interface Item : NSObject
 
-@property (nonatomic,strong)            NSString   *path;
+@property (nonatomic,strong)            NSString   *path;      //相对MarkLite目录的路径
 
-@property (nonatomic,strong)            NSString   *createTime;
+@property (nonatomic,assign)            BOOL       open;       //目录是否展开
 
-@property (nonatomic,assign)            BOOL       open;
+@property (nonatomic,weak)              Item       *parent;    //父目录
 
-@property (nonatomic,assign)            NSInteger  tag;
+#pragma 只读属性
+@property (nonatomic,assign,readonly)   NSInteger  deep;          //目录深度
 
-@property (nonatomic,strong)            NSMutableArray     *children;
+@property (nonatomic,assign,readonly)   FileType   type;          //文件类型
 
-@property (nonatomic,weak)              Item       *parent;
+@property (nonatomic,strong,readonly)   NSArray    *itemsCanReach; // 当前目录所有能看到的文件
 
-@property (nonatomic,assign)            SyncStatus syncStatus;
+@property (nonatomic,strong,readonly)   NSArray    *items;     // 当前目录所有文件
 
-@property (nonatomic,assign)            BOOL       needUpdate;
+@property (nonatomic,strong,readonly)   NSString   *extention; // 扩展名
 
-@property (nonatomic,assign,readonly)   NSInteger  deep;
-
-@property (nonatomic,assign,readonly)   FileType   type;
-
-@property (nonatomic,strong,readonly)   NSArray    *itemsCanReach;
-
-@property (nonatomic,strong,readonly)   NSArray    *items;
-
-@property (nonatomic,strong,readonly)   NSString   *extention;
-
-@property (nonatomic,strong,readonly)   NSString   *name;
+@property (nonatomic,strong,readonly)   NSString   *name; //文件名，不含扩展名
 
 - (NSArray*)searchResult:(NSString*)searchText;
 

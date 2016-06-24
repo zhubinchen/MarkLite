@@ -8,10 +8,16 @@
 
 #import "FileManager.h"
 #import "ZipArchive.h"
+#import "CloudManager.h"
 
 @implementation FileManager
 {
     NSFileManager *fm;
+}
+
++ (void)initialize
+{
+    [self sharedManager];
 }
 
 + (instancetype)sharedManager
@@ -30,22 +36,24 @@
 {
     if (self = [super init]) {
         fm = [NSFileManager defaultManager];
-        
+        NSString *plistPath = [documentPath() stringByAppendingPathComponent:@"root.plist"];
+        _workSpace = [NSString pathWithComponents:@[documentPath(),@"MarkLite"]];
+
+        if ([[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
+            _root = [NSKeyedUnarchiver unarchiveObjectWithFile:plistPath];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [[[CloudManager alloc]init] uploadFile:plistPath];
+            });
+        }else{
+            [self createWorkspace];
+            [_root archive];
+        }
     }
     return self;
 }
 
-- (void)setRoot:(Item *)root
+- (void)createWorkspace
 {
-    _root = root;
-    _workSpace = [NSString pathWithComponents:@[[NSString documentPath],_root.path]];
-    NSLog(@"creating workSpace:%@",_workSpace);
-}
-
-- (void)initWorkSpace
-{
-    _workSpace = [NSString pathWithComponents:@[[NSString documentPath],@"MarkLite"]];
-    
     if (![fm fileExistsAtPath:_workSpace]) {
         
         [fm createDirectoryAtPath:_workSpace withIntermediateDirectories:YES attributes:nil error:nil];
@@ -57,7 +65,7 @@
         
         [zipArchive UnzipOpenFile:path];
         
-        [zipArchive UnzipFileTo:[NSString documentPath] overWrite:YES];
+        [zipArchive UnzipFileTo:documentPath() overWrite:YES];
 
         [self notify];
     }
@@ -145,6 +153,7 @@
 
 - (NSString *)fullPathForPath:(NSString *)path
 {
+    
     if ([path containsString:@"var/mobile/Containers"]) {
         return path;
     }

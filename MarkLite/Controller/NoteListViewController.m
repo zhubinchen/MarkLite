@@ -36,13 +36,13 @@
     [super viewDidLoad];
     
     _fm = [FileManager sharedManager];
+    _fm.currentItem = dataArray.firstObject;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:@"ItemsChangedNotification" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [self reload];
-    _fm.currentItem = dataArray.firstObject;
 }
 
 - (void)reload

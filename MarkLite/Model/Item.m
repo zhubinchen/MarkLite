@@ -8,6 +8,12 @@
 
 #import "Item.h"
 
+@interface Item()
+
+@property (nonatomic,strong)  NSMutableArray     *children;
+
+@end
+
 @implementation Item
 {
     Item *last;
@@ -81,6 +87,7 @@
 - (void)setPath:(NSString *)path
 {
     _path = path;
+    NSLog(@"%@",path);
     NSArray *arr = [path componentsSeparatedByString:@"."];
     if (arr.count > 1) {
         NSString *ex = arr.lastObject;
@@ -131,18 +138,14 @@
 -(void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:self.children forKey:@"children"];
     [aCoder encodeObject:self.path forKey:@"path"];
-    [aCoder encodeInteger:self.tag forKey:@"tag"];
     [aCoder encodeObject:self.parent forKey:@"parent"];
-    [aCoder encodeObject:self.createTime forKey:@"createTime"];
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
     if (self=[super init]) {
         self.path = [aDecoder decodeObjectForKey:@"path"];
-        self.createTime = [aDecoder decodeObjectForKey:@"createTime"];
         self.parent = [aDecoder decodeObjectForKey:@"parent"];
-        self.tag = [aDecoder decodeIntegerForKey:@"tag"];
         self.children=[[aDecoder decodeObjectForKey:@"children"] mutableCopy];
         if (self.children == nil) {
             self.children = [NSMutableArray array];
@@ -154,7 +157,7 @@
 
 - (BOOL)archive
 {
-    NSString *path = [[NSString documentPath] stringByAppendingPathComponent:@"root.plist"];
+    NSString *path = [documentPath() stringByAppendingPathComponent:@"root.plist"];
     
     return [NSKeyedArchiver archiveRootObject:self toFile:path];
 }

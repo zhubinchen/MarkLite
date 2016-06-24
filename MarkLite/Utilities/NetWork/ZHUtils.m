@@ -113,11 +113,6 @@
     return string;
 }
 
-+ (NSString *)documentPath
-{
-    return NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-}
-
 - (CGSize)sizeWithFont:(UIFont *)font maxSize:(CGSize)maxSize
 {
     NSDictionary * attributes = [NSDictionary dictionaryWithObject:font forKey:NSFontAttributeName];
