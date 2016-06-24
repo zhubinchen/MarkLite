@@ -14,7 +14,11 @@
 
 @interface PreviewViewController () <UIWebViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UIWebView *webView;
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *width;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *height;
 
 @end
 
@@ -50,16 +54,14 @@
 - (void)loadFile
 {
     NSString *path = [fm localPath:[fm currentItem].path];
-    NSArray *arr = [path componentsSeparatedByString:@"."];
-    NSString *ex = arr.lastObject;
-    if ([ex isEqualToString:@"png"] || [ex isEqualToString:@"jpeg"] || [ex isEqualToString:@"jpg"] || [ex isEqualToString:@"gif"]) {
-        NSURL *url = [NSURL fileURLWithPath:path];
-        NSString *imageHtmlFile = [[NSBundle mainBundle] pathForResource:@"image" ofType:@"html"];
-        NSString *html = [NSString stringWithContentsOfFile:imageHtmlFile encoding:NSUTF8StringEncoding error:nil];
-        html = [NSString stringWithFormat:html,url.absoluteString];
-        _webView.scalesPageToFit = YES;
-        self.navigationItem.rightBarButtonItem = nil;
-        [_webView loadHTMLString:html baseURL:nil];
+
+    
+    if (fm.currentItem.type == FileTypeImage) {
+        UIImage *image = [[UIImage imageWithContentsOfFile:path] scaleWithMaxSize:self.view.bounds.size];
+        _imageView.image = image;
+        _width.constant = image.size.width;
+        _height.constant = image.size.height;
+        [self.view updateConstraintsIfNeeded];
     }else{
         beginLoadingAnimation(@"正在努力加载..");
         dispatch_async(dispatch_queue_create("preview_queue", DISPATCH_QUEUE_CONCURRENT), ^{

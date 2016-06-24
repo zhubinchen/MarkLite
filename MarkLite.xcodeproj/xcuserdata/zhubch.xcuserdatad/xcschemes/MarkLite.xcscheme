@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0720"
+   LastUpgradeVersion = "0730"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "079916531C61E9FF00E5F3A2"
+               BlueprintIdentifier = "07B92DC91D1D960F00A4127E"
                BuildableName = "MarkLite.app"
                BlueprintName = "MarkLite"
                ReferencedContainer = "container:MarkLite.xcodeproj">
@@ -32,7 +32,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "079916531C61E9FF00E5F3A2"
+            BlueprintIdentifier = "07B92DC91D1D960F00A4127E"
             BuildableName = "MarkLite.app"
             BlueprintName = "MarkLite"
             ReferencedContainer = "container:MarkLite.xcodeproj">
@@ -55,7 +55,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "079916531C61E9FF00E5F3A2"
+            BlueprintIdentifier = "07B92DC91D1D960F00A4127E"
             BuildableName = "MarkLite.app"
             BlueprintName = "MarkLite"
             ReferencedContainer = "container:MarkLite.xcodeproj">
@@ -74,7 +74,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "079916531C61E9FF00E5F3A2"
+            BlueprintIdentifier = "07B92DC91D1D960F00A4127E"
             BuildableName = "MarkLite.app"
             BlueprintName = "MarkLite"
             ReferencedContainer = "container:MarkLite.xcodeproj">

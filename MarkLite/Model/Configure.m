@@ -41,6 +41,7 @@
     [aCoder encodeObject:self.themeColor forKey:@"themeColor"];
     [aCoder encodeObject:self.fontName forKey:@"fontName"];
     [aCoder encodeBool:self.keyboardAssist forKey:@"keyboardAssist"];
+    [aCoder encodeBool:self.cloud forKey:@"cloud"];
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder
@@ -51,6 +52,7 @@
         self.themeColor = [aDecoder decodeObjectForKey:@"themeColor"];
         self.fontName = [aDecoder decodeObjectForKey:@"fontName"];
         self.keyboardAssist = [aDecoder decodeBoolForKey:@"keyboardAssist"];
+        self.cloud = [aDecoder decodeBoolForKey:@"cloud"];
     }
     return self;
 }

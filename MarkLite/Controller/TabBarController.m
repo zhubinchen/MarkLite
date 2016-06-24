@@ -61,14 +61,13 @@ static TabBarController *tabVc = nil;
         return;
     }
     
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"谢谢你的使用，如果觉得不错，请给个好评鼓励一下吧😍" message:@"" delegate:nil cancelButtonTitle:@"好评鼓励" otherButtonTitles:@"别再打扰我",@"以后再说", nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"如果觉得好用，请给个好评鼓励一下吧😍" message:@"" delegate:nil cancelButtonTitle:@"好评鼓励" otherButtonTitles:@"以后再说", nil];
     alert.clickedButton = ^(NSInteger index,UIAlertView *alert){
         if (index == 0) {
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"has_stared"];
             [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1098107145&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
-        }else if (index == 1) {
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"has_stared"];
         }
+        
     };
     [alert show];
     

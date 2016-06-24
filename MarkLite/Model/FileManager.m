@@ -8,12 +8,14 @@
 
 #import "FileManager.h"
 #import "ZipArchive.h"
+#import "Configure.h"
 
 #define UBIQUITY_CONTAINER_URL @"iCloud.com.zhubch.MarkLite"
 
 @implementation FileManager
 {
     NSFileManager *fm;
+    NSURL *ubiquityURL;
 }
 
 + (void)initialize
@@ -50,13 +52,25 @@
         dispatch_async(dispatch_queue_create("zbc", DISPATCH_QUEUE_CONCURRENT), ^{
             [self createCloudspace];
         });
+        [[Configure sharedConfigure] addObserver:self forKeyPath:@"cloud" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"cloud"]) {
+        [self createCloudspace];
+    }
+}
+
 - (void)createCloudspace
 {
-    NSURL *ubiquityURL = [[[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil]URLByAppendingPathComponent:@"Documents"];
+    if (![Configure sharedConfigure].cloud) {
+        _iCloudSpace = nil;
+        return;
+    }
+    ubiquityURL = [[[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil]URLByAppendingPathComponent:@"Documents"];
     if (!ubiquityURL) {
         return ;
     }
@@ -67,22 +81,69 @@
         NSLog(@"create iCloudPath");
         [fm createDirectoryAtPath:_iCloudSpace withIntermediateDirectories:YES attributes:nil error:nil];
     } else {
-        NSLog(@"iCloudPath");
+        NSLog(@"iCloudPath exist");
     }
+    [self upload];
+    [self download];
     NSLog(@"iCloudPath: %@", _iCloudSpace);
-    
+}
+
+- (void)upload
+{
     for (Item *i in _root.itemsCanReach) {
         NSError *err = nil;
         if ([fm fileExistsAtPath:[self remotePath:i.path]]) {
+            //            [fm removeItemAtPath:[self remotePath:i.path] error:nil];
             continue;
         }
         NSURL *localUrl = [NSURL fileURLWithPath:[self localPath:i.path]];
         NSURL *remoteUrl = [NSURL fileURLWithPath:[self remotePath:i.path]];
-//        [fm setUbiquitous:YES itemAtURL:localUrl destinationURL:remoteUrl error:&err];
         [fm copyItemAtURL:localUrl toURL:remoteUrl error:&err];
-//        [fm copyItemAtPath:[self localPath:i.path] toPath:[self remotePath:i.path] error:&err];
         NSLog(@"%@",err);
     }
+}
+
+- (void)download
+{
+    
+    NSError *err = nil;
+    NSArray *arr = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:ubiquityURL includingPropertiesForKeys:nil options:NSDirectoryEnumerationSkipsHiddenFiles error:&err];
+    if (err) {
+        NSLog(@"%@",err);
+        return;
+    }
+
+    for (NSURL *url in arr) {
+        NSLog(@"%@",url);
+    }
+//    [[NSFileManager defaultManager] copyItemAtURL:arr[0] toURL:[NSURL fileURLWithPath:filePath] error:&err];
+//    NSEnumerator *childFilesEnumerator = [[fm subpathsAtPath:_iCloudSpace] objectEnumerator];
+//    
+//    NSString *fileName;
+//
+//    while ((fileName = [childFilesEnumerator nextObject]) != nil){
+//        
+//        if ([fileName hasSuffix:@".DS_Store"] || [fileName hasPrefix:@"__MACOSX"] || [fileName hasSuffix:@".icloud"]) {
+//            continue;
+//        }
+//        NSError *err = nil;
+//        [fm copyItemAtPath:[self remotePath:fileName] toPath:[self localPath:fileName] error:&err];
+//        if (err) {
+//            NSLog(@"%@",err);
+//            continue;
+//        }
+//        Item *temp = [[Item alloc]init];
+//        temp.open = YES;
+//        temp.path = fileName;
+//        [_root addChild:temp];
+//        
+//        if (temp.type == FileTypeText) {
+//            NSMutableDictionary *attr = [fm attributesOfItemAtPath:[self localPath:fileName] error:nil].mutableCopy;
+//            attr[NSFileCreationDate] = [NSDate date];
+//            attr[NSFileModificationDate] = [NSDate date];
+//            [fm setAttributes:attr ofItemAtPath:[self localPath:fileName] error:nil];
+//        }
+//    }
 }
 
 - (void)createWorkspace
@@ -255,6 +316,9 @@
 
 - (NSString*)remotePath:(NSString*)path
 {
+    if (_iCloudSpace == nil) {
+        return @"";
+    }
     return [NSString pathWithComponents:@[_iCloudSpace,path]];
 }
 

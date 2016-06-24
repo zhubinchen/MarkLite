@@ -112,10 +112,10 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="check.png" width="50" height="50"/>
-        <image name="folder.png" width="100" height="100"/>
-        <image name="minus.png" width="50" height="50"/>
-        <image name="more.png" width="50" height="50"/>
-        <image name="plus.png" width="100" height="100"/>
+        <image name="check.png" width="25" height="25"/>
+        <image name="folder.png" width="50" height="50"/>
+        <image name="minus.png" width="25" height="25"/>
+        <image name="more.png" width="25" height="25"/>
+        <image name="plus.png" width="25" height="25"/>
     </resources>
 </document>

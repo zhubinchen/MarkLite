@@ -20,6 +20,8 @@
 
 @property (nonatomic,assign) BOOL keyboardAssist;
 
+@property (nonatomic,assign) BOOL cloud;
+
 + (instancetype)sharedConfigure;
 
 - (BOOL)saveToFile;

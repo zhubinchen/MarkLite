@@ -132,11 +132,20 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kM5-ff-6fY">
+                                <rect key="frame" x="137" y="251.5" width="100" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="cHE-CQ-Txx"/>
+                                    <constraint firstAttribute="height" constant="100" id="woP-ti-Lkv"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="d4j-sb-Kdj" secondAttribute="trailing" id="C1V-vQ-C7z"/>
+                            <constraint firstItem="kM5-ff-6fY" firstAttribute="centerX" secondItem="S83-Hl-wAf" secondAttribute="centerX" id="EN1-nZ-H7H"/>
                             <constraint firstAttribute="bottom" secondItem="d4j-sb-Kdj" secondAttribute="bottom" id="G96-hz-X3v"/>
+                            <constraint firstItem="kM5-ff-6fY" firstAttribute="centerY" secondItem="S83-Hl-wAf" secondAttribute="centerY" id="XiF-UG-XOh"/>
                             <constraint firstItem="d4j-sb-Kdj" firstAttribute="top" secondItem="te8-2F-9Ou" secondAttribute="bottom" id="hJZ-0P-h8m"/>
                             <constraint firstItem="d4j-sb-Kdj" firstAttribute="leading" secondItem="S83-Hl-wAf" secondAttribute="leading" id="lgG-bO-hOf"/>
                         </constraints>
@@ -146,7 +155,10 @@
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="height" destination="woP-ti-Lkv" id="REo-oZ-sdA"/>
+                        <outlet property="imageView" destination="kM5-ff-6fY" id="cgL-jD-T5q"/>
                         <outlet property="webView" destination="d4j-sb-Kdj" id="pjH-H3-xEJ"/>
+                        <outlet property="width" destination="cHE-CQ-Txx" id="lqG-cm-iLB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CXz-ml-4dY" userLabel="First Responder" sceneMemberID="firstResponder"/>
