@@ -27,10 +27,13 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    [[UITabBar appearance] setTintColor:kThemeColor];
-    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    [[UINavigationBar appearance] setBarTintColor:kThemeColor];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [[UITabBar appearance] setTintColor:kTintColor];
+    [[UINavigationBar appearance] setTintColor:kTitleColor];
+    [[UINavigationBar appearance] setBarTintColor:kNavBarColor];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{
+                                                           NSFontAttributeName:[UIFont systemFontOfSize:18],
+                                                           NSForegroundColorAttributeName:kTitleColor
+                                                           }];
     
     return YES;
 }

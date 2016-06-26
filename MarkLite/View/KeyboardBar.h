@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface KeyboardBar : UIView
+@interface KeyboardBar : UIView <UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+
 @property (nonatomic,weak) UITextView *editView;
 @property (nonatomic,weak) UIViewController *vc;
 @end

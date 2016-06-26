@@ -42,6 +42,7 @@
     [aCoder encodeObject:self.fontName forKey:@"fontName"];
     [aCoder encodeBool:self.keyboardAssist forKey:@"keyboardAssist"];
     [aCoder encodeBool:self.cloud forKey:@"cloud"];
+    [aCoder encodeFloat:self.compressionQuality forKey:@"compressionQuality"];
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder
@@ -53,6 +54,7 @@
         self.fontName = [aDecoder decodeObjectForKey:@"fontName"];
         self.keyboardAssist = [aDecoder decodeBoolForKey:@"keyboardAssist"];
         self.cloud = [aDecoder decodeBoolForKey:@"cloud"];
+        self.compressionQuality = [aDecoder decodeFloatForKey:@"compressionQuality"];
     }
     return self;
 }
@@ -80,6 +82,8 @@
     _style = @"GitHub2";
     _fontName = @"Hiragino Sans";
     _keyboardAssist = YES;
+    _cloud = NO;
+    _compressionQuality = 0.5;
 }
 
 @end

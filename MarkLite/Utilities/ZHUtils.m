@@ -356,7 +356,8 @@
     for (UIView *subView in view.subviews) {
         if ([subView isKindOfClass:[UIButton class]]) {
             UIButton *button=(UIButton *)subView;
-            [button setTintColor:kThemeColor];
+//            [button setTintColor:kTintColor];
+//            button.titleLabel.font = [UIFont systemFontOfSize:14];
             [button setTitle:title forState:UIControlStateNormal];
             [button setTitle:title forState:UIControlStateHighlighted];
             break;

@@ -32,11 +32,11 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     
     if (kDevicePad) {
-        items = @[@[@"iCloud 同步"],@[@"键盘辅助",@"编辑器字体"],@[@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"]];
-        imgNames = @[@[@"Cloud"],@[@"Keyboard",@"Font"],@[@"Help"],@[@"Star",@"FeedBack"],@[@"Info"]];
+        items = @[@[@"iCloud 同步"],@[@"键盘辅助",@"编辑器字体"],@[@"渲染样式",@"图片质量"],@[@"好评鼓励",@"问题反馈"],@[@"关于"]];
+        imgNames = @[@[@"Cloud"],@[@"Keyboard",@"Font"],@[@"Style",@"Quality"],@[@"Star",@"FeedBack"],@[@"Info"]];
     }else{
-        items = @[@[@"iCloud 同步"],@[@"键盘辅助"],@[@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"]];
-        imgNames = @[@[@"Cloud"],@[@"Keyboard"],@[@"Help"],@[@"Star",@"FeedBack"],@[@"Info"]];
+        items = @[@[@"iCloud 同步"],@[@"键盘辅助"],@[@"渲染样式",@"图片质量"],@[@"好评鼓励",@"问题反馈"],@[@"关于"]];
+        imgNames = @[@[@"Cloud"],@[@"Keyboard"],@[@"Style",@"Quality"],@[@"Star",@"FeedBack"],@[@"Info"]];
     }
 
 }
@@ -51,6 +51,10 @@
 
 - (void)switchKeyboard:(UISwitch*)s{
     [Configure sharedConfigure].keyboardAssist = s.on;
+}
+
+- (void)compressionQualityChanged:(UISwitch*)s{
+    [Configure sharedConfigure].compressionQuality = s.on ? 0.5 : 1.0;
 }
 
 #pragma mark - Table view data source
@@ -82,6 +86,14 @@
         [cell addSubview:s];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
+    if (indexPath.section == 2 && indexPath.row == 1) {
+        UISwitch *s = [[UISwitch alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 60, 10, 0, 0)];
+        s.on = [Configure sharedConfigure].compressionQuality == 0.5;
+        [s addTarget:self action:@selector(switchKeyboard:) forControlEvents:UIControlEventValueChanged];
+        [cell addSubview:s];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -106,7 +118,7 @@
 
     if (indexPath.section == 1 && indexPath.row == 1) {
         [self performSegueWithIdentifier:@"font" sender:self];
-    }else if (indexPath.section == 2) {
+    }else if (indexPath.section == 2 && indexPath.row == 0) {
         NSArray *styles =  @[@"Clearness",@"Clearness Dark",@"GitHub",@"GitHub2",@"Solarized Dark",@"Solarized Light"];
         vc.selectOptions = styles;
         vc.title = @"选择样式";

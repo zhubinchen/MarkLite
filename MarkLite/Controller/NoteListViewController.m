@@ -36,7 +36,6 @@
     [super viewDidLoad];
     
     _fm = [FileManager sharedManager];
-    _fm.currentItem = dataArray.firstObject;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:@"ItemsChangedNotification" object:nil];
 }
 
@@ -89,8 +88,9 @@
 
 - (void)showOptions
 {
+    CGFloat w = self.view.bounds.size.width;
     if (control == nil) {
-        UIView *optionsView = [[UIView alloc]initWithFrame:CGRectMake(0, -90, kScreenWidth, 90)];
+        UIView *optionsView = [[UIView alloc]initWithFrame:CGRectMake(0, -90, w, 90)];
         optionsView.backgroundColor = [UIColor whiteColor];
         optionsView.tag = 1;
         optionsView.alpha = 0.99;
@@ -98,13 +98,13 @@
         
         NSArray *options = @[@"  按名称排序",@"  按创建时间排序",@"  按修改时间排序"];
         for (int i = 0; i < options.count; i++) {
-            UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, i*30, kScreenWidth, 30)];
+            UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, i*30, w, 30)];
             btn.titleLabel.font = [UIFont systemFontOfSize:14];
             btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             btn.tag = i;
             [btn addTarget:self action:@selector(choosedOption:) forControlEvents:UIControlEventTouchUpInside];
             [btn setTitle:options[i] forState:UIControlStateNormal];
-            [btn setTitleColor:kThemeColor forState:UIControlStateNormal];
+            [btn setTitleColor:kTintColor forState:UIControlStateNormal];
             [optionsView addSubview:btn];
         }
         
@@ -117,12 +117,12 @@
         imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"check"]];
         [optionsView addSubview:imgView];
     }
-    imgView.frame = CGRectMake(kScreenWidth - 35, _sortOption*30 + 3, 24, 24);
+    imgView.frame = CGRectMake(w - 35, _sortOption*30 + 3, 24, 24);
     
     UIView *optionsView = [control viewWithTag:1];
     if (control.superview) {
         [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            optionsView.frame = CGRectMake(0, -90, kScreenWidth, 90);
+            optionsView.frame = CGRectMake(0, -90, w, 90);
             control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
         } completion:^(BOOL finished) {
             if (finished) {
@@ -133,7 +133,7 @@
         [self.view addSubview:control];
 
         [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            optionsView.frame = CGRectMake(0, 0, kScreenWidth, 90);
+            optionsView.frame = CGRectMake(0, 0, w, 90);
             control.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
         } completion:^(BOOL finished) {
             //
@@ -143,9 +143,11 @@
 
 - (void)choosedOption:(UIButton*)optionBtn
 {
+    CGFloat w = self.view.bounds.size.width;
+
     UIView *optionsView = [control viewWithTag:1];
     [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        optionsView.frame = CGRectMake(0, -90, kScreenWidth, 90);
+        optionsView.frame = CGRectMake(0, -90, w, 90);
         control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     } completion:^(BOOL finished) {
         if (finished) {
@@ -193,6 +195,8 @@
         }
     }].mutableCopy;
     
+    _fm.currentItem = dataArray.firstObject;
+
     [self.noteListView reloadData];
 }
 
@@ -237,6 +241,12 @@
 
     Item *item = dataArray[indexPath.row];
     cell.item = item;
+    if (![cell viewWithTag:4654]) {
+        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(16, 84, self.view.bounds.size.width - 16, 0.5)];
+        line.tag = 4564;
+        line.backgroundColor = [UIColor lightGrayColor];
+        [cell addSubview:line];
+    }
 
     return cell;
 }

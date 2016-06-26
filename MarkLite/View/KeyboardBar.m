@@ -7,7 +7,10 @@
 //
 
 #import "KeyboardBar.h"
+#import "ZHRequest.h"
+#import "Configure.h"
 
+static KeyboardBar *bar = nil;
 @implementation KeyboardBar
 
 - (instancetype)init
@@ -20,7 +23,6 @@
     self = [super initWithFrame:CGRectMake(0, 0, kScreenWidth, w)];
     self.backgroundColor = [UIColor colorWithRed:200/255.0 green:203/255.0 blue:211/255.0 alpha:1];
     [self createItem];
-    
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createItem) name:UIDeviceOrientationDidChangeNotification object:nil];
     return self;
 }
@@ -73,18 +75,32 @@
     }else if (btn.tag  < 6) {
         [_editView insertText:btn.currentTitle];
     }else if (btn.tag == 6){
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加图片" message:@"请输入图片相对路径或URL" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-        alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
-            if (buttonIndex == 1) {
-                NSString *name = [alert textFieldAtIndex:0].text;
-                NSString *text = [NSString stringWithFormat:@"![图片描述](%@)",name];
-                [_editView insertText:text];
-                NSRange range = NSMakeRange(_editView.selectedRange.location - text.length + 2, 4);
-                _editView.selectedRange = range;
+        [self.editView resignFirstResponder];
+        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"添加图片" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"从照片选取并上传",@"手动输入图片路径或链接", nil];
+        sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
+            if (buttonIndex == 0) {
+                bar = self;
+                UIImagePickerController *vc = [[UIImagePickerController alloc]init];
+                vc.delegate = self;
+                vc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                [self.vc presentViewController:vc animated:YES completion:nil];
+                return ;
+            }else if(buttonIndex == 1){
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加图片" message:@"请输入图片相对路径或URL" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+                alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+                    if (buttonIndex == 1) {
+                        NSString *name = [alert textFieldAtIndex:0].text;
+                        NSString *text = [NSString stringWithFormat:@"![图片描述](%@)",name];
+                        [_editView insertText:text];
+                        NSRange range = NSMakeRange(_editView.selectedRange.location - text.length + 2, 4);
+                        _editView.selectedRange = range;
+                    }
+                };
+                [alert show];
             }
         };
-        [alert show];
+        [sheet showInView:self.vc.view];
     }else if (btn.tag == 7){
 
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加链接" message:@"请输入链接" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
@@ -94,6 +110,7 @@
                 NSString *name = [alert textFieldAtIndex:0].text;
                 NSString *text = [NSString stringWithFormat:@"[链接描述](%@)",name];
                 [_editView insertText:text];
+                [_editView becomeFirstResponder];
                 NSRange range = NSMakeRange(_editView.selectedRange.location - text.length + 1, 4);
                 _editView.selectedRange = range;
             }
@@ -104,12 +121,38 @@
     }
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    UIImage *img = [info objectForKey:UIImagePickerControllerOriginalImage];
+    NSData *data = UIImageJPEGRepresentation(img, [Configure sharedConfigure].compressionQuality);
+    
+    beginLoadingAnimation(@"正在上传...");
+    [ZHRequest initializeWithServerUrl:kServerUrl];
+    [ZHRequest postWithUrl:@"upload.php" Body:data Succese:^(NSData *response) {
+        NSLog(@"%@",response.toDictionay);
+        NSDictionary *ret = response.toDictionay;
+        if ([ret[@"payload"] length]) {
+            NSString *name = [kServerUrl stringByAppendingPathComponent:ret[@"payload"]];
+            NSString *text = [NSString stringWithFormat:@"![图片描述](%@)",name];
+            [_editView insertText:text];
+            [_editView becomeFirstResponder];
+            NSRange range = NSMakeRange(_editView.selectedRange.location - text.length + 2, 4);
+            _editView.selectedRange = range;
+        }else{
+            showToast(@"上传失败了😂");
+        }
+
+        stopLoadingAnimation();
+    } Failed:^(ErrorCode code) {
+        stopLoadingAnimation();
+        showToast(@"上传失败😂，请检查网络");
+    }];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
-*/
+
+- (void)dealloc
+{
+    NSLog(@"dealloc");
+}
 
 @end

@@ -61,10 +61,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    selectedRow = indexPath.row;
+    selectedRow = (int)indexPath.row;
     [table reloadData];
     if (self.didSelected) {
-        self.didSelected(indexPath.row);
+        self.didSelected((int)indexPath.row);
     }
     
 //    [self.navigationController popViewControllerAnimated:YES];

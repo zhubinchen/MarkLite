@@ -82,9 +82,9 @@
         [fm createDirectoryAtPath:_iCloudSpace withIntermediateDirectories:YES attributes:nil error:nil];
     } else {
         NSLog(@"iCloudPath exist");
+        [self download];
     }
     [self upload];
-    [self download];
     NSLog(@"iCloudPath: %@", _iCloudSpace);
 }
 
@@ -204,13 +204,17 @@
             [self notify];
         }
     }
-    if (![fm fileExistsAtPath:remotePath]) {
-        [fm createDirectoryAtPath:remotePath withIntermediateDirectories:YES attributes:nil error:&error];
-        NSLog(@"creating dir:%@",remotePath);
-        if (error) {
-            NSLog(@"%@",error);
+    
+    if (_iCloudSpace) {
+        if (![fm fileExistsAtPath:remotePath]) {
+            [fm createDirectoryAtPath:remotePath withIntermediateDirectories:YES attributes:nil error:&error];
+            NSLog(@"creating dir:%@",remotePath);
+            if (error) {
+                NSLog(@"%@",error);
+            }
         }
     }
+
 }
 
 - (BOOL)createFile:(NSString *)path Content:(NSData *)content
@@ -229,10 +233,13 @@
         return NO;
     }
     
-    if (![fm fileExistsAtPath:remotePath]) {
-        [fm createFileAtPath:remotePath contents:content attributes:nil];
-        NSLog(@"creating file:%@",remotePath);
+    if (_iCloudSpace) {
+        if (![fm fileExistsAtPath:remotePath]) {
+            [fm createFileAtPath:remotePath contents:content attributes:nil];
+            NSLog(@"creating file:%@",remotePath);
+        }
     }
+
     
     return YES;
 }
@@ -249,10 +256,13 @@
     if (!ret) {
         return NO;
     }
-    if (![fm fileExistsAtPath:remotePath]) {
-        [fm createFileAtPath:remotePath contents:content attributes:nil];
+    if (_iCloudSpace) {
+        if (![fm fileExistsAtPath:remotePath]) {
+            [fm createFileAtPath:remotePath contents:content attributes:nil];
+        }
+        ret = [content writeToFile:remotePath atomically:YES];
     }
-    ret = [content writeToFile:remotePath atomically:YES];
+
     return YES;
 }
 
@@ -274,10 +284,13 @@
     }else{
         [self notify];
     }
-    [fm removeItemAtPath:remotePath error:&error];
-    if (error) {
-        NSLog(@"%@",error);
+    if (_iCloudSpace) {
+        [fm removeItemAtPath:remotePath error:&error];
+        if (error) {
+            NSLog(@"%@",error);
+        }
     }
+
     return YES;
 }
 
@@ -302,10 +315,13 @@
         NSLog(@"%@",error);
         return NO;
     }
-    [fm moveItemAtPath:remotePath toPath:newremotePath error:&error];
-    if (error) {
-        NSLog(@"%@",error);
+    if (_iCloudSpace) {
+        [fm moveItemAtPath:remotePath toPath:newremotePath error:&error];
+        if (error) {
+            NSLog(@"%@",error);
+        }
     }
+    
     return YES;
 }
 

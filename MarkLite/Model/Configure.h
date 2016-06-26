@@ -22,6 +22,8 @@
 
 @property (nonatomic,assign) BOOL cloud;
 
+@property (nonatomic,assign) CGFloat compressionQuality;
+
 + (instancetype)sharedConfigure;
 
 - (BOOL)saveToFile;

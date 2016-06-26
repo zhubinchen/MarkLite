@@ -26,6 +26,7 @@
 {
     FileManager *fm;
     NSString *htmlString;
+    UIActivityIndicatorView *indicator;
 }
 
 - (void)viewDidLoad {
@@ -57,13 +58,22 @@
 
     
     if (fm.currentItem.type == FileTypeImage) {
+        _webView.hidden = YES;
+        _imageView.hidden = NO;
+        self.navigationItem.rightBarButtonItem = nil;
         UIImage *image = [[UIImage imageWithContentsOfFile:path] scaleWithMaxSize:self.view.bounds.size];
         _imageView.image = image;
         _width.constant = image.size.width;
         _height.constant = image.size.height;
         [self.view updateConstraintsIfNeeded];
     }else{
-        beginLoadingAnimation(@"正在努力加载..");
+        _webView.hidden = NO;
+        _imageView.hidden = YES;
+        indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        indicator.center = self.view.center;
+        indicator.hidesWhenStopped = YES;
+        [indicator startAnimating];
+        [self.view addSubview:indicator];
         dispatch_async(dispatch_queue_create("preview_queue", DISPATCH_QUEUE_CONCURRENT), ^{
             hoedown_renderer *render = CreateHTMLRenderer();
             NSString *markdown = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
@@ -122,7 +132,7 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    stopLoadingAnimation();
+    [indicator stopAnimating];
 }
 
 - (void)dealloc

@@ -32,7 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     fm = [FileManager sharedManager];
     
     _editView.delegate = self;

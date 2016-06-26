@@ -11,7 +11,6 @@
 #import "EditViewController.h"
 #import "PreviewViewController.h"
 #import "Item.h"
-#import "FileOperationCell.h"
 #import "FileItemCell.h"
 #import "Configure.h"
 
@@ -140,15 +139,15 @@
         }
     }
     
-    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"请选择要进行的操作" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"新建文本",@"创建文件夹",@"选取图片", nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"请选择要进行的操作" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"新建文本",@"选取图片",@"创建文件夹", nil];
     sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *sheet){
-        if (buttonIndex == 2) {
+        if (buttonIndex == 1) {
             UIImagePickerController *vc = [[UIImagePickerController alloc]init];
             vc.delegate = self;
             vc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
             [self presentViewController:vc animated:YES completion:nil];
             return ;
-        }else if (buttonIndex == 0 || buttonIndex == 1) {
+        }else if (buttonIndex == 0 || buttonIndex == 2) {
             FileType type = buttonIndex == 0 ? FileTypeText : FileTypeFolder;
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"新建文本" message:@"请输入文件名" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             alert.alertViewStyle = UIAlertViewStylePlainTextInput;
@@ -265,61 +264,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([dataArray[indexPath.row] isKindOfClass:[NSDictionary class]]) {
-        FileOperationCell *cell = [[FileOperationCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@""];
-        cell.item = dataArray[indexPath.row][@"file"];
-        cell.width = self.view.bounds.size.width;
-        cell.deleteFileBlock = ^(Item *i){
-            if (i == root) {
-                showToast(@"根目录不可删除");
-                return ;
-            }
-            UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"删除后不可恢复，确定要删除吗？" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles: nil];
-            sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
-                if (buttonIndex == 0) {
-                    [i removeFromParent];
-                    NSArray *children = [i itemsCanReach];
-                    [dataArray removeObject:dataArray[indexPath.row]];
-                    [dataArray removeObjectsInArray:children];
-                    [dataArray removeObject:i];
-                    NSMutableArray *indexPaths = [NSMutableArray array];
-                    for (int i = 0; i < children.count + 2; i++) {
-                        NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row+i-1 inSection:0];
-                        [indexPaths addObject:index];
-                    }
-                    
-                    [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
-                    [fm deleteFile:i.path];
-                }
-            };
-            [sheet showInView:self.view];
-        };
-        cell.renameFileBlock = ^(Item *i){
-            if (i == root) {
-                showToast(@"根目录不可重命名");
-                return ;
-            }
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"重命名" message:@"不用输入后缀名" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
-            alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-            alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
-                NSString *name = [alert textFieldAtIndex:0].text;
-                name = [name componentsSeparatedByString:@"."].firstObject;
-                if (name.length == 0) {
-                    showToast(@"文件名不可为空");
-                    return ;
-                }
-                if ([name containsString:@"/"] || [name containsString:@"*"]) {
-                    showToast(@"请不要输入特殊字符");
-                    return;
-                }
-            };
-            [alert show];
-        };
-        cell.exportBlock = ^(Item *i,UIButton *sender){
-            [self export:i sourceView:sender];
-        };
-        return cell;
-    }
     
     FileItemCell *cell = (FileItemCell*)[tableView dequeueReusableCellWithIdentifier:@"file" forIndexPath:indexPath];
     
@@ -329,38 +273,89 @@
     cell.edit = edit;
     cell.item = item;
     
+    __weak UITableViewCell *__cell = cell;
+
     cell.moreBlock = ^(Item *i){
-        
-        NSUInteger nextIndex = [dataArray indexOfObject:i] + 1;
-        
-        if (dataArray.count > nextIndex && [dataArray[nextIndex] isKindOfClass:[NSDictionary class]]) {
-            [dataArray removeObjectAtIndex:(nextIndex)];
-            [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:nextIndex inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationMiddle];
-            return ;
-        }
-        [dataArray insertObject:@{@"file":i} atIndex:nextIndex];
-        [tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:nextIndex inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationMiddle];
+        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:i.name delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles: @"导出",@"重命名", nil];
+        sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
+            if (buttonIndex == 0) {
+                if (i == root) {
+                    showToast(@"根目录不可删除");
+                    return ;
+                }
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除后不可恢复，确定要删除吗？" message:nil delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+                    if (buttonIndex == 1) {
+                        [i removeFromParent];
+                        NSArray *children = [i itemsCanReach];
+                        [dataArray removeObject:dataArray[indexPath.row]];
+                        [dataArray removeObjectsInArray:children];
+                        [dataArray removeObject:i];
+                        NSMutableArray *indexPaths = [NSMutableArray array];
+                        for (int i = 0; i < children.count + 1; i++) {
+                            NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row+i-1 inSection:0];
+                            [indexPaths addObject:index];
+                        }
+                        
+                        [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
+                        [fm deleteFile:i.path];
+                    }
+                };
+                [alert show];
+            }else if(buttonIndex == 1){
+                [self export:i sourceView:__cell];
+            }else if(buttonIndex == 2){
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"重命名" message:@"不用输入后缀名" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+                alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+                    if (buttonIndex == 1) {
+                        NSString *name = [alert textFieldAtIndex:0].text;
+                        name = [name componentsSeparatedByString:@"."].firstObject;
+                        if (name.length == 0) {
+                            showToast(@"文件名不可为空");
+                            return ;
+                        }
+                        if ([name containsString:@"/"] || [name containsString:@"*"]) {
+                            showToast(@"请不要输入特殊字符");
+                            return;
+                        }
+                        NSString *newPath = [i.path stringByReplacingOccurrencesOfString:i.name withString:name];
+                        if ([fm moveFile:i.path toNewPath:newPath]) {
+                            i.path = newPath;
+                            [tableView reloadData];
+                        }else{
+                            showToast(@"出错了，请确保文件名不重复");
+                        }
+                    }
+                    
+                };
+                [alert show];
+            }
+            
+        };
+        [sheet showInView:self.view];
     };
 
     cell.newFileBlock = ^(Item *i){
         [self addFileWithParent:item];
     };
-
+    
     cell.deleteFileBlock = ^(Item *i){
         if (i == root) {
             showToast(@"根目录不可删除");
             return ;
         }
-        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"删除后不可恢复，确定要删除吗？" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles: nil];
-        sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
-            if (buttonIndex == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除后不可恢复，确定要删除吗？" message:nil delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+            if (buttonIndex == 1) {
                 [i removeFromParent];
                 NSArray *children = [i itemsCanReach];
+                [dataArray removeObject:dataArray[indexPath.row]];
                 [dataArray removeObjectsInArray:children];
                 [dataArray removeObject:i];
                 NSMutableArray *indexPaths = [NSMutableArray array];
-                for (int i = 0; i < children.count +1; i++) {
-                    NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row+i inSection:0];
+                for (int i = 0; i < children.count + 1; i++) {
+                    NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row+i-1 inSection:0];
                     [indexPaths addObject:index];
                 }
                 
@@ -368,7 +363,7 @@
                 [fm deleteFile:i.path];
             }
         };
-        [sheet showInView:self.view];
+        [alert show];
     };
     return cell;
 }
