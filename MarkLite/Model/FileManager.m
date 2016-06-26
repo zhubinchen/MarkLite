@@ -45,13 +45,12 @@
         if ([[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
             _root = [NSKeyedUnarchiver unarchiveObjectWithFile:plistPath];
         }else{
+//            [self createCloudspace];
             [self createWorkspace];
             [_root archive];
         }
         _root.open = YES;
-        dispatch_async(dispatch_queue_create("zbc", DISPATCH_QUEUE_CONCURRENT), ^{
-            [self createCloudspace];
-        });
+ 
         [[Configure sharedConfigure] addObserver:self forKeyPath:@"cloud" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
@@ -84,7 +83,6 @@
         NSLog(@"iCloudPath exist");
         [self download];
     }
-    [self upload];
     NSLog(@"iCloudPath: %@", _iCloudSpace);
 }
 
@@ -93,7 +91,6 @@
     for (Item *i in _root.itemsCanReach) {
         NSError *err = nil;
         if ([fm fileExistsAtPath:[self remotePath:i.path]]) {
-            //            [fm removeItemAtPath:[self remotePath:i.path] error:nil];
             continue;
         }
         NSURL *localUrl = [NSURL fileURLWithPath:[self localPath:i.path]];
@@ -105,45 +102,30 @@
 
 - (void)download
 {
+
     
     NSError *err = nil;
-    NSArray *arr = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:ubiquityURL includingPropertiesForKeys:nil options:NSDirectoryEnumerationSkipsHiddenFiles error:&err];
+    NSArray *arr = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:_iCloudSpace error:&err];
     if (err) {
         NSLog(@"%@",err);
         return;
     }
 
-    for (NSURL *url in arr) {
-        NSLog(@"%@",url);
+    for (NSString *path in arr) {
+        if (![fm fileExistsAtPath:_workSpace]) {
+            [fm createDirectoryAtPath:_workSpace withIntermediateDirectories:YES attributes:nil error:nil];
+            NSLog(@"creating workSpace:%@",_workSpace);
+        }
+        NSURL *localUrl = [NSURL fileURLWithPath:[self localPath:path]];
+        NSURL *remoteUrl = [NSURL fileURLWithPath:[self remotePath:path]];
+        [fm copyItemAtURL:remoteUrl toURL:localUrl error:&err];
+
+        if (err) {
+            NSLog(@"%@",err);
+            return;
+        }
     }
-//    [[NSFileManager defaultManager] copyItemAtURL:arr[0] toURL:[NSURL fileURLWithPath:filePath] error:&err];
-//    NSEnumerator *childFilesEnumerator = [[fm subpathsAtPath:_iCloudSpace] objectEnumerator];
-//    
-//    NSString *fileName;
-//
-//    while ((fileName = [childFilesEnumerator nextObject]) != nil){
-//        
-//        if ([fileName hasSuffix:@".DS_Store"] || [fileName hasPrefix:@"__MACOSX"] || [fileName hasSuffix:@".icloud"]) {
-//            continue;
-//        }
-//        NSError *err = nil;
-//        [fm copyItemAtPath:[self remotePath:fileName] toPath:[self localPath:fileName] error:&err];
-//        if (err) {
-//            NSLog(@"%@",err);
-//            continue;
-//        }
-//        Item *temp = [[Item alloc]init];
-//        temp.open = YES;
-//        temp.path = fileName;
-//        [_root addChild:temp];
-//        
-//        if (temp.type == FileTypeText) {
-//            NSMutableDictionary *attr = [fm attributesOfItemAtPath:[self localPath:fileName] error:nil].mutableCopy;
-//            attr[NSFileCreationDate] = [NSDate date];
-//            attr[NSFileModificationDate] = [NSDate date];
-//            [fm setAttributes:attr ofItemAtPath:[self localPath:fileName] error:nil];
-//        }
-//    }
+
 }
 
 - (void)createWorkspace
@@ -188,6 +170,7 @@
             [fm setAttributes:attr ofItemAtPath:[self localPath:fileName] error:nil];
         }
     }
+//    [self upload];
 }
 
 - (void)createFolder:(NSString *)path
@@ -240,7 +223,6 @@
         }
     }
 
-    
     return YES;
 }
 

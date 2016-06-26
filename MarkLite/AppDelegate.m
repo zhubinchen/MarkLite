@@ -29,7 +29,7 @@
     
     [[UITabBar appearance] setTintColor:kTintColor];
     [[UINavigationBar appearance] setTintColor:kTitleColor];
-    [[UINavigationBar appearance] setBarTintColor:kNavBarColor];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:22/255.0 green:174/255.0 blue:235/255.0 alpha:1]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{
                                                            NSFontAttributeName:[UIFont systemFontOfSize:18],
                                                            NSForegroundColorAttributeName:kTitleColor

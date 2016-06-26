@@ -75,32 +75,44 @@ static KeyboardBar *bar = nil;
     }else if (btn.tag  < 6) {
         [_editView insertText:btn.currentTitle];
     }else if (btn.tag == 6){
-        [self.editView resignFirstResponder];
-        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"添加图片" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"从照片选取并上传",@"手动输入图片路径或链接", nil];
-        sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
-            if (buttonIndex == 0) {
-                bar = self;
-                UIImagePickerController *vc = [[UIImagePickerController alloc]init];
-                vc.delegate = self;
-                vc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                [self.vc presentViewController:vc animated:YES completion:nil];
-                return ;
-            }else if(buttonIndex == 1){
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加图片" message:@"请输入图片相对路径或URL" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-                alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-                alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
-                    if (buttonIndex == 1) {
-                        NSString *name = [alert textFieldAtIndex:0].text;
-                        NSString *text = [NSString stringWithFormat:@"![图片描述](%@)",name];
-                        [_editView insertText:text];
-                        NSRange range = NSMakeRange(_editView.selectedRange.location - text.length + 2, 4);
-                        _editView.selectedRange = range;
-                    }
-                };
-                [alert show];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加图片" message:@"请输入图片相对路径或URL" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+            if (buttonIndex == 1) {
+                NSString *name = [alert textFieldAtIndex:0].text;
+                NSString *text = [NSString stringWithFormat:@"![图片描述](%@)",name];
+                [_editView insertText:text];
+                NSRange range = NSMakeRange(_editView.selectedRange.location - text.length + 2, 4);
+                _editView.selectedRange = range;
             }
         };
-        [sheet showInView:self.vc.view];
+        [alert show];
+//        [self.editView resignFirstResponder];
+//        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"添加图片" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"从照片选取并上传",@"手动输入图片路径或链接", nil];
+//        sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
+//            if (buttonIndex == 0) {
+//                bar = self;
+//                UIImagePickerController *vc = [[UIImagePickerController alloc]init];
+//                vc.delegate = self;
+//                vc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//                [self.vc presentViewController:vc animated:YES completion:nil];
+//                return ;
+//            }else if(buttonIndex == 1){
+//                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加图片" message:@"请输入图片相对路径或URL" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+//                alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+//                alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+//                    if (buttonIndex == 1) {
+//                        NSString *name = [alert textFieldAtIndex:0].text;
+//                        NSString *text = [NSString stringWithFormat:@"![图片描述](%@)",name];
+//                        [_editView insertText:text];
+//                        NSRange range = NSMakeRange(_editView.selectedRange.location - text.length + 2, 4);
+//                        _editView.selectedRange = range;
+//                    }
+//                };
+//                [alert show];
+//            }
+//        };
+//        [sheet showInView:self.vc.view];
     }else if (btn.tag == 7){
 
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加链接" message:@"请输入链接" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];

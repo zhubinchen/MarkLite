@@ -31,12 +31,20 @@
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     
+//    if (kDevicePad) {
+//        items = @[@[@"iCloud 同步"],@[@"键盘辅助",@"编辑器字体"],@[@"渲染样式",@"图片质量"],@[@"好评鼓励",@"问题反馈"],@[@"关于"]];
+//        imgNames = @[@[@"Cloud"],@[@"Keyboard",@"Font"],@[@"Style",@"Quality"],@[@"Star",@"FeedBack"],@[@"Info"]];
+//    }else{
+//        items = @[@[@"iCloud 同步"],@[@"键盘辅助"],@[@"渲染样式",@"图片质量"],@[@"好评鼓励",@"问题反馈"],@[@"关于"]];
+//        imgNames = @[@[@"Cloud"],@[@"Keyboard"],@[@"Style",@"Quality"],@[@"Star",@"FeedBack"],@[@"Info"]];
+//    }
+
     if (kDevicePad) {
-        items = @[@[@"iCloud 同步"],@[@"键盘辅助",@"编辑器字体"],@[@"渲染样式",@"图片质量"],@[@"好评鼓励",@"问题反馈"],@[@"关于"]];
-        imgNames = @[@[@"Cloud"],@[@"Keyboard",@"Font"],@[@"Style",@"Quality"],@[@"Star",@"FeedBack"],@[@"Info"]];
+        items = @[@[@"键盘辅助",@"编辑器字体"],@[@"渲染样式",@"压缩图片"],@[@"好评鼓励",@"问题反馈"],@[@"关于"]];
+        imgNames = @[@[@"Keyboard",@"Font"],@[@"Style",@"Quality"],@[@"Star",@"FeedBack"],@[@"Info"]];
     }else{
-        items = @[@[@"iCloud 同步"],@[@"键盘辅助"],@[@"渲染样式",@"图片质量"],@[@"好评鼓励",@"问题反馈"],@[@"关于"]];
-        imgNames = @[@[@"Cloud"],@[@"Keyboard"],@[@"Style",@"Quality"],@[@"Star",@"FeedBack"],@[@"Info"]];
+        items = @[@[@"键盘辅助"],@[@"渲染样式",@"压缩图片"],@[@"好评鼓励",@"问题反馈"],@[@"关于"]];
+        imgNames = @[@[@"Keyboard"],@[@"Style",@"Quality"],@[@"Star",@"FeedBack"],@[@"Info"]];
     }
 
 }
@@ -72,21 +80,21 @@
     
     cell.textLabel.text = items[indexPath.section][indexPath.row];
     cell.imageView.image = [UIImage imageNamed:imgNames[indexPath.section][indexPath.row]];
-    if (indexPath.section == 0) {
-        UISwitch *s = [[UISwitch alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 60, 10, 0, 0)];
-        s.on = [Configure sharedConfigure].cloud;
-        [s addTarget:self action:@selector(switchCloud:) forControlEvents:UIControlEventValueChanged];
-        [cell addSubview:s];
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
-    if (indexPath.section == 1 && indexPath.row == 0) {
+//    if (indexPath.section == 0) {
+//        UISwitch *s = [[UISwitch alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 60, 10, 0, 0)];
+//        s.on = [Configure sharedConfigure].cloud;
+//        [s addTarget:self action:@selector(switchCloud:) forControlEvents:UIControlEventValueChanged];
+//        [cell addSubview:s];
+//        cell.accessoryType = UITableViewCellAccessoryNone;
+//    }
+    if (indexPath.section == 0 && indexPath.row == 0) {
         UISwitch *s = [[UISwitch alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 60, 10, 0, 0)];
         s.on = [Configure sharedConfigure].keyboardAssist;
         [s addTarget:self action:@selector(switchKeyboard:) forControlEvents:UIControlEventValueChanged];
         [cell addSubview:s];
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
-    if (indexPath.section == 2 && indexPath.row == 1) {
+    if (indexPath.section == 1 && indexPath.row == 1) {
         UISwitch *s = [[UISwitch alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 60, 10, 0, 0)];
         s.on = [Configure sharedConfigure].compressionQuality == 0.5;
         [s addTarget:self action:@selector(switchKeyboard:) forControlEvents:UIControlEventValueChanged];
@@ -116,9 +124,9 @@
 {
     SelectViewController *vc = [[SelectViewController alloc]init];
 
-    if (indexPath.section == 1 && indexPath.row == 1) {
+    if (indexPath.section == 0 && indexPath.row == 1) {
         [self performSegueWithIdentifier:@"font" sender:self];
-    }else if (indexPath.section == 2 && indexPath.row == 0) {
+    }else if (indexPath.section == 1 && indexPath.row == 0) {
         NSArray *styles =  @[@"Clearness",@"Clearness Dark",@"GitHub",@"GitHub2",@"Solarized Dark",@"Solarized Light"];
         vc.selectOptions = styles;
         vc.title = @"选择样式";
@@ -132,7 +140,7 @@
             [Configure sharedConfigure].style = styles[index];
         };
         [self.navigationController pushViewController:vc animated:YES];
-    }else if (indexPath.section == 3) {
+    }else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"has_stared"];
              [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1098107145&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
@@ -140,7 +148,7 @@
             NSString *url = @"mailto:cheng4741@gmail.com?subject=MarkLite%20Report&body=";
             [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
         }
-    }else if (indexPath.section == 4){
+    }else if (indexPath.section == 3){
         UIViewController *vc = [[AboutViewController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
     }

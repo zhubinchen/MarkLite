@@ -69,11 +69,14 @@
     }else{
         _webView.hidden = NO;
         _imageView.hidden = YES;
-        indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        indicator.center = self.view.center;
-        indicator.hidesWhenStopped = YES;
-        [indicator startAnimating];
-        [self.view addSubview:indicator];
+        if (indicator == nil) {
+            indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+            indicator.center = self.view.center;
+            indicator.hidesWhenStopped = YES;
+            [indicator startAnimating];
+            [self.view addSubview:indicator];
+        }
+
         dispatch_async(dispatch_queue_create("preview_queue", DISPATCH_QUEUE_CONCURRENT), ^{
             hoedown_renderer *render = CreateHTMLRenderer();
             NSString *markdown = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
@@ -127,12 +130,13 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-
+    NSLog(@"zz");
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [indicator stopAnimating];
+    [indicator removeFromSuperview];
 }
 
 - (void)dealloc
