@@ -9,6 +9,8 @@
 #import "KeyboardBar.h"
 #import "ZHRequest.h"
 #import "Configure.h"
+#import "AFNetworking.h"
+#import "ImageUploadingView.h"
 
 static KeyboardBar *bar = nil;
 @implementation KeyboardBar
@@ -75,44 +77,31 @@ static KeyboardBar *bar = nil;
     }else if (btn.tag  < 6) {
         [_editView insertText:btn.currentTitle];
     }else if (btn.tag == 6){
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加图片" message:@"请输入图片相对路径或URL" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-        alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
-            if (buttonIndex == 1) {
-                NSString *name = [alert textFieldAtIndex:0].text;
-                NSString *text = [NSString stringWithFormat:@"![图片描述](%@)",name];
-                [_editView insertText:text];
-                NSRange range = NSMakeRange(_editView.selectedRange.location - text.length + 2, 4);
-                _editView.selectedRange = range;
+        [self.editView resignFirstResponder];
+        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"添加图片" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"从照片选取并上传",@"手动输入图片路径或链接", nil];
+        sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
+            if (buttonIndex == 0) {
+                bar = self;
+                UIImagePickerController *vc = [[UIImagePickerController alloc]init];
+                vc.delegate = self;
+                vc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+                [self.vc presentViewController:vc animated:YES completion:nil];
+                return ;
+            }else if(buttonIndex == 1){
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加图片" message:@"请输入图片相对路径或URL" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+                alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+                    if (buttonIndex == 1) {
+                        NSString *name = [alert textFieldAtIndex:0].text;
+                        NSString *text = [NSString stringWithFormat:@"![MarkLite](%@)",name];
+                        [_editView insertText:text];
+                        [_editView becomeFirstResponder];
+                    }
+                };
+                [alert show];
             }
         };
-        [alert show];
-//        [self.editView resignFirstResponder];
-//        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"添加图片" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"从照片选取并上传",@"手动输入图片路径或链接", nil];
-//        sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
-//            if (buttonIndex == 0) {
-//                bar = self;
-//                UIImagePickerController *vc = [[UIImagePickerController alloc]init];
-//                vc.delegate = self;
-//                vc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-//                [self.vc presentViewController:vc animated:YES completion:nil];
-//                return ;
-//            }else if(buttonIndex == 1){
-//                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加图片" message:@"请输入图片相对路径或URL" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-//                alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-//                alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
-//                    if (buttonIndex == 1) {
-//                        NSString *name = [alert textFieldAtIndex:0].text;
-//                        NSString *text = [NSString stringWithFormat:@"![图片描述](%@)",name];
-//                        [_editView insertText:text];
-//                        NSRange range = NSMakeRange(_editView.selectedRange.location - text.length + 2, 4);
-//                        _editView.selectedRange = range;
-//                    }
-//                };
-//                [alert show];
-//            }
-//        };
-//        [sheet showInView:self.vc.view];
+        [sheet showInView:self.vc.view];
     }else if (btn.tag == 7){
 
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加链接" message:@"请输入链接" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
@@ -120,10 +109,10 @@ static KeyboardBar *bar = nil;
         alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
             if (buttonIndex == 1) {
                 NSString *name = [alert textFieldAtIndex:0].text;
-                NSString *text = [NSString stringWithFormat:@"[链接描述](%@)",name];
+                NSString *text = [NSString stringWithFormat:@"[MarkLite](%@)",name];
                 [_editView insertText:text];
                 [_editView becomeFirstResponder];
-                NSRange range = NSMakeRange(_editView.selectedRange.location - text.length + 1, 4);
+                NSRange range = NSMakeRange(_editView.selectedRange.location - text.length + 1, 8);
                 _editView.selectedRange = range;
             }
         };
@@ -137,34 +126,60 @@ static KeyboardBar *bar = nil;
 {
     UIImage *img = [info objectForKey:UIImagePickerControllerOriginalImage];
     NSData *data = UIImageJPEGRepresentation(img, [Configure sharedConfigure].compressionQuality);
-    
-    beginLoadingAnimation(@"正在上传...");
-    [ZHRequest initializeWithServerUrl:kServerUrl];
-    [ZHRequest postWithUrl:@"upload.php" Body:data Succese:^(NSData *response) {
-        NSLog(@"%@",response.toDictionay);
-        NSDictionary *ret = response.toDictionay;
-        if ([ret[@"payload"] length]) {
-            NSString *name = [kServerUrl stringByAppendingPathComponent:ret[@"payload"]];
-            NSString *text = [NSString stringWithFormat:@"![图片描述](%@)",name];
-            [_editView insertText:text];
-            [_editView becomeFirstResponder];
-            NSRange range = NSMakeRange(_editView.selectedRange.location - text.length + 2, 4);
-            _editView.selectedRange = range;
-        }else{
-            showToast(@"上传失败了😂");
-        }
-
-        stopLoadingAnimation();
-    } Failed:^(ErrorCode code) {
-        stopLoadingAnimation();
-        showToast(@"上传失败😂，请检查网络");
-    }];
+    [self upload:data];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)dealloc
+- (void)upload:(NSData*)data
 {
-    NSLog(@"dealloc");
+
+    // 1. Create `AFHTTPRequestSerializer` which will create your request.
+    AFHTTPRequestSerializer *serializer = [AFHTTPRequestSerializer serializer];
+    
+    // 2. Create an `NSMutableURLRequest`.
+    NSMutableURLRequest *request =
+    [serializer multipartFormRequestWithMethod:@"POST" URLString:kImageUploadUrl parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFormData:[kToken dataUsingEncoding:NSUTF8StringEncoding] name:@"Token"];
+        [formData appendPartWithFileData:data
+                                    name:@"file"
+                                fileName:@"imageFile.jpg"
+                                mimeType:@"image/jpg"];
+        
+    } error:nil];
+    
+    // 3. Create and use `AFHTTPRequestOperationManager` to create an `AFHTTPRequestOperation` from the `NSMutableURLRequest` that we just created.
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    AFHTTPRequestOperation *operation =
+    [manager HTTPRequestOperationWithRequest:request
+                                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                         NSDictionary *dic = responseObject;
+                                         NSString *text = [NSString stringWithFormat:@"![MarkLite](%@)",dic[@"t_url"]];
+                                         [_editView insertText:text];
+                                         [_editView becomeFirstResponder];
+                                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                         NSLog(@"%@",error);
+                                     }];
+    
+    ImageUploadingView *view = [[ImageUploadingView alloc]initWithTitle:@"正在上传" message:@"如果上传太慢可以去设置里，适当调低图片质量" cancelBlock:^{
+        [operation cancel];
+    }];
+    [view show];
+    
+    // 4. Set the progress block of the operation.
+    [operation setUploadProgressBlock:^(NSUInteger __unused bytesWritten,
+                                        long long totalBytesWritten,
+                                        long long totalBytesExpectedToWrite) {
+        view.percent = totalBytesWritten/(double)totalBytesExpectedToWrite;
+    }];
+    
+    // 5. Begin!
+    [operation start];
 }
+
+//- (void)dealloc
+//{
+//    NSLog(@"dealloc");
+//}
 
 @end

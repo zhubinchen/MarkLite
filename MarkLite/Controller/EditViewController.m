@@ -50,18 +50,14 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [self.editView updateSyntax];
-}
-
-- (void)viewWillLayoutSubviews
+- (void)viewDidAppear:(BOOL)animated
 {
     if ([Configure sharedConfigure].keyboardAssist) {
         KeyboardBar *bar = [[KeyboardBar alloc]init];
         bar.editView = _editView;
         bar.vc = self;
         _editView.inputAccessoryView = bar;
+        [self keyboardHide:nil];
     }
 }
 
@@ -151,6 +147,7 @@
 
 - (void)loadFile
 {
+    
     if (fm.currentItem == nil) {
         return;
     }
@@ -168,9 +165,8 @@
     self.title = item.name;
     
     NSString *path = [fm localPath:item.path];
-    NSString *htmlStr = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    
-    self.editView.text = htmlStr;
+    NSString *text = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    self.editView.text = text;
     [self.editView updateSyntax];
 }
 

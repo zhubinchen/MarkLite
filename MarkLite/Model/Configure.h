@@ -24,6 +24,10 @@
 
 @property (nonatomic,assign) CGFloat compressionQuality;
 
+@property (nonatomic,assign) BOOL hasStared;
+
+@property (nonatomic,assign) NSInteger leftDays;
+
 + (instancetype)sharedConfigure;
 
 - (BOOL)saveToFile;

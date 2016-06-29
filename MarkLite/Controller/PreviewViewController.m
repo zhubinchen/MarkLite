@@ -99,33 +99,71 @@
 
 - (void)export
 {
-    NSURL *url = [NSURL fileURLWithPath:[documentPath() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.html",[fm currentItem].name]]];
-    if (htmlString) {
-        [htmlString writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    }
+    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"选择导出格式" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"Html",@"PDF",@"Markdown", nil];
+    sheet.clickedButton = ^(NSInteger index,UIActionSheet *sheet){
+        NSURL *url = nil;
+        if (index == 1) {
+            NSString *path = [fm localPath:[fm currentItem].path];
+            url = [NSURL fileURLWithPath:path];
+        }else if(index == 2){
+            url = [NSURL fileURLWithPath:[documentPath() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pdf",[fm currentItem].name]]];
+            
+            NSData *data = [self createPDF];
+            [data writeToURL:url atomically:YES];
+        }else if (index == 3){
+            url = [NSURL fileURLWithPath:[documentPath() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.html",[fm currentItem].name]]];
+            if (htmlString) {
+                [htmlString writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:nil];
+            }
+        }
+        if (url) {
+            [self exportFile:url];
+        }
+    };
+    [sheet showInView:self.view];
+}
 
+- (void)exportFile:(NSURL*)url
+{
     NSArray *objectsToShare = @[url];
     
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
     
-    //    NSArray *excludedActivities = @[UIActivityTypePostToTwitter, UIActivityTypePostToFacebook,
-    //                                    UIActivityTypePostToWeibo,
-    //                                    UIActivityTypeMessage, UIActivityTypeMail,
-    //                                    UIActivityTypePrint, UIActivityTypeCopyToPasteboard,
-    //                                    UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,
-    //                                    UIActivityTypeAddToReadingList, UIActivityTypePostToFlickr,
-    //                                    UIActivityTypePostToVimeo, UIActivityTypePostToTencentWeibo];
-    //    controller.excludedActivityTypes = excludedActivities;
+    NSArray *excludedActivities = @[
+                                    UIActivityTypePostToTwitter,
+                                    UIActivityTypePostToFacebook,
+                                    UIActivityTypePostToWeibo,
+                                    UIActivityTypeAssignToContact,
+                                    UIActivityTypeSaveToCameraRoll,
+                                    UIActivityTypeAddToReadingList,
+                                    UIActivityTypePostToFlickr
+                                    ];
+    controller.excludedActivityTypes = excludedActivities;
     
     if (kDevicePhone) {
         [self presentViewController:controller animated:YES completion:nil];
     }else{
         UIPopoverPresentationController *vc = controller.popoverPresentationController;
         vc.barButtonItem = self.navigationItem.rightBarButtonItem;
-//        vc.sourceRect = view.bounds;
         vc.permittedArrowDirections = UIPopoverArrowDirectionAny;
         [self presentViewController:controller animated:YES completion:nil];
     }
+}
+
+- (NSData*)createPDF{
+    NSMutableData *data = [NSMutableData data];
+    
+    CGRect bounds = CGRectMake(0, 0, _webView.scrollView.contentSize.width, _webView.scrollView.contentSize.height);
+    UIGraphicsBeginPDFContextToData(data, bounds, nil);
+    UIGraphicsBeginPDFPageWithInfo(bounds, nil);
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGRect origRect = _webView.frame;
+    CGRect newRect = origRect;
+    newRect.size = _webView.scrollView.contentSize;
+    _webView.frame = newRect;
+    [_webView.scrollView.layer renderInContext:ctx];
+    UIGraphicsEndPDFContext();
+    return data;
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
@@ -139,8 +177,20 @@
     [indicator removeFromSuperview];
 }
 
+
 - (void)dealloc
 {
+    dispatch_async(dispatch_queue_create("delete", DISPATCH_QUEUE_CONCURRENT), ^{
+        NSArray *paths = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentPath() error:nil];
+        for (NSString *path in paths) {
+            if ([path hasSuffix:@".html"]) {
+                NSError *err = nil;
+                [[NSFileManager defaultManager] removeItemAtPath:path error:&err];
+                NSLog(@"%@",err);
+            }
+        }
+    });
+    
     if (kDevicePad) {
         [fm removeObserver:self forKeyPath:@"currentItem" context:NULL];
     }

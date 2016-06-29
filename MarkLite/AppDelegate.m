@@ -34,7 +34,8 @@
                                                            NSFontAttributeName:[UIFont systemFontOfSize:18],
                                                            NSForegroundColorAttributeName:kTitleColor
                                                            }];
-    
+    [self checkAppStoreVersion:@"1098107145"];
+
     return YES;
 }
 
@@ -60,6 +61,7 @@
         }
     };
     [alert show];
+
     return YES;
 }
 
@@ -88,5 +90,56 @@
     [[FileManager sharedManager].root archive];
     [[Configure sharedConfigure] saveToFile];
 }
+
+- (void)checkAppStoreVersion:(NSString *)appId
+{
+//#if defined(DEBUG)||defined(_DEBUG)
+//    NSLog(@"调试模式不检查更新");
+//    return;
+//#endif
+    //取得AppStroe信息
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://itunes.apple.com/lookup?id=%@",appId]]];
+    [request setHTTPMethod:@"GET"];
+    request.timeoutInterval  = 2;
+    NSData *returnData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    
+    //判断数据
+    if(returnData != nil)
+    {
+        NSString *latestVersion = @"1.0";
+        NSString *trackViewUrl = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@",appId];
+        
+        NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:returnData options:NSJSONReadingAllowFragments error:nil];
+        NSArray *resultArray = [dic objectForKey:@"results"];
+        for (id config in resultArray)
+        {
+            latestVersion = [config valueForKey:@"version"];
+            trackViewUrl = [config valueForKey:@"trackViewUrl"];
+        }
+        
+        //比较版本
+        double dblCurrentVersion = [kAppVersionNo doubleValue];
+        double dblAppStoreVersion = [latestVersion doubleValue];
+        if(dblCurrentVersion < dblAppStoreVersion)
+        {
+            //提示对话框
+            UIAlertView *alert;
+            alert = [[UIAlertView alloc] initWithTitle:@"MarkLite更新啦"
+                                               message:@"为了有更好的体验，建议升级到最新版！大小不到3M呢😄"
+                                              delegate: self
+                                     cancelButtonTitle:@"我就不"
+                                     otherButtonTitles: @"去更新", nil];
+            alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+                if (buttonIndex == 1) {
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:trackViewUrl]];
+                }
+            };
+            
+            [alert show];
+        }
+    }
+}
+
 
 @end

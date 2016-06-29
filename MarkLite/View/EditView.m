@@ -35,7 +35,7 @@
     [self addSubview:placeholderLable];
     [[NSNotificationCenter defaultCenter]
      addObserver:self selector:@selector(didTextChangeText:) name:UITextViewTextDidChangeNotification object:nil];
-    updateQueue = dispatch_queue_create("update", DISPATCH_QUEUE_CONCURRENT);
+    updateQueue = dispatch_queue_create("update", DISPATCH_QUEUE_SERIAL);
     [self updateSyntax];
     return self;
 }
@@ -65,10 +65,12 @@
     dispatch_async(updateQueue, ^{
         NSArray *models = [self.markdownSyntaxGenerator syntaxModelsForText:self.text];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
+        UIFont *font = [UIFont fontWithName:[Configure sharedConfigure].fontName size:15];
         [attributedString addAttributes:@{
-                                          NSFontAttributeName : [UIFont fontWithName:[Configure sharedConfigure].fontName size:15],
+                                          NSFontAttributeName : font ? font : [UIFont systemFontOfSize:15],
                                           NSForegroundColorAttributeName : [UIColor colorWithRGBString:@"1D1D44"]
                                           } range:NSMakeRange(0, attributedString.length)];
+//        NSLog(@"text%@",self.text);
         for (MarkdownSyntaxModel *model in models) {
             [attributedString addAttributes:AttributesFromMarkdownSyntaxType(model.type) range:model.range];
         }

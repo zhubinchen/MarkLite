@@ -22,6 +22,8 @@
 
 #define kSystemVersion   [[UIDevice currentDevice].systemVersion floatValue]
 
+#define kAppVersionNo [[NSBundle mainBundle].infoDictionary objectForKey:@"CFBundleShortVersionString"]
+
 @interface NSObject (ZHUtils)
 
 @end

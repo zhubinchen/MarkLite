@@ -37,6 +37,7 @@
 
 - (instancetype)init
 {
+    NSLog(@"11");
     if (self = [super init]) {
         fm = [NSFileManager defaultManager];
         NSString *plistPath = [documentPath() stringByAppendingPathComponent:@"root.plist"];
@@ -53,6 +54,8 @@
  
         [[Configure sharedConfigure] addObserver:self forKeyPath:@"cloud" options:NSKeyValueObservingOptionNew context:NULL];
     }
+    NSLog(@"11");
+
     return self;
 }
 

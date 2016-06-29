@@ -21,7 +21,8 @@
 
 #define kTintColor [UIColor colorWithRGBString:@"2c3e50"]
 
-#define kServerUrl @"http://192.168.0.12/"
+#define kImageUploadUrl @"http://up.imgapi.com/"
+#define kToken @"97ade20b4c5a86b625cf449f45f720d686a0154f:Mlg-545PK1Jp5vnxH0v1RP1_vc4=:eyJkZWFkbGluZSI6MTQ2NzEyODc0OCwiYWN0aW9uIjoiZ2V0IiwidWlkIjoiNTY3OTU0IiwiYWlkIjoiMTIyNjk3MSIsImZyb20iOiJmaWxlIn0="
 
 #endif
 

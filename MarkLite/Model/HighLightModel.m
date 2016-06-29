@@ -25,8 +25,10 @@
 
 - (NSDictionary *)attribute
 {
+    UIFont *font = [UIFont fontWithName:[Configure sharedConfigure].fontName size:15];
+
     return @{
-             NSFontAttributeName : [UIFont fontWithName:[Configure sharedConfigure].fontName size:_size],
+             NSFontAttributeName : font ? font : [UIFont systemFontOfSize:15],
              NSForegroundColorAttributeName : _textColor,
              NSBackgroundColorAttributeName : _backgroudColor,
              NSStrikethroughStyleAttributeName : @(_deletionLine ? NSUnderlineStyleSingle : NSUnderlineStyleNone)
