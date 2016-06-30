@@ -7,10 +7,11 @@
 //
 
 #import "MenuViewController.h"
-#import "SelectViewController.h"
 #import "Configure.h"
 #import "AboutViewController.h"
+#import "StyleViewController.h"
 #import "ImageViewController.h"
+#import "DonateViewController.h"
 
 @interface MenuViewController ()
 
@@ -33,11 +34,11 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     
     if (kDevicePad) {
-        items = @[@[@"iCloud 同步"],@[@"键盘辅助",@"编辑器字体"],@[@"渲染样式",@"图床服务"],@[@"好评鼓励",@"问题反馈"],@[@"关于"]];
-        imgNames = @[@[@"Cloud"],@[@"Keyboard",@"Font"],@[@"Style",@"Quality"],@[@"Star",@"FeedBack"],@[@"Info"]];
+        items = @[@[@"iCloud 同步",@"图片云存储"],@[@"键盘辅助",@"编辑器字体",@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"],@[@"打赏作者"]];
+        imgNames = @[@[@"Cloud",@"Quality"],@[@"Keyboard",@"Font",@"Style"],@[@"Star",@"FeedBack"],@[@"Info"],@[@"Info"]];
     }else{
-        items = @[@[@"iCloud 同步"],@[@"键盘辅助"],@[@"渲染样式",@"图床服务"],@[@"好评鼓励",@"问题反馈"],@[@"关于"]];
-        imgNames = @[@[@"Cloud"],@[@"Keyboard"],@[@"Style",@"Quality"],@[@"Star",@"FeedBack"],@[@"Info"]];
+        items = @[@[@"iCloud 同步",@"图片云存储"],@[@"键盘辅助",@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"],@[@"打赏作者"]];
+        imgNames = @[@[@"Cloud",@"Quality"],@[@"Keyboard",@"Style"],@[@"Star",@"FeedBack"],@[@"Info"],@[@"Info"]];
     }
 }
 
@@ -68,7 +69,7 @@
     
     cell.textLabel.text = items[indexPath.section][indexPath.row];
     cell.imageView.image = [UIImage imageNamed:imgNames[indexPath.section][indexPath.row]];
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0 && indexPath.row == 0) {
         UISwitch *s = [[UISwitch alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 60, 10, 0, 0)];
         s.on = [Configure sharedConfigure].cloud;
         [s addTarget:self action:@selector(switchCloud:) forControlEvents:UIControlEventValueChanged];
@@ -89,12 +90,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 50;
+    return 44;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return kDevicePhone ? 20 :25;
+    return 15;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -104,28 +105,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SelectViewController *vc = [[SelectViewController alloc]init];
-
-    if (indexPath.section == 1 && indexPath.row == 1) {
-        [self performSegueWithIdentifier:@"font" sender:self];
-    }else if (indexPath.section == 2 && indexPath.row == 0) {
-        NSArray *styles =  @[@"Clearness",@"Clearness Dark",@"GitHub",@"GitHub2",@"Solarized Dark",@"Solarized Light"];
-        vc.selectOptions = styles;
-        vc.title = @"选择样式";
-        
-        for (int i = 0; i < styles.count; i++) {
-            if ([[Configure sharedConfigure].style isEqualToString:styles[i]]) {
-                vc.defaultSelect = i;
-            }
-        }
-        vc.didSelected = ^(int index){
-            [Configure sharedConfigure].style = styles[index];
-        };
-        [self.navigationController pushViewController:vc animated:YES];
-    }else if (indexPath.section == 2 && indexPath.row == 1) {
+    if (indexPath.section == 0 && indexPath.row == 1) {
         UIViewController *vc = [[ImageViewController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
-    }else if (indexPath.section == 3) {
+    }else if (indexPath.section == 1) {
+        if (kDevicePad && indexPath.row == 1) {
+            [self performSegueWithIdentifier:@"font" sender:self];
+        }
+        if ((kDevicePhone && indexPath.row == 1) || (kDevicePad && indexPath.row == 2)) {
+            
+            UIViewController *vc = [[StyleViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"has_stared"];
              [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1098107145&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
@@ -133,8 +125,11 @@
             NSString *url = @"mailto:cheng4741@gmail.com?subject=MarkLite%20Report&body=";
             [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
         }
-    }else if (indexPath.section == 4){
+    }else if (indexPath.section == 3){
         UIViewController *vc = [[AboutViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if (indexPath.section == 4){
+        UIViewController *vc = [[DonateViewController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

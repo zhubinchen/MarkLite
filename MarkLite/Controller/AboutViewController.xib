@@ -78,6 +78,6 @@
         </view>
     </objects>
     <resources>
-        <image name="icon.png" width="1024" height="1024"/>
+        <image name="icon.png" width="180" height="180"/>
     </resources>
 </document>

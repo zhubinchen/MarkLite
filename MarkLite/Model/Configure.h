@@ -22,11 +22,13 @@
 
 @property (nonatomic,assign) BOOL cloud;
 
-@property (nonatomic,assign) CGFloat compressionQuality;
-
 @property (nonatomic,assign) BOOL hasStared;
 
+@property (nonatomic,assign) BOOL imageServer;
+
 @property (nonatomic,assign) NSInteger leftDays;
+
+@property (nonatomic,assign) CGFloat compressionQuality;
 
 + (instancetype)sharedConfigure;
 

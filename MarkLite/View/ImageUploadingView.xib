@@ -11,6 +11,16 @@
             <rect key="frame" x="0.0" y="0.0" width="240" height="120"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Xv-jn-MOv">
+                    <rect key="frame" x="0.0" y="-4" width="240" height="128"/>
+                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="Jgu-Ui-oM4">
+                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <vibrancyEffect>
+                        <blurEffect style="light"/>
+                    </vibrancyEffect>
+                </visualEffectView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RMm-cQ-El5">
                     <rect key="frame" x="101" y="10" width="36.5" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -44,7 +54,7 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="1" alpha="0.98534276463963966" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="ke0-Xq-vWf" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Ijk-dy-eTc"/>
                 <constraint firstItem="lMe-Sv-tn8" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="JVn-8D-ilv"/>

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ImageUploadingView : UIVisualEffectView
+@interface ImageUploadingView : UIView
 
 @property (nonatomic,copy) NSString *title;
 

@@ -24,6 +24,7 @@
 
 - (id)initWithCoder:(NSCoder *) coder {
     self = [super initWithCoder:coder];
+
     if (self == nil) {
         return nil;
     }
@@ -36,7 +37,7 @@
     [[NSNotificationCenter defaultCenter]
      addObserver:self selector:@selector(didTextChangeText:) name:UITextViewTextDidChangeNotification object:nil];
     updateQueue = dispatch_queue_create("update", DISPATCH_QUEUE_SERIAL);
-    [self updateSyntax];
+
     return self;
 }
 

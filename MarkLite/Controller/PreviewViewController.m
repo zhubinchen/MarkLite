@@ -99,22 +99,19 @@
 
 - (void)export
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"选择导出格式" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"Html",@"PDF",@"Markdown", nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"选择导出格式" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"Web页面",@"PDF文档", nil];
     sheet.clickedButton = ^(NSInteger index,UIActionSheet *sheet){
         NSURL *url = nil;
-        if (index == 1) {
-            NSString *path = [fm localPath:[fm currentItem].path];
-            url = [NSURL fileURLWithPath:path];
-        }else if(index == 2){
-            url = [NSURL fileURLWithPath:[documentPath() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pdf",[fm currentItem].name]]];
-            
-            NSData *data = [self createPDF];
-            [data writeToURL:url atomically:YES];
-        }else if (index == 3){
+        if (index == 1){
             url = [NSURL fileURLWithPath:[documentPath() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.html",[fm currentItem].name]]];
             if (htmlString) {
                 [htmlString writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:nil];
             }
+        }else if(index == 0){
+            url = [NSURL fileURLWithPath:[documentPath() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pdf",[fm currentItem].name]]];
+            
+            NSData *data = [self createPDF];
+            [data writeToURL:url atomically:YES];
         }
         if (url) {
             [self exportFile:url];
@@ -185,7 +182,7 @@
         for (NSString *path in paths) {
             if ([path hasSuffix:@".html"]) {
                 NSError *err = nil;
-                [[NSFileManager defaultManager] removeItemAtPath:path error:&err];
+                [[NSFileManager defaultManager] removeItemAtPath:[fm localPath:path] error:&err];
                 NSLog(@"%@",err);
             }
         }
