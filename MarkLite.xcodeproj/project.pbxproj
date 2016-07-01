@@ -16,8 +16,6 @@
 		076C3C9E1D23622000C31043 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 076C3C921D23622000C31043 /* AFURLRequestSerialization.m */; };
 		076C3C9F1D23622000C31043 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 076C3C941D23622000C31043 /* AFURLResponseSerialization.m */; };
 		076C3CA01D23622000C31043 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 076C3C961D23622000C31043 /* AFURLSessionManager.m */; };
-		0777D3311D2517280026E0EA /* DonateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0777D32F1D2517280026E0EA /* DonateViewController.m */; };
-		0777D3321D2517280026E0EA /* DonateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0777D3301D2517280026E0EA /* DonateViewController.xib */; };
 		0777D3371D2522E20026E0EA /* StyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0777D3351D2522E20026E0EA /* StyleViewController.m */; };
 		0777D3381D2522E20026E0EA /* StyleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0777D3361D2522E20026E0EA /* StyleViewController.xib */; };
 		07B92DCF1D1D960F00A4127E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B92DCE1D1D960F00A4127E /* main.m */; };
@@ -136,9 +134,6 @@
 		076C3C941D23622000C31043 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		076C3C951D23622000C31043 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		076C3C961D23622000C31043 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
-		0777D32E1D2517280026E0EA /* DonateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DonateViewController.h; sourceTree = "<group>"; };
-		0777D32F1D2517280026E0EA /* DonateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DonateViewController.m; sourceTree = "<group>"; };
-		0777D3301D2517280026E0EA /* DonateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DonateViewController.xib; sourceTree = "<group>"; };
 		0777D3341D2522E20026E0EA /* StyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleViewController.h; sourceTree = "<group>"; };
 		0777D3351D2522E20026E0EA /* StyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleViewController.m; sourceTree = "<group>"; };
 		0777D3361D2522E20026E0EA /* StyleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StyleViewController.xib; sourceTree = "<group>"; };
@@ -333,9 +328,6 @@
 				07F90CE91D20F67900DF5194 /* ImageViewController.h */,
 				07F90CEA1D20F67900DF5194 /* ImageViewController.m */,
 				07F90CEB1D20F67900DF5194 /* ImageViewController.xib */,
-				0777D32E1D2517280026E0EA /* DonateViewController.h */,
-				0777D32F1D2517280026E0EA /* DonateViewController.m */,
-				0777D3301D2517280026E0EA /* DonateViewController.xib */,
 				07B92DE51D1D964100A4127E /* AboutViewController.h */,
 				07B92DE61D1D964100A4127E /* AboutViewController.m */,
 				07B92DE71D1D964100A4127E /* AboutViewController.xib */,
@@ -706,7 +698,6 @@
 				07B92EB11D1D966B00A4127E /* Clearness Dark.css in Resources */,
 				07B92EA41D1D966B00A4127E /* move@2x.png in Resources */,
 				07B92EA81D1D966B00A4127E /* FeedBack@2x.png in Resources */,
-				0777D3321D2517280026E0EA /* DonateViewController.xib in Resources */,
 				07EC143A1D1DA45200AA3EEE /* Cloud@2x.png in Resources */,
 				07B92EAB1D1D966B00A4127E /* Info@2x.png in Resources */,
 				07B92EB21D1D966B00A4127E /* Clearness.css in Resources */,
@@ -799,7 +790,6 @@
 				07B92EF31D1D986E00A4127E /* document.c in Sources */,
 				07B92EF21D1D986E00A4127E /* buffer.c in Sources */,
 				076C3C9F1D23622000C31043 /* AFURLResponseSerialization.m in Sources */,
-				0777D3311D2517280026E0EA /* DonateViewController.m in Sources */,
 				07B92E011D1D964100A4127E /* PreviewViewController.m in Sources */,
 				07B92DCF1D1D960F00A4127E /* main.m in Sources */,
 				07B92EC81D1D966B00A4127E /* ZipArchive.mm in Sources */,

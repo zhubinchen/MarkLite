@@ -8,9 +8,11 @@
 
 #import "ImageViewController.h"
 #import "Configure.h"
+#import <StoreKit/StoreKit.h>
 
+#define  kProductImageServer @"com.zhubch.MarkLite.imagerServer"
 
-@interface ImageViewController ()
+@interface ImageViewController ()<SKPaymentTransactionObserver,SKProductsRequestDelegate>
 
 @property (nonatomic,weak) IBOutlet UIButton *purchaseBtn;
 @property (nonatomic,weak) IBOutlet UISlider *slider;
@@ -53,12 +55,14 @@
 - (IBAction)purchaseFunc:(id)sender {
     
     if (![Configure sharedConfigure].hasStared) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"开通后即可将本地图片上传到云服务器，让你的文档在任何地方都能加载图片" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"好评开通", nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"开通后即可将本地图片上传到云服务器，让你的文档在任何地方都能加载图片" delegate:nil cancelButtonTitle:@"好评试用7天" otherButtonTitles:@"现在开通", nil];
         alert.clickedButton = ^(NSInteger index,UIAlertView *alert){
-            if (index == 1){
+            if (index == 0){
                 [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1098107145&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
+                [Configure sharedConfigure].imageServer = YES;
+            }else{
+                [self requestProductData:kProductImageServer];
             }
-            [Configure sharedConfigure].imageServer = YES;
         };
         [alert show];
     }
@@ -74,6 +78,92 @@
 
 - (IBAction)compressionQualityChanged:(UISlider*)sender{
     [Configure sharedConfigure].compressionQuality = sender.value;
+}
+
+//请求商品
+- (void)requestProductData:(NSString *)type{
+    NSLog(@"-------------请求对应的产品信息----------------");
+    NSArray *product = [[NSArray alloc] initWithObjects:type, nil];
+    
+    NSSet *nsset = [NSSet setWithArray:product];
+    SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:nsset];
+    request.delegate = self;
+    [request start];
+}
+
+//收到产品返回信息
+- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
+    
+    NSLog(@"--------------收到产品反馈消息---------------------");
+    NSArray *product = response.products;
+    if([product count] == 0){
+        NSLog(@"--------------没有商品------------------");
+        return;
+    }
+    
+    NSLog(@"productID:%@", response.invalidProductIdentifiers);
+    NSLog(@"产品付费数量:%ld",(unsigned long)[product count]);
+    
+    SKProduct *p = product.firstObject;
+    NSLog(@"%@", [p description]);
+    NSLog(@"%@", [p localizedTitle]);
+    NSLog(@"%@", [p localizedDescription]);
+    NSLog(@"%@", [p price]);
+    NSLog(@"%@", [p productIdentifier]);
+    
+    SKPayment *payment = [SKPayment paymentWithProduct:p];
+    
+    NSLog(@"发送购买请求");
+    [[SKPaymentQueue defaultQueue] addPayment:payment];
+}
+
+//请求失败
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
+    NSLog(@"------------------错误-----------------:%@", error);
+}
+
+- (void)requestDidFinish:(SKRequest *)request{
+    NSLog(@"------------反馈信息结束-----------------");
+}
+
+
+//监听购买结果
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transaction{
+    for(SKPaymentTransaction *tran in transaction){
+        
+        switch (tran.transactionState) {
+            case SKPaymentTransactionStatePurchased:
+                NSLog(@"交易完成");
+                
+                break;
+            case SKPaymentTransactionStatePurchasing:
+                NSLog(@"商品添加进列表");
+                
+                break;
+            case SKPaymentTransactionStateRestored:
+                NSLog(@"已经购买过商品");
+                
+                break;
+            case SKPaymentTransactionStateFailed:
+                NSLog(@"交易失败");
+                
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+//交易结束
+- (void)completeTransaction:(SKPaymentTransaction *)transaction{
+    NSLog(@"交易结束");
+    
+    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+}
+
+
+- (void)dealloc{
+    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
 @end

@@ -11,7 +11,6 @@
 #import "AboutViewController.h"
 #import "StyleViewController.h"
 #import "ImageViewController.h"
-#import "DonateViewController.h"
 
 @interface MenuViewController ()
 
@@ -34,11 +33,11 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     
     if (kDevicePad) {
-        items = @[@[@"iCloud 同步",@"图片云存储"],@[@"键盘辅助",@"编辑器字体",@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"],@[@"打赏作者"]];
-        imgNames = @[@[@"Cloud",@"Quality"],@[@"Keyboard",@"Font",@"Style"],@[@"Star",@"FeedBack"],@[@"Info"],@[@"Info"]];
+        items = @[@[@"iCloud 同步",@"图片云存储"],@[@"键盘辅助",@"编辑器字体",@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"]];
+        imgNames = @[@[@"Cloud",@"Quality"],@[@"Keyboard",@"Font",@"Style"],@[@"Star",@"FeedBack"],@[@"Info"]];
     }else{
-        items = @[@[@"iCloud 同步",@"图片云存储"],@[@"键盘辅助",@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"],@[@"打赏作者"]];
-        imgNames = @[@[@"Cloud",@"Quality"],@[@"Keyboard",@"Style"],@[@"Star",@"FeedBack"],@[@"Info"],@[@"Info"]];
+        items = @[@[@"iCloud 同步",@"图片云存储"],@[@"键盘辅助",@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"]];
+        imgNames = @[@[@"Cloud",@"Quality"],@[@"Keyboard",@"Style"],@[@"Star",@"FeedBack"],@[@"Info"]];
     }
 }
 
@@ -127,9 +126,6 @@
         }
     }else if (indexPath.section == 3){
         UIViewController *vc = [[AboutViewController alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
-    }else if (indexPath.section == 4){
-        UIViewController *vc = [[DonateViewController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
