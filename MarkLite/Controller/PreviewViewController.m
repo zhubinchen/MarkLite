@@ -99,21 +99,46 @@
 
 - (void)export
 {
+    if (kDevicePad) {
+        UIAlertView *sheet = [[UIAlertView alloc]initWithTitle:@"选择导出格式" message:@"" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"Web页面",@"PDF文档", nil];
+        sheet.clickedButton = ^(NSInteger index,UIAlertView *sheet){
+            NSURL *url = nil;
+            if (index == 1){
+                url = [NSURL fileURLWithPath:[documentPath() stringByAppendingPathComponent:[NSString stringWithFormat:@"/temp/%@.html",[fm currentItem].name]]];
+                if (htmlString) {
+                    [htmlString writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:nil];
+                }
+            }else if(index == 2){
+                url = [NSURL fileURLWithPath:[documentPath() stringByAppendingPathComponent:[NSString stringWithFormat:@"/temp/%@.pdf",[fm currentItem].name]]];
+                
+                NSData *data = [self createPDF];
+                [data writeToURL:url atomically:YES];
+            }
+            if (url) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [self exportFile:url];
+                });
+            }
+        };
+        [sheet show];
+        return;
+    }
     UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"选择导出格式" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"Web页面",@"PDF文档", nil];
     sheet.clickedButton = ^(NSInteger index,UIActionSheet *sheet){
         NSURL *url = nil;
-        if (index == 1){
-            url = [NSURL fileURLWithPath:[documentPath() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.html",[fm currentItem].name]]];
+        if (index == 0){
+            url = [NSURL fileURLWithPath:[documentPath() stringByAppendingPathComponent:[NSString stringWithFormat:@"/temp/%@.html",[fm currentItem].name]]];
             if (htmlString) {
                 [htmlString writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:nil];
             }
-        }else if(index == 0){
-            url = [NSURL fileURLWithPath:[documentPath() stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.pdf",[fm currentItem].name]]];
+        }else if(index == 1){
+            url = [NSURL fileURLWithPath:[documentPath() stringByAppendingPathComponent:[NSString stringWithFormat:@"/temp/%@.pdf",[fm currentItem].name]]];
             
             NSData *data = [self createPDF];
             [data writeToURL:url atomically:YES];
         }
         if (url) {
+            
             [self exportFile:url];
         }
     };
@@ -177,17 +202,6 @@
 
 - (void)dealloc
 {
-    dispatch_async(dispatch_queue_create("delete", DISPATCH_QUEUE_CONCURRENT), ^{
-        NSArray *paths = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:documentPath() error:nil];
-        for (NSString *path in paths) {
-            if ([path hasSuffix:@".html"]) {
-                NSError *err = nil;
-                [[NSFileManager defaultManager] removeItemAtPath:[fm localPath:path] error:&err];
-                NSLog(@"%@",err);
-            }
-        }
-    });
-    
     if (kDevicePad) {
         [fm removeObserver:self forKeyPath:@"currentItem" context:NULL];
     }

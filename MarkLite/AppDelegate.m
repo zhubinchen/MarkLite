@@ -36,6 +36,19 @@
                                                            }];
     [self checkAppStoreVersion:@"1098107145"];
 
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
+        NSString *tempPath = [documentPath() stringByAppendingPathComponent:@"temp"];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:tempPath]) {
+            [[NSFileManager defaultManager] createDirectoryAtPath:tempPath withIntermediateDirectories:YES attributes:nil error:nil];
+        }
+        NSArray *paths = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:tempPath error:nil];
+        for (NSString *path in paths) {
+            NSError *err = nil;
+            [[NSFileManager defaultManager] removeItemAtPath:[tempPath stringByAppendingPathComponent:path] error:&err];
+            NSLog(@"%@",err);
+        }
+    });
+
     return YES;
 }
 
