@@ -61,7 +61,7 @@
     }
     
     NSLog(@"productID:%@", response.invalidProductIdentifiers);
-    NSLog(@"产品付费数量:%ld",[product count]);
+    NSLog(@"产品付费数量:%ld",(unsigned long)[product count]);
     
     SKProduct *p = product.firstObject;
     NSLog(@"%@", [p description]);

@@ -14,30 +14,30 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright (c) 2015 zhubch. All rights reserved." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KjK-5f-FTc">
-                                <rect key="frame" x="9" y="423" width="301.5" height="17"/>
+                                <rect key="frame" x="149" y="543" width="301.5" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MarkLite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sQY-F9-60W">
-                                <rect key="frame" x="122" y="230" width="75" height="20"/>
+                                <rect key="frame" x="262" y="290" width="75" height="20"/>
                                 <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="rGT-BV-l8x">
-                                <rect key="frame" x="120" y="142" width="80" height="80"/>
+                                <rect key="frame" x="250" y="182" width="100" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="Aok-lz-zik"/>
-                                    <constraint firstAttribute="width" constant="80" id="amX-ls-6C9"/>
+                                    <constraint firstAttribute="height" constant="100" id="Aok-lz-zik"/>
+                                    <constraint firstAttribute="width" constant="100" id="amX-ls-6C9"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.74509803921568629" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.16862745100000001" green="0.79215686269999996" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="sQY-F9-60W" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="8Nb-5X-4Th"/>
                             <constraint firstItem="sQY-F9-60W" firstAttribute="top" secondItem="rGT-BV-l8x" secondAttribute="bottom" constant="8" id="NgS-9L-N4t"/>
@@ -47,7 +47,6 @@
                             <constraint firstItem="rGT-BV-l8x" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="xFy-Ei-fox"/>
                         </constraints>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -55,6 +54,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="icon.png" width="180" height="180"/>
+        <image name="icon.png" width="300" height="300"/>
     </resources>
 </document>

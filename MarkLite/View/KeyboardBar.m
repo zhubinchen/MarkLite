@@ -81,12 +81,17 @@ static KeyboardBar *bar = nil;
         UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"添加图片" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"从照片选取并上传",@"手动输入图片路径或链接", nil];
         sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
             if (buttonIndex == 0) {
+                if ([Configure sharedConfigure].imageServer == NO) {
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        showToast(@"请先去[设置]开通图片云存储服务");
+                    });
+                    return ;
+                }
                 bar = self;
                 UIImagePickerController *vc = [[UIImagePickerController alloc]init];
                 vc.delegate = self;
                 vc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
                 [self.vc presentViewController:vc animated:YES completion:nil];
-                return ;
             }else if(buttonIndex == 1){
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加图片" message:@"请输入图片相对路径或URL" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
                 alert.alertViewStyle = UIAlertViewStylePlainTextInput;

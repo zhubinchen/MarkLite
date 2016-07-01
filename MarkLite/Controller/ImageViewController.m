@@ -42,7 +42,8 @@
     line = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 0.3)];
     line.backgroundColor = [UIColor lightGrayColor];
     [_view2 addSubview:line];
-    line = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 0.3)];
+    line = [[UIView alloc]initWithFrame:CGRectMake(0, 43.5, self.view.bounds.size.width, 0.3)];
+    line.backgroundColor = [UIColor lightGrayColor];
     [_view1 addSubview:line];
     line = [[UIView alloc]initWithFrame:CGRectMake(0, 89.5, self.view.bounds.size.width, 0.3)];
     line.backgroundColor = [UIColor lightGrayColor];
@@ -52,7 +53,7 @@
 - (IBAction)purchaseFunc:(id)sender {
     
     if (![Configure sharedConfigure].hasStared) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"开通后即可将本地图片上传到云服务器，让你的文档在任何地方都能正常加载图片" message:nil delegate:nil cancelButtonTitle:@"好评后开通" otherButtonTitles:@"不好评也能开通", nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"开通后即可将本地图片上传到云服务器，让你的文档在任何地方都能加载图片" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"好评开通", nil];
         alert.clickedButton = ^(NSInteger index,UIAlertView *alert){
             if (index == 1){
                 [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1098107145&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
@@ -74,15 +75,5 @@
 - (IBAction)compressionQualityChanged:(UISlider*)sender{
     [Configure sharedConfigure].compressionQuality = sender.value;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

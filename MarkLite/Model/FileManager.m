@@ -37,7 +37,6 @@
 
 - (instancetype)init
 {
-    NSLog(@"11");
     if (self = [super init]) {
         fm = [NSFileManager defaultManager];
         NSString *plistPath = [documentPath() stringByAppendingPathComponent:@"root.plist"];
@@ -54,8 +53,6 @@
  
         [[Configure sharedConfigure] addObserver:self forKeyPath:@"cloud" options:NSKeyValueObservingOptionNew context:NULL];
     }
-    NSLog(@"11");
-
     return self;
 }
 
@@ -331,11 +328,6 @@
 - (void)notify
 {
     [_root archive];
-
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [_root archive];
-//        [[NSNotificationCenter defaultCenter]postNotificationName:@"ItemsChangedNotification" object:_root];
-//    });
 }
 
 @end

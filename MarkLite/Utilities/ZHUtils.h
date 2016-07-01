@@ -303,7 +303,7 @@ static inline void showToast(NSString *message){
         l.alpha = 1.0;
     } completion:^(BOOL finished) {
         if (finished) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [UIView animateWithDuration:0.5 animations:^{
                     l.alpha = 0.0;
                 } completion:^(BOOL finished) {

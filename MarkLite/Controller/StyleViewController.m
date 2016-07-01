@@ -74,6 +74,7 @@
     [Configure sharedConfigure].style = styles[selectedRow];
     [self.table reloadData];
 }
+
 /*
 #pragma mark - Navigation
 
