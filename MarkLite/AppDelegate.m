@@ -58,10 +58,17 @@
     NSString *name = [path componentsSeparatedByString:@"/"].lastObject;
     NSData *content = [NSData dataWithContentsOfURL:url];
     FileManager *fm = [FileManager sharedManager];
-    [fm createFile:name Content:content];
+    
     Item *i = [[Item alloc]init];
     i.open = YES;
     i.path = name;
+    i.cloud = NO;
+    BOOL ret = [fm createFile:i.fullPath Content:content];
+    if (!ret) {
+        showToast(@"创建失败");
+        return YES;
+    }
+    
     [fm.root addChild:i];
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:[NSString stringWithFormat:@"收到新文件:%@",name] message:@"" delegate:nil cancelButtonTitle:@"忽略" otherButtonTitles:@"打开", nil];
     alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){

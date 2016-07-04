@@ -118,7 +118,7 @@ static CGFloat h;
     Item *i = [[Item alloc]init];
     i.path = path;
     i.open = YES;
-    BOOL ret = [[FileManager sharedManager] createFile:path Content:[NSData data]];
+    BOOL ret = [[FileManager sharedManager] createFile:i.fullPath Content:[NSData data]];
     
     if (ret == NO) {
         showToast(@"出错了，请确保文件名不重复");

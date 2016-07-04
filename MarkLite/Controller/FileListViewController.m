@@ -174,10 +174,11 @@
                     Item *i = [[Item alloc]init];
                     i.path = path;
                     i.open = YES;
+                    i.cloud = NO;
                     if (i.type == FileTypeFolder) {
-                        [fm createFolder:path];
+                        [fm createFolder:i.fullPath];
                     }else{
-                        BOOL ret = [[FileManager sharedManager] createFile:path Content:[NSData data]];
+                        BOOL ret = [[FileManager sharedManager] createFile:i.fullPath Content:[NSData data]];
                         
                         if (ret == NO) {
                             showToast(@"出错了，请确保文件名不重复");
@@ -223,9 +224,10 @@
             Item *i = [[Item alloc]init];
             i.path = path;
             i.open = YES;
+            i.cloud = NO;
             UIImage *img = [info objectForKey:UIImagePickerControllerOriginalImage];
             NSData *data = UIImageJPEGRepresentation(img, 0.5);
-            BOOL ret = [[FileManager sharedManager] createFile:path Content:data];
+            BOOL ret = [[FileManager sharedManager] createFile:i.fullPath Content:data];
             
             if (ret == NO) {
                 showToast(@"出错了，请确保文件名不重复");
@@ -307,7 +309,7 @@
                         }
                         
                         [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
-                        [fm deleteFile:i.path];
+                        [fm deleteFile:i.fullPath];
                     }
                 };
                 [alert show];
@@ -328,11 +330,16 @@
                             showToast(@"请不要输入特殊字符");
                             return;
                         }
+                        NSString *oldPath = i.path;
                         NSString *newPath = [i.path stringByReplacingOccurrencesOfString:i.name withString:name];
-                        if ([fm moveFile:i.path toNewPath:newPath]) {
-                            i.path = newPath;
+                        NSString *oldFullPath = i.fullPath;
+                        i.path = newPath;
+                        NSString *newFullPath = i.fullPath;
+                        
+                        if ([fm moveFile:oldFullPath toNewPath:newFullPath]) {
                             [tableView reloadData];
                         }else{
+                            i.path = oldPath;
                             showToast(@"出错了，请确保文件名不重复");
                         }
                     }
@@ -369,7 +376,7 @@
                 }
                 
                 [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
-                [fm deleteFile:i.path];
+                [fm deleteFile:i.fullPath];
             }
         };
         [alert show];
@@ -390,7 +397,7 @@
         showToast(@"不支持文件夹导出");
         return;
     }
-    NSURL *url = [NSURL fileURLWithPath:[fm localPath:i.path]];
+    NSURL *url = [NSURL fileURLWithPath:i.fullPath];
     NSArray *objectsToShare = @[url];
     
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];

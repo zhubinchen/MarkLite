@@ -185,12 +185,12 @@
         if (_sortOption == 0) {
             return [item1.name compare:item2.name];
         }else if(_sortOption == 1){
-            NSDate *date1 = [_fm attributeOfPath:item1.path][NSFileCreationDate];
-            NSDate *date2 = [_fm attributeOfPath:item2.path][NSFileCreationDate];
+            NSDate *date1 = [_fm attributeOfPath:item1.fullPath][NSFileCreationDate];
+            NSDate *date2 = [_fm attributeOfPath:item2.fullPath][NSFileCreationDate];
             return [date1 compare:date2];
         }else{
-            NSDate *date1 = [_fm attributeOfPath:item1.path][NSFileModificationDate];
-            NSDate *date2 = [_fm attributeOfPath:item2.path][NSFileModificationDate];
+            NSDate *date1 = [_fm attributeOfPath:item1.fullPath][NSFileModificationDate];
+            NSDate *date2 = [_fm attributeOfPath:item2.fullPath][NSFileModificationDate];
             return [date1 compare:date2];
         }
     }].mutableCopy;
@@ -229,7 +229,7 @@
             }
             
             [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
-            [_fm deleteFile:i.path];
+            [_fm deleteFile:i.fullPath];
         }
     };
     [sheet showInView:self.view];

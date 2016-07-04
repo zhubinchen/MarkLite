@@ -164,7 +164,7 @@
 
     self.title = item.name;
     
-    NSString *path = [fm localPath:item.path];
+    NSString *path = item.fullPath;
     NSString *text = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     self.editView.text = text;
     [self.editView updateSyntax];
@@ -188,7 +188,7 @@
     }
     
     NSData *content = [self.editView.text dataUsingEncoding:NSUTF8StringEncoding];
-    [fm saveFile:item.path Content:content];
+    [fm saveFile:item.fullPath Content:content];
 }
 
 - (void)dealloc

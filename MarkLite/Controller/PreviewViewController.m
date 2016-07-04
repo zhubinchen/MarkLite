@@ -54,7 +54,7 @@
 
 - (void)loadFile
 {
-    NSString *path = [fm localPath:[fm currentItem].path];
+    NSString *path = [fm currentItem].fullPath;
 
     
     if (fm.currentItem.type == FileTypeImage) {
