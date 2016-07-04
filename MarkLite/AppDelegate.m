@@ -69,7 +69,7 @@
         return YES;
     }
     
-    [fm.root addChild:i];
+    [fm.local addChild:i];
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:[NSString stringWithFormat:@"收到新文件:%@",name] message:@"" delegate:nil cancelButtonTitle:@"忽略" otherButtonTitles:@"打开", nil];
     alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
         if (buttonIndex == 1) {

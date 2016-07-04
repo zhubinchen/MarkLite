@@ -427,15 +427,29 @@
                                     <outlet property="delegate" destination="FOL-Xe-NU3" id="N4Z-QO-bRE"/>
                                 </connections>
                             </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="k0H-ao-FQB">
+                                <rect key="frame" x="0.0" y="44" width="375" height="510"/>
+                                <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="FOL-Xe-NU3" id="e1p-tQ-iPN"/>
+                                    <outlet property="delegate" destination="FOL-Xe-NU3" id="q36-U3-fVz"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="CTd-xk-UGY" secondAttribute="trailing" id="0EY-Be-7C6"/>
                             <constraint firstItem="hgt-J9-INt" firstAttribute="leading" secondItem="CRl-Tv-lJK" secondAttribute="leading" id="7BS-NW-eda"/>
                             <constraint firstAttribute="trailing" secondItem="hgt-J9-INt" secondAttribute="trailing" id="BkM-Ft-uxm"/>
+                            <constraint firstItem="k0H-ao-FQB" firstAttribute="top" secondItem="hgt-J9-INt" secondAttribute="bottom" id="IhX-qt-d9t"/>
+                            <constraint firstItem="k0H-ao-FQB" firstAttribute="leading" secondItem="CRl-Tv-lJK" secondAttribute="leading" id="Sbl-5U-bFV"/>
                             <constraint firstItem="xz7-c3-tds" firstAttribute="top" secondItem="CTd-xk-UGY" secondAttribute="bottom" id="YWk-lg-3bg"/>
+                            <constraint firstItem="xz7-c3-tds" firstAttribute="top" secondItem="k0H-ao-FQB" secondAttribute="bottom" id="afH-3c-jhB"/>
                             <constraint firstItem="hgt-J9-INt" firstAttribute="top" secondItem="UFd-XL-7RV" secondAttribute="bottom" id="i8p-wA-XcF"/>
                             <constraint firstItem="CTd-xk-UGY" firstAttribute="leading" secondItem="CRl-Tv-lJK" secondAttribute="leading" id="qt6-CW-Zig"/>
+                            <constraint firstAttribute="trailing" secondItem="k0H-ao-FQB" secondAttribute="trailing" id="rwE-Ft-Wsm"/>
                             <constraint firstItem="CTd-xk-UGY" firstAttribute="top" secondItem="hgt-J9-INt" secondAttribute="bottom" id="tt2-E5-sQl"/>
                         </constraints>
                     </view>
@@ -444,7 +458,8 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="7JA-JI-yHX"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="fileListView" destination="CTd-xk-UGY" id="067-7n-sSl"/>
+                        <outlet property="cloudListView" destination="k0H-ao-FQB" id="lL4-Pk-htL"/>
+                        <outlet property="localListView" destination="CTd-xk-UGY" id="vMm-zS-987"/>
                         <outlet property="searchBar" destination="hgt-J9-INt" id="Bwy-gj-DQa"/>
                         <segue destination="VQd-1Y-qDA" kind="show" identifier="edit" id="n2c-A2-qau"/>
                         <segue destination="rmd-nM-PLW" kind="show" identifier="preview" id="GZ3-Ny-S2m"/>

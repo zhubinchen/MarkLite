@@ -16,8 +16,10 @@
 
 @interface FileListViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIViewControllerPreviewingDelegate,UISearchBarDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView *fileListView;
+@property (weak, nonatomic) IBOutlet UITableView *localListView;
+@property (weak, nonatomic) IBOutlet UITableView *cloudListView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
+@property (assign, nonatomic) BOOL cloud;
 
 @end
 
@@ -31,6 +33,7 @@
     BOOL edit;
     Item *selectParent;
     UIPopoverPresentationController *popVc;
+    UITableView *fileListView;
 }
 
 #pragma mark 生命周期
@@ -39,18 +42,41 @@
 
     fm = [FileManager sharedManager];
     
-    [_fileListView registerNib:[UINib nibWithNibName:@"FileItemCell" bundle:nil] forCellReuseIdentifier:@"file"];
+    self.cloud = NO;
+    [self.localListView registerNib:[UINib nibWithNibName:@"FileItemCell" bundle:nil] forCellReuseIdentifier:@"file"];
+    [self.cloudListView registerNib:[UINib nibWithNibName:@"FileItemCell" bundle:nil] forCellReuseIdentifier:@"file"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:@"ItemsChangedNotification" object:nil];
+}
+
+- (void)toggleCloud
+{
+    self.cloud = !self.cloud;
+}
+
+- (void)setCloud:(BOOL)cloud
+{
+    _cloud = cloud;
+    [self reload];
+    self.view.backgroundColor = [UIColor whiteColor];
+    [UIView beginAnimations:@"animation" context:nil];
+    [UIView setAnimationDuration:0.5f];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [UIView setAnimationTransition:UIViewAnimationTransitionFlipFromLeft forView:self.view cache:YES];
+    [self.view exchangeSubviewAtIndex:1 withSubviewAtIndex:2];
+    [UIView commitAnimations];
 }
 
 - (void)reload
 {
-    root = fm.root;
+    NSArray *arr = self.view.subviews;
+
+    root = _cloud ? fm.cloud : fm.local;
     dataArray = root.itemsCanReach.mutableCopy;
     if (edit) {
         [dataArray insertObject:root atIndex:0];
     }
-    [self.fileListView reloadData];
+    fileListView = _cloud ? _cloudListView : _localListView;
+    [fileListView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -66,11 +92,8 @@
 
 - (NSArray*)leftItems
 {
-    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:@"iCloud" style:UIBarButtonItemStylePlain target:self action:@selector(goCloud)];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:@"iCloud" style:UIBarButtonItemStylePlain target:self action:@selector(toggleCloud)];
     return @[item];
-}
-
-- (void)goCloud{
 }
 
 - (void)edit
@@ -84,7 +107,7 @@
         rightItem.title = @"编辑";
         [dataArray removeObjectAtIndex:0];
     }
-    [self.fileListView reloadData];
+    [fileListView reloadData];
 }
 
 
@@ -100,7 +123,7 @@
     }
     [dataArray removeObjectsInArray:children];
 
-    [self.fileListView beginUpdates];
+    [fileListView beginUpdates];
     
     NSMutableArray *indexPaths = [NSMutableArray array];
     for (int i = 0; i < children.count; i++) {
@@ -108,9 +131,9 @@
         [indexPaths addObject:indexPath];
     }
     
-    [self.fileListView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
+    [fileListView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
     
-    [self.fileListView endUpdates];
+    [fileListView endUpdates];
 }
 
 - (void)openWithIndex:(int)index
@@ -123,7 +146,7 @@
     }
     [dataArray insertObjects:children atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(index+1, children.count)]];
     
-    [self.fileListView beginUpdates];
+    [fileListView beginUpdates];
     
     NSMutableArray *indexPaths = [NSMutableArray array];
     for (int i = 0; i < children.count; i++) {
@@ -131,9 +154,9 @@
         [indexPaths addObject:indexPath];
     }
     
-    [self.fileListView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
+    [fileListView insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
     
-    [self.fileListView endUpdates];
+    [fileListView endUpdates];
 }
 
 - (void)addFileWithParent:(Item*)parent
@@ -190,7 +213,7 @@
                     
                     dataArray = root.itemsCanReach.mutableCopy;
                     [dataArray insertObject:root atIndex:0];
-                    [self.fileListView reloadData];
+                    [fileListView reloadData];
                     
                     if (i.type == FileTypeText) {
                         fm.currentItem = i;
@@ -238,7 +261,7 @@
             dataArray = root.itemsCanReach.mutableCopy;
             [dataArray insertObject:root atIndex:0];
             fm.currentItem = i;
-            [self.fileListView reloadData];
+            [fileListView reloadData];
             
             if (kDevicePhone) {
                 [self performSegueWithIdentifier:@"preview" sender:self];
@@ -259,7 +282,7 @@
     }else {
         dataArray = [root searchResult:word].mutableCopy;
     }
-    [self.fileListView reloadData];
+    [fileListView reloadData];
 }
 
 #pragma mark UITableViewDataSource & UITableViewDelegate

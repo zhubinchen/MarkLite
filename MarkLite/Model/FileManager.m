@@ -40,32 +40,51 @@
 {
     if (self = [super init]) {
         fm = [NSFileManager defaultManager];
-        _workSpace = [NSString pathWithComponents:@[documentPath(),@"MarkLite"]];
-
+        
         [self createCloudWorkspace];
         [self createLocalWorkspace];
-        _root.open = YES;
- 
+        _local.open = YES;
+        _cloud.open = YES;
     }
     return self;
 }
 
 - (void)createCloudWorkspace
 {
-    ubiquityURL = [[[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil]URLByAppendingPathComponent:@"Documents"];
-    if (!ubiquityURL) {
-        return ;
-    }
-    
-    _iCloudSpace = [ubiquityURL path];
-    
-    if (![fm fileExistsAtPath:_iCloudSpace]){
-        NSLog(@"create iCloudPath");
-        [fm createDirectoryAtPath:_iCloudSpace withIntermediateDirectories:YES attributes:nil error:nil];
+    NSString *workspace = cloudWorkspace();
+    if (![fm fileExistsAtPath:workspace]){
+        NSLog(@"creating CloudWorkspace: %@",workspace);
+        [fm createDirectoryAtPath:workspace withIntermediateDirectories:YES attributes:nil error:nil];
     } else {
         NSLog(@"iCloudPath exist");
     }
-    NSLog(@"iCloudPath: %@", _iCloudSpace);
+    NSLog(@"cloud: %@", workspace);
+    
+    NSEnumerator *childFilesEnumerator = [[fm subpathsAtPath:workspace] objectEnumerator];
+    
+    NSString *fileName;
+    _cloud = [[Item alloc]init];
+    _cloud.cloud = YES;
+    _cloud.path = @"MarkLite";
+    _cloud.open = YES;
+    while ((fileName = [childFilesEnumerator nextObject]) != nil){
+        
+        if ([fileName hasSuffix:@".DS_Store"] || [fileName hasPrefix:@"__MACOSX"]) {
+            continue;
+        }
+        Item *temp = [[Item alloc]init];
+        temp.open = YES;
+        temp.cloud = YES;
+        temp.path = fileName;
+        [_cloud addChild:temp];
+        
+        if (temp.type == FileTypeText) {
+            NSMutableDictionary *attr = [fm attributesOfItemAtPath:temp.fullPath error:nil].mutableCopy;
+            attr[NSFileCreationDate] = [NSDate date];
+            attr[NSFileModificationDate] = [NSDate date];
+            [fm setAttributes:attr ofItemAtPath:temp.fullPath error:nil];
+        }
+    }
 }
 
 //- (void)upload
@@ -110,10 +129,11 @@
 
 - (void)createLocalWorkspace
 {
-    if (![fm fileExistsAtPath:_workSpace]) {
+    NSString *wokspace = localWorkspace();
+    if (![fm fileExistsAtPath:wokspace]) {
         
-        [fm createDirectoryAtPath:_workSpace withIntermediateDirectories:YES attributes:nil error:nil];
-        NSLog(@"creating workSpace:%@",_workSpace);
+        [fm createDirectoryAtPath:wokspace withIntermediateDirectories:YES attributes:nil error:nil];
+        NSLog(@"creating localWorkSpace:%@",wokspace);
         ZipArchive *zipArchive = [[ZipArchive alloc]init];
         
         NSString *path = [[NSBundle mainBundle] pathForResource:@"MarkLite" ofType:@"zip"];
@@ -127,12 +147,12 @@
     }
     
     
-    NSEnumerator *childFilesEnumerator = [[fm subpathsAtPath:_workSpace] objectEnumerator];
+    NSEnumerator *childFilesEnumerator = [[fm subpathsAtPath:wokspace] objectEnumerator];
     
     NSString *fileName;
-    _root = [[Item alloc]init];
-    _root.path = @"MarkLite";
-    _root.open = YES;
+    _local = [[Item alloc]init];
+    _local.path = @"MarkLite";
+    _local.open = YES;
     while ((fileName = [childFilesEnumerator nextObject]) != nil){
         
         if ([fileName hasSuffix:@".DS_Store"] || [fileName hasPrefix:@"__MACOSX"]) {
@@ -142,7 +162,7 @@
         temp.open = YES;
         temp.cloud = NO;
         temp.path = fileName;
-        [_root addChild:temp];
+        [_local addChild:temp];
         
         if (temp.type == FileTypeText) {
             NSMutableDictionary *attr = [fm attributesOfItemAtPath:temp.fullPath error:nil].mutableCopy;

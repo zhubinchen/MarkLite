@@ -46,7 +46,7 @@
 
 - (void)reload
 {
-    root = _fm.root;
+    root = _fm.local;
     self.sortOption = self.sortOption;
 }
 

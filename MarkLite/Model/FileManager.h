@@ -11,11 +11,7 @@
 
 @interface FileManager : NSObject
 
-@property (nonatomic,strong,readonly) NSString *workSpace;
-
-@property (nonatomic,strong,readonly) NSString *iCloudSpace;
-
-@property (nonatomic,strong,readonly) Item *root;
+@property (nonatomic,strong,readonly) Item *local;
 
 @property (nonatomic,strong,readonly) Item *cloud;
 
