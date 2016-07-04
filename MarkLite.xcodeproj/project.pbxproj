@@ -18,6 +18,8 @@
 		076C3CA01D23622000C31043 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 076C3C961D23622000C31043 /* AFURLSessionManager.m */; };
 		0777D3371D2522E20026E0EA /* StyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0777D3351D2522E20026E0EA /* StyleViewController.m */; };
 		0777D3381D2522E20026E0EA /* StyleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0777D3361D2522E20026E0EA /* StyleViewController.xib */; };
+		078DB4AC1D2A365B008963FD /* DonateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 078DB4AA1D2A365B008963FD /* DonateViewController.m */; };
+		078DB4AD1D2A365B008963FD /* DonateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 078DB4AB1D2A365B008963FD /* DonateViewController.xib */; };
 		07B92DCF1D1D960F00A4127E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B92DCE1D1D960F00A4127E /* main.m */; };
 		07B92DD21D1D960F00A4127E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B92DD11D1D960F00A4127E /* AppDelegate.m */; };
 		07B92DDA1D1D960F00A4127E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07B92DD91D1D960F00A4127E /* Assets.xcassets */; };
@@ -137,6 +139,9 @@
 		0777D3341D2522E20026E0EA /* StyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleViewController.h; sourceTree = "<group>"; };
 		0777D3351D2522E20026E0EA /* StyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleViewController.m; sourceTree = "<group>"; };
 		0777D3361D2522E20026E0EA /* StyleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StyleViewController.xib; sourceTree = "<group>"; };
+		078DB4A91D2A365B008963FD /* DonateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DonateViewController.h; sourceTree = "<group>"; };
+		078DB4AA1D2A365B008963FD /* DonateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DonateViewController.m; sourceTree = "<group>"; };
+		078DB4AB1D2A365B008963FD /* DonateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DonateViewController.xib; sourceTree = "<group>"; };
 		07B92DCA1D1D960F00A4127E /* MarkLite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkLite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07B92DCE1D1D960F00A4127E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		07B92DD01D1D960F00A4127E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -266,6 +271,7 @@
 		07B92EEF1D1D986E00A4127E /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		07B92EFA1D1D98D500A4127E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		07B92EFC1D1D9A1200A4127E /* MarkLite.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MarkLite.entitlements; sourceTree = "<group>"; };
+		07CFA3D51D2AB76900F7DDDA /* PathUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PathUtils.h; sourceTree = "<group>"; };
 		07D9D1F11D238C4900725A94 /* ImageUploadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUploadingView.h; sourceTree = "<group>"; };
 		07D9D1F21D238C4900725A94 /* ImageUploadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUploadingView.m; sourceTree = "<group>"; };
 		07D9D1F41D238C6300725A94 /* ImageUploadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageUploadingView.xib; sourceTree = "<group>"; };
@@ -334,6 +340,9 @@
 				0777D3341D2522E20026E0EA /* StyleViewController.h */,
 				0777D3351D2522E20026E0EA /* StyleViewController.m */,
 				0777D3361D2522E20026E0EA /* StyleViewController.xib */,
+				078DB4A91D2A365B008963FD /* DonateViewController.h */,
+				078DB4AA1D2A365B008963FD /* DonateViewController.m */,
+				078DB4AB1D2A365B008963FD /* DonateViewController.xib */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -434,6 +443,7 @@
 				07B92E0F1D1D966B00A4127E /* MarkdownSyntaxGenerator.m */,
 				07B92E101D1D966B00A4127E /* MarkdownSyntaxModel.h */,
 				07B92E111D1D966B00A4127E /* MarkdownSyntaxModel.m */,
+				07CFA3D51D2AB76900F7DDDA /* PathUtils.h */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -698,6 +708,7 @@
 				07B92EB11D1D966B00A4127E /* Clearness Dark.css in Resources */,
 				07B92EA41D1D966B00A4127E /* move@2x.png in Resources */,
 				07B92EA81D1D966B00A4127E /* FeedBack@2x.png in Resources */,
+				078DB4AD1D2A365B008963FD /* DonateViewController.xib in Resources */,
 				07EC143A1D1DA45200AA3EEE /* Cloud@2x.png in Resources */,
 				07B92EAB1D1D966B00A4127E /* Info@2x.png in Resources */,
 				07B92EB21D1D966B00A4127E /* Clearness.css in Resources */,
@@ -763,6 +774,7 @@
 				076C3C991D23622000C31043 /* AFHTTPRequestOperationManager.m in Sources */,
 				07B92EC71D1D966B00A4127E /* zip.c in Sources */,
 				07B92DFF1D1D964100A4127E /* MenuViewController.m in Sources */,
+				078DB4AC1D2A365B008963FD /* DonateViewController.m in Sources */,
 				07B92DFD1D1D964100A4127E /* FileListViewController.m in Sources */,
 				07B92EF81D1D986E00A4127E /* stack.c in Sources */,
 				07B92E8E1D1D966B00A4127E /* MarkdownSyntaxModel.m in Sources */,

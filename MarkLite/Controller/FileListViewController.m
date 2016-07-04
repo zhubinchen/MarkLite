@@ -64,6 +64,15 @@
     return @[rightItem];
 }
 
+- (NSArray*)leftItems
+{
+    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:@"iCloud" style:UIBarButtonItemStylePlain target:self action:@selector(goCloud)];
+    return @[item];
+}
+
+- (void)goCloud{
+}
+
 - (void)edit
 {
     edit = !edit;

@@ -7,6 +7,7 @@
 //
 
 #import "Item.h"
+#import "PathUtils.h"
 
 @interface Item()
 
@@ -131,36 +132,23 @@
     return [self.path isEqualToString:object.path];
 }
 
+- (NSString *)fullPath
+{
+    if (_cloud) {
+        return [cloudWorkspace() stringByAppendingPathComponent:_path];;
+    }
+    return [localWorkspace() stringByAppendingPathComponent:_path];
+}
+
+- (NSString *)localPath:(NSString *)path
+{
+    return [NSString pathWithComponents:@[documentPath(),@"MarkLite",path]];
+}
+
+
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%@:%@",self.path,self.children];
-}
-
--(void)encodeWithCoder:(NSCoder *)aCoder{
-    [aCoder encodeObject:self.children forKey:@"children"];
-    [aCoder encodeObject:self.path forKey:@"path"];
-    [aCoder encodeObject:self.parent forKey:@"parent"];
-}
-
--(id)initWithCoder:(NSCoder *)aDecoder
-{
-    if (self=[super init]) {
-        self.path = [aDecoder decodeObjectForKey:@"path"];
-        self.parent = [aDecoder decodeObjectForKey:@"parent"];
-        self.children=[[aDecoder decodeObjectForKey:@"children"] mutableCopy];
-        if (self.children == nil) {
-            self.children = [NSMutableArray array];
-        }
-        _open = NO;
-    }
-    return self;
-}
-
-- (BOOL)archive
-{
-    NSString *path = [documentPath() stringByAppendingPathComponent:@"root.plist"];
-    
-    return [NSKeyedArchiver archiveRootObject:self toFile:path];
+    return [NSString stringWithFormat:@"%@:%@:%@",self.path,self.children,_cloud?@"cloud":@"local"];
 }
 
 @end

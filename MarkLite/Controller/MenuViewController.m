@@ -11,10 +11,9 @@
 #import "AboutViewController.h"
 #import "StyleViewController.h"
 #import "ImageViewController.h"
+#import "DonateViewController.h"
 
 @interface MenuViewController ()
-
-//@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -33,20 +32,16 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     
     if (kDevicePad) {
-        items = @[@[@"iCloud 同步",@"图片云存储"],@[@"键盘辅助",@"编辑器字体",@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"]];
-        imgNames = @[@[@"Cloud",@"Quality"],@[@"Keyboard",@"Font",@"Style"],@[@"Star",@"FeedBack"],@[@"Info"]];
+        items = @[@[@"图片云存储"],@[@"键盘辅助",@"编辑器字体",@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"],@[@"打赏"]];
+        imgNames = @[@[@"Quality"],@[@"Keyboard",@"Font",@"Style"],@[@"Star",@"FeedBack"],@[@"Info"],@[@"Info"]];
     }else{
-        items = @[@[@"iCloud 同步",@"图片云存储"],@[@"键盘辅助",@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"]];
-        imgNames = @[@[@"Cloud",@"Quality"],@[@"Keyboard",@"Style"],@[@"Star",@"FeedBack"],@[@"Info"]];
+        items = @[@[@"图片云存储"],@[@"键盘辅助",@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"],@[@"打赏"]];
+        imgNames = @[@[@"Quality"],@[@"Keyboard",@"Style"],@[@"Star",@"FeedBack"],@[@"Info"],@[@"Info"]];
     }
 }
 
 - (void)back {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)switchCloud:(UISwitch*)s{
-    [Configure sharedConfigure].cloud = s.on;
 }
 
 - (void)switchKeyboard:(UISwitch*)s{
@@ -68,13 +63,7 @@
     
     cell.textLabel.text = items[indexPath.section][indexPath.row];
     cell.imageView.image = [UIImage imageNamed:imgNames[indexPath.section][indexPath.row]];
-    if (indexPath.section == 0 && indexPath.row == 0) {
-        UISwitch *s = [[UISwitch alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 60, 10, 0, 0)];
-        s.on = [Configure sharedConfigure].cloud;
-        [s addTarget:self action:@selector(switchCloud:) forControlEvents:UIControlEventValueChanged];
-        [cell addSubview:s];
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
+
     if (indexPath.section == 1 && indexPath.row == 0) {
         UISwitch *s = [[UISwitch alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 60, 10, 0, 0)];
         s.on = [Configure sharedConfigure].keyboardAssist;
@@ -104,7 +93,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0 && indexPath.row == 1) {
+    if (indexPath.section == 0 && indexPath.row == 0) {
         UIViewController *vc = [[ImageViewController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
     }else if (indexPath.section == 1) {
@@ -126,6 +115,9 @@
         }
     }else if (indexPath.section == 3){
         UIViewController *vc = [[AboutViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if (indexPath.section == 4){
+        UIViewController *vc = [[DonateViewController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

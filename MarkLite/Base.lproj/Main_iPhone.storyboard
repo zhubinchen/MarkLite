@@ -392,7 +392,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cwa-VT-4uI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2684.5" y="-2572.5"/>
+            <point key="canvasLocation" x="-2452.5" y="-2580.5"/>
         </scene>
         <!--文件-->
         <scene sceneID="Q4w-7j-rbt">
@@ -461,7 +461,7 @@
         <image name="settings.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="GZ3-Ny-S2m"/>
         <segue reference="n2c-A2-qau"/>
-        <segue reference="j9U-2J-nGb"/>
     </inferredMetricsTieBreakers>
 </document>

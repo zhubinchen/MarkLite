@@ -17,14 +17,19 @@
 
 @property (nonatomic,strong,readonly) Item *root;
 
+@property (nonatomic,strong,readonly) Item *cloud;
+
 @property (nonatomic,strong) Item *currentItem; //用来共享同一对象
 
 + (instancetype)sharedManager;
 
+- (void)createLocalWorkspace;
 
-#pragma 以下出现的所有path均为相对workspace的路径
+- (void)createCloudWorkspace;
 
-- (void)createFolder:(NSString*)path;
+#pragma 以下出现的所有path均为绝路径
+
+- (BOOL)createFolder:(NSString*)path;
 
 - (BOOL)createFile:(NSString*)path Content:(NSData*)content;
 
@@ -33,8 +38,6 @@
 - (BOOL)deleteFile:(NSString*)path;
 
 - (BOOL)moveFile:(NSString*)path toNewPath:(NSString*)newPath;
-
-- (NSString *)localPath:(NSString *)path;
 
 - (NSDictionary*)attributeOfPath:(NSString*)path;
 

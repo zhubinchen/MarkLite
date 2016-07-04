@@ -20,11 +20,11 @@
 
 @property (nonatomic,assign) BOOL keyboardAssist;
 
-@property (nonatomic,assign) BOOL cloud;
-
 @property (nonatomic,assign) BOOL hasStared;
 
 @property (nonatomic,assign) BOOL imageServer;
+
+@property (nonatomic,assign) BOOL imageServerPro;
 
 @property (nonatomic,assign) NSInteger leftDays;
 

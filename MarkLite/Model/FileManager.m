@@ -9,8 +9,9 @@
 #import "FileManager.h"
 #import "ZipArchive.h"
 #import "Configure.h"
+#import "PathUtils.h"
 
-#define UBIQUITY_CONTAINER_URL @"iCloud.com.zhubch.MarkLite"
+//#define UBIQUITY_CONTAINER_URL @"iCloud.com.zhubch.MarkLite"
 
 @implementation FileManager
 {
@@ -39,36 +40,18 @@
 {
     if (self = [super init]) {
         fm = [NSFileManager defaultManager];
-        NSString *plistPath = [documentPath() stringByAppendingPathComponent:@"root.plist"];
         _workSpace = [NSString pathWithComponents:@[documentPath(),@"MarkLite"]];
 
-        if ([[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
-            _root = [NSKeyedUnarchiver unarchiveObjectWithFile:plistPath];
-        }else{
-//            [self createCloudspace];
-            [self createWorkspace];
-            [_root archive];
-        }
+        [self createCloudWorkspace];
+        [self createLocalWorkspace];
         _root.open = YES;
  
-        [[Configure sharedConfigure] addObserver:self forKeyPath:@"cloud" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
+- (void)createCloudWorkspace
 {
-    if ([keyPath isEqualToString:@"cloud"]) {
-        [self createCloudspace];
-    }
-}
-
-- (void)createCloudspace
-{
-    if (![Configure sharedConfigure].cloud) {
-        _iCloudSpace = nil;
-        return;
-    }
     ubiquityURL = [[[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil]URLByAppendingPathComponent:@"Documents"];
     if (!ubiquityURL) {
         return ;
@@ -81,54 +64,51 @@
         [fm createDirectoryAtPath:_iCloudSpace withIntermediateDirectories:YES attributes:nil error:nil];
     } else {
         NSLog(@"iCloudPath exist");
-        [self download];
     }
     NSLog(@"iCloudPath: %@", _iCloudSpace);
 }
 
-- (void)upload
-{
-    for (Item *i in _root.itemsCanReach) {
-        NSError *err = nil;
-        if ([fm fileExistsAtPath:[self remotePath:i.path]]) {
-            continue;
-        }
-        NSURL *localUrl = [NSURL fileURLWithPath:[self localPath:i.path]];
-        NSURL *remoteUrl = [NSURL fileURLWithPath:[self remotePath:i.path]];
-        [fm copyItemAtURL:localUrl toURL:remoteUrl error:&err];
-        NSLog(@"%@",err);
-    }
-}
+//- (void)upload
+//{
+//    for (Item *i in _root.itemsCanReach) {
+//        NSError *err = nil;
+//        if ([fm fileExistsAtPath:[self remotePath:i.path]]) {
+//            continue;
+//        }
+//        NSURL *localUrl = [NSURL fileURLWithPath:[self localPath:i.path]];
+//        NSURL *remoteUrl = [NSURL fileURLWithPath:[self remotePath:i.path]];
+//        [fm copyItemAtURL:localUrl toURL:remoteUrl error:&err];
+//        NSLog(@"%@",err);
+//    }
+//}
+//
+//- (void)download
+//{
+//    NSError *err = nil;
+//    NSArray *arr = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:_iCloudSpace error:&err];
+//    if (err) {
+//        NSLog(@"%@",err);
+//        return;
+//    }
+//
+//    for (NSString *path in arr) {
+//        if (![fm fileExistsAtPath:_workSpace]) {
+//            [fm createDirectoryAtPath:_workSpace withIntermediateDirectories:YES attributes:nil error:nil];
+//            NSLog(@"creating workSpace:%@",_workSpace);
+//        }
+//        NSURL *localUrl = [NSURL fileURLWithPath:[self localPath:path]];
+//        NSURL *remoteUrl = [NSURL fileURLWithPath:[self remotePath:path]];
+//        [fm copyItemAtURL:remoteUrl toURL:localUrl error:&err];
+//
+//        if (err) {
+//            NSLog(@"%@",err);
+//            return;
+//        }
+//    }
+//
+//}
 
-- (void)download
-{
-
-    
-    NSError *err = nil;
-    NSArray *arr = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:_iCloudSpace error:&err];
-    if (err) {
-        NSLog(@"%@",err);
-        return;
-    }
-
-    for (NSString *path in arr) {
-        if (![fm fileExistsAtPath:_workSpace]) {
-            [fm createDirectoryAtPath:_workSpace withIntermediateDirectories:YES attributes:nil error:nil];
-            NSLog(@"creating workSpace:%@",_workSpace);
-        }
-        NSURL *localUrl = [NSURL fileURLWithPath:[self localPath:path]];
-        NSURL *remoteUrl = [NSURL fileURLWithPath:[self remotePath:path]];
-        [fm copyItemAtURL:remoteUrl toURL:localUrl error:&err];
-
-        if (err) {
-            NSLog(@"%@",err);
-            return;
-        }
-    }
-
-}
-
-- (void)createWorkspace
+- (void)createLocalWorkspace
 {
     if (![fm fileExistsAtPath:_workSpace]) {
         
@@ -143,7 +123,7 @@
         
         [zipArchive UnzipFileTo:documentPath() overWrite:YES];
 
-        [self notify];
+        NSLog(@"success%@",path);
     }
     
     
@@ -160,117 +140,70 @@
         }
         Item *temp = [[Item alloc]init];
         temp.open = YES;
+        temp.cloud = NO;
         temp.path = fileName;
         [_root addChild:temp];
         
         if (temp.type == FileTypeText) {
-            NSMutableDictionary *attr = [fm attributesOfItemAtPath:[self localPath:fileName] error:nil].mutableCopy;
+            NSMutableDictionary *attr = [fm attributesOfItemAtPath:temp.fullPath error:nil].mutableCopy;
             attr[NSFileCreationDate] = [NSDate date];
             attr[NSFileModificationDate] = [NSDate date];
-            [fm setAttributes:attr ofItemAtPath:[self localPath:fileName] error:nil];
+            [fm setAttributes:attr ofItemAtPath:temp.fullPath error:nil];
         }
     }
-//    [self upload];
 }
 
-- (void)createFolder:(NSString *)path
+- (BOOL)createFolder:(NSString *)path
 {
     NSError *error = nil;
-    NSString* localPath = [self localPath:path];
-    NSString* remotePath = [self remotePath:path];
-    if (![fm fileExistsAtPath:localPath]) {
-        [fm createDirectoryAtPath:localPath withIntermediateDirectories:YES attributes:nil error:&error];
-        NSLog(@"creating dir:%@",localPath);
-        if (error) {
-            NSLog(@"%@",error);
-        }else{
-            [self notify];
-        }
+    if ([fm fileExistsAtPath:path]) {
+        return NO;
     }
-    
-    if (_iCloudSpace) {
-        if (![fm fileExistsAtPath:remotePath]) {
-            [fm createDirectoryAtPath:remotePath withIntermediateDirectories:YES attributes:nil error:&error];
-            NSLog(@"creating dir:%@",remotePath);
-            if (error) {
-                NSLog(@"%@",error);
-            }
-        }
+    [fm createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
+    NSLog(@"creating dir:%@",path);
+    if (error) {
+        NSLog(@"%@",error);
+        return NO;
     }
-
+    return YES;
 }
 
 - (BOOL)createFile:(NSString *)path Content:(NSData *)content
 {
-    NSString* localPath = [self localPath:path];
-    NSString* remotePath = [self remotePath:path];
-    
-    if ([fm fileExistsAtPath:localPath]) {
+    if ([fm fileExistsAtPath:path]) {
         return NO;
     }
-    BOOL ret = [fm createFileAtPath:localPath contents:content attributes:nil];
-    NSLog(@"creating file:%@",localPath);
-    if (ret) {
-        [self notify];
-    }else{
+    BOOL ret = [fm createFileAtPath:path contents:content attributes:nil];
+    NSLog(@"creating file:%@",path);
+    if (!ret) {
+        NSLog(@"failed");
         return NO;
     }
-    
-    if (_iCloudSpace) {
-        if (![fm fileExistsAtPath:remotePath]) {
-            [fm createFileAtPath:remotePath contents:content attributes:nil];
-            NSLog(@"creating file:%@",remotePath);
-        }
-    }
-
     return YES;
 }
 
 - (BOOL)saveFile:(NSString *)path Content:(NSData *)content
 {
-    NSString* localPath = [self localPath:path];
-    NSString* remotePath = [self remotePath:path];
-    
-    if (![fm fileExistsAtPath:localPath]) {
+    if (![fm fileExistsAtPath:path]) {
         return NO;
     }
-    BOOL ret = [content writeToFile:localPath atomically:YES];
-    if (!ret) {
-        return NO;
-    }
-    if (_iCloudSpace) {
-        if (![fm fileExistsAtPath:remotePath]) {
-            [fm createFileAtPath:remotePath contents:content attributes:nil];
-        }
-        ret = [content writeToFile:remotePath atomically:YES];
-    }
+    BOOL ret = [content writeToFile:path atomically:YES];
 
-    return YES;
+    return ret;
 }
 
 - (BOOL)deleteFile:(NSString *)path
 {
     NSError *error = nil;
-
-    NSString* localPath = [self localPath:path];
-    NSString* remotePath = [self remotePath:path];
     
-    if (![fm fileExistsAtPath:localPath]) {
+    if (![fm fileExistsAtPath:path]) {
         return NO;
     }
 
-    [fm removeItemAtPath:localPath error:&error];
+    [fm removeItemAtPath:path error:&error];
     if (error) {
         NSLog(@"%@",error);
         return NO;
-    }else{
-        [self notify];
-    }
-    if (_iCloudSpace) {
-        [fm removeItemAtPath:remotePath error:&error];
-        if (error) {
-            NSLog(@"%@",error);
-        }
     }
 
     return YES;
@@ -279,55 +212,25 @@
 - (BOOL)moveFile:(NSString *)path toNewPath:(NSString *)newPath
 {
     NSError *error = nil;
-    NSString* localPath = [self localPath:path];
-    NSString* remotePath = [self remotePath:path];
-    NSString* newLocalPath = [self localPath:newPath];
-    NSString* newremotePath = [self remotePath:newPath];
 
-    if (![fm fileExistsAtPath:localPath]) {
+    if (![fm fileExistsAtPath:path]) {
         return NO;
     }
-    if ([fm fileExistsAtPath:newLocalPath]) {
+    if ([fm fileExistsAtPath:newPath]) {
         return NO;
     }
-    BOOL ret = [fm moveItemAtPath:localPath toPath:newLocalPath error:&error];
-    if (ret) {
-        [self notify];
-    }else{
+    BOOL ret = [fm moveItemAtPath:path toPath:newPath error:&error];
+    
+    if (!ret) {
         NSLog(@"%@",error);
         return NO;
     }
-    if (_iCloudSpace) {
-        [fm moveItemAtPath:remotePath toPath:newremotePath error:&error];
-        if (error) {
-            NSLog(@"%@",error);
-        }
-    }
-    
     return YES;
-}
-
-- (NSString *)localPath:(NSString *)path
-{
-    return [NSString pathWithComponents:@[_workSpace,path]];
-}
-
-- (NSString*)remotePath:(NSString*)path
-{
-    if (_iCloudSpace == nil) {
-        return @"";
-    }
-    return [NSString pathWithComponents:@[_iCloudSpace,path]];
 }
 
 - (NSDictionary *)attributeOfPath:(NSString *)path
 {
-    return [fm attributesOfItemAtPath:[self localPath:path] error:nil];
-}
-
-- (void)notify
-{
-    [_root archive];
+    return [fm attributesOfItemAtPath:path error:nil];
 }
 
 @end
