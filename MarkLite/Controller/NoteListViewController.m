@@ -16,16 +16,15 @@
 
 @interface NoteListViewController () <UITableViewDelegate,UITableViewDataSource,UIViewControllerPreviewingDelegate,UISearchBarDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView *noteListView;
-@property (assign, nonatomic) NSInteger sortOption;
-@property (nonatomic,assign)    FileManager *fm;
+@property (weak, nonatomic)  IBOutlet UITableView *noteListView;
+@property (assign, nonatomic) NSInteger           sortOption;
+@property (nonatomic,assign)  FileManager         *fm;
 
 @end
 
 @implementation NoteListViewController
 {
     NSMutableArray *dataArray;
-    Item *root;
     UIControl *control;
     UIImageView *imgView;
     CreateNoteView *view;
@@ -46,7 +45,6 @@
 
 - (void)reload
 {
-    root = _fm.local;
     self.sortOption = self.sortOption;
 }
 
@@ -81,7 +79,6 @@
     if (view.isShow) {
         [view remove];
     }else{
-        view.root = root;
         [view show];
     }
 }
@@ -172,12 +169,22 @@
         }
         return NO;
     }];
-    NSArray *arr = [root.items filteredArrayUsingPredicate:pre];
+    
+    Item *local = _fm.local;
+    Item *cloud = _fm.cloud;
+
+    NSArray *localArray = nil;
+    NSArray *cloudArray = nil;
+    NSMutableArray *arr = [NSMutableArray array];
     if (searchWord.length == 0) {
-        arr = [root.items filteredArrayUsingPredicate:pre].mutableCopy;
+        localArray = [local.items filteredArrayUsingPredicate:pre];
+        cloudArray = [cloud.items filteredArrayUsingPredicate:pre];
     }else {
-        arr = [[root searchResult:searchWord] filteredArrayUsingPredicate:pre] .mutableCopy;
+        localArray = [[local searchResult:searchWord] filteredArrayUsingPredicate:pre];
+        cloudArray = [[cloud searchResult:searchWord] filteredArrayUsingPredicate:pre];
     }
+    [arr addObjectsFromArray:localArray];
+    [arr addObjectsFromArray:cloudArray];
 
     dataArray = [arr sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Item *item1 = obj1;

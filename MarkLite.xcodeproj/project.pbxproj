@@ -105,6 +105,9 @@
 		07B92EF81D1D986E00A4127E /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = 07B92EEC1D1D986E00A4127E /* stack.c */; };
 		07B92EF91D1D986E00A4127E /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 07B92EEE1D1D986E00A4127E /* version.c */; };
 		07B92EFB1D1D98D500A4127E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07B92EFA1D1D98D500A4127E /* libz.tbd */; };
+		07CFA3D71D2AC96F00F7DDDA /* Donate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CFA3D61D2AC96F00F7DDDA /* Donate@2x.png */; };
+		07CFA3F91D2B71C600F7DDDA /* dou.png in Resources */ = {isa = PBXBuildFile; fileRef = 07CFA3F81D2B71C600F7DDDA /* dou.png */; };
+		07CFA4011D2B75AF00F7DDDA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07CFA4001D2B75AF00F7DDDA /* Localizable.strings */; };
 		07D9D1F31D238C4900725A94 /* ImageUploadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D9D1F21D238C4900725A94 /* ImageUploadingView.m */; };
 		07D9D1F51D238C6300725A94 /* ImageUploadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07D9D1F41D238C6300725A94 /* ImageUploadingView.xib */; };
 		07EC143A1D1DA45200AA3EEE /* Cloud@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07EC14391D1DA45200AA3EEE /* Cloud@2x.png */; };
@@ -272,6 +275,9 @@
 		07B92EFA1D1D98D500A4127E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		07B92EFC1D1D9A1200A4127E /* MarkLite.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MarkLite.entitlements; sourceTree = "<group>"; };
 		07CFA3D51D2AB76900F7DDDA /* PathUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PathUtils.h; sourceTree = "<group>"; };
+		07CFA3D61D2AC96F00F7DDDA /* Donate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Donate@2x.png"; sourceTree = "<group>"; };
+		07CFA3F81D2B71C600F7DDDA /* dou.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dou.png; sourceTree = "<group>"; };
+		07CFA4001D2B75AF00F7DDDA /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		07D9D1F11D238C4900725A94 /* ImageUploadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUploadingView.h; sourceTree = "<group>"; };
 		07D9D1F21D238C4900725A94 /* ImageUploadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUploadingView.m; sourceTree = "<group>"; };
 		07D9D1F41D238C6300725A94 /* ImageUploadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageUploadingView.xib; sourceTree = "<group>"; };
@@ -361,6 +367,7 @@
 		07B92DC11D1D960F00A4127E = {
 			isa = PBXGroup;
 			children = (
+				07CFA4001D2B75AF00F7DDDA /* Localizable.strings */,
 				07F90CEE1D20F89900DF5194 /* StoreKit.framework */,
 				07B92EFA1D1D98D500A4127E /* libz.tbd */,
 				07B92DCC1D1D960F00A4127E /* MarkLite */,
@@ -474,6 +481,7 @@
 				07B92E2E1D1D966B00A4127E /* Setting */,
 				07B92E361D1D966B00A4127E /* settings@2x.png */,
 				07B92E371D1D966B00A4127E /* sort_options@2x.png */,
+				07CFA3F81D2B71C600F7DDDA /* dou.png */,
 				07B92E381D1D966B00A4127E /* Styles */,
 				07B92E3F1D1D966B00A4127E /* text@2x.png */,
 			);
@@ -491,6 +499,7 @@
 				07B92E311D1D966B00A4127E /* Help@2x.png */,
 				07B92E321D1D966B00A4127E /* Info@2x.png */,
 				07B92E331D1D966B00A4127E /* Keyboard@2x.png */,
+				07CFA3D61D2AC96F00F7DDDA /* Donate@2x.png */,
 				07B92E351D1D966B00A4127E /* Star@2x.png */,
 			);
 			path = Setting;
@@ -695,6 +704,7 @@
 			files = (
 				07B92EA71D1D966B00A4127E /* rename.png in Resources */,
 				07B92EDA1D1D96B000A4127E /* Main_iPad.storyboard in Resources */,
+				07CFA3F91D2B71C600F7DDDA /* dou.png in Resources */,
 				07B92EB51D1D966B00A4127E /* Solarized Dark.css in Resources */,
 				07B92E9B1D1D966B00A4127E /* image@2x.png in Resources */,
 				07B92EA91D1D966B00A4127E /* Font@2x.png in Resources */,
@@ -709,11 +719,13 @@
 				07B92EA41D1D966B00A4127E /* move@2x.png in Resources */,
 				07B92EA81D1D966B00A4127E /* FeedBack@2x.png in Resources */,
 				078DB4AD1D2A365B008963FD /* DonateViewController.xib in Resources */,
+				07CFA4011D2B75AF00F7DDDA /* Localizable.strings in Resources */,
 				07EC143A1D1DA45200AA3EEE /* Cloud@2x.png in Resources */,
 				07B92EAB1D1D966B00A4127E /* Info@2x.png in Resources */,
 				07B92EB21D1D966B00A4127E /* Clearness.css in Resources */,
 				07B92E951D1D966B00A4127E /* file@2x.png in Resources */,
 				07B92E931D1D966B00A4127E /* delete@2x.png in Resources */,
+				07CFA3D71D2AC96F00F7DDDA /* Donate@2x.png in Resources */,
 				07B92EA21D1D966B00A4127E /* minus@2x.png in Resources */,
 				07B92E911D1D966B00A4127E /* add_link@2x.png in Resources */,
 				07B92DDA1D1D960F00A4127E /* Assets.xcassets in Resources */,

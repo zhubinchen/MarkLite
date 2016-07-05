@@ -68,8 +68,6 @@
 
 - (void)reload
 {
-    NSArray *arr = self.view.subviews;
-
     root = _cloud ? fm.cloud : fm.local;
     dataArray = root.itemsCanReach.mutableCopy;
     if (edit) {
@@ -181,7 +179,7 @@
             return ;
         }else if (buttonIndex == 0 || buttonIndex == 2) {
             FileType type = buttonIndex == 0 ? FileTypeText : FileTypeFolder;
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"新建文本" message:@"请输入文件名" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"为新文件命名" message:@"请输入文件名，请不要输入后缀名" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
             alert.alertViewStyle = UIAlertViewStylePlainTextInput;
             alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
                 if (buttonIndex == 1) {
@@ -232,7 +230,7 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"新建文本" message:@"请输入文件名" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"为新图片命名" message:@"请输入文件名，请不要输入后缀名" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
         if (buttonIndex == 1) {

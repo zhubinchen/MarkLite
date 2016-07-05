@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"我能闻到你身上的铜臭味😊";
+    self.title = @"打赏作者";
 }
 
 - (IBAction)donate:(UIButton*)sender

@@ -96,17 +96,29 @@
                         <constraint firstItem="Aam-XS-YJB" firstAttribute="centerY" secondItem="LEJ-92-SnO" secondAttribute="centerY" id="zrr-FE-JtW"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="施主，钱乃身外之物，都给老衲吧" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIr-ju-1OJ">
-                    <rect key="frame" x="16" y="65" width="294" height="14.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="来来来，任性一点" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIr-ju-1OJ">
+                    <rect key="frame" x="16" y="69" width="294" height="15"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="15" id="lJt-gb-C7M"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dou.png" translatesAutoresizingMaskIntoConstraints="NO" id="FcZ-ol-eNe">
+                    <rect key="frame" x="110" y="190" width="100" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="5dL-9Y-myA"/>
+                        <constraint firstAttribute="height" constant="100" id="Zy5-jB-PYa"/>
+                    </constraints>
+                </imageView>
             </subviews>
-            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="aIr-ju-1OJ" firstAttribute="top" secondItem="LEJ-92-SnO" secondAttribute="bottom" constant="1" id="2gQ-5q-JuR"/>
+                <constraint firstItem="aIr-ju-1OJ" firstAttribute="top" secondItem="LEJ-92-SnO" secondAttribute="bottom" constant="5" id="2gQ-5q-JuR"/>
+                <constraint firstItem="FcZ-ol-eNe" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="8IB-ig-8Jv"/>
                 <constraint firstItem="LEJ-92-SnO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="CHH-Bh-fLU"/>
+                <constraint firstItem="FcZ-ol-eNe" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Gbk-sK-ANa"/>
                 <constraint firstItem="LEJ-92-SnO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="QhR-OZ-DUL"/>
                 <constraint firstAttribute="trailing" secondItem="aIr-ju-1OJ" secondAttribute="trailing" constant="10" id="mgC-aC-q0z"/>
                 <constraint firstAttribute="trailing" secondItem="LEJ-92-SnO" secondAttribute="trailing" id="paq-P5-p0t"/>
@@ -115,4 +127,7 @@
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
+    <resources>
+        <image name="dou.png" width="1280" height="1280"/>
+    </resources>
 </document>

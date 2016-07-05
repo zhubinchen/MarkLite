@@ -33,12 +33,6 @@
                 <tabBarController storyboardIdentifier="main_tab" title="主界面" hidesBottomBarWhenPushed="YES" id="15d-mF-mkG" customClass="TabBarController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="x7r-T9-lT8">
                         <barButtonItem key="backBarButtonItem" title=" " id="epU-eY-p8D"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="nZI-Ap-Zfo">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="newProject:" destination="FOL-Xe-NU3" id="zsD-I5-PvE"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="1es-kE-c91">

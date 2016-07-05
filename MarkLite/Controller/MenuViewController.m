@@ -32,11 +32,11 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     
     if (kDevicePad) {
-        items = @[@[@"图片云存储"],@[@"键盘辅助",@"编辑器字体",@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"],@[@"打赏"]];
-        imgNames = @[@[@"Quality"],@[@"Keyboard",@"Font",@"Style"],@[@"Star",@"FeedBack"],@[@"Info"],@[@"Info"]];
+        items = @[@[@"图片云存储"],@[@"键盘辅助",@"编辑器字体",@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"],@[@"打赏作者"]];
+        imgNames = @[@[@"Quality"],@[@"Keyboard",@"Font",@"Style"],@[@"Star",@"FeedBack"],@[@"Info"],@[@"Donate"]];
     }else{
-        items = @[@[@"图片云存储"],@[@"键盘辅助",@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"],@[@"打赏"]];
-        imgNames = @[@[@"Quality"],@[@"Keyboard",@"Style"],@[@"Star",@"FeedBack"],@[@"Info"],@[@"Info"]];
+        items = @[@[@"图片云存储"],@[@"键盘辅助",@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"],@[@"打赏作者"]];
+        imgNames = @[@[@"Quality"],@[@"Keyboard",@"Style"],@[@"Star",@"FeedBack"],@[@"Info"],@[@"Donate"]];
     }
 }
 
