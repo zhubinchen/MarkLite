@@ -76,7 +76,7 @@ static KeyboardBar *bar = nil;
         [_editView insertText:btn.currentTitle];
     }else if (btn.tag == 6){
         [self.editView resignFirstResponder];
-        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:ZHLS(@"Insert Image") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:ZHLS(@"PickImageAndUpload"),ZHLS(@"InputImageSrc"), nil];
+        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:ZHLS(@"InsertImage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:ZHLS(@"PickImageAndUpload"),ZHLS(@"InputImageSrc"), nil];
         sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
             if (buttonIndex == 0) {
                 if ([Configure sharedConfigure].imageServer == NO) {

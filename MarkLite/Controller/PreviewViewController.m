@@ -187,6 +187,7 @@
     newRect.size = _webView.scrollView.contentSize;
     _webView.frame = newRect;
     [_webView.scrollView.layer renderInContext:ctx];
+    _webView.frame = origRect;
     UIGraphicsEndPDFContext();
     return data;
 }

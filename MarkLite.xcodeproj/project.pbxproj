@@ -258,7 +258,7 @@
 		07B92EEF1D1D986E00A4127E /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		07B92EFA1D1D98D500A4127E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		07B92EFC1D1D9A1200A4127E /* MarkLite.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MarkLite.entitlements; sourceTree = "<group>"; };
-		07CFA3D51D2AB76900F7DDDA /* PathUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PathUtils.h; sourceTree = "<group>"; };
+		07CFA3D51D2AB76900F7DDDA /* PathUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PathUtils.h; path = ../Model/PathUtils.h; sourceTree = "<group>"; };
 		07CFA3D61D2AC96F00F7DDDA /* Donate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Donate@2x.png"; sourceTree = "<group>"; };
 		07CFA40A1D2B7A6E00F7DDDA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		07CFA40C1D2B7A7000F7DDDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -419,7 +419,6 @@
 		07B92E051D1D966B00A4127E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				07CFA3D51D2AB76900F7DDDA /* PathUtils.h */,
 				07B92E0C1D1D966B00A4127E /* Item.h */,
 				07B92E0D1D1D966B00A4127E /* Item.m */,
 				07B92E061D1D966B00A4127E /* Configure.h */,
@@ -548,6 +547,7 @@
 		07B92E741D1D966B00A4127E /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				07CFA3D51D2AB76900F7DDDA /* PathUtils.h */,
 				07EC143D1D1ED3DF00AA3EEE /* ZHRequest.h */,
 				07EC143E1D1ED3DF00AA3EEE /* ZHRequest.m */,
 				07B92E751D1D966B00A4127E /* ZHUtils.h */,

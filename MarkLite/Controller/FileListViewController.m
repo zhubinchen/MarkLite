@@ -336,7 +336,7 @@
                         [dataArray removeObject:i];
                         NSMutableArray *indexPaths = [NSMutableArray array];
                         for (int i = 0; i < children.count + 1; i++) {
-                            NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row+i-1 inSection:0];
+                            NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row+i inSection:0];
                             [indexPaths addObject:index];
                         }
                         
@@ -402,7 +402,7 @@
                 [dataArray removeObject:i];
                 NSMutableArray *indexPaths = [NSMutableArray array];
                 for (int i = 0; i < children.count + 1; i++) {
-                    NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row+i-1 inSection:0];
+                    NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row+i inSection:0];
                     [indexPaths addObject:index];
                 }
                 
