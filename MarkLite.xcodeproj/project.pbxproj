@@ -345,7 +345,7 @@
 			name = Menu;
 			sourceTree = "<group>";
 		};
-		0777D3391D2524A30026E0EA /* Main */ = {
+		0777D3391D2524A30026E0EA /* Root */ = {
 			isa = PBXGroup;
 			children = (
 				07B92DF61D1D964100A4127E /* SplitViewController.h */,
@@ -353,7 +353,7 @@
 				07B92DF81D1D964100A4127E /* TabBarController.h */,
 				07B92DF91D1D964100A4127E /* TabBarController.m */,
 			);
-			name = Main;
+			name = Root;
 			sourceTree = "<group>";
 		};
 		07B92DC11D1D960F00A4127E = {
@@ -409,20 +409,9 @@
 		07B92DE41D1D964100A4127E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				0777D3391D2524A30026E0EA /* Main */,
+				0777D3391D2524A30026E0EA /* Root */,
+				07CFA5C71D2CF50F00F7DDDA /* Main */,
 				0777D3331D2522B80026E0EA /* Menu */,
-				07B92DE81D1D964100A4127E /* EditViewController.h */,
-				07B92DE91D1D964100A4127E /* EditViewController.m */,
-				07B92DEA1D1D964100A4127E /* FileListViewController.h */,
-				07B92DEB1D1D964100A4127E /* FileListViewController.m */,
-				07B92DEE1D1D964100A4127E /* MenuViewController.h */,
-				07B92DEF1D1D964100A4127E /* MenuViewController.m */,
-				07B92DF01D1D964100A4127E /* NoteListViewController.h */,
-				07B92DF11D1D964100A4127E /* NoteListViewController.m */,
-				07B92DF21D1D964100A4127E /* PreviewViewController.h */,
-				07B92DF31D1D964100A4127E /* PreviewViewController.m */,
-				07CFA4191D2BB1C000F7DDDA /* ChooseFolderViewController.h */,
-				07CFA41A1D2BB1C000F7DDDA /* ChooseFolderViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -618,6 +607,25 @@
 				07B92EEF1D1D986E00A4127E /* version.h */,
 			);
 			path = src;
+			sourceTree = "<group>";
+		};
+		07CFA5C71D2CF50F00F7DDDA /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				07B92DE81D1D964100A4127E /* EditViewController.h */,
+				07B92DE91D1D964100A4127E /* EditViewController.m */,
+				07B92DEA1D1D964100A4127E /* FileListViewController.h */,
+				07B92DEB1D1D964100A4127E /* FileListViewController.m */,
+				07B92DEE1D1D964100A4127E /* MenuViewController.h */,
+				07B92DEF1D1D964100A4127E /* MenuViewController.m */,
+				07B92DF01D1D964100A4127E /* NoteListViewController.h */,
+				07B92DF11D1D964100A4127E /* NoteListViewController.m */,
+				07B92DF21D1D964100A4127E /* PreviewViewController.h */,
+				07B92DF31D1D964100A4127E /* PreviewViewController.m */,
+				07CFA4191D2BB1C000F7DDDA /* ChooseFolderViewController.h */,
+				07CFA41A1D2BB1C000F7DDDA /* ChooseFolderViewController.m */,
+			);
+			name = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
