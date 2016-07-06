@@ -1,0 +1,58 @@
+/* 
+  Localizable.strings
+  MarkLite
+
+  Created by zhubch on 7/5/16.
+  Copyright © 2016 zhubch. All rights reserved.
+*/
+"TabTitle1"="笔记";
+"TabTitle2"="文件";
+"TabTitle3"="选项";
+
+"NavTitleMarkLite"="MarkLite";
+"NavTitleLocalFile"="本地文件";
+"NavTitleCloudFile"="iCloud";
+"NavTitleOptions"="选项";
+
+"SortByName"="按文件名排序";
+"SortByCreateTime"="按创建时间排序";
+"SortByUpdateTime"="按修改时间排序";
+
+"Font"="字体";
+"Preview"="预览";
+"Done"="完成";
+"Reset"="重置";
+"Back"="返回";
+"FullScreen"="全屏";
+"Return"="还原";
+
+"Feedback"="问题反馈";
+"RateIt"="好评鼓励";
+"About"="关于";
+"Donate"="打赏作者";
+"Style"="渲染样式";
+"ImageCloudstorage"="图片云存储";
+"AssistKeyboard"="辅助键盘";
+
+"OK"="确定";
+"Cancel"="取消";
+"Delete"="删除";
+"Export"="导出";
+"ExportAs"="选择导出格式";
+"Rename"="重命名";
+"WebPage"="Web页面";
+"PDF"="PDF文档";
+
+"ChooseYourOperation"="请选择要进行的操作";
+"NameAlertTitle"="为该文件命名";
+"NewMarkdownFile"= "新建文本";
+"NewFolder"= "新建文件夹";
+"PickImage"="导入图片";
+"NameAlertMessage"="请输入文件名，不要输入后缀";
+"DeleteMessage"="删除后不可恢复，确定要删除吗？";
+"DuplicateError"="出错了，请确保文件名不重复";
+
+"CanNotDeleteRoot"="根目录不可删除";
+"EmptyNameTips"="文件名不能为空";
+"InvalidName"="无效的文件名，请不要输入特殊字符";
+"CanNotEdit"="这不是一个markdown文件，无法进行编辑,你可以点击预览来查看该文件";

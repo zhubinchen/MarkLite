@@ -20,24 +20,34 @@
 @implementation MenuViewController
 {
     NSArray *items;
-    NSArray *imgNames;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.title = @"选项";
-    
+        
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     
     if (kDevicePad) {
-        items = @[@[@"图片云存储"],@[@"键盘辅助",@"编辑器字体",@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"],@[@"打赏作者"]];
-        imgNames = @[@[@"Quality"],@[@"Keyboard",@"Font",@"Style"],@[@"Star",@"FeedBack"],@[@"Info"],@[@"Donate"]];
+        items = @[
+                    @[@"ImageCloudstorage"],
+                    @[@"AssistKeyboard",@"Font",@"Style"],
+                    @[@"RateIt",@"Feedback"],
+                    @[@"About"],@[@"Donate"]
+                ];
     }else{
-        items = @[@[@"图片云存储"],@[@"键盘辅助",@"渲染样式"],@[@"好评鼓励",@"问题反馈"],@[@"关于"],@[@"打赏作者"]];
-        imgNames = @[@[@"Quality"],@[@"Keyboard",@"Style"],@[@"Star",@"FeedBack"],@[@"Info"],@[@"Donate"]];
+        items = @[
+                  @[@"ImageCloudstorage"],
+                  @[@"AssistKeyboard",@"Style"],
+                  @[@"RateIt",@"Feedback"],
+                  @[@"About"],@[@"Donate"]
+                  ];
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.tabBarController.title = ZHLS(@"NavTitleOptions");
 }
 
 - (void)back {
@@ -61,8 +71,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"menuItem" forIndexPath:indexPath];
     
-    cell.textLabel.text = items[indexPath.section][indexPath.row];
-    cell.imageView.image = [UIImage imageNamed:imgNames[indexPath.section][indexPath.row]];
+    cell.textLabel.text = ZHLS(items[indexPath.section][indexPath.row]);
+    cell.imageView.image = [UIImage imageNamed:items[indexPath.section][indexPath.row]];
 
     if (indexPath.section == 1 && indexPath.row == 0) {
         UISwitch *s = [[UISwitch alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 60, 10, 0, 0)];
@@ -93,17 +103,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    UIViewController *vc = nil;
     if (indexPath.section == 0 && indexPath.row == 0) {
-        UIViewController *vc = [[ImageViewController alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
+        vc = [[ImageViewController alloc]init];
     }else if (indexPath.section == 1) {
         if (kDevicePad && indexPath.row == 1) {
             [self performSegueWithIdentifier:@"font" sender:self];
         }
         if ((kDevicePhone && indexPath.row == 1) || (kDevicePad && indexPath.row == 2)) {
             
-            UIViewController *vc = [[StyleViewController alloc]init];
-            [self.navigationController pushViewController:vc animated:YES];
+            vc = [[StyleViewController alloc]init];
         }
     }else if (indexPath.section == 2) {
         if (indexPath.row == 0) {
@@ -114,10 +123,13 @@
             [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
         }
     }else if (indexPath.section == 3){
-        UIViewController *vc = [[AboutViewController alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
+        vc = [[AboutViewController alloc]init];
     }else if (indexPath.section == 4){
-        UIViewController *vc = [[DonateViewController alloc]init];
+        vc = [[DonateViewController alloc]init];
+    }
+    
+    if (vc) {
+        vc.title = ZHLS(items[indexPath.section][indexPath.row]);
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

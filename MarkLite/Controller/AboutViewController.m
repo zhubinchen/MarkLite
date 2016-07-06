@@ -16,8 +16,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.title = @"关于";
     
     NSString *htmlStr = [NSString stringWithContentsOfFile:[[NSBundle mainBundle]pathForResource:@"about" ofType:@"html" ]encoding:NSUTF8StringEncoding error:nil];
     [self.webView loadHTMLString:htmlStr baseURL:nil];

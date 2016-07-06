@@ -65,7 +65,7 @@
     NSString *fileName;
     _cloud = [[Item alloc]init];
     _cloud.cloud = YES;
-    _cloud.path = @"MarkLite";
+    _cloud.path = ZHLS(@"NavTitleCloudFile");
     _cloud.open = YES;
     while ((fileName = [childFilesEnumerator nextObject]) != nil){
         
@@ -87,46 +87,6 @@
     }
 }
 
-//- (void)upload
-//{
-//    for (Item *i in _root.itemsCanReach) {
-//        NSError *err = nil;
-//        if ([fm fileExistsAtPath:[self remotePath:i.path]]) {
-//            continue;
-//        }
-//        NSURL *localUrl = [NSURL fileURLWithPath:[self localPath:i.path]];
-//        NSURL *remoteUrl = [NSURL fileURLWithPath:[self remotePath:i.path]];
-//        [fm copyItemAtURL:localUrl toURL:remoteUrl error:&err];
-//        NSLog(@"%@",err);
-//    }
-//}
-//
-//- (void)download
-//{
-//    NSError *err = nil;
-//    NSArray *arr = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:_iCloudSpace error:&err];
-//    if (err) {
-//        NSLog(@"%@",err);
-//        return;
-//    }
-//
-//    for (NSString *path in arr) {
-//        if (![fm fileExistsAtPath:_workSpace]) {
-//            [fm createDirectoryAtPath:_workSpace withIntermediateDirectories:YES attributes:nil error:nil];
-//            NSLog(@"creating workSpace:%@",_workSpace);
-//        }
-//        NSURL *localUrl = [NSURL fileURLWithPath:[self localPath:path]];
-//        NSURL *remoteUrl = [NSURL fileURLWithPath:[self remotePath:path]];
-//        [fm copyItemAtURL:remoteUrl toURL:localUrl error:&err];
-//
-//        if (err) {
-//            NSLog(@"%@",err);
-//            return;
-//        }
-//    }
-//
-//}
-
 - (void)createLocalWorkspace
 {
     NSString *wokspace = localWorkspace();
@@ -142,16 +102,14 @@
         [zipArchive UnzipOpenFile:path];
         
         [zipArchive UnzipFileTo:documentPath() overWrite:YES];
-
-        NSLog(@"success%@",path);
     }
-    
+    NSLog(@"localWorkSpace:%@",wokspace);
     
     NSEnumerator *childFilesEnumerator = [[fm subpathsAtPath:wokspace] objectEnumerator];
     
     NSString *fileName;
     _local = [[Item alloc]init];
-    _local.path = @"MarkLite";
+    _local.path = ZHLS(@"NavTitleLocalFile");
     _local.open = YES;
     while ((fileName = [childFilesEnumerator nextObject]) != nil){
         

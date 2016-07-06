@@ -27,7 +27,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.title = @"图片云存储";
     self.slider.value = [Configure sharedConfigure].compressionQuality;
     
     if ([Configure sharedConfigure].imageServer) {

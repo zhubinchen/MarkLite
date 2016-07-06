@@ -24,6 +24,9 @@
 
 #define kAppVersionNo [[NSBundle mainBundle].infoDictionary objectForKey:@"CFBundleShortVersionString"]
 
+#define ZHLS(key) \
+[[NSBundle mainBundle] localizedStringForKey:(key) value:@"" table:nil]
+
 @interface NSObject (ZHUtils)
 
 @end

@@ -349,6 +349,7 @@
                         <outlet property="noteListView" destination="4Di-yM-3uD" id="Nee-cM-iAu"/>
                         <segue destination="VQd-1Y-qDA" kind="show" identifier="edit" id="F5f-nG-XfB"/>
                         <segue destination="rmd-nM-PLW" kind="show" identifier="preview" id="jkb-0q-YIz"/>
+                        <segue destination="uKH-5D-5ID" kind="presentation" identifier="newNote" id="736-9L-s2e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NZY-eD-wsm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -462,6 +463,88 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yo8-UD-Mb3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3187.5" y="-2572.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Mnj-GY-iNV">
+            <objects>
+                <navigationController id="uKH-5D-5ID" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="L8C-BN-JY1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.086274509799999996" green="0.68235294120000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="6Wg-nY-ofa" kind="relationship" relationship="rootViewController" id="6bi-2w-sVK"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="crW-SY-aLy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-5063.5" y="-1699.5"/>
+        </scene>
+        <!--Choose Folder View Controller-->
+        <scene sceneID="1n0-63-uTd">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="6Wg-nY-ofa" customClass="ChooseFolderViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cf6-Qa-X1G"/>
+                        <viewControllerLayoutGuide type="bottom" id="cKv-Uj-amK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZmX-aA-PgD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HNu-ci-jEC">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="6Wg-nY-ofa" id="Qdy-eZ-31P"/>
+                                    <outlet property="delegate" destination="6Wg-nY-ofa" id="tcH-ao-6Fc"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="HNu-ci-jEC" firstAttribute="top" secondItem="cf6-Qa-X1G" secondAttribute="bottom" id="6W6-t9-fgO"/>
+                            <constraint firstAttribute="trailing" secondItem="HNu-ci-jEC" secondAttribute="trailing" id="P00-Do-PnI"/>
+                            <constraint firstItem="cKv-Uj-amK" firstAttribute="top" secondItem="HNu-ci-jEC" secondAttribute="bottom" id="eTh-Xl-yWr"/>
+                            <constraint firstItem="HNu-ci-jEC" firstAttribute="leading" secondItem="ZmX-aA-PgD" secondAttribute="leading" id="kbj-07-W1b"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="mO0-jT-wYk">
+                        <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="uLk-p4-Nha">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="dismiss:" destination="6Wg-nY-ofa" id="jiC-qn-fDA"/>
+                            </connections>
+                        </barButtonItem>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="WFs-GW-DFL">
+                            <rect key="frame" x="112.5" y="7" width="150" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title=""/>
+                                <segment title="Second"/>
+                            </segments>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="segmentChanged:" destination="6Wg-nY-ofa" eventType="valueChanged" id="tUh-Ra-7Kx"/>
+                            </connections>
+                        </segmentedControl>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="ddc-hC-L9c">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="done:" destination="6Wg-nY-ofa" id="BLZ-qv-yPb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="folderListView" destination="HNu-ci-jEC" id="Rwe-wB-lm7"/>
+                        <outlet property="segment" destination="WFs-GW-DFL" id="ady-UT-nOk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lnw-cx-KeS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-5063.5" y="-928.5"/>
         </scene>
     </scenes>
     <resources>

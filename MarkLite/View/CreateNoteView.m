@@ -121,7 +121,7 @@ static CGFloat h;
     BOOL ret = [[FileManager sharedManager] createFile:i.fullPath Content:[NSData data]];
     
     if (ret == NO) {
-        showToast(@"出错了，请确保文件名不重复");
+        showToast(ZHLS(@"DuplicateError"));
         return;
     }
     [selecteItem addChild:i];

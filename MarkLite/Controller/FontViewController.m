@@ -22,6 +22,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = ZHLS(@"Font");
+    self.navigationItem.rightBarButtonItem.title = ZHLS(@"Done");
+    if (kDevicePhone) {
+        self.navigationItem.leftBarButtonItem.title = ZHLS(@"Reset");
+    }
     fontNames = [@{} mutableCopy];
     familyNames = [[UIFont familyNames] sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         return [obj1 compare:obj2];

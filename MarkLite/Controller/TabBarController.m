@@ -23,6 +23,9 @@
 static TabBarController *tabVc = nil;
 
 @implementation TabBarController
+{
+    NSArray *titles;
+}
 
 
 + (instancetype)currentViewContoller
@@ -32,10 +35,13 @@ static TabBarController *tabVc = nil;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.hidesBackButton = YES;
 
     tabVc = self;
     
+    titles = @[ZHLS(@"TabTitle1"),ZHLS(@"TabTitle2"),ZHLS(@"TabTitle3")];
+    for (int i = 0; i < titles.count; i ++) {
+        self.tabBar.items[i].title = titles[i];
+    }
 }
 
 - (void)setSelectedViewController:(UIViewController *)selectedViewController
@@ -52,8 +58,6 @@ static TabBarController *tabVc = nil;
     }
     [super setSelectedViewController:selectedViewController];
     
-    NSArray *titles = @[@"MarkLite",@"文件",@"选项"];
-    self.title = titles[self.selectedIndex];
     [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} forState:UIControlStateNormal];
 }
 

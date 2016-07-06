@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, FileType) {
     FileTypeImage,
     FileTypeText,
     FileTypeFolder,
     FileTypeOther,
-} FileType;
+} ;
 
 
 /**

@@ -25,15 +25,11 @@ static KeyboardBar *bar = nil;
     self = [super initWithFrame:CGRectMake(0, 0, kScreenWidth, w)];
     self.backgroundColor = [UIColor colorWithRed:200/255.0 green:203/255.0 blue:211/255.0 alpha:1];
     [self createItem];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createItem) name:UIDeviceOrientationDidChangeNotification object:nil];
     return self;
 }
 
 - (void)createItem
 {
-//    for (UIView *v in self.subviews) {
-//        [v removeFromSuperview];
-//    }
     
     UIColor *titleColor = [UIColor colorWithRGBString:@"404040"];
     NSArray *titles = @[@"Tab",@"#",@"*",@"-",@">",@"`",@"add_image",@"add_link",@"keyboard_down"];
@@ -78,7 +74,7 @@ static KeyboardBar *bar = nil;
         [_editView insertText:btn.currentTitle];
     }else if (btn.tag == 6){
         [self.editView resignFirstResponder];
-        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"添加图片" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"从照片选取并上传",@"手动输入图片路径或链接", nil];
+        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"添加图片" delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:@"从照片选取并上传",@"手动输入图片路径或链接", nil];
         sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
             if (buttonIndex == 0) {
                 if ([Configure sharedConfigure].imageServer == NO) {
@@ -93,7 +89,7 @@ static KeyboardBar *bar = nil;
                 vc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
                 [self.vc presentViewController:vc animated:YES completion:nil];
             }else if(buttonIndex == 1){
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加图片" message:@"请输入图片相对路径或URL" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加图片" message:@"请输入图片相对路径或URL" delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
                 alert.alertViewStyle = UIAlertViewStylePlainTextInput;
                 alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
                     if (buttonIndex == 1) {
@@ -109,7 +105,7 @@ static KeyboardBar *bar = nil;
         [sheet showInView:self.vc.view];
     }else if (btn.tag == 7){
 
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加链接" message:@"请输入链接" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加链接" message:@"请输入链接" delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
         alert.alertViewStyle = UIAlertViewStylePlainTextInput;
         alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
             if (buttonIndex == 1) {

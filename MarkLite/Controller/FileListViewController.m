@@ -27,11 +27,12 @@
 {
     Item *root;
     FileManager *fm;
-    
+    Item *selectParent;
+    BOOL edit;
+
     NSMutableArray *dataArray;
     UIBarButtonItem *rightItem;
-    BOOL edit;
-    Item *selectParent;
+    UIBarButtonItem *leftItem;
     UIPopoverPresentationController *popVc;
     UITableView *fileListView;
 }
@@ -48,9 +49,17 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:@"ItemsChangedNotification" object:nil];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.tabBarController.title = ZHLS(self.cloud?@"NavTitleCloudFile":@"NavTitleLocalFile");
+    [self reload];
+}
+
 - (void)toggleCloud
 {
     self.cloud = !self.cloud;
+    self.tabBarController.title = ZHLS(self.cloud?@"NavTitleCloudFile":@"NavTitleLocalFile");
+    leftItem.title = ZHLS(self.cloud?@"NavTitleLocalFile":@"NavTitleCloudFile");
 }
 
 - (void)setCloud:(BOOL)cloud
@@ -77,21 +86,17 @@
     [fileListView reloadData];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [self reload];
-}
 
 - (NSArray*)rightItems
 {
-    rightItem = [[UIBarButtonItem alloc]initWithTitle:(edit ? @"完成":@"编辑") style:UIBarButtonItemStylePlain target:self action:@selector(edit)];
+    rightItem = [[UIBarButtonItem alloc]initWithTitle:ZHLS(edit ? @"Done":@"Edit") style:UIBarButtonItemStylePlain target:self action:@selector(edit)];
     return @[rightItem];
 }
 
 - (NSArray*)leftItems
 {
-    UIBarButtonItem *item = [[UIBarButtonItem alloc]initWithTitle:@"iCloud" style:UIBarButtonItemStylePlain target:self action:@selector(toggleCloud)];
-    return @[item];
+    leftItem = [[UIBarButtonItem alloc]initWithTitle:@"iCloud" style:UIBarButtonItemStylePlain target:self action:@selector(toggleCloud)];
+    return @[leftItem];
 }
 
 - (void)edit
@@ -99,10 +104,10 @@
     edit = !edit;
 
     if (edit) {
-        rightItem.title = @"完成";
+        rightItem.title = ZHLS(@"Done");
         [dataArray insertObject:root atIndex:0];
     }else{
-        rightItem.title = @"编辑";
+        rightItem.title = ZHLS(@"Edit");
         [dataArray removeObjectAtIndex:0];
     }
     [fileListView reloadData];
@@ -169,7 +174,7 @@
         }
     }
     
-    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"请选择要进行的操作" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"新建文本",@"选取图片",@"创建文件夹", nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:ZHLS(@"ChooseYourOperation") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:ZHLS(@"NewMarkdownFile"),ZHLS(@"PickImage"),ZHLS(@"NewFolder"), nil];
     sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *sheet){
         if (buttonIndex == 1) {
             UIImagePickerController *vc = [[UIImagePickerController alloc]init];
@@ -179,7 +184,7 @@
             return ;
         }else if (buttonIndex == 0 || buttonIndex == 2) {
             FileType type = buttonIndex == 0 ? FileTypeText : FileTypeFolder;
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"为新文件命名" message:@"请输入文件名，请不要输入后缀名" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"NameAlertTitle") message:ZHLS(@"NameAlertMessage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
             alert.alertViewStyle = UIAlertViewStylePlainTextInput;
             alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
                 if (buttonIndex == 1) {
@@ -195,16 +200,18 @@
                     Item *i = [[Item alloc]init];
                     i.path = path;
                     i.open = YES;
-                    i.cloud = NO;
+                    i.cloud = selectParent.cloud;
+                    
+                    BOOL ret = NO;
                     if (i.type == FileTypeFolder) {
-                        [fm createFolder:i.fullPath];
+                        ret = [fm createFolder:i.fullPath];
                     }else{
-                        BOOL ret = [[FileManager sharedManager] createFile:i.fullPath Content:[NSData data]];
-                        
-                        if (ret == NO) {
-                            showToast(@"出错了，请确保文件名不重复");
-                            return;
-                        }
+                        ret = [fm createFile:i.fullPath Content:[NSData data]];
+                    }
+                    
+                    if (ret == NO) {
+                        showToast(ZHLS(@"DuplicateError"));
+                        return;
                     }
                     
                     [parent addChild:i];
@@ -230,7 +237,7 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"为新图片命名" message:@"请输入文件名，请不要输入后缀名" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"NameAlertTitle") message:ZHLS(@"NameAlertMessage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
         if (buttonIndex == 1) {
@@ -245,13 +252,13 @@
             Item *i = [[Item alloc]init];
             i.path = path;
             i.open = YES;
-            i.cloud = NO;
+            i.cloud = selectParent.cloud;
             UIImage *img = [info objectForKey:UIImagePickerControllerOriginalImage];
             NSData *data = UIImageJPEGRepresentation(img, 0.5);
             BOOL ret = [[FileManager sharedManager] createFile:i.fullPath Content:data];
             
             if (ret == NO) {
-                showToast(@"出错了，请确保文件名不重复");
+                showToast(ZHLS(@"DuplicateError"));
                 return;
             }
             [selectParent addChild:i];
@@ -308,14 +315,14 @@
     __weak UITableViewCell *__cell = cell;
 
     cell.moreBlock = ^(Item *i){
-        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:i.name delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles: @"导出",@"重命名", nil];
+        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:i.name delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:ZHLS(@"Delete") otherButtonTitles: ZHLS(@"Export"),ZHLS(@"Rename"), nil];
         sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
             if (buttonIndex == 0) {
                 if (i == root) {
-                    showToast(@"根目录不可删除");
+                    showToast(ZHLS(@"CanNotDeleteRoot"));
                     return ;
                 }
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除后不可恢复，确定要删除吗？" message:nil delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ZHLS(@"DeleteMessage") message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
                 alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
                     if (buttonIndex == 1) {
                         [i removeFromParent];
@@ -337,18 +344,18 @@
             }else if(buttonIndex == 1){
                 [self export:i sourceView:__cell];
             }else if(buttonIndex == 2){
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"重命名" message:@"不用输入后缀名" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"Rename") message:ZHLS(@"NameAlertMessage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
                 alert.alertViewStyle = UIAlertViewStylePlainTextInput;
                 alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
                     if (buttonIndex == 1) {
                         NSString *name = [alert textFieldAtIndex:0].text;
                         name = [name componentsSeparatedByString:@"."].firstObject;
                         if (name.length == 0) {
-                            showToast(@"文件名不可为空");
+                            showToast(ZHLS(@"EmptyNameTips"));
                             return ;
                         }
                         if ([name containsString:@"/"] || [name containsString:@"*"]) {
-                            showToast(@"请不要输入特殊字符");
+                            showToast(ZHLS(@"InvalidName"));
                             return;
                         }
                         NSString *oldPath = i.path;
@@ -361,7 +368,7 @@
                             [tableView reloadData];
                         }else{
                             i.path = oldPath;
-                            showToast(@"出错了，请确保文件名不重复");
+                            showToast(ZHLS(@"DuplicateError"));
                         }
                     }
                     
@@ -379,10 +386,10 @@
     
     cell.deleteFileBlock = ^(Item *i){
         if (i == root) {
-            showToast(@"根目录不可删除");
+            showToast(ZHLS(@"CanNotDeleteRoot"));
             return ;
         }
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"删除后不可恢复，确定要删除吗？" message:nil delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ZHLS(@"DeleteMessage") message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
         alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
             if (buttonIndex == 1) {
                 [i removeFromParent];
@@ -497,7 +504,7 @@
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
     searchBar.showsCancelButton = YES;
-    [searchBar setCancelButtonTitle:@"取消"];
+    [searchBar setCancelButtonTitle:ZHLS(@"Cancel")];
     return YES;
 }
 

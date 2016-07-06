@@ -64,11 +64,9 @@
     for (Item *i in self.children) {
         NSArray *array = [i searchResult:searchText];
         NSString *path = [i.path componentsSeparatedByString:@"/"].lastObject;
-
         if (array.count || [path containsString:searchText]) {
             [ret addObject:i];
         }
-        
         if (array.count) {
             [ret addObjectsFromArray:[i searchResult:searchText]];
         }

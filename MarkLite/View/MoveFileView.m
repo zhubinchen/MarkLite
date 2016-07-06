@@ -109,7 +109,7 @@ static CGFloat h;
 //    BOOL ret = [[FileManager sharedManager] moveFile:i.path toNewPath:@""];
 //    
 //    if (ret == NO) {
-//        showToast(@"出错了，请确保文件名不重复");
+//        showToast(ZHLS(@"DuplicateError"));
 //        return;
 //    }
 //    [selecteItem addChild:i];

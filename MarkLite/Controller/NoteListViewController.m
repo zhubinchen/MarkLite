@@ -8,10 +8,10 @@
 
 #import "NoteListViewController.h"
 #import "EditViewController.h"
+#import "ChooseFolderViewController.h"
 #import "FileManager.h"
 #import "NoteItemCell.h"
 #import "Item.h"
-#import "CreateNoteView.h"
 #import "Configure.h"
 
 @interface NoteListViewController () <UITableViewDelegate,UITableViewDataSource,UIViewControllerPreviewingDelegate,UISearchBarDelegate>
@@ -27,7 +27,6 @@
     NSMutableArray *dataArray;
     UIControl *control;
     UIImageView *imgView;
-    CreateNoteView *view;
     NSString *searchWord;
 }
 
@@ -40,6 +39,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    self.tabBarController.title = ZHLS(@"NavTitleMarkLite");
     [self reload];
 }
 
@@ -63,24 +63,7 @@
 
 - (void)newNote
 {
-    __weak typeof(self) __self = self;
-    if (view == nil) {
-        view = [CreateNoteView instance];
-        view.didCreateNote = ^(Item *i){
-            __self.fm.currentItem = i;
-            [__self reload];
-            if (kDevicePhone) {
-                [__self performSegueWithIdentifier:@"edit" sender:__self];
-            }
-        };
-        view.vc = __self;
-    }
-    
-    if (view.isShow) {
-        [view remove];
-    }else{
-        [view show];
-    }
+    [self performSegueWithIdentifier:@"newNote" sender:self];
 }
 
 - (void)showOptions
@@ -93,9 +76,9 @@
         optionsView.alpha = 0.99;
         [optionsView showShadowWithColor:[UIColor grayColor] offset:CGSizeMake(0, 5)];
         
-        NSArray *options = @[@"  按名称排序",@"  按创建时间排序",@"  按修改时间排序"];
+        NSArray *options = @[ZHLS(@"SortByName"),ZHLS(@"SortByCreateTime"),ZHLS(@"SortByUpdateTime")];
         for (int i = 0; i < options.count; i++) {
-            UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(0, i*30, w, 30)];
+            UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(20, i*30, w - 20, 30)];
             btn.titleLabel.font = [UIFont systemFontOfSize:14];
             btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
             btn.tag = i;
@@ -222,7 +205,7 @@
 {
     Item *i = dataArray[indexPath.row];
     
-    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"删除后不可恢复，确定要删除吗？" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles: nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:ZHLS(@"DeleteMessage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:ZHLS(@"Delete") otherButtonTitles: nil];
     sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
         if (buttonIndex == 0) {
             [i removeFromParent];
@@ -289,7 +272,7 @@
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
     searchBar.showsCancelButton = YES;
-    [searchBar setCancelButtonTitle:@"取消"];
+    [searchBar setCancelButtonTitle:ZHLS(@"Cancel")];
     return YES;
 }
 
@@ -299,10 +282,52 @@
     return YES;
 }
 
-- (void)viewWillLayoutSubviews
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if ([segue.identifier isEqualToString:@"newNote"]) {
+        
+        ChooseFolderViewController *vc = [(UINavigationController*)segue.destinationViewController viewControllers].firstObject;
+        vc.didChoosedFolder = ^(Item *i){
+            [self newNoteWithParent:i];
+        };
+    }
+}
+
+- (void)newNoteWithParent:(Item*)parent
 {
-    [view remove];
-    [view reset];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"NameAlertTitle") message:ZHLS(@"NameAlertMessage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+        if (buttonIndex == 1) {
+            [[alert textFieldAtIndex:0] resignFirstResponder];
+            NSString *name = [alert textFieldAtIndex:0].text;
+            name = [name stringByAppendingString:@".md"];
+
+            NSString *path = name;
+            if (parent != _fm.cloud && parent != _fm.cloud) {
+                path = [parent.path stringByAppendingPathComponent:name];
+            }
+            Item *i = [[Item alloc]init];
+            i.path = path;
+            i.open = YES;
+            i.cloud = parent.cloud;
+            BOOL ret = [[FileManager sharedManager] createFile:i.fullPath Content:[NSData data]];
+            
+            if (ret == NO) {
+                showToast(ZHLS(@"DuplicateError"));
+                return;
+            }
+            
+            [parent addChild:i];
+            
+            [self reload];
+            
+            _fm.currentItem = i;
+            if (kDevicePhone) {
+                [self performSegueWithIdentifier:@"edit" sender:self];
+            }
+        }
+    };
+    [alert show];
 }
 
 

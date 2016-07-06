@@ -54,6 +54,8 @@
 
 - (void)loadFile
 {
+    self.title = fm.currentItem.name;
+    
     NSString *path = [fm currentItem].fullPath;
 
     
@@ -100,7 +102,7 @@
 - (void)export
 {
     if (kDevicePad) {
-        UIAlertView *sheet = [[UIAlertView alloc]initWithTitle:@"选择导出格式" message:@"" delegate:nil cancelButtonTitle:@"取消" otherButtonTitles:@"Web页面",@"PDF文档", nil];
+        UIAlertView *sheet = [[UIAlertView alloc]initWithTitle:@"选择导出格式" message:@"" delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:@"Web页面",@"PDF文档", nil];
         sheet.clickedButton = ^(NSInteger index,UIAlertView *sheet){
             NSURL *url = nil;
             if (index == 1){
@@ -123,7 +125,7 @@
         [sheet show];
         return;
     }
-    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"选择导出格式" delegate:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"Web页面",@"PDF文档", nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:ZHLS(@"ExportAs") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:ZHLS(@"WebPage"),ZHLS(@"PDF"), nil];
     sheet.clickedButton = ^(NSInteger index,UIActionSheet *sheet){
         NSURL *url = nil;
         if (index == 0){

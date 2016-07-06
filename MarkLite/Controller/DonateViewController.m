@@ -22,7 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"打赏作者";
 }
 
 - (IBAction)donate:(UIButton*)sender

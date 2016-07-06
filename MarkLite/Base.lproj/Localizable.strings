@@ -1,0 +1,60 @@
+/* 
+  Localizable.strings
+  MarkLite
+
+  Created by zhubch on 7/5/16.
+  Copyright © 2016 zhubch. All rights reserved.
+*/
+"TabTitle1"="Note";
+"TabTitle2"="File";
+"TabTitle3"="Options";
+
+"NavTitleMarkLite"="MarkLite";
+"NavTitleLocalFile"="Local File";
+"NavTitleCloudFile"="iCloud";
+"NavTitleOptions"="Options";
+
+"SortByName"="Sort by file name";
+"SortByCreateTime"="Sort by create time";
+"SortByUpdateTime"="Sort by update time";
+
+"Font"="Font";
+"Preview"="Preview";
+"Done"="Done";
+"Reset"="Reset";
+"Back"="Back";
+"Edit"="Edit";
+"FullScreen"="FullScreen";
+"Return"="Return";
+
+"Feedback"="Feedback";
+"RateIt"="Rate it";
+"About"="About";
+"Donate"="Donate";
+"Style"="Style";
+"ImageCloudstorage"="Image Cloudstorage";
+"AssistKeyboard"="Assist Keyboard";
+
+"OK"="OK";
+"Cancel"="Cancel";
+"Delete"="Delete";
+"Export"="Export";
+"ExportAs"="Export as";
+"Rename"="Rename";
+"WebPage"="WebPage";
+"PDF"="PDF";
+
+"ChooseYourOperation"="Choose your operation";
+"NameAlertTitle"="Name the file";
+"NewMarkdownFile"= "new markdown";
+"NewFolder"= "new directory";
+"PickImage"="import an image";
+"NameAlertMessage"="please input the name";
+"DeleteMessage"="do you want to delete the file? this action can't be undo.";
+"DuplicateError"="An error occured! duplicate name?";
+
+"CanNotDeleteRoot"="Can not delete root directory";
+"EmptyNameTips"="File name can not be empty";
+"InvalidName"="Invalid file name";
+"CanNotEdit"="This is not a markdown file,you can't edit it,but you can preview it";
+

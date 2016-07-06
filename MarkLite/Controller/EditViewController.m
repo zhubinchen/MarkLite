@@ -48,6 +48,13 @@
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    if (kDevicePhone) {
+        self.navigationItem.rightBarButtonItems[1].title = ZHLS(@"Font");
+    }else{
+        self.navigationItem.rightBarButtonItems[1].title = ZHLS(@"FullScreen");
+    }
+    self.navigationItem.rightBarButtonItems[0].title = ZHLS(@"Preview");
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -154,7 +161,7 @@
     item = fm.currentItem;
 
     if (item.type != FileTypeText) {
-        self.editView.text = @"无法编辑该类型文件,你可以点击预览来查看该文件";
+        self.editView.text = ZHLS(@"CanNotEdit");
         self.editView.editable = NO;
         return;
     }else{
@@ -173,10 +180,10 @@
 - (IBAction)fullScreen:(UIBarButtonItem*)sender{
     if (self.splitViewController.preferredDisplayMode == UISplitViewControllerDisplayModePrimaryHidden) {
         self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModeAllVisible;
-        sender.title = @"全屏";
+        sender.title = ZHLS(@"FullScreen");
     }else{
         self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
-        sender.title = @"还原";
+        sender.title = ZHLS(@"Return");
     }
 }
 
