@@ -479,7 +479,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="crW-SY-aLy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5063.5" y="-1699.5"/>
+            <point key="canvasLocation" x="-4675.5" y="-1731.5"/>
         </scene>
         <!--Choose Folder View Controller-->
         <scene sceneID="1n0-63-uTd">
@@ -544,7 +544,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lnw-cx-KeS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5063.5" y="-928.5"/>
+            <point key="canvasLocation" x="-4675.5" y="-960.5"/>
         </scene>
     </scenes>
     <resources>

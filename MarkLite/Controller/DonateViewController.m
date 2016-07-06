@@ -15,6 +15,8 @@
 
 @interface DonateViewController ()<SKPaymentTransactionObserver,SKProductsRequestDelegate>
 
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityView;
+
 @end
 
 @implementation DonateViewController
@@ -22,10 +24,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _activityView.hidden = YES;
+    [_activityView stopAnimating];
 }
 
 - (IBAction)donate:(UIButton*)sender
 {
+    if (_activityView.hidden == NO) {
+        return;
+    }
+    _activityView.hidden = NO;
+    [_activityView startAnimating];
     NSArray *types = @[kProductDonate1,kProductDonate2,kProductDonate3];
     [self requestProductData:types[sender.tag]];
 }
@@ -48,6 +57,8 @@
     NSArray *product = response.products;
     if([product count] == 0){
         NSLog(@"--------------没有商品------------------");
+        _activityView.hidden = YES;
+        [_activityView stopAnimating];
         return;
     }
     
@@ -70,9 +81,13 @@
 //请求失败
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
     NSLog(@"------------------错误-----------------:%@", error);
+    _activityView.hidden = YES;
+    [_activityView stopAnimating];
 }
 
 - (void)requestDidFinish:(SKRequest *)request{
+    _activityView.hidden = YES;
+    [_activityView stopAnimating];
     NSLog(@"------------反馈信息结束-----------------");
 }
 
@@ -102,12 +117,15 @@
                 break;
         }
     }
+    _activityView.hidden = YES;
+    [_activityView stopAnimating];
 }
 
 //交易结束
 - (void)completeTransaction:(SKPaymentTransaction *)transaction{
     NSLog(@"交易结束");
-    
+    _activityView.hidden = YES;
+    [_activityView stopAnimating];
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
 

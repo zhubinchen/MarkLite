@@ -23,6 +23,7 @@
 "Done"="完成";
 "Reset"="重置";
 "Back"="返回";
+"Edit"="编辑";
 "FullScreen"="全屏";
 "Return"="还原";
 
@@ -56,3 +57,27 @@
 "EmptyNameTips"="文件名不能为空";
 "InvalidName"="无效的文件名，请不要输入特殊字符";
 "CanNotEdit"="这不是一个markdown文件，无法进行编辑,你可以点击预览来查看该文件";
+
+"InsertImage"="插入图片";
+"InsertHref"="添加链接";
+"PickImageAndUpload"="从相册选取并上传";
+"InputImageSrc"="手动输入图片链接或路径";
+"InputImageSrcTips"="请输入图片链接或路径";
+"InputHrefTips"="请输入要添加的链接URL";
+"Uploading"="正在上传...";
+
+"Path"="位置:%@";
+"LastUpdate"="上次修改:%@";
+
+"Open"="打开";
+"Ignore"="忽略";
+"ReceivedNewFile"="收到新文件:%@";
+"Error"="出错了";
+
+"UpgradeTitle"="MarkLite更新啦";
+"UpgradeTips"="为了有更好的体验，建议升级到最新版！大小不到3M呢😄";
+"Upgrade"="更新";
+"DontUpgrade"="我就不";
+
+"StartEdit"="现在开始编辑吧";
+

@@ -14,7 +14,9 @@
 
 static KeyboardBar *bar = nil;
 @implementation KeyboardBar
-
+{
+    ImageUploadingView *uploadView;
+}
 - (instancetype)init
 {
     CGFloat w = kScreenWidth / 9;
@@ -74,7 +76,7 @@ static KeyboardBar *bar = nil;
         [_editView insertText:btn.currentTitle];
     }else if (btn.tag == 6){
         [self.editView resignFirstResponder];
-        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:@"添加图片" delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:@"从照片选取并上传",@"手动输入图片路径或链接", nil];
+        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:ZHLS(@"Insert Image") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:ZHLS(@"PickImageAndUpload"),ZHLS(@"InputImageSrc"), nil];
         sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
             if (buttonIndex == 0) {
                 if ([Configure sharedConfigure].imageServer == NO) {
@@ -89,7 +91,7 @@ static KeyboardBar *bar = nil;
                 vc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
                 [self.vc presentViewController:vc animated:YES completion:nil];
             }else if(buttonIndex == 1){
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加图片" message:@"请输入图片相对路径或URL" delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"Insert Image") message:ZHLS(@"InputImageSrcTips") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
                 alert.alertViewStyle = UIAlertViewStylePlainTextInput;
                 alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
                     if (buttonIndex == 1) {
@@ -105,7 +107,7 @@ static KeyboardBar *bar = nil;
         [sheet showInView:self.vc.view];
     }else if (btn.tag == 7){
 
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"添加链接" message:@"请输入链接" delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"InsertHref") message:ZHLS(@"InputHrefTips") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
         alert.alertViewStyle = UIAlertViewStylePlainTextInput;
         alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
             if (buttonIndex == 1) {
@@ -155,23 +157,25 @@ static KeyboardBar *bar = nil;
     [manager HTTPRequestOperationWithRequest:request
                                      success:^(AFHTTPRequestOperation *operation, id responseObject) {
                                          NSDictionary *dic = responseObject;
+                                         [uploadView dismiss];
                                          NSString *text = [NSString stringWithFormat:@"![MarkLite](%@)",dic[@"t_url"]];
                                          [_editView insertText:text];
                                          [_editView becomeFirstResponder];
                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                          NSLog(@"%@",error);
+                                         [uploadView dismiss];
                                      }];
     
-    ImageUploadingView *view = [[ImageUploadingView alloc]initWithTitle:@"正在上传" message:@"如果上传太慢可以去设置里，适当调低图片质量" cancelBlock:^{
+    uploadView = [[ImageUploadingView alloc]initWithTitle:ZHLS(@"Uploading") cancelBlock:^{
         [operation cancel];
     }];
-    [view show];
+    [uploadView show];
     
     // 4. Set the progress block of the operation.
     [operation setUploadProgressBlock:^(NSUInteger __unused bytesWritten,
                                         long long totalBytesWritten,
                                         long long totalBytesExpectedToWrite) {
-        view.percent = totalBytesWritten/(double)totalBytesExpectedToWrite;
+        uploadView.percent = totalBytesWritten/(double)totalBytesExpectedToWrite;
     }];
     
     // 5. Begin!

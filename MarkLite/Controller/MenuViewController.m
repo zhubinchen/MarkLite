@@ -26,7 +26,7 @@
     [super viewDidLoad];
         
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(back)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:ZHLS(@"Back") style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     
     if (kDevicePad) {
         items = @[

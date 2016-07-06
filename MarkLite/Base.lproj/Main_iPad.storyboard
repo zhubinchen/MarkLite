@@ -35,7 +35,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="7kh-X1-l7a">
-                        <barButtonItem key="backBarButtonItem" title="编辑" id="tRw-Qi-pWE"/>
+                        <barButtonItem key="backBarButtonItem" title=" " id="tRw-Qi-pWE"/>
                         <barButtonItem key="leftBarButtonItem" image="settings.png" id="Ybe-XN-ACi">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
@@ -90,6 +90,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="syI-Yg-bFd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.086274509799999996" green="0.68235294120000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -110,6 +111,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="EQi-yG-8VV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.086274509799999996" green="0.68235294120000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -145,8 +147,10 @@
                             <outlet property="delegate" destination="I2i-9V-J9l" id="FZf-HM-n3Z"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="选项" image="94519803-BBC3-457E-AC2C-2D6167E8B743" id="cUx-cv-8Pe"/>
-                    <navigationItem key="navigationItem" id="rMd-CP-7Md"/>
+                    <tabBarItem key="tabBarItem" title="选项" image="974C8753-E3E0-410E-B58F-9E49FDB82023" id="cUx-cv-8Pe"/>
+                    <navigationItem key="navigationItem" id="rMd-CP-7Md">
+                        <barButtonItem key="backBarButtonItem" title=" " id="8hr-Pt-fcf"/>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <segue destination="K0O-rG-JRS" kind="show" identifier="font" id="hiU-DG-dfV"/>
@@ -164,6 +168,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="lMx-yF-98i">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.086274509799999996" green="0.68235294120000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -181,12 +186,7 @@
             <objects>
                 <tabBarController storyboardIdentifier="main_tab" title="主界面" hidesBottomBarWhenPushed="YES" id="hvP-rt-N7s" customClass="TabBarController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="eJP-0T-JXx">
-                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="kTa-vW-lz3">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="newProject:" destination="nWz-89-KbB" id="nk5-Zd-bTS"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="backBarButtonItem" title=" " id="HZZ-Qx-ukL"/>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -333,6 +333,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="noteListView" destination="Uq6-mi-2eN" id="RKz-QE-KOj"/>
+                        <segue destination="XgD-63-aM1" kind="presentation" identifier="newNote" modalPresentationStyle="formSheet" id="2AF-nR-aEH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nsh-uJ-ceD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -372,14 +373,28 @@
                                     <outlet property="delegate" destination="nWz-89-KbB" id="M0p-T7-PCA"/>
                                 </connections>
                             </tableView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="33f-i2-bnz">
+                                <rect key="frame" x="0.0" y="44" width="320" height="411"/>
+                                <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="nWz-89-KbB" id="GGn-f8-4Ox"/>
+                                    <outlet property="delegate" destination="nWz-89-KbB" id="7IW-BB-gyQ"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="33f-i2-bnz" firstAttribute="leading" secondItem="Tie-ea-7Tf" secondAttribute="leading" id="0kx-iJ-vW1"/>
                             <constraint firstAttribute="trailing" secondItem="O6b-Ul-6oT" secondAttribute="trailing" id="6DJ-Uw-0PZ"/>
                             <constraint firstItem="8Aw-fG-dVI" firstAttribute="leading" secondItem="Tie-ea-7Tf" secondAttribute="leading" id="8xD-Xi-4uN"/>
+                            <constraint firstAttribute="trailing" secondItem="33f-i2-bnz" secondAttribute="trailing" id="JeG-oJ-RfT"/>
                             <constraint firstItem="O6b-Ul-6oT" firstAttribute="leading" secondItem="Tie-ea-7Tf" secondAttribute="leading" id="Jt1-r8-qt0"/>
                             <constraint firstItem="8Aw-fG-dVI" firstAttribute="top" secondItem="O6b-Ul-6oT" secondAttribute="bottom" id="Njc-Ns-8g5"/>
                             <constraint firstAttribute="trailing" secondItem="8Aw-fG-dVI" secondAttribute="trailing" id="hFA-XY-se1"/>
+                            <constraint firstItem="33f-i2-bnz" firstAttribute="top" secondItem="O6b-Ul-6oT" secondAttribute="bottom" id="ogH-7m-Ald"/>
+                            <constraint firstItem="4pI-bF-t7S" firstAttribute="top" secondItem="33f-i2-bnz" secondAttribute="bottom" id="pHJ-rQ-LN3"/>
                             <constraint firstItem="O6b-Ul-6oT" firstAttribute="top" secondItem="KuC-iU-MXf" secondAttribute="bottom" id="q8h-OK-Epx"/>
                             <constraint firstItem="4pI-bF-t7S" firstAttribute="top" secondItem="8Aw-fG-dVI" secondAttribute="bottom" id="xgq-ye-dBQ"/>
                         </constraints>
@@ -389,7 +404,8 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="kR7-vi-Xai"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="fileListView" destination="8Aw-fG-dVI" id="QiZ-r2-s9E"/>
+                        <outlet property="cloudListView" destination="33f-i2-bnz" id="YRi-EV-DlT"/>
+                        <outlet property="localListView" destination="8Aw-fG-dVI" id="aUi-to-MTo"/>
                         <outlet property="searchBar" destination="O6b-Ul-6oT" id="wyr-Ic-2bl"/>
                     </connections>
                 </viewController>
@@ -489,9 +505,91 @@
             </objects>
             <point key="canvasLocation" x="-1380" y="-3065"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="br9-eL-5H0">
+            <objects>
+                <navigationController id="XgD-63-aM1" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="LyJ-pn-ar5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.086274509799999996" green="0.68235294120000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="mOH-zA-tfI" kind="relationship" relationship="rootViewController" id="vwh-rH-H7N"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CvE-uk-127" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="104" y="-4149"/>
+        </scene>
+        <!--Choose Folder View Controller-->
+        <scene sceneID="Pfu-BZ-Mri">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="mOH-zA-tfI" customClass="ChooseFolderViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eTq-zN-Dgr"/>
+                        <viewControllerLayoutGuide type="bottom" id="eCD-ut-Td2"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZTw-F4-cEi">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jks-Fu-vvd">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="mOH-zA-tfI" id="gOC-hS-fPK"/>
+                                    <outlet property="delegate" destination="mOH-zA-tfI" id="wfF-63-qYp"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eCD-ut-Td2" firstAttribute="top" secondItem="jks-Fu-vvd" secondAttribute="bottom" id="GJT-5X-tKl"/>
+                            <constraint firstItem="jks-Fu-vvd" firstAttribute="leading" secondItem="ZTw-F4-cEi" secondAttribute="leading" id="OhB-n0-Ud5"/>
+                            <constraint firstAttribute="trailing" secondItem="jks-Fu-vvd" secondAttribute="trailing" id="X7L-Tl-VhV"/>
+                            <constraint firstItem="jks-Fu-vvd" firstAttribute="top" secondItem="eTq-zN-Dgr" secondAttribute="bottom" id="j2n-z1-Eco"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="V5T-Uq-zHQ">
+                        <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" title="Item" id="K84-Q5-fRl">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="dismiss:" destination="mOH-zA-tfI" id="CuQ-jp-I6W"/>
+                            </connections>
+                        </barButtonItem>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="eC7-b2-l4J">
+                            <rect key="frame" x="85" y="7" width="150" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title=""/>
+                                <segment title="Second"/>
+                            </segments>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="segmentChanged:" destination="mOH-zA-tfI" eventType="valueChanged" id="ITb-sH-fzv"/>
+                            </connections>
+                        </segmentedControl>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="jDL-X2-iH4">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="done:" destination="mOH-zA-tfI" id="GsX-61-GhG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="folderListView" destination="jks-Fu-vvd" id="hDH-7v-s7x"/>
+                        <outlet property="segment" destination="eC7-b2-l4J" id="Qnc-Ms-ieh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xfV-mI-24H" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="104" y="-3378"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="94519803-BBC3-457E-AC2C-2D6167E8B743" width="25" height="25">
+        <image name="974C8753-E3E0-410E-B58F-9E49FDB82023" width="25" height="25">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

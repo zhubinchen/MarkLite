@@ -27,6 +27,7 @@
     FileManager *fm;
     NSString *htmlString;
     UIActivityIndicatorView *indicator;
+    UIPopoverPresentationController *popVc;
 }
 
 - (void)viewDidLoad {
@@ -167,9 +168,9 @@
     if (kDevicePhone) {
         [self presentViewController:controller animated:YES completion:nil];
     }else{
-        UIPopoverPresentationController *vc = controller.popoverPresentationController;
-        vc.barButtonItem = self.navigationItem.rightBarButtonItem;
-        vc.permittedArrowDirections = UIPopoverArrowDirectionAny;
+        popVc = controller.popoverPresentationController;
+        popVc.barButtonItem = self.navigationItem.rightBarButtonItem;
+        popVc.permittedArrowDirections = UIPopoverArrowDirectionAny;
         [self presentViewController:controller animated:YES completion:nil];
     }
 }

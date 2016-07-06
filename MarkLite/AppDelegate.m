@@ -65,12 +65,12 @@
     i.cloud = NO;
     BOOL ret = [fm createFile:i.fullPath Content:content];
     if (!ret) {
-        showToast(@"创建失败");
+        showToast(ZHLS(@"Error"));
         return YES;
     }
     
     [fm.local addChild:i];
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:[NSString stringWithFormat:@"收到新文件:%@",name] message:@"" delegate:nil cancelButtonTitle:@"忽略" otherButtonTitles:@"打开", nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:[NSString stringWithFormat:ZHLS(@"ReceivedNewFile"),name] message:@"" delegate:nil cancelButtonTitle:ZHLS(@"Ignore") otherButtonTitles:ZHLS(@"Open"), nil];
     alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
         if (buttonIndex == 1) {
             fm.currentItem = i;
@@ -143,11 +143,11 @@
         {
             //提示对话框
             UIAlertView *alert;
-            alert = [[UIAlertView alloc] initWithTitle:@"MarkLite更新啦"
-                                               message:@"为了有更好的体验，建议升级到最新版！大小不到3M呢😄"
+            alert = [[UIAlertView alloc] initWithTitle:ZHLS(@"UpgradeTitle")
+                                               message:ZHLS(@"UpgradeTips")
                                               delegate: self
-                                     cancelButtonTitle:@"我就不"
-                                     otherButtonTitles: @"去更新", nil];
+                                     cancelButtonTitle:ZHLS(@"Dont Upgrade")
+                                     otherButtonTitles:ZHLS(@"Upgrade"), nil];
             alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
                 if (buttonIndex == 1) {
                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:trackViewUrl]];

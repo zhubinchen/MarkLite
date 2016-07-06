@@ -58,3 +58,25 @@
 "InvalidName"="Invalid file name";
 "CanNotEdit"="This is not a markdown file,you can't edit it,but you can preview it";
 
+"InsertImage"="Insert an image";
+"InsertHref"="Insert a link";
+"PickImageAndUpload"="pick an image and upload it";
+"InputImageSrc"="input a src of image";
+"InputImageSrcTips"="please input the src of image";
+"InputHrefTips"="please input the href";
+"Uploading"="Uploading...";
+
+"Path"="Path:%@";
+"LastUpdate"="Last update:%@";
+
+"Open"="Open";
+"Ignore"="Ignore";
+"ReceivedNewFile"="Received new file:%@";
+"Error"="Error occured";
+
+"UpgradeTitle"="New version tips";
+"UpgradeTips"="In order to have a better experience, it is recommended to upgrade to the latest version!😄";
+"Upgrade"="Upgrade";
+"DontUpgrade"="Remind me later";
+
+"StartEdit"="Start edit here";

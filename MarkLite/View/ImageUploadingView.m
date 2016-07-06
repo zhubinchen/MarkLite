@@ -11,7 +11,6 @@
 @interface ImageUploadingView ()
 
 @property (nonatomic,weak) IBOutlet UILabel *titleLable;
-@property (nonatomic,weak) IBOutlet UILabel *messageLable;
 @property (nonatomic,weak) IBOutlet UIProgressView *percentView;
 @property (nonatomic,weak) IBOutlet UIButton *cancelBtn;
 
@@ -22,13 +21,12 @@
     UIView *v;
 }
 
-- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message cancelBlock:(void (^)())block
+- (instancetype)initWithTitle:(NSString *)title cancelBlock:(void (^)())block
 {
     self =  [[NSBundle mainBundle]loadNibNamed:@"ImageUploadingView" owner:self options:nil].firstObject;
-    self.bounds = CGRectMake(0, 0, 240, 120);
+    self.bounds = CGRectMake(0, 0, 240, 100);
     if (self) {
         self.title = title;
-        self.message = message;
         self.cancelBlock = block;
     }
     return self;
@@ -46,15 +44,6 @@
 {
     _percent = percent;
     self.percentView.progress = percent;
-    if (percent == 1) {
-        [self dismiss];
-    }
-}
-
-- (void)setMessage:(NSString *)message
-{
-    self.messageLable.text = message;
-    _message = message.copy;
 }
 
 - (void)setTitle:(NSString *)title

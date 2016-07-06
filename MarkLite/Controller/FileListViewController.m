@@ -95,7 +95,7 @@
 
 - (NSArray*)leftItems
 {
-    leftItem = [[UIBarButtonItem alloc]initWithTitle:@"iCloud" style:UIBarButtonItemStylePlain target:self action:@selector(toggleCloud)];
+    leftItem = [[UIBarButtonItem alloc]initWithTitle:ZHLS(self.cloud?@"NavTitleLocalFile":@"NavTitleCloudFile") style:UIBarButtonItemStylePlain target:self action:@selector(toggleCloud)];
     return @[leftItem];
 }
 
@@ -313,10 +313,14 @@
     cell.item = item;
     
     __weak UITableViewCell *__cell = cell;
-
+    
     cell.moreBlock = ^(Item *i){
-        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:i.name delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:ZHLS(@"Delete") otherButtonTitles: ZHLS(@"Export"),ZHLS(@"Rename"), nil];
-        sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
+
+        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:i.name delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:ZHLS(@"Delete") otherButtonTitles: ZHLS(@"Rename"),ZHLS(@"Export"), nil];
+        if (i.type == FileTypeFolder) {
+            sheet = [[UIActionSheet alloc]initWithTitle:i.name delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:ZHLS(@"Delete") otherButtonTitles: ZHLS(@"Rename"), nil];
+        }
+        sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *sheet){
             if (buttonIndex == 0) {
                 if (i == root) {
                     showToast(ZHLS(@"CanNotDeleteRoot"));
@@ -342,8 +346,6 @@
                 };
                 [alert show];
             }else if(buttonIndex == 1){
-                [self export:i sourceView:__cell];
-            }else if(buttonIndex == 2){
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"Rename") message:ZHLS(@"NameAlertMessage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
                 alert.alertViewStyle = UIAlertViewStylePlainTextInput;
                 alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
@@ -374,8 +376,9 @@
                     
                 };
                 [alert show];
+            }else if([[sheet buttonTitleAtIndex:buttonIndex] isEqualToString:ZHLS(@"Export")]){
+                [self export:i sourceView:__cell];
             }
-            
         };
         [sheet showInView:self.view];
     };
@@ -421,31 +424,29 @@
 }
 
 - (void)export:(Item *) i sourceView:(UIView*)view{
-    if (i.type == FileTypeFolder) {
-        showToast(@"不支持文件夹导出");
-        return;
-    }
     NSURL *url = [NSURL fileURLWithPath:i.fullPath];
     NSArray *objectsToShare = @[url];
     
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
     
-//    NSArray *excludedActivities = @[UIActivityTypePostToTwitter, UIActivityTypePostToFacebook,
-//                                    UIActivityTypePostToWeibo,
-//                                    UIActivityTypeMessage, UIActivityTypeMail,
-//                                    UIActivityTypePrint, UIActivityTypeCopyToPasteboard,
-//                                    UIActivityTypeAssignToContact, UIActivityTypeSaveToCameraRoll,
-//                                    UIActivityTypeAddToReadingList, UIActivityTypePostToFlickr,
-//                                    UIActivityTypePostToVimeo, UIActivityTypePostToTencentWeibo];
-//    controller.excludedActivityTypes = excludedActivities;
+    NSArray *excludedActivities = @[
+                                    UIActivityTypePostToTwitter,
+                                    UIActivityTypePostToFacebook,
+                                    UIActivityTypePostToWeibo,
+                                    UIActivityTypeAssignToContact,
+                                    UIActivityTypeSaveToCameraRoll,
+                                    UIActivityTypeAddToReadingList,
+                                    UIActivityTypePostToFlickr
+                                    ];
+    controller.excludedActivityTypes = excludedActivities;
 
     if (kDevicePhone) {
         [self presentViewController:controller animated:YES completion:nil];
     }else{
-        UIPopoverPresentationController *vc = controller.popoverPresentationController;
-        vc.sourceView = view;
-        vc.sourceRect = view.bounds;
-        vc.permittedArrowDirections = UIPopoverArrowDirectionAny;
+        popVc = controller.popoverPresentationController;
+        popVc.sourceView = view;
+        popVc.sourceRect = view.bounds;
+        popVc.permittedArrowDirections = UIPopoverArrowDirectionAny;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self presentViewController:controller animated:YES completion:nil];
         });

@@ -12,14 +12,14 @@
 
 @property (nonatomic,copy) NSString *title;
 
-@property (nonatomic,copy) NSString *message;
-
 @property (nonatomic,assign) CGFloat percent;
 
 @property (nonatomic,copy) void(^cancelBlock)();
 
-- (instancetype)initWithTitle:(NSString*)title message:(NSString *)message cancelBlock:(void(^)())block;
+- (instancetype)initWithTitle:(NSString*)title cancelBlock:(void(^)())block;
 
 - (void)show;
+
+- (void)dismiss;
 
 @end

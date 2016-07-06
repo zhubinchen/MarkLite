@@ -39,7 +39,7 @@ static TabBarController *tabVc = nil;
     tabVc = self;
     
     titles = @[ZHLS(@"TabTitle1"),ZHLS(@"TabTitle2"),ZHLS(@"TabTitle3")];
-    for (int i = 0; i < titles.count; i ++) {
+    for (int i = 0; i < self.tabBar.items.count; i ++) {
         self.tabBar.items[i].title = titles[i];
     }
 }
