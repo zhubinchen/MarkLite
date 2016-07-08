@@ -10,6 +10,9 @@
 
 #define RGB(x) [UIColor colorWithRGBString:x]
 @implementation Configure
+{
+    NSInteger _iCloudState;
+}
 
 + (instancetype)sharedConfigure
 {
@@ -22,8 +25,8 @@
             conf = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
         }else{
             conf = [[self alloc]init];
+            [conf reset];
         }
-//        [conf reset];
     });
     return conf;
 }
@@ -39,11 +42,11 @@
     [aCoder encodeObject:self.highlightColor forKey:@"highlightColor"];
     [aCoder encodeObject:self.style forKey:@"style"];
     [aCoder encodeObject:self.themeColor forKey:@"themeColor"];
+    [aCoder encodeObject:self.triedTime forKey:@"triedTime"];
     [aCoder encodeObject:self.fontName forKey:@"fontName"];
     [aCoder encodeBool:self.keyboardAssist forKey:@"keyboardAssist"];
-    [aCoder encodeBool:self.imageServerPro forKey:@"imageServerPro"];
-    [aCoder encodeBool:self.imageServer forKey:@"imageServer"];
-    [aCoder encodeFloat:self.compressionQuality forKey:@"compressionQuality"];
+    [aCoder encodeInteger:self.iCloudState forKey:@"iCloudState"];
+    [aCoder encodeFloat:self.imageResolution forKey:@"imageResolution"];
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder
@@ -52,11 +55,11 @@
         self.highlightColor = [aDecoder decodeObjectForKey:@"highlightColor"];
         self.style = [aDecoder decodeObjectForKey:@"style"];
         self.themeColor = [aDecoder decodeObjectForKey:@"themeColor"];
+        self.triedTime = [aDecoder decodeObjectForKey:@"triedTime"];
         self.fontName = [aDecoder decodeObjectForKey:@"fontName"];
         self.keyboardAssist = [aDecoder decodeBoolForKey:@"keyboardAssist"];
-        self.imageServer = [aDecoder decodeBoolForKey:@"imageServer"];
-        self.imageServerPro = [aDecoder decodeBoolForKey:@"imageServerPro"];
-        self.compressionQuality = [aDecoder decodeFloatForKey:@"compressionQuality"];
+        self.iCloudState = [aDecoder decodeIntegerForKey:@"iCloudState"];
+        self.imageResolution = [aDecoder decodeFloatForKey:@"imageResolution"];
     }
     return self;
 }
@@ -84,7 +87,27 @@
     _style = @"GitHub2";
     _fontName = @"Hiragino Sans";
     _keyboardAssist = YES;
-    _compressionQuality = 0.5;
+    _imageResolution = 0.5;
+}
+
+- (void)setICloudState:(NSInteger)iCloudState
+{
+    _iCloudState = iCloudState;
+    if (iCloudState == 2) {
+        _triedTime = [NSDate date];
+    }
+    [self saveToFile];
+}
+
+- (NSInteger)iCloudState
+{
+    if (_iCloudState != 2) {
+        return _iCloudState;
+    }
+    if ([[NSDate date] timeIntervalSinceDate:_triedTime] > 30) {
+        _iCloudState = 1;
+    }
+    return _iCloudState;
 }
 
 @end

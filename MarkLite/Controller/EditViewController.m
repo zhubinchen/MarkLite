@@ -17,6 +17,7 @@
 #import "Item.h"
 
 @interface EditViewController () <UITextViewDelegate>
+
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottom;
 
 @end
@@ -27,7 +28,6 @@
     Item *item;
     FileManager *fm;
     UIControl *control;
-    CGFloat lastOffsetY;
 }
 
 - (void)viewDidLoad {
@@ -39,11 +39,12 @@
 
     [self loadFile];
 
+    [[Configure sharedConfigure] addObserver:self forKeyPath:@"fontName" options:NSKeyValueObservingOptionNew context:NULL];
+
     if (kDevicePad) {
         [fm addObserver:self forKeyPath:@"currentItem" options:NSKeyValueObservingOptionNew context:NULL];
         
         [[Configure sharedConfigure] addObserver:self forKeyPath:@"keyboardAssist" options:NSKeyValueObservingOptionNew context:NULL];
-        [[Configure sharedConfigure] addObserver:self forKeyPath:@"fontName" options:NSKeyValueObservingOptionNew context:NULL];
     }
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardDidShowNotification object:nil];
@@ -114,42 +115,13 @@
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-//    if (kDevicePhone) {
-//        [self.navigationController setNavigationBarHidden:YES animated:YES];
-//    }
+    [textView scrollRangeToVisible:textView.selectedRange];
     return YES;
 }
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView
 {
-//    if (kDevicePhone) {
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [self.navigationController setNavigationBarHidden:NO animated:YES];
-//        });
-//    }
     return YES;
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-//    if (kDevicePad || (!_editView.isFirstResponder)) {
-//        return;
-//    }
-//    if (scrollView.contentOffset.y < -40) {
-//        [self.navigationController setNavigationBarHidden:NO animated:YES];
-//    }
-//    if (scrollView.contentOffset.y - lastOffsetY > 100) {
-//        [self.navigationController setNavigationBarHidden:YES animated:YES];
-//    } else if (scrollView.contentOffset.y - lastOffsetY < -100) {
-//        [self.navigationController setNavigationBarHidden:NO animated:YES];
-//    }
-//    
-//    lastOffsetY = scrollView.contentOffset.y;
-}
-
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-{
-    lastOffsetY = 0;
 }
 
 - (void)loadFile
@@ -168,13 +140,13 @@
         self.editView.editable = YES;
     }
     
-
-    self.title = item.name;
-    
     NSString *path = item.fullPath;
     NSString *text = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
     self.editView.text = text;
     [self.editView updateSyntax];
+    
+    self.title = item.name;
+//    self.title = [item.name stringByAppendingFormat:@" (%d字)",text.length];
 }
 
 - (IBAction)fullScreen:(UIBarButtonItem*)sender{

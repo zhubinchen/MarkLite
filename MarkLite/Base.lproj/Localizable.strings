@@ -26,18 +26,23 @@
 "Edit"="Edit";
 "FullScreen"="FullScreen";
 "Return"="Return";
+"Next"="Next";
 
+"iCloud"="iCloud";
 "Feedback"="Feedback";
 "RateIt"="Rate it";
 "About"="About";
-"Donate"="Donate";
 "Style"="Style";
-"ImageCloudstorage"="Image Cloudstorage";
-"AssistKeyboard"="Assist Keyboard";
+"ImageResolution"="Image resolution";
+"AssistKeyboard"="Assist keyboard";
+"Donate"="Donate";
 
 "OK"="OK";
+"Close"="Close";
+"Alert"="Alert";
 "Cancel"="Cancel";
 "Delete"="Delete";
+"Move"="Move";
 "Export"="Export";
 "ExportAs"="Export as";
 "Rename"="Rename";
@@ -45,7 +50,7 @@
 "PDF"="PDF";
 
 "ChooseYourOperation"="Choose your operation";
-"NameAlertTitle"="Name the file";
+"NameAlertTitle"="Name the new file";
 "NewMarkdownFile"= "new markdown";
 "NewFolder"= "new directory";
 "PickImage"="import an image";
@@ -61,7 +66,7 @@
 "InsertImage"="Insert an image";
 "InsertHref"="Insert a link";
 "PickImageAndUpload"="pick an image and upload it";
-"InputImageSrc"="input a src of image";
+"InputImageSrc"="input the src of image";
 "InputImageSrcTips"="please input the src of image";
 "InputHrefTips"="please input the href";
 "Uploading"="Uploading...";
@@ -80,3 +85,14 @@
 "DontUpgrade"="Remind me later";
 
 "StartEdit"="Start edit here";
+
+"Search"="Search";
+
+"Unlock"="Unlock($1.99)";
+"UnlockOption"="Unlock($1.99)";
+"Unlocked"="Unlocked";
+"UnlockedTips"="Unlock successed!";
+"TriedTips"="Now you can use cloud storage one day for free";
+"UnlockTitle"="You can use iCloud to share your files on different devices,would you like to unlock this feature?";
+"Try"="Try one day for free";
+"Loading"="Loading";

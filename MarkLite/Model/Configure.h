@@ -20,15 +20,13 @@
 
 @property (nonatomic,assign) BOOL keyboardAssist;
 
-@property (nonatomic,assign) BOOL hasStared;
+@property (nonatomic,assign) NSInteger iCloudState; //0 未开通 1 试用过 2 试用中 3已开通
 
-@property (nonatomic,assign) BOOL imageServer;
+@property (nonatomic,strong) NSDate *triedTime;
 
-@property (nonatomic,assign) BOOL imageServerPro;
+@property (nonatomic,assign) NSInteger leftImages;
 
-@property (nonatomic,assign) NSInteger leftDays;
-
-@property (nonatomic,assign) CGFloat compressionQuality;
+@property (nonatomic,assign) CGFloat imageResolution;
 
 + (instancetype)sharedConfigure;
 

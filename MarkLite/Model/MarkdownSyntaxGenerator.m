@@ -75,6 +75,7 @@ NSDictionary *AttributesFromMarkdownSyntaxType(MarkdownSyntaxType v) {
             break;
         case MarkdownSyntaxEmphasis:
             model.textColor = colors[@"bold"];
+            model.italic = YES;
             model.strong = YES;
             break;
         case MarkdownSyntaxDeletions:

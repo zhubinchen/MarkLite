@@ -111,6 +111,7 @@
         return;
     }
     
+    item.cloud = self.cloud;
     item.parent = self;
     [self.children addObject:item];
     last = item;
@@ -133,9 +134,10 @@
 - (NSString *)fullPath
 {
     if (_cloud) {
-        return [cloudWorkspace() stringByAppendingPathComponent:_path];;
+        return _root ? cloudWorkspace() : [cloudWorkspace() stringByAppendingPathComponent:_path];;
     }
-    return [localWorkspace() stringByAppendingPathComponent:_path];
+    
+    return _root ? localWorkspace() :[localWorkspace() stringByAppendingPathComponent:_path];
 }
 
 - (NSString *)localPath:(NSString *)path

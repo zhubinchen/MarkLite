@@ -25,6 +25,8 @@ typedef NS_ENUM(NSUInteger, FileType) {
 
 @property (nonatomic,assign)            BOOL       open;       //目录是否展开
 
+@property (nonatomic,assign)            BOOL       root;       //目录是否展开
+
 @property (nonatomic,weak)              Item       *parent;    //父目录
 
 @property (nonatomic,assign)            BOOL       cloud;       //云端？

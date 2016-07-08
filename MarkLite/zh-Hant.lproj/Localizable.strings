@@ -1,0 +1,83 @@
+/*
+ Localizable.strings
+ MarkLite
+ 
+ Created by zhubch on 7/5/16.
+ Copyright © 2016 zhubch. All rights reserved.
+ */
+"TabTitle1"="筆記";
+"TabTitle2"="文件";
+"TabTitle3"="選項";
+
+"NavTitleMarkLite"="MarkLite";
+"NavTitleLocalFile"="本地文件";
+"NavTitleCloudFile"="iCloud";
+"NavTitleOptions"="選項";
+
+"SortByName"="按文件名排序";
+"SortByCreateTime"="按創建時間排序";
+"SortByUpdateTime"="按修改時間排序";
+
+"Font"="字體";
+"Preview"="預覽";
+"Done"="完成";
+"Reset"="重置";
+"Back"="返回";
+"Edit"="編輯";
+"FullScreen"="全屏";
+"Return"="還原";
+
+"Feedback"="問題反饋";
+"RateIt"="好評鼓勵";
+"About"="關於";
+"Style"="渲染樣式";
+"ImageCloudstorage"="圖片雲存儲";
+"AssistKeyboard"="輔助鍵盤";
+
+"OK"="確定";
+"Cancel"="取消";
+"Delete"="刪除";
+"Move"="移动";
+"Export"="導出";
+"ExportAs"="選擇導出格式";
+"Rename"="重命名";
+"WebPage"="Web頁面";
+"PDF"="PDF文檔";
+
+"ChooseYourOperation"="請選擇要進行的操作";
+"NameAlertTitle"="為新文件命名";
+"NewMarkdownFile"= "新建文本";
+"NewFolder"= "新建文件夾";
+"PickImage"="導入圖片";
+"NameAlertMessage"="請輸入文件名，不要輸入後綴";
+"DeleteMessage"="刪除後不可恢復，確定要刪除嗎？";
+"DuplicateError"="出錯了，請確保文件名不重復";
+
+"CanNotDeleteRoot"="根目錄不可刪除";
+"EmptyNameTips"="文件名不能為空";
+"InvalidName"="無效的文件名，請不要輸入特殊字符";
+"CanNotEdit"="這不是壹個markdown文件，無法進行編輯,妳可以點擊預覽來查看該文件";
+
+"InsertImage"="插入圖片";
+"InsertHref"="添加鏈接";
+"PickImageAndUpload"="從相冊選取並上傳";
+"InputImageSrc"="手動輸入圖片鏈接或路徑";
+"InputImageSrcTips"="請輸入圖片鏈接或路徑";
+"InputHrefTips"="請輸入要添加的鏈接URL";
+"Uploading"="正在上傳...";
+
+"Path"="位置:%@";
+"LastUpdate"="上次修改:%@";
+
+"Open"="打開";
+"Ignore"="忽略";
+"ReceivedNewFile"="收到新文件:%@";
+"Error"="出錯了";
+
+"UpgradeTitle"="MarkLite更新啦";
+"UpgradeTips"="為了有更好的體驗，建議升級到最新版！";
+"Upgrade"="更新";
+"DontUpgrade"="我就不";
+
+"StartEdit"="現在開始編輯吧";
+"Search"="搜索";

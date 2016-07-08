@@ -26,18 +26,23 @@
 "Edit"="编辑";
 "FullScreen"="全屏";
 "Return"="还原";
+"Next"="下一步";
 
 "Feedback"="问题反馈";
 "RateIt"="好评鼓励";
 "About"="关于";
-"Donate"="打赏作者";
 "Style"="渲染样式";
-"ImageCloudstorage"="图片云存储";
+"ImageResolution"="图片分辨率";
 "AssistKeyboard"="辅助键盘";
+"iCloud"="iCloud";
+"Donate"="捐赠";
 
 "OK"="确定";
+"Close"="关闭";
+"Alert"="提示";
 "Cancel"="取消";
 "Delete"="删除";
+"Move"="移动";
 "Export"="导出";
 "ExportAs"="选择导出格式";
 "Rename"="重命名";
@@ -45,7 +50,7 @@
 "PDF"="PDF文档";
 
 "ChooseYourOperation"="请选择要进行的操作";
-"NameAlertTitle"="为该文件命名";
+"NameAlertTitle"="为新文件命名";
 "NewMarkdownFile"= "新建文本";
 "NewFolder"= "新建文件夹";
 "PickImage"="导入图片";
@@ -80,4 +85,13 @@
 "DontUpgrade"="我就不";
 
 "StartEdit"="现在开始编辑吧";
+"Search"="搜索";
 
+"Unlock"="立即开通(¥12)";
+"UnlockOption"="开通(¥12)";
+"Unlocked"="已开通";
+"UnlockedTips"="已成功开通！";
+"TriedTips"="现在你可以免费试用一天iCloud存储";
+"UnlockTitle"="开通后可以使用iCloud在不同设备上共享文件";
+"Try"="试用1天";
+"Loading"="正在加载";

@@ -67,17 +67,29 @@
     _cloud.cloud = YES;
     _cloud.path = ZHLS(@"NavTitleCloudFile");
     _cloud.open = YES;
+    _cloud.root = YES;
     while ((fileName = [childFilesEnumerator nextObject]) != nil){
         
         if ([fileName hasSuffix:@".DS_Store"] || [fileName hasPrefix:@"__MACOSX"]) {
             continue;
         }
+
         Item *temp = [[Item alloc]init];
         temp.open = YES;
         temp.cloud = YES;
         temp.path = fileName;
+        
+        NSError *err = nil;
+        BOOL ret = [fm startDownloadingUbiquitousItemAtURL:[NSURL fileURLWithPath:temp.fullPath] error:&err];
+        if (ret == NO) {
+            NSLog(@"%@",err);
+        }
+        if ([fileName hasSuffix:@".iCloud"]) {
+            continue;
+        }
         [_cloud addChild:temp];
         
+
         if (temp.type == FileTypeText) {
             NSMutableDictionary *attr = [fm attributesOfItemAtPath:temp.fullPath error:nil].mutableCopy;
             attr[NSFileCreationDate] = [NSDate date];
@@ -111,6 +123,7 @@
     _local = [[Item alloc]init];
     _local.path = ZHLS(@"NavTitleLocalFile");
     _local.open = YES;
+    _local.root = YES;
     while ((fileName = [childFilesEnumerator nextObject]) != nil){
         
         if ([fileName hasSuffix:@".DS_Store"] || [fileName hasPrefix:@"__MACOSX"]) {

@@ -79,12 +79,6 @@ static KeyboardBar *bar = nil;
         UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:ZHLS(@"InsertImage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:ZHLS(@"PickImageAndUpload"),ZHLS(@"InputImageSrc"), nil];
         sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
             if (buttonIndex == 0) {
-                if ([Configure sharedConfigure].imageServer == NO) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        showToast(@"请先去[设置]开通图片云存储服务");
-                    });
-                    return ;
-                }
                 bar = self;
                 UIImagePickerController *vc = [[UIImagePickerController alloc]init];
                 vc.delegate = self;
@@ -128,7 +122,7 @@ static KeyboardBar *bar = nil;
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
     UIImage *img = [info objectForKey:UIImagePickerControllerOriginalImage];
-    NSData *data = UIImageJPEGRepresentation(img, [Configure sharedConfigure].compressionQuality);
+    NSData *data = UIImageJPEGRepresentation(img, [Configure sharedConfigure].imageResolution);
     [self upload:data];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }

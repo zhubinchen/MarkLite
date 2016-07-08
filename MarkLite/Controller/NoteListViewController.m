@@ -19,6 +19,7 @@
 @property (weak, nonatomic)  IBOutlet UITableView *noteListView;
 @property (assign, nonatomic) NSInteger           sortOption;
 @property (nonatomic,assign)  FileManager         *fm;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end
 
@@ -35,10 +36,12 @@
     
     _fm = [FileManager sharedManager];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:@"ItemsChangedNotification" object:nil];
+    self.searchBar.placeholder = ZHLS(@"Search");
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [_fm createCloudWorkspace];
     self.tabBarController.title = ZHLS(@"NavTitleMarkLite");
     [self reload];
 }
@@ -303,7 +306,7 @@
             name = [name stringByAppendingString:@".md"];
 
             NSString *path = name;
-            if (parent != _fm.cloud && parent != _fm.cloud) {
+            if (!parent.root) {
                 path = [parent.path stringByAppendingPathComponent:name];
             }
             Item *i = [[Item alloc]init];
@@ -329,6 +332,5 @@
     };
     [alert show];
 }
-
 
 @end

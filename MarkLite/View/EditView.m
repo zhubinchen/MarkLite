@@ -69,7 +69,7 @@
         UIFont *font = [UIFont fontWithName:[Configure sharedConfigure].fontName size:15];
         [attributedString addAttributes:@{
                                           NSFontAttributeName : font ? font : [UIFont systemFontOfSize:15],
-                                          NSForegroundColorAttributeName : [UIColor colorWithRGBString:@"1D1D44"]
+                                          NSForegroundColorAttributeName : [UIColor colorWithRGBString:@"5f5f2f"]
                                           } range:NSMakeRange(0, attributedString.length)];
 //        NSLog(@"text%@",self.text);
         for (MarkdownSyntaxModel *model in models) {

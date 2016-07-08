@@ -28,6 +28,7 @@
     if (self) {
         self.title = title;
         self.cancelBlock = block;
+        self.percent = 0.0;
     }
     return self;
 }

@@ -10,11 +10,13 @@
 #import "FileManager.h"
 #import "EditViewController.h"
 #import "PreviewViewController.h"
+#import "ChooseFolderViewController.h"
 #import "Item.h"
 #import "FileItemCell.h"
 #import "Configure.h"
+#import <StoreKit/StoreKit.h>
 
-@interface FileListViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIViewControllerPreviewingDelegate,UISearchBarDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface FileListViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIViewControllerPreviewingDelegate,UISearchBarDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SKPaymentTransactionObserver,SKProductsRequestDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *localListView;
 @property (weak, nonatomic) IBOutlet UITableView *cloudListView;
@@ -28,6 +30,7 @@
     Item *root;
     FileManager *fm;
     Item *selectParent;
+    Item *selectItem;
     BOOL edit;
 
     NSMutableArray *dataArray;
@@ -35,11 +38,14 @@
     UIBarButtonItem *leftItem;
     UIPopoverPresentationController *popVc;
     UITableView *fileListView;
+    UISegmentedControl *segment;
 }
 
 #pragma mark 生命周期
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
 
     fm = [FileManager sharedManager];
     
@@ -47,6 +53,7 @@
     [self.localListView registerNib:[UINib nibWithNibName:@"FileItemCell" bundle:nil] forCellReuseIdentifier:@"file"];
     [self.cloudListView registerNib:[UINib nibWithNibName:@"FileItemCell" bundle:nil] forCellReuseIdentifier:@"file"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:@"ItemsChangedNotification" object:nil];
+    self.searchBar.placeholder = ZHLS(@"Search");
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -57,6 +64,31 @@
 
 - (void)toggleCloud
 {
+    NSString *tryTitle = ZHLS(@"Try");
+    if ([tryTitle isEqualToString:@"试用1天"] && [[NSDate date] compare:[NSDate dateWithString:@"2016-07-8 12:00:00"]] == NSOrderedDescending) {
+        tryTitle = @"好评后免费试用一天";
+    }
+    if ([Configure sharedConfigure].iCloudState == 1) {
+        tryTitle = nil;
+    }
+    if (self.cloud == NO && [Configure sharedConfigure].iCloudState < 2) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"UnlockTitle") message:@"" delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"Unlock"), tryTitle,nil];
+        alert.clickedButton = ^(NSInteger index,UIAlertView *alert){
+            if (index == 1) {
+                [self requestProductData:kProductCloud];
+            }else if (index == 2){
+                [Configure sharedConfigure].iCloudState = 2;
+                if ([tryTitle isEqualToString:@"好评后免费试用一天"]) {
+                    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1098107145&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
+                }else{
+                    showToast(ZHLS(@"TriedTips"));
+                }
+            }
+        };
+        [alert show];
+        return;
+    }
+    [fm createCloudWorkspace];
     self.cloud = !self.cloud;
     self.tabBarController.title = ZHLS(self.cloud?@"NavTitleCloudFile":@"NavTitleLocalFile");
     leftItem.title = ZHLS(self.cloud?@"NavTitleLocalFile":@"NavTitleCloudFile");
@@ -162,6 +194,41 @@
     [fileListView endUpdates];
 }
 
+- (void)renameItem:(Item*)i
+{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"Rename") message:ZHLS(@"NameAlertMessage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    [alert textFieldAtIndex:0].text = i.name;
+    alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+        if (buttonIndex == 1) {
+            NSString *name = [alert textFieldAtIndex:0].text;
+            name = [name componentsSeparatedByString:@"."].firstObject;
+            if (name.length == 0) {
+                showToast(ZHLS(@"EmptyNameTips"));
+                return ;
+            }
+            if ([name containsString:@"/"] || [name containsString:@"*"]) {
+                showToast(ZHLS(@"InvalidName"));
+                return;
+            }
+            NSString *oldPath = i.path;
+            NSString *newPath = [i.path stringByReplacingOccurrencesOfString:i.name withString:name];
+            NSString *oldFullPath = i.fullPath;
+            i.path = newPath;
+            NSString *newFullPath = i.fullPath;
+            
+            if ([fm moveFile:oldFullPath toNewPath:newFullPath]) {
+                [fileListView reloadData];
+            }else{
+                i.path = oldPath;
+                showToast(ZHLS(@"DuplicateError"));
+            }
+        }
+        
+    };
+    [alert show];
+}
+
 - (void)addFileWithParent:(Item*)parent
 {
     selectParent = parent;
@@ -194,7 +261,7 @@
                         name = [name stringByAppendingString:@".md"];
                     }
                     NSString *path = name;
-                    if (selectParent != root) {
+                    if (!selectParent.root) {
                         path = [parent.path stringByAppendingPathComponent:name];
                     }
                     Item *i = [[Item alloc]init];
@@ -316,66 +383,16 @@
     
     cell.moreBlock = ^(Item *i){
 
-        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:i.name delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:ZHLS(@"Delete") otherButtonTitles: ZHLS(@"Rename"),ZHLS(@"Export"), nil];
+        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:i.name delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles: ZHLS(@"Move"),ZHLS(@"Rename"),ZHLS(@"Export"), nil];
         if (i.type == FileTypeFolder) {
-            sheet = [[UIActionSheet alloc]initWithTitle:i.name delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:ZHLS(@"Delete") otherButtonTitles: ZHLS(@"Rename"), nil];
+            sheet = [[UIActionSheet alloc]initWithTitle:i.name delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:ZHLS(@"Move"), ZHLS(@"Rename"), nil];
         }
         sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *sheet){
-            if (buttonIndex == 0) {
-                if (i == root) {
-                    showToast(ZHLS(@"CanNotDeleteRoot"));
-                    return ;
-                }
-                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ZHLS(@"DeleteMessage") message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
-                alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
-                    if (buttonIndex == 1) {
-                        [i removeFromParent];
-                        NSArray *children = [i itemsCanReach];
-                        [dataArray removeObject:dataArray[indexPath.row]];
-                        [dataArray removeObjectsInArray:children];
-                        [dataArray removeObject:i];
-                        NSMutableArray *indexPaths = [NSMutableArray array];
-                        for (int i = 0; i < children.count + 1; i++) {
-                            NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row+i inSection:0];
-                            [indexPaths addObject:index];
-                        }
-                        
-                        [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
-                        [fm deleteFile:i.fullPath];
-                    }
-                };
-                [alert show];
-            }else if(buttonIndex == 1){
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"Rename") message:ZHLS(@"NameAlertMessage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
-                alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-                alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
-                    if (buttonIndex == 1) {
-                        NSString *name = [alert textFieldAtIndex:0].text;
-                        name = [name componentsSeparatedByString:@"."].firstObject;
-                        if (name.length == 0) {
-                            showToast(ZHLS(@"EmptyNameTips"));
-                            return ;
-                        }
-                        if ([name containsString:@"/"] || [name containsString:@"*"]) {
-                            showToast(ZHLS(@"InvalidName"));
-                            return;
-                        }
-                        NSString *oldPath = i.path;
-                        NSString *newPath = [i.path stringByReplacingOccurrencesOfString:i.name withString:name];
-                        NSString *oldFullPath = i.fullPath;
-                        i.path = newPath;
-                        NSString *newFullPath = i.fullPath;
-                        
-                        if ([fm moveFile:oldFullPath toNewPath:newFullPath]) {
-                            [tableView reloadData];
-                        }else{
-                            i.path = oldPath;
-                            showToast(ZHLS(@"DuplicateError"));
-                        }
-                    }
-                    
-                };
-                [alert show];
+            if ([[sheet buttonTitleAtIndex:buttonIndex] isEqualToString:ZHLS(@"Move")]) {
+                selectItem = i;
+                [self performSegueWithIdentifier:@"move" sender:self];
+            }else if([[sheet buttonTitleAtIndex:buttonIndex] isEqualToString:ZHLS(@"Rename")]){
+                [self renameItem:i];
             }else if([[sheet buttonTitleAtIndex:buttonIndex] isEqualToString:ZHLS(@"Export")]){
                 [self export:i sourceView:__cell];
             }
@@ -415,45 +432,6 @@
     return cell;
 }
 
-- (NSURL *)fileToURL:(NSString*)filename
-{
-    NSArray *fileComponents = [filename componentsSeparatedByString:@"."];
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:[fileComponents objectAtIndex:0] ofType:[fileComponents objectAtIndex:1]];
-    
-    return [NSURL fileURLWithPath:filePath];
-}
-
-- (void)export:(Item *) i sourceView:(UIView*)view{
-    NSURL *url = [NSURL fileURLWithPath:i.fullPath];
-    NSArray *objectsToShare = @[url];
-    
-    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
-    
-    NSArray *excludedActivities = @[
-                                    UIActivityTypePostToTwitter,
-                                    UIActivityTypePostToFacebook,
-                                    UIActivityTypePostToWeibo,
-                                    UIActivityTypeAssignToContact,
-                                    UIActivityTypeSaveToCameraRoll,
-                                    UIActivityTypeAddToReadingList,
-                                    UIActivityTypePostToFlickr
-                                    ];
-    controller.excludedActivityTypes = excludedActivities;
-
-    if (kDevicePhone) {
-        [self presentViewController:controller animated:YES completion:nil];
-    }else{
-        popVc = controller.popoverPresentationController;
-        popVc.sourceView = view;
-        popVc.sourceRect = view.bounds;
-        popVc.permittedArrowDirections = UIPopoverArrowDirectionAny;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self presentViewController:controller animated:YES completion:nil];
-        });
-    }
-    
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 40;
@@ -490,6 +468,46 @@
     }
 }
 
+
+- (NSURL *)fileToURL:(NSString*)filename
+{
+    NSArray *fileComponents = [filename componentsSeparatedByString:@"."];
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:[fileComponents objectAtIndex:0] ofType:[fileComponents objectAtIndex:1]];
+    
+    return [NSURL fileURLWithPath:filePath];
+}
+
+- (void)export:(Item *) i sourceView:(UIView*)view{
+    NSURL *url = [NSURL fileURLWithPath:i.fullPath];
+    NSArray *objectsToShare = @[url];
+    
+    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+    
+    NSArray *excludedActivities = @[
+                                    UIActivityTypePostToTwitter,
+                                    UIActivityTypePostToFacebook,
+                                    UIActivityTypePostToWeibo,
+                                    UIActivityTypeAssignToContact,
+                                    UIActivityTypeSaveToCameraRoll,
+                                    UIActivityTypeAddToReadingList,
+                                    UIActivityTypePostToFlickr
+                                    ];
+    controller.excludedActivityTypes = excludedActivities;
+    
+    if (kDevicePhone) {
+        [self presentViewController:controller animated:YES completion:nil];
+    }else{
+        popVc = controller.popoverPresentationController;
+        popVc.sourceView = view;
+        popVc.sourceRect = view.bounds;
+        popVc.permittedArrowDirections = UIPopoverArrowDirectionAny;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self presentViewController:controller animated:YES completion:nil];
+        });
+    }
+    
+}
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     [self searchWithWord:searchText];
@@ -513,6 +531,146 @@
 {
     searchBar.showsCancelButton = NO;
     return YES;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"move"]) {
+        ChooseFolderViewController *vc = [(UINavigationController*)segue.destinationViewController viewControllers].firstObject;
+        vc.didChoosedFolder = ^(Item *i){
+            [self moveItem:selectItem toParent:i];
+        };
+    }
+}
+
+- (void)moveItem:(Item*)i toParent:(Item*)parent
+{
+    NSString *newPath = [parent.fullPath stringByAppendingPathComponent:i.name];
+    if (i.extention.length) {
+        newPath = [newPath stringByAppendingPathExtension:i.extention];
+    }
+
+    BOOL ret = [fm moveFile:i.fullPath toNewPath:newPath];
+    if (!ret) {
+        showToast(ZHLS(@"DuplicateError"));
+        return;
+    }
+
+    [fm createLocalWorkspace];
+    [fm createCloudWorkspace];
+    [self reload];
+}
+
+#pragma mark purchase
+//请求商品
+- (void)requestProductData:(NSString *)type{
+    if (![SKPaymentQueue canMakePayments]){
+        UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:ZHLS(@"Alert")
+                                                            message:ZHLS(@"DoesNotSupportPurchase")
+                                                           delegate:nil
+                                                  cancelButtonTitle:ZHLS(@"Close")
+                                                  otherButtonTitles:nil];
+        
+        [alerView show];
+        return;
+    }
+    
+    NSLog(@"-------------请求对应的产品信息----------------");
+    beginLoadingAnimation(ZHLS(@"Loading"));
+    NSArray *product = [[NSArray alloc] initWithObjects:type, nil];
+    
+    NSSet *nsset = [NSSet setWithArray:product];
+    SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:nsset];
+    request.delegate = self;
+    [request start];
+}
+
+//收到产品返回信息
+- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
+    
+    NSLog(@"--------------收到产品反馈消息---------------------");
+    NSArray *product = response.products;
+    if([product count] == 0){
+        NSLog(@"--------------没有商品------------------");
+        stopLoadingAnimation();
+        return;
+    }
+    
+    NSLog(@"productID:%@", response.invalidProductIdentifiers);
+    NSLog(@"产品付费数量:%ld",(unsigned long)[product count]);
+    
+    SKProduct *p = product.firstObject;
+    NSLog(@"%@", [p description]);
+    NSLog(@"%@", [p localizedTitle]);
+    NSLog(@"%@", [p localizedDescription]);
+    NSLog(@"%@", [p price]);
+    NSLog(@"%@", [p productIdentifier]);
+    
+    SKPayment *payment = [SKPayment paymentWithProduct:p];
+    
+    NSLog(@"发送购买请求");
+    [[SKPaymentQueue defaultQueue] addPayment:payment];
+}
+
+//请求失败
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
+    stopLoadingAnimation();
+    
+    UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:ZHLS(@"Alert")
+                                                        message:[error localizedDescription]
+                                                       delegate:nil
+                                              cancelButtonTitle:ZHLS(@"Close")
+                                              otherButtonTitles:nil];
+    [alerView show];
+}
+
+- (void)requestDidFinish:(SKRequest *)request{
+    
+    NSLog(@"------------反馈信息结束-----------------");
+}
+
+
+//监听购买结果
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transaction{
+    for(SKPaymentTransaction *tran in transaction){
+        NSLog(@"%@",tran.payment.productIdentifier);
+        switch (tran.transactionState) {
+            case SKPaymentTransactionStatePurchased:
+                NSLog(@"交易完成");
+                [self completeTransaction:tran];
+                break;
+            case SKPaymentTransactionStatePurchasing:
+                NSLog(@"商品添加进列表");
+                break;
+            case SKPaymentTransactionStateRestored:
+                NSLog(@"已经购买过商品");
+                [Configure sharedConfigure].iCloudState = 3;
+                [self completeTransaction:tran];
+                break;
+            case SKPaymentTransactionStateFailed:
+                NSLog(@"交易失败");
+                [self completeTransaction:tran];
+                break;
+            default:
+                break;
+        }
+    }
+    stopLoadingAnimation();
+}
+
+//交易结束
+- (void)completeTransaction:(SKPaymentTransaction *)transaction{
+    NSLog(@"交易结束");
+    if ([transaction.payment.productIdentifier isEqualToString:kProductCloud]) {
+        [Configure sharedConfigure].iCloudState = 3;
+        showToast(ZHLS(@"UnlockedTips"));
+    }
+    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+}
+
+
+- (void)dealloc{
+    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
 @end

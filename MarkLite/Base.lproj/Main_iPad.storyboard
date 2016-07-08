@@ -147,7 +147,7 @@
                             <outlet property="delegate" destination="I2i-9V-J9l" id="FZf-HM-n3Z"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="选项" image="47083C79-1D39-4E00-8405-3FCE46254980" id="cUx-cv-8Pe"/>
+                    <tabBarItem key="tabBarItem" title="选项" image="B47D64B3-EECF-4B08-A1DD-DBA833469014" id="cUx-cv-8Pe"/>
                     <navigationItem key="navigationItem" id="rMd-CP-7Md">
                         <barButtonItem key="backBarButtonItem" title=" " id="8hr-Pt-fcf"/>
                     </navigationItem>
@@ -333,6 +333,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="noteListView" destination="Uq6-mi-2eN" id="RKz-QE-KOj"/>
+                        <outlet property="searchBar" destination="UpT-b1-5fC" id="LhT-mb-0u5"/>
                         <segue destination="XgD-63-aM1" kind="presentation" identifier="newNote" modalPresentationStyle="formSheet" id="2AF-nR-aEH"/>
                     </connections>
                 </viewController>
@@ -407,6 +408,7 @@
                         <outlet property="cloudListView" destination="33f-i2-bnz" id="YRi-EV-DlT"/>
                         <outlet property="localListView" destination="8Aw-fG-dVI" id="aUi-to-MTo"/>
                         <outlet property="searchBar" destination="O6b-Ul-6oT" id="wyr-Ic-2bl"/>
+                        <segue destination="XgD-63-aM1" kind="presentation" identifier="move" modalPresentationStyle="formSheet" id="Kp9-zt-ybq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="47K-6E-msL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -520,7 +522,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CvE-uk-127" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="104" y="-4149"/>
+            <point key="canvasLocation" x="112" y="-3941"/>
         </scene>
         <!--Choose Folder View Controller-->
         <scene sceneID="Pfu-BZ-Mri">
@@ -585,11 +587,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xfV-mI-24H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="104" y="-3378"/>
+            <point key="canvasLocation" x="744" y="-3962"/>
         </scene>
     </scenes>
     <resources>
-        <image name="47083C79-1D39-4E00-8405-3FCE46254980" width="25" height="25">
+        <image name="B47D64B3-EECF-4B08-A1DD-DBA833469014" width="25" height="25">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -685,4 +687,7 @@ AAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAABPgA
         <image name="note.png" width="25" height="25"/>
         <image name="settings.png" width="25" height="25"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Kp9-zt-ybq"/>
+    </inferredMetricsTieBreakers>
 </document>

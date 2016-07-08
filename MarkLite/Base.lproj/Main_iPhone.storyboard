@@ -32,6 +32,7 @@
             <objects>
                 <tabBarController storyboardIdentifier="main_tab" title="主界面" hidesBottomBarWhenPushed="YES" id="15d-mF-mkG" customClass="TabBarController" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="x7r-T9-lT8">
+                        <nil key="title"/>
                         <barButtonItem key="backBarButtonItem" title=" " id="epU-eY-p8D"/>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -347,6 +348,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="noteListView" destination="4Di-yM-3uD" id="Nee-cM-iAu"/>
+                        <outlet property="searchBar" destination="dfg-aj-tmF" id="1Ah-Ab-FrT"/>
                         <segue destination="VQd-1Y-qDA" kind="show" identifier="edit" id="F5f-nG-XfB"/>
                         <segue destination="rmd-nM-PLW" kind="show" identifier="preview" id="jkb-0q-YIz"/>
                         <segue destination="uKH-5D-5ID" kind="presentation" identifier="newNote" id="736-9L-s2e"/>
@@ -458,6 +460,7 @@
                         <outlet property="searchBar" destination="hgt-J9-INt" id="Bwy-gj-DQa"/>
                         <segue destination="VQd-1Y-qDA" kind="show" identifier="edit" id="n2c-A2-qau"/>
                         <segue destination="rmd-nM-PLW" kind="show" identifier="preview" id="GZ3-Ny-S2m"/>
+                        <segue destination="uKH-5D-5ID" kind="presentation" identifier="move" id="ZCc-zr-UED"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yo8-UD-Mb3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -554,6 +557,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="GZ3-Ny-S2m"/>
+        <segue reference="ZCc-zr-UED"/>
         <segue reference="n2c-A2-qau"/>
     </inferredMetricsTieBreakers>
 </document>

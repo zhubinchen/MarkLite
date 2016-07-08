@@ -13,9 +13,10 @@
 
 - (void)setItem:(Item *)item
 {
+    NSString *path = [item.parent.path stringByAppendingPathComponent:item.path];
     _item = item;
     _nameLabel.text = item.name;
-    _pathLabel.text = [NSString stringWithFormat:ZHLS(@"Path"),item.path];
+    _pathLabel.text = [NSString stringWithFormat:ZHLS(@"Path"),path];
     NSDictionary *attr = [[FileManager sharedManager] attributeOfPath:item.fullPath];
     long size = [attr[NSFileSize] integerValue];
     NSString *date = [attr[NSFileModificationDate] formatDate];
