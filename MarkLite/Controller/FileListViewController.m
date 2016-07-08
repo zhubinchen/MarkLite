@@ -576,7 +576,7 @@
     }
     
     NSLog(@"-------------请求对应的产品信息----------------");
-    beginLoadingAnimation(ZHLS(@"Loading"));
+    beginLoadingAnimationOnParent(ZHLS(@"Loading"), self.view);
     NSArray *product = [[NSArray alloc] initWithObjects:type, nil];
     
     NSSet *nsset = [NSSet setWithArray:product];

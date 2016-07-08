@@ -32,21 +32,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"load1");
 
     fm = [FileManager sharedManager];
-    
-    _editView.delegate = self;
 
+    _editView.delegate = self;
+    NSLog(@"file");
     [self loadFile];
+    NSLog(@"file");
 
     [[Configure sharedConfigure] addObserver:self forKeyPath:@"fontName" options:NSKeyValueObservingOptionNew context:NULL];
 
     if (kDevicePad) {
         [fm addObserver:self forKeyPath:@"currentItem" options:NSKeyValueObservingOptionNew context:NULL];
-        
         [[Configure sharedConfigure] addObserver:self forKeyPath:@"keyboardAssist" options:NSKeyValueObservingOptionNew context:NULL];
     }
-    
+
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
     
@@ -56,10 +57,12 @@
         self.navigationItem.rightBarButtonItems[1].title = ZHLS(@"FullScreen");
     }
     self.navigationItem.rightBarButtonItems[0].title = ZHLS(@"Preview");
+    NSLog(@"load2");
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    NSLog(@"appear");
     if ([Configure sharedConfigure].keyboardAssist) {
         KeyboardBar *bar = [[KeyboardBar alloc]init];
         bar.editView = _editView;
@@ -126,7 +129,6 @@
 
 - (void)loadFile
 {
-    
     if (fm.currentItem == nil) {
         return;
     }
@@ -141,12 +143,18 @@
     }
     
     NSString *path = item.fullPath;
-    NSString *text = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    self.editView.text = text;
-    [self.editView updateSyntax];
-    
-    self.title = item.name;
-//    self.title = [item.name stringByAppendingFormat:@" (%d字)",text.length];
+    beginLoadingAnimationOnParent(ZHLS(@"Loading"), self.view);
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        NSString *text = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            stopLoadingAnimationOnParent(self.view);
+            
+            self.editView.text = text;
+            [self.editView updateSyntax];
+            self.title = item.name;
+        });
+    });
 }
 
 - (IBAction)fullScreen:(UIBarButtonItem*)sender{

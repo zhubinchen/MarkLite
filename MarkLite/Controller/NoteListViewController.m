@@ -254,6 +254,7 @@
     Item *i = dataArray[indexPath.row];
     _fm.currentItem = i;
     if (kDevicePhone) {
+        NSLog(@"segue");
         [self performSegueWithIdentifier:@"edit" sender:self];
     }
 }
@@ -293,6 +294,8 @@
             [self newNoteWithParent:i];
         };
     }
+    NSLog(@"segue");
+
 }
 
 - (void)newNoteWithParent:(Item*)parent

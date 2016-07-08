@@ -126,6 +126,7 @@ NSDictionary *AttributesFromMarkdownSyntaxType(MarkdownSyntaxType v) {
             [markdownSyntaxModels addObject:[MarkdownSyntaxModel modelWithType:i range:result.range]];
         }
     }
+
     return markdownSyntaxModels;
 }
 

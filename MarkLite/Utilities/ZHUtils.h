@@ -317,10 +317,9 @@ static inline void showToast(NSString *message){
     }];
 }
 
-static inline void beginLoadingAnimation(NSString *message){
-    UIWindow *window=[UIApplication sharedApplication].keyWindow;
+static inline void beginLoadingAnimationOnParent(NSString *message,UIView *parent){
     
-    UIView *oldView = [window viewWithTag:52684654];
+    UIView *oldView = [parent viewWithTag:52684654];
     if (oldView) {
         [oldView removeFromSuperview];
     }
@@ -341,19 +340,28 @@ static inline void beginLoadingAnimation(NSString *message){
     l.text = message;
     [v addSubview:l];
     
-    UIView *bg = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    UIView *bg = [[UIView alloc]initWithFrame:parent.bounds];
     bg.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.1];
     bg.tag = 52684654;
     v.center = bg.center;
     [bg addSubview:v];
-    [window addSubview:bg];
+    [parent addSubview:bg];
+}
+
+static inline void beginLoadingAnimation(NSString *message){
+    UIWindow *window=[UIApplication sharedApplication].keyWindow;
+    
+    beginLoadingAnimationOnParent(message,window);
+}
+
+static inline void stopLoadingAnimationOnParent(UIView *parent){
+    UIView *v = [parent viewWithTag:52684654];
+    [v removeFromSuperview];
 }
 
 static inline void stopLoadingAnimation(){
     UIWindow *window=[UIApplication sharedApplication].keyWindow;
-    
-    UIView *v = [window viewWithTag:52684654];
-    [v removeFromSuperview];
+    stopLoadingAnimationOnParent(window);
 }
 
 static inline NSString* stringFromInt(int num){

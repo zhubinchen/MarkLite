@@ -23,6 +23,8 @@
 }
 
 - (id)initWithCoder:(NSCoder *) coder {
+    NSLog(@"editview");
+
     self = [super initWithCoder:coder];
 
     if (self == nil) {
@@ -36,7 +38,7 @@
     [self addSubview:placeholderLable];
     [[NSNotificationCenter defaultCenter]
      addObserver:self selector:@selector(didTextChangeText:) name:UITextViewTextDidChangeNotification object:nil];
-    updateQueue = dispatch_queue_create("update", DISPATCH_QUEUE_SERIAL);
+    NSLog(@"editview");
 
     return self;
 }
@@ -59,29 +61,29 @@
 
 - (void)updateSyntax {
     placeholderLable.hidden = self.text.length != 0;
-    
-    if (self.markedTextRange) {
+
+    if (self.markedTextRange) { //中文选字的时候别刷新
         return;
     }
-    dispatch_async(updateQueue, ^{
-        NSArray *models = [self.markdownSyntaxGenerator syntaxModelsForText:self.text];
-        NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
-        UIFont *font = [UIFont fontWithName:[Configure sharedConfigure].fontName size:15];
-        [attributedString addAttributes:@{
-                                          NSFontAttributeName : font ? font : [UIFont systemFontOfSize:15],
-                                          NSForegroundColorAttributeName : [UIColor colorWithRGBString:@"5f5f2f"]
-                                          } range:NSMakeRange(0, attributedString.length)];
-//        NSLog(@"text%@",self.text);
-        for (MarkdownSyntaxModel *model in models) {
-            [attributedString addAttributes:AttributesFromMarkdownSyntaxType(model.type) range:model.range];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self updateAttributedText:attributedString];
-        });
-    });
+    NSArray *models = [self.markdownSyntaxGenerator syntaxModelsForText:self.text];
+    
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
+    
+    UIFont *font = [UIFont fontWithName:[Configure sharedConfigure].fontName size:15];
+    
+    [attributedString addAttributes:@{
+                                      NSFontAttributeName : font ? font : [UIFont systemFontOfSize:15],
+                                      NSForegroundColorAttributeName : [UIColor colorWithRGBString:@"5f5f2f"]
+                                      } range:NSMakeRange(0, attributedString.length)];
+    for (MarkdownSyntaxModel *model in models) {
+        [attributedString addAttributes:AttributesFromMarkdownSyntaxType(model.type) range:model.range];
+    }
+    
+    [self updateAttributedText:attributedString];
 }
 
 - (void)updateAttributedText:(NSAttributedString *) attributedString {
+
     self.scrollEnabled = NO;
     NSRange selectedRange = self.selectedRange;
     self.attributedText = attributedString;

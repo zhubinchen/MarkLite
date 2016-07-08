@@ -55,7 +55,7 @@
         <!--编辑-->
         <scene sceneID="2Ei-cz-bKK">
             <objects>
-                <viewController storyboardIdentifier="edit" title="编辑" hidesBottomBarWhenPushed="YES" id="VQd-1Y-qDA" customClass="EditViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="edit" title="编辑" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="VQd-1Y-qDA" customClass="EditViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="p9f-gj-Mso"/>
                         <viewControllerLayoutGuide type="bottom" id="Znb-cf-QhM"/>
@@ -556,8 +556,8 @@
         <image name="settings.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GZ3-Ny-S2m"/>
         <segue reference="ZCc-zr-UED"/>
         <segue reference="n2c-A2-qau"/>
+        <segue reference="j9U-2J-nGb"/>
     </inferredMetricsTieBreakers>
 </document>
