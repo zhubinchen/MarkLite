@@ -10,6 +10,7 @@
 #import "Configure.h"
 #import "FileManager.h"
 #import "TabBarController.h"
+#import "PathUtils.h"
 
 @interface AppDelegate ()
 
@@ -20,7 +21,6 @@
 - (void)gotoStartPage
 {
     [[TabBarController currentViewContoller].navigationController popToRootViewControllerAnimated:YES];
-    [TabBarController currentViewContoller].selectedIndex = 0;
 }
 
 
@@ -59,24 +59,29 @@
     NSData *content = [NSData dataWithContentsOfURL:url];
     FileManager *fm = [FileManager sharedManager];
     
+    NSString *parentPath = [localWorkspace() stringByAppendingPathComponent:ZHLS(@"Recieved")];
+    [fm createFolder:parentPath];
+    
     Item *i = [[Item alloc]init];
-    i.open = YES;
-    i.path = name;
+    i.path = [ZHLS(@"Recieved") stringByAppendingPathComponent:name];
     i.cloud = NO;
+    
     BOOL ret = [fm createFile:i.fullPath Content:content];
     if (!ret) {
         showToast(ZHLS(@"Error"));
         return YES;
     }
     
-    [fm.local addChild:i];
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:[NSString stringWithFormat:ZHLS(@"ReceivedNewFile"),name] message:@"" delegate:nil cancelButtonTitle:ZHLS(@"Ignore") otherButtonTitles:ZHLS(@"Open"), nil];
     alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
         if (buttonIndex == 1) {
+
             fm.currentItem = i;
             if (kDevicePhone) {
                 [self gotoStartPage];
+
                 [[TabBarController currentViewContoller].selectedViewController performSegueWithIdentifier:@"edit" sender:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ItemsChangedNotification" object:nil];
             }
         }
     };

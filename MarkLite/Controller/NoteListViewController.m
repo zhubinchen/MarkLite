@@ -42,6 +42,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [_fm createCloudWorkspace];
+    [_fm createLocalWorkspace];
     self.tabBarController.title = ZHLS(@"NavTitleMarkLite");
     [self reload];
 }

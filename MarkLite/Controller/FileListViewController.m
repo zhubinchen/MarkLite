@@ -88,7 +88,7 @@
         [alert show];
         return;
     }
-    [fm createCloudWorkspace];
+
     self.cloud = !self.cloud;
     self.tabBarController.title = ZHLS(self.cloud?@"NavTitleCloudFile":@"NavTitleLocalFile");
     leftItem.title = ZHLS(self.cloud?@"NavTitleLocalFile":@"NavTitleCloudFile");
@@ -109,6 +109,8 @@
 
 - (void)reload
 {
+    _cloud ? [fm createCloudWorkspace] : [fm createLocalWorkspace];
+
     root = _cloud ? fm.cloud : fm.local;
     dataArray = root.itemsCanReach.mutableCopy;
     if (edit) {
