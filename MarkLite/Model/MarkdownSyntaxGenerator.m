@@ -26,7 +26,7 @@ NSRegularExpression *NSRegularExpressionFromMarkdownSyntaxType(MarkdownSyntaxTyp
         case MarkdownSyntaxBold://粗体
             return regexp("(\\*\\*|__)(.*?)\\1", 0);
         case MarkdownSyntaxEmphasis://强调
-            return regexp("\\s(\\*|_)(.*?)\\1\\s", 0);
+            return regexp("(\\*|_)(.*?)\\1", 0);
         case MarkdownSyntaxDeletions://删除
             return regexp("\\~\\~(.*?)\\~\\~", 0);
         case MarkdownSyntaxQuotes://引用
@@ -76,7 +76,6 @@ NSDictionary *AttributesFromMarkdownSyntaxType(MarkdownSyntaxType v) {
         case MarkdownSyntaxEmphasis:
             model.textColor = colors[@"bold"];
             model.italic = YES;
-            model.strong = YES;
             break;
         case MarkdownSyntaxDeletions:
             model.textColor = colors[@"deletion"];

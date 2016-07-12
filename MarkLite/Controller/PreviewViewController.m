@@ -11,6 +11,7 @@
 #import "HoedownHelper.h"
 #import "Item.h"
 #import "Configure.h"
+#import "ZHUtils.h"
 
 @interface PreviewViewController () <UIWebViewDelegate>
 
@@ -24,9 +25,9 @@
 
 @implementation PreviewViewController
 {
+    Item *item;
     FileManager *fm;
     NSString *htmlString;
-    UIActivityIndicatorView *indicator;
     UIPopoverPresentationController *popVc;
 }
 
@@ -35,36 +36,41 @@
 
     fm = [FileManager sharedManager];
    
-    if (kDevicePhone) {
-        [self loadFile];
-    } else {
+    if (kDevicePad) {
         [fm addObserver:self forKeyPath:@"currentItem" options:NSKeyValueObservingOptionNew context:NULL];
     }
-    
+
     _webView.delegate = self;
-    
-    if (fm.currentItem) {
+}
+
+- (void)viewDidLayoutSubviews
+{
+    if (item == nil) {
         [self loadFile];
     }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
+    if (item && [change[@"new"] isEqual:item]) {
+        return;
+    }
     [self loadFile];
 }
 
 - (void)loadFile
 {
-    self.title = fm.currentItem.name;
+    item = fm.currentItem;
+    self.title = item.name;
     
-    NSString *path = [fm currentItem].fullPath;
-
+    NSString *path = item.fullPath;
     
-    if (fm.currentItem.type == FileTypeImage) {
+    if (item.type == FileTypeImage) {
         _webView.hidden = YES;
         _imageView.hidden = NO;
         self.navigationItem.rightBarButtonItem = nil;
         UIImage *image = [[UIImage imageWithContentsOfFile:path] scaleWithMaxSize:self.view.bounds.size];
+        NSLog(@"%@",NSStringFromCGSize(self.view.bounds.size));
         _imageView.image = image;
         _width.constant = image.size.width;
         _height.constant = image.size.height;
@@ -72,13 +78,8 @@
     }else{
         _webView.hidden = NO;
         _imageView.hidden = YES;
-        if (indicator == nil) {
-            indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            indicator.center = self.view.center;
-            indicator.hidesWhenStopped = YES;
-            [indicator startAnimating];
-            [self.view addSubview:indicator];
-        }
+        
+        beginLoadingAnimationOnParent(ZHLS(@"Loading"), self.webView);
 
         dispatch_async(dispatch_queue_create("preview_queue", DISPATCH_QUEUE_CONCURRENT), ^{
             hoedown_renderer *render = CreateHTMLRenderer();
@@ -194,15 +195,18 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    NSLog(@"zz");
+    
 }
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    [indicator stopAnimating];
-    [indicator removeFromSuperview];
+    stopLoadingAnimationOnParent(self.webView);
 }
 
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    stopLoadingAnimationOnParent(self.webView);
+}
 
 - (void)dealloc
 {

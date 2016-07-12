@@ -160,7 +160,7 @@
 - (void)resolution
 {
     UIViewController *vc = [[ImageViewController alloc]init];
-    vc.title = ZHLS(@"Style");
+    vc.title = ZHLS(@"ImageResolution");
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -269,6 +269,11 @@
         switch (tran.transactionState) {
             case SKPaymentTransactionStatePurchased:
                 NSLog(@"交易完成");
+                if ([tran.payment.productIdentifier isEqualToString:kProductCloud]) {
+                    [Configure sharedConfigure].iCloudState = 3;
+                    [self.tableView reloadData];
+                    showToast(ZHLS(@"UnlockedTips"));
+                }
                 [self completeTransaction:tran];
                 break;
             case SKPaymentTransactionStatePurchasing:
@@ -276,7 +281,11 @@
                 break;
             case SKPaymentTransactionStateRestored:
                 NSLog(@"已经购买过商品");
-                [Configure sharedConfigure].iCloudState = 3;
+                if ([tran.payment.productIdentifier isEqualToString:kProductCloud]) {
+                    [Configure sharedConfigure].iCloudState = 3;
+                    [self.tableView reloadData];
+                    showToast(ZHLS(@"UnlockedTips"));
+                }
                 [self completeTransaction:tran];
                 [self.tableView reloadData];
                 break;
@@ -296,11 +305,6 @@
 //交易结束
 - (void)completeTransaction:(SKPaymentTransaction *)transaction{
     NSLog(@"交易结束");
-    if ([transaction.payment.productIdentifier isEqualToString:kProductCloud]) {
-        [Configure sharedConfigure].iCloudState = 3;
-        [self.tableView reloadData];
-        showToast(ZHLS(@"UnlockedTips"));
-    }
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
 

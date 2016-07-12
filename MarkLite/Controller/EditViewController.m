@@ -37,9 +37,8 @@
     fm = [FileManager sharedManager];
 
     _editView.delegate = self;
-    NSLog(@"file");
+
     [self loadFile];
-    NSLog(@"file");
 
     [[Configure sharedConfigure] addObserver:self forKeyPath:@"fontName" options:NSKeyValueObservingOptionNew context:NULL];
 
@@ -57,12 +56,10 @@
         self.navigationItem.rightBarButtonItems[1].title = ZHLS(@"FullScreen");
     }
     self.navigationItem.rightBarButtonItems[0].title = ZHLS(@"Preview");
-    NSLog(@"load2");
 }
 
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewDidLayoutSubviews
 {
-    NSLog(@"appear");
     if ([Configure sharedConfigure].keyboardAssist) {
         KeyboardBar *bar = [[KeyboardBar alloc]init];
         bar.editView = _editView;
@@ -118,7 +115,6 @@
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
-    [textView scrollRangeToVisible:textView.selectedRange];
     return YES;
 }
 
@@ -180,10 +176,11 @@
 
 - (void)dealloc
 {
+    [[Configure sharedConfigure] removeObserver:self forKeyPath:@"fontName"];
+
     if (kDevicePad){
         [fm removeObserver:self forKeyPath:@"currentItem" context:NULL];
         [[Configure sharedConfigure] removeObserver:self forKeyPath:@"keyboardAssist"];
-        [[Configure sharedConfigure] removeObserver:self forKeyPath:@"fontName"];
     }
 }
 

@@ -157,7 +157,7 @@
     }];
     
     Item *local = _fm.local;
-    Item *cloud = _fm.cloud;
+    Item *cloud = [Configure sharedConfigure].iCloudState > 1 ? _fm.cloud : nil;
 
     NSArray *localArray = nil;
     NSArray *cloudArray = nil;

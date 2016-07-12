@@ -37,19 +37,14 @@
     placeholderLable.textColor = [UIColor lightGrayColor];
     [self addSubview:placeholderLable];
     [[NSNotificationCenter defaultCenter]
-     addObserver:self selector:@selector(didTextChangeText:) name:UITextViewTextDidChangeNotification object:nil];
+     addObserver:self selector:@selector(updateSyntax) name:UITextViewTextDidChangeNotification object:nil];
     NSLog(@"editview");
 
     return self;
 }
 
 - (void)dealloc {
-    updateQueue = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (void)didTextChangeText:(id)sender{
-    [self updateSyntax];
 }
 
 - (MarkdownSyntaxGenerator *)markdownSyntaxGenerator {
@@ -73,7 +68,7 @@
     
     [attributedString addAttributes:@{
                                       NSFontAttributeName : font ? font : [UIFont systemFontOfSize:15],
-                                      NSForegroundColorAttributeName : [UIColor colorWithRGBString:@"5f5f2f"]
+                                      NSForegroundColorAttributeName : [UIColor colorWithRGBString:@"0f2f2f"]
                                       } range:NSMakeRange(0, attributedString.length)];
     for (MarkdownSyntaxModel *model in models) {
         [attributedString addAttributes:AttributesFromMarkdownSyntaxType(model.type) range:model.range];

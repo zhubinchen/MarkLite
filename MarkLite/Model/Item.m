@@ -120,7 +120,6 @@
 - (void)removeFromParent
 {
     [_parent.children removeObject:self];
-    _parent = nil;
 }
 
 - (BOOL)isEqual:(Item *)object
@@ -128,7 +127,7 @@
     if (![object isKindOfClass:self.class]) {
         return NO;
     }
-    return [self.path isEqualToString:object.path];
+    return [self.fullPath isEqualToString:object.fullPath];
 }
 
 - (NSString *)fullPath

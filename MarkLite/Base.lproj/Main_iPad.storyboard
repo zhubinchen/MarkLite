@@ -90,7 +90,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="syI-Yg-bFd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.086274509799999996" green="0.68235294120000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.1176470588" green="0.66666666669999997" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -111,7 +111,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="EQi-yG-8VV">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.086274509799999996" green="0.68235294120000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.1176470588" green="0.66666666669999997" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -147,7 +147,7 @@
                             <outlet property="delegate" destination="I2i-9V-J9l" id="FZf-HM-n3Z"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="选项" image="B47D64B3-EECF-4B08-A1DD-DBA833469014" id="cUx-cv-8Pe"/>
+                    <tabBarItem key="tabBarItem" title="选项" image="E5BBD2DF-3905-4448-A011-CA70DBD759EC" id="cUx-cv-8Pe"/>
                     <navigationItem key="navigationItem" id="rMd-CP-7Md">
                         <barButtonItem key="backBarButtonItem" title=" " id="8hr-Pt-fcf"/>
                     </navigationItem>
@@ -168,7 +168,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="lMx-yF-98i">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.086274509799999996" green="0.68235294120000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.1176470588" green="0.66666666669999997" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -591,7 +591,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="B47D64B3-EECF-4B08-A1DD-DBA833469014" width="25" height="25">
+        <image name="E5BBD2DF-3905-4448-A011-CA70DBD759EC" width="25" height="25">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

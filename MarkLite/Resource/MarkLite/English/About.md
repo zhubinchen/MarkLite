@@ -30,6 +30,3 @@
 
 ### 联系作者
 ##### Email:[cheng4741@gmail.com](cheng4741@gmail.com)
-
-### 开源协议
-本项目使用`SATA`协议，所以你在使用前必须先star。😈反正我不管，你不star我就告你。详见[LICENSE](LICENSE.txt)文件。

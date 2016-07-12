@@ -414,14 +414,19 @@
             if (buttonIndex == 1) {
                 [i removeFromParent];
                 NSArray *children = [i itemsCanReach];
-                [dataArray removeObject:dataArray[indexPath.row]];
-                [dataArray removeObjectsInArray:children];
-                [dataArray removeObject:i];
+
                 NSMutableArray *indexPaths = [NSMutableArray array];
-                for (int i = 0; i < children.count + 1; i++) {
-                    NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row+i inSection:0];
+                
+                NSIndexPath *index = [NSIndexPath indexPathForRow:[dataArray indexOfObject:item] inSection:0];
+                [indexPaths addObject:index];
+                
+                for (Item *child in children) {
+                    NSIndexPath *index = [NSIndexPath indexPathForRow:[dataArray indexOfObject:child] inSection:0];
                     [indexPaths addObject:index];
                 }
+                
+                [dataArray removeObject:i];
+                [dataArray removeObjectsInArray:children];
                 
                 [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
                 [fm deleteFile:i.fullPath];
@@ -637,6 +642,10 @@
         switch (tran.transactionState) {
             case SKPaymentTransactionStatePurchased:
                 NSLog(@"交易完成");
+                if ([tran.payment.productIdentifier isEqualToString:kProductCloud]) {
+                    [Configure sharedConfigure].iCloudState = 3;
+                    showToast(ZHLS(@"UnlockedTips"));
+                }
                 [self completeTransaction:tran];
                 break;
             case SKPaymentTransactionStatePurchasing:
@@ -644,7 +653,10 @@
                 break;
             case SKPaymentTransactionStateRestored:
                 NSLog(@"已经购买过商品");
-                [Configure sharedConfigure].iCloudState = 3;
+                if ([tran.payment.productIdentifier isEqualToString:kProductCloud]) {
+                    [Configure sharedConfigure].iCloudState = 3;
+                    showToast(ZHLS(@"UnlockedTips"));
+                }
                 [self completeTransaction:tran];
                 break;
             case SKPaymentTransactionStateFailed:
@@ -657,17 +669,14 @@
     }
     stopLoadingAnimation();
 }
-
+/*
+ 
+ */
 //交易结束
 - (void)completeTransaction:(SKPaymentTransaction *)transaction{
     NSLog(@"交易结束");
-    if ([transaction.payment.productIdentifier isEqualToString:kProductCloud]) {
-        [Configure sharedConfigure].iCloudState = 3;
-        showToast(ZHLS(@"UnlockedTips"));
-    }
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
-
 
 - (void)dealloc{
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
