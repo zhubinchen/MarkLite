@@ -48,7 +48,6 @@
     }
 
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardDidShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardWillHideNotification object:nil];
     
     if (kDevicePhone) {
         self.navigationItem.rightBarButtonItems[1].title = ZHLS(@"Font");
@@ -65,7 +64,6 @@
         bar.editView = _editView;
         bar.vc = self;
         _editView.inputAccessoryView = bar;
-        [self keyboardHide:nil];
     }
 }
 
@@ -73,20 +71,8 @@
 {
     NSDictionary *info = noti.userInfo;
     CGFloat keyboardHeight = [[info objectForKey:@"UIKeyboardBoundsUserInfoKey"] CGRectValue].size.height;
-    CGRect begin = [[info objectForKey:@"UIKeyboardFrameBeginUserInfoKey"] CGRectValue];
-    CGRect end = [[info objectForKey:@"UIKeyboardFrameEndUserInfoKey"] CGRectValue];
-    
-    // 第三方键盘回调三次问题，监听仅执行最后一次
-    if(begin.size.height>0 && (begin.origin.y-end.origin.y>0)){
-        self.bottom.constant = keyboardHeight;
-        [self.view layoutIfNeeded];
-    }
-}
-
-- (void)keyboardHide:(NSNotification*)noti
-{
-    self.bottom.constant = 0;
-    [self.view layoutIfNeeded];
+    self.bottom.constant = keyboardHeight;
+    [self.view updateConstraints];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
@@ -120,6 +106,8 @@
 
 - (BOOL)textViewShouldEndEditing:(UITextView *)textView
 {
+    self.bottom.constant = 0;
+    [self.view updateConstraints];
     return YES;
 }
 

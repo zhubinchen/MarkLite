@@ -230,9 +230,20 @@
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <searchBar contentMode="redraw" placeholder="查找文件" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dfg-aj-tmF">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="g0F-Lb-yEF"/>
+                                </constraints>
+                                <color key="barTintColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="O8T-WH-Ngn" id="uXG-yM-g4A"/>
+                                </connections>
+                            </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="86" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4Di-yM-3uD">
                                 <rect key="frame" x="0.0" y="44" width="375" height="510"/>
-                                <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="noteItemCell" rowHeight="80" id="9O4-0I-Kch" customClass="NoteItemCell">
@@ -263,7 +274,7 @@
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CF0-oL-yKY">
                                                     <rect key="frame" x="16" y="10" width="6" height="16"/>
-                                                    <color key="backgroundColor" red="0.72941176470588232" green="0.40000000000000002" blue="0.81568627450980391" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="0.08235294118" green="0.65098039220000004" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="Feh-gG-rTb"/>
                                                         <constraint firstAttribute="width" constant="6" id="t5h-vQ-mWE"/>
@@ -275,7 +286,7 @@
                                                         <constraint firstAttribute="height" constant="21" id="kaS-TM-Lo8"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" red="0.2548388761" green="0.64471736680000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.08235294118" green="0.65098039220000004" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上次修改:2015-11-11" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2At-Pn-k9U">
@@ -288,6 +299,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="2At-Pn-k9U" firstAttribute="top" secondItem="H8c-CQ-ccc" secondAttribute="bottom" constant="5" id="0rZ-mk-3Dh"/>
                                                 <constraint firstItem="umW-CD-CYg" firstAttribute="top" secondItem="2QA-5b-Z0P" secondAttribute="top" constant="8" id="2kd-zi-dZx"/>
@@ -304,7 +316,7 @@
                                                 <constraint firstAttribute="trailing" secondItem="umW-CD-CYg" secondAttribute="trailing" constant="80" id="xDn-pw-Mzk"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="nameLabel" destination="umW-CD-CYg" id="ynR-BO-rEL"/>
                                             <outlet property="pathLabel" destination="H8c-CQ-ccc" id="hrQ-72-oZE"/>
@@ -319,17 +331,6 @@
                                     <outlet property="delegate" destination="O8T-WH-Ngn" id="e7q-mW-sI9"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" placeholder="查找文件" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dfg-aj-tmF">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="g0F-Lb-yEF"/>
-                                </constraints>
-                                <color key="barTintColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <outlet property="delegate" destination="O8T-WH-Ngn" id="uXG-yM-g4A"/>
-                                </connections>
-                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -365,7 +366,8 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ZAb-xY-e7J">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="menuItem" id="NyE-CM-JcJ">
                                 <rect key="frame" x="0.0" y="49.5" width="375" height="44"/>
@@ -556,8 +558,8 @@
         <image name="settings.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ZCc-zr-UED"/>
-        <segue reference="n2c-A2-qau"/>
-        <segue reference="j9U-2J-nGb"/>
+        <segue reference="F5f-nG-XfB"/>
+        <segue reference="736-9L-s2e"/>
+        <segue reference="jkb-0q-YIz"/>
     </inferredMetricsTieBreakers>
 </document>

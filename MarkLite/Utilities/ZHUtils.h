@@ -240,7 +240,7 @@
  */
 @interface UIAlertView(ZHUtils)
 
-@property (nonatomic,strong) void(^clickedButton)(NSInteger,UIAlertView*);
+@property (nonatomic,strong) void(^clickedButton)(NSInteger);
 
 @end
 
@@ -249,7 +249,7 @@
  */
 @interface UIActionSheet(ZHUtils) <UIActionSheetDelegate>
 
-@property (nonatomic,strong) void(^clickedButton)(NSInteger,UIActionSheet*);
+@property (nonatomic,strong) void(^clickedButton)(NSInteger);
 
 @end
 

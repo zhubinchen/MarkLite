@@ -77,19 +77,22 @@ static KeyboardBar *bar = nil;
     }else if (btn.tag == 6){
         [self.editView resignFirstResponder];
         UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:ZHLS(@"InsertImage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:ZHLS(@"PickImageAndUpload"),ZHLS(@"InputImageSrc"), nil];
-        sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
+        sheet.clickedButton = ^(NSInteger buttonIndex){
             if (buttonIndex == 0) {
                 bar = self;
                 UIImagePickerController *vc = [[UIImagePickerController alloc]init];
                 vc.delegate = self;
                 vc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                [self.vc presentViewController:vc animated:YES completion:nil];
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    [self.vc presentViewController:vc animated:YES completion:nil];
+                }];
             }else if(buttonIndex == 1){
                 UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"Insert Image") message:ZHLS(@"InputImageSrcTips") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
                 alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-                alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+                __weak UIAlertView * __alert = alert;
+                alert.clickedButton = ^(NSInteger buttonIndex){
                     if (buttonIndex == 1) {
-                        NSString *name = [alert textFieldAtIndex:0].text;
+                        NSString *name = [__alert textFieldAtIndex:0].text;
                         NSString *text = [NSString stringWithFormat:@"![MarkLite](%@)",name];
                         [_editView insertText:text];
                         [_editView becomeFirstResponder];
@@ -103,9 +106,10 @@ static KeyboardBar *bar = nil;
 
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"InsertHref") message:ZHLS(@"InputHrefTips") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
         alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-        alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+        __weak UIAlertView * __alert = alert;
+        alert.clickedButton = ^(NSInteger buttonIndex){
             if (buttonIndex == 1) {
-                NSString *name = [alert textFieldAtIndex:0].text;
+                NSString *name = [__alert textFieldAtIndex:0].text;
                 NSString *text = [NSString stringWithFormat:@"[MarkLite](%@)",name];
                 [_editView insertText:text];
                 [_editView becomeFirstResponder];

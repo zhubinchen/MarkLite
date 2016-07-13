@@ -18,7 +18,7 @@
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="ajW-6z-cQO">
                     <rect key="frame" x="120" y="50" width="80" height="80"/>
-                    <color key="backgroundColor" red="0.20392156859999999" green="0.20392156859999999" blue="0.20392156859999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.08235294118" green="0.65098039220000004" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="RQP-Nt-oks"/>
                         <constraint firstAttribute="height" constant="80" id="yEO-2F-Q7Z"/>
@@ -31,11 +31,11 @@
                             <real key="value" value="8"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                            <color key="value" red="0.12941176469999999" green="0.69019607839999997" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="value" red="0.08235294118" green="0.65098039220000004" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MarkLite V1.2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="53H-ME-R1w">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MarkLite V2.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="53H-ME-R1w">
                     <rect key="frame" x="100" y="150" width="120" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="FfQ-L1-oJz"/>
@@ -78,6 +78,6 @@
         </view>
     </objects>
     <resources>
-        <image name="icon.png" width="180" height="180"/>
+        <image name="icon.png" width="800" height="800"/>
     </resources>
 </document>

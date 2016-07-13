@@ -49,7 +49,7 @@
     }
     if (icloud && [Configure sharedConfigure].iCloudState < 2) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"UnlockTitle") message:@"" delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"Unlock"), tryTitle,nil];
-        alert.clickedButton = ^(NSInteger index,UIAlertView *alert){
+        alert.clickedButton = ^(NSInteger index){
             if (index == 1) {
                 [self requestProductData:kProductCloud];
             }else if (index == 2){

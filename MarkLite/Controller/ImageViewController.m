@@ -12,6 +12,8 @@
 @interface ImageViewController ()
 
 @property (nonatomic,weak) IBOutlet UILabel *tipsLable;
+@property (nonatomic,weak) IBOutlet UILabel *lowLable;
+@property (nonatomic,weak) IBOutlet UILabel *highLable;
 @property (nonatomic,weak) IBOutlet UISlider *slider;
 @property (nonatomic,weak) IBOutlet UIView *view2;
 
@@ -24,6 +26,9 @@
     // Do any additional setup after loading the view from its nib.
     
     self.slider.value = [Configure sharedConfigure].imageResolution;
+    _tipsLable.text = ZHLS(@"ImageResolutionTips");
+    _lowLable.text = ZHLS(@"Low");
+    _highLable.text = ZHLS(@"High");
 }
 
 - (void)viewDidLayoutSubviews
@@ -32,7 +37,7 @@
     line.backgroundColor = [UIColor lightGrayColor];
     [_view2 addSubview:line];
     
-    line = [[UIView alloc]initWithFrame:CGRectMake(0, 89.5, self.view.bounds.size.width, 0.3)];
+    line = [[UIView alloc]initWithFrame:CGRectMake(0, 69.5, self.view.bounds.size.width, 0.3)];
     line.backgroundColor = [UIColor lightGrayColor];
     [_view2 addSubview:line];
 }

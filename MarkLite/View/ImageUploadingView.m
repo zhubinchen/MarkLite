@@ -29,6 +29,7 @@
         self.title = title;
         self.cancelBlock = block;
         self.percent = 0.0;
+        [self.cancelBtn setTitle:ZHLS(@"Cancel") forState:UIControlStateNormal];
     }
     return self;
 }

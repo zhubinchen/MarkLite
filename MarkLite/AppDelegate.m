@@ -73,7 +73,7 @@
     }
     
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:[NSString stringWithFormat:ZHLS(@"ReceivedNewFile"),name] message:@"" delegate:nil cancelButtonTitle:ZHLS(@"Ignore") otherButtonTitles:ZHLS(@"Open"), nil];
-    alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+    alert.clickedButton = ^(NSInteger buttonIndex){
         if (buttonIndex == 1) {
 
             fm.currentItem = i;
@@ -153,7 +153,7 @@
                                               delegate: self
                                      cancelButtonTitle:ZHLS(@"Dont Upgrade")
                                      otherButtonTitles:ZHLS(@"Upgrade"), nil];
-            alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+            alert.clickedButton = ^(NSInteger buttonIndex){
                 if (buttonIndex == 1) {
                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:trackViewUrl]];
                 }

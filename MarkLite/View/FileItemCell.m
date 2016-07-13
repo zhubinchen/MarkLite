@@ -30,7 +30,7 @@
     _moreBtn.hidden = _edit;
     
     self.nameText.text = [item.path componentsSeparatedByString:@"/"].lastObject;
-    line.frame = CGRectMake(begin , 39.5, kScreenWidth - item.deep * 30 + 22, 0.5);
+    line.frame = CGRectMake(begin , 39.7, kScreenWidth - item.deep * 30 + 22, 0.3);
 }
 
 - (IBAction)addBtnClicked:(id)sender {

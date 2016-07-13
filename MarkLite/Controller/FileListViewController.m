@@ -73,7 +73,7 @@
     }
     if (self.cloud == NO && [Configure sharedConfigure].iCloudState < 2) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"UnlockTitle") message:@"" delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"Unlock"), tryTitle,nil];
-        alert.clickedButton = ^(NSInteger index,UIAlertView *alert){
+        alert.clickedButton = ^(NSInteger index){
             if (index == 1) {
                 [self requestProductData:kProductCloud];
             }else if (index == 2){
@@ -201,9 +201,10 @@
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"Rename") message:ZHLS(@"NameAlertMessage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     [alert textFieldAtIndex:0].text = i.name;
-    alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+    __weak UIAlertView *__alert = alert;
+    alert.clickedButton = ^(NSInteger buttonIndex){
         if (buttonIndex == 1) {
-            NSString *name = [alert textFieldAtIndex:0].text;
+            NSString *name = [__alert textFieldAtIndex:0].text;
             name = [name componentsSeparatedByString:@"."].firstObject;
             if (name.length == 0) {
                 showToast(ZHLS(@"EmptyNameTips"));
@@ -243,75 +244,83 @@
         }
     }
     
-    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:ZHLS(@"ChooseYourOperation") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:ZHLS(@"NewMarkdownFile"),ZHLS(@"PickImage"),ZHLS(@"NewFolder"), nil];
-    sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *sheet){
-        if (buttonIndex == 1) {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ZHLS(@"ChooseYourOperation") message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"NewMarkdownFile"),ZHLS(@"PickImage"),ZHLS(@"NewFolder"), nil];
+    alert.clickedButton = ^(NSInteger buttonIndex){
+        if (buttonIndex == 2) {
             UIImagePickerController *vc = [[UIImagePickerController alloc]init];
             vc.delegate = self;
             vc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
             [self presentViewController:vc animated:YES completion:nil];
-            return ;
-        }else if (buttonIndex == 0 || buttonIndex == 2) {
-            FileType type = buttonIndex == 0 ? FileTypeText : FileTypeFolder;
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"NameAlertTitle") message:ZHLS(@"NameAlertMessage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
-            alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-            alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
-                if (buttonIndex == 1) {
-                    [[alert textFieldAtIndex:0] resignFirstResponder];
-                    NSString *name = [alert textFieldAtIndex:0].text;
-                    if (type == FileTypeText) {
-                        name = [name stringByAppendingString:@".md"];
-                    }
-                    NSString *path = name;
-                    if (!selectParent.root) {
-                        path = [parent.path stringByAppendingPathComponent:name];
-                    }
-                    Item *i = [[Item alloc]init];
-                    i.path = path;
-                    i.open = YES;
-                    i.cloud = selectParent.cloud;
-                    
-                    BOOL ret = NO;
-                    if (i.type == FileTypeFolder) {
-                        ret = [fm createFolder:i.fullPath];
-                    }else{
-                        ret = [fm createFile:i.fullPath Content:[NSData data]];
-                    }
-                    
-                    if (ret == NO) {
-                        showToast(ZHLS(@"DuplicateError"));
-                        return;
-                    }
-                    
-                    [parent addChild:i];
-                    
-                    dataArray = root.itemsCanReach.mutableCopy;
-                    [dataArray insertObject:root atIndex:0];
-                    [fileListView reloadData];
-                    
-                    if (i.type == FileTypeText) {
-                        fm.currentItem = i;
-                        if (kDevicePhone) {
-                            [self performSegueWithIdentifier:@"edit" sender:self];
-                        }
-                    }
-                }
-            };
-            [alert show];
+        }else if (buttonIndex == 1) {
+            [self createFileWithType:FileTypeText];
+        }else if (buttonIndex == 3) {
+            [self createFileWithType:FileTypeFolder];
         }
     };
-    
-    [sheet showInView:self.view];
+    [alert show];
+}
+
+- (void)createFileWithType:(FileType)type
+{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:type == FileTypeText ? ZHLS(@"FileNameAlertTitle") : ZHLS(@"FolderNameAlertTitle") message:ZHLS(@"NameAlertMessage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    __weak UIAlertView *__alert = alert;
+    alert.clickedButton = ^(NSInteger buttonIndex){
+        if (buttonIndex == 1) {
+            [[__alert textFieldAtIndex:0] resignFirstResponder];
+            NSString *name = [__alert textFieldAtIndex:0].text;
+            if (type == FileTypeText) {
+                name = [name stringByAppendingString:@".md"];
+            }
+            NSString *path = name;
+            if (!selectParent.root) {
+                path = [selectParent.path stringByAppendingPathComponent:name];
+            }
+            Item *i = [[Item alloc]init];
+            i.path = path;
+            i.open = YES;
+            i.cloud = selectParent.cloud;
+            
+            BOOL ret = NO;
+            if (i.type == FileTypeFolder) {
+                ret = [fm createFolder:i.fullPath];
+            }else{
+                ret = [fm createFile:i.fullPath Content:[NSData data]];
+            }
+            
+            if (ret == NO) {
+                showToast(ZHLS(@"DuplicateError"));
+                return;
+            }
+            
+            [selectParent addChild:i];
+            
+            dataArray = root.itemsCanReach.mutableCopy;
+            [dataArray insertObject:root atIndex:0];
+            [fileListView reloadData];
+            
+            if (i.type == FileTypeText) {
+                fm.currentItem = i;
+                if (kDevicePhone) {
+                    [self performSegueWithIdentifier:@"edit" sender:self];
+                }
+            }
+        }
+    };
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [alert show];
+    });
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"NameAlertTitle") message:ZHLS(@"NameAlertMessage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"FileNameAlertTitle") message:ZHLS(@"NameAlertMessage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+    __weak UIAlertView *__alert = alert;
+    alert.clickedButton = ^(NSInteger buttonIndex){
         if (buttonIndex == 1) {
-            [[alert textFieldAtIndex:0] resignFirstResponder];
-            NSString *name = [alert textFieldAtIndex:0].text;
+            [[__alert textFieldAtIndex:0] resignFirstResponder];
+            NSString *name = [__alert textFieldAtIndex:0].text;
             name = [name stringByAppendingString:@".png"];
             
             NSString *path = name;
@@ -384,18 +393,40 @@
     __weak UITableViewCell *__cell = cell;
     
     cell.moreBlock = ^(Item *i){
+        if (kDevicePad) {
+            UIAlertView *sheet = [[UIAlertView alloc]initWithTitle:i.name message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"Move"),ZHLS(@"Rename"),ZHLS(@"Export"), nil];
+            if (i.type == FileTypeFolder) {
+                sheet = [[UIAlertView alloc]initWithTitle:i.name message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"Move"),ZHLS(@"Rename"), nil];
+            }
+            __weak UIAlertView *__sheet = sheet;
 
+            sheet.clickedButton = ^(NSInteger buttonIndex){
+                if ([[__sheet buttonTitleAtIndex:buttonIndex] isEqualToString:ZHLS(@"Move")]) {
+                    selectItem = i;
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self performSegueWithIdentifier:@"move" sender:self];
+                    });
+                }else if([[__sheet buttonTitleAtIndex:buttonIndex] isEqualToString:ZHLS(@"Rename")]){
+                    [self renameItem:i];
+                }else if([[__sheet buttonTitleAtIndex:buttonIndex] isEqualToString:ZHLS(@"Export")]){
+                    [self export:i sourceView:__cell];
+                }
+            };
+            [sheet show];
+            return ;
+        }
         UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:i.name delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles: ZHLS(@"Move"),ZHLS(@"Rename"),ZHLS(@"Export"), nil];
         if (i.type == FileTypeFolder) {
             sheet = [[UIActionSheet alloc]initWithTitle:i.name delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:ZHLS(@"Move"), ZHLS(@"Rename"), nil];
         }
-        sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *sheet){
-            if ([[sheet buttonTitleAtIndex:buttonIndex] isEqualToString:ZHLS(@"Move")]) {
+        __weak UIActionSheet *__sheet = sheet;
+        sheet.clickedButton = ^(NSInteger buttonIndex){
+            if ([[__sheet buttonTitleAtIndex:buttonIndex] isEqualToString:ZHLS(@"Move")]) {
                 selectItem = i;
                 [self performSegueWithIdentifier:@"move" sender:self];
-            }else if([[sheet buttonTitleAtIndex:buttonIndex] isEqualToString:ZHLS(@"Rename")]){
+            }else if([[__sheet buttonTitleAtIndex:buttonIndex] isEqualToString:ZHLS(@"Rename")]){
                 [self renameItem:i];
-            }else if([[sheet buttonTitleAtIndex:buttonIndex] isEqualToString:ZHLS(@"Export")]){
+            }else if([[__sheet buttonTitleAtIndex:buttonIndex] isEqualToString:ZHLS(@"Export")]){
                 [self export:i sourceView:__cell];
             }
         };
@@ -412,7 +443,7 @@
             return ;
         }
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ZHLS(@"DeleteMessage") message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
-        alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+        alert.clickedButton = ^(NSInteger buttonIndex){
             if (buttonIndex == 1) {
                 [i removeFromParent];
                 NSArray *children = [i itemsCanReach];

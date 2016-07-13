@@ -425,7 +425,7 @@
 
 @implementation UIAlertView (ZHUtils)
 
-- (void)setClickedButton:(void (^)(NSInteger buttonIndex,UIAlertView* alertView))clickedButton
+- (void)setClickedButton:(void (^)(NSInteger buttonIndex))clickedButton
 {
     
     [self willChangeValueForKey:@"clickedButton"];
@@ -436,7 +436,7 @@
     self.delegate = self;
 }
 
-- (void (^)(NSInteger, UIAlertView *))clickedButton
+- (void (^)(NSInteger ))clickedButton
 {
     return objc_getAssociatedObject(self, "clickedButton");
 }
@@ -444,7 +444,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (self.clickedButton) {
-        self.clickedButton(buttonIndex,self);
+        self.clickedButton(buttonIndex);
     }
 }
 
@@ -453,7 +453,7 @@
 
 @implementation UIActionSheet(ZHUtils)
 
-- (void)setClickedButton:(void (^)(NSInteger buttonIndex,UIActionSheet* alertView))clickedButton
+- (void)setClickedButton:(void (^)(NSInteger buttonIndex))clickedButton
 {
     
     [self willChangeValueForKey:@"clickedButton"];
@@ -464,7 +464,7 @@
     self.delegate = self;
 }
 
-- (void (^)(NSInteger, UIActionSheet *))clickedButton
+- (void (^)(NSInteger))clickedButton
 {
     return objc_getAssociatedObject(self, "clickedButton");
 }
@@ -472,7 +472,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (self.clickedButton) {
-        self.clickedButton(buttonIndex,self);
+        self.clickedButton(buttonIndex);
     }
 }
 

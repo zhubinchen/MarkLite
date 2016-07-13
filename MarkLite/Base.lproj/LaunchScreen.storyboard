@@ -31,14 +31,14 @@
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="rGT-BV-l8x">
                                 <rect key="frame" x="250" y="182" width="100" height="100"/>
-                                <color key="backgroundColor" red="0.086274509803921567" green="0.68235294117647061" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.08235294118" green="0.65098039220000004" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="Aok-lz-zik"/>
                                     <constraint firstAttribute="width" constant="100" id="amX-ls-6C9"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.086274509799999996" green="0.68235294120000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.082352941176470587" green="0.65098039215686276" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="sQY-F9-60W" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="8Nb-5X-4Th"/>
                             <constraint firstItem="sQY-F9-60W" firstAttribute="top" secondItem="rGT-BV-l8x" secondAttribute="bottom" constant="8" id="NgS-9L-N4t"/>

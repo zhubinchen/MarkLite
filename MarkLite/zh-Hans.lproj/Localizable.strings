@@ -50,9 +50,10 @@
 "PDF"="PDF文档";
 
 "ChooseYourOperation"="请选择要进行的操作";
-"NameAlertTitle"="为新文件命名";
+"FileNameAlertTitle"="为要创建的文件命名";
+"FolderNameAlertTitle"="为要创建的目录命名";
 "NewMarkdownFile"= "新建文本";
-"NewFolder"= "新建文件夹";
+"NewFolder"= "新建目录";
 "PickImage"="导入图片";
 "NameAlertMessage"="请输入文件名，不要输入后缀";
 "DeleteMessage"="删除后不可恢复，确定要删除吗？";
@@ -95,5 +96,9 @@
 "UnlockTitle"="开通后可以使用iCloud在不同设备上共享文件";
 "Try"="试用1天";
 "Loading"="正在加载";
+
+"ImageResolutionTips"="图片质量越低，上传越快";
+"High"="高";
+"Low"="低";
 
 "Recieved"="收到的文件";

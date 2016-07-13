@@ -88,6 +88,7 @@
     _fontName = @"Hiragino Sans";
     _keyboardAssist = YES;
     _imageResolution = 0.5;
+    _iCloudState = 3;
 }
 
 - (void)setICloudState:(NSInteger)iCloudState

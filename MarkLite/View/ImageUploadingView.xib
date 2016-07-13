@@ -19,21 +19,27 @@
                         <blurEffect style="light"/>
                     </vibrancyEffect>
                 </visualEffectView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RMm-cQ-El5">
-                    <rect key="frame" x="99.5" y="10" width="36.5" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RMm-cQ-El5">
+                    <rect key="frame" x="58" y="10" width="120" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="120" id="kNi-LW-t7O"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ke0-Xq-vWf">
-                    <rect key="frame" x="7.5" y="61" width="220" height="2"/>
+                    <rect key="frame" x="7" y="61" width="220" height="2"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="220" id="kMK-Xl-xMt"/>
                         <constraint firstAttribute="height" constant="2" id="xjH-io-FKB"/>
                     </constraints>
                 </progressView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lMe-Sv-tn8">
-                    <rect key="frame" x="102.5" y="71" width="30" height="30"/>
+                    <rect key="frame" x="67" y="71" width="100" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="100" id="oKs-ef-laX"/>
+                    </constraints>
                     <state key="normal" title="取消">
                         <color key="titleColor" red="0.96928581305309736" green="0.073492809734513276" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </state>

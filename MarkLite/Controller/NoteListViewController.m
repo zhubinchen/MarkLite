@@ -189,7 +189,9 @@
         }
     }].mutableCopy;
     
-    _fm.currentItem = dataArray.firstObject;
+    if (_fm.currentItem == nil) {
+        _fm.currentItem = dataArray.firstObject;
+    }
 
     [self.noteListView reloadData];
 }
@@ -209,9 +211,9 @@
 {
     Item *i = dataArray[indexPath.row];
     
-    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:ZHLS(@"DeleteMessage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:ZHLS(@"Delete") otherButtonTitles: nil];
-    sheet.clickedButton = ^(NSInteger buttonIndex,UIActionSheet *alert){
-        if (buttonIndex == 0) {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ZHLS(@"DeleteMessage") message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"Delete"), nil];
+    alert.clickedButton = ^(NSInteger buttonIndex){
+        if (buttonIndex == 1) {
             [i removeFromParent];
             NSArray *children = [i itemsCanReach];
             [dataArray removeObjectsInArray:children];
@@ -226,7 +228,7 @@
             [_fm deleteFile:i.fullPath];
         }
     };
-    [sheet showInView:self.view];
+    [alert show];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -236,9 +238,9 @@
     Item *item = dataArray[indexPath.row];
     cell.item = item;
     if (![cell viewWithTag:4654]) {
-        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(16, 84, self.view.bounds.size.width - 16, 0.5)];
+        UIView *line = [[UIView alloc]initWithFrame:CGRectMake(16, 84.7, self.view.bounds.size.width - 16, 0.3)];
         line.tag = 4564;
-        line.backgroundColor = [UIColor lightGrayColor];
+        line.backgroundColor = [UIColor colorWithRGBString:@"e6e6e6"];
         [cell addSubview:line];
     }
 
@@ -301,12 +303,14 @@
 
 - (void)newNoteWithParent:(Item*)parent
 {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"NameAlertTitle") message:ZHLS(@"NameAlertMessage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"FileNameAlertTitle") message:ZHLS(@"NameAlertMessage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    alert.clickedButton = ^(NSInteger buttonIndex,UIAlertView *alert){
+    
+    __weak UIAlertView *__alert = alert;
+    alert.clickedButton = ^(NSInteger buttonIndex){
         if (buttonIndex == 1) {
-            [[alert textFieldAtIndex:0] resignFirstResponder];
-            NSString *name = [alert textFieldAtIndex:0].text;
+            [[__alert textFieldAtIndex:0] resignFirstResponder];
+            NSString *name = [__alert textFieldAtIndex:0].text;
             name = [name stringByAppendingString:@".md"];
 
             NSString *path = name;

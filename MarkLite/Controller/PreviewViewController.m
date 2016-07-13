@@ -103,32 +103,8 @@
 
 - (void)export
 {
-    if (kDevicePad) {
-        UIAlertView *sheet = [[UIAlertView alloc]initWithTitle:@"选择导出格式" message:@"" delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:@"Web页面",@"PDF文档", nil];
-        sheet.clickedButton = ^(NSInteger index,UIAlertView *sheet){
-            NSURL *url = nil;
-            if (index == 1){
-                url = [NSURL fileURLWithPath:[documentPath() stringByAppendingPathComponent:[NSString stringWithFormat:@"/temp/%@.html",[fm currentItem].name]]];
-                if (htmlString) {
-                    [htmlString writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:nil];
-                }
-            }else if(index == 2){
-                url = [NSURL fileURLWithPath:[documentPath() stringByAppendingPathComponent:[NSString stringWithFormat:@"/temp/%@.pdf",[fm currentItem].name]]];
-                
-                NSData *data = [self createPDF];
-                [data writeToURL:url atomically:YES];
-            }
-            if (url) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [self exportFile:url];
-                });
-            }
-        };
-        [sheet show];
-        return;
-    }
     UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:ZHLS(@"ExportAs") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:ZHLS(@"WebPage"),ZHLS(@"PDF"), nil];
-    sheet.clickedButton = ^(NSInteger index,UIActionSheet *sheet){
+    sheet.clickedButton = ^(NSInteger index){
         NSURL *url = nil;
         if (index == 0){
             url = [NSURL fileURLWithPath:[documentPath() stringByAppendingPathComponent:[NSString stringWithFormat:@"/temp/%@.html",[fm currentItem].name]]];
@@ -166,14 +142,15 @@
                                     ];
     controller.excludedActivityTypes = excludedActivities;
     
-    if (kDevicePhone) {
-        [self presentViewController:controller animated:YES completion:nil];
-    }else{
+    if (kDevicePad) {
         popVc = controller.popoverPresentationController;
         popVc.barButtonItem = self.navigationItem.rightBarButtonItem;
         popVc.permittedArrowDirections = UIPopoverArrowDirectionAny;
-        [self presentViewController:controller animated:YES completion:nil];
     }
+    
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [self presentViewController:controller animated:YES completion:nil];
+    }];
 }
 
 - (NSData*)createPDF{

@@ -50,12 +50,13 @@
 "PDF"="PDF";
 
 "ChooseYourOperation"="Choose your operation";
-"NameAlertTitle"="Name the new file";
+"FileNameAlertTitle"="Give the new file name";
+"FolderNameAlertTitle"="Give the new folder name";
 "NewMarkdownFile"= "new markdown";
 "NewFolder"= "new directory";
 "PickImage"="import an image";
 "NameAlertMessage"="please input the name";
-"DeleteMessage"="do you want to delete the file? this action can't be undo.";
+"DeleteMessage"="Do you want to delete the file? this action can't be undo.";
 "DuplicateError"="An error occured! duplicate name?";
 
 "CanNotDeleteRoot"="Can not delete root directory";
@@ -89,12 +90,16 @@
 "Search"="Search";
 
 "Unlock"="Unlock($1.99)";
-"UnlockOption"="Unlock($1.99)";
+"UnlockOption"="Unlock";
 "Unlocked"="Unlocked";
 "UnlockedTips"="Unlock successed!";
 "TriedTips"="Now you can use cloud storage one day for free";
 "UnlockTitle"="You can use iCloud to share your files on different devices,would you like to unlock this feature?";
 "Try"="Try one day for free";
 "Loading"="Loading";
+
+"ImageResolutionTips"="The lower the resolution, the faster the upload";
+"High"="High";
+"Low"="Low";
 
 "Recieved"="Recieved files";

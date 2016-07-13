@@ -41,6 +41,7 @@
 		07AFAC291D34C8E50084FF76 /* GitHub2.css in Resources */ = {isa = PBXBuildFile; fileRef = 07AFAC121D34C8E50084FF76 /* GitHub2.css */; };
 		07AFAC2A1D34C8E50084FF76 /* Solarized Dark.css in Resources */ = {isa = PBXBuildFile; fileRef = 07AFAC131D34C8E50084FF76 /* Solarized Dark.css */; };
 		07AFAC2B1D34C8E50084FF76 /* Solarized Light.css in Resources */ = {isa = PBXBuildFile; fileRef = 07AFAC141D34C8E50084FF76 /* Solarized Light.css */; };
+		07AFAC2D1D34E9270084FF76 /* export@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07AFAC2C1D34E9270084FF76 /* export@2x.png */; };
 		07B92DCF1D1D960F00A4127E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B92DCE1D1D960F00A4127E /* main.m */; };
 		07B92DD21D1D960F00A4127E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B92DD11D1D960F00A4127E /* AppDelegate.m */; };
 		07B92DDA1D1D960F00A4127E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07B92DD91D1D960F00A4127E /* Assets.xcassets */; };
@@ -91,7 +92,6 @@
 		07B92EFB1D1D98D500A4127E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 07B92EFA1D1D98D500A4127E /* libz.tbd */; };
 		07CFA4091D2B7A6E00F7DDDA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07CFA40B1D2B7A6E00F7DDDA /* Localizable.strings */; };
 		07CFA41C1D2BB1C000F7DDDA /* ChooseFolderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CFA41A1D2BB1C000F7DDDA /* ChooseFolderViewController.m */; };
-		07CFA5CE1D2E173B00F7DDDA /* OperationPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07CFA5CD1D2E173B00F7DDDA /* OperationPanel.m */; };
 		07D9D1F31D238C4900725A94 /* ImageUploadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D9D1F21D238C4900725A94 /* ImageUploadingView.m */; };
 		07D9D1F51D238C6300725A94 /* ImageUploadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07D9D1F41D238C6300725A94 /* ImageUploadingView.xib */; };
 		07EC143F1D1ED3DF00AA3EEE /* ZHRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EC143E1D1ED3DF00AA3EEE /* ZHRequest.m */; };
@@ -146,6 +146,7 @@
 		07AFAC121D34C8E50084FF76 /* GitHub2.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = GitHub2.css; sourceTree = "<group>"; };
 		07AFAC131D34C8E50084FF76 /* Solarized Dark.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "Solarized Dark.css"; sourceTree = "<group>"; };
 		07AFAC141D34C8E50084FF76 /* Solarized Light.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "Solarized Light.css"; sourceTree = "<group>"; };
+		07AFAC2C1D34E9270084FF76 /* export@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "export@2x.png"; sourceTree = "<group>"; };
 		07B92DCA1D1D960F00A4127E /* MarkLite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkLite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07B92DCE1D1D960F00A4127E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		07B92DD01D1D960F00A4127E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -242,8 +243,6 @@
 		07CFA4191D2BB1C000F7DDDA /* ChooseFolderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseFolderViewController.h; sourceTree = "<group>"; };
 		07CFA41A1D2BB1C000F7DDDA /* ChooseFolderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseFolderViewController.m; sourceTree = "<group>"; };
 		07CFA5C81D2DF3EE00F7DDDA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		07CFA5CC1D2E173B00F7DDDA /* OperationPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationPanel.h; sourceTree = "<group>"; };
-		07CFA5CD1D2E173B00F7DDDA /* OperationPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationPanel.m; sourceTree = "<group>"; };
 		07D9D1F11D238C4900725A94 /* ImageUploadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUploadingView.h; sourceTree = "<group>"; };
 		07D9D1F21D238C4900725A94 /* ImageUploadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUploadingView.m; sourceTree = "<group>"; };
 		07D9D1F41D238C6300725A94 /* ImageUploadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageUploadingView.xib; sourceTree = "<group>"; };
@@ -345,6 +344,7 @@
 		07AFABFE1D34C8E50084FF76 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				07AFAC2C1D34E9270084FF76 /* export@2x.png */,
 				07AFABFF1D34C8E50084FF76 /* add_image@2x.png */,
 				07AFAC001D34C8E50084FF76 /* add_link@2x.png */,
 				07AFAC011D34C8E50084FF76 /* check@2x.png */,
@@ -544,8 +544,6 @@
 				07B92E831D1D966B00A4127E /* KeyboardBar.m */,
 				07B92E871D1D966B00A4127E /* NoteItemCell.h */,
 				07B92E881D1D966B00A4127E /* NoteItemCell.m */,
-				07CFA5CC1D2E173B00F7DDDA /* OperationPanel.h */,
-				07CFA5CD1D2E173B00F7DDDA /* OperationPanel.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -695,6 +693,7 @@
 				07AFAC1B1D34C8E50084FF76 /* folder@2x.png in Resources */,
 				07AFAC151D34C8E50084FF76 /* about.html in Resources */,
 				07B92DFB1D1D964100A4127E /* AboutViewController.xib in Resources */,
+				07AFAC2D1D34E9270084FF76 /* export@2x.png in Resources */,
 				07B92E991D1D966B00A4127E /* icon.png in Resources */,
 				07AFAC211D34C8E50084FF76 /* note@2x.png in Resources */,
 				07D9D1F51D238C6300725A94 /* ImageUploadingView.xib in Resources */,
@@ -726,7 +725,6 @@
 				07B92DD21D1D960F00A4127E /* AppDelegate.m in Sources */,
 				07B92E8B1D1D966B00A4127E /* HighLightModel.m in Sources */,
 				07B92EC41D1D966B00A4127E /* ioapi.c in Sources */,
-				07CFA5CE1D2E173B00F7DDDA /* OperationPanel.m in Sources */,
 				07B92EF61D1D986E00A4127E /* html_blocks.c in Sources */,
 				07B92E001D1D964100A4127E /* NoteListViewController.m in Sources */,
 				07B92ED01D1D966B00A4127E /* KeyboardBar.m in Sources */,
