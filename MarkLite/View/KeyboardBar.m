@@ -80,6 +80,9 @@ static KeyboardBar *bar = nil;
         UIImagePickerController *vc = [[UIImagePickerController alloc]init];
         vc.delegate = self;
         vc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        if (kDevicePad) {
+            vc.modalPresentationStyle = UIModalPresentationFormSheet;
+        }
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [self.vc presentViewController:vc animated:YES completion:nil];
         }];
