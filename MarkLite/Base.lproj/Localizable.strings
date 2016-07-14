@@ -54,7 +54,6 @@
 "FolderNameAlertTitle"="Give the new folder name";
 "NewMarkdownFile"= "new markdown";
 "NewFolder"= "new directory";
-"PickImage"="import an image";
 "NameAlertMessage"="please input the name";
 "DeleteMessage"="Do you want to delete the file? this action can't be undo.";
 "DuplicateError"="An error occured! duplicate name?";
@@ -64,11 +63,7 @@
 "InvalidName"="Invalid file name";
 "CanNotEdit"="This is not a markdown file,you can't edit it,but you can preview it";
 
-"InsertImage"="Insert an image";
 "InsertHref"="Insert a link";
-"PickImageAndUpload"="pick an image and upload it";
-"InputImageSrc"="input the src of image";
-"InputImageSrcTips"="please input the src of image";
 "InputHrefTips"="please input the href";
 "Uploading"="Uploading...";
 
@@ -103,3 +98,4 @@
 "Low"="Low";
 
 "Recieved"="Recieved files";
+"GuidesName"="Guides";

@@ -20,25 +20,25 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright (c) 2015 zhubch. All rights reserved." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KjK-5f-FTc">
                                 <rect key="frame" x="149" y="543" width="301.5" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="0.2784313725" green="0.2784313725" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MarkLite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sQY-F9-60W">
                                 <rect key="frame" x="262" y="290" width="75" height="20"/>
                                 <fontDescription key="fontDescription" name="TimesNewRomanPS-BoldMT" family="Times New Roman" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="0.2784313725" green="0.2784313725" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="rGT-BV-l8x">
-                                <rect key="frame" x="250" y="182" width="100" height="100"/>
-                                <color key="backgroundColor" red="0.08235294118" green="0.65098039220000004" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="260" y="202" width="80" height="80"/>
+                                <color key="backgroundColor" red="0.2784313725" green="0.2784313725" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="Aok-lz-zik"/>
-                                    <constraint firstAttribute="width" constant="100" id="amX-ls-6C9"/>
+                                    <constraint firstAttribute="height" constant="80" id="Aok-lz-zik"/>
+                                    <constraint firstAttribute="width" constant="80" id="amX-ls-6C9"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.082352941176470587" green="0.65098039215686276" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="sQY-F9-60W" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="8Nb-5X-4Th"/>
                             <constraint firstItem="sQY-F9-60W" firstAttribute="top" secondItem="rGT-BV-l8x" secondAttribute="bottom" constant="8" id="NgS-9L-N4t"/>

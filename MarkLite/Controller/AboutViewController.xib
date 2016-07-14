@@ -17,8 +17,8 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="ajW-6z-cQO">
-                    <rect key="frame" x="120" y="50" width="80" height="80"/>
-                    <color key="backgroundColor" red="0.08235294118" green="0.65098039220000004" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <rect key="frame" x="120" y="114" width="80" height="80"/>
+                    <color key="backgroundColor" red="0.2784313725" green="0.2784313725" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="RQP-Nt-oks"/>
                         <constraint firstAttribute="height" constant="80" id="yEO-2F-Q7Z"/>
@@ -31,12 +31,12 @@
                             <real key="value" value="8"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                            <color key="value" red="0.08235294118" green="0.65098039220000004" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="value" red="0.2784313725" green="0.2784313725" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MarkLite V2.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="53H-ME-R1w">
-                    <rect key="frame" x="100" y="150" width="120" height="21"/>
+                    <rect key="frame" x="100" y="214" width="120" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="FfQ-L1-oJz"/>
                         <constraint firstAttribute="width" constant="120" id="bha-M8-IfZ"/>
@@ -56,7 +56,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AaQ-4d-ZlG">
-                    <rect key="frame" x="0.0" y="181" width="320" height="238"/>
+                    <rect key="frame" x="0.0" y="245" width="320" height="174"/>
                     <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                     <dataDetectorType key="dataDetectorTypes"/>
                 </webView>
@@ -72,8 +72,9 @@
                 <constraint firstAttribute="bottom" secondItem="gkQ-7g-iKh" secondAttribute="bottom" constant="30" id="jNn-tE-Fty"/>
                 <constraint firstItem="ajW-6z-cQO" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="mnz-0y-rXq"/>
                 <constraint firstItem="AaQ-4d-ZlG" firstAttribute="top" secondItem="53H-ME-R1w" secondAttribute="bottom" constant="10" id="xVo-Fk-wfh"/>
-                <constraint firstItem="ajW-6z-cQO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="zYH-fw-k52"/>
+                <constraint firstItem="ajW-6z-cQO" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="114" id="zYH-fw-k52"/>
             </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>

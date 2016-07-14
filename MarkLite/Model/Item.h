@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSUInteger, FileType) {
-    FileTypeImage,
     FileTypeText,
     FileTypeFolder,
     FileTypeOther,

@@ -52,14 +52,14 @@
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
     if (self=[super init]) {
-        self.highlightColor = [aDecoder decodeObjectForKey:@"highlightColor"];
-        self.style = [aDecoder decodeObjectForKey:@"style"];
-        self.themeColor = [aDecoder decodeObjectForKey:@"themeColor"];
-        self.triedTime = [aDecoder decodeObjectForKey:@"triedTime"];
-        self.fontName = [aDecoder decodeObjectForKey:@"fontName"];
-        self.keyboardAssist = [aDecoder decodeBoolForKey:@"keyboardAssist"];
-        self.iCloudState = [aDecoder decodeIntegerForKey:@"iCloudState"];
-        self.imageResolution = [aDecoder decodeFloatForKey:@"imageResolution"];
+        _highlightColor = [aDecoder decodeObjectForKey:@"highlightColor"];
+        _style = [aDecoder decodeObjectForKey:@"style"];
+        _themeColor = [aDecoder decodeObjectForKey:@"themeColor"];
+        _triedTime = [aDecoder decodeObjectForKey:@"triedTime"];
+        _fontName = [aDecoder decodeObjectForKey:@"fontName"];
+        _keyboardAssist = [aDecoder decodeBoolForKey:@"keyboardAssist"];
+        _iCloudState = [aDecoder decodeIntegerForKey:@"iCloudState"];
+        _imageResolution = [aDecoder decodeFloatForKey:@"imageResolution"];
     }
     return self;
 }
@@ -88,7 +88,7 @@
     _fontName = @"Hiragino Sans";
     _keyboardAssist = YES;
     _imageResolution = 0.5;
-    _iCloudState = 3;
+    _iCloudState = 0;
 }
 
 - (void)setICloudState:(NSInteger)iCloudState
@@ -105,7 +105,7 @@
     if (_iCloudState != 2) {
         return _iCloudState;
     }
-    if ([[NSDate date] timeIntervalSinceDate:_triedTime] > 30) {
+    if ([[NSDate date] timeIntervalSinceDate:_triedTime] > 24 * 60 * 60) {
         _iCloudState = 1;
     }
     return _iCloudState;

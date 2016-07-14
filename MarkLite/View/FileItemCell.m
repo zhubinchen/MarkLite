@@ -19,8 +19,6 @@
     CGFloat begin = (item.deep+_shift) * 30 - 22;
     if (item.type == FileTypeText) {
         _typeIcon.image = [UIImage imageNamed:@"text"];
-    }else if (item.type == FileTypeImage) {
-        _typeIcon.image = [UIImage imageNamed:@"image"];
     }else if (item.type == FileTypeFolder){
         _typeIcon.image = [UIImage imageNamed:item.open ? @"folder_open" : @"folder"];
     }

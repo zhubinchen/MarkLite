@@ -244,16 +244,11 @@
         }
     }
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ZHLS(@"ChooseYourOperation") message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"NewMarkdownFile"),ZHLS(@"PickImage"),ZHLS(@"NewFolder"), nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ZHLS(@"ChooseYourOperation") message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"NewMarkdownFile"),ZHLS(@"NewFolder"), nil];
     alert.clickedButton = ^(NSInteger buttonIndex){
-        if (buttonIndex == 2) {
-            UIImagePickerController *vc = [[UIImagePickerController alloc]init];
-            vc.delegate = self;
-            vc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            [self presentViewController:vc animated:YES completion:nil];
-        }else if (buttonIndex == 1) {
+        if (buttonIndex == 1) {
             [self createFileWithType:FileTypeText];
-        }else if (buttonIndex == 3) {
+        }else if (buttonIndex == 2) {
             [self createFileWithType:FileTypeFolder];
         }
     };
@@ -311,52 +306,6 @@
         [alert show];
     });
 }
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
-{
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"FileNameAlertTitle") message:ZHLS(@"NameAlertMessage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    __weak UIAlertView *__alert = alert;
-    alert.clickedButton = ^(NSInteger buttonIndex){
-        if (buttonIndex == 1) {
-            [[__alert textFieldAtIndex:0] resignFirstResponder];
-            NSString *name = [__alert textFieldAtIndex:0].text;
-            name = [name stringByAppendingString:@".png"];
-            
-            NSString *path = name;
-            if (selectParent != root) {
-                path = [selectParent.path stringByAppendingPathComponent:name];
-            }
-            Item *i = [[Item alloc]init];
-            i.path = path;
-            i.open = YES;
-            i.cloud = selectParent.cloud;
-            UIImage *img = [info objectForKey:UIImagePickerControllerOriginalImage];
-            NSData *data = UIImageJPEGRepresentation(img, 0.5);
-            BOOL ret = [[FileManager sharedManager] createFile:i.fullPath Content:data];
-            
-            if (ret == NO) {
-                showToast(ZHLS(@"DuplicateError"));
-                return;
-            }
-            [selectParent addChild:i];
-            
-            dataArray = root.itemsCanReach.mutableCopy;
-            [dataArray insertObject:root atIndex:0];
-            fm.currentItem = i;
-            [fileListView reloadData];
-            
-            if (kDevicePhone) {
-                [self performSegueWithIdentifier:@"preview" sender:self];
-            }
-        }
-    };
-
-    [picker dismissViewControllerAnimated:YES completion:^{
-        [alert show];
-    }];
-}
-
 
 - (void)searchWithWord:(NSString*)word
 {
@@ -498,11 +447,7 @@
     fm.currentItem = i;
     
     if (kDevicePhone) {
-        if (i.type == FileTypeImage) {
-            [self performSegueWithIdentifier:@"preview" sender:self];
-        }else {
-            [self performSegueWithIdentifier:@"edit" sender:self];
-        }
+        [self performSegueWithIdentifier:@"edit" sender:self];
     }
 }
 

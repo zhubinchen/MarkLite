@@ -28,8 +28,8 @@
     // Override point for customization after application launch.
     
     [[UITabBar appearance] setTintColor:kTintColor];
+    [[UITabBar appearance] setBarTintColor:[UIColor colorWithWhite:0.95 alpha:1]];
     [[UINavigationBar appearance] setTintColor:kTitleColor];
-    [[UINavigationBar appearance] setBarTintColor:kNavBarColor];
     [[UINavigationBar appearance] setTitleTextAttributes:@{
                                                            NSFontAttributeName:[UIFont systemFontOfSize:18],
                                                            NSForegroundColorAttributeName:kTitleColor

@@ -50,10 +50,10 @@
 "PDF"="PDF文檔";
 
 "ChooseYourOperation"="請選擇要進行的操作";
-"NameAlertTitle"="為新文件命名";
+"FileNameAlertTitle"="為要創建的文件命名";
+"FolderNameAlertTitle"="為要創建的目錄命名";
 "NewMarkdownFile"= "新建文本";
 "NewFolder"= "新建目錄";
-"PickImage"="導入圖片";
 "NameAlertMessage"="請輸入文件名，不要輸入後綴";
 "DeleteMessage"="刪除後不可恢復，確定要刪除嗎？";
 "DuplicateError"="出錯了，請確保文件名不重復";
@@ -63,11 +63,7 @@
 "InvalidName"="無效的文件名，請不要輸入特殊字符";
 "CanNotEdit"="這不是壹個markdown文件，無法進行編輯,妳可以點擊預覽來查看該文件";
 
-"InsertImage"="插入圖片";
 "InsertHref"="添加鏈接";
-"PickImageAndUpload"="從相冊選取並上傳";
-"InputImageSrc"="手動輸入圖片鏈接或路徑";
-"InputImageSrcTips"="請輸入圖片鏈接或路徑";
 "InputHrefTips"="請輸入要添加的鏈接URL";
 "Uploading"="正在上傳...";
 
@@ -101,3 +97,4 @@
 "Low"="低";
 
 "Recieved"="收到的文件";
+"GuidesName"="使用說明";

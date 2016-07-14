@@ -39,6 +39,7 @@
     if (kDevicePad) {
         [fm addObserver:self forKeyPath:@"currentItem" options:NSKeyValueObservingOptionNew context:NULL];
     }
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"export"] style:UIBarButtonItemStylePlain target:self action:@selector(export)];
 
     _webView.delegate = self;
 }
@@ -65,64 +66,58 @@
     
     NSString *path = item.fullPath;
     
-    if (item.type == FileTypeImage) {
-        _webView.hidden = YES;
-        _imageView.hidden = NO;
-        self.navigationItem.rightBarButtonItem = nil;
-        UIImage *image = [[UIImage imageWithContentsOfFile:path] scaleWithMaxSize:self.view.bounds.size];
-        NSLog(@"%@",NSStringFromCGSize(self.view.bounds.size));
-        _imageView.image = image;
-        _width.constant = image.size.width;
-        _height.constant = image.size.height;
-        [self.view updateConstraintsIfNeeded];
-    }else{
-        _webView.hidden = NO;
-        _imageView.hidden = YES;
+    _webView.hidden = NO;
+    _imageView.hidden = YES;
+    
+    beginLoadingAnimationOnParent(ZHLS(@"Loading"), self.webView);
+    
+    dispatch_async(dispatch_queue_create("preview_queue", DISPATCH_QUEUE_CONCURRENT), ^{
+        hoedown_renderer *render = CreateHTMLRenderer();
+        NSString *markdown = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        NSString *html = HTMLFromMarkdown(markdown, HOEDOWN_EXT_BLOCK|HOEDOWN_EXT_SPAN|HOEDOWN_EXT_FLAGS, YES, @"", render, CreateHTMLTOCRenderer());
+        NSString *formatHtmlFile = [[NSBundle mainBundle] pathForResource:@"format" ofType:@"html"];
+        NSString *format = [NSString stringWithContentsOfFile:formatHtmlFile encoding:NSUTF8StringEncoding error:nil];
         
-        beginLoadingAnimationOnParent(ZHLS(@"Loading"), self.webView);
-
-        dispatch_async(dispatch_queue_create("preview_queue", DISPATCH_QUEUE_CONCURRENT), ^{
-            hoedown_renderer *render = CreateHTMLRenderer();
-            NSString *markdown = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-            NSString *html = HTMLFromMarkdown(markdown, HOEDOWN_EXT_BLOCK|HOEDOWN_EXT_SPAN|HOEDOWN_EXT_FLAGS, YES, @"", render, CreateHTMLTOCRenderer());
-            NSString *formatHtmlFile = [[NSBundle mainBundle] pathForResource:@"format" ofType:@"html"];
-            NSString *format = [NSString stringWithContentsOfFile:formatHtmlFile encoding:NSUTF8StringEncoding error:nil];
-            
-            
-            NSString *styleFile = [[NSBundle mainBundle] pathForResource:[Configure sharedConfigure].style ofType:@"css"];
-            NSString *style = [NSString stringWithContentsOfFile:styleFile encoding:NSUTF8StringEncoding error:nil];
-            htmlString = [[format stringByReplacingOccurrencesOfString:@"#_html_place_holder_#" withString:html] stringByReplacingOccurrencesOfString:@"#_style_place_holder_#" withString:style];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                _webView.scalesPageToFit = NO;
-                [_webView loadHTMLString:htmlString baseURL:[NSURL fileURLWithPath:path]];
-                self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"export"] style:UIBarButtonItemStylePlain target:self action:@selector(export)];
-            });
+        
+        NSString *styleFile = [[NSBundle mainBundle] pathForResource:[Configure sharedConfigure].style ofType:@"css"];
+        NSString *style = [NSString stringWithContentsOfFile:styleFile encoding:NSUTF8StringEncoding error:nil];
+        htmlString = [[format stringByReplacingOccurrencesOfString:@"#_html_place_holder_#" withString:html] stringByReplacingOccurrencesOfString:@"#_style_place_holder_#" withString:style];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            _webView.scalesPageToFit = NO;
+            NSLog(@"%@",htmlString);
+            [_webView loadHTMLString:htmlString baseURL:[NSURL fileURLWithPath:path]];
         });
-    }
+    });
 }
 
 - (void)export
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:ZHLS(@"ExportAs") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:ZHLS(@"WebPage"),ZHLS(@"PDF"), nil];
-    sheet.clickedButton = ^(NSInteger index){
+    void(^clickedBlock)(NSInteger) = ^(NSInteger index) {
         NSURL *url = nil;
-        if (index == 0){
+        if (index == (kDevicePad ? 1 : 0)){
             url = [NSURL fileURLWithPath:[documentPath() stringByAppendingPathComponent:[NSString stringWithFormat:@"/temp/%@.html",[fm currentItem].name]]];
             if (htmlString) {
                 [htmlString writeToURL:url atomically:YES encoding:NSUTF8StringEncoding error:nil];
             }
-        }else if(index == 1){
+        }else if(index == (kDevicePad ? 2 : 1)){
             url = [NSURL fileURLWithPath:[documentPath() stringByAppendingPathComponent:[NSString stringWithFormat:@"/temp/%@.pdf",[fm currentItem].name]]];
             
             NSData *data = [self createPDF];
             [data writeToURL:url atomically:YES];
         }
         if (url) {
-            
             [self exportFile:url];
         }
     };
-    [sheet showInView:self.view];
+    if (kDevicePad) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"ExportAs") message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"WebPage"),ZHLS(@"PDF"), nil];
+        alert.clickedButton = clickedBlock;
+        [alert show];
+    }else{
+        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:ZHLS(@"ExportAs") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:ZHLS(@"WebPage"),ZHLS(@"PDF"), nil];
+        sheet.clickedButton = clickedBlock;
+        [sheet showInView:self.view];
+    }
 }
 
 - (void)exportFile:(NSURL*)url

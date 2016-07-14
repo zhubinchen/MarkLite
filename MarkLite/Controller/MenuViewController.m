@@ -87,8 +87,8 @@
         if ([Configure sharedConfigure].iCloudState < 3) {
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
             btn.frame = CGRectMake(self.view.bounds.size.width - 100, 7, 90, 30);
-            [btn showBorderWithColor:kNavBarColor radius:3 width:1];
-            btn.tintColor = kNavBarColor;
+            [btn showBorderWithColor:[UIColor colorWithRGBString:@"15A6F4"] radius:3 width:1];
+            btn.tintColor = [UIColor colorWithRGBString:@"15A6F4"];
             [btn setTitle:ZHLS(@"UnlockOption") forState:UIControlStateNormal];
             [btn addTarget:self action:@selector(unlockCloud:) forControlEvents:UIControlEventTouchUpInside];
             btn.tag = 4654;
@@ -103,8 +103,6 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@""];
         UISwitch *s = [[UISwitch alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 60, 7, 0, 0)];
         s.on = [Configure sharedConfigure].keyboardAssist;
-        s.tintColor = kNavBarColor;
-        s.onTintColor = kNavBarColor;
         [s addTarget:self action:@selector(switchKeyboard:) forControlEvents:UIControlEventValueChanged];
         [cell addSubview:s];
     }else{
@@ -300,7 +298,6 @@
                 break;
         }
     }
-    stopLoadingAnimation();
 }
 /*
 
@@ -308,6 +305,7 @@
 //交易结束
 - (void)completeTransaction:(SKPaymentTransaction *)transaction{
     NSLog(@"交易结束");
+    stopLoadingAnimation();
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
 

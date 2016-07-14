@@ -11,10 +11,10 @@
             <objects>
                 <navigationController title="入口" id="xIz-R9-HHY" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ex1-Yc-MUf">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ex1-Yc-MUf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.11764705882352941" green="0.66666666666666663" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.27843137254901962" green="0.27843137254901962" blue="0.27843137254901962" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -61,11 +61,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Znb-cf-QhM"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="M8I-d8-NKG">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zKb-UG-wmP" customClass="EditView">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no"/>
                                 <connections>
@@ -119,15 +119,15 @@
                         <viewControllerLayoutGuide type="bottom" id="GsE-QU-kvE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="S83-Hl-wAf">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d4j-sb-Kdj">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kM5-ff-6fY">
-                                <rect key="frame" x="137" y="251.5" width="100" height="100"/>
+                                <rect key="frame" x="137" y="283" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="cHE-CQ-Txx"/>
                                     <constraint firstAttribute="height" constant="100" id="woP-ti-Lkv"/>
@@ -159,10 +159,10 @@
             </objects>
             <point key="canvasLocation" x="-3187.5" y="-1712.5"/>
         </scene>
-        <!--Font View Controller-->
+        <!--字体-->
         <scene sceneID="qVJ-Ml-5zu">
             <objects>
-                <tableViewController id="FWg-09-DxF" customClass="FontViewController" sceneMemberID="viewController">
+                <tableViewController title="字体" id="FWg-09-DxF" customClass="FontViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="Yzv-Fu-SSf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -209,6 +209,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="d3h-Ab-CXM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.2784313725" green="0.2784313725" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="FWg-09-DxF" kind="relationship" relationship="rootViewController" id="CgJ-lF-rRZ"/>
@@ -227,11 +228,11 @@
                         <viewControllerLayoutGuide type="bottom" id="w7a-86-iLT"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="VhX-Sx-GJe">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" placeholder="查找文件" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dfg-aj-tmF">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="g0F-Lb-yEF"/>
                                 </constraints>
@@ -242,7 +243,7 @@
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="86" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="4Di-yM-3uD">
-                                <rect key="frame" x="0.0" y="44" width="375" height="510"/>
+                                <rect key="frame" x="0.0" y="108" width="375" height="510"/>
                                 <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -274,7 +275,7 @@
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CF0-oL-yKY">
                                                     <rect key="frame" x="16" y="10" width="6" height="16"/>
-                                                    <color key="backgroundColor" red="0.08235294118" green="0.65098039220000004" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" red="0.2784313725" green="0.2784313725" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="Feh-gG-rTb"/>
                                                         <constraint firstAttribute="width" constant="6" id="t5h-vQ-mWE"/>
@@ -286,7 +287,7 @@
                                                         <constraint firstAttribute="height" constant="21" id="kaS-TM-Lo8"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" red="0.08235294118" green="0.65098039220000004" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="0.2784313725" green="0.2784313725" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上次修改:2015-11-11" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2At-Pn-k9U">
@@ -364,13 +365,13 @@
             <objects>
                 <tableViewController title="选项" id="gGG-Bk-wVW" customClass="MenuViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ZAb-xY-e7J">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="sectionIndexBackgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="menuItem" id="NyE-CM-JcJ">
-                                <rect key="frame" x="0.0" y="49.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="113.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NyE-CM-JcJ" id="bLK-B3-hKv">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
@@ -402,11 +403,11 @@
                         <viewControllerLayoutGuide type="bottom" id="xz7-c3-tds"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="CRl-Tv-lJK">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" placeholder="查找文件" translatesAutoresizingMaskIntoConstraints="NO" id="hgt-J9-INt">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="RR9-Qm-nwI"/>
                                 </constraints>
@@ -417,7 +418,7 @@
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="CTd-xk-UGY">
-                                <rect key="frame" x="0.0" y="44" width="375" height="510"/>
+                                <rect key="frame" x="0.0" y="108" width="375" height="510"/>
                                 <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -427,7 +428,7 @@
                                 </connections>
                             </tableView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="k0H-ao-FQB">
-                                <rect key="frame" x="0.0" y="44" width="375" height="510"/>
+                                <rect key="frame" x="0.0" y="108" width="375" height="510"/>
                                 <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -476,7 +477,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="L8C-BN-JY1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.11764705882352941" green="0.66666666666666663" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.2784313725" green="0.2784313725" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="6Wg-nY-ofa" kind="relationship" relationship="rootViewController" id="6bi-2w-sVK"/>
@@ -486,10 +487,10 @@
             </objects>
             <point key="canvasLocation" x="-4675.5" y="-1731.5"/>
         </scene>
-        <!--Choose Folder View Controller-->
+        <!--选择目录-->
         <scene sceneID="1n0-63-uTd">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="6Wg-nY-ofa" customClass="ChooseFolderViewController" sceneMemberID="viewController">
+                <viewController title="选择目录" automaticallyAdjustsScrollViewInsets="NO" id="6Wg-nY-ofa" customClass="ChooseFolderViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cf6-Qa-X1G"/>
                         <viewControllerLayoutGuide type="bottom" id="cKv-Uj-amK"/>
@@ -558,8 +559,8 @@
         <image name="settings.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="j9U-2J-nGb"/>
         <segue reference="F5f-nG-XfB"/>
         <segue reference="736-9L-s2e"/>
-        <segue reference="jkb-0q-YIz"/>
     </inferredMetricsTieBreakers>
 </document>

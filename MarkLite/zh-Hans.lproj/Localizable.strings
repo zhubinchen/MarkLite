@@ -54,7 +54,6 @@
 "FolderNameAlertTitle"="为要创建的目录命名";
 "NewMarkdownFile"= "新建文本";
 "NewFolder"= "新建目录";
-"PickImage"="导入图片";
 "NameAlertMessage"="请输入文件名，不要输入后缀";
 "DeleteMessage"="删除后不可恢复，确定要删除吗？";
 "DuplicateError"="出错了，请确保文件名不重复";
@@ -64,11 +63,7 @@
 "InvalidName"="无效的文件名，请不要输入特殊字符";
 "CanNotEdit"="这不是一个markdown文件，无法进行编辑,你可以点击预览来查看该文件";
 
-"InsertImage"="插入图片";
 "InsertHref"="添加链接";
-"PickImageAndUpload"="从相册选取并上传";
-"InputImageSrc"="手动输入图片链接或路径";
-"InputImageSrcTips"="请输入图片链接或路径";
 "InputHrefTips"="请输入要添加的链接URL";
 "Uploading"="正在上传...";
 
@@ -102,3 +97,4 @@
 "Low"="低";
 
 "Recieved"="收到的文件";
+"GuidesName"="使用指南";

@@ -76,32 +76,13 @@ static KeyboardBar *bar = nil;
         [_editView insertText:btn.currentTitle];
     }else if (btn.tag == 6){
         [self.editView resignFirstResponder];
-        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:ZHLS(@"InsertImage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:ZHLS(@"PickImageAndUpload"),ZHLS(@"InputImageSrc"), nil];
-        sheet.clickedButton = ^(NSInteger buttonIndex){
-            if (buttonIndex == 0) {
-                bar = self;
-                UIImagePickerController *vc = [[UIImagePickerController alloc]init];
-                vc.delegate = self;
-                vc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                    [self.vc presentViewController:vc animated:YES completion:nil];
-                }];
-            }else if(buttonIndex == 1){
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"Insert Image") message:ZHLS(@"InputImageSrcTips") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
-                alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-                __weak UIAlertView * __alert = alert;
-                alert.clickedButton = ^(NSInteger buttonIndex){
-                    if (buttonIndex == 1) {
-                        NSString *name = [__alert textFieldAtIndex:0].text;
-                        NSString *text = [NSString stringWithFormat:@"![MarkLite](%@)",name];
-                        [_editView insertText:text];
-                        [_editView becomeFirstResponder];
-                    }
-                };
-                [alert show];
-            }
-        };
-        [sheet showInView:self.vc.view];
+        bar = self;
+        UIImagePickerController *vc = [[UIImagePickerController alloc]init];
+        vc.delegate = self;
+        vc.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self.vc presentViewController:vc animated:YES completion:nil];
+        }];
     }else if (btn.tag == 7){
 
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"InsertHref") message:ZHLS(@"InputHrefTips") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
@@ -133,11 +114,8 @@ static KeyboardBar *bar = nil;
 
 - (void)upload:(NSData*)data
 {
-
-    // 1. Create `AFHTTPRequestSerializer` which will create your request.
     AFHTTPRequestSerializer *serializer = [AFHTTPRequestSerializer serializer];
     
-    // 2. Create an `NSMutableURLRequest`.
     NSMutableURLRequest *request =
     [serializer multipartFormRequestWithMethod:@"POST" URLString:kImageUploadUrl parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFormData:[kToken dataUsingEncoding:NSUTF8StringEncoding] name:@"Token"];
@@ -148,7 +126,6 @@ static KeyboardBar *bar = nil;
         
     } error:nil];
     
-    // 3. Create and use `AFHTTPRequestOperationManager` to create an `AFHTTPRequestOperation` from the `NSMutableURLRequest` that we just created.
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     AFHTTPRequestOperation *operation =
@@ -169,14 +146,12 @@ static KeyboardBar *bar = nil;
     }];
     [uploadView show];
     
-    // 4. Set the progress block of the operation.
     [operation setUploadProgressBlock:^(NSUInteger __unused bytesWritten,
                                         long long totalBytesWritten,
                                         long long totalBytesExpectedToWrite) {
         uploadView.percent = totalBytesWritten/(double)totalBytesExpectedToWrite;
     }];
     
-    // 5. Begin!
     [operation start];
 }
 

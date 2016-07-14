@@ -117,14 +117,6 @@
         return;
     }
     item = fm.currentItem;
-
-    if (item.type != FileTypeText) {
-        self.editView.text = ZHLS(@"CanNotEdit");
-        self.editView.editable = NO;
-        return;
-    }else{
-        self.editView.editable = YES;
-    }
     
     NSString *path = item.fullPath;
     beginLoadingAnimationOnParent(ZHLS(@"Loading"), self.view);
@@ -154,10 +146,6 @@
 
 - (void)saveFile
 {
-    if (self.editView.editable == NO) {
-        return;
-    }
-    
     NSData *content = [self.editView.text dataUsingEncoding:NSUTF8StringEncoding];
     [fm saveFile:item.fullPath Content:content];
 }

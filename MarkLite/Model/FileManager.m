@@ -69,13 +69,9 @@
     _cloud.open = YES;
     _cloud.root = YES;
     while ((fileName = [childFilesEnumerator nextObject]) != nil){
-        
-        if ([fileName hasSuffix:@".DS_Store"] || [fileName hasPrefix:@"__MACOSX"]) {
-            continue;
-        }
 
         Item *temp = [[Item alloc]init];
-        temp.open = YES;
+        temp.open = NO;
         temp.cloud = YES;
         temp.path = fileName;
         
@@ -84,17 +80,29 @@
         if (ret == NO) {
             NSLog(@"%@",err);
         }
-        if ([fileName hasSuffix:@".iCloud"]) {
+        
+        if ([fileName componentsSeparatedByString:@"."].count > 1 && ![fileName hasSuffix:@".md"]) {
             continue;
         }
-        [_cloud addChild:temp];
         
+        [_cloud addChild:temp];
 
         if (temp.type == FileTypeText) {
             NSMutableDictionary *attr = [fm attributesOfItemAtPath:temp.fullPath error:nil].mutableCopy;
             attr[NSFileCreationDate] = [NSDate date];
             attr[NSFileModificationDate] = [NSDate date];
             [fm setAttributes:attr ofItemAtPath:temp.fullPath error:nil];
+        }
+    }
+}
+
+- (void)deleteOtherLanguage
+{
+    NSArray *arr = @[@"Guides",@"使用指南",@"使用說明"];
+    
+    for (NSString *name in arr) {
+        if (![name isEqualToString:ZHLS(@"GuidesName")]) {
+            [self deleteFile:[localWorkspace() stringByAppendingPathComponent:name]];
         }
     }
 }
@@ -114,6 +122,7 @@
         [zipArchive UnzipOpenFile:path];
         
         [zipArchive UnzipFileTo:documentPath() overWrite:YES];
+        [self deleteOtherLanguage];
     }
     NSLog(@"localWorkSpace:%@",wokspace);
     
@@ -126,11 +135,11 @@
     _local.root = YES;
     while ((fileName = [childFilesEnumerator nextObject]) != nil){
         
-        if ([fileName hasSuffix:@".DS_Store"] || [fileName hasPrefix:@"__MACOSX"]) {
+        if ([fileName componentsSeparatedByString:@"."].count > 1 && ![fileName hasSuffix:@".md"]) {
             continue;
         }
         Item *temp = [[Item alloc]init];
-        temp.open = YES;
+        temp.open = NO;
         temp.cloud = NO;
         temp.path = fileName;
         [_local addChild:temp];
