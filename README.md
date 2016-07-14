@@ -8,10 +8,10 @@
 
 >iPad效果图:
 
-![iPad](http://i2.piimg.com/567954/c09dd1326b4930d3.png)
+![iPad](ScreenShot/iPad.png)
 >iPhone效果图:
 
-![iPhone](http://i2.piimg.com/567954/9147b4640f9c7bfb.png)
+![iPhone](ScreenShot/iPhone.png)
 
 ### 功能
 
