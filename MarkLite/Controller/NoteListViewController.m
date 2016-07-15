@@ -41,7 +41,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [_fm createCloudWorkspace];
     [_fm createLocalWorkspace];
     self.tabBarController.title = ZHLS(@"NavTitleMarkLite");
     [self reload];
@@ -158,20 +157,15 @@
     }];
     
     Item *local = _fm.local;
-    Item *cloud = [Configure sharedConfigure].iCloudState > 1 ? _fm.cloud : nil;
 
     NSArray *localArray = nil;
-    NSArray *cloudArray = nil;
     NSMutableArray *arr = [NSMutableArray array];
     if (searchWord.length == 0) {
         localArray = [local.items filteredArrayUsingPredicate:pre];
-        cloudArray = [cloud.items filteredArrayUsingPredicate:pre];
     }else {
         localArray = [[local searchResult:searchWord] filteredArrayUsingPredicate:pre];
-        cloudArray = [[cloud searchResult:searchWord] filteredArrayUsingPredicate:pre];
     }
     [arr addObjectsFromArray:localArray];
-    [arr addObjectsFromArray:cloudArray];
 
     dataArray = [arr sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Item *item1 = obj1;
@@ -320,7 +314,6 @@
             Item *i = [[Item alloc]init];
             i.path = path;
             i.open = YES;
-            i.cloud = parent.cloud;
             BOOL ret = [[FileManager sharedManager] createFile:i.fullPath Content:[NSData data]];
             
             if (ret == NO) {

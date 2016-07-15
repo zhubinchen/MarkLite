@@ -19,15 +19,11 @@
 
 #define kTitleColor [UIColor colorWithRGBString:@"ffffff"]
 
-#define kTintColor [UIColor colorWithRGBString:@"2c3e50"]
-
-#define  kProductDonate @"com.zhubch.MarkLite.Donate"
-
-#define  kProductCloud @"com.zhubch.MarkLite.Cloud"
+#define kTintColor [UIColor colorWithRGBString:@"2c2e30"]
 
 #define kImageUploadUrl @"http://up.imgapi.com/"
 
-#define kToken @"97ade20b4c5a86b625cf449f45f720d686a0154f:Mlg-545PK1Jp5vnxH0v1RP1_vc4=:eyJkZWFkbGluZSI6MTQ2NzEyODc0OCwiYWN0aW9uIjoiZ2V0IiwidWlkIjoiNTY3OTU0IiwiYWlkIjoiMTIyNjk3MSIsImZyb20iOiJmaWxlIn0="
+#define kToken @"36cc524d0933adb52e6ba01b6ff40df7dcf6a0f1:uowj8z-t0TNnkccOB-KcwUOq9_A=:eyJkZWFkbGluZSI6MTQ2ODU3NTc0MSwiYWN0aW9uIjoiZ2V0IiwidWlkIjoiNTY5MzE5IiwiYWlkIjoiMTIzMDA1MiIsImZyb20iOiJmaWxlIn0="
 
 #endif
 

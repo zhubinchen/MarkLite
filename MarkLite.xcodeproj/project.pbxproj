@@ -97,7 +97,6 @@
 		07EC143F1D1ED3DF00AA3EEE /* ZHRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 07EC143E1D1ED3DF00AA3EEE /* ZHRequest.m */; };
 		07F90CEC1D20F67900DF5194 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F90CEA1D20F67900DF5194 /* ImageViewController.m */; };
 		07F90CED1D20F67900DF5194 /* ImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07F90CEB1D20F67900DF5194 /* ImageViewController.xib */; };
-		07F90CEF1D20F89900DF5194 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07F90CEE1D20F89900DF5194 /* StoreKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -217,7 +216,6 @@
 		07B92EEE1D1D986E00A4127E /* version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = version.c; sourceTree = "<group>"; };
 		07B92EEF1D1D986E00A4127E /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		07B92EFA1D1D98D500A4127E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		07B92EFC1D1D9A1200A4127E /* MarkLite.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = MarkLite.entitlements; sourceTree = "<group>"; };
 		07BB7AB21D37F39C0034BDDC /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		07BB7AB31D37F39C0034BDDC /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		07BB7AB41D37F39C0034BDDC /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -251,7 +249,6 @@
 		07F90CE91D20F67900DF5194 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
 		07F90CEA1D20F67900DF5194 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
 		07F90CEB1D20F67900DF5194 /* ImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageViewController.xib; sourceTree = "<group>"; };
-		07F90CEE1D20F89900DF5194 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -262,7 +259,6 @@
 				07B92EFB1D1D98D500A4127E /* libz.tbd in Frameworks */,
 				07B92EC31D1D966B00A4127E /* libGHMarkdownParser_i386.a in Frameworks */,
 				07B92EC21D1D966B00A4127E /* libGHMarkdownParser.a in Frameworks */,
-				07F90CEF1D20F89900DF5194 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,7 +349,6 @@
 		07B92DC11D1D960F00A4127E = {
 			isa = PBXGroup;
 			children = (
-				07F90CEE1D20F89900DF5194 /* StoreKit.framework */,
 				07B92EFA1D1D98D500A4127E /* libz.tbd */,
 				07B92DCC1D1D960F00A4127E /* MarkLite */,
 				07B92DCB1D1D960F00A4127E /* Products */,
@@ -371,7 +366,6 @@
 		07B92DCC1D1D960F00A4127E /* MarkLite */ = {
 			isa = PBXGroup;
 			children = (
-				07B92EFC1D1D9A1200A4127E /* MarkLite.entitlements */,
 				07B92DD01D1D960F00A4127E /* AppDelegate.h */,
 				07B92DD11D1D960F00A4127E /* AppDelegate.m */,
 				07B92E741D1D966B00A4127E /* Utilities */,
@@ -634,10 +628,10 @@
 						DevelopmentTeam = HX6HU45L64;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.iCloud = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -896,7 +890,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = MarkLite/MarkLite.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -921,7 +914,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = MarkLite/MarkLite.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

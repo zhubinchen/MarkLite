@@ -28,8 +28,6 @@ typedef NS_ENUM(NSUInteger, FileType) {
 
 @property (nonatomic,weak)              Item       *parent;    //父目录
 
-@property (nonatomic,assign)            BOOL       cloud;       //云端？
-
 #pragma 只读属性
 @property (nonatomic,assign,readonly)   NSInteger  deep;          //目录深度
 

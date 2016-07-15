@@ -13,7 +13,7 @@
 
 - (void)setItem:(Item *)item
 {
-    NSString *path = [item.cloud ? ZHLS(@"NavTitleCloudFile") : ZHLS(@"NavTitleLocalFile") stringByAppendingPathComponent:item.path];
+    NSString *path = [ZHLS(@"NavTitleLocalFile")  stringByAppendingPathComponent:item.path];
     _item = item;
     _nameLabel.text = item.name;
     _pathLabel.text = [NSString stringWithFormat:ZHLS(@"Path"),path];

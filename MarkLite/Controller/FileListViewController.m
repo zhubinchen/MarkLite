@@ -58,40 +58,19 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.tabBarController.title = ZHLS(self.cloud?@"NavTitleCloudFile":@"NavTitleLocalFile");
+    self.tabBarController.title = ZHLS(@"NavTitleLocalFile");
     [self reload];
 }
 
 - (void)toggleCloud
 {
-    NSString *tryTitle = ZHLS(@"Try");
-    if ([tryTitle isEqualToString:@"试用1天"] && [[NSDate date] compare:[NSDate dateWithString:@"2016-07-8 12:00:00"]] == NSOrderedDescending) {
-        tryTitle = @"好评后免费试用一天";
-    }
-    if ([Configure sharedConfigure].iCloudState == 1) {
-        tryTitle = nil;
-    }
-    if (self.cloud == NO && [Configure sharedConfigure].iCloudState < 2) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"UnlockTitle") message:@"" delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"Unlock"), tryTitle,nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"请前往appstore下载MarkLite的正式版" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+    if (!kDeviceSimulator) {
         alert.clickedButton = ^(NSInteger index){
-            if (index == 1) {
-                [self requestProductData:kProductCloud];
-            }else if (index == 2){
-                [Configure sharedConfigure].iCloudState = 2;
-                if ([tryTitle isEqualToString:@"好评后免费试用一天"]) {
-                    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1098107145&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
-                }else{
-                    showToast(ZHLS(@"TriedTips"));
-                }
-            }
+            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"https://appsto.re/cn/jK8Cbb.i](https://appsto.re/cn/jK8Cbb.i"]];
         };
-        [alert show];
-        return;
     }
-
-    self.cloud = !self.cloud;
-    self.tabBarController.title = ZHLS(self.cloud?@"NavTitleCloudFile":@"NavTitleLocalFile");
-    leftItem.title = ZHLS(self.cloud?@"NavTitleLocalFile":@"NavTitleCloudFile");
+    [alert show];
 }
 
 - (void)setCloud:(BOOL)cloud
@@ -109,9 +88,10 @@
 
 - (void)reload
 {
-    _cloud ? [fm createCloudWorkspace] : [fm createLocalWorkspace];
 
-    root = _cloud ? fm.cloud : fm.local;
+    [fm createLocalWorkspace];
+
+    root =  fm.local;
     dataArray = root.itemsCanReach.mutableCopy;
     if (edit) {
         [dataArray insertObject:root atIndex:0];
@@ -274,7 +254,6 @@
             Item *i = [[Item alloc]init];
             i.path = path;
             i.open = YES;
-            i.cloud = selectParent.cloud;
             
             BOOL ret = NO;
             if (i.type == FileTypeFolder) {
@@ -540,124 +519,7 @@
     }
 
     [fm createLocalWorkspace];
-    [fm createCloudWorkspace];
     [self reload];
-}
-
-#pragma mark purchase
-//请求商品
-- (void)requestProductData:(NSString *)type{
-    if (![SKPaymentQueue canMakePayments]){
-        UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:ZHLS(@"Alert")
-                                                            message:ZHLS(@"DoesNotSupportPurchase")
-                                                           delegate:nil
-                                                  cancelButtonTitle:ZHLS(@"Close")
-                                                  otherButtonTitles:nil];
-        
-        [alerView show];
-        return;
-    }
-    
-    NSLog(@"-------------请求对应的产品信息----------------");
-    beginLoadingAnimationOnParent(ZHLS(@"Loading"), self.view);
-    NSArray *product = [[NSArray alloc] initWithObjects:type, nil];
-    
-    NSSet *nsset = [NSSet setWithArray:product];
-    SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:nsset];
-    request.delegate = self;
-    [request start];
-}
-
-//收到产品返回信息
-- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
-    
-    NSLog(@"--------------收到产品反馈消息---------------------");
-    NSArray *product = response.products;
-    if([product count] == 0){
-        NSLog(@"--------------没有商品------------------");
-        stopLoadingAnimation();
-        return;
-    }
-    
-    NSLog(@"productID:%@", response.invalidProductIdentifiers);
-    NSLog(@"产品付费数量:%ld",(unsigned long)[product count]);
-    
-    SKProduct *p = product.firstObject;
-    NSLog(@"%@", [p description]);
-    NSLog(@"%@", [p localizedTitle]);
-    NSLog(@"%@", [p localizedDescription]);
-    NSLog(@"%@", [p price]);
-    NSLog(@"%@", [p productIdentifier]);
-    
-    SKPayment *payment = [SKPayment paymentWithProduct:p];
-    
-    NSLog(@"发送购买请求");
-    [[SKPaymentQueue defaultQueue] addPayment:payment];
-}
-
-//请求失败
-- (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
-    stopLoadingAnimation();
-    
-    UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:ZHLS(@"Alert")
-                                                        message:[error localizedDescription]
-                                                       delegate:nil
-                                              cancelButtonTitle:ZHLS(@"Close")
-                                              otherButtonTitles:nil];
-    [alerView show];
-}
-
-- (void)requestDidFinish:(SKRequest *)request{
-    
-    NSLog(@"------------反馈信息结束-----------------");
-}
-
-
-//监听购买结果
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transaction{
-    for(SKPaymentTransaction *tran in transaction){
-        NSLog(@"%@",tran.payment.productIdentifier);
-        switch (tran.transactionState) {
-            case SKPaymentTransactionStatePurchased:
-                NSLog(@"交易完成");
-                if ([tran.payment.productIdentifier isEqualToString:kProductCloud]) {
-                    [Configure sharedConfigure].iCloudState = 3;
-                    showToast(ZHLS(@"UnlockedTips"));
-                }
-                [self completeTransaction:tran];
-                break;
-            case SKPaymentTransactionStatePurchasing:
-                NSLog(@"商品添加进列表");
-                break;
-            case SKPaymentTransactionStateRestored:
-                NSLog(@"已经购买过商品");
-                if ([tran.payment.productIdentifier isEqualToString:kProductCloud]) {
-                    [Configure sharedConfigure].iCloudState = 3;
-                    showToast(ZHLS(@"UnlockedTips"));
-                }
-                [self completeTransaction:tran];
-                break;
-            case SKPaymentTransactionStateFailed:
-                NSLog(@"交易失败");
-                [self completeTransaction:tran];
-                break;
-            default:
-                break;
-        }
-    }
-    stopLoadingAnimation();
-}
-/*
- 
- */
-//交易结束
-- (void)completeTransaction:(SKPaymentTransaction *)transaction{
-    NSLog(@"交易结束");
-    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
-}
-
-- (void)dealloc{
-    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
 @end

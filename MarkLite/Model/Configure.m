@@ -45,7 +45,6 @@
     [aCoder encodeObject:self.triedTime forKey:@"triedTime"];
     [aCoder encodeObject:self.fontName forKey:@"fontName"];
     [aCoder encodeBool:self.keyboardAssist forKey:@"keyboardAssist"];
-    [aCoder encodeInteger:self.iCloudState forKey:@"iCloudState"];
     [aCoder encodeFloat:self.imageResolution forKey:@"imageResolution"];
 }
 
@@ -58,7 +57,6 @@
         _triedTime = [aDecoder decodeObjectForKey:@"triedTime"];
         _fontName = [aDecoder decodeObjectForKey:@"fontName"];
         _keyboardAssist = [aDecoder decodeBoolForKey:@"keyboardAssist"];
-        _iCloudState = [aDecoder decodeIntegerForKey:@"iCloudState"];
         _imageResolution = [aDecoder decodeFloatForKey:@"imageResolution"];
     }
     return self;
@@ -88,27 +86,7 @@
     _fontName = @"Hiragino Sans";
     _keyboardAssist = YES;
     _imageResolution = 0.5;
-    _iCloudState = 0;
 }
 
-- (void)setICloudState:(NSInteger)iCloudState
-{
-    _iCloudState = iCloudState;
-    if (iCloudState == 2) {
-        _triedTime = [NSDate date];
-    }
-    [self saveToFile];
-}
-
-- (NSInteger)iCloudState
-{
-    if (_iCloudState != 2) {
-        return _iCloudState;
-    }
-    if ([[NSDate date] timeIntervalSinceDate:_triedTime] > 24 * 60 * 60) {
-        _iCloudState = 1;
-    }
-    return _iCloudState;
-}
 
 @end

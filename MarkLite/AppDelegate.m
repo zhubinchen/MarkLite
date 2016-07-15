@@ -28,7 +28,8 @@
     // Override point for customization after application launch.
     
     [[UITabBar appearance] setTintColor:kTintColor];
-    [[UITabBar appearance] setBarTintColor:[UIColor colorWithWhite:0.95 alpha:1]];
+    [[UITabBar appearance] setBarStyle:UIBarStyleBlack];
+    [[UITabBar appearance] setBarTintColor:[UIColor colorWithWhite:0.9 alpha:1]];
     [[UINavigationBar appearance] setTintColor:kTitleColor];
     [[UINavigationBar appearance] setBarTintColor:kNavBarColor];
     [[UINavigationBar appearance] setTitleTextAttributes:@{
@@ -65,7 +66,6 @@
     
     Item *i = [[Item alloc]init];
     i.path = [ZHLS(@"Recieved") stringByAppendingPathComponent:name];
-    i.cloud = NO;
     
     BOOL ret = [fm createFile:i.fullPath Content:content];
     if (!ret) {

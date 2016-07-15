@@ -11,12 +11,9 @@
 #import "Configure.h"
 #import "PathUtils.h"
 
-//#define UBIQUITY_CONTAINER_URL @"iCloud.com.zhubch.MarkLite"
-
 @implementation FileManager
 {
     NSFileManager *fm;
-    NSURL *ubiquityURL;
 }
 
 + (void)initialize
@@ -41,59 +38,10 @@
     if (self = [super init]) {
         fm = [NSFileManager defaultManager];
         
-        [self createCloudWorkspace];
         [self createLocalWorkspace];
         _local.open = YES;
-        _cloud.open = YES;
     }
     return self;
-}
-
-- (void)createCloudWorkspace
-{
-    NSString *workspace = cloudWorkspace();
-    if (![fm fileExistsAtPath:workspace]){
-        NSLog(@"creating CloudWorkspace: %@",workspace);
-        [fm createDirectoryAtPath:workspace withIntermediateDirectories:YES attributes:nil error:nil];
-    } else {
-        NSLog(@"iCloudPath exist");
-    }
-    NSLog(@"cloud: %@", workspace);
-    
-    NSEnumerator *childFilesEnumerator = [[fm subpathsAtPath:workspace] objectEnumerator];
-    
-    NSString *fileName;
-    _cloud = [[Item alloc]init];
-    _cloud.cloud = YES;
-    _cloud.path = ZHLS(@"NavTitleCloudFile");
-    _cloud.open = YES;
-    _cloud.root = YES;
-    while ((fileName = [childFilesEnumerator nextObject]) != nil){
-
-        Item *temp = [[Item alloc]init];
-        temp.open = NO;
-        temp.cloud = YES;
-        temp.path = fileName;
-        
-        NSError *err = nil;
-        BOOL ret = [fm startDownloadingUbiquitousItemAtURL:[NSURL fileURLWithPath:temp.fullPath] error:&err];
-        if (ret == NO) {
-            NSLog(@"%@",err);
-        }
-        
-        if ([fileName componentsSeparatedByString:@"."].count > 1 && ![fileName hasSuffix:@".md"]) {
-            continue;
-        }
-        
-        [_cloud addChild:temp];
-
-        if (temp.type == FileTypeText) {
-            NSMutableDictionary *attr = [fm attributesOfItemAtPath:temp.fullPath error:nil].mutableCopy;
-            attr[NSFileCreationDate] = [NSDate date];
-            attr[NSFileModificationDate] = [NSDate date];
-            [fm setAttributes:attr ofItemAtPath:temp.fullPath error:nil];
-        }
-    }
 }
 
 - (void)deleteOtherLanguage
@@ -140,7 +88,6 @@
         }
         Item *temp = [[Item alloc]init];
         temp.open = NO;
-        temp.cloud = NO;
         temp.path = fileName;
         [_local addChild:temp];
         
