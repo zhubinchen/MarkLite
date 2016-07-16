@@ -31,7 +31,7 @@
 #import <Security/Security.h>
 
 #ifdef _SYSTEMCONFIGURATION_H
-#import <netinet/in.h>
+//#import <netinet/in.h>
 #import <netinet6/in6.h>
 #import <arpa/inet.h> 
 #import <ifaddrs.h>

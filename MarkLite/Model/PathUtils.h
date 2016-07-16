@@ -13,4 +13,9 @@ static inline NSString *localWorkspace(){
     return [NSString pathWithComponents:@[documentPath(),@"MarkLite"]];
 }
 
+static inline NSString *cloudWorkspace(){
+    NSURL *ubiquityURL = [[[NSFileManager defaultManager] URLForUbiquityContainerIdentifier:nil]URLByAppendingPathComponent:@"Documents"];
+    return ubiquityURL.path;
+}
+
 #endif /* PathUtils_h */

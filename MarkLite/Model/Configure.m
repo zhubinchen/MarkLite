@@ -23,6 +23,9 @@
         NSString *path = [documentPath() stringByAppendingPathComponent:@"Configure.plist"];
         if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
             conf = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+            if (conf.currentVerion.length == 0 || ![conf.currentVerion isEqualToString:kAppVersionNo]) {
+                [conf reset];
+            }
         }else{
             conf = [[self alloc]init];
             [conf reset];
@@ -42,9 +45,11 @@
     [aCoder encodeObject:self.highlightColor forKey:@"highlightColor"];
     [aCoder encodeObject:self.style forKey:@"style"];
     [aCoder encodeObject:self.themeColor forKey:@"themeColor"];
-    [aCoder encodeObject:self.triedTime forKey:@"triedTime"];
+    [aCoder encodeObject:self.upgradeTime forKey:@"triedTime"];
+    [aCoder encodeObject:self.currentVerion forKey:@"currentVerion"];
     [aCoder encodeObject:self.fontName forKey:@"fontName"];
     [aCoder encodeBool:self.keyboardAssist forKey:@"keyboardAssist"];
+    [aCoder encodeBool:self.hasRated forKey:@"hasRated"];
     [aCoder encodeFloat:self.imageResolution forKey:@"imageResolution"];
 }
 
@@ -54,10 +59,12 @@
         _highlightColor = [aDecoder decodeObjectForKey:@"highlightColor"];
         _style = [aDecoder decodeObjectForKey:@"style"];
         _themeColor = [aDecoder decodeObjectForKey:@"themeColor"];
-        _triedTime = [aDecoder decodeObjectForKey:@"triedTime"];
+        _upgradeTime = [aDecoder decodeObjectForKey:@"upgradeTime"];
         _fontName = [aDecoder decodeObjectForKey:@"fontName"];
         _keyboardAssist = [aDecoder decodeBoolForKey:@"keyboardAssist"];
+        _hasRated = [aDecoder decodeBoolForKey:@"hasRated"];
         _imageResolution = [aDecoder decodeFloatForKey:@"imageResolution"];
+        _currentVerion = [aDecoder decodeObjectForKey:@"currentVerion"];
     }
     return self;
 }
@@ -86,6 +93,8 @@
     _fontName = @"Hiragino Sans";
     _keyboardAssist = YES;
     _imageResolution = 0.5;
+    _upgradeTime = [NSDate date];
+    _currentVerion = kAppVersionNo;
 }
 
 

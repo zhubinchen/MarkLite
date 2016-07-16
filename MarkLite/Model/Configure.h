@@ -20,11 +20,13 @@
 
 @property (nonatomic,assign) BOOL keyboardAssist;
 
-@property (nonatomic,strong) NSDate *triedTime;
+@property (nonatomic,strong) NSDate *upgradeTime;
 
-@property (nonatomic,assign) NSInteger leftImages;
+@property (nonatomic,assign) BOOL hasRated;
 
 @property (nonatomic,assign) CGFloat imageResolution;
+
+@property (nonatomic,strong) NSString *currentVerion;
 
 + (instancetype)sharedConfigure;
 

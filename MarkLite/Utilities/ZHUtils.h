@@ -307,7 +307,7 @@ static inline void showToast(NSString *message){
     } completion:^(BOOL finished) {
         if (finished) {
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [UIView animateWithDuration:0.5 animations:^{
+                [UIView animateWithDuration:0.75 animations:^{
                     l.alpha = 0.0;
                 } completion:^(BOOL finished) {
                     [l removeFromSuperview];
@@ -349,8 +349,7 @@ static inline void beginLoadingAnimationOnParent(NSString *message,UIView *paren
 }
 
 static inline void beginLoadingAnimation(NSString *message){
-    UIWindow *window=[UIApplication sharedApplication].keyWindow;
-    
+    UIWindow *window=[[[UIApplication sharedApplication] delegate] window];
     beginLoadingAnimationOnParent(message,window);
 }
 
@@ -360,7 +359,7 @@ static inline void stopLoadingAnimationOnParent(UIView *parent){
 }
 
 static inline void stopLoadingAnimation(){
-    UIWindow *window=[UIApplication sharedApplication].keyWindow;
+    UIWindow *window=[[[UIApplication sharedApplication] delegate] window];
     stopLoadingAnimationOnParent(window);
 }
 

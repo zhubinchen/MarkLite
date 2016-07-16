@@ -39,16 +39,7 @@
 
 - (void)loadFolder:(BOOL)icloud
 {
-    if (icloud) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"请前往appstore下载MarkLite的正式版" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
-        if (!kDeviceSimulator) {
-            alert.clickedButton = ^(NSInteger index){
-                [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"https://appsto.re/cn/jK8Cbb.i](https://appsto.re/cn/jK8Cbb.i"]];
-            };
-        }
-        [alert show];
-    }
-    Item *root = [FileManager sharedManager].local;
+    Item *root = icloud ? [FileManager sharedManager].cloud : [FileManager sharedManager].local;
     NSPredicate *pre = [NSPredicate predicateWithBlock:^BOOL(id  _Nonnull evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
         Item *i = evaluatedObject;
         if (i.type == FileTypeFolder) {

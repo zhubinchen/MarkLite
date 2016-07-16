@@ -34,7 +34,6 @@
 "Style"="渲染樣式";
 "ImageResolution"="圖片分辨率";
 "AssistKeyboard"="輔助鍵盤";
-"iCloud"="iCloud";
 "Donate"="捐贈";
 
 "OK"="確定";
@@ -61,7 +60,6 @@
 "CanNotDeleteRoot"="根目錄不可刪除";
 "EmptyNameTips"="文件名不能為空";
 "InvalidName"="無效的文件名，請不要輸入特殊字符";
-"CanNotEdit"="這不是壹個markdown文件，無法進行編輯,妳可以點擊預覽來查看該文件";
 
 "InsertHref"="添加鏈接";
 "InputHrefTips"="請輸入要添加的鏈接URL";
@@ -83,13 +81,6 @@
 "StartEdit"="現在開始編輯吧";
 "Search"="搜索";
 
-"Unlock"="立即開通(¥12)";
-"UnlockOption"="開通(¥12)";
-"Unlocked"="已開通";
-"UnlockedTips"="已成功開通！";
-"TriedTips"="現在妳可以免費試用壹天iCloud存儲";
-"UnlockTitle"="開通後可以使用iCloud在不同設備上共享文件";
-"Try"="試用1天";
 "Loading"="正在加載";
 
 "ImageResolutionTips"="圖片質量越低，上傳越快";
@@ -98,3 +89,10 @@
 
 "Recieved"="收到的文件";
 "GuidesName"="使用說明";
+
+"DonateTitle"="打賞我壹杯咖啡";
+"DonateTips"="MarkLite 是壹個完全免費的app，沒有煩人的廣告。如果妳喜歡，請把他推薦給妳的好友，妳也可以請我喝杯咖啡。我會努力做得更好的😊";
+"DonatePrice"="打賞 $0.99";
+
+"NotNow"="以後再說";
+"RateTips"="如果妳覺得MarkLite好用，妳可以給它壹個好評或者打賞開發者以示鼓勵";

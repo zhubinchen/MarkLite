@@ -28,7 +28,6 @@
 "Return"="Return";
 "Next"="Next";
 
-"iCloud"="iCloud";
 "Feedback"="Feedback";
 "RateIt"="Rate it";
 "About"="About";
@@ -61,7 +60,6 @@
 "CanNotDeleteRoot"="Can not delete root directory";
 "EmptyNameTips"="File name can not be empty";
 "InvalidName"="Invalid file name";
-"CanNotEdit"="This is not a markdown file,you can't edit it,but you can preview it";
 
 "InsertHref"="Insert a link";
 "InputHrefTips"="please input the href";
@@ -84,13 +82,6 @@
 
 "Search"="Search";
 
-"Unlock"="Unlock($1.99)";
-"UnlockOption"="Unlock";
-"Unlocked"="Unlocked";
-"UnlockedTips"="Unlock successed!";
-"TriedTips"="Now you can use cloud storage one day for free";
-"UnlockTitle"="You can use iCloud to share your files on different devices,would you like to unlock this feature?";
-"Try"="Try one day for free";
 "Loading"="Loading";
 
 "ImageResolutionTips"="The lower the resolution, the faster the upload";
@@ -99,3 +90,10 @@
 
 "Recieved"="Recieved files";
 "GuidesName"="Guides";
+
+"DonateTitle"="Donate me a coffee";
+"DonateTips"="MarkLite is a free app,has no ads,if you like it,just let your friends konw about it.You can also buy me a coffee to show support,I will make it better.";
+"DonatePrice"="Donate $0.99";
+
+"NotNow"="Not now";
+"RateTips"="If you think MarkLite useful,you can rate it in appstore,or donate the developer a coffee.";

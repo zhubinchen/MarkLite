@@ -23,7 +23,6 @@
     [[TabBarController currentViewContoller].navigationController popToRootViewControllerAnimated:YES];
 }
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
@@ -66,6 +65,7 @@
     
     Item *i = [[Item alloc]init];
     i.path = [ZHLS(@"Recieved") stringByAppendingPathComponent:name];
+    i.cloud = NO;
     
     BOOL ret = [fm createFile:i.fullPath Content:content];
     if (!ret) {

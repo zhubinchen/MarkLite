@@ -14,9 +14,8 @@
 #import "Item.h"
 #import "FileItemCell.h"
 #import "Configure.h"
-#import <StoreKit/StoreKit.h>
 
-@interface FileListViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIViewControllerPreviewingDelegate,UISearchBarDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,SKPaymentTransactionObserver,SKProductsRequestDelegate>
+@interface FileListViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIViewControllerPreviewingDelegate,UISearchBarDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *localListView;
 @property (weak, nonatomic) IBOutlet UITableView *cloudListView;
@@ -45,8 +44,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-
     fm = [FileManager sharedManager];
     
     self.cloud = NO;
@@ -58,19 +55,15 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.tabBarController.title = ZHLS(@"NavTitleLocalFile");
+    self.tabBarController.title = ZHLS(self.cloud?@"NavTitleCloudFile":@"NavTitleLocalFile");
     [self reload];
 }
 
 - (void)toggleCloud
 {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"请前往appstore下载MarkLite的正式版" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
-    if (!kDeviceSimulator) {
-        alert.clickedButton = ^(NSInteger index){
-            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"https://appsto.re/cn/jK8Cbb.i](https://appsto.re/cn/jK8Cbb.i"]];
-        };
-    }
-    [alert show];
+    self.cloud = !self.cloud;
+    self.tabBarController.title = ZHLS(self.cloud?@"NavTitleCloudFile":@"NavTitleLocalFile");
+    leftItem.title = ZHLS(self.cloud?@"NavTitleLocalFile":@"NavTitleCloudFile");
 }
 
 - (void)setCloud:(BOOL)cloud
@@ -88,10 +81,9 @@
 
 - (void)reload
 {
+    _cloud ? [fm createCloudWorkspace] : [fm createLocalWorkspace];
 
-    [fm createLocalWorkspace];
-
-    root =  fm.local;
+    root = _cloud ? fm.cloud : fm.local;
     dataArray = root.itemsCanReach.mutableCopy;
     if (edit) {
         [dataArray insertObject:root atIndex:0];
@@ -254,6 +246,7 @@
             Item *i = [[Item alloc]init];
             i.path = path;
             i.open = YES;
+            i.cloud = selectParent.cloud;
             
             BOOL ret = NO;
             if (i.type == FileTypeFolder) {
@@ -519,6 +512,7 @@
     }
 
     [fm createLocalWorkspace];
+    [fm createCloudWorkspace];
     [self reload];
 }
 

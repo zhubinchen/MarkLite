@@ -11,8 +11,9 @@
 #import "AboutViewController.h"
 #import "StyleViewController.h"
 #import "ImageViewController.h"
+#import <StoreKit/StoreKit.h>
 
-@interface MenuViewController ()
+@interface MenuViewController ()<SKPaymentTransactionObserver,SKProductsRequestDelegate>
 
 @end
 
@@ -24,6 +25,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:ZHLS(@"Back") style:UIBarButtonItemStylePlain target:self action:@selector(back)];
     
@@ -43,6 +46,24 @@
                   ];
     }
     
+    if ([Configure sharedConfigure].hasRated) {
+        return;
+    }
+    
+    if ([[NSDate date] compare:[NSDate dateWithString:@"2016-07-18 00:00:00"]] == NSOrderedAscending) {
+        return;
+    }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:ZHLS(@"RateTips") delegate:nil cancelButtonTitle:ZHLS(@"NotNow") otherButtonTitles:ZHLS(@"RateIt"),ZHLS(@"DonatePrice"), nil];
+        alert.clickedButton = ^(NSInteger index){
+            if (index == 1) {
+                [self rate];
+            }else if (index == 2) {
+                [self requestProductData:kProductDonate];
+            }
+        };
+        [alert show];
+    });
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -58,6 +79,7 @@
     [Configure sharedConfigure].keyboardAssist = s.on;
 }
 
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -72,6 +94,7 @@
     UITableViewCell *cell = nil;
     
     NSString *title = items[indexPath.section][indexPath.row];
+
 
     if ([title isEqualToString:@"AssistKeyboard"]) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@""];
@@ -128,7 +151,12 @@
 
 - (void)donate
 {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"谢谢，心领了。" message:@"这不是正式版，无法内购。" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"DonateTitle") message:ZHLS(@"DonateTips") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"DonatePrice"), nil];
+    alert.clickedButton = ^(NSInteger index){
+        if (index) {
+            [self requestProductData:kProductDonate];
+        }
+    };
     [alert show];
 }
 
@@ -153,6 +181,8 @@
 
 - (void)rate
 {
+    [Configure sharedConfigure].hasRated = YES;
+
     [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1098107145&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
 }
 
@@ -167,6 +197,113 @@
     UIViewController *vc = [[AboutViewController alloc]init];
     vc.title = ZHLS(@"About");
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+//请求商品
+- (void)requestProductData:(NSString *)type{
+    if (![SKPaymentQueue canMakePayments]){
+        UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:ZHLS(@"Alert")
+                                                            message:ZHLS(@"DoesNotSupportPurchase")
+                                                           delegate:nil
+                                                  cancelButtonTitle:ZHLS(@"Close")
+                                                  otherButtonTitles:nil];
+        
+        [alerView show];
+        return;
+    }
+    
+    NSLog(@"-------------请求对应的产品信息----------------");
+    beginLoadingAnimation(ZHLS(@"Loading"));
+    NSArray *product = [[NSArray alloc] initWithObjects:type, nil];
+    
+    NSSet *nsset = [NSSet setWithArray:product];
+    SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:nsset];
+    request.delegate = self;
+    [request start];
+}
+
+//收到产品返回信息
+- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
+    
+    NSLog(@"--------------收到产品反馈消息---------------------");
+    NSArray *product = response.products;
+    if([product count] == 0){
+        NSLog(@"--------------没有商品------------------");
+        stopLoadingAnimation();
+        return;
+    }
+    
+    NSLog(@"productID:%@", response.invalidProductIdentifiers);
+    NSLog(@"产品付费数量:%ld",(unsigned long)[product count]);
+    
+    SKProduct *p = product.firstObject;
+    NSLog(@"%@", [p description]);
+    NSLog(@"%@", [p localizedTitle]);
+    NSLog(@"%@", [p localizedDescription]);
+    NSLog(@"%@", [p price]);
+    NSLog(@"%@", [p productIdentifier]);
+    
+    SKPayment *payment = [SKPayment paymentWithProduct:p];
+    
+    NSLog(@"发送购买请求");
+    [[SKPaymentQueue defaultQueue] addPayment:payment];
+}
+
+//请求失败
+- (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
+    stopLoadingAnimation();
+    
+    UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:ZHLS(@"Alert")
+                                                        message:[error localizedDescription]
+                                                       delegate:nil
+                                              cancelButtonTitle:ZHLS(@"Close")
+                                              otherButtonTitles:nil];
+    [alerView show];
+}
+
+- (void)requestDidFinish:(SKRequest *)request{
+    
+    NSLog(@"------------反馈信息结束-----------------");
+}
+
+//监听购买结果
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transaction{
+    for(SKPaymentTransaction *tran in transaction){
+        NSLog(@"%@",tran.payment.productIdentifier);
+        switch (tran.transactionState) {
+            case SKPaymentTransactionStatePurchased:
+                NSLog(@"交易完成");
+                [self completeTransaction:tran];
+                [Configure sharedConfigure].hasRated = YES;
+                break;
+            case SKPaymentTransactionStatePurchasing:
+                NSLog(@"商品添加进列表");
+                break;
+            case SKPaymentTransactionStateRestored:
+                NSLog(@"已经购买过商品");
+                [self completeTransaction:tran];
+                [self.tableView reloadData];
+                break;
+            case SKPaymentTransactionStateFailed:
+                NSLog(@"交易失败");
+                showToast(ZHLS(@"Error"));
+                [self completeTransaction:tran];
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+//交易结束
+- (void)completeTransaction:(SKPaymentTransaction *)transaction{
+    NSLog(@"交易结束");
+    stopLoadingAnimation();
+    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+}
+
+- (void)dealloc{
+    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
 @end

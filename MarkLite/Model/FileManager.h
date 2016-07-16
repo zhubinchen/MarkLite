@@ -13,11 +13,15 @@
 
 @property (nonatomic,strong,readonly) Item *local;
 
+@property (nonatomic,strong,readonly) Item *cloud;
+
 @property (nonatomic,strong) Item *currentItem; //用来共享同一对象
 
 + (instancetype)sharedManager;
 
 - (void)createLocalWorkspace;
+
+- (void)createCloudWorkspace;
 
 #pragma 以下出现的所有path均为绝路径
 
