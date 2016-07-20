@@ -26,13 +26,13 @@
 "Edit"="編輯";
 "FullScreen"="全屏";
 "Return"="還原";
-"Next"="下壹步";
+"Next"="下一步";
 
 "Feedback"="問題反饋";
 "RateIt"="好評鼓勵";
 "About"="關於";
 "Style"="渲染樣式";
-"ImageResolution"="圖片分辨率";
+"ImageResolution"="圖片解析度";
 "AssistKeyboard"="輔助鍵盤";
 "Donate"="捐贈";
 
@@ -55,7 +55,7 @@
 "NewFolder"= "新建目錄";
 "NameAlertMessage"="請輸入文件名，不要輸入後綴";
 "DeleteMessage"="刪除後不可恢復，確定要刪除嗎？";
-"DuplicateError"="出錯了，請確保文件名不重復";
+"DuplicateError"="出錯了，請確保文件名不重複";
 
 "CanNotDeleteRoot"="根目錄不可刪除";
 "EmptyNameTips"="文件名不能為空";
@@ -63,14 +63,14 @@
 
 "InsertHref"="添加鏈接";
 "InputHrefTips"="請輸入要添加的鏈接URL";
-"Uploading"="正在上傳...";
+"Uploading"="正在上載...";
 
-"Path"="位置:%@";
-"LastUpdate"="上次修改:%@";
+"Path"="位置：%@";
+"LastUpdate"="上次修改：%@";
 
 "Open"="打開";
 "Ignore"="忽略";
-"ReceivedNewFile"="收到新文件:%@";
+"ReceivedNewFile"="收到新文件：%@";
 "Error"="出錯了";
 
 "UpgradeTitle"="MarkLite更新啦";
@@ -83,16 +83,16 @@
 
 "Loading"="正在加載";
 
-"ImageResolutionTips"="圖片質量越低，上傳越快";
+"ImageResolutionTips"="圖片質量越低，上載越快";
 "High"="高";
 "Low"="低";
 
 "Recieved"="收到的文件";
 "GuidesName"="使用說明";
 
-"DonateTitle"="打賞我壹杯咖啡";
-"DonateTips"="MarkLite 是壹個完全免費的app，沒有煩人的廣告。如果妳喜歡，請把他推薦給妳的好友，妳也可以請我喝杯咖啡。我會努力做得更好的😊";
+"DonateTitle"="打賞我一杯咖啡";
+"DonateTips"="MarkLite是一個完全免費的App，沒有煩人的廣告。如果你喜歡，請把他推薦給你的好友，你也可以請我喝杯咖啡。我會努力做得更好的😊";
 "DonatePrice"="打賞 $0.99";
 
 "NotNow"="以後再說";
-"RateTips"="如果妳覺得MarkLite好用，妳可以給它壹個好評或者打賞開發者以示鼓勵";
+"RateTips"="如果你覺得MarkLite好用，你可以給它一個好評或者打賞開發人員以示鼓勵";

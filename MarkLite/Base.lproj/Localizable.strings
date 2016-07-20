@@ -1,10 +1,10 @@
-/* 
-  Localizable.strings
-  MarkLite
-
-  Created by zhubch on 7/5/16.
-  Copyright © 2016 zhubch. All rights reserved.
-*/
+/*
+ Localizable.strings
+ MarkLite
+ 
+ Created by zhubch on 7/5/16.
+ Copyright © 2016 zhubch. All rights reserved.
+ */
 "TabTitle1"="Note";
 "TabTitle2"="File";
 "TabTitle3"="Options";
@@ -15,8 +15,8 @@
 "NavTitleOptions"="Options";
 
 "SortByName"="Sort by file name";
-"SortByCreateTime"="Sort by create time";
-"SortByUpdateTime"="Sort by update time";
+"SortByCreateTime"="Sort by created time";
+"SortByUpdateTime"="Sort by updated time";
 
 "Font"="Font";
 "Preview"="Preview";
@@ -24,7 +24,7 @@
 "Reset"="Reset";
 "Back"="Back";
 "Edit"="Edit";
-"FullScreen"="FullScreen";
+"FullScreen"="Full Screen";
 "Return"="Return";
 "Next"="Next";
 
@@ -33,7 +33,7 @@
 "About"="About";
 "Style"="Style";
 "ImageResolution"="Image resolution";
-"AssistKeyboard"="Assist keyboard";
+"AssistKeyboard"="Assistive keyboard";
 "Donate"="Donate";
 
 "OK"="OK";
@@ -49,36 +49,36 @@
 "PDF"="PDF";
 
 "ChooseYourOperation"="Choose your operation";
-"FileNameAlertTitle"="Give the new file name";
-"FolderNameAlertTitle"="Give the new folder name";
-"NewMarkdownFile"= "new markdown";
-"NewFolder"= "new directory";
-"NameAlertMessage"="please input the name";
-"DeleteMessage"="Do you want to delete the file? this action can't be undo.";
-"DuplicateError"="An error occured! duplicate name?";
+"FileNameAlertTitle"="Name the new file";
+"FolderNameAlertTitle"="Name the new folder";
+"NewMarkdownFile"= "New Markdown file";
+"NewFolder"= "New directory";
+"NameAlertMessage"="Please input the name";
+"DeleteMessage"="Sure you want to delete the file? This action is irreversible!";
+"DuplicateError"="An error occured! Duplicate name?";
 
-"CanNotDeleteRoot"="Can not delete root directory";
+"CanNotDeleteRoot"="Cannot delete root directory";
 "EmptyNameTips"="File name can not be empty";
 "InvalidName"="Invalid file name";
 
 "InsertHref"="Insert a link";
-"InputHrefTips"="please input the href";
+"InputHrefTips"="Please input the URL";
 "Uploading"="Uploading...";
 
-"Path"="Path:%@";
-"LastUpdate"="Last update:%@";
+"Path"="Path: %@";
+"LastUpdate"="Last update: %@";
 
 "Open"="Open";
 "Ignore"="Ignore";
-"ReceivedNewFile"="Received new file:%@";
+"ReceivedNewFile"="Received new file: %@";
 "Error"="Error occured";
 
-"UpgradeTitle"="New version tips";
-"UpgradeTips"="In order to have a better experience, it is recommended to upgrade to the latest version!😄";
+"UpgradeTitle"="New version available!";
+"UpgradeTips"="Upgrade to the latest version to have a better experience!😄";
 "Upgrade"="Upgrade";
 "DontUpgrade"="Remind me later";
 
-"StartEdit"="Start edit here";
+"StartEdit"="Start editing here";
 
 "Search"="Search";
 
@@ -91,9 +91,9 @@
 "Recieved"="Recieved files";
 "GuidesName"="Guides";
 
-"DonateTitle"="Donate me a coffee";
-"DonateTips"="MarkLite is a free app,has no ads,if you like it,just let your friends konw about it.You can also buy me a coffee to show support,I will make it better.";
+"DonateTitle"="Buy me a coffee";
+"DonateTips"="MarkLite is a free app with no ads. If you like it, just share it with your friends! You can also buy me a coffee to support me. I will make it better!";
 "DonatePrice"="Donate $0.99";
 
 "NotNow"="Not now";
-"RateTips"="If you think MarkLite useful,you can rate it in appstore,or donate the developer a coffee.";
+"RateTips"="If you think MarkLite is useful, you can rate it in App Store, or buy me a coffee.";

@@ -1,10 +1,10 @@
-/* 
-  Localizable.strings
-  MarkLite
-
-  Created by zhubch on 7/5/16.
-  Copyright © 2016 zhubch. All rights reserved.
-*/
+/*
+ Localizable.strings
+ MarkLite
+ 
+ Created by zhubch on 7/5/16.
+ Copyright © 2016 zhubch. All rights reserved.
+ */
 "TabTitle1"="笔记";
 "TabTitle2"="文件";
 "TabTitle3"="选项";
@@ -65,12 +65,12 @@
 "InputHrefTips"="请输入要添加的链接URL";
 "Uploading"="正在上传...";
 
-"Path"="位置:%@";
-"LastUpdate"="上次修改:%@";
+"Path"="位置：%@";
+"LastUpdate"="上次修改：%@";
 
 "Open"="打开";
 "Ignore"="忽略";
-"ReceivedNewFile"="收到新文件:%@";
+"ReceivedNewFile"="收到新文件：%@";
 "Error"="出错了";
 
 "UpgradeTitle"="MarkLite更新啦";
@@ -91,7 +91,7 @@
 "GuidesName"="使用指南";
 
 "DonateTitle"="打赏我一杯咖啡";
-"DonateTips"="MarkLite 是一个完全免费的app，没有烦人的广告。如果你喜欢，请把他推荐给你的好友，你也可以请我喝杯咖啡。我会努力做得更好的😊";
+"DonateTips"="MarkLite是一个完全免费的App，没有烦人的广告。如果你喜欢，请把他推荐给你的好友，你也可以请我喝杯咖啡。我会努力做得更好的😊";
 "DonatePrice"="打赏6元";
 
 "NotNow"="以后再说";
