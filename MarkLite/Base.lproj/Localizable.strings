@@ -47,6 +47,7 @@
 "Rename"="Rename";
 "WebPage"="WebPage";
 "PDF"="PDF";
+"Markdown"="Markdown";
 
 "ChooseYourOperation"="Choose your operation";
 "FileNameAlertTitle"="Name the new file";
@@ -65,8 +66,8 @@
 "InputHrefTips"="Please input the URL";
 "Uploading"="Uploading...";
 
-"Path"="Path: %@";
-"LastUpdate"="Last update: %@";
+"Path"="Path: ";
+"LastUpdate"="Last update: ";
 
 "Open"="Open";
 "Ignore"="Ignore";
@@ -95,5 +96,5 @@
 "DonateTips"="MarkLite is a free app with no ads. If you like it, just share it with your friends! You can also buy me a coffee to support me. I will make it better!";
 "DonatePrice"="Donate $0.99";
 
-"NotNow"="Not now";
-"RateTips"="If you think MarkLite is useful, you can rate it in App Store, or buy me a coffee.";
+"Name"="Name";
+"NamePlaceholder"="Please input the name,return to end";

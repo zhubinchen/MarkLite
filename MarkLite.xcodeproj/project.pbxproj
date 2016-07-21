@@ -98,7 +98,24 @@
 		07F90CEC1D20F67900DF5194 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F90CEA1D20F67900DF5194 /* ImageViewController.m */; };
 		07F90CED1D20F67900DF5194 /* ImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07F90CEB1D20F67900DF5194 /* ImageViewController.xib */; };
 		07F90CEF1D20F89900DF5194 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07F90CEE1D20F89900DF5194 /* StoreKit.framework */; };
+		07FD24E11D4076EE009E97B4 /* CreateNoteView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FD24E01D4076EE009E97B4 /* CreateNoteView.m */; };
+		07FD24E31D407800009E97B4 /* CreateNoteView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07FD24E21D407800009E97B4 /* CreateNoteView.xib */; };
+		07FD24E51D407E46009E97B4 /* forward@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 07FD24E41D407E46009E97B4 /* forward@2x.png */; };
+		07FD24E81D407FE4009E97B4 /* SortOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FD24E71D407FE4009E97B4 /* SortOptionsView.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0707FBD01D3CE6090042CE34 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0777D3341D2522E20026E0EA /* StyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleViewController.h; sourceTree = "<group>"; };
@@ -252,6 +269,12 @@
 		07F90CEA1D20F67900DF5194 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
 		07F90CEB1D20F67900DF5194 /* ImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageViewController.xib; sourceTree = "<group>"; };
 		07F90CEE1D20F89900DF5194 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		07FD24DF1D4076EE009E97B4 /* CreateNoteView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateNoteView.h; sourceTree = "<group>"; };
+		07FD24E01D4076EE009E97B4 /* CreateNoteView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateNoteView.m; sourceTree = "<group>"; };
+		07FD24E21D407800009E97B4 /* CreateNoteView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateNoteView.xib; sourceTree = "<group>"; };
+		07FD24E41D407E46009E97B4 /* forward@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "forward@2x.png"; sourceTree = "<group>"; };
+		07FD24E61D407FE4009E97B4 /* SortOptionsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortOptionsView.h; sourceTree = "<group>"; };
+		07FD24E71D407FE4009E97B4 /* SortOptionsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SortOptionsView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -317,6 +340,7 @@
 		07AFABFE1D34C8E50084FF76 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				07FD24E41D407E46009E97B4 /* forward@2x.png */,
 				07AFAC2C1D34E9270084FF76 /* export@2x.png */,
 				07AFABFF1D34C8E50084FF76 /* add_image@2x.png */,
 				07AFAC001D34C8E50084FF76 /* add_link@2x.png */,
@@ -517,6 +541,11 @@
 				07B92E831D1D966B00A4127E /* KeyboardBar.m */,
 				07B92E871D1D966B00A4127E /* NoteItemCell.h */,
 				07B92E881D1D966B00A4127E /* NoteItemCell.m */,
+				07FD24DF1D4076EE009E97B4 /* CreateNoteView.h */,
+				07FD24E01D4076EE009E97B4 /* CreateNoteView.m */,
+				07FD24E21D407800009E97B4 /* CreateNoteView.xib */,
+				07FD24E61D407FE4009E97B4 /* SortOptionsView.h */,
+				07FD24E71D407FE4009E97B4 /* SortOptionsView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -610,6 +639,7 @@
 				07B92DC61D1D960F00A4127E /* Sources */,
 				07B92DC71D1D960F00A4127E /* Frameworks */,
 				07B92DC81D1D960F00A4127E /* Resources */,
+				0707FBD01D3CE6090042CE34 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -688,12 +718,14 @@
 				07AFAC251D34C8E50084FF76 /* text@2x.png in Resources */,
 				07AFAC231D34C8E50084FF76 /* settings@2x.png in Resources */,
 				07AFAC1F1D34C8E50084FF76 /* minus@2x.png in Resources */,
+				07FD24E51D407E46009E97B4 /* forward@2x.png in Resources */,
 				07B92DDA1D1D960F00A4127E /* Assets.xcassets in Resources */,
 				07AFAC1B1D34C8E50084FF76 /* folder@2x.png in Resources */,
 				07AFAC151D34C8E50084FF76 /* about.html in Resources */,
 				07B92DFB1D1D964100A4127E /* AboutViewController.xib in Resources */,
 				07AFAC2D1D34E9270084FF76 /* export@2x.png in Resources */,
 				07B92E991D1D966B00A4127E /* icon.png in Resources */,
+				07FD24E31D407800009E97B4 /* CreateNoteView.xib in Resources */,
 				07AFAC211D34C8E50084FF76 /* note@2x.png in Resources */,
 				07D9D1F51D238C6300725A94 /* ImageUploadingView.xib in Resources */,
 				07AFAC1E1D34C8E50084FF76 /* keyboard_down@2x.png in Resources */,
@@ -714,6 +746,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07FD24E11D4076EE009E97B4 /* CreateNoteView.m in Sources */,
 				07BB7ACD1D37F39C0034BDDC /* AFURLSessionManager.m in Sources */,
 				07B92DFE1D1D964100A4127E /* FontViewController.m in Sources */,
 				07CFA41C1D2BB1C000F7DDDA /* ChooseFolderViewController.m in Sources */,
@@ -754,6 +787,7 @@
 				07B92EF51D1D986E00A4127E /* html.c in Sources */,
 				07B92E8C1D1D966B00A4127E /* Item.m in Sources */,
 				07B92EC61D1D966B00A4127E /* unzip.c in Sources */,
+				07FD24E81D407FE4009E97B4 /* SortOptionsView.m in Sources */,
 				07B92EF91D1D986E00A4127E /* version.c in Sources */,
 				07B92EF41D1D986E00A4127E /* escape.c in Sources */,
 				07BB7ACB1D37F39C0034BDDC /* AFURLRequestSerialization.m in Sources */,

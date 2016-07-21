@@ -30,6 +30,22 @@
     return self;
 }
 
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+    [aCoder encodeObject:self.path forKey:@"path"];
+    [aCoder encodeBool:self.root forKey:@"root"];
+    [aCoder encodeBool:self.cloud forKey:@"cloud"];
+}
+
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+    if (self=[super init]) {
+        _path = [aDecoder decodeObjectForKey:@"path"];
+        _cloud = [aDecoder decodeBoolForKey:@"cloud"];
+        _root = [aDecoder decodeBoolForKey:@"root"];
+    }
+    return self;
+}
+
 - (NSArray *)items
 {
     NSMutableArray *ret = [NSMutableArray array];

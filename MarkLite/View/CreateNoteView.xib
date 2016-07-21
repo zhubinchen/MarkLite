@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CreateNoteView">
+            <rect key="frame" x="0.0" y="0.0" width="363" height="108"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z7T-cL-Tl7">
+                    <rect key="frame" x="0.0" y="0.0" width="363" height="44"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="路径:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MQe-VR-Fi9">
+                            <rect key="frame" x="10" y="12" width="60" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="9rE-Uf-XxY"/>
+                                <constraint firstAttribute="width" constant="60" id="Ihh-N4-yOp"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zsa-9o-Que">
+                            <rect key="frame" x="325" y="7" width="30" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="ky7-H5-YVs"/>
+                                <constraint firstAttribute="width" constant="30" id="lZA-8b-v7b"/>
+                            </constraints>
+                            <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                            <state key="normal" image="forward.png">
+                                <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="chooseFolder:" destination="iN0-l3-epB" eventType="touchUpInside" id="f0X-IM-Yum"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oz0-bM-Smy">
+                            <rect key="frame" x="78" y="7" width="239" height="30"/>
+                            <state key="normal" title="Button"/>
+                            <connections>
+                                <action selector="chooseFolder:" destination="iN0-l3-epB" eventType="touchUpInside" id="C1T-yH-24i"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="Zsa-9o-Que" secondAttribute="trailing" constant="8" id="3zO-RD-EX4"/>
+                        <constraint firstAttribute="height" constant="44" id="5eW-jp-pEt"/>
+                        <constraint firstItem="oz0-bM-Smy" firstAttribute="leading" secondItem="MQe-VR-Fi9" secondAttribute="trailing" constant="8" id="S7r-Y3-QGA"/>
+                        <constraint firstItem="MQe-VR-Fi9" firstAttribute="centerY" secondItem="z7T-cL-Tl7" secondAttribute="centerY" id="Vzr-e6-Unx"/>
+                        <constraint firstItem="Zsa-9o-Que" firstAttribute="centerY" secondItem="z7T-cL-Tl7" secondAttribute="centerY" id="g8P-UG-fGW"/>
+                        <constraint firstItem="Zsa-9o-Que" firstAttribute="leading" secondItem="oz0-bM-Smy" secondAttribute="trailing" constant="8" id="gWD-9n-p5L"/>
+                        <constraint firstItem="oz0-bM-Smy" firstAttribute="centerY" secondItem="z7T-cL-Tl7" secondAttribute="centerY" id="mXQ-DU-0ws"/>
+                        <constraint firstItem="MQe-VR-Fi9" firstAttribute="leading" secondItem="z7T-cL-Tl7" secondAttribute="leading" constant="10" id="o1Y-IB-SAW"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kIB-ud-eoF">
+                    <rect key="frame" x="0.0" y="49" width="363" height="44"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="文件名:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w20-0Y-ko9">
+                            <rect key="frame" x="10" y="12" width="60" height="20"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="20" id="m9D-4d-Y2g"/>
+                                <constraint firstAttribute="width" constant="60" id="x5E-ia-Ni7"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QOm-nV-zDI">
+                            <rect key="frame" x="78" y="7" width="269" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="C6f-D2-Dws"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="iN0-l3-epB" id="nhm-AB-Fxb"/>
+                            </connections>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="QOm-nV-zDI" firstAttribute="centerY" secondItem="kIB-ud-eoF" secondAttribute="centerY" id="1bP-7V-Kls"/>
+                        <constraint firstItem="QOm-nV-zDI" firstAttribute="leading" secondItem="w20-0Y-ko9" secondAttribute="trailing" constant="8" id="7jD-HZ-39x"/>
+                        <constraint firstItem="w20-0Y-ko9" firstAttribute="centerY" secondItem="kIB-ud-eoF" secondAttribute="centerY" id="FmC-jh-0aL"/>
+                        <constraint firstAttribute="trailing" secondItem="QOm-nV-zDI" secondAttribute="trailing" constant="16" id="loB-i2-KUb"/>
+                        <constraint firstAttribute="height" constant="44" id="miU-NX-fOa"/>
+                        <constraint firstItem="w20-0Y-ko9" firstAttribute="leading" secondItem="kIB-ud-eoF" secondAttribute="leading" constant="10" id="qRt-QQ-x4P"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="z7T-cL-Tl7" secondAttribute="trailing" id="96N-wL-Z0i"/>
+                <constraint firstItem="kIB-ud-eoF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="GpR-rM-r8A"/>
+                <constraint firstItem="z7T-cL-Tl7" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="aPT-SH-Ixi"/>
+                <constraint firstAttribute="trailing" secondItem="kIB-ud-eoF" secondAttribute="trailing" id="iRt-JE-B0B"/>
+                <constraint firstItem="kIB-ud-eoF" firstAttribute="top" secondItem="z7T-cL-Tl7" secondAttribute="bottom" constant="5" id="o1f-5x-vLK"/>
+                <constraint firstItem="z7T-cL-Tl7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="p19-OV-Ubt"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="nameLable" destination="MQe-VR-Fi9" id="bkE-q4-2HA"/>
+                <outlet property="nameTextFiled" destination="QOm-nV-zDI" id="BXo-Dh-l0e"/>
+                <outlet property="pathBtn" destination="oz0-bM-Smy" id="oqL-At-PFC"/>
+                <outlet property="pathLabel" destination="w20-0Y-ko9" id="BW8-gz-OlX"/>
+            </connections>
+            <point key="canvasLocation" x="274.5" y="115"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="forward.png" width="25" height="25"/>
+    </resources>
+</document>

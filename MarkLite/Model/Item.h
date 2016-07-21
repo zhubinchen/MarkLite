@@ -18,7 +18,7 @@ typedef NS_ENUM(NSUInteger, FileType) {
 /**
  *  代表一个文件对象，真正的文件操作由FileManager完成
  */
-@interface Item : NSObject
+@interface Item : NSObject <NSCoding>
 
 @property (nonatomic,strong)            NSString   *path;      //相对MarkLite目录的路径
 

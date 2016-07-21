@@ -13,7 +13,8 @@
 #import "NoteItemCell.h"
 #import "Item.h"
 #import "Configure.h"
-
+#import "SortOptionsView.h"
+#import "CreateNoteView.h"
 @interface NoteListViewController () <UITableViewDelegate,UITableViewDataSource,UIViewControllerPreviewingDelegate,UISearchBarDelegate>
 
 @property (weak, nonatomic)  IBOutlet UITableView *noteListView;
@@ -26,9 +27,10 @@
 @implementation NoteListViewController
 {
     NSMutableArray *dataArray;
-    UIControl *control;
-    UIImageView *imgView;
     NSString *searchWord;
+    
+    SortOptionsView *sortView;
+    CreateNoteView *createView;
 }
 
 - (void)viewDidLoad {
@@ -37,18 +39,20 @@
     _fm = [FileManager sharedManager];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:@"ItemsChangedNotification" object:nil];
     self.searchBar.placeholder = ZHLS(@"Search");
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeOrientation) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [_fm createCloudWorkspace];
-    [_fm createLocalWorkspace];
     self.tabBarController.title = ZHLS(@"NavTitleMarkLite");
     [self reload];
 }
 
 - (void)reload
 {
+    [_fm createCloudWorkspace];
+    [_fm createLocalWorkspace];
     self.sortOption = self.sortOption;
 }
 
@@ -67,86 +71,107 @@
 
 - (void)newNote
 {
-    [self performSegueWithIdentifier:@"newNote" sender:self];
+    CGFloat w = self.view.bounds.size.width;
+    
+    if (createView.superview) {
+        [self dismissView:createView];
+        return;
+    }
+    if (sortView.superview) {
+        [self dismissView:sortView];
+    }
+    createView = [CreateNoteView instance];
+    
+    if ([Configure sharedConfigure].defaultParent == nil) {
+        [Configure sharedConfigure].defaultParent = _fm.local;
+    }
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[Configure sharedConfigure].defaultParent.fullPath]) {
+        [Configure sharedConfigure].defaultParent = _fm.local;
+    }
+    createView.parent = [Configure sharedConfigure].defaultParent;
+    __weak NoteListViewController *__self = self;
+    createView.chooseFolder = ^(){
+        [__self performSegueWithIdentifier:@"newNote" sender:__self];
+    };
+    __weak UIView *v = createView;
+    createView.didCreateNote = ^(Item *note){
+        [__self dismissView:v];
+        [__self reload];
+        
+        __self.fm.currentItem = note;
+        if (kDevicePhone) {
+            [__self performSegueWithIdentifier:@"edit" sender:__self];
+        }
+    };
+    createView.frame = CGRectMake(0, -100, w, 100);
+    [self showView:createView];
 }
 
 - (void)showOptions
 {
     CGFloat w = self.view.bounds.size.width;
-    if (control == nil) {
-        UIView *optionsView = [[UIView alloc]initWithFrame:CGRectMake(0, -90+64, w, 90)];
-        optionsView.backgroundColor = [UIColor whiteColor];
-        optionsView.tag = 1;
-        optionsView.alpha = 0.99;
-        [optionsView showShadowWithColor:[UIColor grayColor] offset:CGSizeMake(0, 5)];
-        
-        NSArray *options = @[ZHLS(@"SortByName"),ZHLS(@"SortByCreateTime"),ZHLS(@"SortByUpdateTime")];
-        for (int i = 0; i < options.count; i++) {
-            UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(20, i*30, w - 20, 30)];
-            btn.titleLabel.font = [UIFont systemFontOfSize:14];
-            btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-            btn.tag = i;
-            [btn addTarget:self action:@selector(choosedOption:) forControlEvents:UIControlEventTouchUpInside];
-            [btn setTitle:options[i] forState:UIControlStateNormal];
-            [btn setTitleColor:kTintColor forState:UIControlStateNormal];
-            [optionsView addSubview:btn];
-        }
-        
-        control = [[UIControl alloc]initWithFrame:self.view.bounds];
-        control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
-        [control addSubview:optionsView];
-    
-        [control addTarget:self action:@selector(choosedOption:) forControlEvents:UIControlEventTouchUpInside];
 
-        imgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"check"]];
-        [optionsView addSubview:imgView];
+    if (sortView.superview) {
+        [self dismissView:sortView];
+        return;
     }
-    imgView.frame = CGRectMake(w - 35, _sortOption*30 + 3, 24, 24);
+    if (createView.superview) {
+        [self dismissView:createView];
+    }
+    sortView = [[SortOptionsView alloc]initWithFrame:CGRectMake(0, -90, w, 90)];
     
-    UIView *optionsView = [control viewWithTag:1];
-    if (control.superview) {
-        [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            optionsView.frame = CGRectMake(0, -90 +64, w, 90);
-            control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
-        } completion:^(BOOL finished) {
-            if (finished) {
-                [control removeFromSuperview];
-            }
-        }];
-    }else {
-        [self.view addSubview:control];
+    __weak NoteListViewController *__self = self;
+    __weak UIView *v = sortView;
 
-        [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-            optionsView.frame = CGRectMake(0, 0 +64, w, 90);
-            control.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
-        } completion:^(BOOL finished) {
-            //
-        }];
-    }
+    sortView.choosedIndex = ^(NSInteger index){
+        [__self dismissView:v];
+        __self.sortOption = index;
+    };
+    [self showView:sortView];
 }
 
-- (void)choosedOption:(UIButton*)optionBtn
+- (void)dismissView:(UIView*)v
 {
-    CGFloat w = self.view.bounds.size.width;
+    UIView *control = v.superview;
 
-    UIView *optionsView = [control viewWithTag:1];
+    if ([v isKindOfClass:[UIControl class]]) {
+        control = v;
+        v = control.subviews.firstObject;
+    }
+    CGFloat w = self.view.bounds.size.width;
+    CGFloat h = v.frame.size.height;
     [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        optionsView.frame = CGRectMake(0, -90 +64, w, 90);
+        v.frame = CGRectMake(0, 64 - h, w, h);
         control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     } completion:^(BOOL finished) {
         if (finished) {
+            [v removeFromSuperview];
             [control removeFromSuperview];
         }
     }];
-    if (![optionBtn isKindOfClass:[UIButton class]]) {
-        return;
-    }
-    self.sortOption = optionBtn.tag;
+}
+
+- (void)showView:(UIView*)v
+{
+    UIControl *control = [[UIControl alloc]initWithFrame:self.view.bounds];
+    control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    [control addTarget:self action:@selector(dismissView:) forControlEvents:UIControlEventTouchUpInside];
+    
+    control.frame = self.view.bounds;
+    [self.view addSubview:control];
+    [control addSubview:v];
+    CGFloat w = self.view.bounds.size.width;
+    CGFloat h = v.frame.size.height;
+    [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        v.frame = CGRectMake(0, 64, w, h);
+        control.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
+    } completion:^(BOOL finished) {
+    }];
 }
 
 - (void)setSortOption:(NSInteger)sortOption
 {
-    imgView.frame = CGRectMake(kScreenWidth - 35, _sortOption*30 + 3, 24, 24);
     _sortOption = sortOption;
     
     NSPredicate *pre = [NSPredicate predicateWithBlock:^BOOL(id  _Nonnull evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
@@ -294,51 +319,23 @@
         
         ChooseFolderViewController *vc = [(UINavigationController*)segue.destinationViewController viewControllers].firstObject;
         vc.didChoosedFolder = ^(Item *i){
-            [self newNoteWithParent:i];
+            createView.parent = i;
+            [Configure sharedConfigure].defaultParent = i;
         };
     }
     NSLog(@"segue");
-
 }
 
-- (void)newNoteWithParent:(Item*)parent
+- (void)changeOrientation
 {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"FileNameAlertTitle") message:ZHLS(@"NameAlertMessage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
-    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-    
-    __weak UIAlertView *__alert = alert;
-    alert.clickedButton = ^(NSInteger buttonIndex){
-        if (buttonIndex == 1) {
-            [[__alert textFieldAtIndex:0] resignFirstResponder];
-            NSString *name = [__alert textFieldAtIndex:0].text;
-            name = [name stringByAppendingString:@".md"];
-
-            NSString *path = name;
-            if (!parent.root) {
-                path = [parent.path stringByAppendingPathComponent:name];
-            }
-            Item *i = [[Item alloc]init];
-            i.path = path;
-            i.open = YES;
-            i.cloud = parent.cloud;
-            BOOL ret = [[FileManager sharedManager] createFile:i.fullPath Content:[NSData data]];
-            
-            if (ret == NO) {
-                showToast(ZHLS(@"DuplicateError"));
-                return;
-            }
-            
-            [parent addChild:i];
-            
-            [self reload];
-            
-            _fm.currentItem = i;
-            if (kDevicePhone) {
-                [self performSegueWithIdentifier:@"edit" sender:self];
-            }
-        }
-    };
-    [alert show];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        CGFloat w = self.view.bounds.size.width;
+        
+        sortView.superview.frame = self.view.bounds;
+        createView.superview.frame = self.view.bounds;
+        sortView.frame = CGRectMake(0, 64, w, 90);
+        createView.frame = CGRectMake(0, 64, w, 100);
+    });
 }
 
 @end

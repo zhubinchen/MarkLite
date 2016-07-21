@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class Item;
+
 @interface Configure : NSObject <NSCoding>
 
 @property (nonatomic,strong) NSString *style;
@@ -27,6 +29,8 @@
 @property (nonatomic,assign) CGFloat imageResolution;
 
 @property (nonatomic,strong) NSString *currentVerion;
+
+@property (nonatomic,strong) Item *defaultParent;
 
 + (instancetype)sharedConfigure;
 

@@ -26,9 +26,6 @@
 - (NSDictionary *)attribute
 {
     UIFont *font = [UIFont fontWithName:[Configure sharedConfigure].fontName size:15];
-    if (font == nil) {
-        font = [UIFont systemFontOfSize:15];
-    }
     if (_italic) {
         CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
 
@@ -39,6 +36,9 @@
         UIFontDescriptor *desc = [UIFontDescriptor fontDescriptorWithName:[Configure sharedConfigure].fontName size:15];
         desc = [desc fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
         font = [UIFont fontWithDescriptor:desc size:15];
+    }
+    if (font == nil) {
+        font = [UIFont systemFontOfSize:15];
     }
     return @{
              NSFontAttributeName : font,

@@ -104,17 +104,19 @@
             
             NSData *data = [self createPDF];
             [data writeToURL:url atomically:YES];
+        }else if(index == (kDevicePad ? 3 : 2)){
+            url = [NSURL fileURLWithPath:item.fullPath];
         }
         if (url) {
             [self exportFile:url];
         }
     };
     if (kDevicePad) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"ExportAs") message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"WebPage"),ZHLS(@"PDF"), nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"ExportAs") message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"WebPage"),ZHLS(@"PDF"),ZHLS(@"Markdown"), nil];
         alert.clickedButton = clickedBlock;
         [alert show];
     }else{
-        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:ZHLS(@"ExportAs") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:ZHLS(@"WebPage"),ZHLS(@"PDF"), nil];
+        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:ZHLS(@"ExportAs") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:ZHLS(@"WebPage"),ZHLS(@"PDF"),ZHLS(@"Markdown"), nil];
         sheet.clickedButton = clickedBlock;
         [sheet showInView:self.view];
     }

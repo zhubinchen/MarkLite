@@ -15,7 +15,7 @@
 
 #import "ZHUtils.h"
 
-#define kNavBarColor [UIColor colorWithRGBString:@"474747"]
+#define kNavBarColor [UIColor colorWithRGBString:@"454545"]
 
 #define kTitleColor [UIColor colorWithRGBString:@"ffffff"]
 

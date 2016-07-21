@@ -51,6 +51,7 @@
     [aCoder encodeBool:self.keyboardAssist forKey:@"keyboardAssist"];
     [aCoder encodeBool:self.hasRated forKey:@"hasRated"];
     [aCoder encodeFloat:self.imageResolution forKey:@"imageResolution"];
+    [aCoder encodeObject:self.defaultParent forKey:@"defaultParent"];
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder
@@ -65,6 +66,7 @@
         _hasRated = [aDecoder decodeBoolForKey:@"hasRated"];
         _imageResolution = [aDecoder decodeFloatForKey:@"imageResolution"];
         _currentVerion = [aDecoder decodeObjectForKey:@"currentVerion"];
+        _defaultParent = [aDecoder decodeObjectForKey:@"defaultParent"];
     }
     return self;
 }

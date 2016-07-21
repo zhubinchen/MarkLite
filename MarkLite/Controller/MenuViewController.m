@@ -46,24 +46,6 @@
                   ];
     }
     
-    if ([Configure sharedConfigure].hasRated) {
-        return;
-    }
-    
-    if ([[NSDate date] compare:[NSDate dateWithString:@"2016-07-18 00:00:00"]] == NSOrderedAscending) {
-        return;
-    }
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"" message:ZHLS(@"RateTips") delegate:nil cancelButtonTitle:ZHLS(@"NotNow") otherButtonTitles:ZHLS(@"RateIt"),ZHLS(@"DonatePrice"), nil];
-        alert.clickedButton = ^(NSInteger index){
-            if (index == 1) {
-                [self rate];
-            }else if (index == 2) {
-                [self requestProductData:kProductDonate];
-            }
-        };
-        [alert show];
-    });
 }
 
 - (void)viewWillAppear:(BOOL)animated

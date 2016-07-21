@@ -47,6 +47,7 @@
 "Rename"="重命名";
 "WebPage"="Web頁面";
 "PDF"="PDF文檔";
+"Markdown"="Markdown文本";
 
 "ChooseYourOperation"="請選擇要進行的操作";
 "FileNameAlertTitle"="為要創建的文件命名";
@@ -65,8 +66,8 @@
 "InputHrefTips"="請輸入要添加的鏈接URL";
 "Uploading"="正在上載...";
 
-"Path"="位置：%@";
-"LastUpdate"="上次修改：%@";
+"Path"="路径: ";
+"LastUpdate"="上次修改: ";
 
 "Open"="打開";
 "Ignore"="忽略";
@@ -94,5 +95,5 @@
 "DonateTips"="MarkLite是一個完全免費的App，沒有煩人的廣告。如果你喜歡，請把他推薦給你的好友，你也可以請我喝杯咖啡。我會努力做得更好的😊";
 "DonatePrice"="打賞 $0.99";
 
-"NotNow"="以後再說";
-"RateTips"="如果你覺得MarkLite好用，你可以給它一個好評或者打賞開發人員以示鼓勵";
+"Name"="文件名";
+"NamePlaceholder"="请输入文件名(不包括后缀)，按回车结束";

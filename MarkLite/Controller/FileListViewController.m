@@ -261,7 +261,8 @@
             }
             
             [selectParent addChild:i];
-            
+            selectParent.open = YES;
+
             dataArray = root.itemsCanReach.mutableCopy;
             [dataArray insertObject:root atIndex:0];
             [fileListView reloadData];
