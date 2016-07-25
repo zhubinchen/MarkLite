@@ -92,9 +92,11 @@
                         @"code":RGB(@"33A191"),
                         };
     _style = @"GitHub2";
-    _fontName = @"Hiragino Sans";
+    if (_fontName.length < 1) {
+        _fontName = @"Hiragino Sans";
+    }
     _keyboardAssist = YES;
-    _imageResolution = 0.5;
+    _imageResolution = 0.9;
     _upgradeTime = [NSDate date];
     _currentVerion = kAppVersionNo;
 }
