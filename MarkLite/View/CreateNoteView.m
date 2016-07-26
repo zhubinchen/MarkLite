@@ -44,6 +44,9 @@
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
     NSString *name = textField.text;
+    if (name.length == 0) {
+        return YES;
+    }
     name = [name stringByAppendingString:@".md"];
     
     NSString *path = name;
@@ -69,6 +72,9 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    if (textField.text.length == 0) {
+        showToast(ZHLS(@"EmptyNameTips"));
+    }
     [self.nameTextFiled resignFirstResponder];
 
     return YES;

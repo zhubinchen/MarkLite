@@ -105,10 +105,10 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="nameLable" destination="MQe-VR-Fi9" id="bkE-q4-2HA"/>
+                <outlet property="nameLable" destination="w20-0Y-ko9" id="FN5-U3-L1a"/>
                 <outlet property="nameTextFiled" destination="QOm-nV-zDI" id="BXo-Dh-l0e"/>
                 <outlet property="pathBtn" destination="oz0-bM-Smy" id="oqL-At-PFC"/>
-                <outlet property="pathLabel" destination="w20-0Y-ko9" id="BW8-gz-OlX"/>
+                <outlet property="pathLabel" destination="MQe-VR-Fi9" id="Hu2-xA-ZIR"/>
             </connections>
             <point key="canvasLocation" x="274.5" y="115"/>
         </view>

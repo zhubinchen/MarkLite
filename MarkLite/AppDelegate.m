@@ -152,7 +152,7 @@
             alert = [[UIAlertView alloc] initWithTitle:ZHLS(@"UpgradeTitle")
                                                message:ZHLS(@"UpgradeTips")
                                               delegate: self
-                                     cancelButtonTitle:ZHLS(@"Dont Upgrade")
+                                     cancelButtonTitle:ZHLS(@"DontUpgrade")
                                      otherButtonTitles:ZHLS(@"Upgrade"), nil];
             alert.clickedButton = ^(NSInteger buttonIndex){
                 if (buttonIndex == 1) {
