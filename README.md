@@ -1,5 +1,9 @@
 ## MarkLite
 
+[![Codewake](https://www.codewake.com/badges/codewake.svg)](https://www.codewake.com/p/marklite)
+
+[![Codewake](https://www.codewake.com/badges/codewake2.svg)](https://www.codewake.com/p/marklite)
+
 ### 简介
 
 **MarkLite 是一个iOS平台的Markdown文本编辑器**。
