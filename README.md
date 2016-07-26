@@ -4,13 +4,12 @@
 
 [![Codewake](https://www.codewake.com/badges/codewake2.svg)](https://www.codewake.com/p/marklite)
 
+[AppStore下载](https://itunes.apple.com/app/id1098107145)
 ### 简介
 
 **MarkLite 是一个iOS平台的Markdown文本编辑器**。
 
 可以在iPhone/iPad等iOS设备上运行，界面简洁干净，功能完整，自带图床功能，支持iCloud同步，让你在移动设备上也能流畅的书写和阅读Markdown文件。MarkLite支持标准的Markdown语法之外，也支持一些常用的扩展语法，比如`数学表达式`、`Footnote`、`TodoList`等。包含多种CSS渲染样式，满足你的不同需求。
-
-**AppStore:**[https://appsto.re/cn/jK8Cbb.i](https://appsto.re/cn/jK8Cbb.i)
 
 有任何Bug或者改进意见欢迎提issue
 
