@@ -944,7 +944,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhubch.MarkLite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8e30e699-bad0-4316-9243-0cf3635cf001";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -966,7 +966,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhubch.MarkLite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "8e30e699-bad0-4316-9243-0cf3635cf001";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

@@ -147,7 +147,7 @@
                             <outlet property="delegate" destination="I2i-9V-J9l" id="FZf-HM-n3Z"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="选项" image="91216480-9E33-430E-8949-44A5C0732B1F" id="cUx-cv-8Pe"/>
+                    <tabBarItem key="tabBarItem" title="选项" image="3A7DCA8B-2AFE-4C88-B3A3-3360226926D7" id="cUx-cv-8Pe"/>
                     <navigationItem key="navigationItem" id="rMd-CP-7Md">
                         <barButtonItem key="backBarButtonItem" title=" " id="8hr-Pt-fcf"/>
                     </navigationItem>
@@ -593,7 +593,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="91216480-9E33-430E-8949-44A5C0732B1F" width="25" height="25">
+        <image name="3A7DCA8B-2AFE-4C88-B3A3-3360226926D7" width="25" height="25">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

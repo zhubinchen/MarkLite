@@ -116,6 +116,7 @@
     if (fm.currentItem == nil) {
         return;
     }
+    [self saveFile];
     item = fm.currentItem;
     
     NSString *path = item.fullPath;
@@ -146,6 +147,9 @@
 
 - (void)saveFile
 {
+    if (item == nil) {
+        return;
+    }
     NSData *content = [self.editView.text dataUsingEncoding:NSUTF8StringEncoding];
     [fm saveFile:item.fullPath Content:content];
 }
