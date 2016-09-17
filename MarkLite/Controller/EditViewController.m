@@ -28,11 +28,11 @@
     Item *item;
     FileManager *fm;
     UIControl *control;
+    BOOL needSave;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"load1");
 
     fm = [FileManager sharedManager];
 
@@ -99,6 +99,12 @@
     [self.editView resignFirstResponder];
 }
 
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    needSave = YES;
+    return YES;
+}
+
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView
 {
     return YES;
@@ -148,6 +154,9 @@
 - (void)saveFile
 {
     if (item == nil) {
+        return;
+    }
+    if (!needSave) {
         return;
     }
     NSData *content = [self.editView.text dataUsingEncoding:NSUTF8StringEncoding];

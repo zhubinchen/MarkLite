@@ -35,14 +35,21 @@
         
         checkImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"check"]];
         [self addSubview:checkImgView];
-        checkImgView.frame = CGRectMake(w - 35, _currentSortOption*30 + 3, 24, 24);
     }
     
     return self;
 }
 
+- (void)setCurrentSortOption:(NSInteger)currentSortOption
+{
+    _currentSortOption = currentSortOption;
+    CGFloat w = self.bounds.size.width;
+    checkImgView.frame = CGRectMake(w - 35, _currentSortOption*30 + 3, 24, 24);
+}
+
 - (void)choosedOption:(UIButton*)optionBtn
 {
+    self.currentSortOption = optionBtn.tag;
     _choosedIndex(optionBtn.tag);
 }
 

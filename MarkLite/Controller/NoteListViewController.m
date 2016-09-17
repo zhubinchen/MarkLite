@@ -128,6 +128,7 @@
         [__self dismissView:v];
         __self.sortOption = index;
     };
+    sortView.currentSortOption = self.sortOption;
     [self showView:sortView];
 }
 

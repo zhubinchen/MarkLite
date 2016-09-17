@@ -10,9 +10,9 @@
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 
-#define kScreenHeight ([UIScreen mainScreen].bounds.size.height)
+#define kScreenHeight ([UIApplication sharedApplication].keyWindow.bounds.size.height)
 
-#define kScreenWidth ([UIScreen mainScreen].bounds.size.width)
+#define kScreenWidth ([UIApplication sharedApplication].keyWindow.bounds.size.width)
 
 #define kDeviceSimulator [[UIDevice currentDevice].model hasSuffix:@"Simulator"]
 
