@@ -10,8 +10,6 @@
 
 @interface SortOptionsView : UIView
 
-@property (nonatomic,assign) NSInteger currentSortOption;
-
 @property (nonatomic,copy) void(^choosedIndex)(NSInteger);
 
 @end

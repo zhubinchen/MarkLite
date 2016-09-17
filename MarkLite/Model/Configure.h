@@ -20,6 +20,8 @@
 
 @property (nonatomic,strong) NSDictionary *highlightColor;
 
+@property (nonatomic,assign) NSInteger sortOption;
+
 @property (nonatomic,assign) BOOL keyboardAssist;
 
 @property (nonatomic,strong) NSDate *upgradeTime;

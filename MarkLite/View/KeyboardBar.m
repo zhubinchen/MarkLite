@@ -72,6 +72,8 @@ static KeyboardBar *bar = nil;
 {
     if (btn.tag == 0) {
         [_editView insertText:@"\t"];
+    }else if (btn.tag == 1) {
+        [_editView insertText:@"# "];
     }else if (btn.tag  < 6) {
         [_editView insertText:btn.currentTitle];
     }else if (btn.tag == 6){

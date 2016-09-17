@@ -50,6 +50,7 @@
     [aCoder encodeObject:self.fontName forKey:@"fontName"];
     [aCoder encodeBool:self.keyboardAssist forKey:@"keyboardAssist"];
     [aCoder encodeBool:self.hasRated forKey:@"hasRated"];
+    [aCoder encodeInteger:self.sortOption forKey:@"sortOption"];
     [aCoder encodeFloat:self.imageResolution forKey:@"imageResolution"];
     [aCoder encodeObject:self.defaultParent forKey:@"defaultParent"];
 }
@@ -64,6 +65,7 @@
         _fontName = [aDecoder decodeObjectForKey:@"fontName"];
         _keyboardAssist = [aDecoder decodeBoolForKey:@"keyboardAssist"];
         _hasRated = [aDecoder decodeBoolForKey:@"hasRated"];
+        _sortOption = [aDecoder decodeIntegerForKey:@"sortOption"];
         _imageResolution = [aDecoder decodeFloatForKey:@"imageResolution"];
         _currentVerion = [aDecoder decodeObjectForKey:@"currentVerion"];
         _defaultParent = [aDecoder decodeObjectForKey:@"defaultParent"];
@@ -99,6 +101,7 @@
     _imageResolution = 0.9;
     _upgradeTime = [NSDate date];
     _currentVerion = kAppVersionNo;
+    _sortOption = 0;
 }
 
 

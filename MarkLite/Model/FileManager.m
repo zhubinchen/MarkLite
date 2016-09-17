@@ -140,8 +140,8 @@
         
         if (temp.type == FileTypeText) {
             NSMutableDictionary *attr = [fm attributesOfItemAtPath:temp.fullPath error:nil].mutableCopy;
-            attr[NSFileCreationDate] = [NSDate date];
-            attr[NSFileModificationDate] = [NSDate date];
+//            attr[NSFileCreationDate] = [NSDate date];
+//            attr[NSFileModificationDate] = [NSDate date];
             [fm setAttributes:attr ofItemAtPath:temp.fullPath error:nil];
         }
     }
@@ -181,8 +181,8 @@
     if (![fm fileExistsAtPath:path]) {
         return NO;
     }
+    
     BOOL ret = [content writeToFile:path atomically:YES];
-
     return ret;
 }
 

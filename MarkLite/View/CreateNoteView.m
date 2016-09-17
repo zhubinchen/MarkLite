@@ -21,9 +21,9 @@
 - (void)awakeFromNib
 {
     self.pathLabel.text = ZHLS(@"Path");
+    [self.sureBtn setTitle:ZHLS(@"OK") forState:UIControlStateNormal];
     self.nameLable.text = ZHLS(@"Name");
     self.nameTextFiled.placeholder = ZHLS(@"NamePlaceholder");
-    
 }
 
 - (void)setParent:(Item *)parent
@@ -41,11 +41,15 @@
     self.chooseFolder();
 }
 
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+- (IBAction)ok:(id)sender
 {
-    NSString *name = textField.text;
+    [self complete];
+}
+
+- (void)complete{
+    NSString *name = self.nameTextFiled.text;
     if (name.length == 0) {
-        return YES;
+        name = ZHLS(@"Untitled");
     }
     name = [name stringByAppendingString:@".md"];
     
@@ -61,23 +65,28 @@
     
     if (ret == NO) {
         showToast(ZHLS(@"DuplicateError"));
-        return YES;
     }
     
     [_parent addChild:i];
     
     self.didCreateNote(i);
+}
+
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
     return YES;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    if (textField.text.length == 0) {
-        showToast(ZHLS(@"EmptyNameTips"));
-    }
+//    if (textField.text.length == 0) {
+//        showToast(ZHLS(@"EmptyNameTips"));
+//    }
     [self.nameTextFiled resignFirstResponder];
 
     return YES;
 }
+
+- (
 
 @end

@@ -18,6 +18,8 @@
 "SortByCreateTime"="按创建时间排序";
 "SortByUpdateTime"="按修改时间排序";
 
+"Untilted"="未命名";
+
 "Font"="字体";
 "Preview"="预览";
 "Done"="完成";
@@ -96,5 +98,5 @@
 "DonatePrice"="打赏6元";
 
 "Name"="文件名";
-"NamePlaceholder"="请输入文件名(不包括后缀)，按回车结束";
+"NamePlaceholder"="请输入文件名(不包括后缀)";
 

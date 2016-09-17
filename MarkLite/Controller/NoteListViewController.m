@@ -15,10 +15,10 @@
 #import "Configure.h"
 #import "SortOptionsView.h"
 #import "CreateNoteView.h"
+
 @interface NoteListViewController () <UITableViewDelegate,UITableViewDataSource,UIViewControllerPreviewingDelegate,UISearchBarDelegate>
 
 @property (weak, nonatomic)  IBOutlet UITableView *noteListView;
-@property (assign, nonatomic) NSInteger           sortOption;
 @property (nonatomic,assign)  FileManager         *fm;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
@@ -40,6 +40,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:@"ItemsChangedNotification" object:nil];
     self.searchBar.placeholder = ZHLS(@"Search");
     
+    [[Configure sharedConfigure] addObserver:self forKeyPath:@"sortOption" options:NSKeyValueObservingOptionNew context:NULL];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeOrientation) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
@@ -49,11 +50,16 @@
     [self reload];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
+{
+    [self listNoteWithSortOption:[Configure sharedConfigure].sortOption];
+}
+
 - (void)reload
 {
     [_fm createCloudWorkspace];
     [_fm createLocalWorkspace];
-    self.sortOption = self.sortOption;
+    [self listNoteWithSortOption:[Configure sharedConfigure].sortOption];
 }
 
 - (NSArray*)rightItems
@@ -119,16 +125,15 @@
     if (createView.superview) {
         [self dismissView:createView];
     }
-    sortView = [[SortOptionsView alloc]initWithFrame:CGRectMake(0, -90, w, 90)];
+    sortView = [[SortOptionsView alloc]initWithFrame:CGRectMake(0, -60, w, 60)];
     
     __weak NoteListViewController *__self = self;
     __weak UIView *v = sortView;
 
     sortView.choosedIndex = ^(NSInteger index){
         [__self dismissView:v];
-        __self.sortOption = index;
+        [Configure sharedConfigure].sortOption = index;
     };
-    sortView.currentSortOption = self.sortOption;
     [self showView:sortView];
 }
 
@@ -171,10 +176,8 @@
     }];
 }
 
-- (void)setSortOption:(NSInteger)sortOption
+- (void)listNoteWithSortOption:(NSInteger)sortOption
 {
-    _sortOption = sortOption;
-    
     NSPredicate *pre = [NSPredicate predicateWithBlock:^BOOL(id  _Nonnull evaluatedObject, NSDictionary<NSString *,id> * _Nullable bindings) {
         Item *i = evaluatedObject;
         if (i.type == FileTypeText) {
@@ -185,7 +188,7 @@
     
     Item *local = _fm.local;
     Item *cloud = _fm.cloud;
-
+    
     NSArray *localArray = nil;
     NSArray *cloudArray = nil;
     NSMutableArray *arr = [NSMutableArray array];
@@ -198,27 +201,28 @@
     }
     [arr addObjectsFromArray:localArray];
     [arr addObjectsFromArray:cloudArray];
-
+    
     dataArray = [arr sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
         Item *item1 = obj1;
         Item *item2 = obj2;
-        if (_sortOption == 0) {
+        if (sortOption == 0) {
             return [item1.name compare:item2.name];
-        }else if(_sortOption == 1){
-            NSDate *date1 = [_fm attributeOfPath:item1.fullPath][NSFileCreationDate];
-            NSDate *date2 = [_fm attributeOfPath:item2.fullPath][NSFileCreationDate];
-            return [date1 compare:date2];
-        }else{
+        }else if(sortOption == 1){
             NSDate *date1 = [_fm attributeOfPath:item1.fullPath][NSFileModificationDate];
             NSDate *date2 = [_fm attributeOfPath:item2.fullPath][NSFileModificationDate];
-            return [date1 compare:date2];
+            return [date2 compare:date1];
+        }else{
+            NSDate *date1 = [_fm attributeOfPath:item1.fullPath][NSFileCreationDate];
+            NSDate *date2 = [_fm attributeOfPath:item2.fullPath][NSFileCreationDate];
+            NSLog(@"%@,%@",date1,date2);
+            return [date2 compare:date1];
         }
     }].mutableCopy;
     
     if (_fm.currentItem == nil) {
         _fm.currentItem = dataArray.firstObject;
     }
-
+    
     [self.noteListView reloadData];
 }
 
@@ -291,14 +295,14 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     searchWord = searchText;
-    self.sortOption = _sortOption;
+    [self listNoteWithSortOption:[Configure sharedConfigure].sortOption];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     searchWord = @"";
     [searchBar resignFirstResponder];
-    self.sortOption = _sortOption;
+    [self listNoteWithSortOption:[Configure sharedConfigure].sortOption];
     searchBar.text = @"";
 }
 

@@ -20,6 +20,8 @@
 
 @property (nonatomic,weak) IBOutlet UIButton *pathBtn;
 
+@property (nonatomic,weak) IBOutlet UIButton *sureBtn;
+
 @property (nonatomic,weak) IBOutlet UILabel *pathLabel;
 
 @property (nonatomic,weak) IBOutlet UILabel *nameLable;

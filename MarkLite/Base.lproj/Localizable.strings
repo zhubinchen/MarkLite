@@ -18,6 +18,8 @@
 "SortByCreateTime"="Sort by created time";
 "SortByUpdateTime"="Sort by updated time";
 
+"Untilted"="Untitled";
+
 "Font"="Font";
 "Preview"="Preview";
 "Done"="Done";
@@ -97,4 +99,4 @@
 "DonatePrice"="Donate $0.99";
 
 "Name"="Name";
-"NamePlaceholder"="Please input the name,return to end";
+"NamePlaceholder"="Please input the name";

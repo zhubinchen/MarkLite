@@ -7,6 +7,7 @@
 //
 
 #import "SortOptionsView.h"
+#import "Configure.h"
 
 @implementation SortOptionsView
 {
@@ -21,7 +22,9 @@
         self.backgroundColor = [UIColor whiteColor];
         [self showShadowWithColor:[UIColor grayColor] offset:CGSizeMake(0, 5)];
         
-        NSArray *options = @[ZHLS(@"SortByName"),ZHLS(@"SortByCreateTime"),ZHLS(@"SortByUpdateTime")];
+//        NSArray *options = @[ZHLS(@"SortByName"),ZHLS(@"SortByUpdateTime"),ZHLS(@"SortByCreateTime")];
+        NSArray *options = @[ZHLS(@"SortByName"),ZHLS(@"SortByUpdateTime")];
+
         for (int i = 0; i < options.count; i++) {
             UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(20, i*30, w - 20, 30)];
             btn.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -34,22 +37,19 @@
         }
         
         checkImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"check"]];
+        checkImgView.frame = CGRectMake(w - 35, [Configure sharedConfigure].sortOption*30 + 3, 24, 24);
         [self addSubview:checkImgView];
     }
     
     return self;
 }
 
-- (void)setCurrentSortOption:(NSInteger)currentSortOption
-{
-    _currentSortOption = currentSortOption;
-    CGFloat w = self.bounds.size.width;
-    checkImgView.frame = CGRectMake(w - 35, _currentSortOption*30 + 3, 24, 24);
-}
-
 - (void)choosedOption:(UIButton*)optionBtn
 {
-    self.currentSortOption = optionBtn.tag;
+    CGFloat w = self.bounds.size.width;
+
+    checkImgView.frame = CGRectMake(w - 35, optionBtn.tag*30 + 3, 24, 24);
+
     _choosedIndex(optionBtn.tag);
 }
 
