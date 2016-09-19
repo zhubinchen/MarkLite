@@ -70,6 +70,9 @@ static KeyboardBar *bar = nil;
 
 - (void)itemClicked:(UIButton*)btn
 {
+    if (btn.tag < 8) {
+        [self.delegate didInputText];
+    }
     if (btn.tag == 0) {
         [_editView insertText:@"\t"];
     }else if (btn.tag == 1) {

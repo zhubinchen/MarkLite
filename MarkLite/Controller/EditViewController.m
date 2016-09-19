@@ -16,7 +16,7 @@
 #import "Configure.h"
 #import "Item.h"
 
-@interface EditViewController () <UITextViewDelegate>
+@interface EditViewController () <UITextViewDelegate,KeyboardBarDelegate>
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottom;
 
@@ -63,8 +63,14 @@
         KeyboardBar *bar = [[KeyboardBar alloc]init];
         bar.editView = _editView;
         bar.vc = self;
+        bar.delegate = self;
         _editView.inputAccessoryView = bar;
     }
+}
+
+- (void)didInputText
+{
+    needSave = YES;
 }
 
 - (void)keyboardShow:(NSNotification*)noti

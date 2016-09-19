@@ -8,8 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol KeyboardBarDelegate <NSObject>
+
+- (void)didInputText;
+
+@end
+
 @interface KeyboardBar : UIView <UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
 @property (nonatomic,weak) UITextView *editView;
 @property (nonatomic,weak) UIViewController *vc;
+@property (nonatomic,weak) id<KeyboardBarDelegate> delegate;
+
 @end
