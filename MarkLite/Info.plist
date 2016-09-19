@@ -109,5 +109,9 @@
 			</dict>
 		</dict>
 	</array>
+    <key>NSCameraUsageDescription</key>
+    <string>Please click ok to toke photo</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Please click ok to pick an image</string>
 </dict>
 </plist>

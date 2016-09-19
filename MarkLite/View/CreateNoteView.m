@@ -20,6 +20,7 @@
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     self.pathLabel.text = ZHLS(@"Path");
     [self.sureBtn setTitle:ZHLS(@"OK") forState:UIControlStateNormal];
     self.nameLable.text = ZHLS(@"Name");
