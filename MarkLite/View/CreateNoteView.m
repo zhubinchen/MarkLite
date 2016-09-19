@@ -61,12 +61,16 @@
     i.path = path;
     i.open = YES;
     i.cloud = _parent.cloud;
-    BOOL ret = [[FileManager sharedManager] createFile:i.fullPath Content:[NSData data]];
-    
-    if (ret == NO) {
-        showToast(ZHLS(@"DuplicateError"));
+    if ([self.parent.items containsObject:i]) {
+        
     }
+    NSString *ret = [[FileManager sharedManager] createFile:i.fullPath Content:[NSData data]];
     
+    if (ret.length == 0) {
+        showToast(ZHLS(@"DuplicateError"));
+        return;
+    }
+    i.path = ret;
     [_parent addChild:i];
     
     self.didCreateNote(i);
@@ -79,14 +83,9 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-//    if (textField.text.length == 0) {
-//        showToast(ZHLS(@"EmptyNameTips"));
-//    }
     [self.nameTextFiled resignFirstResponder];
 
     return YES;
 }
-
-- (
 
 @end

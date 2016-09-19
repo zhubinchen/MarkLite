@@ -104,6 +104,14 @@
 {
     _path = path;
 
+    if ([path hasPrefix:cloudWorkspace()]) {
+        path = [path stringByReplacingOccurrencesOfString:cloudWorkspace() withString:@""];
+        _cloud = YES;
+    }
+    if ([path hasPrefix:localWorkspace()]) {
+        path = [path stringByReplacingOccurrencesOfString:localWorkspace() withString:@""];
+        _cloud = NO;
+    }
     NSArray *arr = [path componentsSeparatedByString:@"."];
     if (arr.count > 1) {
         NSString *ex = arr.lastObject;
@@ -161,6 +169,5 @@
 {
     return [NSString stringWithFormat:@"%@:%@:%@",self.path,self.children,_cloud?@"cloud":@"local"];
 }
-
 
 @end

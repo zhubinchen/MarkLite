@@ -147,33 +147,63 @@
     }
 }
 
-- (BOOL)createFolder:(NSString *)path
+- (NSString*)createFolder:(NSString *)path
 {
+    NSString *truePath = [self rename:path];
     NSError *error = nil;
-    if ([fm fileExistsAtPath:path]) {
-        return NO;
-    }
+
     [fm createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&error];
     NSLog(@"creating dir:%@",path);
     if (error) {
         NSLog(@"%@",error);
-        return NO;
+        return nil;
     }
-    return YES;
+    return truePath;
 }
 
-- (BOOL)createFile:(NSString *)path Content:(NSData *)content
+- (NSString*)createFile:(NSString *)path Content:(NSData *)content
 {
-    if ([fm fileExistsAtPath:path]) {
-        return NO;
-    }
-    BOOL ret = [fm createFileAtPath:path contents:content attributes:nil];
+    NSString *truePath = [self rename:path];
+    BOOL ret = [fm createFileAtPath:truePath contents:content attributes:nil];
     NSLog(@"creating file:%@",path);
     if (!ret) {
         NSLog(@"failed");
-        return NO;
+        return nil;
     }
-    return YES;
+    return truePath;
+}
+
+- (NSString*)newNameFromOldName:(NSString*)oldName
+{
+    if (oldName.length < 3) {
+        return [oldName stringByAppendingString:@"(1)"];
+    }
+    NSRegularExpression *rex = [NSRegularExpression regularExpressionWithPattern:@"\\([0-9]+\\)" options:NSRegularExpressionCaseInsensitive error:nil];
+    
+    NSRange range = [rex rangeOfFirstMatchInString:oldName options:NSMatchingReportCompletion range:NSMakeRange(0, oldName.length)];
+    if (range.location == NSNotFound) {
+        return [oldName stringByAppendingString:@"(1)"];
+    }
+    int num = [oldName substringWithRange:NSMakeRange(range.location + 1, range.length - 2)].intValue;
+    NSString *numStr = [NSString stringWithFormat:@"(%d)",++num];
+    return [oldName stringByReplacingCharactersInRange:range withString:numStr];;
+}
+
+- (NSString*)rename:(NSString*)name
+{
+    NSArray *arr = [name componentsSeparatedByString:@"."];
+    BOOL exist = [[NSFileManager defaultManager] fileExistsAtPath:name];
+    if (exist) {
+        NSLog(@"已经存在");
+        NSString *newName;
+        if (arr.count > 1) {
+            newName = [[self newNameFromOldName:arr[0]] stringByAppendingPathExtension:arr[1]];
+        }else{
+            newName = [self newNameFromOldName:name];
+        }
+        return [self rename:newName];
+    }
+    return name;
 }
 
 - (BOOL)saveFile:(NSString *)path Content:(NSData *)content

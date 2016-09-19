@@ -67,12 +67,12 @@
     i.path = [ZHLS(@"Recieved") stringByAppendingPathComponent:name];
     i.cloud = NO;
     
-    BOOL ret = [fm createFile:i.fullPath Content:content];
-    if (!ret) {
+    NSString *ret = [fm createFile:i.fullPath Content:content];
+    if (ret == nil) {
         showToast(ZHLS(@"Error"));
         return YES;
     }
-    
+    i.path = ret;
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:[NSString stringWithFormat:ZHLS(@"ReceivedNewFile"),name] message:@"" delegate:nil cancelButtonTitle:ZHLS(@"Ignore") otherButtonTitles:ZHLS(@"Open"), nil];
     alert.clickedButton = ^(NSInteger buttonIndex){
         if (buttonIndex == 1) {

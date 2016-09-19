@@ -25,9 +25,9 @@
 
 #pragma 以下出现的所有path均为绝路径
 
-- (BOOL)createFolder:(NSString*)path;
+- (NSString*)createFolder:(NSString*)path;
 
-- (BOOL)createFile:(NSString*)path Content:(NSData*)content;
+- (NSString*)createFile:(NSString*)path Content:(NSData*)content;
 
 - (BOOL)saveFile:(NSString*)path Content:(NSData*)content;
 

@@ -236,6 +236,9 @@
         if (buttonIndex == 1) {
             [[__alert textFieldAtIndex:0] resignFirstResponder];
             NSString *name = [__alert textFieldAtIndex:0].text;
+            if (name.length == 0) {
+                name = ZHLS(@"Untitled");
+            }
             if (type == FileTypeText) {
                 name = [name stringByAppendingString:@".md"];
             }
@@ -248,14 +251,16 @@
             i.open = YES;
             i.cloud = selectParent.cloud;
             
-            BOOL ret = NO;
+            NSString *ret = nil;
             if (i.type == FileTypeFolder) {
                 ret = [fm createFolder:i.fullPath];
+                i.path = ret;
             }else{
                 ret = [fm createFile:i.fullPath Content:[NSData data]];
+                i.path = ret;
             }
             
-            if (ret == NO) {
+            if (ret.length == 0) {
                 showToast(ZHLS(@"DuplicateError"));
                 return;
             }
