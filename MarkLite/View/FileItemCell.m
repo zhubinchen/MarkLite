@@ -23,24 +23,27 @@
         _typeIcon.image = [UIImage imageNamed:item.open ? @"folder_open" : @"folder"];
     }
     _iconSpace.constant = begin;
-    _addBtn.hidden = !(_edit && item.type == FileTypeFolder);
-    _deleteBtn.hidden = !_edit;
-    _moreBtn.hidden = _edit;
     
     self.nameText.text = [item.path componentsSeparatedByString:@"/"].lastObject;
-    line.frame = CGRectMake(begin , 39.7, kScreenWidth - item.deep * 30 + 22, 0.3);
-}
-
-- (IBAction)addBtnClicked:(id)sender {
-    self.newFileBlock(_item);
-}
-
-- (IBAction)deleteBtnClicked:(id)sender {
-    self.deleteFileBlock(_item);
-}
-
-- (IBAction)moreBtnClicked:(id)sender {
-    self.moreBlock(_item);
+    line.frame = CGRectMake(begin , 49.7, kScreenWidth - item.deep * 30 + 22, 0.3);
+    
+    MGSwipeButton *delete = [MGSwipeButton buttonWithTitle:@"delete" icon:[UIImage imageNamed:@"chat_icon_delete_normal"] backgroundColor:[UIColor colorWithRGBString:@"ff0000"]];
+    delete.buttonWidth = 80;
+    [delete setImage:[UIImage imageNamed:@"chat_icon_delete_press"] forState:UIControlStateHighlighted];
+    
+    MGSwipeButton *export = [MGSwipeButton buttonWithTitle:@"export" icon:[UIImage imageNamed:@"chat_icon_videocam_normal"] backgroundColor:[UIColor colorWithRGBString:@"00ff00"]];
+    [export setImage:[UIImage imageNamed:@"chat_icon_videocam_press"] forState:UIControlStateHighlighted];
+    export.buttonWidth = 80;
+    
+    MGSwipeButton *rename = [MGSwipeButton buttonWithTitle:@"rename" icon:[UIImage imageNamed:@"chat_icon_videocam_normal"] backgroundColor:[UIColor colorWithRGBString:@"00ff00"]];
+    [rename setImage:[UIImage imageNamed:@"chat_icon_videocam_press"] forState:UIControlStateHighlighted];
+    rename.buttonWidth = 80;
+    
+    if (item.type == FileTypeFolder) {
+        self.rightButtons = @[delete,rename];
+    } else {
+        self.rightButtons = @[delete,rename,export];
+    }
 }
 
 - (void)awakeFromNib

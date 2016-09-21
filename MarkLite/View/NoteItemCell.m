@@ -28,7 +28,7 @@
 }
 
 - (void)awakeFromNib {
-    // Initialization code
+    [super awakeFromNib];
 //    [self.tagView showBorderWithColor:[UIColor colorWithWhite:0.1 alpha:0.1] radius:8 width:1.5];
 }
 

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="aKX-uK-LuT">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Edit View Controller-->
+        <scene sceneID="7MM-of-jgj">
+            <objects>
+                <viewController id="ObA-dk-sSI" customClass="EditViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qkL-Od-lgU"/>
+                        <viewControllerLayoutGuide type="bottom" id="n38-gi-rB5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zMn-AG-sqS">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="528"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yir-FE-6PP"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="LM2-GE-59y">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="yir-FE-6PP" firstAttribute="leading" secondItem="zMn-AG-sqS" secondAttribute="leading" id="2pZ-yr-HfC"/>
+                            <constraint firstItem="yir-FE-6PP" firstAttribute="top" secondItem="qkL-Od-lgU" secondAttribute="bottom" id="Cel-aG-Yul"/>
+                            <constraint firstItem="LM2-GE-59y" firstAttribute="leading" secondItem="zMn-AG-sqS" secondAttribute="leading" id="FuW-4V-GGJ"/>
+                            <constraint firstAttribute="trailing" secondItem="yir-FE-6PP" secondAttribute="trailing" id="Mwb-5m-RJZ"/>
+                            <constraint firstAttribute="trailing" secondItem="LM2-GE-59y" secondAttribute="trailing" id="O85-V6-uKt"/>
+                            <constraint firstItem="LM2-GE-59y" firstAttribute="top" secondItem="qkL-Od-lgU" secondAttribute="bottom" id="UHj-Lu-faL"/>
+                            <constraint firstItem="n38-gi-rB5" firstAttribute="top" secondItem="LM2-GE-59y" secondAttribute="bottom" id="ikg-50-1uo"/>
+                            <constraint firstItem="n38-gi-rB5" firstAttribute="top" secondItem="yir-FE-6PP" secondAttribute="bottom" id="nTv-CG-ehi"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="528"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X47-rx-isc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="834" y="53"/>
+        </scene>
+        <!--Messages View Controller-->
+        <scene sceneID="ia5-Rr-Zzr">
+            <objects>
+                <viewController id="aKX-uK-LuT" customClass="MessagesViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oHJ-a1-Hdf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f4f-kb-yRG">
+                                <frame key="frameInset" minX="164" minY="331" width="46" height="30"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="test:" destination="aKX-uK-LuT" eventType="touchUpInside" id="Y3B-ws-8F2"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="f4f-kb-yRG" firstAttribute="centerY" secondItem="oHJ-a1-Hdf" secondAttribute="centerY" id="KAz-Ph-iRU"/>
+                            <constraint firstItem="f4f-kb-yRG" firstAttribute="centerX" secondItem="oHJ-a1-Hdf" secondAttribute="centerX" id="cAD-N2-55Q"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
+                    <connections>
+                        <segue destination="ObA-dk-sSI" kind="presentation" identifier="test" id="YiZ-IJ-MGH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q9H-k9-dII" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>

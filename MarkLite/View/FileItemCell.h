@@ -8,24 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "Item.h"
+#import "MGSwipeTableCell.h"
 
-@interface FileItemCell : UITableViewCell <UITextFieldDelegate>
+@interface FileItemCell : MGSwipeTableCell 
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *iconSpace;
 @property (weak, nonatomic) IBOutlet UIImageView *typeIcon;
 @property (weak, nonatomic) IBOutlet UIImageView *checkIcon;
 @property (weak, nonatomic) IBOutlet UITextField *nameText;
-@property (weak, nonatomic) IBOutlet UIButton *addBtn;
-@property (weak, nonatomic) IBOutlet UIButton *deleteBtn;
-@property (weak, nonatomic) IBOutlet UIButton *moreBtn;
 
 @property (nonatomic,assign) int  shift;
 @property (nonatomic,strong) Item *item;
-
-@property (nonatomic,copy) void(^newFileBlock)(Item *i);
-@property (nonatomic,copy) void(^deleteFileBlock)(Item *i);
-@property (nonatomic,copy) void(^moreBlock)(Item *i);
-
-@property (nonatomic,assign) BOOL edit;
 
 @end

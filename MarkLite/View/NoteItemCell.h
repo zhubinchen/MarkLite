@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MGSwipeTableCell.h"
 #import "Item.h"
 
-@interface NoteItemCell : UITableViewCell
+@interface NoteItemCell : MGSwipeTableCell
 
 @property (weak, nonatomic) IBOutlet UIView *tagView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;

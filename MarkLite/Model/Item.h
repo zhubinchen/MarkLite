@@ -30,6 +30,9 @@ typedef NS_ENUM(NSUInteger, FileType) {
 
 @property (nonatomic,assign)            BOOL       cloud;       //云端？
 
+@property (nonatomic,assign)            BOOL       selected;    //选中
+
+
 #pragma 只读属性
 @property (nonatomic,assign,readonly)   NSInteger  deep;          //目录深度
 
@@ -45,6 +48,7 @@ typedef NS_ENUM(NSUInteger, FileType) {
 
 @property (nonatomic,strong,readonly)   NSString   *fullPath;  //绝对路径
 
+@property (nonatomic,strong,readonly)   NSArray    *selectedChildren; // 当前目录所有能看到的文件
 
 - (NSArray*)searchResult:(NSString*)searchText;
 

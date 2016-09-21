@@ -58,6 +58,20 @@
     return ret;
 }
 
+- (NSArray *)selectedChildren
+{
+    NSMutableArray *ret = [NSMutableArray array];
+    
+    if (self.selected) {
+        for (Item *i in self.children) {
+            [ret addObject:i];
+            [ret addObjectsFromArray:i.itemsCanReach];
+        }
+    }
+    
+    return ret;
+}
+
 - (NSArray*)itemsCanReach
 {
     NSMutableArray *ret = [NSMutableArray array];

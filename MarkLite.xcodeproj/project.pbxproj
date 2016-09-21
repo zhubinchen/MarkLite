@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		072198E31D90EA1B00A17DC1 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 072198E01D90EA1B00A17DC1 /* MGSwipeButton.m */; };
+		072198E41D90EA1B00A17DC1 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 072198E21D90EA1B00A17DC1 /* MGSwipeTableCell.m */; };
+		077140351D928FD70083E82A /* Messages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077140341D928FD70083E82A /* Messages.framework */; };
+		077140391D928FD70083E82A /* MessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 077140381D928FD70083E82A /* MessagesViewController.m */; };
+		0771403C1D928FD70083E82A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0771403A1D928FD70083E82A /* MainInterface.storyboard */; };
+		0771403E1D928FD70083E82A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0771403D1D928FD70083E82A /* Assets.xcassets */; };
+		077140421D928FD70083E82A /* MarkLite-Message.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 077140321D928FD70083E82A /* MarkLite-Message.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0777D3371D2522E20026E0EA /* StyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0777D3351D2522E20026E0EA /* StyleViewController.m */; };
 		0777D3381D2522E20026E0EA /* StyleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0777D3361D2522E20026E0EA /* StyleViewController.xib */; };
 		07AFAC151D34C8E50084FF76 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 07AFABFC1D34C8E50084FF76 /* about.html */; };
@@ -104,6 +111,16 @@
 		07FD24E81D407FE4009E97B4 /* SortOptionsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07FD24E71D407FE4009E97B4 /* SortOptionsView.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		077140401D928FD70083E82A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 07B92DC21D1D960F00A4127E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 077140311D928FD70083E82A;
+			remoteInfo = "MarkLite-Message";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		0707FBD01D3CE6090042CE34 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -111,6 +128,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				077140421D928FD70083E82A /* MarkLite-Message.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,6 +136,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		072198DF1D90EA1B00A17DC1 /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeButton.h; sourceTree = "<group>"; };
+		072198E01D90EA1B00A17DC1 /* MGSwipeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeButton.m; sourceTree = "<group>"; };
+		072198E11D90EA1B00A17DC1 /* MGSwipeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeTableCell.h; sourceTree = "<group>"; };
+		072198E21D90EA1B00A17DC1 /* MGSwipeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeTableCell.m; sourceTree = "<group>"; };
+		077140321D928FD70083E82A /* MarkLite-Message.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "MarkLite-Message.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		077140341D928FD70083E82A /* Messages.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Messages.framework; path = System/Library/Frameworks/Messages.framework; sourceTree = SDKROOT; };
+		077140371D928FD70083E82A /* MessagesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessagesViewController.h; sourceTree = "<group>"; };
+		077140381D928FD70083E82A /* MessagesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessagesViewController.m; sourceTree = "<group>"; };
+		0771403B1D928FD70083E82A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		0771403D1D928FD70083E82A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0771403F1D928FD70083E82A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0777D3341D2522E20026E0EA /* StyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleViewController.h; sourceTree = "<group>"; };
 		0777D3351D2522E20026E0EA /* StyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleViewController.m; sourceTree = "<group>"; };
 		0777D3361D2522E20026E0EA /* StyleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StyleViewController.xib; sourceTree = "<group>"; };
@@ -278,6 +307,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0771402F1D928FD70083E82A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				077140351D928FD70083E82A /* Messages.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		07B92DC71D1D960F00A4127E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -292,6 +329,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		072198DE1D90EA1B00A17DC1 /* MGSwipeCell */ = {
+			isa = PBXGroup;
+			children = (
+				072198DF1D90EA1B00A17DC1 /* MGSwipeButton.h */,
+				072198E01D90EA1B00A17DC1 /* MGSwipeButton.m */,
+				072198E11D90EA1B00A17DC1 /* MGSwipeTableCell.h */,
+				072198E21D90EA1B00A17DC1 /* MGSwipeTableCell.m */,
+			);
+			path = MGSwipeCell;
+			sourceTree = "<group>";
+		};
+		077140331D928FD70083E82A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				077140341D928FD70083E82A /* Messages.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		077140361D928FD70083E82A /* MarkLite-Message */ = {
+			isa = PBXGroup;
+			children = (
+				077140371D928FD70083E82A /* MessagesViewController.h */,
+				077140381D928FD70083E82A /* MessagesViewController.m */,
+				0771403A1D928FD70083E82A /* MainInterface.storyboard */,
+				0771403D1D928FD70083E82A /* Assets.xcassets */,
+				0771403F1D928FD70083E82A /* Info.plist */,
+			);
+			path = "MarkLite-Message";
+			sourceTree = "<group>";
+		};
 		0777D3331D2522B80026E0EA /* Menu */ = {
 			isa = PBXGroup;
 			children = (
@@ -380,6 +448,8 @@
 				07F90CEE1D20F89900DF5194 /* StoreKit.framework */,
 				07B92EFA1D1D98D500A4127E /* libz.tbd */,
 				07B92DCC1D1D960F00A4127E /* MarkLite */,
+				077140361D928FD70083E82A /* MarkLite-Message */,
+				077140331D928FD70083E82A /* Frameworks */,
 				07B92DCB1D1D960F00A4127E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -388,6 +458,7 @@
 			isa = PBXGroup;
 			children = (
 				07B92DCA1D1D960F00A4127E /* MarkLite.app */,
+				077140321D928FD70083E82A /* MarkLite-Message.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -469,6 +540,7 @@
 		07B92E401D1D966B00A4127E /* ThirdLib */ = {
 			isa = PBXGroup;
 			children = (
+				072198DE1D90EA1B00A17DC1 /* MGSwipeCell */,
 				07BB7AB11D37F39C0034BDDC /* AFNetworking */,
 				07B92EDB1D1D986E00A4127E /* Hoedown */,
 				07B92E5C1D1D966B00A4127E /* MarkDownRender */,
@@ -632,6 +704,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		077140311D928FD70083E82A /* MarkLite-Message */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 077140431D928FD70083E82A /* Build configuration list for PBXNativeTarget "MarkLite-Message" */;
+			buildPhases = (
+				0771402E1D928FD70083E82A /* Sources */,
+				0771402F1D928FD70083E82A /* Frameworks */,
+				077140301D928FD70083E82A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "MarkLite-Message";
+			productName = "MarkLite-Message";
+			productReference = 077140321D928FD70083E82A /* MarkLite-Message.appex */;
+			productType = "com.apple.product-type.app-extension.messages";
+		};
 		07B92DC91D1D960F00A4127E /* MarkLite */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 07B92DE11D1D960F00A4127E /* Build configuration list for PBXNativeTarget "MarkLite" */;
@@ -644,6 +733,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				077140411D928FD70083E82A /* PBXTargetDependency */,
 			);
 			name = MarkLite;
 			productName = MarkLite;
@@ -659,6 +749,11 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = zhubch;
 				TargetAttributes = {
+					077140311D928FD70083E82A = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = HX6HU45L64;
+						ProvisioningStyle = Automatic;
+					};
 					07B92DC91D1D960F00A4127E = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = HX6HU45L64;
@@ -689,11 +784,21 @@
 			projectRoot = "";
 			targets = (
 				07B92DC91D1D960F00A4127E /* MarkLite */,
+				077140311D928FD70083E82A /* MarkLite-Message */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		077140301D928FD70083E82A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0771403E1D928FD70083E82A /* Assets.xcassets in Resources */,
+				0771403C1D928FD70083E82A /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		07B92DC81D1D960F00A4127E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -742,6 +847,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0771402E1D928FD70083E82A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				077140391D928FD70083E82A /* MessagesViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		07B92DC61D1D960F00A4127E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -760,6 +873,7 @@
 				07B92EF61D1D986E00A4127E /* html_blocks.c in Sources */,
 				07B92E001D1D964100A4127E /* NoteListViewController.m in Sources */,
 				07B92ED01D1D966B00A4127E /* KeyboardBar.m in Sources */,
+				072198E41D90EA1B00A17DC1 /* MGSwipeTableCell.m in Sources */,
 				07BB7AC71D37F39C0034BDDC /* AFHTTPSessionManager.m in Sources */,
 				07F90CEC1D20F67900DF5194 /* ImageViewController.m in Sources */,
 				07BB7ACC1D37F39C0034BDDC /* AFURLResponseSerialization.m in Sources */,
@@ -794,6 +908,7 @@
 				07B92DFA1D1D964100A4127E /* AboutViewController.m in Sources */,
 				07B92EF31D1D986E00A4127E /* document.c in Sources */,
 				07BB7AC61D37F39C0034BDDC /* AFHTTPRequestOperationManager.m in Sources */,
+				072198E31D90EA1B00A17DC1 /* MGSwipeButton.m in Sources */,
 				07B92EF21D1D986E00A4127E /* buffer.c in Sources */,
 				07B92E011D1D964100A4127E /* PreviewViewController.m in Sources */,
 				07B92DCF1D1D960F00A4127E /* main.m in Sources */,
@@ -804,7 +919,23 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		077140411D928FD70083E82A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 077140311D928FD70083E82A /* MarkLite-Message */;
+			targetProxy = 077140401D928FD70083E82A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		0771403A1D928FD70083E82A /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0771403B1D928FD70083E82A /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		07B92DDB1D1D960F00A4127E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -842,6 +973,40 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		077140441D928FD70083E82A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = HX6HU45L64;
+				INFOPLIST_FILE = "MarkLite-Message/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.zhubch.MarkLite.MarkLite-Message";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		077140451D928FD70083E82A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "iMessage App Icon";
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				DEVELOPMENT_TEAM = HX6HU45L64;
+				INFOPLIST_FILE = "MarkLite-Message/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.zhubch.MarkLite.MarkLite-Message";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		07B92DDF1D1D960F00A4127E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -979,6 +1144,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		077140431D928FD70083E82A /* Build configuration list for PBXNativeTarget "MarkLite-Message" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				077140441D928FD70083E82A /* Debug */,
+				077140451D928FD70083E82A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		07B92DC51D1D960F00A4127E /* Build configuration list for PBXProject "MarkLite" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

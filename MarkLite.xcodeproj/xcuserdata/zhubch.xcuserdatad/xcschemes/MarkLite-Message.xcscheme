@@ -15,9 +15,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0707FBC01D3CE6090042CE34"
-               BuildableName = "MarkLite-Share.appex"
-               BlueprintName = "MarkLite-Share"
+               BlueprintIdentifier = "077140311D928FD70083E82A"
+               BuildableName = "MarkLite-Message.appex"
+               BlueprintName = "MarkLite-Message"
                ReferencedContainer = "container:MarkLite.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,9 +47,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "0707FBC01D3CE6090042CE34"
-            BuildableName = "MarkLite-Share.appex"
-            BlueprintName = "MarkLite-Share"
+            BlueprintIdentifier = "077140311D928FD70083E82A"
+            BuildableName = "MarkLite-Message.appex"
+            BlueprintName = "MarkLite-Message"
             ReferencedContainer = "container:MarkLite.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

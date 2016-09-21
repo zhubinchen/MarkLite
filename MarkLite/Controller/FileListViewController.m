@@ -14,20 +14,22 @@
 #import "Item.h"
 #import "FileItemCell.h"
 #import "Configure.h"
+#import "CreateNoteView.h"
 
-@interface FileListViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIViewControllerPreviewingDelegate,UISearchBarDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface FileListViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIViewControllerPreviewingDelegate,UISearchBarDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,MGSwipeTableCellDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *localListView;
 @property (weak, nonatomic) IBOutlet UITableView *cloudListView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (assign, nonatomic) BOOL cloud;
+@property (strong, nonatomic) FileManager *fm;
+@property (strong, nonatomic) UIView *toolBar;
 
 @end
 
 @implementation FileListViewController
 {
     Item *root;
-    FileManager *fm;
     Item *selectParent;
     Item *selectItem;
     BOOL edit;
@@ -38,13 +40,14 @@
     UIPopoverPresentationController *popVc;
     UITableView *fileListView;
     UISegmentedControl *segment;
+    CreateNoteView *createView;
 }
 
 #pragma mark 生命周期
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    fm = [FileManager sharedManager];
+    _fm = [FileManager sharedManager];
     
     self.cloud = NO;
     [self.localListView registerNib:[UINib nibWithNibName:@"FileItemCell" bundle:nil] forCellReuseIdentifier:@"file"];
@@ -81,22 +84,28 @@
 
 - (void)reload
 {
-    _cloud ? [fm createCloudWorkspace] : [fm createLocalWorkspace];
+    _cloud ? [_fm createCloudWorkspace] : [_fm createLocalWorkspace];
 
-    root = _cloud ? fm.cloud : fm.local;
+    root = _cloud ? _fm.cloud : _fm.local;
     dataArray = root.itemsCanReach.mutableCopy;
-    if (edit) {
-        [dataArray insertObject:root atIndex:0];
-    }
     fileListView = _cloud ? _cloudListView : _localListView;
     [fileListView reloadData];
 }
 
+- (UIView *)toolBar
+{
+    if (_toolBar == nil) {
+        _toolBar = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 49)];
+        _toolBar.backgroundColor = [UIColor redColor];
+    }
+    return _toolBar;
+}
 
 - (NSArray*)rightItems
 {
     rightItem = [[UIBarButtonItem alloc]initWithTitle:ZHLS(edit ? @"Done":@"Edit") style:UIBarButtonItemStylePlain target:self action:@selector(edit)];
-    return @[rightItem];
+    UIBarButtonItem *new = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newNote)];
+    return @[new,rightItem];
 }
 
 - (NSArray*)leftItems
@@ -105,22 +114,95 @@
     return @[leftItem];
 }
 
+- (void)newNote
+{
+    CGFloat w = self.view.bounds.size.width;
+    
+    if (createView.superview) {
+        [self dismissView:createView];
+        return;
+    }
+    createView = [CreateNoteView instance];
+    
+    if ([Configure sharedConfigure].defaultParent == nil) {
+        [Configure sharedConfigure].defaultParent = _fm.local;
+    }
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[Configure sharedConfigure].defaultParent.fullPath]) {
+        [Configure sharedConfigure].defaultParent = _fm.local;
+    }
+    createView.parent = [Configure sharedConfigure].defaultParent;
+    __weak typeof(self) weakself = self;
+    createView.chooseFolder = ^(){
+        [weakself performSegueWithIdentifier:@"newNote" sender:weakself];
+    };
+    __weak UIView *v = createView;
+    createView.didCreateNote = ^(Item *note){
+        [weakself dismissView:v];
+        [weakself reload];
+        
+        weakself.fm.currentItem = note;
+        if (kDevicePhone) {
+            [weakself performSegueWithIdentifier:@"edit" sender:weakself];
+        }
+    };
+    createView.frame = CGRectMake(0, -100, w, 100);
+    [self showView:createView];
+}
+
+- (void)dismissView:(UIView*)v
+{
+    UIView *control = v.superview;
+    
+    if ([v isKindOfClass:[UIControl class]]) {
+        control = v;
+        v = control.subviews.firstObject;
+    }
+    CGFloat w = self.view.bounds.size.width;
+    CGFloat h = v.frame.size.height;
+    [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        v.frame = CGRectMake(0, 64 - h, w, h);
+        control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    } completion:^(BOOL finished) {
+        if (finished) {
+            [v removeFromSuperview];
+            [control removeFromSuperview];
+        }
+    }];
+}
+
+- (void)showView:(UIView*)v
+{
+    UIControl *control = [[UIControl alloc]initWithFrame:self.view.bounds];
+    control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
+    [control addTarget:self action:@selector(dismissView:) forControlEvents:UIControlEventTouchUpInside];
+    
+    control.frame = self.view.bounds;
+    [self.view addSubview:control];
+    [control addSubview:v];
+    CGFloat w = self.view.bounds.size.width;
+    CGFloat h = v.frame.size.height;
+    [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        v.frame = CGRectMake(0, 64, w, h);
+        control.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
+    } completion:^(BOOL finished) {
+    }];
+}
+
 - (void)edit
 {
     edit = !edit;
 
     if (edit) {
         rightItem.title = ZHLS(@"Done");
-        [dataArray insertObject:root atIndex:0];
+        [self.tabBarController.tabBar addSubview:self.toolBar];
     }else{
         rightItem.title = ZHLS(@"Edit");
-        [dataArray removeObjectAtIndex:0];
+        [self.toolBar removeFromSuperview];
     }
-    [fileListView reloadData];
 }
 
-
-#pragma mark 功能逻辑
+#pragma mark 显示控制
 
 - (void)foldWithIndex:(int)index
 {
@@ -168,6 +250,168 @@
     [fileListView endUpdates];
 }
 
+- (void)searchWithWord:(NSString*)word
+{
+    if (word.length == 0) {
+        dataArray = root.itemsCanReach.mutableCopy;
+    }else {
+        dataArray = [root searchResult:word].mutableCopy;
+    }
+    [fileListView reloadData];
+}
+
+#pragma mark MGSwipeTableCellDelegate
+- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
+{
+    Item *i = [(FileItemCell*)cell item];
+    if (index == 0) {
+        [self deleteItem:i];
+    }else if (index == 1){
+        [self renameItem:i];
+    }else{
+        [self export:i sourceView:cell];
+    }
+    return YES;
+}
+
+- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell canSwipe:(MGSwipeDirection)direction fromPoint:(CGPoint)point
+{
+    return !edit;
+}
+
+#pragma mark UITableViewDataSource & UITableViewDelegate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return dataArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    FileItemCell *cell = (FileItemCell*)[tableView dequeueReusableCellWithIdentifier:@"file" forIndexPath:indexPath];
+    cell.delegate = self;
+    Item *item = dataArray[indexPath.row];
+    
+    cell.item = item;
+    
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 50;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([dataArray[indexPath.row] isKindOfClass:[NSDictionary class]]) {
+        return;
+    }
+    Item *i = dataArray[indexPath.row];
+
+    if (i.type == FileTypeFolder) {
+        if (!i.open) {
+            i.open = YES;
+            [self openWithIndex:(int)indexPath.row];
+        }else{
+            [self foldWithIndex:(int)indexPath.row];
+            i.open = NO;
+        }
+        FileItemCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        cell.item = i;
+        return;
+    }
+    
+    _fm.currentItem = i;
+    
+    if (kDevicePhone) {
+        [self performSegueWithIdentifier:@"edit" sender:self];
+    }
+}
+
+#pragma mark searchbar
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    [self searchWithWord:searchText];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
+    searchBar.text = @"";
+    [self searchWithWord:@""];
+}
+
+- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
+{
+    searchBar.showsCancelButton = YES;
+    [searchBar setCancelButtonTitle:ZHLS(@"Cancel")];
+    return YES;
+}
+
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+{
+    searchBar.showsCancelButton = NO;
+    return YES;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"move"]) {
+        ChooseFolderViewController *vc = [(UINavigationController*)segue.destinationViewController viewControllers].firstObject;
+        vc.didChoosedFolder = ^(Item *i){
+            [self moveItem:selectItem toParent:i];
+        };
+    }
+}
+
+#pragma mark 文件操作
+
+- (NSURL *)fileToURL:(NSString*)filename
+{
+    NSArray *fileComponents = [filename componentsSeparatedByString:@"."];
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:[fileComponents objectAtIndex:0] ofType:[fileComponents objectAtIndex:1]];
+    
+    return [NSURL fileURLWithPath:filePath];
+}
+
+- (void)export:(Item *) i sourceView:(UIView*)view{
+    NSURL *url = [NSURL fileURLWithPath:i.fullPath];
+    NSArray *objectsToShare = @[url];
+    
+    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+    
+    NSArray *excludedActivities = @[
+                                    UIActivityTypePostToTwitter,
+                                    UIActivityTypePostToFacebook,
+                                    UIActivityTypePostToWeibo,
+                                    UIActivityTypeAssignToContact,
+                                    UIActivityTypeSaveToCameraRoll,
+                                    UIActivityTypeAddToReadingList,
+                                    UIActivityTypePostToFlickr
+                                    ];
+    controller.excludedActivityTypes = excludedActivities;
+    
+    if (kDevicePhone) {
+        [self presentViewController:controller animated:YES completion:nil];
+    }else{
+        popVc = controller.popoverPresentationController;
+        popVc.sourceView = view;
+        popVc.sourceRect = view.bounds;
+        popVc.permittedArrowDirections = UIPopoverArrowDirectionAny;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self presentViewController:controller animated:YES completion:nil];
+        });
+    }
+    
+}
+
 - (void)renameItem:(Item*)i
 {
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"Rename") message:ZHLS(@"NameAlertMessage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
@@ -192,7 +436,7 @@
             i.path = newPath;
             NSString *newFullPath = i.fullPath;
             
-            if ([fm moveFile:oldFullPath toNewPath:newFullPath]) {
+            if ([_fm moveFile:oldFullPath toNewPath:newFullPath]) {
                 [fileListView reloadData];
             }else{
                 i.path = oldPath;
@@ -253,10 +497,10 @@
             
             NSString *ret = nil;
             if (i.type == FileTypeFolder) {
-                ret = [fm createFolder:i.fullPath];
+                ret = [_fm createFolder:i.fullPath];
                 i.path = ret;
             }else{
-                ret = [fm createFile:i.fullPath Content:[NSData data]];
+                ret = [_fm createFile:i.fullPath Content:[NSData data]];
                 i.path = ret;
             }
             
@@ -267,13 +511,13 @@
             
             [selectParent addChild:i];
             selectParent.open = YES;
-
+            
             dataArray = root.itemsCanReach.mutableCopy;
             [dataArray insertObject:root atIndex:0];
             [fileListView reloadData];
             
             if (i.type == FileTypeText) {
-                fm.currentItem = i;
+                _fm.currentItem = i;
                 if (kDevicePhone) {
                     [self performSegueWithIdentifier:@"edit" sender:self];
                 }
@@ -285,223 +529,38 @@
     });
 }
 
-- (void)searchWithWord:(NSString*)word
+- (void)deleteItem:(Item*)i
 {
-    if (word.length == 0) {
-        dataArray = root.itemsCanReach.mutableCopy;
-    }else {
-        dataArray = [root searchResult:word].mutableCopy;
+    if (i == root) {
+        showToast(ZHLS(@"CanNotDeleteRoot"));
+        return ;
     }
-    [fileListView reloadData];
-}
-
-#pragma mark UITableViewDataSource & UITableViewDelegate
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return dataArray.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    FileItemCell *cell = (FileItemCell*)[tableView dequeueReusableCellWithIdentifier:@"file" forIndexPath:indexPath];
-    
-    Item *item = dataArray[indexPath.row];
-    
-    cell.shift = edit ? 1 : 0;
-    cell.edit = edit;
-    cell.item = item;
-    
-    __weak UITableViewCell *__cell = cell;
-    
-    cell.moreBlock = ^(Item *i){
-        if (kDevicePad) {
-            UIAlertView *sheet = [[UIAlertView alloc]initWithTitle:i.name message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"Move"),ZHLS(@"Rename"),ZHLS(@"Export"), nil];
-            if (i.type == FileTypeFolder) {
-                sheet = [[UIAlertView alloc]initWithTitle:i.name message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"Move"),ZHLS(@"Rename"), nil];
-            }
-            __weak UIAlertView *__sheet = sheet;
-
-            sheet.clickedButton = ^(NSInteger buttonIndex){
-                if ([[__sheet buttonTitleAtIndex:buttonIndex] isEqualToString:ZHLS(@"Move")]) {
-                    selectItem = i;
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self performSegueWithIdentifier:@"move" sender:self];
-                    });
-                }else if([[__sheet buttonTitleAtIndex:buttonIndex] isEqualToString:ZHLS(@"Rename")]){
-                    [self renameItem:i];
-                }else if([[__sheet buttonTitleAtIndex:buttonIndex] isEqualToString:ZHLS(@"Export")]){
-                    [self export:i sourceView:__cell];
-                }
-            };
-            [sheet show];
-            return ;
-        }
-        UIActionSheet *sheet = [[UIActionSheet alloc]initWithTitle:i.name delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles: ZHLS(@"Move"),ZHLS(@"Rename"),ZHLS(@"Export"), nil];
-        if (i.type == FileTypeFolder) {
-            sheet = [[UIActionSheet alloc]initWithTitle:i.name delegate:nil cancelButtonTitle:ZHLS(@"Cancel") destructiveButtonTitle:nil otherButtonTitles:ZHLS(@"Move"), ZHLS(@"Rename"), nil];
-        }
-        __weak UIActionSheet *__sheet = sheet;
-        sheet.clickedButton = ^(NSInteger buttonIndex){
-            if ([[__sheet buttonTitleAtIndex:buttonIndex] isEqualToString:ZHLS(@"Move")]) {
-                selectItem = i;
-                [self performSegueWithIdentifier:@"move" sender:self];
-            }else if([[__sheet buttonTitleAtIndex:buttonIndex] isEqualToString:ZHLS(@"Rename")]){
-                [self renameItem:i];
-            }else if([[__sheet buttonTitleAtIndex:buttonIndex] isEqualToString:ZHLS(@"Export")]){
-                [self export:i sourceView:__cell];
-            }
-        };
-        [sheet showInView:self.view];
-    };
-
-    cell.newFileBlock = ^(Item *i){
-        [self addFileWithParent:item];
-    };
-    
-    cell.deleteFileBlock = ^(Item *i){
-        if (i == root) {
-            showToast(ZHLS(@"CanNotDeleteRoot"));
-            return ;
-        }
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ZHLS(@"DeleteMessage") message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
-        alert.clickedButton = ^(NSInteger buttonIndex){
-            if (buttonIndex == 1) {
-                [i removeFromParent];
-                NSArray *children = [i itemsCanReach];
-
-                NSMutableArray *indexPaths = [NSMutableArray array];
-                
-                NSIndexPath *index = [NSIndexPath indexPathForRow:[dataArray indexOfObject:item] inSection:0];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ZHLS(@"DeleteMessage") message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
+    alert.clickedButton = ^(NSInteger buttonIndex){
+        if (buttonIndex == 1) {
+            [i removeFromParent];
+            NSArray *children = [i itemsCanReach];
+            
+            NSMutableArray *indexPaths = [NSMutableArray array];
+            
+            NSIndexPath *index = [NSIndexPath indexPathForRow:[dataArray indexOfObject:i] inSection:0];
+            [indexPaths addObject:index];
+            
+            for (Item *child in children) {
+                NSIndexPath *index = [NSIndexPath indexPathForRow:[dataArray indexOfObject:child] inSection:0];
                 [indexPaths addObject:index];
-                
-                for (Item *child in children) {
-                    NSIndexPath *index = [NSIndexPath indexPathForRow:[dataArray indexOfObject:child] inSection:0];
-                    [indexPaths addObject:index];
-                }
-                
-                [dataArray removeObject:i];
-                [dataArray removeObjectsInArray:children];
-                
-                [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
-                [fm deleteFile:i.fullPath];
             }
-        };
-        [alert show];
-    };
-    return cell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 40;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([dataArray[indexPath.row] isKindOfClass:[NSDictionary class]]) {
-        return;
-    }
-    Item *i = dataArray[indexPath.row];
-
-    if (i.type == FileTypeFolder) {
-        if (!i.open) {
-            i.open = YES;
-            [self openWithIndex:(int)indexPath.row];
-        }else{
-            [self foldWithIndex:(int)indexPath.row];
-            i.open = NO;
+            
+            [dataArray removeObject:i];
+            [dataArray removeObjectsInArray:children];
+            
+            UITableView *tableView = i.cloud ? _cloudListView : _localListView;
+            [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
+            [_fm deleteFile:i.fullPath];
         }
-        FileItemCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        cell.item = i;
-        return;
-    }
+    };
+    [alert show];
     
-    fm.currentItem = i;
-    
-    if (kDevicePhone) {
-        [self performSegueWithIdentifier:@"edit" sender:self];
-    }
-}
-
-
-- (NSURL *)fileToURL:(NSString*)filename
-{
-    NSArray *fileComponents = [filename componentsSeparatedByString:@"."];
-    NSString *filePath = [[NSBundle mainBundle] pathForResource:[fileComponents objectAtIndex:0] ofType:[fileComponents objectAtIndex:1]];
-    
-    return [NSURL fileURLWithPath:filePath];
-}
-
-- (void)export:(Item *) i sourceView:(UIView*)view{
-    NSURL *url = [NSURL fileURLWithPath:i.fullPath];
-    NSArray *objectsToShare = @[url];
-    
-    UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
-    
-    NSArray *excludedActivities = @[
-                                    UIActivityTypePostToTwitter,
-                                    UIActivityTypePostToFacebook,
-                                    UIActivityTypePostToWeibo,
-                                    UIActivityTypeAssignToContact,
-                                    UIActivityTypeSaveToCameraRoll,
-                                    UIActivityTypeAddToReadingList,
-                                    UIActivityTypePostToFlickr
-                                    ];
-    controller.excludedActivityTypes = excludedActivities;
-    
-    if (kDevicePhone) {
-        [self presentViewController:controller animated:YES completion:nil];
-    }else{
-        popVc = controller.popoverPresentationController;
-        popVc.sourceView = view;
-        popVc.sourceRect = view.bounds;
-        popVc.permittedArrowDirections = UIPopoverArrowDirectionAny;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self presentViewController:controller animated:YES completion:nil];
-        });
-    }
-    
-}
-
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
-{
-    [self searchWithWord:searchText];
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-    [searchBar resignFirstResponder];
-    searchBar.text = @"";
-    [self searchWithWord:@""];
-}
-
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
-{
-    searchBar.showsCancelButton = YES;
-    [searchBar setCancelButtonTitle:ZHLS(@"Cancel")];
-    return YES;
-}
-
-- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
-{
-    searchBar.showsCancelButton = NO;
-    return YES;
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"move"]) {
-        ChooseFolderViewController *vc = [(UINavigationController*)segue.destinationViewController viewControllers].firstObject;
-        vc.didChoosedFolder = ^(Item *i){
-            [self moveItem:selectItem toParent:i];
-        };
-    }
 }
 
 - (void)moveItem:(Item*)i toParent:(Item*)parent
@@ -511,14 +570,14 @@
         newPath = [newPath stringByAppendingPathExtension:i.extention];
     }
 
-    BOOL ret = [fm moveFile:i.fullPath toNewPath:newPath];
+    BOOL ret = [_fm moveFile:i.fullPath toNewPath:newPath];
     if (!ret) {
         showToast(ZHLS(@"DuplicateError"));
         return;
     }
 
-    [fm createLocalWorkspace];
-    [fm createCloudWorkspace];
+    [_fm createLocalWorkspace];
+    [_fm createCloudWorkspace];
     [self reload];
 }
 

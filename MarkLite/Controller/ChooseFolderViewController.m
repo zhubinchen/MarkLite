@@ -69,7 +69,6 @@
     Item *item = dataArray[indexPath.row];
     cell.shift = 1;
     cell.item = item;
-    cell.moreBtn.hidden = YES;
     cell.checkIcon.hidden = selectedFolder != item;
     return cell;
 }
