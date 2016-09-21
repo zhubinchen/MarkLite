@@ -14,7 +14,7 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *iconSpace;
 @property (weak, nonatomic) IBOutlet UIImageView *typeIcon;
-@property (weak, nonatomic) IBOutlet UIImageView *checkIcon;
+@property (weak, nonatomic) IBOutlet UIButton *checkBtn;
 @property (weak, nonatomic) IBOutlet UITextField *nameText;
 
 @property (nonatomic,assign) int  shift;

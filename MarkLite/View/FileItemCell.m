@@ -15,6 +15,9 @@
 
 - (void)setItem:(Item *)item
 {
+    if (_item) {
+        [_item removeObserver:self forKeyPath:@"selected"];
+    }
     _item = item;
     CGFloat begin = (item.deep+_shift) * 30 - 22;
     if (item.type == FileTypeText) {
@@ -44,6 +47,16 @@
     } else {
         self.rightButtons = @[delete,rename,export];
     }
+    
+    [self.checkBtn setImage:[UIImage imageNamed:@"checked"] forState:UIControlStateSelected];
+    self.checkBtn.selected = item.selected;
+    
+    [item addObserver:self forKeyPath:@"selected" options:NSKeyValueObservingOptionNew context:NULL];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    self.checkBtn.selected = self.item.selected;
 }
 
 - (void)awakeFromNib
@@ -54,6 +67,12 @@
     [self addSubview:line];
 }
 
+- (IBAction)selectBtn:(UIButton*)sender
+{
+    sender.selected = !sender.selected;
+    self.item.selected = sender.selected;
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
 
     if (selected) {
@@ -61,6 +80,11 @@
     }else {
         self.backgroundColor = [UIColor colorWithWhite:1 alpha:1];
     }
+}
+
+- (void)dealloc
+{
+    [self.item removeObserver:self forKeyPath:@"selected"];
 }
 
 @end

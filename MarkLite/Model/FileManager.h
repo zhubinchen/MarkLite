@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Item.h"
 
+static const NSNotificationName kFileChangedNotificationName = @"FileChangedNotificationName";
+
 @interface FileManager : NSObject
 
 @property (nonatomic,strong,readonly) Item *local;

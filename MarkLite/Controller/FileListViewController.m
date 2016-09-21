@@ -54,12 +54,14 @@
     [self.cloudListView registerNib:[UINib nibWithNibName:@"FileItemCell" bundle:nil] forCellReuseIdentifier:@"file"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:@"ItemsChangedNotification" object:nil];
     self.searchBar.placeholder = ZHLS(@"Search");
+    [self reload];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:kFileChangedNotificationName object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     self.tabBarController.title = ZHLS(self.cloud?@"NavTitleCloudFile":@"NavTitleLocalFile");
-    [self reload];
 }
 
 - (void)toggleCloud
@@ -96,9 +98,44 @@
 {
     if (_toolBar == nil) {
         _toolBar = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 49)];
-        _toolBar.backgroundColor = [UIColor redColor];
+        _toolBar.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
+        UIButton *uploadBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [uploadBtn setImage:[UIImage imageNamed:@"export"] forState:UIControlStateNormal];
+        uploadBtn.frame = CGRectMake(10, 9, 30, 30);
+        [uploadBtn addTarget:self action:@selector(uploadSelectedItems:) forControlEvents:UIControlEventTouchUpInside];
+        [_toolBar addSubview:uploadBtn];
+        
+        UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [deleteBtn setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
+        deleteBtn.frame = CGRectMake(kScreenWidth - 40, 9, 30, 30);
+        [deleteBtn addTarget:self action:@selector(deleteSelectedItems) forControlEvents:UIControlEventTouchUpInside];
+        [_toolBar addSubview:deleteBtn];
+        
+        UIButton *moveBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        [moveBtn setTitleColor:[UIColor colorWithRGBString:@"007aff"] forState:UIControlStateNormal];
+        moveBtn.frame = CGRectMake(kScreenWidth / 2 - 50, 10, 100, 29);
+        moveBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+        [moveBtn addTarget:self action:@selector(moveSelectedItems) forControlEvents:UIControlEventTouchUpInside];
+        [moveBtn setTitle:@"移动到" forState:UIControlStateNormal];
+        [_toolBar addSubview:moveBtn];
     }
+
     return _toolBar;
+}
+
+- (void)uploadSelectedItems:(UIButton*)sender
+{
+    [self export:root.selectedChildren sourceView:sender];
+}
+
+- (void)deleteSelectedItems
+{
+    [self deleteItems:root.selectedChildren];
+}
+
+- (void)moveSelectedItems
+{
+    [self performSegueWithIdentifier:@"move" sender:self];
 }
 
 - (NSArray*)rightItems
@@ -200,6 +237,7 @@
         rightItem.title = ZHLS(@"Edit");
         [self.toolBar removeFromSuperview];
     }
+    [fileListView reloadData];
 }
 
 #pragma mark 显示控制
@@ -265,11 +303,11 @@
 {
     Item *i = [(FileItemCell*)cell item];
     if (index == 0) {
-        [self deleteItem:i];
+        [self deleteItems:@[i]];
     }else if (index == 1){
         [self renameItem:i];
     }else{
-        [self export:i sourceView:cell];
+        [self export:@[i] sourceView:cell];
     }
     return YES;
 }
@@ -298,7 +336,7 @@
     Item *item = dataArray[indexPath.row];
     
     cell.item = item;
-    
+    cell.checkBtn.hidden = !edit;
     return cell;
 }
 
@@ -309,11 +347,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([dataArray[indexPath.row] isKindOfClass:[NSDictionary class]]) {
-        return;
-    }
     Item *i = dataArray[indexPath.row];
-
+    
     if (i.type == FileTypeFolder) {
         if (!i.open) {
             i.open = YES;
@@ -366,7 +401,7 @@
     if ([segue.identifier isEqualToString:@"move"]) {
         ChooseFolderViewController *vc = [(UINavigationController*)segue.destinationViewController viewControllers].firstObject;
         vc.didChoosedFolder = ^(Item *i){
-            [self moveItem:selectItem toParent:i];
+            [self moveItems:root.selectedChildren toParent:i];
         };
     }
 }
@@ -381,9 +416,17 @@
     return [NSURL fileURLWithPath:filePath];
 }
 
-- (void)export:(Item *) i sourceView:(UIView*)view{
-    NSURL *url = [NSURL fileURLWithPath:i.fullPath];
-    NSArray *objectsToShare = @[url];
+- (void)export:(NSArray<Item *>*) items sourceView:(UIView*)view{
+    NSMutableArray *urls = [NSMutableArray array];
+    
+    for (Item *i in items) {
+        if (i.type == FileTypeFolder) {
+            continue;
+        }
+        NSURL *url = [NSURL fileURLWithPath:i.fullPath];
+        [urls addObject:url];
+    }
+    NSArray *objectsToShare = urls;
     
     UIActivityViewController *controller = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
     
@@ -529,53 +572,40 @@
     });
 }
 
-- (void)deleteItem:(Item*)i
+- (void)deleteItems:(NSArray<Item*>*)items
 {
-    if (i == root) {
-        showToast(ZHLS(@"CanNotDeleteRoot"));
-        return ;
-    }
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ZHLS(@"DeleteMessage") message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
     alert.clickedButton = ^(NSInteger buttonIndex){
         if (buttonIndex == 1) {
-            [i removeFromParent];
-            NSArray *children = [i itemsCanReach];
-            
-            NSMutableArray *indexPaths = [NSMutableArray array];
-            
-            NSIndexPath *index = [NSIndexPath indexPathForRow:[dataArray indexOfObject:i] inSection:0];
-            [indexPaths addObject:index];
-            
-            for (Item *child in children) {
-                NSIndexPath *index = [NSIndexPath indexPathForRow:[dataArray indexOfObject:child] inSection:0];
-                [indexPaths addObject:index];
+            for (Item *i in items) {
+                [i removeFromParent];
+                [_fm deleteFile:i.fullPath];
             }
-            
-            [dataArray removeObject:i];
-            [dataArray removeObjectsInArray:children];
-            
-            UITableView *tableView = i.cloud ? _cloudListView : _localListView;
-            [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
-            [_fm deleteFile:i.fullPath];
+            [self reload];
         }
     };
     [alert show];
     
 }
 
-- (void)moveItem:(Item*)i toParent:(Item*)parent
+- (void)moveItems:(NSArray<Item*>*)items toParent:(Item*)parent
 {
-    NSString *newPath = [parent.fullPath stringByAppendingPathComponent:i.name];
-    if (i.extention.length) {
-        newPath = [newPath stringByAppendingPathExtension:i.extention];
+    NSInteger successCount = items.count;
+    for (Item *i in items) {
+        NSString *newPath = [parent.fullPath stringByAppendingPathComponent:i.name];
+        if (i.extention.length) {
+            newPath = [newPath stringByAppendingPathExtension:i.extention];
+        }
+        
+        BOOL ret = [_fm moveFile:i.fullPath toNewPath:newPath];
+        if (!ret) {
+            successCount --;
+//            showToast(ZHLS(@"DuplicateError"));
+//            return;
+        }
     }
 
-    BOOL ret = [_fm moveFile:i.fullPath toNewPath:newPath];
-    if (!ret) {
-        showToast(ZHLS(@"DuplicateError"));
-        return;
-    }
-
+    NSLog(@"success:%i;failed:%i",successCount,items.count - successCount);
     [_fm createLocalWorkspace];
     [_fm createCloudWorkspace];
     [self reload];

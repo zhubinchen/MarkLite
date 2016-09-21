@@ -158,6 +158,7 @@
         NSLog(@"%@",error);
         return nil;
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kFileChangedNotificationName object:nil];
     return truePath;
 }
 
@@ -170,6 +171,7 @@
         NSLog(@"failed");
         return nil;
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kFileChangedNotificationName object:nil];
     return truePath;
 }
 
@@ -229,6 +231,7 @@
         NSLog(@"%@",error);
         return NO;
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kFileChangedNotificationName object:nil];
 
     return YES;
 }
@@ -249,6 +252,7 @@
         NSLog(@"%@",error);
         return NO;
     }
+    [[NSNotificationCenter defaultCenter] postNotificationName:kFileChangedNotificationName object:nil];
     return YES;
 }
 

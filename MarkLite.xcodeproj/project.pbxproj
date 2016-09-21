@@ -14,6 +14,9 @@
 		0771403C1D928FD70083E82A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0771403A1D928FD70083E82A /* MainInterface.storyboard */; };
 		0771403E1D928FD70083E82A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0771403D1D928FD70083E82A /* Assets.xcassets */; };
 		077140421D928FD70083E82A /* MarkLite-Message.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 077140321D928FD70083E82A /* MarkLite-Message.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0771404A1D92DF660083E82A /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 077140491D92DF660083E82A /* delete@2x.png */; };
+		0771404D1D92E1280083E82A /* checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0771404B1D92E1280083E82A /* checked@2x.png */; };
+		0771404E1D92E1280083E82A /* unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0771404C1D92E1280083E82A /* unchecked@2x.png */; };
 		0777D3371D2522E20026E0EA /* StyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0777D3351D2522E20026E0EA /* StyleViewController.m */; };
 		0777D3381D2522E20026E0EA /* StyleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0777D3361D2522E20026E0EA /* StyleViewController.xib */; };
 		07AFAC151D34C8E50084FF76 /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 07AFABFC1D34C8E50084FF76 /* about.html */; };
@@ -147,6 +150,9 @@
 		0771403B1D928FD70083E82A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		0771403D1D928FD70083E82A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0771403F1D928FD70083E82A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		077140491D92DF660083E82A /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
+		0771404B1D92E1280083E82A /* checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checked@2x.png"; sourceTree = "<group>"; };
+		0771404C1D92E1280083E82A /* unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unchecked@2x.png"; sourceTree = "<group>"; };
 		0777D3341D2522E20026E0EA /* StyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleViewController.h; sourceTree = "<group>"; };
 		0777D3351D2522E20026E0EA /* StyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleViewController.m; sourceTree = "<group>"; };
 		0777D3361D2522E20026E0EA /* StyleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StyleViewController.xib; sourceTree = "<group>"; };
@@ -412,11 +418,14 @@
 				07AFAC2C1D34E9270084FF76 /* export@2x.png */,
 				07AFABFF1D34C8E50084FF76 /* add_image@2x.png */,
 				07AFAC001D34C8E50084FF76 /* add_link@2x.png */,
+				077140491D92DF660083E82A /* delete@2x.png */,
 				07AFAC011D34C8E50084FF76 /* check@2x.png */,
 				07AFAC021D34C8E50084FF76 /* file@2x.png */,
 				07AFAC031D34C8E50084FF76 /* folder@2x.png */,
 				07AFAC041D34C8E50084FF76 /* folder_open@2x.png */,
 				07AFAC051D34C8E50084FF76 /* image@2x.png */,
+				0771404B1D92E1280083E82A /* checked@2x.png */,
+				0771404C1D92E1280083E82A /* unchecked@2x.png */,
 				07AFAC061D34C8E50084FF76 /* keyboard_down@2x.png */,
 				07AFAC071D34C8E50084FF76 /* minus@2x.png */,
 				07AFAC081D34C8E50084FF76 /* more@2x.png */,
@@ -829,8 +838,10 @@
 				07AFAC151D34C8E50084FF76 /* about.html in Resources */,
 				07B92DFB1D1D964100A4127E /* AboutViewController.xib in Resources */,
 				07AFAC2D1D34E9270084FF76 /* export@2x.png in Resources */,
+				0771404D1D92E1280083E82A /* checked@2x.png in Resources */,
 				07B92E991D1D966B00A4127E /* icon.png in Resources */,
 				07FD24E31D407800009E97B4 /* CreateNoteView.xib in Resources */,
+				0771404A1D92DF660083E82A /* delete@2x.png in Resources */,
 				07AFAC211D34C8E50084FF76 /* note@2x.png in Resources */,
 				07D9D1F51D238C6300725A94 /* ImageUploadingView.xib in Resources */,
 				07AFAC1E1D34C8E50084FF76 /* keyboard_down@2x.png in Resources */,
@@ -840,6 +851,7 @@
 				07B92ED71D1D969C00A4127E /* Main_iPhone.storyboard in Resources */,
 				07B92ECE1D1D966B00A4127E /* FileItemCell.xib in Resources */,
 				07AFAC1A1D34C8E50084FF76 /* file@2x.png in Resources */,
+				0771404E1D92E1280083E82A /* unchecked@2x.png in Resources */,
 				07AFAC171D34C8E50084FF76 /* add_image@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

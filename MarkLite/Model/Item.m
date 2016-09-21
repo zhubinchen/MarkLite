@@ -58,15 +58,24 @@
     return ret;
 }
 
+- (void)setSelected:(BOOL)selected
+{
+    for (Item *i in self.items) {
+        i.selected = selected;
+    }
+    
+    _selected = selected;
+}
+
 - (NSArray *)selectedChildren
 {
     NSMutableArray *ret = [NSMutableArray array];
     
-    if (self.selected) {
-        for (Item *i in self.children) {
+    for (Item *i in self.children) {
+        if (i.selected) {
             [ret addObject:i];
-            [ret addObjectsFromArray:i.itemsCanReach];
         }
+        [ret addObjectsFromArray:i.selectedChildren];
     }
     
     return ret;

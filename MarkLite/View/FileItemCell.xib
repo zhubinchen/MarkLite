@@ -32,25 +32,29 @@
                             <outlet property="delegate" destination="3NS-7u-jgU" id="h2u-lZ-Z0D"/>
                         </connections>
                     </textField>
-                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="check.png" translatesAutoresizingMaskIntoConstraints="NO" id="9h7-Kg-PAn">
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jlc-nr-aWp">
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="Xsy-p2-Ogk"/>
-                            <constraint firstAttribute="width" constant="30" id="w8H-Fn-1Jb"/>
+                            <constraint firstAttribute="width" constant="30" id="X7C-he-zBW"/>
+                            <constraint firstAttribute="height" constant="30" id="zFz-zX-gdE"/>
                         </constraints>
-                    </imageView>
+                        <state key="normal" image="unchecked.png"/>
+                        <connections>
+                            <action selector="selectBtn:" destination="3NS-7u-jgU" eventType="touchUpInside" id="8T3-fd-Ugt"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstAttribute="centerY" secondItem="ILd-aT-GCi" secondAttribute="centerY" id="0dd-eC-v47"/>
+                    <constraint firstAttribute="trailing" secondItem="Jlc-nr-aWp" secondAttribute="trailing" constant="8" id="2ep-AV-04v"/>
                     <constraint firstAttribute="centerY" secondItem="l70-cf-8gS" secondAttribute="centerY" id="NFZ-zE-LCl"/>
-                    <constraint firstAttribute="trailing" secondItem="9h7-Kg-PAn" secondAttribute="trailing" constant="10" id="V06-tM-QCt"/>
+                    <constraint firstItem="Jlc-nr-aWp" firstAttribute="centerY" secondItem="403-5i-ljV" secondAttribute="centerY" id="d1L-eG-5Qz"/>
                     <constraint firstItem="l70-cf-8gS" firstAttribute="leading" secondItem="ILd-aT-GCi" secondAttribute="trailing" constant="5" id="pbY-TP-qPK"/>
-                    <constraint firstItem="9h7-Kg-PAn" firstAttribute="centerY" secondItem="403-5i-ljV" secondAttribute="centerY" id="qMQ-ml-1Gl"/>
                     <constraint firstItem="ILd-aT-GCi" firstAttribute="leading" secondItem="403-5i-ljV" secondAttribute="leading" constant="8" id="v1U-vZ-7nY"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="checkIcon" destination="9h7-Kg-PAn" id="Mq6-oK-zSZ"/>
+                <outlet property="checkBtn" destination="Jlc-nr-aWp" id="M4n-8J-9ch"/>
                 <outlet property="iconSpace" destination="v1U-vZ-7nY" id="3ho-G1-aPP"/>
                 <outlet property="nameText" destination="l70-cf-8gS" id="rbE-df-bWm"/>
                 <outlet property="typeIcon" destination="ILd-aT-GCi" id="ed2-k7-FPe"/>
@@ -58,7 +62,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="check.png" width="25" height="25"/>
         <image name="folder.png" width="50" height="50"/>
+        <image name="unchecked.png" width="25" height="25"/>
     </resources>
 </document>
