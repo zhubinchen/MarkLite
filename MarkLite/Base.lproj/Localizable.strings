@@ -43,7 +43,9 @@
 "Alert"="Alert";
 "Cancel"="Cancel";
 "Delete"="Delete";
-"Move"="Move";
+"Move"="Move to";
+"SelectAll"="Select All";
+"Inverse"="Inverse";
 "Export"="Export";
 "ExportAs"="Export as";
 "Rename"="Rename";
@@ -57,7 +59,7 @@
 "NewMarkdownFile"= "New Markdown file";
 "NewFolder"= "New directory";
 "NameAlertMessage"="Please input the name";
-"DeleteMessage"="Sure you want to delete the file? This action is irreversible!";
+"DeleteMessage"="Sure you want to delete the file? This action cannot be undone!";
 "DuplicateError"="An error occured! Duplicate name?";
 
 "CanNotDeleteRoot"="Cannot delete root directory";

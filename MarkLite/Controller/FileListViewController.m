@@ -66,6 +66,18 @@
 
 - (void)toggleCloud
 {
+    if (edit) {
+        if ([leftItem.title isEqualToString:ZHLS(@"SelectAll")]) {
+            root.selected = YES;
+        }else{
+            for (Item *i in root.items) {
+                i.selected = !i.selected;
+            }
+            root.selected = NO;
+        }
+        leftItem.title = ZHLS(root.selected ? @"Inverse":@"SelectAll");
+        return;
+    }
     self.cloud = !self.cloud;
     self.tabBarController.title = ZHLS(self.cloud?@"NavTitleCloudFile":@"NavTitleLocalFile");
     leftItem.title = ZHLS(self.cloud?@"NavTitleLocalFile":@"NavTitleCloudFile");
@@ -116,7 +128,7 @@
         moveBtn.frame = CGRectMake(kScreenWidth / 2 - 50, 10, 100, 29);
         moveBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [moveBtn addTarget:self action:@selector(moveSelectedItems) forControlEvents:UIControlEventTouchUpInside];
-        [moveBtn setTitle:@"移动到" forState:UIControlStateNormal];
+        [moveBtn setTitle:ZHLS(@"Move") forState:UIControlStateNormal];
         [_toolBar addSubview:moveBtn];
     }
 
@@ -231,9 +243,11 @@
     edit = !edit;
 
     if (edit) {
+        leftItem.title = ZHLS(root.selected ? @"Inverse":@"SelectAll");
         rightItem.title = ZHLS(@"Done");
         [self.tabBarController.tabBar addSubview:self.toolBar];
     }else{
+        leftItem.title = ZHLS(self.cloud ? @"NavTitleLocalFile":@"NavTitleCloudFile");
         rightItem.title = ZHLS(@"Edit");
         [self.toolBar removeFromSuperview];
     }
@@ -364,7 +378,7 @@
     
     _fm.currentItem = i;
     
-    if (kDevicePhone) {
+    if (kDevicePhone && !edit) {
         [self performSegueWithIdentifier:@"edit" sender:self];
     }
 }
@@ -398,7 +412,7 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:@"move"]) {
+    if ([segue.identifier isEqualToString:ZHLS(@"move")]) {
         ChooseFolderViewController *vc = [(UINavigationController*)segue.destinationViewController viewControllers].firstObject;
         vc.didChoosedFolder = ^(Item *i){
             [self moveItems:root.selectedChildren toParent:i];

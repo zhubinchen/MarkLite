@@ -43,7 +43,9 @@
 "Alert"="提示";
 "Cancel"="取消";
 "Delete"="刪除";
-"Move"="移動";
+"Move"="移動到";
+"SelectAll"="全選";
+"Inverse"="反選";
 "Export"="導出";
 "ExportAs"="選擇導出格式";
 "Rename"="重命名";
