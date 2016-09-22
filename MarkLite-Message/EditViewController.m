@@ -1,34 +1,43 @@
 //
-//  MessagesViewController.m
-//  MarkLite-Message
+//  EditViewController.m
+//  MarkLite
 //
-//  Created by zhubch on 9/21/16.
+//  Created by zhubch on 9/22/16.
 //  Copyright © 2016 zhubch. All rights reserved.
 //
 
-#import "MessagesViewController.h"
+#import "EditViewController.h"
+#import "Configure.h"
+#import "KeyboardBar.h"
+#import "EditView.h"
 
-@interface MessagesViewController ()
+@interface EditViewController ()<UITextViewDelegate>
+
+@property (nonatomic,weak) IBOutlet EditView *editView;
 
 @end
 
-@implementation MessagesViewController
+@implementation EditViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    KeyboardBar *bar = [[KeyboardBar alloc]init];
+    bar.editView = _editView;
+    bar.vc = self;
+    _editView.inputAccessoryView = bar;
 }
 
-- (IBAction)test:(id)sender
+- (void)viewDidLayoutSubviews
 {
-    [self requestPresentationStyle:MSMessagesAppPresentationStyleExpanded];
-    [self performSegueWithIdentifier:@"test" sender:self];
+    if ([Configure sharedConfigure].keyboardAssist) {
+        KeyboardBar *bar = [[KeyboardBar alloc]init];
+        bar.editView = _editView;
+        bar.vc = self;
+        _editView.inputAccessoryView = bar;
+    }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark - Conversation Handling
 
@@ -78,8 +87,17 @@
 }
 
 -(void)didTransitionToPresentationStyle:(MSMessagesAppPresentationStyle)presentationStyle {
-    // Called after the extension transitions to a new presentation style.
-    // Use this method to finalize any behaviors associated with the change in presentation style.
+    
 }
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

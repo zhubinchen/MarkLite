@@ -12,6 +12,7 @@
 #import "Item.h"
 #import "Configure.h"
 #import "ZHUtils.h"
+#import "UIPrintPageRenderer+PDF.h"
 
 @interface PreviewViewController () <UIWebViewDelegate>
 
@@ -151,20 +152,29 @@
 }
 
 - (NSData*)createPDF{
-    NSMutableData *data = [NSMutableData data];
     
-    CGRect bounds = CGRectMake(0, 0, _webView.scrollView.contentSize.width, _webView.scrollView.contentSize.height);
-    UIGraphicsBeginPDFContextToData(data, bounds, nil);
-    UIGraphicsBeginPDFPageWithInfo(bounds, nil);
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGRect origRect = _webView.frame;
-    CGRect newRect = origRect;
-    newRect.size = _webView.scrollView.contentSize;
-    _webView.frame = newRect;
-    [_webView.scrollView.layer renderInContext:ctx];
-    _webView.frame = origRect;
+    UIPrintPageRenderer *render = [[UIPrintPageRenderer alloc] init];
+    
+    CGRect printableRect = CGRectMake(0, 0, 595.2, 841.8);
+    CGRect paperRect = CGRectMake(0, 0, 595.2, 841.8);
+    [render setValue:[NSValue valueWithCGRect:paperRect] forKey:@"paperRect"];
+    [render setValue:[NSValue valueWithCGRect:printableRect] forKey:@"printableRect"];
+    
+    UIMarkupTextPrintFormatter *formatter = [[UIMarkupTextPrintFormatter alloc]initWithMarkupText:htmlString];
+    [render addPrintFormatter:formatter startingAtPageAtIndex:0];
+    
+    NSMutableData *pdfData = [NSMutableData data];
+    
+    UIGraphicsBeginPDFContextToData(pdfData, CGRectZero, nil);
+    for (NSInteger i=0; i < render.numberOfPages; i++)
+    {
+        UIGraphicsBeginPDFPage();
+        CGRect bounds = UIGraphicsGetPDFContextBounds();
+        [render drawPageAtIndex:i inRect:bounds];
+    }
     UIGraphicsEndPDFContext();
-    return data;
+
+    return pdfData;
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView

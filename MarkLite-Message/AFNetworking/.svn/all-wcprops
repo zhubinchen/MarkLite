@@ -1,0 +1,119 @@
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/yjt-docCenter/!svn/ver/168/ios/trunk/yjtos/Classes/Other/Lib/AFNetworking
+END
+AFHTTPSessionManager.m
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/yjt-docCenter/!svn/ver/64/ios/trunk/yjtos/Classes/Other/Lib/AFNetworking/AFHTTPSessionManager.m
+END
+AFURLResponseSerialization.m
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/yjt-docCenter/!svn/ver/168/ios/trunk/yjtos/Classes/Other/Lib/AFNetworking/AFURLResponseSerialization.m
+END
+AFSecurityPolicy.h
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/yjt-docCenter/!svn/ver/64/ios/trunk/yjtos/Classes/Other/Lib/AFNetworking/AFSecurityPolicy.h
+END
+AFNetworking.h
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/yjt-docCenter/!svn/ver/64/ios/trunk/yjtos/Classes/Other/Lib/AFNetworking/AFNetworking.h
+END
+AFSecurityPolicy.m
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/yjt-docCenter/!svn/ver/64/ios/trunk/yjtos/Classes/Other/Lib/AFNetworking/AFSecurityPolicy.m
+END
+AFURLSessionManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/yjt-docCenter/!svn/ver/64/ios/trunk/yjtos/Classes/Other/Lib/AFNetworking/AFURLSessionManager.h
+END
+AFURLConnectionOperation.h
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/yjt-docCenter/!svn/ver/64/ios/trunk/yjtos/Classes/Other/Lib/AFNetworking/AFURLConnectionOperation.h
+END
+AFHTTPRequestOperationManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/yjt-docCenter/!svn/ver/64/ios/trunk/yjtos/Classes/Other/Lib/AFNetworking/AFHTTPRequestOperationManager.h
+END
+AFNetworkReachabilityManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/yjt-docCenter/!svn/ver/64/ios/trunk/yjtos/Classes/Other/Lib/AFNetworking/AFNetworkReachabilityManager.h
+END
+AFURLSessionManager.m
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/yjt-docCenter/!svn/ver/64/ios/trunk/yjtos/Classes/Other/Lib/AFNetworking/AFURLSessionManager.m
+END
+AFURLConnectionOperation.m
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/yjt-docCenter/!svn/ver/64/ios/trunk/yjtos/Classes/Other/Lib/AFNetworking/AFURLConnectionOperation.m
+END
+AFURLRequestSerialization.h
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/yjt-docCenter/!svn/ver/64/ios/trunk/yjtos/Classes/Other/Lib/AFNetworking/AFURLRequestSerialization.h
+END
+AFHTTPRequestOperationManager.m
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/yjt-docCenter/!svn/ver/64/ios/trunk/yjtos/Classes/Other/Lib/AFNetworking/AFHTTPRequestOperationManager.m
+END
+AFHTTPRequestOperation.h
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/yjt-docCenter/!svn/ver/64/ios/trunk/yjtos/Classes/Other/Lib/AFNetworking/AFHTTPRequestOperation.h
+END
+AFNetworkReachabilityManager.m
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/yjt-docCenter/!svn/ver/64/ios/trunk/yjtos/Classes/Other/Lib/AFNetworking/AFNetworkReachabilityManager.m
+END
+AFURLRequestSerialization.m
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/yjt-docCenter/!svn/ver/64/ios/trunk/yjtos/Classes/Other/Lib/AFNetworking/AFURLRequestSerialization.m
+END
+AFHTTPSessionManager.h
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/yjt-docCenter/!svn/ver/64/ios/trunk/yjtos/Classes/Other/Lib/AFNetworking/AFHTTPSessionManager.h
+END
+AFHTTPRequestOperation.m
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/yjt-docCenter/!svn/ver/64/ios/trunk/yjtos/Classes/Other/Lib/AFNetworking/AFHTTPRequestOperation.m
+END
+AFURLResponseSerialization.h
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/yjt-docCenter/!svn/ver/64/ios/trunk/yjtos/Classes/Other/Lib/AFNetworking/AFURLResponseSerialization.h
+END
