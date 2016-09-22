@@ -278,7 +278,7 @@
                                                         <constraint firstAttribute="height" constant="21" id="kaS-TM-Lo8"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" red="0.2784313725" green="0.2784313725" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上次修改:2015-11-11" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2At-Pn-k9U">
@@ -286,7 +286,7 @@
                                                         <constraint firstAttribute="height" constant="21" id="9xB-Gc-Ups"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -544,8 +544,8 @@
         <image name="settings.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ZCc-zr-UED"/>
-        <segue reference="n2c-A2-qau"/>
-        <segue reference="GZ3-Ny-S2m"/>
+        <segue reference="jkb-0q-YIz"/>
+        <segue reference="736-9L-s2e"/>
+        <segue reference="F5f-nG-XfB"/>
     </inferredMetricsTieBreakers>
 </document>

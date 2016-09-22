@@ -588,7 +588,7 @@
 
 - (void)deleteItems:(NSArray<Item*>*)items
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ZHLS(@"DeleteMessage") message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ZHLS(@"DeleteMessage") message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"Delete"), nil];
     alert.clickedButton = ^(NSInteger buttonIndex){
         if (buttonIndex == 1) {
             for (Item *i in items) {

@@ -16,15 +16,21 @@
     NSString *path = [item.cloud ? ZHLS(@"NavTitleCloudFile") : ZHLS(@"NavTitleLocalFile") stringByAppendingPathComponent:item.path];
     _item = item;
     _nameLabel.text = item.name;
-    _pathLabel.text = [ZHLS(@"Path") stringByAppendingString:path];
+
+    NSString *pathText = [ZHLS(@"Path") stringByAppendingString:path];
+    NSMutableAttributedString *attributeString = [[NSMutableAttributedString alloc]initWithString:pathText];
+    [attributeString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRGBString:@"1AA7F2"] range:[pathText rangeOfString:path]];
+    _pathLabel.attributedText = attributeString;
+    
     NSDictionary *attr = [[FileManager sharedManager] attributeOfPath:item.fullPath];
     long size = [attr[NSFileSize] integerValue];
     NSString *date = [attr[NSFileModificationDate] formatDate];
     _sizeLabel.text = [NSString stringWithFormat:@"%.2f KB",size / 1000.0];
-    _timeLabel.text = [ZHLS(@"LastUpdate") stringByAppendingString:date];
-//
-//    NSArray *rgbArray = @[@"F14143",@"EA8C2F",@"E6BB32",@"56BA38",@"379FE6",@"BA66D0"];
-//    self.tagView.backgroundColor = [UIColor colorWithRGBString:rgbArray[item.tag] alpha:0.9];
+    
+    NSString *timeText = [ZHLS(@"LastUpdate") stringByAppendingString:date];
+    attributeString = [[NSMutableAttributedString alloc]initWithString:timeText];
+    [attributeString addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRGBString:@"a0a0a0"] range:[timeText rangeOfString:date]];
+    _timeLabel.attributedText = attributeString;
 }
 
 - (void)awakeFromNib {
