@@ -30,17 +30,14 @@
     self.nameText.text = [item.path componentsSeparatedByString:@"/"].lastObject;
     line.frame = CGRectMake(begin , 49.7, kScreenWidth - item.deep * 30 + 22, 0.3);
     
-    MGSwipeButton *delete = [MGSwipeButton buttonWithTitle:@"delete" icon:[UIImage imageNamed:@"chat_icon_delete_normal"] backgroundColor:[UIColor colorWithRGBString:@"ff0000"]];
-    delete.buttonWidth = 80;
-    [delete setImage:[UIImage imageNamed:@"chat_icon_delete_press"] forState:UIControlStateHighlighted];
+    MGSwipeButton *delete = [MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"cell_delete"] backgroundColor:[UIColor colorWithRGBString:@"FB2025"] padding:10];
+    delete.buttonWidth = 70;
     
-    MGSwipeButton *export = [MGSwipeButton buttonWithTitle:@"export" icon:[UIImage imageNamed:@"chat_icon_videocam_normal"] backgroundColor:[UIColor colorWithRGBString:@"00ff00"]];
-    [export setImage:[UIImage imageNamed:@"chat_icon_videocam_press"] forState:UIControlStateHighlighted];
-    export.buttonWidth = 80;
+    MGSwipeButton *export = [MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"cell_export"] backgroundColor:[UIColor colorWithRGBString:@"1AA7F2"] padding:10];
+    export.buttonWidth = 70;
     
-    MGSwipeButton *rename = [MGSwipeButton buttonWithTitle:@"rename" icon:[UIImage imageNamed:@"chat_icon_videocam_normal"] backgroundColor:[UIColor colorWithRGBString:@"00ff00"]];
-    [rename setImage:[UIImage imageNamed:@"chat_icon_videocam_press"] forState:UIControlStateHighlighted];
-    rename.buttonWidth = 80;
+    MGSwipeButton *rename = [MGSwipeButton buttonWithTitle:@"" icon:[UIImage imageNamed:@"cell_rename"] backgroundColor:[UIColor colorWithRGBString:@"FD8909"] padding:10];
+    rename.buttonWidth = 70;
     
     if (item.type == FileTypeFolder) {
         self.rightButtons = @[delete,rename];

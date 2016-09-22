@@ -37,7 +37,9 @@
                             <constraint firstAttribute="width" constant="30" id="X7C-he-zBW"/>
                             <constraint firstAttribute="height" constant="30" id="zFz-zX-gdE"/>
                         </constraints>
-                        <state key="normal" image="unchecked.png"/>
+                        <state key="normal" image="unchecked.png">
+                            <color key="titleColor" red="0.10196078431372549" green="0.65490196078431373" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
                         <connections>
                             <action selector="selectBtn:" destination="3NS-7u-jgU" eventType="touchUpInside" id="8T3-fd-Ugt"/>
                         </connections>
