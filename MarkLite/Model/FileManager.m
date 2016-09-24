@@ -215,6 +215,8 @@
     }
     
     BOOL ret = [content writeToFile:path atomically:YES];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kFileChangedNotificationName object:nil];
+
     return ret;
 }
 

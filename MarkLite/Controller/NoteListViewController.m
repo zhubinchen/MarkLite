@@ -42,6 +42,7 @@
     
     [[Configure sharedConfigure] addObserver:self forKeyPath:@"sortOption" options:NSKeyValueObservingOptionNew context:NULL];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeOrientation) name:UIDeviceOrientationDidChangeNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:kFileChangedNotificationName object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated

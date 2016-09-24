@@ -49,7 +49,7 @@
     [aCoder encodeObject:self.currentVerion forKey:@"currentVerion"];
     [aCoder encodeObject:self.fontName forKey:@"fontName"];
     [aCoder encodeBool:self.keyboardAssist forKey:@"keyboardAssist"];
-    [aCoder encodeBool:self.keyboardAssist forKey:@"landscapeEdit"];
+    [aCoder encodeBool:self.landscapeEdit forKey:@"landscapeEdit"];
     [aCoder encodeBool:self.hasRated forKey:@"hasRated"];
     [aCoder encodeInteger:self.sortOption forKey:@"sortOption"];
     [aCoder encodeFloat:self.imageResolution forKey:@"imageResolution"];
