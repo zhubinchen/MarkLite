@@ -103,6 +103,10 @@
     root = _cloud ? _fm.cloud : _fm.local;
     dataArray = root.itemsCanReach.mutableCopy;
     fileListView = _cloud ? _cloudListView : _localListView;
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:_fm.currentItem.fullPath]) {
+        _fm.currentItem = nil;
+    }
     [fileListView reloadData];
 }
 
@@ -119,13 +123,13 @@
         
         UIButton *deleteBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [deleteBtn setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
-        deleteBtn.frame = CGRectMake(kScreenWidth - 40, 9, 30, 30);
+        deleteBtn.frame = CGRectMake(self.view.bounds.size.width - 40, 9, 30, 30);
         [deleteBtn addTarget:self action:@selector(deleteSelectedItems) forControlEvents:UIControlEventTouchUpInside];
         [_toolBar addSubview:deleteBtn];
         
         UIButton *moveBtn = [UIButton buttonWithType:UIButtonTypeSystem];
         [moveBtn setTitleColor:[UIColor colorWithRGBString:@"007aff"] forState:UIControlStateNormal];
-        moveBtn.frame = CGRectMake(kScreenWidth / 2 - 50, 10, 100, 29);
+        moveBtn.frame = CGRectMake(self.view.bounds.size.width / 2 - 50, 10, 100, 29);
         moveBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
         [moveBtn addTarget:self action:@selector(moveSelectedItems) forControlEvents:UIControlEventTouchUpInside];
         [moveBtn setTitle:ZHLS(@"Move") forState:UIControlStateNormal];

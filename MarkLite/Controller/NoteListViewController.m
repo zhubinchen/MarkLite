@@ -60,6 +60,9 @@
     [_fm createCloudWorkspace];
     [_fm createLocalWorkspace];
     [self listNoteWithSortOption:[Configure sharedConfigure].sortOption];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:_fm.currentItem.fullPath]) {
+        _fm.currentItem = nil;
+    }
 }
 
 - (NSArray*)rightItems
@@ -235,30 +238,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return dataArray.count;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    Item *i = dataArray[indexPath.row];
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:ZHLS(@"DeleteMessage") message:nil delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"Delete"), nil];
-    alert.clickedButton = ^(NSInteger buttonIndex){
-        if (buttonIndex == 1) {
-            [i removeFromParent];
-            NSArray *children = [i itemsCanReach];
-            [dataArray removeObjectsInArray:children];
-            [dataArray removeObject:i];
-            NSMutableArray *indexPaths = [NSMutableArray array];
-            for (int i = 0; i < children.count +1; i++) {
-                NSIndexPath *index = [NSIndexPath indexPathForRow:indexPath.row+i inSection:0];
-                [indexPaths addObject:index];
-            }
-            
-            [tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationMiddle];
-            [_fm deleteFile:i.fullPath];
-        }
-    };
-    [alert show];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

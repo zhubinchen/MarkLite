@@ -44,6 +44,7 @@
 "Alert"="Alert";
 "Cancel"="Cancel";
 "Delete"="Delete";
+"ActionCanNotBeDone"="This action cannot be done，%@ is editing";
 "Move"="Move to";
 "SelectAll"="Select All";
 "Inverse"="Inverse";

@@ -10,6 +10,7 @@
 		07164A6D1D9438DB0032C69C /* cell_delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 07164A6A1D9438DB0032C69C /* cell_delete.png */; };
 		07164A6E1D9438DB0032C69C /* cell_export.png in Resources */ = {isa = PBXBuildFile; fileRef = 07164A6B1D9438DB0032C69C /* cell_export.png */; };
 		07164A6F1D9438DB0032C69C /* cell_rename.png in Resources */ = {isa = PBXBuildFile; fileRef = 07164A6C1D9438DB0032C69C /* cell_rename.png */; };
+		071BD5D11D96D2C900E5B64F /* PDFPageRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 071BD5D01D96D2C900E5B64F /* PDFPageRender.m */; };
 		072198E31D90EA1B00A17DC1 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 072198E01D90EA1B00A17DC1 /* MGSwipeButton.m */; };
 		072198E41D90EA1B00A17DC1 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 072198E21D90EA1B00A17DC1 /* MGSwipeTableCell.m */; };
 		0771404A1D92DF660083E82A /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 077140491D92DF660083E82A /* delete@2x.png */; };
@@ -129,6 +130,8 @@
 		07164A6A1D9438DB0032C69C /* cell_delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cell_delete.png; sourceTree = "<group>"; };
 		07164A6B1D9438DB0032C69C /* cell_export.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cell_export.png; sourceTree = "<group>"; };
 		07164A6C1D9438DB0032C69C /* cell_rename.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cell_rename.png; sourceTree = "<group>"; };
+		071BD5CF1D96D2C900E5B64F /* PDFPageRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFPageRender.h; sourceTree = "<group>"; };
+		071BD5D01D96D2C900E5B64F /* PDFPageRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFPageRender.m; sourceTree = "<group>"; };
 		072198DF1D90EA1B00A17DC1 /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeButton.h; sourceTree = "<group>"; };
 		072198E01D90EA1B00A17DC1 /* MGSwipeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeButton.m; sourceTree = "<group>"; };
 		072198E11D90EA1B00A17DC1 /* MGSwipeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeTableCell.h; sourceTree = "<group>"; };
@@ -558,6 +561,8 @@
 				07EC143E1D1ED3DF00AA3EEE /* ZHRequest.m */,
 				07B92E751D1D966B00A4127E /* ZHUtils.h */,
 				07B92E761D1D966B00A4127E /* ZHUtils.m */,
+				071BD5CF1D96D2C900E5B64F /* PDFPageRender.h */,
+				071BD5D01D96D2C900E5B64F /* PDFPageRender.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -813,6 +818,7 @@
 				07B92EC91D1D966B00A4127E /* ZHUtils.m in Sources */,
 				07B92EC71D1D966B00A4127E /* zip.c in Sources */,
 				07B92DFF1D1D964100A4127E /* MenuViewController.m in Sources */,
+				071BD5D11D96D2C900E5B64F /* PDFPageRender.m in Sources */,
 				07B92DFD1D1D964100A4127E /* FileListViewController.m in Sources */,
 				07BB7AC51D37F39C0034BDDC /* AFHTTPRequestOperation.m in Sources */,
 				07B92EF81D1D986E00A4127E /* stack.c in Sources */,

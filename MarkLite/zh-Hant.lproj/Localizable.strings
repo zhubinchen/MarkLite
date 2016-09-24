@@ -48,6 +48,7 @@
 "SelectAll"="全選";
 "Inverse"="反選";
 "Export"="導出";
+"ActionCanNotBeDone"="無法完成此操作，%@正在編輯中";
 "ExportAs"="選擇導出格式";
 "Rename"="重命名";
 "WebPage"="Web頁面";

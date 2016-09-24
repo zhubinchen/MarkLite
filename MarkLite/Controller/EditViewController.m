@@ -49,6 +49,7 @@
     }
 
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardDidHideNotification object:nil];
     
     if (kDevicePhone) {
         self.navigationItem.rightBarButtonItems[1].title = ZHLS(@"Font");
@@ -72,6 +73,12 @@
 - (void)didInputText
 {
     needSave = YES;
+}
+
+- (void)keyboardHide:(NSNotification*)noti
+{
+    self.bottom.constant = 0;
+    [self.view updateConstraints];
 }
 
 - (void)keyboardShow:(NSNotification*)noti
@@ -121,11 +128,11 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
     needSave = YES;
-    if ([text isEqualToString:@"\n"]) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [textView insertText:@"\t"];
-        });
-    }
+//    if ([text isEqualToString:@"\n"]) {
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            [textView insertText:@"\t"];
+//        });
+//    }
     return YES;
 }
 
@@ -144,6 +151,9 @@
 - (void)loadFile
 {
     if (fm.currentItem == nil) {
+        self.editView.text = @" ";
+        self.title = @" ";
+        self.editView.editable = NO;
         return;
     }
     [self saveFile];
@@ -158,6 +168,7 @@
             stopLoadingAnimationOnParent(self.view);
             
             self.editView.text = text;
+            self.editView.editable = YES;
             [self.editView updateSyntax];
             self.title = item.name;
         });

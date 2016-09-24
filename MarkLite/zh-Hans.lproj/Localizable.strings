@@ -42,6 +42,7 @@
 "OK"="确定";
 "Close"="关闭";
 "Alert"="提示";
+"ActionCanNotBeDone"="无法完成此操作，%@正在编辑中";
 "Cancel"="取消";
 "Delete"="删除";
 "Move"="移动到";

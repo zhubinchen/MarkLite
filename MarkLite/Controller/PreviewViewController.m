@@ -12,6 +12,7 @@
 #import "Item.h"
 #import "Configure.h"
 #import "ZHUtils.h"
+#import "PDFPageRender.h"
 
 @interface PreviewViewController () <UIWebViewDelegate>
 
@@ -62,6 +63,12 @@
 - (void)loadFile
 {
     item = fm.currentItem;
+    if (item == nil) {
+        self.title = @"";
+        self.navigationItem.rightBarButtonItem.enabled = NO;
+        [_webView loadHTMLString:@"" baseURL:nil];
+        return;
+    }
     self.title = item.name;
     
     NSString *path = item.fullPath;
@@ -152,28 +159,8 @@
 
 - (NSData*)createPDF{
     
-    UIPrintPageRenderer *render = [[UIPrintPageRenderer alloc] init];
-    
-    CGRect printableRect = CGRectMake(0, 0, 595.2, 841.8);
-    CGRect paperRect = CGRectMake(0, 0, 595.2, 841.8);
-    [render setValue:[NSValue valueWithCGRect:paperRect] forKey:@"paperRect"];
-    [render setValue:[NSValue valueWithCGRect:printableRect] forKey:@"printableRect"];
-    
-    UIMarkupTextPrintFormatter *formatter = [[UIMarkupTextPrintFormatter alloc]initWithMarkupText:htmlString];
-    [render addPrintFormatter:formatter startingAtPageAtIndex:0];
-    
-    NSMutableData *pdfData = [NSMutableData data];
-    
-    UIGraphicsBeginPDFContextToData(pdfData, CGRectZero, nil);
-    for (NSInteger i=0; i < render.numberOfPages; i++)
-    {
-        UIGraphicsBeginPDFPage();
-        CGRect bounds = UIGraphicsGetPDFContextBounds();
-        [render drawPageAtIndex:i inRect:bounds];
-    }
-    UIGraphicsEndPDFContext();
-
-    return pdfData;
+    PDFPageRender *render = [[PDFPageRender alloc]init];
+    return [render renderPDFFromHtmlString:htmlString];
 }
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
@@ -184,11 +171,13 @@
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
     stopLoadingAnimationOnParent(self.webView);
+    self.navigationItem.rightBarButtonItem.enabled = YES;
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     stopLoadingAnimationOnParent(self.webView);
+    self.navigationItem.rightBarButtonItem.enabled = YES;
 }
 
 - (void)dealloc

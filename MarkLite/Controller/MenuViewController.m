@@ -33,14 +33,14 @@
     if (kDevicePad) {
         items = @[
                     @[@"ImageResolution"],
-                    @[@"AssistKeyboard",@"Font",@"Style"],
+                    @[@"AssistKeyboard",@"Font"],
                     @[@"RateIt",@"Feedback"],
                     @[@"About"],@[@"Donate"]
                 ];
     }else{
         items = @[
                     @[@"ImageResolution"],
-                    @[@"AssistKeyboard",@"LandscapeEdit",@"Style"],
+                    @[@"AssistKeyboard",@"LandscapeEdit"],
                     @[@"RateIt",@"Feedback"],
                     @[@"About"],@[@"Donate"]
                   ];
@@ -125,7 +125,6 @@
     NSDictionary *dic = @{@"ImageResolution":@"resolution",
                           @"AssistKeyboard":@"",
                           @"Font":@"font",
-                          @"Style":@"style",
                           @"RateIt":@"rate",
                           @"Feedback":@"feedback",
                           @"About":@"about",
@@ -161,13 +160,6 @@
 - (void)font
 {
     [self performSegueWithIdentifier:@"font" sender:self];
-}
-
-- (void)style
-{
-    UIViewController *vc = [[StyleViewController alloc]init];
-    vc.title = ZHLS(@"Style");
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)rate
