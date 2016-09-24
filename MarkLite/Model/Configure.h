@@ -24,6 +24,8 @@
 
 @property (nonatomic,assign) BOOL keyboardAssist;
 
+@property (nonatomic,assign) BOOL landscapeEdit;
+
 @property (nonatomic,strong) NSDate *upgradeTime;
 
 @property (nonatomic,assign) BOOL hasRated;

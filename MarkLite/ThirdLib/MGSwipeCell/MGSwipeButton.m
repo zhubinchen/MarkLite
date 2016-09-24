@@ -112,7 +112,7 @@
 -(void) setPadding:(CGFloat) padding
 {
     self.contentEdgeInsets = UIEdgeInsetsMake(0, padding, 0, padding);
-    self.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+    self.imageEdgeInsets = UIEdgeInsetsMake(14, 14, 14, 14);
     [self sizeToFit];
 }
 
@@ -134,7 +134,7 @@
 -(void) setEdgeInsets:(UIEdgeInsets)insets
 {
     self.contentEdgeInsets = insets;
-    self.imageEdgeInsets = UIEdgeInsetsMake(10, 10, 10, 10);
+    self.imageEdgeInsets = UIEdgeInsetsMake(14, 14, 14, 14);
     [self sizeToFit];
 }
 

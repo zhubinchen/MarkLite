@@ -12,7 +12,6 @@
 		07164A6F1D9438DB0032C69C /* cell_rename.png in Resources */ = {isa = PBXBuildFile; fileRef = 07164A6C1D9438DB0032C69C /* cell_rename.png */; };
 		072198E31D90EA1B00A17DC1 /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 072198E01D90EA1B00A17DC1 /* MGSwipeButton.m */; };
 		072198E41D90EA1B00A17DC1 /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 072198E21D90EA1B00A17DC1 /* MGSwipeTableCell.m */; };
-		07492E401D9424E900F37936 /* UIPrintPageRenderer+PDF.m in Sources */ = {isa = PBXBuildFile; fileRef = 07492E3F1D9424E900F37936 /* UIPrintPageRenderer+PDF.m */; };
 		0771404A1D92DF660083E82A /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 077140491D92DF660083E82A /* delete@2x.png */; };
 		0771404D1D92E1280083E82A /* checked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0771404B1D92E1280083E82A /* checked@2x.png */; };
 		0771404E1D92E1280083E82A /* unchecked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0771404C1D92E1280083E82A /* unchecked@2x.png */; };
@@ -134,8 +133,6 @@
 		072198E01D90EA1B00A17DC1 /* MGSwipeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeButton.m; sourceTree = "<group>"; };
 		072198E11D90EA1B00A17DC1 /* MGSwipeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeTableCell.h; sourceTree = "<group>"; };
 		072198E21D90EA1B00A17DC1 /* MGSwipeTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeTableCell.m; sourceTree = "<group>"; };
-		07492E3E1D9424E900F37936 /* UIPrintPageRenderer+PDF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIPrintPageRenderer+PDF.h"; sourceTree = "<group>"; };
-		07492E3F1D9424E900F37936 /* UIPrintPageRenderer+PDF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIPrintPageRenderer+PDF.m"; sourceTree = "<group>"; };
 		077140491D92DF660083E82A /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
 		0771404B1D92E1280083E82A /* checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checked@2x.png"; sourceTree = "<group>"; };
 		0771404C1D92E1280083E82A /* unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unchecked@2x.png"; sourceTree = "<group>"; };
@@ -561,8 +558,6 @@
 				07EC143E1D1ED3DF00AA3EEE /* ZHRequest.m */,
 				07B92E751D1D966B00A4127E /* ZHUtils.h */,
 				07B92E761D1D966B00A4127E /* ZHUtils.m */,
-				07492E3E1D9424E900F37936 /* UIPrintPageRenderer+PDF.h */,
-				07492E3F1D9424E900F37936 /* UIPrintPageRenderer+PDF.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -809,7 +804,6 @@
 				07B92ED01D1D966B00A4127E /* KeyboardBar.m in Sources */,
 				072198E41D90EA1B00A17DC1 /* MGSwipeTableCell.m in Sources */,
 				07BB7AC71D37F39C0034BDDC /* AFHTTPSessionManager.m in Sources */,
-				07492E401D9424E900F37936 /* UIPrintPageRenderer+PDF.m in Sources */,
 				07F90CEC1D20F67900DF5194 /* ImageViewController.m in Sources */,
 				07BB7ACC1D37F39C0034BDDC /* AFURLResponseSerialization.m in Sources */,
 				07B92ECD1D1D966B00A4127E /* FileItemCell.m in Sources */,

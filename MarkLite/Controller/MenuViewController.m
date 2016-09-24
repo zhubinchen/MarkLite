@@ -40,7 +40,7 @@
     }else{
         items = @[
                     @[@"ImageResolution"],
-                    @[@"AssistKeyboard",@"Style"],
+                    @[@"AssistKeyboard",@"LandscapeEdit",@"Style"],
                     @[@"RateIt",@"Feedback"],
                     @[@"About"],@[@"Donate"]
                   ];
@@ -61,6 +61,9 @@
     [Configure sharedConfigure].keyboardAssist = s.on;
 }
 
+- (void)switchLandscape:(UISwitch*)s{
+    [Configure sharedConfigure].landscapeEdit = s.on;
+}
 
 #pragma mark - Table view data source
 
@@ -84,13 +87,19 @@
         s.on = [Configure sharedConfigure].keyboardAssist;
         [s addTarget:self action:@selector(switchKeyboard:) forControlEvents:UIControlEventValueChanged];
         [cell addSubview:s];
-    }else{
+    }else if ([title isEqualToString:@"LandscapeEdit"]) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@""];
+        UISwitch *s = [[UISwitch alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 60, 7, 0, 0)];
+        s.on = [Configure sharedConfigure].landscapeEdit;
+        [s addTarget:self action:@selector(switchLandscape:) forControlEvents:UIControlEventValueChanged];
+        [cell addSubview:s];
+    } else{
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@""];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     cell.textLabel.text = ZHLS(title);
-
+    cell.textLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;

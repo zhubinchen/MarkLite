@@ -24,7 +24,7 @@
         if ([[NSFileManager defaultManager] fileExistsAtPath:path]) {
             conf = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
             if (conf.currentVerion.length == 0 || ![conf.currentVerion isEqualToString:kAppVersionNo]) {
-                [conf reset];
+                [conf upgrade];
             }
         }else{
             conf = [[self alloc]init];
@@ -49,6 +49,7 @@
     [aCoder encodeObject:self.currentVerion forKey:@"currentVerion"];
     [aCoder encodeObject:self.fontName forKey:@"fontName"];
     [aCoder encodeBool:self.keyboardAssist forKey:@"keyboardAssist"];
+    [aCoder encodeBool:self.keyboardAssist forKey:@"landscapeEdit"];
     [aCoder encodeBool:self.hasRated forKey:@"hasRated"];
     [aCoder encodeInteger:self.sortOption forKey:@"sortOption"];
     [aCoder encodeFloat:self.imageResolution forKey:@"imageResolution"];
@@ -64,6 +65,7 @@
         _upgradeTime = [aDecoder decodeObjectForKey:@"upgradeTime"];
         _fontName = [aDecoder decodeObjectForKey:@"fontName"];
         _keyboardAssist = [aDecoder decodeBoolForKey:@"keyboardAssist"];
+        _landscapeEdit = [aDecoder decodeBoolForKey:@"landscapeEdit"];
         _hasRated = [aDecoder decodeBoolForKey:@"hasRated"];
         _sortOption = [aDecoder decodeIntegerForKey:@"sortOption"];
         _imageResolution = [aDecoder decodeFloatForKey:@"imageResolution"];
@@ -102,7 +104,26 @@
     _upgradeTime = [NSDate date];
     _currentVerion = kAppVersionNo;
     _sortOption = 0;
+    _landscapeEdit = NO;
 }
 
+- (void)upgrade
+{
+    _highlightColor = @{
+                        @"title":RGB(@"488FE1"),
+                        @"link":RGB(@"465DC6"),
+                        @"image":RGB(@"5245AE"),
+                        @"bold":RGB(@"000000"),
+                        @"quotes":RGB(@"AE8A86"),
+                        @"deletion":RGB(@"747270"),
+                        @"separate":RGB(@"BD1586"),
+                        @"list":RGB(@"49362E"),
+                        @"code":RGB(@"33A191"),
+                        };
+    _upgradeTime = [NSDate date];
+    _currentVerion = kAppVersionNo;
+    _sortOption = 0;
+    _landscapeEdit = NO;
+}
 
 @end

@@ -16,6 +16,8 @@
 
 @end
 
+static BOOL allowRotation = NO;
+
 @implementation AppDelegate
 
 - (void)gotoStartPage
@@ -167,5 +169,18 @@
     }
 }
 
+-(UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    if (allowRotation)
+    {
+        return UIInterfaceOrientationMaskLandscapeRight;
+    }
+    //只支持竖屏禁止全屏
+    return UIInterfaceOrientationMaskPortrait;
+}
+
++ (void)setAllowRotation:(BOOL)allow
+{
+    allowRotation = allow;
+}
 
 @end

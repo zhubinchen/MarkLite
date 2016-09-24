@@ -15,6 +15,7 @@
 #import "FileManager.h"
 #import "Configure.h"
 #import "Item.h"
+#import "AppDelegate.h"
 
 @interface EditViewController () <UITextViewDelegate,KeyboardBarDelegate>
 
@@ -99,10 +100,22 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    if ([Configure sharedConfigure].landscapeEdit) {
+        [AppDelegate setAllowRotation:YES];
+        [[UIDevice currentDevice] setValue:[NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight] forKey:@"orientation"];
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    }
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [self saveFile];
     [self.editView resignFirstResponder];
+    [AppDelegate setAllowRotation:NO];
+    [[UIDevice currentDevice] setValue:[NSNumber numberWithInt:UIInterfaceOrientationPortrait] forKey:@"orientation"];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
