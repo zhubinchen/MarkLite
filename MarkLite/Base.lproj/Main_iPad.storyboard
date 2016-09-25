@@ -144,7 +144,7 @@
                             <outlet property="delegate" destination="I2i-9V-J9l" id="FZf-HM-n3Z"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="选项" image="84D9C8BD-D030-4F32-A70D-129A277264E4" id="cUx-cv-8Pe"/>
+                    <tabBarItem key="tabBarItem" title="选项" image="554C498E-A2A2-40B3-B398-AA37D3DE9D7C" id="cUx-cv-8Pe"/>
                     <navigationItem key="navigationItem" id="rMd-CP-7Md">
                         <barButtonItem key="backBarButtonItem" title=" " id="8hr-Pt-fcf"/>
                     </navigationItem>
@@ -210,8 +210,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" misplaced="YES" placeholder="查找文件" translatesAutoresizingMaskIntoConstraints="NO" id="O6b-Ul-6oT">
-                                <frame key="frameInset" minY="64" width="320" height="44"/>
+                            <searchBar contentMode="redraw" placeholder="查找文件" translatesAutoresizingMaskIntoConstraints="NO" id="O6b-Ul-6oT">
                                 <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="gLu-oR-a6C"/>
@@ -222,8 +221,7 @@
                                     <outlet property="delegate" destination="nWz-89-KbB" id="HsC-Up-Koa"/>
                                 </connections>
                             </searchBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="8Aw-fG-dVI">
-                                <frame key="frameInset" minY="108" width="320" height="411"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="8Aw-fG-dVI">
                                 <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
@@ -231,8 +229,7 @@
                                     <outlet property="delegate" destination="nWz-89-KbB" id="M0p-T7-PCA"/>
                                 </connections>
                             </tableView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="33f-i2-bnz">
-                                <frame key="frameInset" minY="108" width="320" height="411"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="33f-i2-bnz">
                                 <color key="backgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="separatorColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.96470588239999999" green="0.96470588239999999" blue="0.96470588239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -265,7 +262,7 @@
                         <outlet property="cloudListView" destination="33f-i2-bnz" id="YRi-EV-DlT"/>
                         <outlet property="localListView" destination="8Aw-fG-dVI" id="aUi-to-MTo"/>
                         <outlet property="searchBar" destination="O6b-Ul-6oT" id="wyr-Ic-2bl"/>
-                        <segue destination="XgD-63-aM1" kind="presentation" identifier="move" modalPresentationStyle="formSheet" id="Kp9-zt-ybq"/>
+                        <segue destination="XgD-63-aM1" kind="presentation" identifier="chooseFolder" modalPresentationStyle="formSheet" id="Kp9-zt-ybq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="47K-6E-msL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -444,7 +441,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xfV-mI-24H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="744" y="-3962"/>
+            <point key="canvasLocation" x="898" y="-3926"/>
         </scene>
         <!--笔记-->
         <scene sceneID="Nz5-2x-lpa">
@@ -580,7 +577,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="84D9C8BD-D030-4F32-A70D-129A277264E4" width="25" height="25">
+        <image name="554C498E-A2A2-40B3-B398-AA37D3DE9D7C" width="25" height="25">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -677,6 +674,6 @@ AAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAABPgA
         <image name="settings.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ele-cq-gK0"/>
+        <segue reference="Kp9-zt-ybq"/>
     </inferredMetricsTieBreakers>
 </document>

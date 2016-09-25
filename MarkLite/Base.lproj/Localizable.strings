@@ -19,6 +19,7 @@
 "SortByUpdateTime"="Sort by updated time";
 
 "Untitled"="Untitled";
+"UntitledFolder"="Untitled Folder";
 
 "Font"="Font";
 "Preview"="Preview";
@@ -43,8 +44,9 @@
 "Close"="Close";
 "Alert"="Alert";
 "Cancel"="Cancel";
+"CreateNote"="New note";
+"CreateFolder"="New folder";
 "Delete"="Delete";
-"ActionCanNotBeDone"="This action cannot be done，%@ is editing";
 "Move"="Move to";
 "SelectAll"="Select All";
 "Inverse"="Inverse";
@@ -55,17 +57,10 @@
 "PDF"="PDF";
 "Markdown"="Markdown";
 
-"ChooseYourOperation"="Choose your operation";
-"FileNameAlertTitle"="Name the new file";
-"FolderNameAlertTitle"="Name the new folder";
-"NewMarkdownFile"= "New Markdown file";
-"NewFolder"= "New directory";
-"NameAlertMessage"="Please input the name";
 "DeleteMessage"="Sure you want to delete the file? This action cannot be undone!";
 "DuplicateError"="An error occured! Duplicate name?";
 
-"CanNotDeleteRoot"="Cannot delete root directory";
-"EmptyNameTips"="File name can not be empty";
+"EmptyNameTips"="Filename can not be empty";
 "InvalidName"="Invalid file name";
 
 "InsertHref"="Insert a link";
@@ -103,4 +98,4 @@
 "DonatePrice"="Donate $0.99";
 
 "Name"="Name";
-"NamePlaceholder"="Please input the name";
+"NamePlaceholder"="Please input the filename";

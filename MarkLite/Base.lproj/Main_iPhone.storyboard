@@ -165,10 +165,10 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="dzG-vm-Bfw">
-                                <rect key="frame" x="0.0" y="119.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="120" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dzG-vm-Bfw" id="vAc-Mu-Pjs">
-                                    <frame key="frameInset" width="375" height="43.5"/>
+                                    <frame key="frameInset" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -342,7 +342,7 @@
                         <outlet property="searchBar" destination="dfg-aj-tmF" id="1Ah-Ab-FrT"/>
                         <segue destination="VQd-1Y-qDA" kind="show" identifier="edit" id="F5f-nG-XfB"/>
                         <segue destination="rmd-nM-PLW" kind="show" identifier="preview" id="jkb-0q-YIz"/>
-                        <segue destination="uKH-5D-5ID" kind="presentation" identifier="newNote" id="736-9L-s2e"/>
+                        <segue destination="uKH-5D-5ID" kind="presentation" identifier="chooseFolder" id="736-9L-s2e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NZY-eD-wsm" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -363,7 +363,7 @@
                                 <rect key="frame" x="0.0" y="119.5" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NyE-CM-JcJ" id="bLK-B3-hKv">
-                                    <frame key="frameInset" width="342" height="43.5"/>
+                                    <frame key="frameInset" width="342" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -448,7 +448,7 @@
                         <outlet property="searchBar" destination="hgt-J9-INt" id="Bwy-gj-DQa"/>
                         <segue destination="VQd-1Y-qDA" kind="show" identifier="edit" id="n2c-A2-qau"/>
                         <segue destination="rmd-nM-PLW" kind="show" identifier="preview" id="GZ3-Ny-S2m"/>
-                        <segue destination="uKH-5D-5ID" kind="presentation" identifier="move" id="ZCc-zr-UED"/>
+                        <segue destination="uKH-5D-5ID" kind="presentation" identifier="chooseFolder" id="ZCc-zr-UED"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yo8-UD-Mb3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -543,8 +543,8 @@
         <image name="settings.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jkb-0q-YIz"/>
-        <segue reference="F5f-nG-XfB"/>
-        <segue reference="736-9L-s2e"/>
+        <segue reference="ZCc-zr-UED"/>
+        <segue reference="GZ3-Ny-S2m"/>
+        <segue reference="n2c-A2-qau"/>
     </inferredMetricsTieBreakers>
 </document>

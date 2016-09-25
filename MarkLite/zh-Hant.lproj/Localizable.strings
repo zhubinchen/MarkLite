@@ -19,6 +19,7 @@
 "SortByUpdateTime"="按修改時間排序";
 
 "Untitled"="未命名";
+"UntitledFolder"="未命名文件夹";
 
 "Font"="字體";
 "Preview"="預覽";
@@ -43,28 +44,21 @@
 "Close"="關閉";
 "Alert"="提示";
 "Cancel"="取消";
+"CreateNote"="新建文档";
+"CreateFolder"="新建文件夹";
 "Delete"="刪除";
 "Move"="移動到";
 "SelectAll"="全選";
 "Inverse"="反選";
 "Export"="導出";
-"ActionCanNotBeDone"="無法完成此操作，%@正在編輯中";
 "ExportAs"="選擇導出格式";
 "Rename"="重命名";
 "WebPage"="Web頁面";
 "PDF"="PDF文檔";
 "Markdown"="Markdown文本";
 
-"ChooseYourOperation"="請選擇要進行的操作";
-"FileNameAlertTitle"="為要創建的文件命名";
-"FolderNameAlertTitle"="為要創建的目錄命名";
-"NewMarkdownFile"= "新建文本";
-"NewFolder"= "新建目錄";
-"NameAlertMessage"="請輸入文件名，不要輸入後綴";
 "DeleteMessage"="刪除後不可恢復，確定要刪除嗎？";
 "DuplicateError"="出錯了，請確保文件名不重複";
-
-"CanNotDeleteRoot"="根目錄不可刪除";
 "EmptyNameTips"="文件名不能為空";
 "InvalidName"="無效的文件名，請不要輸入特殊字符";
 
@@ -102,4 +96,4 @@
 "DonatePrice"="打賞 $0.99";
 
 "Name"="文件名";
-"NamePlaceholder"="请输入文件名(不包括后缀)";
+"NamePlaceholder"="請輸入文件名(不包括後缀名)";

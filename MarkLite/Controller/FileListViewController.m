@@ -14,9 +14,9 @@
 #import "Item.h"
 #import "FileItemCell.h"
 #import "Configure.h"
-#import "CreateNoteView.h"
+#import "CreateFileView.h"
 
-@interface FileListViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIViewControllerPreviewingDelegate,UISearchBarDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,MGSwipeTableCellDelegate>
+@interface FileListViewController () <UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate,UIViewControllerPreviewingDelegate,UISearchBarDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,MGSwipeTableCellDelegate,CreateFileViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *localListView;
 @property (weak, nonatomic) IBOutlet UITableView *cloudListView;
@@ -40,7 +40,7 @@
     UIPopoverPresentationController *popVc;
     UITableView *fileListView;
     UISegmentedControl *segment;
-    CreateNoteView *createView;
+    CreateFileView *createView;
 }
 
 #pragma mark 生命周期
@@ -174,7 +174,7 @@
         [self dismissView:createView];
         return;
     }
-    createView = [CreateNoteView instance];
+    createView = [CreateFileView instance];
     
     if ([Configure sharedConfigure].defaultParent == nil) {
         [Configure sharedConfigure].defaultParent = _fm.local;
@@ -184,26 +184,14 @@
         [Configure sharedConfigure].defaultParent = _fm.local;
     }
     createView.parent = [Configure sharedConfigure].defaultParent;
-    __weak typeof(self) weakself = self;
-    createView.chooseFolder = ^(){
-        [weakself performSegueWithIdentifier:@"newNote" sender:weakself];
-    };
-    __weak UIView *v = createView;
-    createView.didCreateNote = ^(Item *note){
-        [weakself dismissView:v];
-        [weakself reload];
-        
-        weakself.fm.currentItem = note;
-        if (kDevicePhone) {
-            [weakself performSegueWithIdentifier:@"edit" sender:weakself];
-        }
-    };
-    createView.frame = CGRectMake(0, -100, w, 100);
+    createView.delegate = self;
+    createView.frame = CGRectMake(0, -140, w, 140);
     [self showView:createView];
 }
 
 - (void)dismissView:(UIView*)v
 {
+    CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
     UIView *control = v.superview;
     
     if ([v isKindOfClass:[UIControl class]]) {
@@ -213,7 +201,7 @@
     CGFloat w = self.view.bounds.size.width;
     CGFloat h = v.frame.size.height;
     [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        v.frame = CGRectMake(0, 64 - h, w, h);
+        v.frame = CGRectMake(0, 44 + statusBarHeight - h, w, h);
         control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     } completion:^(BOOL finished) {
         if (finished) {
@@ -225,6 +213,7 @@
 
 - (void)showView:(UIView*)v
 {
+    CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
     UIControl *control = [[UIControl alloc]initWithFrame:self.view.bounds];
     control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     [control addTarget:self action:@selector(dismissView:) forControlEvents:UIControlEventTouchUpInside];
@@ -235,7 +224,7 @@
     CGFloat w = self.view.bounds.size.width;
     CGFloat h = v.frame.size.height;
     [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        v.frame = CGRectMake(0, 64, w, h);
+        v.frame = CGRectMake(0, 44 + statusBarHeight, w, h);
         control.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
     } completion:^(BOOL finished) {
     }];
@@ -255,6 +244,33 @@
         [self.toolBar removeFromSuperview];
     }
     [fileListView reloadData];
+}
+
+#pragma mark CreatFileViewDelegate
+
+- (void)didCancel:(CreateFileView *)view
+{
+    [self dismissView:view];
+}
+
+- (void)createFileView:(CreateFileView *)view didCreateItem:(Item *)item
+{
+    [self dismissView:view];
+    [self reload];
+    
+    if (item.type == FileTypeFolder) {
+        return;
+    }
+    _fm.currentItem = item;
+    if (kDevicePhone) {
+        [self performSegueWithIdentifier:@"edit" sender:self];
+    }
+    
+}
+
+- (void)shouldChooseParent:(CreateFileView *)view
+{
+    [self performSegueWithIdentifier:@"chooseFolder" sender:self];
 }
 
 #pragma mark 显示控制
@@ -351,7 +367,10 @@
     FileItemCell *cell = (FileItemCell*)[tableView dequeueReusableCellWithIdentifier:@"file" forIndexPath:indexPath];
     cell.delegate = self;
     Item *item = dataArray[indexPath.row];
-    
+    if (item == _fm.currentItem) {
+        item.open = YES;
+        cell.backgroundColor = [UIColor lightGrayColor];
+    }
     cell.item = item;
     cell.checkBtn.hidden = !edit;
     return cell;
@@ -415,11 +434,17 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:ZHLS(@"move")]) {
+    if ([segue.identifier isEqualToString:ZHLS(@"chooseFolder")]) {
         ChooseFolderViewController *vc = [(UINavigationController*)segue.destinationViewController viewControllers].firstObject;
         vc.didChoosedFolder = ^(Item *i){
-            [self moveItems:root.selectedChildren toParent:i];
+            if (edit) {
+                [self moveItems:root.selectedChildren toParent:i];
+            }else{
+                createView.parent = i;
+                [Configure sharedConfigure].defaultParent = i;
+            }
         };
+
     }
 }
 
@@ -474,7 +499,7 @@
 
 - (void)renameItem:(Item*)i
 {
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"Rename") message:ZHLS(@"NameAlertMessage") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"Rename") message:ZHLS(@"NamePlaceholder") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
     [alert textFieldAtIndex:0].text = i.name;
     __weak UIAlertView *__alert = alert;

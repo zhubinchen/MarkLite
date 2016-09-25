@@ -30,6 +30,14 @@
     return self;
 }
 
+- (void)setOpen:(BOOL)open
+{
+    _open = open;
+    if (open) {
+        self.parent.open = YES;
+    }
+}
+
 -(void)encodeWithCoder:(NSCoder *)aCoder{
     [aCoder encodeObject:self.path forKey:@"path"];
     [aCoder encodeBool:self.root forKey:@"root"];

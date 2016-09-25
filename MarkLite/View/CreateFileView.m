@@ -1,20 +1,20 @@
 //
-//  CreateNoteView.m
+//  CreateFileView.m
 //  MarkLite
 //
 //  Created by zhubch on 7/21/16.
 //  Copyright © 2016 zhubch. All rights reserved.
 //
 
-#import "CreateNoteView.h"
+#import "CreateFileView.h"
 #import "Item.h"
 #import "FileManager.h"
 
-@implementation CreateNoteView
+@implementation CreateFileView
 
 + (instancetype)instance
 {
-    CreateNoteView *v = [[NSBundle mainBundle]loadNibNamed:@"CreateNoteView" owner:self options:nil].firstObject;
+    CreateFileView *v = [[NSBundle mainBundle]loadNibNamed:@"CreateFileView" owner:self options:nil].firstObject;
     return v;
 }
 
@@ -22,7 +22,9 @@
 {
     [super awakeFromNib];
     self.pathLabel.text = ZHLS(@"Path");
-    [self.sureBtn setTitle:ZHLS(@"OK") forState:UIControlStateNormal];
+    [self.cancelBtn setTitle:ZHLS(@"Cancel") forState:UIControlStateNormal];
+    [self.folderBtn setTitle:ZHLS(@"CreateFolder") forState:UIControlStateNormal];
+    [self.noteBtn setTitle:ZHLS(@"CreateNote") forState:UIControlStateNormal];
     self.nameLable.text = ZHLS(@"Name");
     self.nameTextFiled.placeholder = ZHLS(@"NamePlaceholder");
 }
@@ -39,15 +41,16 @@
 
 - (IBAction)chooseFolder:(id)sender
 {
-    self.chooseFolder();
+    [self.delegate shouldChooseParent:self];
 }
 
-- (IBAction)ok:(id)sender
+- (IBAction)cancel:(id)sender
 {
-    [self complete];
+    [self.delegate didCancel:self];
 }
 
-- (void)complete{
+- (IBAction)createNote:(id)sender
+{
     NSString *name = self.nameTextFiled.text;
     if (name.length == 0) {
         name = ZHLS(@"Untitled");
@@ -74,7 +77,37 @@
     i.path = ret;
     [_parent addChild:i];
     
-    self.didCreateNote(i);
+    [self.delegate createFileView:self didCreateItem:i];
+}
+
+- (IBAction)createFolder:(id)sender
+{
+    NSString *name = self.nameTextFiled.text;
+    if (name.length == 0) {
+        name = ZHLS(@"UntitledFolder");
+    }
+    
+    NSString *path = name;
+    if (!_parent.root) {
+        path = [_parent.path stringByAppendingPathComponent:name];
+    }
+    Item *i = [[Item alloc]init];
+    i.path = path;
+    i.open = YES;
+    i.cloud = _parent.cloud;
+    if ([self.parent.items containsObject:i]) {
+        
+    }
+    NSString *ret = [[FileManager sharedManager] createFolder:i.fullPath];
+    
+    if (ret.length == 0) {
+        showToast(ZHLS(@"DuplicateError"));
+        return;
+    }
+    i.path = ret;
+    [_parent addChild:i];
+    
+    [self.delegate createFileView:self didCreateItem:i];
 }
 
 - (BOOL)textFieldShouldEndEditing:(UITextField *)textField

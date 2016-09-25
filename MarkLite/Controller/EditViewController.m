@@ -39,8 +39,6 @@
 
     _editView.delegate = self;
 
-    [self loadFile];
-
     [[Configure sharedConfigure] addObserver:self forKeyPath:@"fontName" options:NSKeyValueObservingOptionNew context:NULL];
 
     if (kDevicePad) {
@@ -52,6 +50,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardDidHideNotification object:nil];
     
     if (kDevicePhone) {
+        [self loadFile];
         self.navigationItem.rightBarButtonItems[1].title = ZHLS(@"Font");
     }else{
         self.navigationItem.rightBarButtonItems[1].title = ZHLS(@"FullScreen");
@@ -68,6 +67,11 @@
         bar.delegate = self;
         _editView.inputAccessoryView = bar;
     }
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        [self loadFile];
+    });
 }
 
 - (void)didInputText
@@ -109,6 +113,9 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    if (kDevicePad) {
+        return;
+    }
     if ([Configure sharedConfigure].landscapeEdit) {
         [AppDelegate setAllowRotation:YES];
         [[UIDevice currentDevice] setValue:[NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight] forKey:@"orientation"];
@@ -120,6 +127,9 @@
 {
     [self saveFile];
     [self.editView resignFirstResponder];
+    if (kDevicePad) {
+        return;
+    }
     [AppDelegate setAllowRotation:NO];
     [[UIDevice currentDevice] setValue:[NSNumber numberWithInt:UIInterfaceOrientationPortrait] forKey:@"orientation"];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
@@ -196,6 +206,7 @@
     }
     NSData *content = [self.editView.text dataUsingEncoding:NSUTF8StringEncoding];
     [fm saveFile:item.fullPath Content:content];
+    needSave = NO;
 }
 
 - (void)dealloc

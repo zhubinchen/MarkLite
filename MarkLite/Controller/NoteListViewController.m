@@ -14,9 +14,9 @@
 #import "Item.h"
 #import "Configure.h"
 #import "SortOptionsView.h"
-#import "CreateNoteView.h"
+#import "CreateFileView.h"
 
-@interface NoteListViewController () <UITableViewDelegate,UITableViewDataSource,UIViewControllerPreviewingDelegate,UISearchBarDelegate>
+@interface NoteListViewController () <UITableViewDelegate,UITableViewDataSource,UIViewControllerPreviewingDelegate,UISearchBarDelegate,CreateFileViewDelegate>
 
 @property (weak, nonatomic)  IBOutlet UITableView *noteListView;
 @property (nonatomic,assign)  FileManager         *fm;
@@ -30,7 +30,7 @@
     NSString *searchWord;
     
     SortOptionsView *sortView;
-    CreateNoteView *createView;
+    CreateFileView *createView;
 }
 
 - (void)viewDidLoad {
@@ -90,7 +90,7 @@
     if (sortView.superview) {
         [self dismissView:sortView];
     }
-    createView = [CreateNoteView instance];
+    createView = [CreateFileView instance];
     
     if ([Configure sharedConfigure].defaultParent == nil) {
         [Configure sharedConfigure].defaultParent = _fm.local;
@@ -100,21 +100,8 @@
         [Configure sharedConfigure].defaultParent = _fm.local;
     }
     createView.parent = [Configure sharedConfigure].defaultParent;
-    __weak NoteListViewController *__self = self;
-    createView.chooseFolder = ^(){
-        [__self performSegueWithIdentifier:@"newNote" sender:__self];
-    };
-    __weak UIView *v = createView;
-    createView.didCreateNote = ^(Item *note){
-        [__self dismissView:v];
-        [__self reload];
-        
-        __self.fm.currentItem = note;
-        if (kDevicePhone) {
-            [__self performSegueWithIdentifier:@"edit" sender:__self];
-        }
-    };
-    createView.frame = CGRectMake(0, -100, w, 100);
+    createView.delegate = self;
+    createView.frame = CGRectMake(0, -140, w, 140);
     [self showView:createView];
 }
 
@@ -143,6 +130,7 @@
 
 - (void)dismissView:(UIView*)v
 {
+    CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
     UIView *control = v.superview;
 
     if ([v isKindOfClass:[UIControl class]]) {
@@ -152,7 +140,7 @@
     CGFloat w = self.view.bounds.size.width;
     CGFloat h = v.frame.size.height;
     [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        v.frame = CGRectMake(0, 64 - h, w, h);
+        v.frame = CGRectMake(0, 44 + statusBarHeight - h, w, h);
         control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     } completion:^(BOOL finished) {
         if (finished) {
@@ -164,6 +152,7 @@
 
 - (void)showView:(UIView*)v
 {
+    CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
     UIControl *control = [[UIControl alloc]initWithFrame:self.view.bounds];
     control.backgroundColor = [UIColor colorWithWhite:0 alpha:0];
     [control addTarget:self action:@selector(dismissView:) forControlEvents:UIControlEventTouchUpInside];
@@ -174,7 +163,7 @@
     CGFloat w = self.view.bounds.size.width;
     CGFloat h = v.frame.size.height;
     [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
-        v.frame = CGRectMake(0, 64, w, h);
+        v.frame = CGRectMake(0, 44 + statusBarHeight, w, h);
         control.backgroundColor = [UIColor colorWithWhite:0 alpha:0.2];
     } completion:^(BOOL finished) {
     }];
@@ -230,6 +219,33 @@
     [self.noteListView reloadData];
 }
 
+#pragma mark CreatFileViewDelegate
+
+- (void)didCancel:(CreateFileView *)view
+{
+    [self dismissView:view];
+}
+
+- (void)createFileView:(CreateFileView *)view didCreateItem:(Item *)item
+{
+    [self dismissView:view];
+    [self reload];
+    
+    if (item.type == FileTypeFolder) {
+        return;
+    }
+    _fm.currentItem = item;
+    if (kDevicePhone) {
+        [self performSegueWithIdentifier:@"edit" sender:self];
+    }
+
+}
+
+- (void)shouldChooseParent:(CreateFileView *)view
+{
+    [self performSegueWithIdentifier:@"chooseFolder" sender:self];
+}
+
 #pragma mark UITableViewDataSource & UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -272,6 +288,8 @@
     }
 }
 
+#pragma mark SearchBar
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     searchWord = searchText;
@@ -299,8 +317,9 @@
     return YES;
 }
 
+#pragma mark other
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if ([segue.identifier isEqualToString:@"newNote"]) {
+    if ([segue.identifier isEqualToString:@"chooseFolder"]) {
         
         ChooseFolderViewController *vc = [(UINavigationController*)segue.destinationViewController viewControllers].firstObject;
         vc.didChoosedFolder = ^(Item *i){

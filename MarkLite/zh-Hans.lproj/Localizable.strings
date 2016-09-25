@@ -19,6 +19,7 @@
 "SortByUpdateTime"="按修改时间排序";
 
 "Untitled"="未命名";
+"UntitledFolder"="未命名文件夹";
 
 "Font"="字体";
 "Preview"="预览";
@@ -42,8 +43,9 @@
 "OK"="确定";
 "Close"="关闭";
 "Alert"="提示";
-"ActionCanNotBeDone"="无法完成此操作，%@正在编辑中";
 "Cancel"="取消";
+"CreateNote"="新建文档";
+"CreateFolder"="新建文件夹";
 "Delete"="删除";
 "Move"="移动到";
 "SelectAll"="全选";
@@ -54,16 +56,8 @@
 "PDF"="PDF文档";
 "Markdown"="Markdown文本";
 
-"ChooseYourOperation"="请选择要进行的操作";
-"FileNameAlertTitle"="为要创建的文件命名";
-"FolderNameAlertTitle"="为要创建的目录命名";
-"NewMarkdownFile"= "新建文本";
-"NewFolder"= "新建目录";
-"NameAlertMessage"="请输入文件名，不要输入后缀";
 "DeleteMessage"="删除后不可恢复，确定要删除吗？";
 "DuplicateError"="出错了，请确保文件名不重复";
-
-"CanNotDeleteRoot"="根目录不可删除";
 "EmptyNameTips"="文件名不能为空";
 "InvalidName"="无效的文件名，请不要输入特殊字符";
 
