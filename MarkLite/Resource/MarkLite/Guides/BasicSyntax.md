@@ -93,33 +93,31 @@ This is the code for `javascript`
 
 #### 1.5 Links
 
-Use `[] (link)` represents inline link. among them:
+Use `[](link)` represents inline link. among them:
 
 * Content `[]` to be added within the link text.
 * `Link` for the link.
 
 Example
 
-I think [MarkLite] (https://appsto.re/cn/jK8Cbb.i) really is a awesome editor 😊.
+I think [MarkLite](https://appsto.re/cn/jK8Cbb.i) really is a awesome editor 😊.
 
 ### 1.6 Import Pictures
 
-Use `! [Alt text] (/ path / to / img.jpg)` Import Pictures. among them:
+Use `! [Alt text] (/path/to/img.jpg)` Import Pictures. among them:
 
 * `Alt text` to text if the image is not displayed;
-* `/ Path / to / img.jpg` as a picture of the path;
+* `/Path/to/img.jpg` as a picture of the path;
 
-1. Import the image path can be an absolute path using a relative path, it is recommended to use a relative path.
-2. I usually practice under the same directory Markdown document to create a pictures folder, which placed all the required pictures, if the picture more, you can also create subfolders in the pictures folder folder classification.
-3. Click the Add image keypad buttons, ** MarkLite ** will automatically help you to help you to upload pictures to the image storage server, and padded links, so you step in place, is not very convenient 😊?
+Click the Add image keypad buttons, **MarkLite** will automatically help you to upload pictures to the image storage server, and insert link
 
 Example
 
 ```
-! [MarkLite] (http://i4.piimg.com/567954/db097a08d8a578e0t.jpg)
+![MarkLite](http://i1.piimg.com/567954/ea65f02e0cd670a4.jpg)
 ```
 
-! [MarkLite] (http://i4.piimg.com/567954/db097a08d8a578e0t.jpg)
+![MarkLite](http://i1.piimg.com/567954/ea65f02e0cd670a4.jpg)
 
 #### 1.7 bold and italic
 
@@ -144,7 +142,7 @@ Use `1. 2 . 3.` represents an ordered list, or use the` * `,` + `,` -` unordered
 1. unordered list or an ordered list of tags must be separated by a space and the following text.
 2. ordered list tags are not in accordance with what you write digital display, but according to the current location marker displays an ordered list, as shown in Example 1.
 3. bulleted unordered list is based on a solid round, open circles, solid squares progressive hierarchy, as shown in Example 2. Under normal circumstances, the same level using the same numerals, easy to view and manage their own.
-4. unordered lists and ordered lists tag usage scenario is very clear, it is not much to say.
+4. unordered lists and ordered lists tag usage scenario is very clear, no more to say.
 
 #### Example 1: An ordered list
 

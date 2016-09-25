@@ -5,9 +5,10 @@
 MarkLite Can run on iPhone/iPad and other iOS device, it is easy to use, and support iCloud synchronization.You can use mobile device to read and write Markdown file. MarkLite supports the standard Markdown syntax, and also supports some of the commonly used extended syntax, such as ` mathematical expressions`, `Footnote`, `TodoList`, etc.. 
 
 >Run on iPad :
-[iPad] (http://i2.piimg.com/567954/c09dd1326b4930d3.png)
+![Markdown](http://i1.piimg.com/567954/3019d224e9eb4962.png)
 >Run on iPhone :
-[iPhone] (http://i2.piimg.com/567954/9147b4640f9c7bfb.png)
+
+![ipHone](http://i1.piimg.com/567954/7acab8403575e5e7.png)
 
 ### Features
 

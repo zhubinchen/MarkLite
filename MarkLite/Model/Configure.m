@@ -105,6 +105,7 @@
     _currentVerion = kAppVersionNo;
     _sortOption = 0;
     _landscapeEdit = NO;
+    _hasRated = NO;
 }
 
 - (void)upgrade
