@@ -64,7 +64,7 @@
         KeyboardBar *bar = [[KeyboardBar alloc]init];
         bar.editView = _editView;
         bar.vc = self;
-        bar.delegate = self;
+        bar.inputDelegate = self;
         _editView.inputAccessoryView = bar;
     }
     
@@ -92,7 +92,6 @@
     self.bottom.constant = keyboardHeight;
     [self.view updateConstraints];
 }
-
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
     if ([keyPath isEqualToString:@"currentItem"]) {

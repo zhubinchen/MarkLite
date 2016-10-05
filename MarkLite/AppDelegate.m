@@ -170,6 +170,9 @@ static BOOL allowRotation = NO;
 }
 
 -(UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    if (kDevicePad) {
+        return UIInterfaceOrientationMaskAll;
+    }
     if (allowRotation)
     {
         return UIInterfaceOrientationMaskLandscapeRight;

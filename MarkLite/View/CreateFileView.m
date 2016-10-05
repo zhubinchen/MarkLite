@@ -9,6 +9,7 @@
 #import "CreateFileView.h"
 #import "Item.h"
 #import "FileManager.h"
+#import "PathUtils.h"
 
 @implementation CreateFileView
 
@@ -74,7 +75,11 @@
         showToast(ZHLS(@"DuplicateError"));
         return;
     }
-    i.path = ret;
+    
+    
+    NSString *prePath = i.cloud ? cloudWorkspace() : localWorkspace();
+    i.path = [ret stringByReplacingOccurrencesOfString:prePath withString:@""];
+
     [_parent addChild:i];
     
     [self.delegate createFileView:self didCreateItem:i];
@@ -104,7 +109,10 @@
         showToast(ZHLS(@"DuplicateError"));
         return;
     }
-    i.path = ret;
+    
+    NSString *prePath = i.cloud ? cloudWorkspace() : localWorkspace();
+    i.path = [ret stringByReplacingOccurrencesOfString:prePath withString:@""];
+
     [_parent addChild:i];
     
     [self.delegate createFileView:self didCreateItem:i];

@@ -57,10 +57,12 @@
 "PDF"="PDF文檔";
 "Markdown"="Markdown文本";
 
+"SwipeTips"="可以上下滑動選擇其他符號";
 "DeleteMessage"="刪除後不可恢復，確定要刪除嗎？";
 "DuplicateError"="出錯了，請確保文件名不重複";
 "EmptyNameTips"="文件名不能為空";
 "InvalidName"="無效的文件名，請不要輸入特殊字符";
+"InvalidCloud"="无法访问iCloud目录，请检查您当前的设备是否登录iCloud";
 
 "InsertHref"="添加鏈接";
 "InputHrefTips"="請輸入要添加的鏈接URL";

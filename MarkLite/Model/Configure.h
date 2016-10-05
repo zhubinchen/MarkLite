@@ -36,6 +36,8 @@
 
 @property (nonatomic,strong) Item *defaultParent;
 
+@property (nonatomic,assign) BOOL hasShownSwipeTips;
+
 + (instancetype)sharedConfigure;
 
 - (BOOL)saveToFile;

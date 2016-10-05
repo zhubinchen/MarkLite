@@ -10,6 +10,7 @@
 #import "FileItemCell.h"
 #import "FileManager.h"
 #import "Configure.h"
+#import "PathUtils.h"
 
 @interface ChooseFolderViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -98,6 +99,10 @@
 
 - (IBAction)done:(id)sender
 {
+    if (cloudWorkspace() == nil && selectedFolder.cloud) {
+        showToast(ZHLS(@"InvalidCloud"));
+        return;
+    }
     [self dismissViewControllerAnimated:YES completion:^{
         self.didChoosedFolder(selectedFolder);
     }];

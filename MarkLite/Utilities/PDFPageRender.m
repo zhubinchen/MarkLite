@@ -82,7 +82,7 @@
                                 NSFontAttributeName : font ? font : [UIFont systemFontOfSize:18],
                                 NSForegroundColorAttributeName : [UIColor colorWithRGBString:@"0f2f2f"]
                                 };
-    NSString *headerText = [NSString stringWithFormat:@"%li",(long)pageIndex];
+    NSString *headerText = [NSString stringWithFormat:@"%li",(long)pageIndex + 1];
 
     CGSize size = [headerText sizeWithAttributes:attribute];
     [headerText drawInRect:CGRectMake(_paperWidth/2 - size.width / 2, footerRect.origin.y + 15 - size.height / 2, size.width, size.height) withAttributes:attribute];

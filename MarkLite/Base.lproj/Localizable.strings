@@ -57,9 +57,10 @@
 "PDF"="PDF";
 "Markdown"="Markdown";
 
+"SwipeTips"="Swipe here up and down to choose more";
 "DeleteMessage"="Sure you want to delete the file? This action cannot be undone!";
 "DuplicateError"="An error occured! Duplicate name?";
-
+"InvalidCloud"="Can not access iCloud,whether your iCloud account was loginnd on this device?";
 "EmptyNameTips"="Filename can not be empty";
 "InvalidName"="Invalid file name";
 

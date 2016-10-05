@@ -11,7 +11,7 @@ blockquote {
 }
 body {
     font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
-    font-size: 13px;
+    font-size: 15px;
     line-height: 18px;
     color: #737373;
     background-color: white;
@@ -39,6 +39,9 @@ a:hover {
 a img {
     border: none;
 }
+img {
+    max-width: 100%;
+}
 p {
     margin-bottom: 9px;
 }
@@ -56,19 +59,19 @@ h1 {
     font-size: 30px;
 }
 h2 {
-    font-size: 24px;
+    font-size: 26px;
 }
 h3 {
-    font-size: 18px;
+    font-size: 22px;
 }
 h4 {
-    font-size: 16px;
+    font-size: 20px;
 }
 h5 {
-    font-size: 14px;
+    font-size: 18px;
 }
 h6 {
-    font-size: 13px;
+    font-size: 16px;
 }
 hr {
     margin: 0 0 19px;
@@ -83,7 +86,7 @@ blockquote {
 }
 blockquote:before {
     content:"\201C";
-    font-size:40px;
+    font-size:20px;
     margin-left:-10px;
     font-family:georgia,serif;
     color:#eee;
@@ -102,7 +105,7 @@ code {
     background-color: #fee9cc;
     color: rgba(0, 0, 0, 0.75);
     padding: 1px 3px;
-    font-size: 12px;
+    font-size: 14px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -112,7 +115,7 @@ pre {
     padding: 14px;
     margin: 0 0 18px;
     line-height: 16px;
-    font-size: 11px;
+    font-size: 13px;
     border: 1px solid #d9d9d9;
     white-space: pre-wrap;
     word-wrap: break-word;
@@ -120,7 +123,7 @@ pre {
 pre code {
     background-color: #fff;
     color:#737373;
-    font-size: 11px;
+    font-size: 13px;
     padding: 0;
 }
 sup {

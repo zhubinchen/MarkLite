@@ -35,9 +35,24 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.0</string>
+	<string>3.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLIconFile</key>
+			<string>icon</string>
+			<key>CFBundleURLName</key>
+			<string>com.zhubch.MarkLite.marklite</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>marklite</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>8.3</string>
 	<key>LSRequiresIPhoneOS</key>

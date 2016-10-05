@@ -49,6 +49,7 @@
     [aCoder encodeObject:self.currentVerion forKey:@"currentVerion"];
     [aCoder encodeObject:self.fontName forKey:@"fontName"];
     [aCoder encodeBool:self.keyboardAssist forKey:@"keyboardAssist"];
+    [aCoder encodeBool:self.hasShownSwipeTips forKey:@"hasShownSwipeTips"];
     [aCoder encodeBool:self.landscapeEdit forKey:@"landscapeEdit"];
     [aCoder encodeBool:self.hasRated forKey:@"hasRated"];
     [aCoder encodeInteger:self.sortOption forKey:@"sortOption"];
@@ -67,6 +68,7 @@
         _keyboardAssist = [aDecoder decodeBoolForKey:@"keyboardAssist"];
         _landscapeEdit = [aDecoder decodeBoolForKey:@"landscapeEdit"];
         _hasRated = [aDecoder decodeBoolForKey:@"hasRated"];
+        _hasShownSwipeTips = [aDecoder decodeBoolForKey:@"hasShownSwipeTips"];
         _sortOption = [aDecoder decodeIntegerForKey:@"sortOption"];
         _imageResolution = [aDecoder decodeFloatForKey:@"imageResolution"];
         _currentVerion = [aDecoder decodeObjectForKey:@"currentVerion"];

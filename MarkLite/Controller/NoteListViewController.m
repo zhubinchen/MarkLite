@@ -31,6 +31,7 @@
     
     SortOptionsView *sortView;
     CreateFileView *createView;
+    BOOL needReload;
 }
 
 - (void)viewDidLoad {
@@ -42,13 +43,15 @@
     
     [[Configure sharedConfigure] addObserver:self forKeyPath:@"sortOption" options:NSKeyValueObservingOptionNew context:NULL];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(changeOrientation) name:UIDeviceOrientationDidChangeNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reload) name:kFileChangedNotificationName object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recievedReloadNotify) name:kFileChangedNotificationName object:nil];
+    needReload = YES;
+    [self reload];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.tabBarController.title = ZHLS(@"NavTitleMarkLite");
     [self reload];
+    self.tabBarController.title = ZHLS(@"NavTitleMarkLite");
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
@@ -56,8 +59,17 @@
     [self listNoteWithSortOption:[Configure sharedConfigure].sortOption];
 }
 
+- (void)recievedReloadNotify
+{
+    needReload = YES;
+}
+
 - (void)reload
 {
+    if (needReload == NO) {
+        return;
+    }
+    needReload = NO;
     [_fm createCloudWorkspace];
     [_fm createLocalWorkspace];
     [self listNoteWithSortOption:[Configure sharedConfigure].sortOption];
@@ -195,28 +207,36 @@
     [arr addObjectsFromArray:localArray];
     [arr addObjectsFromArray:cloudArray];
     
-    dataArray = [arr sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
-        Item *item1 = obj1;
-        Item *item2 = obj2;
-        if (sortOption == 0) {
-            return [item1.name compare:item2.name];
-        }else if(sortOption == 1){
-            NSDate *date1 = [_fm attributeOfPath:item1.fullPath][NSFileModificationDate];
-            NSDate *date2 = [_fm attributeOfPath:item2.fullPath][NSFileModificationDate];
-            return [date2 compare:date1];
-        }else{
-            NSDate *date1 = [_fm attributeOfPath:item1.fullPath][NSFileCreationDate];
-            NSDate *date2 = [_fm attributeOfPath:item2.fullPath][NSFileCreationDate];
-            NSLog(@"%@,%@",date1,date2);
-            return [date2 compare:date1];
-        }
-    }].mutableCopy;
+    NSLog(@"1");
     
-    if (_fm.currentItem == nil) {
-        _fm.currentItem = dataArray.firstObject;
-    }
-    
-    [self.noteListView reloadData];
+    beginLoadingAnimationOnParent(ZHLS(@"Loading"), self.view);
+    dispatch_async(dispatch_queue_create("loading", DISPATCH_QUEUE_CONCURRENT), ^{
+
+        dataArray = [arr sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            Item *item1 = obj1;
+            Item *item2 = obj2;
+            if (sortOption == 0) {
+                return [item1.name compare:item2.name];
+            }else if(sortOption == 1){
+                NSDate *date1 = [_fm attributeOfPath:item1.fullPath][NSFileModificationDate];
+                NSDate *date2 = [_fm attributeOfPath:item2.fullPath][NSFileModificationDate];
+                return [date2 compare:date1];
+            }else{
+                NSDate *date1 = [_fm attributeOfPath:item1.fullPath][NSFileCreationDate];
+                NSDate *date2 = [_fm attributeOfPath:item2.fullPath][NSFileCreationDate];
+                return [date2 compare:date1];
+            }
+        }].mutableCopy;
+        NSLog(@"2");
+        dispatch_async(dispatch_get_main_queue(), ^{
+            stopLoadingAnimationOnParent(self.view);
+            if (_fm.currentItem == nil) {
+                _fm.currentItem = dataArray.firstObject;
+            }
+            
+            [self.noteListView reloadData];
+        });
+    });
 }
 
 #pragma mark CreatFileViewDelegate

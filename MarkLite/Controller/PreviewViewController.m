@@ -99,6 +99,17 @@
 
 - (void)export
 {
+    if ([ZHLS(@"About") isEqualToString:@"关于"] && ![Configure sharedConfigure].hasRated) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"好评后解锁该功能" message:nil delegate:nil cancelButtonTitle:@"下次再说" otherButtonTitles:@"好评解锁", nil];
+        alert.clickedButton = ^(NSInteger index){
+            if (index) {
+                [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1098107145&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
+                [Configure sharedConfigure].hasRated = YES;
+            }
+        };
+        [alert show];
+        return;
+    }
     void(^clickedBlock)(NSInteger) = ^(NSInteger index) {
         NSURL *url = nil;
         if (index == (kDevicePad ? 1 : 0)){

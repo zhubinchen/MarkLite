@@ -17,6 +17,8 @@
 {
     NSFileManager *fm;
     NSURL *ubiquityURL;
+    
+    NSMutableDictionary *attributeCache;
 }
 
 + (void)initialize
@@ -43,6 +45,7 @@
         
         [self createCloudWorkspace];
         [self createLocalWorkspace];
+        attributeCache = [NSMutableDictionary dictionary];
         _local.open = YES;
         _cloud.open = YES;
     }
@@ -86,7 +89,6 @@
         }
         
         [_cloud addChild:temp];
-
     }
 }
 
@@ -117,6 +119,17 @@
         
         [zipArchive UnzipFileTo:documentPath() overWrite:YES];
         [self deleteOtherLanguage];
+        
+        NSString *fileName;
+        NSEnumerator *childFilesEnumerator = [[fm subpathsAtPath:wokspace] objectEnumerator];
+        while ((fileName = [childFilesEnumerator nextObject]) != nil){
+            NSString *path = [wokspace stringByAppendingPathComponent:fileName];
+            NSMutableDictionary *attr = [fm attributesOfItemAtPath:path error:nil].mutableCopy;
+            attr[NSFileModificationDate] = [NSDate date];
+            attr[NSFileCreationDate] = [NSDate date];
+            [fm setAttributes:attr ofItemAtPath:path error:nil];
+            attributeCache[path] = attr;
+        }
     }
     NSLog(@"localWorkSpace:%@",wokspace);
     
@@ -137,13 +150,6 @@
         temp.cloud = NO;
         temp.path = fileName;
         [_local addChild:temp];
-        
-        if (temp.type == FileTypeText) {
-            NSMutableDictionary *attr = [fm attributesOfItemAtPath:temp.fullPath error:nil].mutableCopy;
-//            attr[NSFileCreationDate] = [NSDate date];
-//            attr[NSFileModificationDate] = [NSDate date];
-            [fm setAttributes:attr ofItemAtPath:temp.fullPath error:nil];
-        }
     }
 }
 
@@ -171,6 +177,8 @@
         NSLog(@"failed");
         return nil;
     }
+    attributeCache[path] = [fm attributesOfItemAtPath:path error:nil];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:kFileChangedNotificationName object:nil];
     return truePath;
 }
@@ -215,8 +223,9 @@
     }
     
     BOOL ret = [content writeToFile:path atomically:YES];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kFileChangedNotificationName object:nil];
+    attributeCache[path] = [fm attributesOfItemAtPath:path error:nil];
 
+    [[NSNotificationCenter defaultCenter] postNotificationName:kFileChangedNotificationName object:nil];
     return ret;
 }
 
@@ -233,6 +242,7 @@
         NSLog(@"%@",error);
         return NO;
     }
+    [attributeCache removeObjectForKey:path];
     [[NSNotificationCenter defaultCenter] postNotificationName:kFileChangedNotificationName object:nil];
 
     return YES;
@@ -254,13 +264,18 @@
         NSLog(@"%@",error);
         return NO;
     }
+    [attributeCache removeObjectForKey:path];
+    attributeCache[path] = [fm attributesOfItemAtPath:path error:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:kFileChangedNotificationName object:nil];
     return YES;
 }
 
 - (NSDictionary *)attributeOfPath:(NSString *)path
 {
-    return [fm attributesOfItemAtPath:path error:nil];
+    if (attributeCache[path] == nil) {
+        attributeCache[path] = [fm attributesOfItemAtPath:path error:nil];
+    }
+    return attributeCache[path];
 }
 
 @end

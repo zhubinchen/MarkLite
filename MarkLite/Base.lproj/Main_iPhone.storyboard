@@ -347,7 +347,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NZY-eD-wsm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3891.5" y="-2572.5"/>
+            <point key="canvasLocation" x="-3937" y="-2555"/>
         </scene>
         <!--选项-->
         <scene sceneID="SHJ-cL-s36">
@@ -543,8 +543,8 @@
         <image name="settings.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ZCc-zr-UED"/>
-        <segue reference="GZ3-Ny-S2m"/>
-        <segue reference="n2c-A2-qau"/>
+        <segue reference="jkb-0q-YIz"/>
+        <segue reference="736-9L-s2e"/>
+        <segue reference="F5f-nG-XfB"/>
     </inferredMetricsTieBreakers>
 </document>

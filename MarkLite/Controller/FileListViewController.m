@@ -65,6 +65,7 @@
 
 - (void)toggleCloud
 {
+    [self dismissView:createView];
     if (edit) {
         if ([leftItem.title isEqualToString:ZHLS(@"SelectAll")]) {
             root.selected = YES;
@@ -98,7 +99,7 @@
 - (void)reload
 {
     _cloud ? [_fm createCloudWorkspace] : [_fm createLocalWorkspace];
-
+    
     root = _cloud ? _fm.cloud : _fm.local;
     dataArray = root.itemsCanReach.mutableCopy;
     fileListView = _cloud ? _cloudListView : _localListView;
@@ -106,6 +107,7 @@
     if (![[NSFileManager defaultManager] fileExistsAtPath:_fm.currentItem.fullPath]) {
         _fm.currentItem = nil;
     }
+    stopLoadingAnimationOnParent(self.view);
     [fileListView reloadData];
 }
 
@@ -150,7 +152,7 @@
 
 - (void)moveSelectedItems
 {
-    [self performSegueWithIdentifier:@"move" sender:self];
+    [self performSegueWithIdentifier:@"chooseFolder" sender:self];
 }
 
 - (NSArray*)rightItems
@@ -232,6 +234,7 @@
 
 - (void)edit
 {
+    [self dismissView:createView];
     edit = !edit;
 
     if (edit) {
@@ -367,10 +370,6 @@
     FileItemCell *cell = (FileItemCell*)[tableView dequeueReusableCellWithIdentifier:@"file" forIndexPath:indexPath];
     cell.delegate = self;
     Item *item = dataArray[indexPath.row];
-    if (item == _fm.currentItem) {
-        item.open = YES;
-        cell.backgroundColor = [UIColor lightGrayColor];
-    }
     cell.item = item;
     cell.checkBtn.hidden = !edit;
     return cell;

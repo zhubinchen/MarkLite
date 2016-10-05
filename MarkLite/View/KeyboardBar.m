@@ -13,50 +13,52 @@
 #import "ImageUploadingView.h"
 
 static KeyboardBar *bar = nil;
+
 @implementation KeyboardBar
 {
+    UIButton *tipsBtn;
     ImageUploadingView *uploadView;
 }
+
 - (instancetype)init
 {
-    CGFloat w = kScreenWidth / 9;
-    
-    if (w > 64) {
-        w = 64;
-    }
+    CGFloat w = kScreenWidth / (kDevicePhone ? 8 : 16);
+
     self = [super initWithFrame:CGRectMake(0, 0, kScreenWidth, w)];
     self.backgroundColor = [UIColor colorWithRed:200/255.0 green:203/255.0 blue:211/255.0 alpha:1];
     [self createItem];
+    if (kDevicePad) {
+        self.scrollEnabled = NO;
+    }else{
+        self.delegate = self;
+        self.pagingEnabled = YES;
+        self.contentSize = CGSizeMake(0, w * 2);
+    }
     return self;
 }
 
 - (void)createItem
 {
-    
     UIColor *titleColor = [UIColor colorWithRGBString:@"404040"];
-    NSArray *titles = @[@"Tab",@"#",@"*",@"-",@">",@"`",@"add_image",@"add_link",@"keyboard_down"];
-    CGFloat w = kScreenWidth / 9;
-    
-    if (w > 64) {
-        w = 64;
-    }
-    CGFloat x = kScreenWidth - w * 9;
-    CGFloat s = kDevicePhone ? 3 : 9;
-    
+    NSArray *titles = @[@"Tab",@"add_image",@"add_link",@" ",@"#",@"*",@"-",@">",@"`",@"!",@"[",@"]",@"(",@")",@"\\",@"keyboard_down"];
+    int maxCount = kDevicePhone ? 8 : 16;
+    CGFloat w = kScreenWidth / maxCount;
+
     for (int i = 0; i < titles.count; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         btn.tintColor = [UIColor blueColor];
         btn.tag = i;
-        btn.frame = CGRectMake(i * w + s + x, s, w - 2 * s, w - 2 * s);
+        btn.frame = CGRectMake(i % maxCount * w + 4, i / maxCount * w + 4, w - 2 * 4, w - 2 * 4);
         if (i == 0) {
             [btn setTitle:titles[i] forState:UIControlStateNormal];
             [btn setTitleColor:titleColor forState:UIControlStateNormal];
             btn.titleLabel.font = [UIFont systemFontOfSize:13];
-        }else if (i < 6){
+        }else if (i < 3){
+            [btn setImage:[UIImage imageNamed:titles[i]] forState:UIControlStateNormal];
+            btn.imageEdgeInsets = UIEdgeInsetsMake(4, 4, 4, 4);
+        }else if (i < titles.count - 1){
             [btn setTitle:titles[i] forState:UIControlStateNormal];
             [btn setTitleColor:titleColor forState:UIControlStateNormal];
-        }else if (i == titles.count - 1){
-            [btn setImage:[UIImage imageNamed:titles[i]] forState:UIControlStateNormal];
         }else{
             [btn setImage:[UIImage imageNamed:titles[i]] forState:UIControlStateNormal];
             btn.imageEdgeInsets = UIEdgeInsetsMake(4, 4, 4, 4);
@@ -66,20 +68,43 @@ static KeyboardBar *bar = nil;
         [btn addTarget:self action:@selector(itemClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];
     }
+    
+    if (kDevicePad || [Configure sharedConfigure].hasShownSwipeTips) {
+        return;
+    }
+    tipsBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, w)];
+    tipsBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+    tipsBtn.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.5];
+    [tipsBtn addTarget:self action:@selector(dismissTips) forControlEvents:UIControlEventTouchUpInside];
+    [tipsBtn setTitle:@"可以上下滑动哦" forState:UIControlStateNormal];
+    [tipsBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self addSubview:tipsBtn];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self dismissTips];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self dismissTips];
+}
+
+- (void)dismissTips
+{
+    if (!tipsBtn) {
+        return;
+    }
+    [Configure sharedConfigure].hasShownSwipeTips = YES;
+    [tipsBtn removeFromSuperview];
 }
 
 - (void)itemClicked:(UIButton*)btn
 {
-    if (btn.tag < 8) {
-        [self.delegate didInputText];
-    }
     if (btn.tag == 0) {
         [_editView insertText:@"\t"];
     }else if (btn.tag == 1) {
-        [_editView insertText:@"# "];
-    }else if (btn.tag  < 6) {
-        [_editView insertText:btn.currentTitle];
-    }else if (btn.tag == 6){
         [self.editView resignFirstResponder];
         bar = self;
         UIImagePickerController *vc = [[UIImagePickerController alloc]init];
@@ -91,8 +116,7 @@ static KeyboardBar *bar = nil;
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [self.vc presentViewController:vc animated:YES completion:nil];
         }];
-    }else if (btn.tag == 7){
-
+    }else if (btn.tag == 2) {
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"InsertHref") message:ZHLS(@"InputHrefTips") delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"OK"), nil];
         alert.alertViewStyle = UIAlertViewStylePlainTextInput;
         __weak UIAlertView * __alert = alert;
@@ -104,10 +128,15 @@ static KeyboardBar *bar = nil;
                 [_editView becomeFirstResponder];
                 NSRange range = NSMakeRange(_editView.selectedRange.location - text.length + 1, 8);
                 _editView.selectedRange = range;
+                [self.inputDelegate didInputText];
             }
         };
         [alert show];
-    }else if (btn.tag == 8){
+    }else if (btn.tag == 3) {
+        [_editView insertText:@"&nbsp;"];
+    }else if (btn.tag  < 15) {
+        [_editView insertText:btn.currentTitle];
+    }else if (btn.tag == 15){
         [_editView performSelector:@selector(resignFirstResponder)];
     }
 }
@@ -143,6 +172,7 @@ static KeyboardBar *bar = nil;
                                          [uploadView dismiss];
                                          NSString *text = [NSString stringWithFormat:@"![MarkLite](%@)",dic[@"t_url"]];
                                          [_editView insertText:text];
+                                         [self.inputDelegate didInputText];
                                          [_editView becomeFirstResponder];
                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                          NSLog(@"%@",error);
