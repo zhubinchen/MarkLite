@@ -25,6 +25,8 @@ static const NSNotificationName kFileChangedNotificationName = @"FileChangedNoti
 
 - (void)createCloudWorkspace;
 
+- (void)recover;
+
 #pragma 以下出现的所有path均为绝路径
 
 - (NSString*)createFolder:(NSString*)path;

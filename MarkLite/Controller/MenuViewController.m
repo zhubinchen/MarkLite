@@ -9,7 +9,6 @@
 #import "MenuViewController.h"
 #import "Configure.h"
 #import "AboutViewController.h"
-#import "StyleViewController.h"
 #import "ImageViewController.h"
 #import <StoreKit/StoreKit.h>
 
@@ -33,14 +32,14 @@
     if (kDevicePad) {
         items = @[
                     @[@"ImageResolution"],
-                    @[@"AssistKeyboard",@"Font",@"Style"],
+                    @[@"AssistKeyboard",@"Font"],
                     @[@"RateIt",@"Feedback"],
                     @[@"About"],@[@"Donate"]
                 ];
     }else{
         items = @[
                     @[@"ImageResolution"],
-                    @[@"AssistKeyboard",@"LandscapeEdit",@"Style"],
+                    @[@"AssistKeyboard",@"LandscapeEdit"],
                     @[@"RateIt",@"Feedback"],
                     @[@"About"],@[@"Donate"]
                   ];
@@ -125,7 +124,6 @@
     NSDictionary *dic = @{@"ImageResolution":@"resolution",
                           @"AssistKeyboard":@"",
                           @"Font":@"font",
-                          @"Style":@"style",
                           @"RateIt":@"rate",
                           @"Feedback":@"feedback",
                           @"About":@"about",
@@ -150,12 +148,6 @@
     };
     [alert show];
 }
-
-- (void)style
-{
-    UIViewController *vc = [[StyleViewController alloc]init];
-    vc.title = ZHLS(@"Style");
-    [self.navigationController pushViewController:vc animated:YES];}
 
 - (void)resolution
 {

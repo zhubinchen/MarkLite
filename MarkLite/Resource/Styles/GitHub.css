@@ -1,6 +1,6 @@
 *{margin:0;padding:0;}
 body {
-	font:13.34px helvetica,arial,freesans,clean,sans-serif;
+	font:16px helvetica,arial,freesans,clean,sans-serif;
 	color:black;
 	line-height:1.4em;
 	background-color: #F8F8F8;
@@ -23,7 +23,7 @@ optgroup{margin-top:.5em;}
 pre,code{font:12px Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;}
 pre {
 	margin:1em 0;
-	font-size:12px;
+	font-size:14px;
 	background-color:#eee;
 	border:1px solid #ddd;
 	padding:5px;
@@ -36,12 +36,12 @@ pre {
 }
 pre code {
 	padding:0;
-	font-size:12px;
+	font-size:14px;
 	background-color:#eee;
 	border:none;
 }
 code {
-	font-size:12px;
+	font-size:14px;
 	background-color:#f8f8ff;
 	color:#444;
 	padding:0 .2em;

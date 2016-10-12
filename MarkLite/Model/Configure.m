@@ -7,13 +7,13 @@
 //
 
 #import "Configure.h"
+#import "FileManager.h"
 
 #define RGB(x) [UIColor colorWithRGBString:x]
 @implementation Configure
 {
     NSInteger _iCloudState;
 }
-
 + (instancetype)sharedConfigure
 {
     static Configure *conf = nil;
@@ -127,6 +127,7 @@
     _currentVerion = kAppVersionNo;
     _sortOption = 0;
     _landscapeEdit = NO;
+    [[FileManager sharedManager] recover];
 }
 
 @end

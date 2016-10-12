@@ -175,6 +175,7 @@
 
 @property (nonatomic,readonly) NSData *data;
 
+- (UIImage *)fixOrientation;
 /**
  *  保持比例缩放到不超过最大尺寸，如果图片大小本来就小于最大尺寸则不缩放
  *

@@ -13,13 +13,14 @@
 @interface EditView ()
 
 @property(nonatomic, strong) MarkdownSyntaxGenerator *markdownSyntaxGenerator;
-@property(atomic,assign) BOOL updating;
+@property(atomic,assign) BOOL hasNewTask;
 @end
 
 @implementation EditView
 {
-    dispatch_queue_t updateQueue;
     UILabel *placeholderLable;
+    NSOperationQueue *updateQueue;
+    NSOperation *uiOperation;
 }
 
 - (id)initWithCoder:(NSCoder *) coder {
@@ -38,6 +39,8 @@
     [self addSubview:placeholderLable];
     [[NSNotificationCenter defaultCenter]
      addObserver:self selector:@selector(updateSyntax) name:UITextViewTextDidChangeNotification object:nil];
+    updateQueue = [[NSOperationQueue alloc]init];
+    updateQueue.maxConcurrentOperationCount = 1;
     NSLog(@"editview");
 
     return self;
@@ -60,21 +63,34 @@
     if (self.markedTextRange) { //中文选字的时候别刷新
         return;
     }
+    [self highLightText];
+//
+//    NSOperation *op = [[NSInvocationOperation alloc]initWithTarget:self selector:@selector(highLightText) object:nil];
+//    [updateQueue cancelAllOperations];
+//    [updateQueue addOperation:op];
+}
+
+- (void)highLightText
+{
     NSArray *models = [self.markdownSyntaxGenerator syntaxModelsForText:self.text];
     
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
     
     UIFont *font = [UIFont fontWithName:[Configure sharedConfigure].fontName size:15];
-    
+
     [attributedString addAttributes:@{
                                       NSFontAttributeName : font ? font : [UIFont systemFontOfSize:15],
                                       NSForegroundColorAttributeName : [UIColor colorWithRGBString:@"0f2f2f"]
                                       } range:NSMakeRange(0, attributedString.length)];
+
     for (MarkdownSyntaxModel *model in models) {
         [attributedString addAttributes:AttributesFromMarkdownSyntaxType(model.type) range:model.range];
     }
-    
+
     [self updateAttributedText:attributedString];
+//    [uiOperation cancel];
+//    uiOperation = [[NSInvocationOperation alloc]initWithTarget:self selector:@selector(updateAttributedText:) object:attributedString];
+//    [[NSOperationQueue mainQueue] addOperation:uiOperation];
 }
 
 - (void)updateAttributedText:(NSAttributedString *) attributedString {

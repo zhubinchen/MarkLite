@@ -103,6 +103,33 @@
     }
 }
 
+- (void)recover
+{
+    NSString *wokspace = localWorkspace();
+
+    ZipArchive *zipArchive = [[ZipArchive alloc]init];
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"MarkLite" ofType:@"zip"];
+    NSLog(@"%@",path);
+    
+    [zipArchive UnzipOpenFile:path];
+    
+    [zipArchive UnzipFileTo:documentPath() overWrite:YES];
+    [self deleteOtherLanguage];
+    
+    NSString *fileName;
+    NSEnumerator *childFilesEnumerator = [[fm subpathsAtPath:wokspace] objectEnumerator];
+    while ((fileName = [childFilesEnumerator nextObject]) != nil){
+        NSString *path = [wokspace stringByAppendingPathComponent:fileName];
+        NSMutableDictionary *attr = [fm attributesOfItemAtPath:path error:nil].mutableCopy;
+        if ([attr[NSFileModificationDate] compare:[NSDate date]] == NSOrderedDescending) {
+            attr[NSFileModificationDate] = [NSDate date];
+            [fm setAttributes:attr ofItemAtPath:path error:nil];
+        }
+        attributeCache[path] = attr;
+    }
+}
+
 - (void)createLocalWorkspace
 {
     NSString *wokspace = localWorkspace();
@@ -110,26 +137,7 @@
         
         [fm createDirectoryAtPath:wokspace withIntermediateDirectories:YES attributes:nil error:nil];
         NSLog(@"creating localWorkSpace:%@",wokspace);
-        ZipArchive *zipArchive = [[ZipArchive alloc]init];
-        
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"MarkLite" ofType:@"zip"];
-        NSLog(@"%@",path);
-        
-        [zipArchive UnzipOpenFile:path];
-        
-        [zipArchive UnzipFileTo:documentPath() overWrite:YES];
-        [self deleteOtherLanguage];
-        
-        NSString *fileName;
-        NSEnumerator *childFilesEnumerator = [[fm subpathsAtPath:wokspace] objectEnumerator];
-        while ((fileName = [childFilesEnumerator nextObject]) != nil){
-            NSString *path = [wokspace stringByAppendingPathComponent:fileName];
-            NSMutableDictionary *attr = [fm attributesOfItemAtPath:path error:nil].mutableCopy;
-            attr[NSFileModificationDate] = [NSDate date];
-            attr[NSFileCreationDate] = [NSDate date];
-            [fm setAttributes:attr ofItemAtPath:path error:nil];
-            attributeCache[path] = attr;
-        }
+        [self recover];
     }
     NSLog(@"localWorkSpace:%@",wokspace);
     

@@ -26,6 +26,7 @@ p {
   margin-bottom: 20px;
 }
 strong {
+    font-size: 16px;
   font-weight: bold;
 }
 ol,
@@ -54,27 +55,27 @@ h6 {
   margin-bottom: 20px;
 }
 h1 {
-  font-size: 24.624px;
+  font-size: 26px;
   line-height: 29.548799999999996px;
 }
 h2 {
-  font-size: 24.624px;
+  font-size: 24px;
   line-height: 29.548799999999996px;
 }
 h3 {
-  font-size: 23.44px;
+  font-size: 22px;
   line-height: 28.128px;
 }
 h4 {
-  font-size: 22.16px;
+  font-size: 20px;
   line-height: 26.592px;
 }
 h5 {
-  font-size: 22.16px;
+  font-size: 18px;
   line-height: 26.592px;
 }
 h6 {
-  font-size: 22.16px;
+  font-size: 16px;
   line-height: 26.592px;
 }
 img {

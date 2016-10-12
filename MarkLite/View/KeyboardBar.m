@@ -32,6 +32,7 @@ static KeyboardBar *bar = nil;
     }else{
         self.delegate = self;
         self.pagingEnabled = YES;
+        self.bounces = NO;
         self.contentSize = CGSizeMake(0, w * 2);
     }
     return self;
@@ -76,7 +77,7 @@ static KeyboardBar *bar = nil;
     tipsBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     tipsBtn.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.5];
     [tipsBtn addTarget:self action:@selector(dismissTips) forControlEvents:UIControlEventTouchUpInside];
-    [tipsBtn setTitle:@"可以上下滑动哦" forState:UIControlStateNormal];
+    [tipsBtn setTitle:ZHLS(@"SwipeTips") forState:UIControlStateNormal];
     [tipsBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self addSubview:tipsBtn];
 }
@@ -86,10 +87,6 @@ static KeyboardBar *bar = nil;
     [self dismissTips];
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    [self dismissTips];
-}
 
 - (void)dismissTips
 {
@@ -104,6 +101,7 @@ static KeyboardBar *bar = nil;
 {
     if (btn.tag == 0) {
         [_editView insertText:@"\t"];
+        [self.inputDelegate didInputText];
     }else if (btn.tag == 1) {
         [self.editView resignFirstResponder];
         bar = self;
@@ -134,8 +132,10 @@ static KeyboardBar *bar = nil;
         [alert show];
     }else if (btn.tag == 3) {
         [_editView insertText:@"&nbsp;"];
+        [self.inputDelegate didInputText];
     }else if (btn.tag  < 15) {
         [_editView insertText:btn.currentTitle];
+        [self.inputDelegate didInputText];
     }else if (btn.tag == 15){
         [_editView performSelector:@selector(resignFirstResponder)];
     }
@@ -144,6 +144,7 @@ static KeyboardBar *bar = nil;
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
     UIImage *img = [info objectForKey:UIImagePickerControllerOriginalImage];
+    img = img.fixOrientation;
     NSData *data = UIImageJPEGRepresentation(img, [Configure sharedConfigure].imageResolution);
     [self upload:data];
     [picker dismissViewControllerAnimated:YES completion:nil];

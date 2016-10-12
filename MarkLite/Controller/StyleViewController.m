@@ -23,12 +23,20 @@
     [super viewDidLoad];
 
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:ZHLS(@"Done") style:UIBarButtonItemStylePlain target:self action:@selector(done)];
+
     styles =  @[@"Clearness",@"Clearness Dark",@"GitHub",@"GitHub2",@"Solarized Dark",@"Solarized Light"];
     for (int i = 0; i < styles.count; i++) {
         if ([[Configure sharedConfigure].style isEqualToString:styles[i]]) {
             selectedRow = i;
         }
     }
+}
+
+- (void)done
+{
+    [Configure sharedConfigure].style = styles[selectedRow];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -71,7 +79,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     selectedRow = indexPath.row;
-    [Configure sharedConfigure].style = styles[selectedRow];
     [self.table reloadData];
 }
 

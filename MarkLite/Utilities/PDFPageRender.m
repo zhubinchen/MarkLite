@@ -72,7 +72,7 @@
                                 NSForegroundColorAttributeName : [UIColor colorWithRGBString:@"0f2f2f"]
                                 };
     CGSize size = [headerText sizeWithAttributes:attribute];
-    [headerText drawInRect:CGRectMake(self.paperRect.size.width - size.width , 15 - size.height / 2, size.width, size.height) withAttributes:attribute];
+    [headerText drawInRect:CGRectMake(self.paperRect.size.width - size.width , 20 - size.height / 2, size.width, size.height) withAttributes:attribute];
 }
 
 - (void)drawFooterForPageAtIndex:(NSInteger)pageIndex inRect:(CGRect)footerRect

@@ -7,6 +7,7 @@
 //
 
 #import "PreviewViewController.h"
+#import "StyleViewController.h"
 #import "FileManager.h"
 #import "HoedownHelper.h"
 #import "Item.h"
@@ -40,7 +41,10 @@
     if (kDevicePad) {
         [fm addObserver:self forKeyPath:@"currentItem" options:NSKeyValueObservingOptionNew context:NULL];
     }
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"export"] style:UIBarButtonItemStylePlain target:self action:@selector(export)];
+    [[Configure sharedConfigure] addObserver:self forKeyPath:@"style" options:NSKeyValueObservingOptionNew context:NULL];
+    UIBarButtonItem *styleBtn = [[UIBarButtonItem alloc]initWithTitle:ZHLS(@"Style") style:UIBarButtonItemStylePlain target:self action:@selector(style)];
+    UIBarButtonItem *exportBtn = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"export"] style:UIBarButtonItemStylePlain target:self action:@selector(export)];
+    self.navigationItem.rightBarButtonItems = @[exportBtn,styleBtn];
 
     _webView.delegate = self;
 }
@@ -54,6 +58,10 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
+    if ([keyPath isEqualToString:@"style"]) {
+        [self loadFile];
+        return;
+    }
     if (item && [change[@"new"] isEqual:item]) {
         return;
     }
@@ -95,6 +103,16 @@
             [_webView loadHTMLString:htmlString baseURL:[NSURL fileURLWithPath:path]];
         });
     });
+}
+
+- (void)style
+{
+    UIViewController *vc = [[StyleViewController alloc]init];
+    vc.title = ZHLS(@"Style");
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
+    nav.modalPresentationStyle = UIModalPresentationFormSheet;
+
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)export
@@ -196,6 +214,7 @@
     if (kDevicePad) {
         [fm removeObserver:self forKeyPath:@"currentItem" context:NULL];
     }
+    [[Configure sharedConfigure] removeObserver:self forKeyPath:@"style" context:NULL];
 }
 
 @end
