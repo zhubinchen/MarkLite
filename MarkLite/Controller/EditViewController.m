@@ -40,13 +40,14 @@
     _editView.delegate = self;
 
     [[Configure sharedConfigure] addObserver:self forKeyPath:@"fontName" options:NSKeyValueObservingOptionNew context:NULL];
+    [[Configure sharedConfigure] addObserver:self forKeyPath:@"fontSize" options:NSKeyValueObservingOptionNew context:NULL];
 
     if (kDevicePad) {
         [fm addObserver:self forKeyPath:@"currentItem" options:NSKeyValueObservingOptionNew context:NULL];
         [[Configure sharedConfigure] addObserver:self forKeyPath:@"keyboardAssist" options:NSKeyValueObservingOptionNew context:NULL];
     }
 
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardShow:) name:UIKeyboardDidChangeFrameNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardHide:) name:UIKeyboardDidHideNotification object:nil];
     
     if (kDevicePhone) {
@@ -88,7 +89,7 @@
 - (void)keyboardShow:(NSNotification*)noti
 {
     NSDictionary *info = noti.userInfo;
-    CGFloat keyboardHeight = [[info objectForKey:@"UIKeyboardBoundsUserInfoKey"] CGRectValue].size.height;
+    CGFloat keyboardHeight = kScreenHeight - [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].origin.y;
     self.bottom.constant = keyboardHeight;
     [self.view updateConstraints];
 }
@@ -96,7 +97,7 @@
 {
     if ([keyPath isEqualToString:@"currentItem"]) {
         [self loadFile];
-    }else if ([keyPath isEqualToString:@"fontName"]) {
+    }else if ([keyPath isEqualToString:@"fontName"] || [keyPath isEqualToString:@"fontSize"]) {
         [self.editView updateSyntax];
     }else{
         if ([change[@"new"] boolValue]) {
@@ -203,6 +204,7 @@
     if (!needSave) {
         return;
     }
+    
     NSData *content = [self.editView.text dataUsingEncoding:NSUTF8StringEncoding];
     [fm saveFile:item.fullPath Content:content];
     needSave = NO;
@@ -211,6 +213,7 @@
 - (void)dealloc
 {
     [[Configure sharedConfigure] removeObserver:self forKeyPath:@"fontName"];
+    [[Configure sharedConfigure] removeObserver:self forKeyPath:@"fontSize"];
 
     if (kDevicePad){
         [fm removeObserver:self forKeyPath:@"currentItem" context:NULL];
