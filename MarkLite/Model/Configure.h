@@ -18,6 +18,8 @@
 
 @property (nonatomic,strong) NSString *fontName;
 
+@property (nonatomic,assign) CGFloat   fontSize;
+
 @property (nonatomic,strong) NSDictionary *highlightColor;
 
 @property (nonatomic,assign) NSInteger sortOption;

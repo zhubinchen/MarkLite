@@ -54,6 +54,7 @@
     [aCoder encodeBool:self.hasRated forKey:@"hasRated"];
     [aCoder encodeInteger:self.sortOption forKey:@"sortOption"];
     [aCoder encodeFloat:self.imageResolution forKey:@"imageResolution"];
+    [aCoder encodeFloat:self.fontSize forKey:@"fontSize"];
     [aCoder encodeObject:self.defaultParent forKey:@"defaultParent"];
 }
 
@@ -71,6 +72,7 @@
         _hasShownSwipeTips = [aDecoder decodeBoolForKey:@"hasShownSwipeTips"];
         _sortOption = [aDecoder decodeIntegerForKey:@"sortOption"];
         _imageResolution = [aDecoder decodeFloatForKey:@"imageResolution"];
+        _fontSize = [aDecoder decodeFloatForKey:@"fontSize"];
         _currentVerion = [aDecoder decodeObjectForKey:@"currentVerion"];
         _defaultParent = [aDecoder decodeObjectForKey:@"defaultParent"];
     }
@@ -108,24 +110,28 @@
     _sortOption = 0;
     _landscapeEdit = NO;
     _hasRated = NO;
+    _fontSize = 16;
 }
 
 - (void)upgrade
 {
-    _highlightColor = @{
-                        @"title":RGB(@"488FE1"),
-                        @"link":RGB(@"465DC6"),
-                        @"image":RGB(@"5245AE"),
-                        @"bold":RGB(@"000000"),
-                        @"quotes":RGB(@"AE8A86"),
-                        @"deletion":RGB(@"747270"),
-                        @"separate":RGB(@"BD1586"),
-                        @"list":RGB(@"49362E"),
-                        @"code":RGB(@"33A191"),
-                        };
+//    _highlightColor = @{
+//                        @"title":RGB(@"488FE1"),
+//                        @"link":RGB(@"465DC6"),
+//                        @"image":RGB(@"5245AE"),
+//                        @"bold":RGB(@"000000"),
+//                        @"quotes":RGB(@"AE8A86"),
+//                        @"deletion":RGB(@"747270"),
+//                        @"separate":RGB(@"BD1586"),
+//                        @"list":RGB(@"49362E"),
+//                        @"code":RGB(@"33A191"),
+//                        };
     _upgradeTime = [NSDate date];
     _currentVerion = kAppVersionNo;
-    _sortOption = 0;
+    if (_sortOption > 1) {
+        _sortOption = 0;
+    }
+    _fontSize = 16;
     _landscapeEdit = NO;
     [[FileManager sharedManager] recover];
 }

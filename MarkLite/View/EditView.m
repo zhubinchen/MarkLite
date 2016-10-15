@@ -76,10 +76,10 @@
     
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
     
-    UIFont *font = [UIFont fontWithName:[Configure sharedConfigure].fontName size:15];
+    UIFont *font = [UIFont fontWithName:[Configure sharedConfigure].fontName size:[Configure sharedConfigure].fontSize];
 
     [attributedString addAttributes:@{
-                                      NSFontAttributeName : font ? font : [UIFont systemFontOfSize:15],
+                                      NSFontAttributeName : font ? font : [UIFont systemFontOfSize:[Configure sharedConfigure].fontSize],
                                       NSForegroundColorAttributeName : [UIColor colorWithRGBString:@"0f2f2f"]
                                       } range:NSMakeRange(0, attributedString.length)];
 

@@ -22,7 +22,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = ZHLS(@"Font");
+    UIStepper *stepper = [[UIStepper alloc]initWithFrame:CGRectMake(0, 0, 80, 30)];
+    [stepper addTarget:self action:@selector(stepperValuedChanged:) forControlEvents:UIControlEventValueChanged];
+    stepper.value = [Configure sharedConfigure].fontSize;
+    stepper.minimumValue = 12;
+    stepper.maximumValue = 28;
+    
+    self.navigationItem.titleView = stepper;
+
+//    self.title = ZHLS(@"Font");
     self.navigationItem.rightBarButtonItem.title = ZHLS(@"Done");
     self.navigationItem.leftBarButtonItem.title = ZHLS(@"Reset");
 
@@ -34,6 +42,12 @@
     for (NSString *familyName in familyNames) {
         fontNames[familyName] = [UIFont fontNamesForFamilyName:familyName];
     }
+}
+
+- (void)stepperValuedChanged:(UIStepper*)sender
+{
+    [Configure sharedConfigure].fontSize = sender.value;
+    [self.tableView reloadData];
 }
 
 - (IBAction)dismiss:(id)sender
@@ -78,7 +92,7 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"fontCell"];
     }
     cell.textLabel.text = fontNames[familyNames[indexPath.section]][indexPath.row];
-    cell.textLabel.font = [UIFont fontWithName:fontNames[familyNames[indexPath.section]][indexPath.row] size:14];
+    cell.textLabel.font = [UIFont fontWithName:fontNames[familyNames[indexPath.section]][indexPath.row] size:[Configure sharedConfigure].fontSize];
     return cell;
 }
 
