@@ -56,6 +56,7 @@
     [aCoder encodeFloat:self.imageResolution forKey:@"imageResolution"];
     [aCoder encodeFloat:self.fontSize forKey:@"fontSize"];
     [aCoder encodeObject:self.defaultParent forKey:@"defaultParent"];
+    [aCoder encodeInteger:self.useTimes forKey:@"useTimes"];
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder
@@ -75,6 +76,7 @@
         _fontSize = [aDecoder decodeFloatForKey:@"fontSize"];
         _currentVerion = [aDecoder decodeObjectForKey:@"currentVerion"];
         _defaultParent = [aDecoder decodeObjectForKey:@"defaultParent"];
+        _useTimes = [aDecoder decodeIntegerForKey:@"useTimes"];
     }
     return self;
 }
@@ -111,6 +113,7 @@
     _landscapeEdit = NO;
     _hasRated = NO;
     _fontSize = 16;
+    _useTimes = 0;
 }
 
 - (void)upgrade
@@ -134,6 +137,7 @@
     _fontSize = 16;
     _landscapeEdit = NO;
     [[FileManager sharedManager] recover];
+    _useTimes = 1;
 }
 
 @end

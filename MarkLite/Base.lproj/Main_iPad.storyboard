@@ -144,7 +144,7 @@
                             <outlet property="delegate" destination="I2i-9V-J9l" id="FZf-HM-n3Z"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="选项" image="12C5F3DF-859D-4B26-BAEA-CD41D9AF0ECC" id="cUx-cv-8Pe"/>
+                    <tabBarItem key="tabBarItem" title="选项" image="7385F2D2-2E6B-449C-ABA4-251C842AA92C" id="cUx-cv-8Pe"/>
                     <navigationItem key="navigationItem" id="rMd-CP-7Md">
                         <barButtonItem key="backBarButtonItem" title=" " id="8hr-Pt-fcf"/>
                     </navigationItem>
@@ -262,7 +262,7 @@
                         <outlet property="cloudListView" destination="33f-i2-bnz" id="YRi-EV-DlT"/>
                         <outlet property="localListView" destination="8Aw-fG-dVI" id="aUi-to-MTo"/>
                         <outlet property="searchBar" destination="O6b-Ul-6oT" id="wyr-Ic-2bl"/>
-                        <segue destination="XgD-63-aM1" kind="presentation" identifier="chooseFolder" modalPresentationStyle="formSheet" id="Kp9-zt-ybq"/>
+                        <segue destination="mOH-zA-tfI" kind="show" identifier="chooseFolder" id="ERM-m7-Y1H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="47K-6E-msL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -361,23 +361,6 @@
             </objects>
             <point key="canvasLocation" x="-1380" y="-3065"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="br9-eL-5H0">
-            <objects>
-                <navigationController id="XgD-63-aM1" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="LyJ-pn-ar5">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.2784313725" green="0.2784313725" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="mOH-zA-tfI" kind="relationship" relationship="rootViewController" id="vwh-rH-H7N"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CvE-uk-127" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="112" y="-3941"/>
-        </scene>
         <!--选择目录-->
         <scene sceneID="Pfu-BZ-Mri">
             <objects>
@@ -390,8 +373,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jks-Fu-vvd">
-                                <frame key="frameInset" minY="44" width="320" height="524"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jks-Fu-vvd">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="mOH-zA-tfI" id="gOC-hS-fPK"/>
@@ -568,7 +550,7 @@
                     <connections>
                         <outlet property="noteListView" destination="ZeH-V1-LFP" id="pRE-0h-FEn"/>
                         <outlet property="searchBar" destination="AHn-ZQ-W9h" id="e8J-O5-OZY"/>
-                        <segue destination="XgD-63-aM1" kind="show" identifier="chooseFolder" id="Ele-cq-gK0"/>
+                        <segue destination="mOH-zA-tfI" kind="show" identifier="chooseFolder" id="GVO-S0-TvY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Lw-1Y-1uL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -577,7 +559,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="12C5F3DF-859D-4B26-BAEA-CD41D9AF0ECC" width="25" height="25">
+        <image name="7385F2D2-2E6B-449C-ABA4-251C842AA92C" width="25" height="25">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -674,6 +656,6 @@ AAAAAAIBAAAAAAAAAEEAAAAAAAAAAAAAAAAAABPgA
         <image name="settings.png" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ele-cq-gK0"/>
+        <segue reference="GVO-S0-TvY"/>
     </inferredMetricsTieBreakers>
 </document>

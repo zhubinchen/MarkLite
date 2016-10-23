@@ -94,7 +94,11 @@
 
 - (IBAction)dismiss:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (kDevicePad) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 - (IBAction)done:(id)sender
@@ -103,9 +107,14 @@
         showToast(ZHLS(@"InvalidCloud"));
         return;
     }
-    [self dismissViewControllerAnimated:YES completion:^{
+    if (kDevicePad) {
+        [self.navigationController popViewControllerAnimated:YES];
         self.didChoosedFolder(selectedFolder);
-    }];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:^{
+            self.didChoosedFolder(selectedFolder);
+        }];
+    }
 }
 
 - (IBAction)segmentChanged:(UISegmentedControl*)sender

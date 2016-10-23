@@ -340,8 +340,12 @@
 #pragma mark other
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
     if ([segue.identifier isEqualToString:@"chooseFolder"]) {
-        
-        ChooseFolderViewController *vc = [(UINavigationController*)segue.destinationViewController viewControllers].firstObject;
+        ChooseFolderViewController *vc = nil;
+        if (kDevicePad) {
+            vc = segue.destinationViewController;
+        }else{
+            vc = [(UINavigationController*)segue.destinationViewController viewControllers].firstObject;
+        }
         vc.didChoosedFolder = ^(Item *i){
             createView.parent = i;
             [Configure sharedConfigure].defaultParent = i;

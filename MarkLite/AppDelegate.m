@@ -39,6 +39,7 @@ static BOOL allowRotation = NO;
                                                            }];
     [self checkAppStoreVersion:@"1098107145"];
     [Configure sharedConfigure];
+
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
         NSString *tempPath = [documentPath() stringByAppendingPathComponent:@"temp"];
         if (![[NSFileManager defaultManager] fileExistsAtPath:tempPath]) {

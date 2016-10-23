@@ -38,7 +38,12 @@
 
 @property (nonatomic,strong) Item *defaultParent;
 
+@property (nonatomic,strong) Item *defaultParentInCloud;
+
 @property (nonatomic,assign) BOOL hasShownSwipeTips;
+
+@property (nonatomic,assign) NSInteger useTimes;
+
 
 + (instancetype)sharedConfigure;
 

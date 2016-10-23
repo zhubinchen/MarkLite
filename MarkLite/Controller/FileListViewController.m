@@ -433,17 +433,17 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier isEqualToString:ZHLS(@"chooseFolder")]) {
-        ChooseFolderViewController *vc = [(UINavigationController*)segue.destinationViewController viewControllers].firstObject;
+    if ([segue.identifier isEqualToString:@"chooseFolder"]) {
+        ChooseFolderViewController *vc = nil;
+        if (kDevicePad) {
+            vc = segue.destinationViewController;
+        }else{
+            vc = [(UINavigationController*)segue.destinationViewController viewControllers].firstObject;
+        }
         vc.didChoosedFolder = ^(Item *i){
-            if (edit) {
-                [self moveItems:root.selectedChildren toParent:i];
-            }else{
-                createView.parent = i;
-                [Configure sharedConfigure].defaultParent = i;
-            }
+            createView.parent = i;
+            [Configure sharedConfigure].defaultParent = i;
         };
-
     }
 }
 
