@@ -3,7 +3,7 @@
 //  ZHUtils
 //
 //  Created by zhubch on 15/7/28.
-//  Copyright (c) 2015年 Robusoft. All rights reserved.
+//  Copyright (c) 2016年 Robusoft. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

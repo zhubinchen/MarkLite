@@ -3,7 +3,7 @@
 //  MarkLite
 //
 //  Created by zhubch on 15-3-31.
-//  Copyright (c) 2015年 zhubch. All rights reserved.
+//  Copyright (c) 2016年 zhubch. All rights reserved.
 //
 
 #import "EditViewController.h"
@@ -61,7 +61,7 @@
 
 - (void)viewDidLayoutSubviews
 {
-    if ([Configure sharedConfigure].keyboardAssist) {
+    if ([Configure sharedConfigure].keyboardAssist && [Configure sharedConfigure].landscapeEdit == NO) {
         KeyboardBar *bar = [[KeyboardBar alloc]init];
         bar.editView = _editView;
         bar.vc = self;
@@ -99,8 +99,8 @@
         [self loadFile];
     }else if ([keyPath isEqualToString:@"fontName"] || [keyPath isEqualToString:@"fontSize"]) {
         [self.editView updateSyntax];
-    }else{
-        if ([change[@"new"] boolValue]) {
+    }else if ([keyPath isEqualToString:@"keyboardAssist"]){
+        if ([Configure sharedConfigure].keyboardAssist && [Configure sharedConfigure].landscapeEdit == NO) {
             KeyboardBar *bar = [[KeyboardBar alloc]init];
             bar.editView = _editView;
             bar.vc = self;
