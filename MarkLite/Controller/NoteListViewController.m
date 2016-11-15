@@ -85,12 +85,6 @@
     return @[new];
 }
 
-- (NSArray*)leftItems
-{
-    UIBarButtonItem *sort = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"sort_options"] style:UIBarButtonItemStylePlain target:self action:@selector(showOptions)];
-    return @[sort];
-}
-
 - (void)newNote
 {
     CGFloat w = self.view.bounds.size.width;
@@ -115,29 +109,6 @@
     createView.delegate = self;
     createView.frame = CGRectMake(0, -140, w, 140);
     [self showView:createView];
-}
-
-- (void)showOptions
-{
-    CGFloat w = self.view.bounds.size.width;
-
-    if (sortView.superview) {
-        [self dismissView:sortView];
-        return;
-    }
-    if (createView.superview) {
-        [self dismissView:createView];
-    }
-    sortView = [[SortOptionsView alloc]initWithFrame:CGRectMake(0, -60, w, 60)];
-    
-    __weak NoteListViewController *__self = self;
-    __weak UIView *v = sortView;
-
-    sortView.choosedIndex = ^(NSInteger index){
-        [__self dismissView:v];
-        [Configure sharedConfigure].sortOption = index;
-    };
-    [self showView:sortView];
 }
 
 - (void)dismissView:(UIView*)v
@@ -207,31 +178,32 @@
     [arr addObjectsFromArray:localArray];
     [arr addObjectsFromArray:cloudArray];
     
-    NSLog(@"1");
-    
     beginLoadingAnimationOnParent(ZHLS(@"Loading"), self.view);
     dispatch_async(dispatch_queue_create("loading", DISPATCH_QUEUE_CONCURRENT), ^{
 
-        dataArray = [arr sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        NSArray *sortedArr = [arr sortedArrayUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
             Item *item1 = obj1;
             Item *item2 = obj2;
-            if (sortOption == 0) {
-                return [item1.name compare:item2.name];
-            }else if(sortOption == 1){
-                NSDate *date1 = [_fm attributeOfPath:item1.fullPath][NSFileModificationDate];
-                NSDate *date2 = [_fm attributeOfPath:item2.fullPath][NSFileModificationDate];
-                return [date2 compare:date1];
-            }else{
-                NSDate *date1 = [_fm attributeOfPath:item1.fullPath][NSFileCreationDate];
-                NSDate *date2 = [_fm attributeOfPath:item2.fullPath][NSFileCreationDate];
-                return [date2 compare:date1];
+            NSDate *date1 = [_fm attributeOfPath:item1.fullPath][NSFileModificationDate];
+            NSDate *date2 = [_fm attributeOfPath:item2.fullPath][NSFileModificationDate];
+            return [date2 compare:date1];
+        }];
+
+        NSDictionary *last = nil;
+        dataArray = [NSMutableArray array];
+        for (Item *i in sortedArr) {
+            NSDate *date = [_fm attributeOfPath:i.fullPath][NSFileModificationDate];
+            if (last == nil || ![last[@"date"] isEqualToString:date.date]) {
+                last = @{@"date":date.date,@"items":[@[] mutableCopy]};
+                [dataArray addObject:last];
             }
-        }].mutableCopy;
-        NSLog(@"2");
+            [last[@"items"] addObject:i];
+        }
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             stopLoadingAnimationOnParent(self.view);
             if (_fm.currentItem == nil) {
-                _fm.currentItem = dataArray.firstObject;
+                _fm.currentItem = [dataArray.firstObject[@"items"] firstObject];
             }
             
             [self.noteListView reloadData];
@@ -269,19 +241,19 @@
 #pragma mark UITableViewDataSource & UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return dataArray.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return dataArray.count;
+    return [dataArray[section][@"items"] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NoteItemCell *cell = (NoteItemCell*)[tableView dequeueReusableCellWithIdentifier:@"noteItemCell" forIndexPath:indexPath];
 
-    Item *item = dataArray[indexPath.row];
+    Item *item = dataArray[indexPath.section][@"items"][indexPath.row];
     cell.item = item;
     if (![cell viewWithTag:4654]) {
         UIView *line = [[UIView alloc]initWithFrame:CGRectMake(16, 84.7, self.view.bounds.size.width - 16, 0.3)];
@@ -300,12 +272,27 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Item *i = dataArray[indexPath.row];
+    Item *i = dataArray[indexPath.section][@"items"][indexPath.row];
     _fm.currentItem = i;
     if (kDevicePhone) {
         NSLog(@"segue");
         [self performSegueWithIdentifier:@"edit" sender:self];
     }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 30;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.1;
+}
+
+- (NSString*)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return dataArray[section][@"date"];
 }
 
 #pragma mark SearchBar
