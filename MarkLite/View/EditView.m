@@ -10,51 +10,47 @@
 #import "Configure.h"
 #import "MarkdownSyntaxGenerator.h"
 
-@interface EditView ()
+@interface EditView ()<UITextViewDelegate>
 
-@property(nonatomic, strong) MarkdownSyntaxGenerator *markdownSyntaxGenerator;
-@property(atomic,assign) BOOL hasNewTask;
 @end
 
 @implementation EditView
 {
     UILabel *placeholderLable;
-    NSOperationQueue *updateQueue;
-    NSOperation *uiOperation;
 }
 
 - (id)initWithCoder:(NSCoder *) coder {
-    NSLog(@"editview");
 
     self = [super initWithCoder:coder];
-
     if (self == nil) {
         return nil;
     }
-
+    
     placeholderLable = [[UILabel alloc]initWithFrame:CGRectMake(5, 8, 100, 20)];
     placeholderLable.font = [UIFont systemFontOfSize:14];
     placeholderLable.text = ZHLS(@"StartEdit");
     placeholderLable.textColor = [UIColor lightGrayColor];
     [self addSubview:placeholderLable];
-    [[NSNotificationCenter defaultCenter]
-     addObserver:self selector:@selector(updateSyntax) name:UITextViewTextDidChangeNotification object:nil];
-    updateQueue = [[NSOperationQueue alloc]init];
-    updateQueue.maxConcurrentOperationCount = 1;
-    NSLog(@"editview");
 
+    self.delegate = self;
     return self;
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+- (void)textViewDidChange:(UITextView *)textView
+{
+    [self updateSyntax];
 }
 
-- (MarkdownSyntaxGenerator *)markdownSyntaxGenerator {
-    if (_markdownSyntaxGenerator == nil) {
-        _markdownSyntaxGenerator = [[MarkdownSyntaxGenerator alloc] init];
-    }
-    return _markdownSyntaxGenerator;
+- (void)setText:(NSString *)text
+{
+    [super setText:text];
+    [self updateSyntax];
+}
+
+- (void)insertText:(NSString *)text
+{
+    [super insertText:text];
+    [self updateSyntax];
 }
 
 - (void)updateSyntax {
@@ -64,33 +60,13 @@
         return;
     }
     [self highLightText];
-//
-//    NSOperation *op = [[NSInvocationOperation alloc]initWithTarget:self selector:@selector(highLightText) object:nil];
-//    [updateQueue cancelAllOperations];
-//    [updateQueue addOperation:op];
 }
 
 - (void)highLightText
 {
-    NSArray *models = [self.markdownSyntaxGenerator syntaxModelsForText:self.text];
-    
-    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:self.text];
-    
-    UIFont *font = [UIFont fontWithName:[Configure sharedConfigure].fontName size:[Configure sharedConfigure].fontSize];
-
-    [attributedString addAttributes:@{
-                                      NSFontAttributeName : font ? font : [UIFont systemFontOfSize:[Configure sharedConfigure].fontSize],
-                                      NSForegroundColorAttributeName : [UIColor colorWithRGBString:@"0f2f2f"]
-                                      } range:NSMakeRange(0, attributedString.length)];
-
-    for (MarkdownSyntaxModel *model in models) {
-        [attributedString addAttributes:AttributesFromMarkdownSyntaxType(model.type) range:model.range];
-    }
-
-    [self updateAttributedText:attributedString];
-//    [uiOperation cancel];
-//    uiOperation = [[NSInvocationOperation alloc]initWithTarget:self selector:@selector(updateAttributedText:) object:attributedString];
-//    [[NSOperationQueue mainQueue] addOperation:uiOperation];
+    NSLog(@"highlight begin");
+    [self updateAttributedText:syntaxModelsForText(self.text)];
+    NSLog(@"highlight end");
 }
 
 - (void)updateAttributedText:(NSAttributedString *) attributedString {
@@ -100,6 +76,11 @@
     self.attributedText = attributedString;
     self.selectedRange = selectedRange;
     self.scrollEnabled = YES;
+}
+
+- (void)dealloc
+{
+    NSLog(@"%@ dealloc",NSStringFromClass(self.class));
 }
 
 @end

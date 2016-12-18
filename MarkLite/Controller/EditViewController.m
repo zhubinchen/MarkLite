@@ -17,7 +17,7 @@
 #import "Item.h"
 #import "AppDelegate.h"
 
-@interface EditViewController () <UITextViewDelegate,KeyboardBarDelegate>
+@interface EditViewController ()
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottom;
 
@@ -29,15 +29,13 @@
     Item *item;
     FileManager *fm;
     UIControl *control;
-    BOOL needSave;
+    NSString *oldText;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     fm = [FileManager sharedManager];
-
-    _editView.delegate = self;
 
     [[Configure sharedConfigure] addObserver:self forKeyPath:@"fontName" options:NSKeyValueObservingOptionNew context:NULL];
     [[Configure sharedConfigure] addObserver:self forKeyPath:@"fontSize" options:NSKeyValueObservingOptionNew context:NULL];
@@ -65,7 +63,6 @@
         KeyboardBar *bar = [[KeyboardBar alloc]init];
         bar.editView = _editView;
         bar.vc = self;
-        bar.inputDelegate = self;
         _editView.inputAccessoryView = bar;
     }
     
@@ -73,11 +70,6 @@
     dispatch_once(&onceToken, ^{
         [self loadFile];
     });
-}
-
-- (void)didInputText
-{
-    needSave = YES;
 }
 
 - (void)keyboardHide:(NSNotification*)noti
@@ -98,7 +90,7 @@
     if ([keyPath isEqualToString:@"currentItem"]) {
         [self loadFile];
     }else if ([keyPath isEqualToString:@"fontName"] || [keyPath isEqualToString:@"fontSize"]) {
-        [self.editView updateSyntax];
+        self.editView.text = self.editView.text;
     }else if ([keyPath isEqualToString:@"keyboardAssist"]){
         if ([Configure sharedConfigure].keyboardAssist && [Configure sharedConfigure].landscapeEdit == NO) {
             KeyboardBar *bar = [[KeyboardBar alloc]init];
@@ -135,51 +127,29 @@
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 }
 
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    needSave = YES;
-//    if ([text isEqualToString:@"\n"]) {
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [textView insertText:@"\t"];
-//        });
-//    }
-    return YES;
-}
-
-- (BOOL)textViewShouldBeginEditing:(UITextView *)textView
-{
-    return YES;
-}
-
-- (BOOL)textViewShouldEndEditing:(UITextView *)textView
-{
-    self.bottom.constant = 0;
-    [self.view updateConstraints];
-    return YES;
-}
-
 - (void)loadFile
 {
+    [self saveFile];
+
     if (fm.currentItem == nil) {
         self.editView.text = @" ";
         self.title = @" ";
         self.editView.editable = NO;
         return;
     }
-    [self saveFile];
     item = fm.currentItem;
     
     NSString *path = item.fullPath;
     beginLoadingAnimationOnParent(ZHLS(@"Loading"), self.view);
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-        NSString *text = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        oldText = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+        oldText = oldText ? oldText : @"";
         dispatch_async(dispatch_get_main_queue(), ^{
             stopLoadingAnimationOnParent(self.view);
             
-            self.editView.text = text;
+            self.editView.text = oldText;
             self.editView.editable = YES;
-            [self.editView updateSyntax];
             self.title = item.name;
         });
     });
@@ -201,13 +171,12 @@
     if (item == nil) {
         return;
     }
-    if (!needSave) {
+    if ([self.editView.text isEqualToString:oldText]) {
         return;
     }
     
     NSData *content = [self.editView.text dataUsingEncoding:NSUTF8StringEncoding];
     [fm saveFile:item.fullPath Content:content];
-    needSave = NO;
 }
 
 - (void)dealloc

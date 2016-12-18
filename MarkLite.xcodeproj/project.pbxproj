@@ -60,8 +60,6 @@
 		07B92E8A1D1D966B00A4127E /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B92E091D1D966B00A4127E /* FileManager.m */; };
 		07B92E8B1D1D966B00A4127E /* HighLightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B92E0B1D1D966B00A4127E /* HighLightModel.m */; };
 		07B92E8C1D1D966B00A4127E /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B92E0D1D1D966B00A4127E /* Item.m */; };
-		07B92E8D1D1D966B00A4127E /* MarkdownSyntaxGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B92E0F1D1D966B00A4127E /* MarkdownSyntaxGenerator.m */; };
-		07B92E8E1D1D966B00A4127E /* MarkdownSyntaxModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 07B92E111D1D966B00A4127E /* MarkdownSyntaxModel.m */; };
 		07B92E991D1D966B00A4127E /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 07B92E1D1D1D966B00A4127E /* icon.png */; };
 		07B92EA11D1D966B00A4127E /* MarkLite.zip in Resources */ = {isa = PBXBuildFile; fileRef = 07B92E271D1D966B00A4127E /* MarkLite.zip */; };
 		07B92EC21D1D966B00A4127E /* libGHMarkdownParser.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 07B92E5E1D1D966B00A4127E /* libGHMarkdownParser.a */; };
@@ -201,9 +199,6 @@
 		07B92E0C1D1D966B00A4127E /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
 		07B92E0D1D1D966B00A4127E /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		07B92E0E1D1D966B00A4127E /* MarkdownSyntaxGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkdownSyntaxGenerator.h; sourceTree = "<group>"; };
-		07B92E0F1D1D966B00A4127E /* MarkdownSyntaxGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkdownSyntaxGenerator.m; sourceTree = "<group>"; };
-		07B92E101D1D966B00A4127E /* MarkdownSyntaxModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkdownSyntaxModel.h; sourceTree = "<group>"; };
-		07B92E111D1D966B00A4127E /* MarkdownSyntaxModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkdownSyntaxModel.m; sourceTree = "<group>"; };
 		07B92E1D1D1D966B00A4127E /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		07B92E271D1D966B00A4127E /* MarkLite.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = MarkLite.zip; sourceTree = "<group>"; };
 		07B92E5D1D1D966B00A4127E /* GHMarkdownParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHMarkdownParser.h; sourceTree = "<group>"; };
@@ -484,9 +479,6 @@
 				07B92E0A1D1D966B00A4127E /* HighLightModel.h */,
 				07B92E0B1D1D966B00A4127E /* HighLightModel.m */,
 				07B92E0E1D1D966B00A4127E /* MarkdownSyntaxGenerator.h */,
-				07B92E0F1D1D966B00A4127E /* MarkdownSyntaxGenerator.m */,
-				07B92E101D1D966B00A4127E /* MarkdownSyntaxModel.h */,
-				07B92E111D1D966B00A4127E /* MarkdownSyntaxModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -703,7 +695,7 @@
 					07B92DC91D1D960F00A4127E = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = HX6HU45L64;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 1;
@@ -801,7 +793,6 @@
 				07B92EF11D1D986E00A4127E /* autolink.c in Sources */,
 				07B92E041D1D964100A4127E /* TabBarController.m in Sources */,
 				07B92EC51D1D966B00A4127E /* mztools.c in Sources */,
-				07B92E8D1D1D966B00A4127E /* MarkdownSyntaxGenerator.m in Sources */,
 				07B92DD21D1D960F00A4127E /* AppDelegate.m in Sources */,
 				07B92E8B1D1D966B00A4127E /* HighLightModel.m in Sources */,
 				07B92EC41D1D966B00A4127E /* ioapi.c in Sources */,
@@ -823,7 +814,6 @@
 				07B92DFD1D1D964100A4127E /* FileListViewController.m in Sources */,
 				07BB7AC51D37F39C0034BDDC /* AFHTTPRequestOperation.m in Sources */,
 				07B92EF81D1D986E00A4127E /* stack.c in Sources */,
-				07B92E8E1D1D966B00A4127E /* MarkdownSyntaxModel.m in Sources */,
 				07B92E8A1D1D966B00A4127E /* FileManager.m in Sources */,
 				07D9D1F31D238C4900725A94 /* ImageUploadingView.m in Sources */,
 				07EC143F1D1ED3DF00AA3EEE /* ZHRequest.m in Sources */,
@@ -989,8 +979,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MarkLite/MarkLite.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = HX6HU45L64;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/MarkLite/MarkLitePrefix.pch";
@@ -1003,8 +993,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhubch.MarkLite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f8f2336e-6044-4b33-8ca9-522096281e11";
-				PROVISIONING_PROFILE_SPECIFIER = MarkLite;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -1014,8 +1004,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MarkLite/MarkLite.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				DEVELOPMENT_TEAM = HX6HU45L64;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/MarkLite/MarkLitePrefix.pch";
@@ -1028,8 +1018,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhubch.MarkLite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f8f2336e-6044-4b33-8ca9-522096281e11";
-				PROVISIONING_PROFILE_SPECIFIER = MarkLite;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

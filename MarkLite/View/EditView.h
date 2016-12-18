@@ -14,6 +14,6 @@
 
 @property (nonatomic,strong) ZBCKeyBoard *keyboard;
 
-- (void)updateSyntax;
+@property (nonatomic,copy) void(^textChanged)(NSString*);
 
 @end

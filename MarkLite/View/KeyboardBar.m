@@ -101,7 +101,6 @@ static KeyboardBar *bar = nil;
 {
     if (btn.tag == 0) {
         [_editView insertText:@"\t"];
-        [self.inputDelegate didInputText];
     }else if (btn.tag == 1) {
         [self.editView resignFirstResponder];
         bar = self;
@@ -126,16 +125,13 @@ static KeyboardBar *bar = nil;
                 [_editView becomeFirstResponder];
                 NSRange range = NSMakeRange(_editView.selectedRange.location - text.length + 1, 8);
                 _editView.selectedRange = range;
-                [self.inputDelegate didInputText];
             }
         };
         [alert show];
     }else if (btn.tag == 3) {
         [_editView insertText:@"&nbsp;"];
-        [self.inputDelegate didInputText];
     }else if (btn.tag  < 15) {
         [_editView insertText:btn.currentTitle];
-        [self.inputDelegate didInputText];
     }else if (btn.tag == 15){
         [_editView performSelector:@selector(resignFirstResponder)];
     }
@@ -173,7 +169,6 @@ static KeyboardBar *bar = nil;
                                          [uploadView dismiss];
                                          NSString *text = [NSString stringWithFormat:@"![MarkLite](%@)",dic[@"t_url"]];
                                          [_editView insertText:text];
-                                         [self.inputDelegate didInputText];
                                          [_editView becomeFirstResponder];
                                      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                          NSLog(@"%@",error);
@@ -194,9 +189,9 @@ static KeyboardBar *bar = nil;
     [operation start];
 }
 
-//- (void)dealloc
-//{
-//    NSLog(@"dealloc");
-//}
+- (void)dealloc
+{
+    NSLog(@"%@ dealloc",NSStringFromClass(self.class));
+}
 
 @end
