@@ -1,0 +1,108 @@
+/*
+ Localizable.strings
+ MarkLite
+ 
+ Created by Bingcheng on 7/5/16.
+ Copyright © 2016 Bingcheng. All rights reserved.
+ */
+"TabTitle1"="筆記";
+"TabTitle2"="文件";
+"TabTitle3"="選項";
+
+"NavTitleMarkLite"="MarkLite";
+"NavTitleLocalFile"="本地文件";
+"NavTitleCloudFile"="iCloud";
+"NavTitleDropbox" = "Dropbox";
+"NavTitleOptions"="選項";
+
+"SortByName"="按文件名排序";
+"SortByCreateTime"="按創建時間排序";
+"SortByUpdateTime"="按修改時間排序";
+
+"Untitled"="未命名";
+"UntitledFolder"="未命名文件夹";
+
+"Font"="字體";
+"Preview"="預覽";
+"Done"="完成";
+"Reset"="重置";
+"Back"="返回";
+"Edit"="編輯";
+"LandscapeEdit"="横屏編輯";
+"FullScreen"="全屏";
+"Return"="還原";
+"Next"="下一步";
+"EmptyTip"="空空如也~";
+
+"Feedback"="問題反饋";
+"RateIt"="好評鼓勵";
+"About"="關於";
+"Style"="樣式";
+"ImageResolution"="圖片解析度";
+"AssistKeyboard"="輔助鍵盤";
+"Donate"="捐贈";
+"PreviewTips"="向右滑动进入预览模式";
+"Gotit"="我知道了";
+
+"OK"="確定";
+"Close"="關閉";
+"Cancel"="取消";
+"CreateNote"="新建文档";
+"CreateFolder"="新建文件夹";
+"Delete"="刪除";
+"MoveTips"="确认移動到目标文件夹：%@?";
+"SelectAll"="全選";
+"Inverse"="反選";
+"Export"="導出";
+"ExportAs"="選擇導出格式";
+"Rename"="重命名";
+"WebPage"="Web頁面";
+"PDF"="PDF文檔";
+"Markdown"="Markdown文本";
+
+"SwipeTips"="可以上下滑動選擇其他符號";
+"DeleteMessage"="刪除後不可恢復，確定要刪除嗎？";
+"DuplicateError"="出錯了，請確保文件名不重複";
+"EmptyNameTips"="文件名不能為空";
+"InvalidName"="無效的文件名，請不要輸入特殊字符";
+"InvalidCloud"="无法访问iCloud目录，请检查您当前的设备是否登录iCloud";
+"NameTooLength"="媽媽說名字不要太長，15字以內就好";
+
+"InsertHref"="添加鏈接";
+"InputHrefTips"="請輸入要添加的鏈接URL";
+"Uploading"="正在上載...";
+
+"UseLocalImage"="圖片本地引用";
+"LocalImageTips"="插入圖片時不會上載到圖床，這會讓預覽更快，但是導出的html無法在其他設備上顯示圖片，導出PDF不受影響";
+
+"Path"="路径: ";
+"LastUpdate"="上次修改: ";
+
+"Open"="打開";
+"Ignore"="忽略";
+"ReceivedNewFile"="收到新文件：%@";
+"Error"="出錯了";
+
+"UpgradeTitle"="MarkLite更新啦";
+"UpgradeTips"="為了有更好的體驗，建議升級到最新版！大小不到2M呢😄";
+"Upgrade"="更新";
+"DontUpgrade"="我就不";
+
+"StartEdit"="現在開始編輯吧";
+"Search"="搜索";
+
+"Loading"="正在加載";
+
+"ImageResolutionTips"="圖片質量越低，上載越快";
+"High"="高";
+"Low"="低";
+
+"Recieved"="收到的文件";
+"GuidesName"="使用說明";
+
+"DonateTitle"="打賞我一杯咖啡";
+"DonateTips"="MarkLite是一個完全免費的App，沒有煩人的廣告。如果你喜歡，請把他推薦給你的好友，你也可以請我喝杯咖啡。我會努力做得更好的😊";
+"DonatePrice"="打賞 $0.99";
+
+"Name"="文件名:";
+"NamePlaceholder"="請輸入文件名(不包括後缀名)";

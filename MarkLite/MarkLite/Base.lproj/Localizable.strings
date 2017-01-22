@@ -1,0 +1,108 @@
+/*
+ Localizable.strings
+ MarkLite
+ 
+ Created by Bingcheng on 7/5/16.
+ Copyright © 2016 Bingcheng. All rights reserved.
+ */
+"TabTitle1"="Note";
+"TabTitle2"="File";
+"TabTitle3"="Options";
+
+"NavTitleMarkLite"="MarkLite";
+"NavTitleLocalFile"="Local File";
+"NavTitleCloudFile"="iCloud";
+"NavTitleDropbox" = "Dropbox";
+"NavTitleOptions"="Options";
+
+"SortByName"="Sort by file name";
+"SortByCreateTime"="Sort by created time";
+"SortByUpdateTime"="Sort by updated time";
+
+"Untitled"="Untitled";
+"UntitledFolder"="Untitled Folder";
+
+"Font"="Font";
+"Preview"="Preview";
+"Done"="Done";
+"Reset"="Reset";
+"Back"="Back";
+"Edit"="Edit";
+"FullScreen"="Full Screen";
+"Return"="Return";
+"Next"="Next";
+"EmptyTip"="This is an empty folder";
+"Feedback"="Feedback";
+"RateIt"="Rate it";
+"About"="About";
+"Style"="Style";
+"LandscapeEdit"="Landscape when edit";
+"ImageResolution"="Image resolution";
+"AssistKeyboard"="Assistive keyboard";
+"Donate"="Donate";
+
+"OK"="OK";
+"Close"="Close";
+"Cancel"="Cancel";
+"CreateNote"="New note";
+"CreateFolder"="New folder";
+"Delete"="Delete";
+"MoveTips"="Are you sure to move the selected file to the folder:%@?";
+"SelectAll"="Select All";
+"Inverse"="Inverse";
+"Export"="Export";
+"ExportAs"="Export as";
+"Rename"="Rename";
+"WebPage"="WebPage";
+"PDF"="PDF";
+"Markdown"="Markdown";
+"PreviewTips"="Swipe right to preview";
+"Gotit"="Got it";
+
+"SwipeTips"="Swipe here up and down to choose more";
+"DeleteMessage"="Sure you want to delete the file? This action cannot be undone!";
+"DuplicateError"="An error occured! Duplicate name?";
+"InvalidCloud"="Can not access iCloud,whether your iCloud account was loginnd on this device?";
+"EmptyNameTips"="Filename can not be empty";
+"InvalidName"="Invalid file nam, must contains only letters, numbers, periods and underscores.e";
+"NameTooLength"="Filename limit - 30 symbols. must contains only letters, numbers, periods and underscores.";
+
+"InsertHref"="Insert a link";
+"InputHrefTips"="Please input the URL";
+"Uploading"="Uploading...";
+
+"UseLocalImage"="Refrence image local";
+"LocalImageTips"="The image inserted to markdown wont be uploaded to server";
+
+"Path"="Path: ";
+"LastUpdate"="Update: ";
+
+"Open"="Open";
+"Ignore"="Ignore";
+"ReceivedNewFile"="Received new file: %@";
+"Error"="Error occured";
+
+"UpgradeTitle"="New version available!";
+"UpgradeTips"="Upgrade to the latest version to have a better experience!😄";
+"Upgrade"="Upgrade";
+"DontUpgrade"="Remind me later";
+
+"StartEdit"="Start editing here";
+
+"Search"="Search";
+
+"Loading"="Loading";
+
+"ImageResolutionTips"="The lower the resolution, the faster the upload";
+"High"="High";
+"Low"="Low";
+
+"Recieved"="Recieved files";
+"GuidesName"="Instructions";
+
+"DonateTitle"="Buy me a coffee";
+"DonateTips"="MarkLite is a free app with no ads. If you like it, just share it with your friends! You can also buy me a coffee to support me. I will make it better!";
+"DonatePrice"="Donate $0.99";
+
+"Name"="Name:";
+"NamePlaceholder"="Please input the filename";

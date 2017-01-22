@@ -1,0 +1,33 @@
+//
+//  MarkLitePrefix.pch
+//  MarkLite
+//
+//  Created by zhubch on 11/4/15.
+//  Copyright (c) 2016 zhubch. All rights reserved.
+//
+
+#ifndef MarkLite_MarkLitePrefix_pch
+#define MarkLite_MarkLitePrefix_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#ifdef __OBJC__
+
+#import "ZHUtils.h"
+#import "EXUAlertView.h"
+
+#define kPrimaryColor [UIColor colorWithRGBString:@"1A1D24"]
+
+#define kBackgroundColor [UIColor colorWithRGBString:@"ffffff"]
+
+#define kTitleColor [UIColor colorWithRGBString:@"ffffff"]
+
+#define  kProductDonate @"com.zhubch.MarkLite.Donate"
+
+#define kImageUploadUrl @"http://up.imgapi.com/"
+
+#define kToken @"97ade20b4c5a86b625cf449f45f720d686a0154f:Mlg-545PK1Jp5vnxH0v1RP1_vc4=:eyJkZWFkbGluZSI6MTQ2NzEyODc0OCwiYWN0aW9uIjoiZ2V0IiwidWlkIjoiNTY3OTU0IiwiYWlkIjoiMTIyNjk3MSIsImZyb20iOiJmaWxlIn0="
+
+#endif
+
+#endif
