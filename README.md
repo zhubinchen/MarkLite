@@ -1,7 +1,11 @@
 ## MarkLite
 
+[![Codewake](https://img.shields.io/badge/build-success-brightgreen.svg)]()
+[![Codewake](https://img.shields.io/badge/release-v%204.1-blue.svg)]()
+
 [![Codewake](https://www.codewake.com/badges/codewake.svg)](https://www.codewake.com/p/marklite)
 [![Codewake](https://www.codewake.com/badges/codewake2.svg)](https://www.codewake.com/p/marklite)
+[![Codewake](https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg)](https://saythanks.io/inbox)
 
 ### 简介
 
