@@ -33,10 +33,19 @@
     [self addSubview:placeholderLable];
 
     self.delegate = self;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(textChanged:)
+                                                 name:UITextViewTextDidChangeNotification
+                                               object:self];
     return self;
 }
 
 - (void)textViewDidChange:(UITextView *)textView
+{
+    [self updateSyntax];
+}
+
+- (void)textChanged:(NSNotification *)notification
 {
     [self updateSyntax];
 }
@@ -82,6 +91,9 @@
 - (void)dealloc
 {
     NSLog(@"%@ dealloc",NSStringFromClass(self.class));
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UITextViewTextDidChangeNotification
+                                                  object:self];
 }
 
 @end
