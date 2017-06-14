@@ -8,8 +8,8 @@
 
 #import "KeyboardBar.h"
 #import "Configure.h"
-#import "AFNetworking.h"
 #import "ImageUploadingView.h"
+#import <AFNetworking/AFNetworking.h>
 
 static KeyboardBar *bar = nil;
 
@@ -156,45 +156,32 @@ static KeyboardBar *bar = nil;
         [_editView becomeFirstResponder];
         return;
     }
-    AFHTTPRequestSerializer *serializer = [AFHTTPRequestSerializer serializer];
     
-    NSMutableURLRequest *request =
-    [serializer multipartFormRequestWithMethod:@"POST" URLString:kImageUploadUrl parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/plain"];
+
+    NSURLSessionTask *task = [manager POST:kImageUploadUrl parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         [formData appendPartWithFormData:[kToken dataUsingEncoding:NSUTF8StringEncoding] name:@"Token"];
         [formData appendPartWithFileData:data
                                     name:@"file"
                                 fileName:@"imageFile.jpg"
                                 mimeType:@"image/jpg"];
-        
-    } error:nil];
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    AFHTTPRequestOperation *operation =
-    [manager HTTPRequestOperationWithRequest:request
-                                     success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                                         NSDictionary *dic = responseObject;
-                                         [uploadView dismiss];
-                                         NSString *text = [NSString stringWithFormat:@"![MarkLite](%@)",dic[@"t_url"]];
-                                         [_editView insertText:text];
-                                         [_editView becomeFirstResponder];
-                                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                         NSLog(@"%@",error);
-                                         [uploadView dismiss];
-                                     }];
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        uploadView.percent = (CGFloat)uploadProgress.completedUnitCount / uploadProgress.totalUnitCount;
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dic = responseObject;
+        [uploadView dismiss];
+        NSString *text = [NSString stringWithFormat:@"![MarkLite](%@)",dic[@"t_url"]];
+        [_editView insertText:text];
+        [_editView becomeFirstResponder];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        showToast(error.localizedDescription);
+    }];
     
     uploadView = [[ImageUploadingView alloc]initWithTitle:ZHLS(@"Uploading") cancelBlock:^{
-        [operation cancel];
+        [task cancel];
     }];
     [uploadView show];
-    
-    [operation setUploadProgressBlock:^(NSUInteger __unused bytesWritten,
-                                        long long totalBytesWritten,
-                                        long long totalBytesExpectedToWrite) {
-        uploadView.percent = totalBytesWritten/(double)totalBytesExpectedToWrite;
-    }];
-    
-    [operation start];
 }
     
 - (NSString*)saveImage:(NSData*)imageData{
