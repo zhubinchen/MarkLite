@@ -45,7 +45,8 @@
     [aCoder encodeObject:self.highlightColor forKey:@"highlightColor"];
     [aCoder encodeObject:self.highlightStyle forKey:@"highlightStyle"];
     [aCoder encodeObject:self.style forKey:@"style"];
-    [aCoder encodeObject:self.upgradeTime forKey:@"triedTime"];
+    [aCoder encodeObject:self.upgradeTime forKey:@"upgradeTime"];
+    [aCoder encodeObject:self.showRateTime forKey:@"showRateTime"];
     [aCoder encodeObject:self.currentVerion forKey:@"currentVerion"];
     [aCoder encodeObject:self.fontName forKey:@"fontName"];
     [aCoder encodeBool:self.keyboardAssist forKey:@"keyboardAssist"];
@@ -67,6 +68,7 @@
         _style = [aDecoder decodeObjectForKey:@"style"];
         _highlightStyle = [aDecoder decodeObjectForKey:@"highlightStyle"];
         _upgradeTime = [aDecoder decodeObjectForKey:@"upgradeTime"];
+        _showRateTime = [aDecoder decodeObjectForKey:@"showRateTime"];
         _fontName = [aDecoder decodeObjectForKey:@"fontName"];
         _keyboardAssist = [aDecoder decodeBoolForKey:@"keyboardAssist"];
         _useLocalImage = [aDecoder decodeBoolForKey:@"useLocalImage"];

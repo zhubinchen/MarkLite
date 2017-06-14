@@ -68,7 +68,7 @@
     [self loadFile];
     
     exportBtn = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"export"] style:UIBarButtonItemStylePlain target:self action:@selector(export)];
-    styleBtn = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"export"] style:UIBarButtonItemStylePlain target:self action:@selector(style)];
+    styleBtn = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"options"] style:UIBarButtonItemStylePlain target:self action:@selector(style)];
     splitBtn = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"split"] style:UIBarButtonItemStylePlain target:self action:@selector(toggleSplit)];
     self.navigationItem.rightBarButtonItems = kDevicePad ? @[exportBtn,splitBtn,styleBtn] : @[exportBtn,styleBtn];
     UIView *v = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
@@ -380,30 +380,36 @@
     }
     
     [Configure sharedConfigure].useTimes += 1;
-    
-    if ([Configure sharedConfigure].useTimes == 30 && ![Configure sharedConfigure].hasRated) {
-        
-        EXUAlertView *alert = [[EXUAlertView alloc]initWithTitle:@"Hi，你对MarkLite的这个新版本有什么要说的吗？"
-                                                        delegate:nil
-                                               cancelButtonTitle:@"以后再说"
-                                               otherButtonTitles:@"很好用，好评鼓励", @"不好用，提个意见", nil];
-        alert.clickedButton = ^(NSInteger index){
-            if (index == 1) {
-                [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1098107145&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
-                [Configure sharedConfigure].hasRated = YES;
-            }else if (index == 2){
-                NSString *url = @"mailto:cheng4741@gmail.com?subject=MarkLite%20Report&body=";
-                [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
-                [Configure sharedConfigure].hasRated = YES;
-            }
-        };
-        [alert show];
-        [Configure sharedConfigure].useTimes = 0;
+    if ([Configure sharedConfigure].useTimes < 30 || [Configure sharedConfigure].hasRated) {
+        return ;
     }
+    
+    NSTimeInterval t = [[NSDate date] timeIntervalSinceDate:[Configure sharedConfigure].showRateTime];
+    if (t < 60*60*24*2) {
+        return ;
+    }
+    
+    EXUAlertView *alert = [[EXUAlertView alloc]initWithTitle:@"Hi，你对MarkLite的这个新版本有什么要说的吗？"
+                                                    delegate:nil
+                                           cancelButtonTitle:@"以后再说"
+                                           otherButtonTitles:@"很好用，好评鼓励", @"不好用，提个意见", nil];
+    alert.clickedButton = ^(NSInteger index){
+        if (index == 1) {
+            [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1098107145&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
+            [Configure sharedConfigure].hasRated = YES;
+        }else if (index == 2){
+            NSString *url = @"mailto:cheng4741@gmail.com?subject=MarkLite%20Report&body=";
+            [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
+            [Configure sharedConfigure].hasRated = YES;
+        }
+    };
+    [alert show];
+    [Configure sharedConfigure].useTimes = 0;
+    [Configure sharedConfigure].showRateTime = [NSDate date];
 }
 
  #pragma mark - Navigation
- 
+
  // In a storyboard-based application, you will often want to do a little preparation before navigation
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 

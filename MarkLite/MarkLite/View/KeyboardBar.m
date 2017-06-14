@@ -7,7 +7,6 @@
 //
 
 #import "KeyboardBar.h"
-#import "ZHRequest.h"
 #import "Configure.h"
 #import "AFNetworking.h"
 #import "ImageUploadingView.h"

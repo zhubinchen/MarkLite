@@ -32,6 +32,8 @@
 
 @property (nonatomic,strong) NSDate *upgradeTime;
 
+@property (nonatomic,strong) NSDate *showRateTime;
+
 @property (nonatomic,assign) BOOL hasRated;
 
 @property (nonatomic,assign) CGFloat imageResolution;
