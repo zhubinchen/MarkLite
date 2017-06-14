@@ -120,11 +120,11 @@
     if (self.chooseFolder) {
         [self loadFolders];
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelChoose)];
-    }else{
+    } else {
         [self loadItems];
-        UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:editing ? UIBarButtonSystemItemDone : UIBarButtonSystemItemEdit target:self action:@selector(toogleEditing)];
-        UIBarButtonItem *create = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newItem)];
-        self.navigationItem.rightBarButtonItems = dataArray.count ? @[create,edit] : @[create];
+        
+        UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"select"] style:UIBarButtonItemStylePlain target:self action:@selector(toogleEditing)];
+        self.navigationItem.rightBarButtonItem = edit;
         if (dataArray.count == 0) {
             editing = NO;
             self.toolBarBottom.constant = 0;
@@ -137,6 +137,22 @@
     if (_root.shouldTitle) {
         [self.titleTextField becomeFirstResponder];
     }
+}
+
+- (void)setupNavBarItemWithButton:(NSArray*)buttons
+{
+//    UIToolbar *toolBar = [[UIToolbar alloc]init];
+//    toolBar.items = buttons;
+//    toolBar.frame = CGRectMake(0, 0, 90, 44);
+//    toolBar.backgroundColor = [UIColor clearColor];
+//    toolBar.tintColor = self.navigationController.navigationBar.barTintColor;
+//    for (UIView *view in toolBar.subviews) {
+//        if ([view isKindOfClass:[UIImageView class]]) {
+//            [view removeFromSuperview];
+//        }
+//    }
+//    UIBarButtonItem *customUIBarButtonitem = [[UIBarButtonItem alloc] initWithCustomView:toolBar];
+//    self.navigationItem.rightBarButtonItem = customUIBarButtonitem;
 }
 
 - (void)cancelChoose

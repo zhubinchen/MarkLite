@@ -20,9 +20,6 @@ typedef NS_ENUM(NSUInteger, StorageType) {
     StorageTypeDropbox,
 };
 
-/**
- *  代表一个文件对象，真正的文件操作由FileManager完成
- */
 @interface Item : NSObject
 
 @property (nonatomic,strong)            NSString   *name;      //文件名，不含扩展名

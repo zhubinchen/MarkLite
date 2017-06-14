@@ -229,7 +229,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WBP-zG-UMG">
-                                <rect key="frame" x="0.0" y="667" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="617" width="375" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkc-lF-s62">
                                         <rect key="frame" x="20" y="7" width="30" height="30"/>
@@ -375,7 +375,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Vjl-dd-dR7" firstAttribute="leading" secondItem="CQn-Xz-yBG" secondAttribute="leading" id="1xp-r0-IDH"/>
-                            <constraint firstItem="WBP-zG-UMG" firstAttribute="top" secondItem="Vjl-dd-dR7" secondAttribute="bottom" id="2AV-YV-MfS"/>
+                            <constraint firstItem="WBP-zG-UMG" firstAttribute="top" secondItem="Vjl-dd-dR7" secondAttribute="bottom" constant="-50" id="2AV-YV-MfS"/>
                             <constraint firstAttribute="trailing" secondItem="WBP-zG-UMG" secondAttribute="trailing" id="5Nq-rB-OzL"/>
                             <constraint firstAttribute="trailing" secondItem="xFA-yP-HQl" secondAttribute="trailing" id="ANA-e7-vz8"/>
                             <constraint firstItem="xFA-yP-HQl" firstAttribute="leading" secondItem="CQn-Xz-yBG" secondAttribute="leading" id="Gjz-yB-ygH"/>
