@@ -383,7 +383,7 @@
     SeparatorLine *line = [cell viewWithTag:4654];
     [line removeFromSuperview];
     if (indexPath.row != 0) {
-        SeparatorLine *line = [[SeparatorLine alloc]initWithStart:CGPointMake(20, 0) width:self.view.bounds.size.width - 25 color:kPrimaryColor];
+        SeparatorLine *line = [[SeparatorLine alloc]initWithStart:CGPointMake(20, 0) width:self.view.bounds.size.width - 30 color:kPrimaryColor];
         line.tag = 4654;
         [cell addSubview:line];
     }
