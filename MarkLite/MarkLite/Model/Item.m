@@ -8,8 +8,8 @@
 
 #import "Item.h"
 #import "PathUtils.h"
-#import "ZipArchive.h"
 #import "Configure.h"
+#import <SSZipArchive/SSZipArchive.h>
 
 @interface Item()
 
@@ -40,15 +40,11 @@
 }
 
 + (void)recoverFile{
-    ZipArchive *zipArchive = [[ZipArchive alloc]init];
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"MarkLite" ofType:@"zip"];
     NSLog(@"%@",path);
     
-    [zipArchive UnzipOpenFile:path];
-    
-    [zipArchive UnzipFileTo:documentPath() overWrite:YES];
-    
+    [SSZipArchive unzipFileAtPath:path toDestination:documentPath()];
     NSArray *arr = @[@"Instructions",@"使用指南",@"使用說明"];
     
     for (NSString *name in arr) {
@@ -59,14 +55,11 @@
 }
 
 + (void)recoverStyleResource{
-    ZipArchive *zipArchive = [[ZipArchive alloc]init];
     
     NSString *path = [[NSBundle mainBundle] pathForResource:@"StyleResource" ofType:@"zip"];
     NSLog(@"%@",path);
     
-    [zipArchive UnzipOpenFile:path];
-    
-    [zipArchive UnzipFileTo:documentPath() overWrite:YES];
+    [SSZipArchive unzipFileAtPath:path toDestination:documentPath()];
 }
 
 + (instancetype)localRoot

@@ -7,7 +7,7 @@
 //
 
 #import "Configure.h"
-#import "FileManager.h"
+#import "Item.h"
 
 #define RGB(x) [UIColor colorWithRGBString:x]
 @implementation Configure
