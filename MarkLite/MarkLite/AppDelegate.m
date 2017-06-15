@@ -28,12 +28,12 @@ static BOOL allowRotation = NO;
     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[backImage resizableImageWithCapInsets:UIEdgeInsetsMake(0, backImage.size.width, 0, 0)]                                                       forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(-233, 0) forBarMetrics:UIBarMetricsDefault];
 
-    [[UINavigationBar appearance] setTintColor:kTitleColor];
-    [[UINavigationBar appearance] setBarTintColor:kPrimaryColor];
+    [[UINavigationBar appearance] setTintColor:kPrimaryColor];
+    [[UINavigationBar appearance] setBarTintColor:kTitleColor];
     [[UINavigationBar appearance] setTranslucent:NO];
     [[UINavigationBar appearance] setTitleTextAttributes:@{
                                                            NSFontAttributeName:[UIFont systemFontOfSize:18],
-                                                           NSForegroundColorAttributeName:kTitleColor
+                                                           NSForegroundColorAttributeName:kPrimaryColor
                                                            }];
     [self checkAppStoreVersion:@"1098107145"];
     [Configure sharedConfigure];

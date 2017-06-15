@@ -1,18 +1,18 @@
 //
-//  MainViewController.m
+//  ItemsViewController.m
 //  MarkLite
 //
 //  Created by Bingcheng on 11/23/16.
 //  Copyright © 2016 Bingcheng. All rights reserved.
 //
 
-#import "MainViewController.h"
+#import "ItemsViewController.h"
 #import "ItemTableViewCell.h"
 #import "Configure.h"
 #import "Item.h"
 #import "SeparatorLine.h"
 
-@interface MainViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+@interface ItemsViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
 @property (nonatomic,weak) IBOutlet NSLayoutConstraint *toolBarBottom;
 @property (nonatomic,weak) IBOutlet NSLayoutConstraint *createViewTop;
@@ -26,7 +26,7 @@
 
 @end
 
-@implementation MainViewController
+@implementation ItemsViewController
 {
     UIPopoverPresentationController *popVc;
     
@@ -45,7 +45,7 @@
         self.title = @"Documents";
         self.titleTextField.enabled = NO;
     }
-    self.titleTextField.textColor = kTitleColor;
+    self.titleTextField.textColor = kPrimaryColor;
     
     if (kDevicePad) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRename) name:@"ItemNameChaned" object:nil];
@@ -264,7 +264,7 @@
         return;
     }
     NSString *name = kDevicePhone ? @"Main_iPhone" : @"Main_iPad";
-    MainViewController *vc = [[UIStoryboard storyboardWithName:name bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"item_list"];
+    ItemsViewController *vc = [[UIStoryboard storyboardWithName:name bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"item_list"];
     vc.root = nil;
     vc.chooseFolder = YES;
     vc.didChooseFolder = ^(Item *parent){
@@ -300,7 +300,7 @@
 
     if (next) {
         NSString *name = kDevicePhone ? @"Main_iPhone" : @"Main_iPad";
-        MainViewController *vc = [[UIStoryboard storyboardWithName:name bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"item_list"];
+        ItemsViewController *vc = [[UIStoryboard storyboardWithName:name bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"item_list"];
         vc.root = next;
         [self newItem];
         [self.navigationController pushViewController:vc animated:YES];
@@ -470,7 +470,7 @@
         [self performSegueWithIdentifier:@"edit" sender:self];
     }else{
         NSString *name = kDevicePhone ? @"Main_iPhone" : @"Main_iPad";
-        MainViewController *vc = [[UIStoryboard storyboardWithName:name bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"item_list"];
+        ItemsViewController *vc = [[UIStoryboard storyboardWithName:name bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"item_list"];
         vc.root = next;
         vc.chooseFolder = self.chooseFolder;
         vc.didChooseFolder = self.didChooseFolder;
@@ -495,7 +495,7 @@
         return;
     }
     if (next.type == FileTypeFolder) {
-        MainViewController *vc = segue.destinationViewController;
+        ItemsViewController *vc = segue.destinationViewController;
         vc.root = next;
     }
 }

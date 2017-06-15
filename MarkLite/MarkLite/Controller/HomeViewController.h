@@ -6,9 +6,9 @@
 //  Copyright © 2016年 Bingcheng. All rights reserved.
 //
 
-#import "MainViewController.h"
+#import "ItemsViewController.h"
 
 @class Item;
-@interface HomeViewController : MainViewController
+@interface HomeViewController : ItemsViewController
 
 @end

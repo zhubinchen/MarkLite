@@ -23,7 +23,7 @@
 		0729C8FF1EF110B2001C755E /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 0729C8EE1EF110B2001C755E /* version.c */; };
 		0729C9001EF110B2001C755E /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 0729C8F11EF110B2001C755E /* Item.m */; };
 		0729C9011EF110B2001C755E /* PDFPageRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 0729C8F41EF110B2001C755E /* PDFPageRender.m */; };
-		07580B361DE5CAA20048D728 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07580B341DE5CAA20048D728 /* MainViewController.m */; };
+		07580B361DE5CAA20048D728 /* ItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07580B341DE5CAA20048D728 /* ItemsViewController.m */; };
 		07580B3A1DE5D0350048D728 /* ItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07580B391DE5D0350048D728 /* ItemTableViewCell.m */; };
 		07580B3D1DE5ECF50048D728 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07580B3C1DE5ECF50048D728 /* BaseViewController.m */; };
 		07580B451DE5FCE80048D728 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07580B431DE5FCE80048D728 /* MenuViewController.m */; };
@@ -111,8 +111,8 @@
 		0729C8F21EF110B2001C755E /* MarkdownSyntaxGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkdownSyntaxGenerator.h; sourceTree = "<group>"; };
 		0729C8F31EF110B2001C755E /* PDFPageRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFPageRender.h; sourceTree = "<group>"; };
 		0729C8F41EF110B2001C755E /* PDFPageRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFPageRender.m; sourceTree = "<group>"; };
-		07580B331DE5CAA20048D728 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
-		07580B341DE5CAA20048D728 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		07580B331DE5CAA20048D728 /* ItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemsViewController.h; sourceTree = "<group>"; };
+		07580B341DE5CAA20048D728 /* ItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemsViewController.m; sourceTree = "<group>"; };
 		07580B381DE5D0350048D728 /* ItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemTableViewCell.h; sourceTree = "<group>"; };
 		07580B391DE5D0350048D728 /* ItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemTableViewCell.m; sourceTree = "<group>"; };
 		07580B3B1DE5ECF50048D728 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
@@ -384,8 +384,8 @@
 		07CFA5C71D2CF50F00F7DDDA /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				07580B331DE5CAA20048D728 /* MainViewController.h */,
-				07580B341DE5CAA20048D728 /* MainViewController.m */,
+				07580B331DE5CAA20048D728 /* ItemsViewController.h */,
+				07580B341DE5CAA20048D728 /* ItemsViewController.m */,
 				07DB045D1DEF121300B30A4D /* HomeViewController.h */,
 				07DB045E1DEF121300B30A4D /* HomeViewController.m */,
 				07B92DE81D1D964100A4127E /* EditViewController.h */,
@@ -582,7 +582,7 @@
 				0729C8F61EF110B2001C755E /* autolink.c in Sources */,
 				07B92ECC1D1D966B00A4127E /* EditView.m in Sources */,
 				07B92EC91D1D966B00A4127E /* ZHUtils.m in Sources */,
-				07580B361DE5CAA20048D728 /* MainViewController.m in Sources */,
+				07580B361DE5CAA20048D728 /* ItemsViewController.m in Sources */,
 				0729C9011EF110B2001C755E /* PDFPageRender.m in Sources */,
 				07091BC51E0699490046E535 /* EXUAlertView.m in Sources */,
 				0729C9001EF110B2001C755E /* Item.m in Sources */,
@@ -752,7 +752,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/MarkLite/MarkLitePrefix.pch";
 				INFOPLIST_FILE = MarkLite/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhubch.MarkLite;
@@ -784,7 +784,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/MarkLite/MarkLitePrefix.pch";
 				INFOPLIST_FILE = MarkLite/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhubch.MarkLite;

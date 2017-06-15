@@ -1,5 +1,5 @@
 //
-//  MainViewController.h
+//  ItemsViewController.h
 //  MarkLite
 //
 //  Created by Bingcheng on 11/23/16.
@@ -9,7 +9,7 @@
 #import "BaseViewController.h"
 
 @class Item;
-@interface MainViewController : BaseViewController
+@interface ItemsViewController : BaseViewController
 
 @property (nonatomic,strong) Item *root;
 
