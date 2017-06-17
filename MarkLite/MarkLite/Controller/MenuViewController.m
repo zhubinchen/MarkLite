@@ -28,7 +28,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     
-    items = @[@"AssistKeyboard",@"UseLocalImage",@"Font",@"RateIt",@"Feedback",@"Donate"];
+    items = @[@"",@"AssistKeyboard",@"UseLocalImage",@"Font",@"RateIt",@"Feedback",@"Donate"];
 }
 
 - (void)viewWillAppear:(BOOL)animated

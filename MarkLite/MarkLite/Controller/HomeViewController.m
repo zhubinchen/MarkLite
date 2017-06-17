@@ -26,8 +26,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self action:@selector(segueToSettings)];
-    
     self.title = @"MarkLite";
     self.root = [Item localRoot];
 }
@@ -46,13 +44,5 @@
     [self performSegueWithIdentifier:@"edit" sender:self];
 }
 
-- (void)segueToSettings
-{
-    MenuViewController *vc = [[MenuViewController alloc]init];
-    vc.modalPresentationStyle = UIModalPresentationFormSheet;
-    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:vc];
-    [self presentViewController:nav animated:YES completion:nil];
-    self.menuVc = nav;
-}
 
 @end

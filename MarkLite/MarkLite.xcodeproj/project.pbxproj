@@ -23,11 +23,13 @@
 		0729C8FF1EF110B2001C755E /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 0729C8EE1EF110B2001C755E /* version.c */; };
 		0729C9001EF110B2001C755E /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = 0729C8F11EF110B2001C755E /* Item.m */; };
 		0729C9011EF110B2001C755E /* PDFPageRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 0729C8F41EF110B2001C755E /* PDFPageRender.m */; };
+		0729C9071EF29389001C755E /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0729C9061EF29389001C755E /* Root.storyboard */; };
+		0729C9091EF293D2001C755E /* Menu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0729C9081EF293D2001C755E /* Menu.storyboard */; };
+		0729C90B1EF29465001C755E /* Edit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0729C90A1EF29465001C755E /* Edit.storyboard */; };
 		07580B361DE5CAA20048D728 /* ItemsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07580B341DE5CAA20048D728 /* ItemsViewController.m */; };
 		07580B3A1DE5D0350048D728 /* ItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 07580B391DE5D0350048D728 /* ItemTableViewCell.m */; };
 		07580B3D1DE5ECF50048D728 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07580B3C1DE5ECF50048D728 /* BaseViewController.m */; };
 		07580B451DE5FCE80048D728 /* MenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07580B431DE5FCE80048D728 /* MenuViewController.m */; };
-		07580B461DE5FCE80048D728 /* MenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07580B441DE5FCE80048D728 /* MenuViewController.xib */; };
 		07580B5F1DE6AADF0048D728 /* SeparatorLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 07580B5E1DE6AADF0048D728 /* SeparatorLine.m */; };
 		0777D3371D2522E20026E0EA /* StyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0777D3351D2522E20026E0EA /* StyleViewController.m */; };
 		0777D3381D2522E20026E0EA /* StyleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0777D3361D2522E20026E0EA /* StyleViewController.xib */; };
@@ -111,6 +113,9 @@
 		0729C8F21EF110B2001C755E /* MarkdownSyntaxGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkdownSyntaxGenerator.h; sourceTree = "<group>"; };
 		0729C8F31EF110B2001C755E /* PDFPageRender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFPageRender.h; sourceTree = "<group>"; };
 		0729C8F41EF110B2001C755E /* PDFPageRender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFPageRender.m; sourceTree = "<group>"; };
+		0729C9061EF29389001C755E /* Root.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Root.storyboard; sourceTree = "<group>"; };
+		0729C9081EF293D2001C755E /* Menu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Menu.storyboard; sourceTree = "<group>"; };
+		0729C90A1EF29465001C755E /* Edit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Edit.storyboard; sourceTree = "<group>"; };
 		07580B331DE5CAA20048D728 /* ItemsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemsViewController.h; sourceTree = "<group>"; };
 		07580B341DE5CAA20048D728 /* ItemsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemsViewController.m; sourceTree = "<group>"; };
 		07580B381DE5D0350048D728 /* ItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemTableViewCell.h; sourceTree = "<group>"; };
@@ -119,7 +124,6 @@
 		07580B3C1DE5ECF50048D728 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		07580B421DE5FCE80048D728 /* MenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuViewController.h; sourceTree = "<group>"; };
 		07580B431DE5FCE80048D728 /* MenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuViewController.m; sourceTree = "<group>"; };
-		07580B441DE5FCE80048D728 /* MenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuViewController.xib; sourceTree = "<group>"; };
 		07580B5D1DE6AADF0048D728 /* SeparatorLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SeparatorLine.h; sourceTree = "<group>"; };
 		07580B5E1DE6AADF0048D728 /* SeparatorLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SeparatorLine.m; sourceTree = "<group>"; };
 		0777D3341D2522E20026E0EA /* StyleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleViewController.h; sourceTree = "<group>"; };
@@ -301,6 +305,9 @@
 				07B92E121D1D966B00A4127E /* Resource */,
 				07B92ED51D1D969C00A4127E /* Main_iPhone.storyboard */,
 				07B92ED81D1D96B000A4127E /* Main_iPad.storyboard */,
+				0729C9061EF29389001C755E /* Root.storyboard */,
+				0729C9081EF293D2001C755E /* Menu.storyboard */,
+				0729C90A1EF29465001C755E /* Edit.storyboard */,
 				07B92DD91D1D960F00A4127E /* Assets.xcassets */,
 				07B92DDB1D1D960F00A4127E /* LaunchScreen.storyboard */,
 				07B92DDE1D1D960F00A4127E /* Info.plist */,
@@ -394,7 +401,6 @@
 				07580B3C1DE5ECF50048D728 /* BaseViewController.m */,
 				07580B421DE5FCE80048D728 /* MenuViewController.h */,
 				07580B431DE5FCE80048D728 /* MenuViewController.m */,
-				07580B441DE5FCE80048D728 /* MenuViewController.xib */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -493,15 +499,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0729C9091EF293D2001C755E /* Menu.storyboard in Resources */,
 				07B92EDA1D1D96B000A4127E /* Main_iPad.storyboard in Resources */,
 				07B92DDD1D1D960F00A4127E /* LaunchScreen.storyboard in Resources */,
 				078FFC751E214CDA00DD724A /* StyleResource.zip in Resources */,
+				0729C90B1EF29465001C755E /* Edit.storyboard in Resources */,
 				07B92EA11D1D966B00A4127E /* MarkLite.zip in Resources */,
 				078FFD5D1E34694900DD724A /* FontViewController.xib in Resources */,
 				07091BC61E0699490046E535 /* EXUAlertView.xib in Resources */,
+				0729C9071EF29389001C755E /* Root.storyboard in Resources */,
 				07F90CED1D20F67900DF5194 /* ImageViewController.xib in Resources */,
 				07CFA4091D2B7A6E00F7DDDA /* Localizable.strings in Resources */,
-				07580B461DE5FCE80048D728 /* MenuViewController.xib in Resources */,
 				07B92DDA1D1D960F00A4127E /* Assets.xcassets in Resources */,
 				07B92E991D1D966B00A4127E /* icon.png in Resources */,
 				07D9D1F51D238C6300725A94 /* ImageUploadingView.xib in Resources */,

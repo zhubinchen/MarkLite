@@ -8,4 +8,6 @@ target 'MarkLite' do
   # Pods for MarkLite
 	pod 'AFNetworking', '~> 3.0'
 	pod 'SSZipArchive'
+    pod 'LGSideMenuController'
+
 end

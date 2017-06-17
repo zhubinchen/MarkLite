@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vGY-hr-mhh">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Menu View Controller-->
+        <scene sceneID="AmT-Ic-2ck">
+            <objects>
+                <viewController id="vGY-hr-mhh" customClass="MenuViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LX5-CP-lAO"/>
+                        <viewControllerLayoutGuide type="bottom" id="uff-cy-QGb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tDM-8d-VsW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uem-l0-nw6">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="8Ec-J2-JXv">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="500"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="500" id="Rrn-wR-bTK"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="dataSource" destination="vGY-hr-mhh" id="StI-Bi-eNt"/>
+                                            <outlet property="delegate" destination="vGY-hr-mhh" id="DOH-pc-1mr"/>
+                                        </connections>
+                                    </tableView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright (c) 2016 Bingcheng. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Idl-Ir-Ft6">
+                                        <rect key="frame" x="0.0" y="597" width="375" height="50"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="PGS-jR-wZV"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="8Ec-J2-JXv" firstAttribute="top" secondItem="Uem-l0-nw6" secondAttribute="top" id="6WM-rs-ZvH"/>
+                                    <constraint firstItem="8Ec-J2-JXv" firstAttribute="leading" secondItem="Uem-l0-nw6" secondAttribute="leading" id="Ehn-gJ-uiY"/>
+                                    <constraint firstItem="Idl-Ir-Ft6" firstAttribute="leading" secondItem="Uem-l0-nw6" secondAttribute="leading" id="jHT-rj-OR1"/>
+                                    <constraint firstAttribute="trailing" secondItem="8Ec-J2-JXv" secondAttribute="trailing" id="qWq-R3-4sw"/>
+                                    <constraint firstAttribute="trailing" secondItem="Idl-Ir-Ft6" secondAttribute="trailing" id="sOP-VO-Cdb"/>
+                                    <constraint firstAttribute="bottom" secondItem="Idl-Ir-Ft6" secondAttribute="bottom" id="uG4-3Q-Ig2"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Uem-l0-nw6" secondAttribute="trailing" id="dvU-5a-I6z"/>
+                            <constraint firstItem="Uem-l0-nw6" firstAttribute="top" secondItem="LX5-CP-lAO" secondAttribute="bottom" id="lsi-mF-cZM"/>
+                            <constraint firstAttribute="bottom" secondItem="Uem-l0-nw6" secondAttribute="bottom" id="t8l-Fh-QEm"/>
+                            <constraint firstItem="Uem-l0-nw6" firstAttribute="leading" secondItem="tDM-8d-VsW" secondAttribute="leading" id="wpb-Fo-Mw2"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="8Ec-J2-JXv" id="wgP-SK-Hc7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ij6-8l-Dgt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4757" y="-3964"/>
+        </scene>
+    </scenes>
+</document>
