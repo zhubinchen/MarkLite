@@ -24,7 +24,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *renderViewWidth;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
-@property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 @property (assign, nonatomic) BOOL split;
 
 @end
@@ -102,11 +101,6 @@
     func(targert, action, sender);
 }
 
-- (void)setTitle:(NSString *)title
-{
-    [super setTitle:title];
-    self.titleTextField.text = title;
-}
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
@@ -129,12 +123,6 @@
     if (!ret) {
         showToast(@"Error");
     }
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    return YES;
 }
 
 - (void)toggleSplit
@@ -208,31 +196,6 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    if (kDevicePad) {
-        return;
-    }
-    if ([Configure sharedConfigure].landscapeEdit) {
-        [AppDelegate setAllowRotation:YES];
-        [[UIDevice currentDevice] setValue:[NSNumber numberWithInt:UIInterfaceOrientationLandscapeRight] forKey:@"orientation"];
-        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-    }
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [self.titleTextField resignFirstResponder];
-    [self.editView resignFirstResponder];
-    if (kDevicePad) {
-        return;
-    }
-    [self saveFile];
-    [AppDelegate setAllowRotation:NO];
-    [[UIDevice currentDevice] setValue:[NSNumber numberWithInt:UIInterfaceOrientationPortrait] forKey:@"orientation"];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-}
-
 - (void)loadFile
 {
     [self saveFile];
@@ -254,9 +217,6 @@
             self.editView.text = oldText;
             self.editView.editable = YES;
             self.title = item.displayName;
-            if (item.shouldTitle) {
-                [self.titleTextField becomeFirstResponder];
-            }
         });
     });
     

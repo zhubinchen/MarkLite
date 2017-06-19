@@ -27,6 +27,7 @@
 #define ZHLS(key) \
 [[NSBundle mainBundle] localizedStringForKey:(key) value:@"" table:nil]
 
+
 @interface NSObject (ZHUtils)
 
 @end
@@ -374,4 +375,8 @@ static inline NSString* stringFromFloat(float num){
 
 static inline NSString *documentPath(){
     return NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+}
+
+static inline UIFont *fontOfSize(CGFloat size){
+    return [UIFont fontWithName:@"KaiTi_GB2312" size:size + 2];
 }

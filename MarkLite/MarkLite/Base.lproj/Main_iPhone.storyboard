@@ -23,10 +23,7 @@
                     </view>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="leftViewWidth">
-                            <real key="value" value="250"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="rightViewWidth">
-                            <real key="value" value="100"/>
+                            <real key="value" value="300"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="number" keyPath="leftViewPresentationStyle">
                             <integer key="value" value="1"/>

@@ -13,7 +13,7 @@
 #import <StoreKit/StoreKit.h>
 #import "FontViewController.h"
 
-@interface MenuViewController ()<SKPaymentTransactionObserver,SKProductsRequestDelegate>
+@interface MenuViewController ()<SKPaymentTransactionObserver,SKProductsRequestDelegate,UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,weak) IBOutlet UITableView *tableView;
 @end
 
@@ -28,23 +28,12 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     
-    items = @[@"",@"AssistKeyboard",@"UseLocalImage",@"Font",@"RateIt",@"Feedback",@"Donate"];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-}
-
-- (IBAction)back:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    items = @[
+              @[@"UseCloud",@"UseLocalImage",@"AssistKeyboard",@"Font"],
+              @[@"RateIt",@"Feedback"],
+              @[@"Donate"]
+              ];
+    self.title = @"设置";
 }
 
 - (void)switchKeyboard:(UISwitch*)s{
@@ -70,19 +59,27 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return items.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [items count];
+    return [items[section] count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = nil;
     
-    NSString *title = items[indexPath.row];
+    NSString *title = items[indexPath.section][indexPath.row];
     
-    
+    if ([title isEqualToString:@"UseCloud"]) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@""];
+        UISwitch *s = [[UISwitch alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 60, 7, 0, 0)];
+        s.tintColor = kPrimaryColor;
+        s.onTintColor = kPrimaryColor;
+        s.on = [Configure sharedConfigure].keyboardAssist;
+        [s addTarget:self action:@selector(switchKeyboard:) forControlEvents:UIControlEventValueChanged];
+        [cell addSubview:s];
+    }
     if ([title isEqualToString:@"AssistKeyboard"]) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@""];
         UISwitch *s = [[UISwitch alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 60, 7, 0, 0)];
@@ -105,9 +102,7 @@
 
     cell.textLabel.text = ZHLS(title);
     cell.textLabel.textColor = kPrimaryColor;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    SeparatorLine *line = [[SeparatorLine alloc]initWithStart:CGPointMake(16, 49) width:self.view.bounds.size.width - 21 color:kPrimaryColor];
-    [cell addSubview:line];
+    cell.textLabel.font = fontOfSize(16);
     return cell;
 }
 
@@ -116,9 +111,14 @@
     return 50;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 0.01;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 40;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -130,7 +130,7 @@
                           @"RateIt":@"rate",
                           @"Feedback":@"feedback",
                           @"Donate":@"donate"};
-    NSString *key = items[indexPath.row];
+    NSString *key = items[indexPath.section][indexPath.row];
     
     if ([dic[key] length] > 0) {
         SEL selector = NSSelectorFromString(dic[key]);

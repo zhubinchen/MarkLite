@@ -15,7 +15,7 @@
 {
     _item = item;
     _nameLabel.text = item.displayName;
-
+    _nameLabel.font = fontOfSize(16);
     if (item.type == FileTypeFolder) {
         _sizeLabel.text = [NSString stringWithFormat:@"%ld",item.items.count];
         if (item.deep) {

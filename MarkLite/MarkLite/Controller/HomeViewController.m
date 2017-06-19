@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"MarkLite";
+    self.title = @"全部文件";
     self.root = [Item localRoot];
 }
 

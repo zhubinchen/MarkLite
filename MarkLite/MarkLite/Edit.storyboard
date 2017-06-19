@@ -9,6 +9,22 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="OUD-7g-tWW">
+            <objects>
+                <navigationController id="smF-yB-Os9" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="c0g-uK-JeS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="CPR-Rc-22a" kind="relationship" relationship="rootViewController" id="TYB-SO-g4h"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DSD-qb-2Ja" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3974" y="-4614"/>
+        </scene>
         <!--编辑-->
         <scene sceneID="9M9-gu-ooc">
             <objects>
@@ -22,13 +38,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nT4-aH-5Up">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="75K-52-mFw">
-                                        <rect key="frame" x="0.0" y="0.0" width="750" height="647"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="750" height="603"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WgS-cu-Ayh" customClass="EditView">
-                                                <rect key="frame" x="15" y="15" width="300" height="617"/>
+                                                <rect key="frame" x="15" y="15" width="300" height="573"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="300" id="fiy-fl-CXv"/>
@@ -40,7 +56,7 @@
                                                 </connections>
                                             </textView>
                                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EOb-Dw-yuI" customClass="RenderView">
-                                                <rect key="frame" x="345" y="15" width="390" height="617"/>
+                                                <rect key="frame" x="345" y="15" width="390" height="573"/>
                                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </webView>
                                         </subviews>
@@ -81,17 +97,6 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="1o8-Du-rmi">
                         <nil key="title"/>
-                        <barButtonItem key="backBarButtonItem" title=" " id="SYk-7k-53M"/>
-                        <textField key="titleView" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" id="uO5-4y-QFB">
-                            <rect key="frame" x="112.5" y="7" width="150" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            <textInputTraits key="textInputTraits"/>
-                            <connections>
-                                <outlet property="delegate" destination="CPR-Rc-22a" id="Lfs-rA-uLr"/>
-                            </connections>
-                        </textField>
                     </navigationItem>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -101,7 +106,6 @@
                         <outlet property="editViewWidth" destination="fiy-fl-CXv" id="Vv6-ov-ajB"/>
                         <outlet property="renderView" destination="EOb-Dw-yuI" id="END-8b-eTz"/>
                         <outlet property="scrollView" destination="nT4-aH-5Up" id="dHP-1m-4c7"/>
-                        <outlet property="titleTextField" destination="uO5-4y-QFB" id="BV8-cd-gnw"/>
                         <outlet property="view" destination="eCS-3y-9qx" id="38Y-iP-Fys"/>
                     </connections>
                 </viewController>

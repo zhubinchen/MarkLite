@@ -61,6 +61,8 @@
 		07D9D1F31D238C4900725A94 /* ImageUploadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 07D9D1F21D238C4900725A94 /* ImageUploadingView.m */; };
 		07D9D1F51D238C6300725A94 /* ImageUploadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07D9D1F41D238C6300725A94 /* ImageUploadingView.xib */; };
 		07DB045F1DEF121300B30A4D /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07DB045E1DEF121300B30A4D /* HomeViewController.m */; };
+		07E1C3571EF76CB100EB8F05 /* KaiTi.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07E1C3561EF76BCC00EB8F05 /* KaiTi.ttf */; };
+		07E1C3591EF7730200EB8F05 /* KaiTi_GB2312.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07E1C3581EF7730200EB8F05 /* KaiTi_GB2312.ttf */; };
 		07F90CEC1D20F67900DF5194 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 07F90CEA1D20F67900DF5194 /* ImageViewController.m */; };
 		07F90CED1D20F67900DF5194 /* ImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07F90CEB1D20F67900DF5194 /* ImageViewController.xib */; };
 		07F90CEF1D20F89900DF5194 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07F90CEE1D20F89900DF5194 /* StoreKit.framework */; };
@@ -175,6 +177,8 @@
 		07D9D1F41D238C6300725A94 /* ImageUploadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageUploadingView.xib; sourceTree = "<group>"; };
 		07DB045D1DEF121300B30A4D /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
 		07DB045E1DEF121300B30A4D /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		07E1C3561EF76BCC00EB8F05 /* KaiTi.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KaiTi.ttf; sourceTree = "<group>"; };
+		07E1C3581EF7730200EB8F05 /* KaiTi_GB2312.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KaiTi_GB2312.ttf; sourceTree = "<group>"; };
 		07F90CE91D20F67900DF5194 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
 		07F90CEA1D20F67900DF5194 /* ImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageViewController.m; sourceTree = "<group>"; };
 		07F90CEB1D20F67900DF5194 /* ImageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageViewController.xib; sourceTree = "<group>"; };
@@ -348,6 +352,8 @@
 		07B92E121D1D966B00A4127E /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				07E1C3561EF76BCC00EB8F05 /* KaiTi.ttf */,
+				07E1C3581EF7730200EB8F05 /* KaiTi_GB2312.ttf */,
 				07B92E1D1D1D966B00A4127E /* icon.png */,
 				078FFC741E214CDA00DD724A /* StyleResource.zip */,
 				07B92E271D1D966B00A4127E /* MarkLite.zip */,
@@ -510,10 +516,12 @@
 				0729C9071EF29389001C755E /* Root.storyboard in Resources */,
 				07F90CED1D20F67900DF5194 /* ImageViewController.xib in Resources */,
 				07CFA4091D2B7A6E00F7DDDA /* Localizable.strings in Resources */,
+				07E1C3571EF76CB100EB8F05 /* KaiTi.ttf in Resources */,
 				07B92DDA1D1D960F00A4127E /* Assets.xcassets in Resources */,
 				07B92E991D1D966B00A4127E /* icon.png in Resources */,
 				07D9D1F51D238C6300725A94 /* ImageUploadingView.xib in Resources */,
 				0777D3381D2522E20026E0EA /* StyleViewController.xib in Resources */,
+				07E1C3591EF7730200EB8F05 /* KaiTi_GB2312.ttf in Resources */,
 				07B92ED71D1D969C00A4127E /* Main_iPhone.storyboard in Resources */,
 				078FFC7A1E21F7A000DD724A /* HighlightViewController.xib in Resources */,
 			);

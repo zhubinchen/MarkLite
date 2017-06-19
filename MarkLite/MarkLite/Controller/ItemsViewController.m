@@ -17,11 +17,11 @@
 @property (nonatomic,weak) IBOutlet NSLayoutConstraint *toolBarBottom;
 @property (nonatomic,weak) IBOutlet NSLayoutConstraint *createViewTop;
 @property (nonatomic,weak) IBOutlet UITableView *itemTableView;
-@property (nonatomic,weak) IBOutlet UITextField *titleTextField;
 @property (nonatomic,weak) IBOutlet UIView *toolBar;
 @property (nonatomic,weak) IBOutlet UIView *createView;
 @property (nonatomic,weak) IBOutlet UIButton *creatNoteButton;
 @property (nonatomic,weak) IBOutlet UIButton *createFolderButton;
+@property (nonatomic,weak) IBOutlet UIButton *mutiChooseButton;
 @property (nonatomic,weak) IBOutlet UILabel *emptyTipLabel;;
 
 @end
@@ -39,13 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (self.root) {
-        self.title = self.root.displayName;
-    }else{
-        self.title = @"Documents";
-        self.titleTextField.enabled = NO;
-    }
-    self.titleTextField.textColor = kPrimaryColor;
+    self.title = self.root.displayName;
     
     if (kDevicePad) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRename) name:@"ItemNameChaned" object:nil];
@@ -72,48 +66,44 @@
     line = [[SeparatorLine alloc]initWithStart:CGPointMake(10, 0) width:self.view.bounds.size.width - 20 color:kPrimaryColor];
     line.tag = 1001;
     [self.createFolderButton addSubview:line];
+    line = [self.mutiChooseButton viewWithTag:1001];
+    [line removeFromSuperview];
+    line = [[SeparatorLine alloc]initWithStart:CGPointMake(10, 0) width:self.view.bounds.size.width - 20 color:kPrimaryColor];
+    line.tag = 1001;
+    [self.mutiChooseButton addSubview:line];
     
     [self.creatNoteButton setTitle:ZHLS(@"CreateNote") forState:UIControlStateNormal];
     [self.createFolderButton setTitle:ZHLS(@"CreateFolder") forState:UIControlStateNormal];
+    [self.mutiChooseButton setTitle:@"批量操作" forState:UIControlStateNormal];
     
     [self.creatNoteButton setTitleColor:kPrimaryColor forState:UIControlStateNormal];
     [self.createFolderButton setTitleColor:kPrimaryColor forState:UIControlStateNormal];
+    [self.mutiChooseButton setTitleColor:kPrimaryColor forState:UIControlStateNormal];
 }
 
-- (void)setTitle:(NSString *)title
-{
-    [super setTitle:title];
-    self.titleTextField.text = title;
-}
 
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    self.root.shouldTitle = NO;
-    if ([textField.text isEqualToString:self.root.displayName]) {
-        return;
-    }
-    if (textField.text.length > 15) {
-        showToast(ZHLS(@"NameTooLength"));
-        return;
-    }
-    if ([textField.text containsString:@"/"]) {
-        showToast(ZHLS(@"InvalidName"));
-        return;
-    }
-    BOOL ret = [self.root rename:textField.text];
-    if (!ret) {
-        showToast(@"Error");
-    }
-    if (kDevicePad) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ItemNameChaned" object:nil];
-    }
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [textField resignFirstResponder];
-    return YES;
-}
+//- (void)textFieldDidEndEditing:(UITextField *)textField
+//{
+//    self.root.shouldTitle = NO;
+//    if ([textField.text isEqualToString:self.root.displayName]) {
+//        return;
+//    }
+//    if (textField.text.length > 15) {
+//        showToast(ZHLS(@"NameTooLength"));
+//        return;
+//    }
+//    if ([textField.text containsString:@"/"]) {
+//        showToast(ZHLS(@"InvalidName"));
+//        return;
+//    }
+//    BOOL ret = [self.root rename:textField.text];
+//    if (!ret) {
+//        showToast(@"Error");
+//    }
+//    if (kDevicePad) {
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"ItemNameChaned" object:nil];
+//    }
+//}
 
 - (void)reload
 {
@@ -123,7 +113,7 @@
     } else {
         [self loadItems];
         
-        UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"select"] style:UIBarButtonItemStylePlain target:self action:@selector(toogleEditing)];
+        UIBarButtonItem *edit = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"nav_edit"] style:UIBarButtonItemStylePlain target:self action:@selector(newItem)];
         self.navigationItem.rightBarButtonItem = edit;
         if (dataArray.count == 0) {
             editing = NO;
@@ -134,9 +124,6 @@
         }
     }
     self.emptyTipLabel.hidden = dataArray.count > 0;
-    if (_root.shouldTitle) {
-        [self.titleTextField becomeFirstResponder];
-    }
 }
 
 - (void)setupNavBarItemWithButton:(NSArray*)buttons
@@ -183,7 +170,7 @@
         [control addTarget:self action:@selector(newItem) forControlEvents:UIControlEventTouchDown];
         [self.view insertSubview:control belowSubview:self.createView];
     }else{
-        self.createViewTop.constant = -88;
+        self.createViewTop.constant = -132;
         [control removeFromSuperview];
         control = nil;
     }
@@ -467,23 +454,11 @@
     }
     if (next.type == FileTypeText) {
         [Configure sharedConfigure].currentItem = next;
-        [self performSegueWithIdentifier:@"edit" sender:self];
+        if (kDevicePhone) {
+            [self performSegueWithIdentifier:@"edit" sender:self];
+        }
     }else{
-        NSString *name = kDevicePhone ? @"Main_iPhone" : @"Main_iPad";
-        ItemsViewController *vc = [[UIStoryboard storyboardWithName:name bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"item_list"];
-        vc.root = next;
-        vc.chooseFolder = self.chooseFolder;
-        vc.didChooseFolder = self.didChooseFolder;
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-}
-
-- (void)performSegueWithIdentifier:(NSString *)identifier sender:(id)sender
-{
-    if (kDevicePhone) {
-        [super performSegueWithIdentifier:identifier sender:sender];
-    }else{
-        
+        [self performSegueWithIdentifier:@"next" sender:self];
     }
 }
 
@@ -497,6 +472,8 @@
     if (next.type == FileTypeFolder) {
         ItemsViewController *vc = segue.destinationViewController;
         vc.root = next;
+        vc.chooseFolder = self.chooseFolder;
+        vc.didChooseFolder = self.didChooseFolder;
     }
 }
 

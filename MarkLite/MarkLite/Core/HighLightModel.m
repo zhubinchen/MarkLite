@@ -26,20 +26,20 @@
 - (NSDictionary *)attribute
 {
     CGFloat size = [Configure sharedConfigure].fontSize;
-    UIFont *font = [UIFont fontWithName:[Configure sharedConfigure].fontName size:size];
+    UIFont *font = fontOfSize(size);
     if (_italic) {
         CGAffineTransform matrix = CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
 
-        UIFontDescriptor *desc = [UIFontDescriptor fontDescriptorWithName:[Configure sharedConfigure].fontName matrix :matrix];
+        UIFontDescriptor *desc = [UIFontDescriptor fontDescriptorWithName:@"KaiTi_GB2312" matrix :matrix];
         font = [UIFont fontWithDescriptor:desc size:size];
     }
     if (_strong) {
-        UIFontDescriptor *desc = [UIFontDescriptor fontDescriptorWithName:[Configure sharedConfigure].fontName size:size];
+        UIFontDescriptor *desc = [UIFontDescriptor fontDescriptorWithName:@"KaiTi_GB2312" size:size];
         desc = [desc fontDescriptorWithSymbolicTraits:UIFontDescriptorTraitBold];
         font = [UIFont fontWithDescriptor:desc size:size];
     }
     if (font == nil) {
-        font = [UIFont systemFontOfSize:size];
+        font = fontOfSize(size);
     }
     return @{
              NSFontAttributeName : font,

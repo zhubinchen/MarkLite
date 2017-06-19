@@ -8,11 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class ZBCKeyBoard;
-
 @interface EditView : UITextView
-
-@property (nonatomic,strong) ZBCKeyBoard *keyboard;
 
 @property (nonatomic,copy) void(^textChanged)(NSString*);
 
