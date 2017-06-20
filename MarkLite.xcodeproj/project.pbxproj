@@ -1,0 +1,388 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		07B7C1BB1EF913A50027B2FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7C1BA1EF913A50027B2FC /* AppDelegate.swift */; };
+		07B7C1BD1EF913A50027B2FC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7C1BC1EF913A50027B2FC /* ViewController.swift */; };
+		07B7C1C01EF913A50027B2FC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1BE1EF913A50027B2FC /* Main.storyboard */; };
+		07B7C1C21EF913A50027B2FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1C11EF913A50027B2FC /* Assets.xcassets */; };
+		07B7C1C51EF913A50027B2FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1C31EF913A50027B2FC /* LaunchScreen.storyboard */; };
+		3A63F46FBE6505D22E4425F7 /* Pods_MarkLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C052F2782AE8AAE804B89C9 /* Pods_MarkLite.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		07B7C1B71EF913A50027B2FC /* MarkLite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkLite.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		07B7C1BA1EF913A50027B2FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		07B7C1BC1EF913A50027B2FC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		07B7C1BF1EF913A50027B2FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		07B7C1C11EF913A50027B2FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		07B7C1C41EF913A50027B2FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		07B7C1C61EF913A50027B2FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1BCD713C28020F7BA4F7C30E /* Pods-MarkLite.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarkLite.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MarkLite/Pods-MarkLite.debug.xcconfig"; sourceTree = "<group>"; };
+		3C052F2782AE8AAE804B89C9 /* Pods_MarkLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarkLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		77E8D2E9C4DDB0C2BA1F87C2 /* Pods-MarkLite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarkLite.release.xcconfig"; path = "Pods/Target Support Files/Pods-MarkLite/Pods-MarkLite.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		07B7C1B41EF913A50027B2FC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A63F46FBE6505D22E4425F7 /* Pods_MarkLite.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		07B7C1AE1EF913A50027B2FC = {
+			isa = PBXGroup;
+			children = (
+				07B7C1B91EF913A50027B2FC /* MarkLite */,
+				07B7C1B81EF913A50027B2FC /* Products */,
+				8768370E47A5D6A656122DF7 /* Pods */,
+				A139CD330A9EB59EC20B5F3F /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		07B7C1B81EF913A50027B2FC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				07B7C1B71EF913A50027B2FC /* MarkLite.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		07B7C1B91EF913A50027B2FC /* MarkLite */ = {
+			isa = PBXGroup;
+			children = (
+				07B7C1BA1EF913A50027B2FC /* AppDelegate.swift */,
+				07B7C1BC1EF913A50027B2FC /* ViewController.swift */,
+				07B7C1BE1EF913A50027B2FC /* Main.storyboard */,
+				07B7C1C11EF913A50027B2FC /* Assets.xcassets */,
+				07B7C1C31EF913A50027B2FC /* LaunchScreen.storyboard */,
+				07B7C1C61EF913A50027B2FC /* Info.plist */,
+			);
+			path = MarkLite;
+			sourceTree = "<group>";
+		};
+		8768370E47A5D6A656122DF7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1BCD713C28020F7BA4F7C30E /* Pods-MarkLite.debug.xcconfig */,
+				77E8D2E9C4DDB0C2BA1F87C2 /* Pods-MarkLite.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		A139CD330A9EB59EC20B5F3F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3C052F2782AE8AAE804B89C9 /* Pods_MarkLite.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		07B7C1B61EF913A50027B2FC /* MarkLite */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 07B7C1C91EF913A50027B2FC /* Build configuration list for PBXNativeTarget "MarkLite" */;
+			buildPhases = (
+				D28D25D2886971E72418E347 /* [CP] Check Pods Manifest.lock */,
+				07B7C1B31EF913A50027B2FC /* Sources */,
+				07B7C1B41EF913A50027B2FC /* Frameworks */,
+				07B7C1B51EF913A50027B2FC /* Resources */,
+				FF70E780CC0C16A9C430B32B /* [CP] Embed Pods Frameworks */,
+				5A61CF44F5AFCD3DA06D6DB0 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MarkLite;
+			productName = MarkLite;
+			productReference = 07B7C1B71EF913A50027B2FC /* MarkLite.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		07B7C1AF1EF913A50027B2FC /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = zhubch;
+				TargetAttributes = {
+					07B7C1B61EF913A50027B2FC = {
+						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = HX6HU45L64;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 07B7C1B21EF913A50027B2FC /* Build configuration list for PBXProject "MarkLite" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 07B7C1AE1EF913A50027B2FC;
+			productRefGroup = 07B7C1B81EF913A50027B2FC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				07B7C1B61EF913A50027B2FC /* MarkLite */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		07B7C1B51EF913A50027B2FC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07B7C1C51EF913A50027B2FC /* LaunchScreen.storyboard in Resources */,
+				07B7C1C21EF913A50027B2FC /* Assets.xcassets in Resources */,
+				07B7C1C01EF913A50027B2FC /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5A61CF44F5AFCD3DA06D6DB0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MarkLite/Pods-MarkLite-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D28D25D2886971E72418E347 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FF70E780CC0C16A9C430B32B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MarkLite/Pods-MarkLite-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		07B7C1B31EF913A50027B2FC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07B7C1BD1EF913A50027B2FC /* ViewController.swift in Sources */,
+				07B7C1BB1EF913A50027B2FC /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		07B7C1BE1EF913A50027B2FC /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07B7C1BF1EF913A50027B2FC /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		07B7C1C31EF913A50027B2FC /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				07B7C1C41EF913A50027B2FC /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		07B7C1C71EF913A50027B2FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		07B7C1C81EF913A50027B2FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		07B7C1CA1EF913A50027B2FC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1BCD713C28020F7BA4F7C30E /* Pods-MarkLite.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HX6HU45L64;
+				INFOPLIST_FILE = MarkLite/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhubch.MarkLite;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		07B7C1CB1EF913A50027B2FC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 77E8D2E9C4DDB0C2BA1F87C2 /* Pods-MarkLite.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HX6HU45L64;
+				INFOPLIST_FILE = MarkLite/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhubch.MarkLite;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		07B7C1B21EF913A50027B2FC /* Build configuration list for PBXProject "MarkLite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07B7C1C71EF913A50027B2FC /* Debug */,
+				07B7C1C81EF913A50027B2FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		07B7C1C91EF913A50027B2FC /* Build configuration list for PBXNativeTarget "MarkLite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07B7C1CA1EF913A50027B2FC /* Debug */,
+				07B7C1CB1EF913A50027B2FC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 07B7C1AF1EF913A50027B2FC /* Project object */;
+}
