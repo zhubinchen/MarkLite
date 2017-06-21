@@ -7,22 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		076AF2F71EFA437100DCF6EF /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076AF2F61EFA437100DCF6EF /* Utils.swift */; };
 		07B7C1BB1EF913A50027B2FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7C1BA1EF913A50027B2FC /* AppDelegate.swift */; };
-		07B7C1BD1EF913A50027B2FC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7C1BC1EF913A50027B2FC /* ViewController.swift */; };
-		07B7C1C01EF913A50027B2FC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1BE1EF913A50027B2FC /* Main.storyboard */; };
 		07B7C1C21EF913A50027B2FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1C11EF913A50027B2FC /* Assets.xcassets */; };
-		07B7C1C51EF913A50027B2FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1C31EF913A50027B2FC /* LaunchScreen.storyboard */; };
+		07B7C1F11EF926280027B2FC /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7C1F01EF926280027B2FC /* File.swift */; };
+		07B7C1F91EF926EA0027B2FC /* Edit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1F31EF926EA0027B2FC /* Edit.storyboard */; };
+		07B7C1FA1EF926EA0027B2FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1F41EF926EA0027B2FC /* LaunchScreen.storyboard */; };
+		07B7C1FB1EF926EA0027B2FC /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1F51EF926EA0027B2FC /* Main_iPad.storyboard */; };
+		07B7C1FC1EF926EA0027B2FC /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1F61EF926EA0027B2FC /* Main_iPhone.storyboard */; };
+		07B7C1FD1EF926EA0027B2FC /* Menu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1F71EF926EA0027B2FC /* Menu.storyboard */; };
+		07B7C1FE1EF926EA0027B2FC /* Root.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1F81EF926EA0027B2FC /* Root.storyboard */; };
+		07B7C2011EF927C10027B2FC /* PathUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7C2001EF927C10027B2FC /* PathUtils.swift */; };
 		3A63F46FBE6505D22E4425F7 /* Pods_MarkLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C052F2782AE8AAE804B89C9 /* Pods_MarkLite.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		076AF2F61EFA437100DCF6EF /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		07B7C1B71EF913A50027B2FC /* MarkLite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkLite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07B7C1BA1EF913A50027B2FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		07B7C1BC1EF913A50027B2FC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		07B7C1BF1EF913A50027B2FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		07B7C1C11EF913A50027B2FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		07B7C1C41EF913A50027B2FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		07B7C1C61EF913A50027B2FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07B7C1F01EF926280027B2FC /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		07B7C1F31EF926EA0027B2FC /* Edit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Edit.storyboard; sourceTree = "<group>"; };
+		07B7C1F41EF926EA0027B2FC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		07B7C1F51EF926EA0027B2FC /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPad.storyboard; sourceTree = "<group>"; };
+		07B7C1F61EF926EA0027B2FC /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
+		07B7C1F71EF926EA0027B2FC /* Menu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Menu.storyboard; sourceTree = "<group>"; };
+		07B7C1F81EF926EA0027B2FC /* Root.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Root.storyboard; sourceTree = "<group>"; };
+		07B7C2001EF927C10027B2FC /* PathUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathUtils.swift; sourceTree = "<group>"; };
 		1BCD713C28020F7BA4F7C30E /* Pods-MarkLite.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarkLite.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MarkLite/Pods-MarkLite.debug.xcconfig"; sourceTree = "<group>"; };
 		3C052F2782AE8AAE804B89C9 /* Pods_MarkLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarkLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		77E8D2E9C4DDB0C2BA1F87C2 /* Pods-MarkLite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarkLite.release.xcconfig"; path = "Pods/Target Support Files/Pods-MarkLite/Pods-MarkLite.release.xcconfig"; sourceTree = "<group>"; };
@@ -62,13 +74,67 @@
 			isa = PBXGroup;
 			children = (
 				07B7C1BA1EF913A50027B2FC /* AppDelegate.swift */,
-				07B7C1BC1EF913A50027B2FC /* ViewController.swift */,
-				07B7C1BE1EF913A50027B2FC /* Main.storyboard */,
+				07B7C1FF1EF927070027B2FC /* Core */,
+				07B7C1EC1EF926180027B2FC /* Model */,
+				07B7C1ED1EF926180027B2FC /* Utils */,
+				07B7C1EE1EF926180027B2FC /* View */,
+				07B7C1EF1EF926180027B2FC /* ViewController */,
+				07B7C1F21EF926EA0027B2FC /* StoryBoard */,
 				07B7C1C11EF913A50027B2FC /* Assets.xcassets */,
-				07B7C1C31EF913A50027B2FC /* LaunchScreen.storyboard */,
 				07B7C1C61EF913A50027B2FC /* Info.plist */,
 			);
 			path = MarkLite;
+			sourceTree = "<group>";
+		};
+		07B7C1EC1EF926180027B2FC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				07B7C1F01EF926280027B2FC /* File.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		07B7C1ED1EF926180027B2FC /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				07B7C2001EF927C10027B2FC /* PathUtils.swift */,
+				076AF2F61EFA437100DCF6EF /* Utils.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		07B7C1EE1EF926180027B2FC /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		07B7C1EF1EF926180027B2FC /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		07B7C1F21EF926EA0027B2FC /* StoryBoard */ = {
+			isa = PBXGroup;
+			children = (
+				07B7C1F31EF926EA0027B2FC /* Edit.storyboard */,
+				07B7C1F41EF926EA0027B2FC /* LaunchScreen.storyboard */,
+				07B7C1F51EF926EA0027B2FC /* Main_iPad.storyboard */,
+				07B7C1F61EF926EA0027B2FC /* Main_iPhone.storyboard */,
+				07B7C1F71EF926EA0027B2FC /* Menu.storyboard */,
+				07B7C1F81EF926EA0027B2FC /* Root.storyboard */,
+			);
+			path = StoryBoard;
+			sourceTree = "<group>";
+		};
+		07B7C1FF1EF927070027B2FC /* Core */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 		8768370E47A5D6A656122DF7 /* Pods */ = {
@@ -151,9 +217,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07B7C1C51EF913A50027B2FC /* LaunchScreen.storyboard in Resources */,
+				07B7C1FA1EF926EA0027B2FC /* LaunchScreen.storyboard in Resources */,
+				07B7C1FB1EF926EA0027B2FC /* Main_iPad.storyboard in Resources */,
+				07B7C1FC1EF926EA0027B2FC /* Main_iPhone.storyboard in Resources */,
+				07B7C1FD1EF926EA0027B2FC /* Menu.storyboard in Resources */,
+				07B7C1FE1EF926EA0027B2FC /* Root.storyboard in Resources */,
+				07B7C1F91EF926EA0027B2FC /* Edit.storyboard in Resources */,
 				07B7C1C21EF913A50027B2FC /* Assets.xcassets in Resources */,
-				07B7C1C01EF913A50027B2FC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,31 +282,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07B7C1BD1EF913A50027B2FC /* ViewController.swift in Sources */,
+				07B7C2011EF927C10027B2FC /* PathUtils.swift in Sources */,
+				07B7C1F11EF926280027B2FC /* File.swift in Sources */,
 				07B7C1BB1EF913A50027B2FC /* AppDelegate.swift in Sources */,
+				076AF2F71EFA437100DCF6EF /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		07B7C1BE1EF913A50027B2FC /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				07B7C1BF1EF913A50027B2FC /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		07B7C1C31EF913A50027B2FC /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				07B7C1C41EF913A50027B2FC /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		07B7C1C71EF913A50027B2FC /* Debug */ = {
@@ -381,6 +434,7 @@
 				07B7C1CB1EF913A50027B2FC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

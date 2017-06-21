@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="CPR-Rc-22a">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="OUD-7g-tWW">
+            <objects>
+                <navigationController id="smF-yB-Os9" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="c0g-uK-JeS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="CPR-Rc-22a" kind="relationship" relationship="rootViewController" id="TYB-SO-g4h"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DSD-qb-2Ja" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3974" y="-4614"/>
+        </scene>
+        <!--编辑-->
+        <scene sceneID="9M9-gu-ooc">
+            <objects>
+                <viewController title="编辑" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="CPR-Rc-22a" customClass="EditViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="TIu-dC-VAg"/>
+                        <viewControllerLayoutGuide type="bottom" id="ovg-w3-4Uh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eCS-3y-9qx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nT4-aH-5Up">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="75K-52-mFw">
+                                        <rect key="frame" x="0.0" y="0.0" width="750" height="603"/>
+                                        <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WgS-cu-Ayh" customClass="EditView">
+                                                <rect key="frame" x="0.0" y="0.0" width="300" height="603"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="300" id="fiy-fl-CXv"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="CPR-Rc-22a" id="T7a-WU-37o"/>
+                                                </connections>
+                                            </textView>
+                                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EOb-Dw-yuI" customClass="RenderView">
+                                                <rect key="frame" x="300" y="0.0" width="450" height="603"/>
+                                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </webView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="EOb-Dw-yuI" firstAttribute="top" secondItem="75K-52-mFw" secondAttribute="top" id="1qh-Cf-jrP"/>
+                                            <constraint firstAttribute="trailing" secondItem="EOb-Dw-yuI" secondAttribute="trailing" id="Abi-Tt-kCC"/>
+                                            <constraint firstAttribute="bottom" secondItem="EOb-Dw-yuI" secondAttribute="bottom" id="O1h-qw-BcC"/>
+                                            <constraint firstItem="EOb-Dw-yuI" firstAttribute="leading" secondItem="WgS-cu-Ayh" secondAttribute="trailing" id="QIH-kG-FIr"/>
+                                            <constraint firstItem="WgS-cu-Ayh" firstAttribute="top" secondItem="75K-52-mFw" secondAttribute="top" id="WMo-Bt-950"/>
+                                            <constraint firstAttribute="bottom" secondItem="WgS-cu-Ayh" secondAttribute="bottom" id="XEk-Ry-PiK"/>
+                                            <constraint firstItem="WgS-cu-Ayh" firstAttribute="leading" secondItem="75K-52-mFw" secondAttribute="leading" id="suZ-Kc-R5Y"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="75K-52-mFw" firstAttribute="width" secondItem="nT4-aH-5Up" secondAttribute="width" multiplier="2" id="3tu-F0-DEe"/>
+                                    <constraint firstAttribute="trailing" secondItem="75K-52-mFw" secondAttribute="trailing" id="RcX-aS-v8a"/>
+                                    <constraint firstItem="75K-52-mFw" firstAttribute="height" secondItem="nT4-aH-5Up" secondAttribute="height" id="iH0-lR-qIn"/>
+                                    <constraint firstItem="75K-52-mFw" firstAttribute="top" secondItem="nT4-aH-5Up" secondAttribute="top" id="iM8-lk-vC4"/>
+                                    <constraint firstItem="75K-52-mFw" firstAttribute="leading" secondItem="nT4-aH-5Up" secondAttribute="leading" id="wsC-md-z9s"/>
+                                    <constraint firstAttribute="bottom" secondItem="75K-52-mFw" secondAttribute="bottom" id="z7D-x4-ceO"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="CPR-Rc-22a" id="8FL-WY-jBy"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ovg-w3-4Uh" firstAttribute="top" secondItem="nT4-aH-5Up" secondAttribute="bottom" id="Bxu-Xz-hMk"/>
+                            <constraint firstItem="nT4-aH-5Up" firstAttribute="top" secondItem="TIu-dC-VAg" secondAttribute="bottom" id="ULK-Aw-NWD"/>
+                            <constraint firstAttribute="trailing" secondItem="nT4-aH-5Up" secondAttribute="trailing" id="XT3-P9-vX1"/>
+                            <constraint firstItem="nT4-aH-5Up" firstAttribute="leading" secondItem="eCS-3y-9qx" secondAttribute="leading" id="x0o-hN-ia2"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="1o8-Du-rmi">
+                        <nil key="title"/>
+                    </navigationItem>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="bottom" destination="Bxu-Xz-hMk" id="NZA-0d-3Eh"/>
+                        <outlet property="contentView" destination="75K-52-mFw" id="QZm-ao-DEN"/>
+                        <outlet property="editView" destination="WgS-cu-Ayh" id="8b3-gX-phE"/>
+                        <outlet property="editViewWidth" destination="fiy-fl-CXv" id="Vv6-ov-ajB"/>
+                        <outlet property="renderView" destination="EOb-Dw-yuI" id="END-8b-eTz"/>
+                        <outlet property="scrollView" destination="nT4-aH-5Up" id="dHP-1m-4c7"/>
+                        <outlet property="view" destination="eCS-3y-9qx" id="38Y-iP-Fys"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e4w-Ao-tL9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3082.4000000000001" y="-4614.2428785607199"/>
+        </scene>
+    </scenes>
+</document>
