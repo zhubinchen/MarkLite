@@ -12,13 +12,13 @@ import EZSwiftExtensions
 
 let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
 
-let localPath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? "") + "MarkLite"
+let localPath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? "") + "/MarkLite"
 
 let cloudPath: String? = {
     guard let ubiquityURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents") else {
         return nil
     }
-    return ubiquityURL.path + "MarkLite"
+    return ubiquityURL.path + "/MarkLite"
 }()
 
 
