@@ -4,18 +4,22 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--Side Menu Navigation Controller-->
         <scene sceneID="dEj-dN-yeT">
             <objects>
-                <navigationController id="k2q-3k-ec8" sceneMemberID="viewController">
+                <navigationController id="k2q-3k-ec8" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Hb4-sU-m0a">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="leftSide" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="vGY-hr-mhh" kind="relationship" relationship="rootViewController" id="4pi-Gt-JFy"/>
                     </connections>
@@ -27,7 +31,7 @@
         <!--设置-->
         <scene sceneID="AmT-Ic-2ck">
             <objects>
-                <viewController title="设置" id="vGY-hr-mhh" customClass="MenuViewController" sceneMemberID="viewController">
+                <viewController title="设置" id="vGY-hr-mhh" customClass="MenuViewController" customModule="MarkLite" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LX5-CP-lAO"/>
                         <viewControllerLayoutGuide type="bottom" id="uff-cy-QGb"/>
@@ -45,10 +49,6 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="500" id="Rrn-wR-bTK"/>
                                         </constraints>
-                                        <connections>
-                                            <outlet property="dataSource" destination="vGY-hr-mhh" id="StI-Bi-eNt"/>
-                                            <outlet property="delegate" destination="vGY-hr-mhh" id="DOH-pc-1mr"/>
-                                        </connections>
                                     </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

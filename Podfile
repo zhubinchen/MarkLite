@@ -7,7 +7,9 @@ target 'MarkLite' do
   pod 'Alamofire'
   pod 'RxSwift'
   pod 'RxCocoa'
-  pod 'EZSwiftExtensions'
+  pod 'EZSwiftExtensions', '~> 1.10'
+  pod 'SideMenu'
+  pod 'Zip', '~> 0.7'
 
   # Pods for MarkLite
 

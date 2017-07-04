@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SideMenu
+import Zip
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,8 +17,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        let file = File(path: localPath)
-        file.createFile(name: "zzzz", type: .folder)
+        let navigationBar = UINavigationBar.appearance()
+        
+        navigationBar.tintColor = primaryColor
+        navigationBar.barTintColor = .white
+        navigationBar.isTranslucent = false
+        
+        let backImage = #imageLiteral(resourceName: "nav_back")
+        
+        navigationBar.backIndicatorImage = backImage
+        navigationBar.backIndicatorTransitionMaskImage = backImage
+
+            let attr: [String: Any] = [
+            NSFontAttributeName: UIFont.font(ofSize: 17),
+            NSForegroundColorAttributeName: primaryColor
+        ]
+        navigationBar.titleTextAttributes = attr
+        
+        SideMenuManager.menuFadeStatusBar = false
+        let srcPath = Bundle.main.url(forResource: "style", withExtension: "zip")
+        let destPath = FileManager.default.urls(for:.documentDirectory, in: .userDomainMask)[0]
+        try! Zip.unzipFile(srcPath!, destination: destPath, overwrite: true, password: nil, progress: nil)
         return true
     }
 

@@ -49,7 +49,7 @@ extension String {
         var newPath = self
         let arr = self.components(separatedBy: ".")
         if arr.count > 1 {
-            newPath = arr[0].pathByAppendingNumber() + arr[1]
+            newPath = arr[0].pathByAppendingNumber() + "." + arr[1]
         } else {
             newPath = arr[0].pathByAppendingNumber()
         }

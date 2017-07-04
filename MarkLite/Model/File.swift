@@ -8,6 +8,8 @@
 
 import UIKit
 import EZSwiftExtensions
+import RxSwift
+import RxCocoa
 
 enum FileType {
     case text
@@ -17,10 +19,23 @@ enum FileType {
     var extensionName: String {
         switch self {
         case .text:
-            return ".md"
+            return "md"
         default:
             return ""
         }
+    }
+}
+
+extension Int64 {
+    var readabelSize: String {
+        if self > 1024*1024 {
+            let size = String(format: "%.2f", Double(self) / 1024.0 / 1024.0)
+            return "\(size) MB"
+        } else if self > 1024{
+            let size = String(format: "%.2f", Double(self) / 1024.0)
+            return "\(size) KB"
+        }
+        return "\(self) B"
     }
 }
 
@@ -31,8 +46,17 @@ class File {
     private(set) var extention: String
     private(set) var type: FileType
     private(set) var path: String
-    private(set) var modifyDate: Date?
-    private(set) var size: Int?
+    private(set) var modifyDate: Date
+    private(set) var size: Int64
+    
+    lazy var text:Variable<String> = {
+        let text = Variable("")
+        guard let string = try? String(contentsOfFile: self.path, encoding: String.Encoding.utf8) else {
+            return text
+        }
+        text.value = string
+        return text
+    }()
     
     var children: [File] {
         return _children
@@ -40,6 +64,7 @@ class File {
     
     fileprivate weak var parent: File?
     fileprivate var _children: [File] = [File]()
+    
     fileprivate var fullName: String {
         return name + extention
     }
@@ -52,11 +77,17 @@ class File {
         self.path = path
         self.name = path.components(separatedBy: "/").last?.components(separatedBy: ".").first ?? ""
         self.extention = path.components(separatedBy: ".").last ?? ""
-        if extention == ".md" {
+        
+        if extention == "md" {
             self.type = .text
         } else {
             self.type = .folder
         }
+    
+        let attr = try? fileManager.attributesOfItem(atPath: path)
+        modifyDate = attr?[FileAttributeKey.modificationDate] as? Date ?? Date()
+        size = attr?[FileAttributeKey.size] as? Int64 ?? 0
+        
         guard let subPaths = try? fileManager.contentsOfDirectory(atPath: path) else {
             return
         }
@@ -74,7 +105,7 @@ class File {
     
     @discardableResult
     func createFile(name: String,type: FileType) -> File?{
-        let path = (self.path + "/" + name + type.extensionName).validPath
+        let path = (self.path + "/" + name + "." + type.extensionName).validPath
         if type == .text {
             fileManager.createFile(atPath: path, contents: nil, attributes: nil)
         } else {
@@ -84,7 +115,7 @@ class File {
         _children.append(file)
         return file
     }
-    
+
     @discardableResult
     func trash() -> Bool {
         try? fileManager.removeItem(atPath: self.path)
