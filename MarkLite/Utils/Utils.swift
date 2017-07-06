@@ -95,37 +95,27 @@ extension UIView {
 
 
 extension Date {
-    public func readableDate() -> String {
+    public func readableDate() -> (String,String) {
         let calendar = Calendar.current
-        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        let time = dateFormatter.string(from: self)
+
         if calendar.isDateInToday(self) {
-            let beforeSecond = Date().timeIntervalSince(self)
-            if beforeSecond >= 3600 { // 1小时前
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "今天 HH:mm"
-                return dateFormatter.string(from: self)
-            } else if beforeSecond >= 60 { // 1分钟前
-                return "\(Int(ceil(beforeSecond / 60))) 分钟前"
-            } else {
-                return "刚刚"
-            }
+            return ("今天",time)
         }
         
         if calendar.isDateInYesterday(self) {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "昨天 HH:mm"
-            return dateFormatter.string(from: self)
+            return ("昨天",time)
         }
         
         if calendar.compare(Date(), to: self, toGranularity: .year) == .orderedSame {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "M月d日 HH:mm"
-            return dateFormatter.string(from: self)
+            dateFormatter.dateFormat = "M月d日"
+            return (dateFormatter.string(from: self),time)
         }
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy年M月d日 HH:mm"
-        return dateFormatter.string(from: self)
+        dateFormatter.dateFormat = "yyyy年M月d日"
+        return (dateFormatter.string(from: self),time)
     }
 }
 

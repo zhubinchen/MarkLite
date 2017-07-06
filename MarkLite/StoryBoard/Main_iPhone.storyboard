@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -30,8 +31,8 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <segue destination="fmw-k1-XUd" kind="custom" identifier="root" customClass="LGSideMenuSegue" id="gnW-aO-Mri"/>
                         <segue destination="xu9-9F-DJz" kind="custom" identifier="left" customClass="LGSideMenuSegue" id="EBW-Wm-sSD"/>
+                        <segue destination="Xbq-eh-f9W" kind="custom" identifier="root" customClass="LGSideMenuSegue" id="XOf-fx-wMf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Owp-jd-5eS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -46,31 +47,15 @@
             </objects>
             <point key="canvasLocation" x="-6688" y="-4062"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="yUp-3Y-3gn">
-            <objects>
-                <navigationController id="fmw-k1-XUd" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="C7D-2p-Vvk">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="Xbq-eh-f9W" kind="relationship" relationship="rootViewController" id="ZSa-OB-NHL"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="jc5-tO-ofz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-5631" y="-4682"/>
-        </scene>
-        <!--Root-->
+        <!--File-->
         <scene sceneID="EUQ-RB-gIA">
             <objects>
-                <viewControllerPlaceholder storyboardName="Root" id="Xbq-eh-f9W" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="File" id="Xbq-eh-f9W" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="5TB-LC-LKm"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j36-PU-bb9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4710" y="-4683"/>
+            <point key="canvasLocation" x="-5734" y="-4684"/>
         </scene>
     </scenes>
 </document>

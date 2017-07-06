@@ -15,6 +15,7 @@ class ConfigureViewController: UIViewController {
         let tableView = UITableView(frame: CGRect(), style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.tableHeaderView = UIView()
         tableView.sectionHeaderHeight = 20
         tableView.sectionFooterHeight = 0.01
         tableView.rowHeight = 40

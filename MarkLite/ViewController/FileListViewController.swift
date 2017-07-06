@@ -18,9 +18,8 @@ class FileListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView! {
         didSet {
-            tableView.rowHeight = 40
-            tableView.sectionFooterHeight = 0.01
-            tableView.sectionHeaderHeight = 20
+            tableView.estimatedRowHeight = 50
+            tableView.rowHeight = 50
             tableView.backgroundColor = UIColor(white: 0.95, alpha: 1)
         }
     }
@@ -32,10 +31,10 @@ class FileListViewController: UIViewController {
         didSet {
             var section = ("",[File]())
             root.children.sorted{$0.0.modifyDate < $0.1.modifyDate}.forEach { (file) in
-                if section.0 == file.modifyDate.readableDate() {
+                if section.0 == file.modifyDate.readableDate().0 {
                     section.1.append(file)
                 } else {
-                    section = (file.modifyDate.readableDate(),[file])
+                    section = (file.modifyDate.readableDate().0,[file])
                     sections.append(section)
                 }
             }
@@ -81,6 +80,14 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return sections[section].0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 35
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.01
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
