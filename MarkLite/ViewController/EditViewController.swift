@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 
 class EditViewController: UIViewController {
+    @IBOutlet weak var bottomSpace: NSLayoutConstraint!
 
     var textVC: TextViewController!
     var webVC: WebViewController!
@@ -28,6 +29,23 @@ class EditViewController: UIViewController {
         super.viewDidLoad()
 
         defaultConfigure.currentFile.asObservable().map{$0?.name ?? ""}.bind(to: rx.title).addDisposableTo(disposeBag)
+        
+        addKeyboardWillHideNotification()
+        addKeyboardWillShowNotification()
+    }
+    
+    override func keyboardWillHideWithFrame(_ frame: CGRect) {
+        bottomSpace.constant = 0
+        UIView.animate(withDuration: 1) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    override func keyboardWillShowWithFrame(_ frame: CGRect) {
+        bottomSpace.constant = frame.h - 40
+        UIView.animate(withDuration: 1) {
+            self.view.layoutIfNeeded()
+        }
     }
     
     @IBAction func showMenu(_ sender: UIBarButtonItem) {

@@ -25,20 +25,20 @@
             </objects>
             <point key="canvasLocation" x="-4055" y="-3851"/>
         </scene>
-        <!--编辑-->
+        <!--Text View Controller-->
         <scene sceneID="9M9-gu-ooc">
             <objects>
-                <viewController title="编辑" automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="CPR-Rc-22a" customClass="TextViewController" customModule="MarkLite" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="CPR-Rc-22a" customClass="TextViewController" customModule="MarkLite" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TIu-dC-VAg"/>
                         <viewControllerLayoutGuide type="bottom" id="ovg-w3-4Uh"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="eCS-3y-9qx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="573"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lId-Dt-n2r">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="563"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lId-Dt-n2r">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="573"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -54,7 +54,7 @@
                         <constraints>
                             <constraint firstItem="d5L-1x-TTM" firstAttribute="leading" secondItem="eCS-3y-9qx" secondAttribute="leading" id="L6Q-qg-8Ri"/>
                             <constraint firstItem="d5L-1x-TTM" firstAttribute="top" secondItem="TIu-dC-VAg" secondAttribute="bottom" id="NSc-AR-6zX"/>
-                            <constraint firstItem="ovg-w3-4Uh" firstAttribute="top" secondItem="lId-Dt-n2r" secondAttribute="bottom" constant="40" id="U4i-qE-vEC"/>
+                            <constraint firstItem="ovg-w3-4Uh" firstAttribute="top" secondItem="lId-Dt-n2r" secondAttribute="bottom" id="U4i-qE-vEC"/>
                             <constraint firstItem="lId-Dt-n2r" firstAttribute="leading" secondItem="eCS-3y-9qx" secondAttribute="leading" id="j5T-KS-ysC"/>
                             <constraint firstItem="lId-Dt-n2r" firstAttribute="top" secondItem="TIu-dC-VAg" secondAttribute="bottom" id="l7q-oa-Kpq"/>
                             <constraint firstAttribute="trailing" secondItem="lId-Dt-n2r" secondAttribute="trailing" id="zwF-44-Fn4"/>
@@ -73,7 +73,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e4w-Ao-tL9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2042" y="-4245"/>
+            <point key="canvasLocation" x="-2042.4000000000001" y="-4245.4272863568222"/>
         </scene>
         <!--Edit View Controller-->
         <scene sceneID="dq8-V3-Wyh">
@@ -88,16 +88,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJa-dk-TN5">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="573"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XJt-c3-kNb">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="573"/>
                                         <connections>
                                             <segue destination="CPR-Rc-22a" kind="embed" id="szb-kD-ibo"/>
                                         </connections>
                                     </containerView>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zns-Dc-Cfg">
-                                        <rect key="frame" x="375" y="0.0" width="375" height="603"/>
+                                        <rect key="frame" x="375" y="0.0" width="375" height="573"/>
                                         <connections>
                                             <segue destination="7Y8-9G-Orv" kind="embed" id="bT1-xP-Sju"/>
                                         </connections>
@@ -106,23 +106,61 @@
                                 <constraints>
                                     <constraint firstItem="XJt-c3-kNb" firstAttribute="top" secondItem="DJa-dk-TN5" secondAttribute="top" id="3SW-Vg-aCY"/>
                                     <constraint firstAttribute="trailing" secondItem="Zns-Dc-Cfg" secondAttribute="trailing" id="5Ry-Wh-O2W"/>
-                                    <constraint firstAttribute="bottom" secondItem="XJt-c3-kNb" secondAttribute="bottom" id="A02-4z-Gxy"/>
                                     <constraint firstItem="XJt-c3-kNb" firstAttribute="width" secondItem="DJa-dk-TN5" secondAttribute="width" id="EoS-k9-WrX"/>
                                     <constraint firstItem="Zns-Dc-Cfg" firstAttribute="width" secondItem="DJa-dk-TN5" secondAttribute="width" id="MyC-M6-QXC"/>
                                     <constraint firstItem="Zns-Dc-Cfg" firstAttribute="top" secondItem="DJa-dk-TN5" secondAttribute="top" id="VRl-px-DPF"/>
+                                    <constraint firstAttribute="bottom" secondItem="XJt-c3-kNb" secondAttribute="bottom" id="VrR-0W-b11"/>
                                     <constraint firstItem="XJt-c3-kNb" firstAttribute="height" secondItem="DJa-dk-TN5" secondAttribute="height" id="c5G-PA-c7E"/>
                                     <constraint firstItem="XJt-c3-kNb" firstAttribute="leading" secondItem="DJa-dk-TN5" secondAttribute="leading" id="d62-ep-ofN"/>
-                                    <constraint firstAttribute="bottom" secondItem="Zns-Dc-Cfg" secondAttribute="bottom" id="fes-bK-c9X"/>
                                     <constraint firstItem="Zns-Dc-Cfg" firstAttribute="leading" secondItem="XJt-c3-kNb" secondAttribute="trailing" id="gSV-Hn-XRX"/>
                                     <constraint firstItem="Zns-Dc-Cfg" firstAttribute="height" secondItem="DJa-dk-TN5" secondAttribute="height" id="uVM-Zd-cVN"/>
                                 </constraints>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oU6-bg-K9Z">
+                                <rect key="frame" x="0.0" y="637" width="375" height="30"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000 字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6y-5A-Hot">
+                                        <rect key="frame" x="10" y="6" width="54" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tfl-y1-3TL">
+                                        <rect key="frame" x="335" y="0.0" width="40" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="Axg-cw-TK0"/>
+                                        </constraints>
+                                        <state key="normal" title="导出"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xJt-Qy-pbF">
+                                        <rect key="frame" x="287" y="-5" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="3gB-MF-3yb"/>
+                                            <constraint firstAttribute="width" constant="40" id="nZJ-84-XXj"/>
+                                        </constraints>
+                                        <state key="normal" title="预览"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="tfl-y1-3TL" firstAttribute="top" secondItem="oU6-bg-K9Z" secondAttribute="top" id="5Nq-df-lph"/>
+                                    <constraint firstItem="J6y-5A-Hot" firstAttribute="centerY" secondItem="oU6-bg-K9Z" secondAttribute="centerY" id="86q-UU-cwI"/>
+                                    <constraint firstItem="J6y-5A-Hot" firstAttribute="leading" secondItem="oU6-bg-K9Z" secondAttribute="leading" constant="10" id="DI2-LW-gwq"/>
+                                    <constraint firstAttribute="bottom" secondItem="tfl-y1-3TL" secondAttribute="bottom" id="FCG-OC-Kqi"/>
+                                    <constraint firstItem="xJt-Qy-pbF" firstAttribute="centerY" secondItem="oU6-bg-K9Z" secondAttribute="centerY" id="JQo-bN-H4n"/>
+                                    <constraint firstAttribute="trailing" secondItem="tfl-y1-3TL" secondAttribute="trailing" id="eGS-HV-m9c"/>
+                                    <constraint firstItem="tfl-y1-3TL" firstAttribute="leading" secondItem="xJt-Qy-pbF" secondAttribute="trailing" constant="8" id="zWx-Uu-2xs"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="anx-gH-Mu2" firstAttribute="top" secondItem="oU6-bg-K9Z" secondAttribute="bottom" id="1Lc-x9-QuR"/>
+                            <constraint firstItem="oU6-bg-K9Z" firstAttribute="leading" secondItem="edu-ao-q9D" secondAttribute="leading" id="3uy-dr-2OY"/>
+                            <constraint firstItem="oU6-bg-K9Z" firstAttribute="top" secondItem="DJa-dk-TN5" secondAttribute="bottom" id="95t-Rv-jnQ"/>
                             <constraint firstItem="DJa-dk-TN5" firstAttribute="leading" secondItem="edu-ao-q9D" secondAttribute="leading" id="SFi-0f-u4g"/>
                             <constraint firstAttribute="trailing" secondItem="DJa-dk-TN5" secondAttribute="trailing" id="eYD-bl-K3V"/>
-                            <constraint firstItem="anx-gH-Mu2" firstAttribute="top" secondItem="DJa-dk-TN5" secondAttribute="bottom" id="k8v-d5-LcE"/>
+                            <constraint firstAttribute="trailing" secondItem="oU6-bg-K9Z" secondAttribute="trailing" id="k00-Xm-Rx9"/>
                             <constraint firstItem="DJa-dk-TN5" firstAttribute="top" secondItem="aFk-J8-hpV" secondAttribute="bottom" id="keA-cf-E1I"/>
                         </constraints>
                     </view>
@@ -133,6 +171,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="bottomSpace" destination="95t-Rv-jnQ" id="PGT-Mp-a8Y"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HGS-99-TBi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -147,11 +188,11 @@
                         <viewControllerLayoutGuide type="bottom" id="hyo-Du-pT3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="99B-NM-Faa">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="573"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iyH-tF-DAu">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="573"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
                         </subviews>
