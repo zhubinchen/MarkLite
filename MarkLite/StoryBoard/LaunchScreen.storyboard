@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,36 +21,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright (c) 2016 Bingcheng. All rights reserved." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KjK-5f-FTc">
-                                <rect key="frame" x="27" y="610" width="322" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.2784313725" green="0.2784313725" blue="0.2784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="rGT-BV-l8x">
-                                <rect key="frame" x="148" y="293.5" width="80" height="80"/>
-                                <color key="backgroundColor" red="0.1019607843" green="0.1137254902" blue="0.14117647059999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="Aok-lz-zik"/>
-                                    <constraint firstAttribute="width" constant="80" id="amX-ls-6C9"/>
-                                </constraints>
-                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MarkLite" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ORB-DN-1XL">
-                                <rect key="frame" x="0.0" y="383.5" width="375" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="0.0" y="310" width="375" height="48"/>
+                                <fontDescription key="fontDescription" name="SavoyeLetPlain" family="Savoye LET" pointSize="40"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="# Read &amp; Write Markdown" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vpk-X7-KrO">
+                                <rect key="frame" x="87.5" y="408" width="199" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tn7-AG-Cmz">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="HSl-uT-KKb"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="ORB-DN-1XL" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="34Q-Df-j0t"/>
+                            <constraint firstItem="Tn7-AG-Cmz" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="CZY-Of-ndU"/>
+                            <constraint firstItem="Tn7-AG-Cmz" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="K0Z-7x-eIt"/>
                             <constraint firstAttribute="trailing" secondItem="ORB-DN-1XL" secondAttribute="trailing" id="Nah-hr-PVh"/>
-                            <constraint firstItem="rGT-BV-l8x" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Rrq-z0-jiN"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="KjK-5f-FTc" secondAttribute="bottom" constant="40" id="bsm-Bq-kdT"/>
-                            <constraint firstItem="ORB-DN-1XL" firstAttribute="top" secondItem="rGT-BV-l8x" secondAttribute="bottom" constant="10" id="emb-hC-YgK"/>
-                            <constraint firstItem="KjK-5f-FTc" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="kzv-on-tmb"/>
-                            <constraint firstItem="rGT-BV-l8x" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="xFy-Ei-fox"/>
+                            <constraint firstItem="vpk-X7-KrO" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="S7K-HE-nSP"/>
+                            <constraint firstItem="ORB-DN-1XL" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Y1f-GS-VzI"/>
+                            <constraint firstItem="vpk-X7-KrO" firstAttribute="top" secondItem="ORB-DN-1XL" secondAttribute="bottom" constant="50" id="fKl-f9-Icj"/>
+                            <constraint firstAttribute="trailing" secondItem="Tn7-AG-Cmz" secondAttribute="trailing" id="qMh-aE-VvT"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -59,7 +59,4 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="icon.png" width="1024" height="1024"/>
-    </resources>
 </document>

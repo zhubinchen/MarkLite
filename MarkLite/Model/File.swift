@@ -91,7 +91,7 @@ class File {
         guard let subPaths = try? fileManager.contentsOfDirectory(atPath: path) else {
             return
         }
-        _children = subPaths.map{ File(path:self.path + "/" + $0,parent: self) }
+        _children = subPaths.filter{($0.components(separatedBy: ".").first ?? "").length > 0}.map{ File(path:self.path + "/" + $0,parent: self) }
     }
     
     convenience init(path: String, parent: File) {

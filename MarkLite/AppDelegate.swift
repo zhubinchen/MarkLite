@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBar.tintColor = primaryColor
         navigationBar.barTintColor = .white
         navigationBar.isTranslucent = false
-        
         let backImage = #imageLiteral(resourceName: "nav_back")
         
         navigationBar.backIndicatorImage = backImage

@@ -13,7 +13,6 @@ class FileTableViewCell: UITableViewCell {
     @IBOutlet weak var sizeLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var checkButton: UIButton!
-    @IBOutlet weak var iconImage: UIImageView!
     
     var showCheckButton: Bool = false {
         didSet {
@@ -25,10 +24,10 @@ class FileTableViewCell: UITableViewCell {
     var file: File! {
         didSet {
             nameLabel.text = file.name
-            sizeLabel.text = file.type == .text ? file.size.readabelSize : "\(file.children.count)"
-            iconImage.image = file.type == .text ? #imageLiteral(resourceName: "note") : #imageLiteral(resourceName: "folder")
-            timeLabel.text = "上次修改 \(file.modifyDate.readableDate().1)"
+            sizeLabel.text = file.type == .text ? file.size.readabelSize : "子文件: \(file.children.count)"
+            accessoryType = .disclosureIndicator
+            timeLabel.text = (file.type == .text ? "上次编辑" : "创建于") + file.modifyDate.readableDate().1
         }
     }
-
+    
 }

@@ -19,8 +19,7 @@ class FileListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableView.estimatedRowHeight = 50
-            tableView.rowHeight = 50
-            tableView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+            tableView.rowHeight = UITableViewAutomaticDimension
         }
     }
     @IBOutlet weak var emptyView: UIView!
@@ -29,14 +28,14 @@ class FileListViewController: UIViewController {
 
     var root: File! {
         didSet {
-            var section = ("",[File]())
-            root.children.sorted{$0.0.modifyDate < $0.1.modifyDate}.forEach { (file) in
-                if section.0 == file.modifyDate.readableDate().0 {
-                    section.1.append(file)
-                } else {
-                    section = (file.modifyDate.readableDate().0,[file])
-                    sections.append(section)
-                }
+            let files = root.children.sorted{$0.0.modifyDate < $0.1.modifyDate}
+            let folders = ("文件夹",files.filter{$0.type == .folder})
+            let notes = ("笔记",files.filter{$0.type == .text})
+            if folders.1.count > 0 {
+                sections.append(folders)
+            }
+            if notes.1.count > 0 {
+                sections.append(notes)
             }
         }
     }
@@ -52,7 +51,6 @@ class FileListViewController: UIViewController {
             title = root.name
             navigationItem.leftBarButtonItem = nil
         }
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -78,16 +76,20 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sections[section].0
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let label = UILabel(x: 0, y: 0, w: windowWidth, h: 20)
+        label.text = "  " + sections[section].0
+        label.textColor = rgb("a0a0a0")
+        label.font = UIFont.font(ofSize: 12)
+        return label
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 35
+        return 20
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.01
+        return 10
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
