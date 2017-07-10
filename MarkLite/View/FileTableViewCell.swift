@@ -12,22 +12,31 @@ class FileTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var sizeLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
-    @IBOutlet weak var checkButton: UIButton!
+    @IBOutlet weak var selectedMark: UIView!
     
-    var showCheckButton: Bool = false {
-        didSet {
-            checkButton.isHidden = !showCheckButton
-            layoutIfNeeded()
-        }
-    }
-    
+    let selectedMarkView = UIView(hexString: "333333")
+    let selectedBg = UIView(hexString: "e0e0e0")
+
     var file: File! {
         didSet {
             nameLabel.text = file.name
             sizeLabel.text = file.type == .text ? file.size.readabelSize : "子文件: \(file.children.count)"
-            accessoryType = .disclosureIndicator
             timeLabel.text = (file.type == .text ? "上次编辑" : "创建于") + file.modifyDate.readableDate().1
+            selectedMark.isHidden = !file.isSelected
         }
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        selectedBg.addSubview(selectedMarkView)
+        self.selectedBackgroundView = selectedBg
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        selectedBg.frame = CGRect(x: 0, y: 0, w: windowWidth, h: h)
+        selectedMarkView.frame = CGRect(x: 0, y: 0, w: 5, h: h)
+    }
 }

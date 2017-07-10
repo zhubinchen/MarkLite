@@ -22,7 +22,25 @@ class FileListViewController: UIViewController {
             tableView.rowHeight = UITableViewAutomaticDimension
         }
     }
+    
     @IBOutlet weak var emptyView: UIView!
+    
+    var editModel = false {
+        didSet {
+            if editModel {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(toggleEdit))
+                navigationItem.leftBarButtonItem = UIBarButtonItem(title: "全选", style: .plain, target: self, action: #selector(selectAllModel))
+            } else {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_edit"), style: .plain, target: self, action: #selector(toggleEdit))
+                navigationItem.leftBarButtonItem = menuBarButton
+                root.children.forEach{$0.isSelected = false}
+                tableView.reloadData()
+            }
+            tableView.allowsMultipleSelection = editModel
+        }
+    }
+    
+    var menuBarButton: UIBarButtonItem?
 
     fileprivate var sections = [(String,[File])]()
 
@@ -44,19 +62,34 @@ class FileListViewController: UIViewController {
         super.viewDidLoad()
         
         if root == nil {
-            root = File(path: localPath)
             title = "全部文件"
+            root = File(path: localPath)
+            menuBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showMenu))
             tableView.reloadData()
         } else {
             title = root.name
-            navigationItem.leftBarButtonItem = nil
         }
+        
+        editModel = false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? FileListViewController {
             vc.root = sender as! File
         }
+    }
+    
+    func showMenu() {
+        performSegue(withIdentifier: "menu", sender: nil)
+    }
+    
+    func toggleEdit() {
+        editModel = editModel.toggled
+    }
+    
+    func selectAllModel() {
+        root.children.forEach{$0.isSelected = true}
+        tableView.reloadData()
     }
 }
 
@@ -94,6 +127,14 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let file = sections[indexPath.section].1[indexPath.row]
+
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if editModel {
+            file.isSelected.toggle()
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+            return
+        }
         if file.type == .text {
             defaultConfigure.currentFile.value = file
         }
