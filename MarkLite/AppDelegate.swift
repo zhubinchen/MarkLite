@@ -34,6 +34,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBar.titleTextAttributes = attr
         
         SideMenuManager.menuFadeStatusBar = false
+        SideMenuManager.menuWidth = 300
+        
         let srcPath = Bundle.main.url(forResource: "style", withExtension: "zip")
         let destPath = FileManager.default.urls(for:.documentDirectory, in: .userDomainMask)[0]
         try! Zip.unzipFile(srcPath!, destination: destPath, overwrite: true, password: nil, progress: nil)
