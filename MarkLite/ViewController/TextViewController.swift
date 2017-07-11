@@ -25,6 +25,7 @@ class TextViewController: UIViewController {
         super.viewDidLoad()
 
         editView.backgroundColor = UIColor(white: 0.97, alpha: 1)
+        editView.inputAccessoryView = AssistBar(textView: editView)
         defaultConfigure.currentFile.asObservable().subscribe(onNext: { [unowned self] (file) in
             guard let file = file else { return }
             self.editView.text = file.text.value
