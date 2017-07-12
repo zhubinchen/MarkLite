@@ -24,6 +24,46 @@ extension String {
     }
 }
 
+extension UIViewController {
+    @discardableResult
+    func showAlert(title: String,
+                   message: String? = nil,
+                   actionTitles: [String] = [],
+                   textFieldconfigurationHandler: ((UITextField) -> Void)?  = nil,
+                   actionHandler: ((Int) -> Void)?  = nil) -> UIAlertController{
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        for (index, actionTitle) in actionTitles.enumerated() {
+            alert.addAction(UIAlertAction(title: actionTitle, style: index == 0 ? .cancel : .default, handler: { action in
+                actionHandler?(index)
+            }))
+        }
+        if actionTitles.isEmpty {
+            alert.addAction(UIAlertAction(title: "好，知道了", style: .cancel, handler: nil))
+        }
+        if let _ = textFieldconfigurationHandler {
+            alert.addTextField(configurationHandler: textFieldconfigurationHandler)
+        }
+        present(alert, animated: true, completion: nil)
+        return alert
+    }
+    
+    func showActionSheet(title: String? = nil,
+                         message: String? = nil,
+                         actionTitles: [String],
+                         actionHandler: ((Int) -> Void)?){
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
+        alert.message = message
+        for (index, actionTitle) in actionTitles.enumerated() {
+            alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: { action in
+                actionHandler?(index)
+            }))
+        }
+        alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+}
+
+
 extension UIView {
     @IBInspectable var cornerRadius: CGFloat {
         get {

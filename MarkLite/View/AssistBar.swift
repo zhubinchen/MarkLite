@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class AssistBar: UIView {
     let scrollView = UIScrollView()
@@ -21,10 +22,13 @@ class AssistBar: UIView {
         (#imageLiteral(resourceName: "bar_code"), #selector(tapCode))]
     
     let textView: UITextView
+    let imagePicker: ImagePicker
     
-    init(textView: UITextView) {
+    init(textView: UITextView,viewController: UIViewController) {
         self.textView = textView
-        
+        self.imagePicker = ImagePicker(viewController: viewController, completionHanlder: { (image) in
+
+        })
         super.init(frame: CGRect(x: 0, y: 0, w: windowWidth, h: 50))
         self.backgroundColor = rgb("f2f2f2")
         
@@ -52,8 +56,11 @@ class AssistBar: UIView {
     }
 
     func tapImage() {
-        
+        DispatchQueue.main.async {
+            self.imagePicker.pickImage()
+        }
     }
+    
     func tapLink() {
         
     }
@@ -80,5 +87,8 @@ class AssistBar: UIView {
     }
     func tapItalic() {
         
+    }
+    
+    func didPickImage(_ image: UIImage) {
     }
 }

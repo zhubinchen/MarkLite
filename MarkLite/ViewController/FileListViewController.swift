@@ -28,10 +28,10 @@ class FileListViewController: UIViewController {
     var editModel = false {
         didSet {
             if editModel {
-                navigationItem.rightBarButtonItem = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(toggleEdit))
+                navigationItem.rightBarButtonItem = UIBarButtonItem(title: "完成", style: .plain, target: self, action: #selector(finish))
                 navigationItem.leftBarButtonItem = UIBarButtonItem(title: "全选", style: .plain, target: self, action: #selector(selectAllModel))
             } else {
-                navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_edit"), style: .plain, target: self, action: #selector(toggleEdit))
+                navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_edit"), style: .plain, target: self, action: #selector(showMenu))
                 navigationItem.leftBarButtonItem = menuBarButton
                 root.children.forEach{$0.isSelected = false}
                 tableView.reloadData()
@@ -44,19 +44,7 @@ class FileListViewController: UIViewController {
 
     fileprivate var sections = [(String,[File])]()
 
-    var root: File! {
-        didSet {
-            let files = root.children.sorted{$0.0.modifyDate < $0.1.modifyDate}
-            let folders = ("文件夹",files.filter{$0.type == .folder})
-            let notes = ("笔记",files.filter{$0.type == .text})
-            if folders.1.count > 0 {
-                sections.append(folders)
-            }
-            if notes.1.count > 0 {
-                sections.append(notes)
-            }
-        }
-    }
+    var root: File!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,13 +52,18 @@ class FileListViewController: UIViewController {
         if root == nil {
             title = "全部文件"
             root = File(path: localPath)
-            menuBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showMenu))
-            tableView.reloadData()
+            menuBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
         } else {
             title = root.name
         }
         
         editModel = false
+        
+        loadFiles()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadFiles()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -79,17 +72,52 @@ class FileListViewController: UIViewController {
         }
     }
     
-    func showMenu() {
+    func loadFiles() {
+        sections.removeAll()
+        let files = root.children.sorted{$0.0.modifyDate < $0.1.modifyDate}
+        let folders = ("文件夹",files.filter{$0.type == .folder})
+        let notes = ("笔记",files.filter{$0.type == .text})
+        if folders.1.count > 0 {
+            sections.append(folders)
+        }
+        if notes.1.count > 0 {
+            sections.append(notes)
+        }
+        tableView.reloadData()
+    }
+    
+    func showSettings() {
         performSegue(withIdentifier: "menu", sender: nil)
     }
     
-    func toggleEdit() {
-        editModel = editModel.toggled
+    func finish() {
+        root.children.filter{$0.isSelected}.forEach{$0.trash()}
+        loadFiles()
+        editModel = false
+    }
+    
+    func showMenu() {
+        MenuView(items: ["新建笔记","新建目录","批量删除"]) { (index) in
+            if index == 0 {
+                guard let file = self.root.createFile(name: "未命名", type: .text) else { return }
+                file.isTemp = true
+                defaultConfigure.currentFile.value = file
+                self.performSegue(withIdentifier: Segue.edit.rawValue, sender: file)
+            } else if index == 1 {
+                self.root.createFile(name: "未命名", type: .folder)
+            } else {
+                self.editModel = true
+            }
+        }.show()
     }
     
     func selectAllModel() {
         root.children.forEach{$0.isSelected = true}
         tableView.reloadData()
+    }
+    
+    func createFile() {
+        
     }
 }
 
