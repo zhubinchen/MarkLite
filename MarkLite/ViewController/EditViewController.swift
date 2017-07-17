@@ -12,17 +12,11 @@ import RxCocoa
 
 class EditViewController: UIViewController {
     @IBOutlet weak var bottomSpace: NSLayoutConstraint!
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var countLabel: UILabel!
 
     var textVC: TextViewController!
     var webVC: WebViewController!
-    lazy var configureVC: ConfigureViewController = {
-        let vc = ConfigureViewController()
-        vc.preferredContentSize = CGSize(width:200, height: 350)
-        vc.modalPresentationStyle = .popover
-        vc.items = [("设置",["编辑器字体","渲染样式"]),("导出",["PDF","图片","markdown","html"])]
-        return vc
-    }()
     
     let disposeBag = DisposeBag()
     
@@ -53,13 +47,33 @@ class EditViewController: UIViewController {
         }
     }
     
-    @IBAction func showMenu(_ sender: UIBarButtonItem) {
-        guard let popoverVC = configureVC.popoverPresentationController else {
-            return
-        }
-        popoverVC.delegate = self
-        popoverVC.barButtonItem = sender
-        present(configureVC, animated: true, completion: nil)
+    @IBAction func export(_ sender: UIButton) {
+        let items = ["PDF","图片","markdown","html"]
+        let pos = CGPoint(x: sender.x, y: windowHeight - CGFloat(50) - CGFloat(items.count * 40))
+        MenuView(items: items,
+                 postion: pos) { (index) in
+            //
+        }.show()
+    }
+    
+    @IBAction func chooseTag(_ sender: UIButton) {
+        let items = Configure.shared.root.children.map{$0.name}
+        let pos = CGPoint(x: sender.x, y: windowHeight - CGFloat(50) - CGFloat(items.count * 40))
+        MenuView(items: items, postion: pos) { (index) in
+            //
+        }.show()
+    }
+    
+    @IBAction func undo(_ sender: Any) {
+        textVC.undo()
+    }
+    
+    @IBAction func redo(_ sender: Any) {
+        textVC.redo()
+    }
+    
+    @IBAction func preview(_ sender: Any) {
+        scrollView.setContentOffset(CGPoint(x: windowWidth,y: 0) , animated: true)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

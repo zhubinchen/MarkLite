@@ -40,18 +40,13 @@ class FileListViewController: UIViewController {
 
     fileprivate var sections = [(String,[File])]()
 
-    var root: File!
+    let root = Configure.shared.root
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if root == nil {
-            title = "全部文件"
-            root = File(path: localPath)
-            menuBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
-        } else {
-            title = root.name
-        }
+        title = "全部文件"
+        menuBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
         
         editModel = false
         
@@ -60,12 +55,6 @@ class FileListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         loadFiles()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? FileListViewController {
-            vc.root = sender as! File
-        }
     }
     
     func loadFiles() {

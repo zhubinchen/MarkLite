@@ -19,7 +19,15 @@ class TextViewController: UIViewController {
     let disposeBag = DisposeBag()
     let manager = MarkdownHighlightManager()
     var oldTextArray: [String] = []
-    var head: Int = -1
+    var head: Int = 0 {
+        didSet {
+            canUndo.value = head - 1 < 0
+            canRedo.value = head + 1 > oldTextArray.count - 1
+        }
+    }
+    
+    let canUndo = Variable(false)
+    let canRedo = Variable(false)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,16 +52,21 @@ class TextViewController: UIViewController {
         }).addDisposableTo(disposeBag)
         
         editView.rx.text.map{($0?.length ?? 0) > 0}.bind(to: placeholderLabel.rx.isHidden).addDisposableTo(disposeBag)
-        Timer.runThisAfterDelay(seconds: 4) { 
-            self.undo(nil)
-        }
     }
     
-    @IBAction func undo(_ sender: Any?) {
-        if head < 0 {
+    func undo() {
+        if head - 1 < 0 {
             return
         }
-        editView.text = oldTextArray[head]
         head -= 1
+        editView.text = oldTextArray[head]
+    }
+    
+    func redo() {
+        if head + 1 > oldTextArray.count - 1 {
+            return
+        }
+        head += 1
+        editView.text = oldTextArray[head]
     }
 }
