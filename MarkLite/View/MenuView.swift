@@ -29,10 +29,11 @@ class MenuView: UIView {
     var dismissed: (() -> Void)?
     
     init(items: [String],
+         postion: CGPoint,
          selectedChanged: @escaping (Int) -> Void) {
         self.items = items
         self.selectedChanged = selectedChanged
-        super.init(frame: CGRect(x: windowWidth - 140, y: 65, width: 130, height: CGFloat(items.count) * cellHeight))
+        super.init(frame: CGRect(x: postion.x, y: postion.y, width: 130, height: CGFloat(items.count) * cellHeight))
         self.cornerRadius = 1.5
         self.borderColor = .white
     }

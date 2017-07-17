@@ -19,7 +19,7 @@ enum FileType {
     var extensionName: String {
         switch self {
         case .text:
-            return "md"
+            return ".md"
         default:
             return ""
         }
@@ -43,7 +43,6 @@ fileprivate let fileManager = FileManager.default
 
 class File {
     private(set) var name: String
-    private(set) var extention: String
     private(set) var type: FileType
     private(set) var path: String
     private(set) var modifyDate: Date
@@ -66,19 +65,17 @@ class File {
     fileprivate var _children: [File] = [File]()
     
     fileprivate var fullName: String {
-        return name + extention
+        return name + type.extensionName
     }
     
     var isTemp = false
     var isSelected = false
     
     init(path:String) {
-        print(path)
         self.path = path
         self.name = path.components(separatedBy: "/").last?.components(separatedBy: ".").first ?? ""
-        self.extention = path.components(separatedBy: ".").last ?? ""
         
-        if extention == "md" {
+        if path.hasSuffix(FileType.text.extensionName){
             self.type = .text
         } else {
             self.type = .folder
@@ -105,7 +102,7 @@ class File {
     
     @discardableResult
     func createFile(name: String,type: FileType) -> File?{
-        let path = (self.path + "/" + name + "." + type.extensionName).validPath
+        let path = (self.path + "/" + name + type.extensionName).validPath
         if type == .text {
             fileManager.createFile(atPath: path, contents: nil, attributes: nil)
         } else {
@@ -143,7 +140,7 @@ class File {
     @discardableResult
     func rename(to newName: String) -> Bool {
         guard let parent = parent else { return false   }
-        let newPath = parent.path + "/" + newName + extention
+        let newPath = parent.path + "/" + newName + type.extensionName
         try? fileManager.moveItem(atPath: path, toPath: newPath)
         name = newName
         path = newPath

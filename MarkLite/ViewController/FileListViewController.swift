@@ -10,11 +10,6 @@ import UIKit
 import EZSwiftExtensions
 import SwipeCellKit
 
-enum Segue: String {
-    case edit
-    case next
-}
-
 class FileListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView! {
@@ -74,16 +69,8 @@ class FileListViewController: UIViewController {
     }
     
     func loadFiles() {
-        sections.removeAll()
-        let files = root.children.sorted{$0.0.modifyDate < $0.1.modifyDate}
-        let folders = ("文件夹",files.filter{$0.type == .folder})
-        let notes = ("笔记",files.filter{$0.type == .text})
-        if folders.1.count > 0 {
-            sections.append(folders)
-        }
-        if notes.1.count > 0 {
-            sections.append(notes)
-        }
+        sections = root.children.filter{$0.children.count > 0}.sorted{$0.0.modifyDate < $0.1.modifyDate}.map{($0.name,$0.children)}
+
         tableView.reloadData()
     }
     
@@ -98,14 +85,12 @@ class FileListViewController: UIViewController {
     }
     
     func showMenu() {
-        MenuView(items: ["新建笔记","新建目录","批量删除"]) { (index) in
+        MenuView(items: ["新建笔记","批量删除"], postion: CGPoint(x: windowWidth - 140, y: 65 )) { (index) in
             if index == 0 {
                 guard let file = self.root.createFile(name: "未命名", type: .text) else { return }
                 file.isTemp = true
                 Configure.shared.currentFile.value = file
-                self.performSegue(withIdentifier: Segue.edit.rawValue, sender: file)
-            } else if index == 1 {
-                self.root.createFile(name: "未命名", type: .folder)
+                self.performSegue(withIdentifier: "edit", sender: file)
             } else {
                 self.editModel = true
             }
@@ -165,10 +150,8 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
             tableView.reloadRows(at: [indexPath], with: .automatic)
             return
         }
-        if file.type == .text {
-            Configure.shared.currentFile.value = file
-        }
-        performSegue(withIdentifier: (file.type == .text ? Segue.edit : Segue.next).rawValue, sender: file)
+        Configure.shared.currentFile.value = file
+        performSegue(withIdentifier: "edit", sender: file)
     }
 }
 
@@ -191,15 +174,12 @@ extension FileListViewController: SwipeTableViewCellDelegate {
             }
             self.tableView.endUpdates()
         }
-        let moveAction = SwipeAction(style: .default, title: "移动") { action, indexPath in
-            
-        }
-        moveAction.backgroundColor = UIColor(red: 39/255.0, green: 188/255.0, blue: 54/255.0, alpha: 1)
+
         let renameAction = SwipeAction(style: .default, title: "重命名") { action, indexPath in
             
         }
         renameAction.backgroundColor = UIColor(red: 49/255.0, green: 105/255.0, blue: 254/255.0, alpha: 1)
 
-        return [deleteAction,renameAction,moveAction]
+        return [deleteAction,renameAction]
     }
 }

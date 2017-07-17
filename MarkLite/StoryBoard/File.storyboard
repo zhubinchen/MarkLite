@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3ZI-sc-Lxk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3ZI-sc-Lxk">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -33,14 +32,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="toJ-TD-l6O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3384" y="-5131"/>
-        </scene>
-        <!--FileListViewController-->
-        <scene sceneID="GlM-Qh-Hmt">
-            <objects>
-                <viewControllerPlaceholder referencedIdentifier="FileListViewController" id="ATQ-So-qlW" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1yK-VO-HUy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-3296" y="-5204"/>
         </scene>
         <!--Menu-->
         <scene sceneID="gES-pC-PS3">
@@ -200,7 +191,6 @@
                         <outlet property="emptyView" destination="7Cv-YJ-9N1" id="Tpu-OL-lHS"/>
                         <outlet property="tableView" destination="gSf-A8-HME" id="foR-wr-nPY"/>
                         <segue destination="YR8-Zs-fnH" kind="show" identifier="edit" id="6K0-Af-EcX"/>
-                        <segue destination="ATQ-So-qlW" kind="show" identifier="next" id="iOe-nv-hPG"/>
                         <segue destination="aJn-Ch-cmE" kind="presentation" identifier="menu" id="vRs-J0-014"/>
                     </connections>
                 </viewController>

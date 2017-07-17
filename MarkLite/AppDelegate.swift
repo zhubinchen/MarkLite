@@ -39,6 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let srcPath = Bundle.main.url(forResource: "style", withExtension: "zip")
         let destPath = FileManager.default.urls(for:.documentDirectory, in: .userDomainMask)[0]
         try! Zip.unzipFile(srcPath!, destination: destPath, overwrite: true, password: nil, progress: nil)
+        Configure.shared.checkVersion()
         return true
     }
 
