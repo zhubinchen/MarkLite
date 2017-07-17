@@ -45,7 +45,6 @@
 		07B7C1FC1EF926EA0027B2FC /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1F61EF926EA0027B2FC /* Main_iPhone.storyboard */; };
 		07B7C1FD1EF926EA0027B2FC /* Menu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1F71EF926EA0027B2FC /* Menu.storyboard */; };
 		07B7C1FE1EF926EA0027B2FC /* File.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1F81EF926EA0027B2FC /* File.storyboard */; };
-		07B7C2011EF927C10027B2FC /* PathUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7C2001EF927C10027B2FC /* PathUtils.swift */; };
 		07DAA8951F07BDDA00A8D030 /* Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DAA8941F07BDDA00A8D030 /* Configure.swift */; };
 		3A63F46FBE6505D22E4425F7 /* Pods_MarkLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C052F2782AE8AAE804B89C9 /* Pods_MarkLite.framework */; };
 /* End PBXBuildFile section */
@@ -102,7 +101,6 @@
 		07B7C1F61EF926EA0027B2FC /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		07B7C1F71EF926EA0027B2FC /* Menu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Menu.storyboard; sourceTree = "<group>"; };
 		07B7C1F81EF926EA0027B2FC /* File.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = File.storyboard; sourceTree = "<group>"; };
-		07B7C2001EF927C10027B2FC /* PathUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathUtils.swift; sourceTree = "<group>"; };
 		07DAA8941F07BDDA00A8D030 /* Configure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configure.swift; sourceTree = "<group>"; };
 		1BCD713C28020F7BA4F7C30E /* Pods-MarkLite.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarkLite.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MarkLite/Pods-MarkLite.debug.xcconfig"; sourceTree = "<group>"; };
 		3C052F2782AE8AAE804B89C9 /* Pods_MarkLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarkLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -203,7 +201,6 @@
 		07B7C1ED1EF926180027B2FC /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				07B7C2001EF927C10027B2FC /* PathUtils.swift */,
 				076AF2F61EFA437100DCF6EF /* Utils.swift */,
 				075269DE1EFCEE9E00C4DAD9 /* Constant.swift */,
 				07DAA8941F07BDDA00A8D030 /* Configure.swift */,
@@ -411,7 +408,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07B7C2011EF927C10027B2FC /* PathUtils.swift in Sources */,
 				077403B51F038CC8001AB56A /* ConfigureViewController.swift in Sources */,
 				077403AF1F03739D001AB56A /* WebViewController.swift in Sources */,
 				075269DD1EFCE7C200C4DAD9 /* MenuViewController.swift in Sources */,
@@ -548,6 +544,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = HX6HU45L64;
 				INFOPLIST_FILE = MarkLite/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhubch.MarkLite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -563,6 +560,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = HX6HU45L64;
 				INFOPLIST_FILE = MarkLite/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zhubch.MarkLite;
 				PRODUCT_NAME = "$(TARGET_NAME)";

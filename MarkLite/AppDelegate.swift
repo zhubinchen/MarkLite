@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBar.backIndicatorTransitionMaskImage = backImage
 
             let attr: [String: Any] = [
-            NSFontAttributeName: UIFont.font(ofSize: 17),
+            NSFontAttributeName: UIFont.font(ofSize: 18),
             NSForegroundColorAttributeName: primaryColor
         ]
         navigationBar.titleTextAttributes = attr

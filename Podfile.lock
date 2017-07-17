@@ -5,6 +5,7 @@ PODS:
     - RxSwift (~> 3.4)
   - RxSwift (3.5.0)
   - SideMenu (2.3.2)
+  - SwipeCellKit (1.9.0)
   - Zip (0.7.0)
 
 DEPENDENCIES:
@@ -13,6 +14,7 @@ DEPENDENCIES:
   - RxCocoa
   - RxSwift
   - SideMenu
+  - SwipeCellKit
   - Zip (~> 0.7)
 
 SPEC CHECKSUMS:
@@ -21,8 +23,9 @@ SPEC CHECKSUMS:
   RxCocoa: a0a09f45d0e5b48ecb6a4a7b4b4c89c88d3f633f
   RxSwift: 18ee9d78b45edb3b0b7e79916b47a116e6dbc842
   SideMenu: 3fa07dd05d4bade2b6f9889fb1877e312e1ba319
+  SwipeCellKit: 893661973276ae3512a84ac0a47055923b10731e
   Zip: e34513299ac38c0686d5b24504da7ce343799ab9
 
-PODFILE CHECKSUM: 265de59ec32e3f32ed400a14c56773faaf42e880
+PODFILE CHECKSUM: cf79e491fc1f26176b38e21d3a00830d19557f67
 
 COCOAPODS: 1.2.1

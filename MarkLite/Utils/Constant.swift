@@ -19,3 +19,17 @@ let primaryColor = UIColor(hexString: "333333")!
 let defaultFont = UIFont.font(ofSize: 16)
 let windowWidth = UIApplication.shared.keyWindow?.w ?? 0
 let windowHeight = UIApplication.shared.keyWindow?.h ?? 0
+
+let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
+
+
+let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
+
+let localPath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? "") + "/MarkLite"
+
+let cloudPath: String? = {
+    guard let ubiquityURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents") else {
+        return nil
+    }
+    return ubiquityURL.path + "/MarkLite"
+}()

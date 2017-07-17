@@ -26,7 +26,7 @@ class TextViewController: UIViewController {
 
         editView.backgroundColor = UIColor(white: 0.97, alpha: 1)
         editView.inputAccessoryView = AssistBar(textView: editView, viewController: self)
-        defaultConfigure.currentFile.asObservable().subscribe(onNext: { [unowned self] (file) in
+        Configure.shared.currentFile.asObservable().subscribe(onNext: { [unowned self] (file) in
             guard let file = file else { return }
             self.editView.text = file.text.value
             self.editView.rx.text.map{ $0 ?? "" }.bind(to: file.text).addDisposableTo(self.disposeBag)

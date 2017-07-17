@@ -25,7 +25,7 @@ class WebViewController: UIViewController {
         renderManager.markdownStyle = "GitHub2"
         renderManager.highlightStyle = "rainbow"
 
-        defaultConfigure.currentFile.asObservable().subscribe(onNext: { [unowned self] (file) in
+        Configure.shared.currentFile.asObservable().subscribe(onNext: { [unowned self] (file) in
             guard let file = file else { return }
             file.text.asObservable().subscribe(onNext: { (string) in
                 DispatchQueue.global().async {

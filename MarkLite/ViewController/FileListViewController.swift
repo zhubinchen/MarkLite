@@ -8,6 +8,7 @@
 
 import UIKit
 import EZSwiftExtensions
+import SwipeCellKit
 
 enum Segue: String {
     case edit
@@ -101,7 +102,7 @@ class FileListViewController: UIViewController {
             if index == 0 {
                 guard let file = self.root.createFile(name: "未命名", type: .text) else { return }
                 file.isTemp = true
-                defaultConfigure.currentFile.value = file
+                Configure.shared.currentFile.value = file
                 self.performSegue(withIdentifier: Segue.edit.rawValue, sender: file)
             } else if index == 1 {
                 self.root.createFile(name: "未命名", type: .folder)
@@ -134,6 +135,7 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  tableView.dequeueReusableCell(withIdentifier: "file", for: indexPath) as! FileTableViewCell
         cell.file = sections[indexPath.section].1[indexPath.row]
+        cell.delegate = self
         return cell
     }
     
@@ -164,8 +166,40 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
             return
         }
         if file.type == .text {
-            defaultConfigure.currentFile.value = file
+            Configure.shared.currentFile.value = file
         }
         performSegue(withIdentifier: (file.type == .text ? Segue.edit : Segue.next).rawValue, sender: file)
+    }
+}
+
+extension FileListViewController: SwipeTableViewCellDelegate {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        if orientation == .left {
+            return nil
+        }
+        let file = sections[indexPath.section].1[indexPath.row]
+
+        let deleteAction = SwipeAction(style: .destructive, title: "删除") { action, indexPath in
+            file.trash()
+            self.sections[indexPath.section].1.remove(at: indexPath.row)
+            self.tableView.beginUpdates()
+            if self.sections[indexPath.section].1.count == 0 {
+                self.sections.remove(at: indexPath.section)
+                self.tableView.deleteSections([indexPath.section], with: .bottom)
+            } else {
+                self.tableView.deleteRows(at: [indexPath], with: .bottom)
+            }
+            self.tableView.endUpdates()
+        }
+        let moveAction = SwipeAction(style: .default, title: "移动") { action, indexPath in
+            
+        }
+        moveAction.backgroundColor = UIColor(red: 39/255.0, green: 188/255.0, blue: 54/255.0, alpha: 1)
+        let renameAction = SwipeAction(style: .default, title: "重命名") { action, indexPath in
+            
+        }
+        renameAction.backgroundColor = UIColor(red: 49/255.0, green: 105/255.0, blue: 254/255.0, alpha: 1)
+
+        return [deleteAction,renameAction,moveAction]
     }
 }

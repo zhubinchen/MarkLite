@@ -12,6 +12,7 @@ import RxCocoa
 
 class EditViewController: UIViewController {
     @IBOutlet weak var bottomSpace: NSLayoutConstraint!
+    @IBOutlet weak var countLabel: UILabel!
 
     var textVC: TextViewController!
     var webVC: WebViewController!
@@ -28,7 +29,11 @@ class EditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        defaultConfigure.currentFile.asObservable().map{$0?.name ?? ""}.bind(to: rx.title).addDisposableTo(disposeBag)
+        Configure.shared.currentFile.asObservable().map{$0?.name ?? ""}.bind(to: rx.title).addDisposableTo(disposeBag)
+        
+        Configure.shared.currentFile.asObservable().subscribe(onNext: { (file) in
+            file?.text.asObservable().map{$0.length.toString + "字"}.bind(to: self.countLabel.rx.text).addDisposableTo(self.disposeBag)
+        }).addDisposableTo(disposeBag)
         
         addKeyboardWillHideNotification()
         addKeyboardWillShowNotification()
