@@ -49,11 +49,6 @@ class FileListViewController: UIViewController {
         menuBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
         
         editModel = false
-        
-        loadFiles()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
         loadFiles()
     }
     

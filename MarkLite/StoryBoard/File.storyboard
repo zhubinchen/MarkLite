@@ -53,43 +53,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Cv-YJ-9N1">
-                                <rect key="frame" x="0.0" y="94" width="375" height="44"/>
-                                <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Zc-xu-Z4S">
-                                        <rect key="frame" x="107.5" y="6" width="161" height="32"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="创建新的" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bn3-z3-4Jk">
-                                                <rect key="frame" x="0.0" y="0.0" width="65.5" height="32"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <color key="textColor" red="0.58823529409999997" green="0.59215686270000001" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZZ0-lH-dUU">
-                                                <rect key="frame" x="65.5" y="0.0" width="33" height="32"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <state key="normal" title="笔记"/>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="或" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KE8-tN-QbD">
-                                                <rect key="frame" x="98.5" y="0.0" width="16.5" height="32"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                <color key="textColor" red="0.58823529409999997" green="0.59215686270000001" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dZI-YB-Xuz">
-                                                <rect key="frame" x="115" y="0.0" width="46" height="32"/>
-                                                <state key="normal" title="文件夹"/>
-                                            </button>
-                                        </subviews>
-                                    </stackView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="2Zc-xu-Z4S" firstAttribute="centerY" secondItem="7Cv-YJ-9N1" secondAttribute="centerY" id="6eg-h2-5Ox"/>
-                                    <constraint firstItem="2Zc-xu-Z4S" firstAttribute="centerX" secondItem="7Cv-YJ-9N1" secondAttribute="centerX" id="Xk6-TO-eNA"/>
-                                    <constraint firstAttribute="height" constant="44" id="nWg-Yi-vFl"/>
-                                </constraints>
-                            </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="95" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="gSf-A8-HME">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -176,11 +139,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="27T-XF-EFx" firstAttribute="top" secondItem="gSf-A8-HME" secondAttribute="bottom" id="6Fg-um-2hB"/>
-                            <constraint firstAttribute="trailing" secondItem="7Cv-YJ-9N1" secondAttribute="trailing" id="NY9-Ln-9pM"/>
                             <constraint firstItem="gSf-A8-HME" firstAttribute="top" secondItem="7jg-Nh-7qt" secondAttribute="bottom" id="Vzn-DU-JNd"/>
                             <constraint firstAttribute="trailing" secondItem="gSf-A8-HME" secondAttribute="trailing" id="YLd-HD-jbH"/>
-                            <constraint firstItem="7Cv-YJ-9N1" firstAttribute="top" secondItem="7jg-Nh-7qt" secondAttribute="bottom" constant="30" id="fDZ-C1-BTw"/>
-                            <constraint firstItem="7Cv-YJ-9N1" firstAttribute="leading" secondItem="frl-bd-qxb" secondAttribute="leading" id="ugQ-fM-zTx"/>
                             <constraint firstItem="gSf-A8-HME" firstAttribute="leading" secondItem="frl-bd-qxb" secondAttribute="leading" id="vVD-o6-QJI"/>
                         </constraints>
                     </view>
@@ -188,7 +148,6 @@
                         <nil key="title"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="emptyView" destination="7Cv-YJ-9N1" id="Tpu-OL-lHS"/>
                         <outlet property="tableView" destination="gSf-A8-HME" id="foR-wr-nPY"/>
                         <segue destination="YR8-Zs-fnH" kind="show" identifier="edit" id="6K0-Af-EcX"/>
                         <segue destination="aJn-Ch-cmE" kind="presentation" identifier="menu" id="vRs-J0-014"/>

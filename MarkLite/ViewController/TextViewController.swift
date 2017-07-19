@@ -15,16 +15,11 @@ class TextViewController: UIViewController {
 
     @IBOutlet weak var editView: UITextView!
     @IBOutlet weak var placeholderLabel: UILabel!
-    
+    @IBOutlet weak var countLabel: UILabel!
+    @IBOutlet weak var bottomSpace: NSLayoutConstraint!
+
     let disposeBag = DisposeBag()
     let manager = MarkdownHighlightManager()
-    var oldTextArray: [String] = []
-    var head: Int = 0 {
-        didSet {
-            canUndo.value = head - 1 < 0
-            canRedo.value = head + 1 > oldTextArray.count - 1
-        }
-    }
     
     let canUndo = Variable(false)
     let canRedo = Variable(false)
@@ -39,34 +34,48 @@ class TextViewController: UIViewController {
             self.editView.text = file.text.value
             self.editView.rx.text.map{ $0 ?? "" }.bind(to: file.text).addDisposableTo(self.disposeBag)
             self.editView.attributedText = self.manager.highlight(file.text.value)
-            self.oldTextArray.append(self.editView.text ?? "")
-            self.head += 1
         }).addDisposableTo(disposeBag)
         
         editView.rx.observe(String.self, "text").subscribe(onNext: { (text) in
             if (self.editView.markedTextRange == nil) {
-                self.oldTextArray.append(text!)
-                self.head += 1
                 self.editView.attributedText = self.manager.highlight(text!)
             }
         }).addDisposableTo(disposeBag)
         
         editView.rx.text.map{($0?.length ?? 0) > 0}.bind(to: placeholderLabel.rx.isHidden).addDisposableTo(disposeBag)
+        
+        addKeyboardWillHideNotification()
+        addKeyboardWillShowNotification()
     }
     
-    func undo() {
-        if head - 1 < 0 {
-            return
-        }
-        head -= 1
-        editView.text = oldTextArray[head]
+    @IBAction func export(_ sender: UIButton) {
+        let items = ["PDF","图片","markdown","html"]
+        let pos = CGPoint(x: windowWidth - 140, y: windowHeight - CGFloat(50) - CGFloat(items.count * 40))
+        MenuView(items: items,
+                 postion: pos) { (index) in
+                    //
+            }.show()
     }
     
-    func redo() {
-        if head + 1 > oldTextArray.count - 1 {
-            return
+    @IBAction func chooseTag(_ sender: UIButton) {
+        let items = Configure.shared.root.children.map{$0.name}
+        let pos = CGPoint(x: sender.x, y: windowHeight - CGFloat(50) - CGFloat(items.count * 40))
+        MenuView(items: items, postion: pos) { (index) in
+            //
+            }.show()
+    }
+    
+    override func keyboardWillHideWithFrame(_ frame: CGRect) {
+        bottomSpace.constant = 0
+        UIView.animate(withDuration: 1) {
+            self.view.layoutIfNeeded()
         }
-        head += 1
-        editView.text = oldTextArray[head]
+    }
+    
+    override func keyboardWillShowWithFrame(_ frame: CGRect) {
+        bottomSpace.constant = frame.h - 40
+        UIView.animate(withDuration: 1) {
+            self.view.layoutIfNeeded()
+        }
     }
 }

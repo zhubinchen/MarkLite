@@ -45,6 +45,11 @@ extension String {
 }
 
 extension String {
+    
+    func substring(with nsRange: NSRange) -> String {
+        return self.substring(with: rangeFromNSRange(nsRange)!)
+    }
+    
     func replacingCharacters(in nsRange: NSRange, with newString: String) -> String {
         return self.replacingCharacters(in: rangeFromNSRange(nsRange)!, with: newString)
     }
@@ -219,4 +224,34 @@ func *(color: UIColor, alpha: CGFloat) -> UIColor {
 
 func range(_ loc: Int, _ len: Int) -> NSRange {
     return NSMakeRange(loc, len)
+}
+
+extension UIImage {
+    public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {
+        let rect = CGRect(origin: .zero, size: size)
+        UIGraphicsBeginImageContextWithOptions(rect.size, false, 0.0)
+        color.setFill()
+        UIRectFill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        guard let cgImage = image?.cgImage else { return nil }
+        
+        self.init(cgImage: cgImage)
+    }
+}
+
+extension UITextField {
+    var selectedRange: NSRange? {
+        get {
+            return nil
+        }
+        
+        set {
+            guard let range = newValue else { return }
+            let start = position(from: beginningOfDocument, offset: range.location)
+            let end = position(from: start!, offset: range.length)
+            selectedTextRange = textRange(from: start!, to: end!)
+        }
+    }
 }

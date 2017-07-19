@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import RxSwift
 
 class AssistBar: UIView {
     let scrollView = UIScrollView()
@@ -23,9 +24,13 @@ class AssistBar: UIView {
     
     let textView: UITextView
     let imagePicker: ImagePicker
+    let vc: UIViewController
+    let link = Variable("")
+    let disposeBag = DisposeBag()
     
     init(textView: UITextView,viewController: UIViewController) {
         self.textView = textView
+        self.vc = viewController
         self.imagePicker = ImagePicker(viewController: viewController, completionHanlder: { (image) in
 
         })
@@ -62,31 +67,76 @@ class AssistBar: UIView {
     }
     
     func tapLink() {
-        
+        vc.showAlert(title: "请输入链接", message: "", actionTitles: ["取消","确定"], textFieldconfigurationHandler: { (textField) in
+            textField.placeholder = "请输入链接"
+            textField.text = "http://example.com"
+            textField.font = UIFont.font(ofSize: 13)
+            textField.textColor = primaryColor
+            textField.rx.text.map{$0 ?? ""}.bind(to: self.link).addDisposableTo(self.disposeBag)
+        }) { (index) in
+            if index == 1 {
+                self.insertLink()
+            }
+        }
     }
+    
+    func insertLink() {
+        if link.value.length == 0 {
+            return
+        }
+        let currentRange = textView.selectedRange
+        let insertText = "enter link description here"
+        textView.insertText("[enter link description here](\(self.link.value))")
+        textView.selectedRange = NSMakeRange(currentRange.location + 1, insertText.length)
+    }
+    
     func tapCode() {
-        
+        let currentRange = textView.selectedRange
+        let text = textView.text.substring(with: currentRange)
+        let isEmpty = text.length == 0
+        let insertText = isEmpty ? "enter code here": text
+        textView.insertText("`\(insertText)`")
+        if isEmpty {
+            textView.selectedRange = NSMakeRange(currentRange.location + 1, insertText.length)
+        }
     }
-    func tapHeader() {
-        
+    func tapHeader(_ sender: UIButton) {
+        let pos = sender.convert(sender.center, to: sender.window)
+        MenuView(items: ["一级标题","二级标题","三级标题","四级标题"],
+                 postion: CGPoint(x: pos.x - 20, y: pos.y - 200)) { (index) in
+            
+        }.show()
     }
     func tapDeletion() {
         
     }
     
     func tapQuote() {
-        
+        let currentRange = textView.selectedRange
+        let insertText = "Blockquote"
+        textView.insertText("\n> \(insertText)\n")
+        textView.selectedRange = NSMakeRange(currentRange.location + 3, insertText.length)
     }
     
     func tapBold() {
-        var text = textView.text(in: textView.selectedTextRange ?? UITextRange()) ?? ""
-        if text.length == 0 {
-            text = "fghj"
+        let currentRange = textView.selectedRange
+        let text = textView.text.substring(with: currentRange)
+        let isEmpty = text.length == 0
+        let insertText = isEmpty ? "strong text": text
+        textView.insertText("**\(insertText)**")
+        if isEmpty {
+            textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
         }
-        textView.insertText("**\(text)**")
     }
     func tapItalic() {
-        
+        let currentRange = textView.selectedRange
+        let text = textView.text.substring(with: currentRange)
+        let isEmpty = text.length == 0
+        let insertText = isEmpty ? "emphasized text": text
+        textView.insertText("*\(insertText)*")
+        if isEmpty {
+            textView.selectedRange = NSMakeRange(currentRange.location + 1, insertText.length)
+        }
     }
     
     func didPickImage(_ image: UIImage) {
