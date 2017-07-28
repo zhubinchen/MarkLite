@@ -9,6 +9,14 @@
 import UIKit
 import EZSwiftExtensions
 
+func *(string: String, repeatCount: Int) -> String {
+    var ret = ""
+    for _ in 0..<repeatCount {
+        ret += string
+    }
+    return ret
+}
+
 extension String {
     
     fileprivate func pathByAppendingNumber() -> String {
@@ -46,6 +54,11 @@ extension String {
 
 extension String {
     
+    static var unique: String {
+        let time = Date().timeIntervalSince1970
+        return time.toString
+    }
+    
     func substring(with nsRange: NSRange) -> String {
         return self.substring(with: rangeFromNSRange(nsRange)!)
     }
@@ -67,7 +80,7 @@ extension String {
 
 extension UIViewController {
     @discardableResult
-    func showAlert(title: String,
+    func showAlert(title: String? = nil,
                    message: String? = nil,
                    actionTitles: [String] = [],
                    textFieldconfigurationHandler: ((UITextField) -> Void)?  = nil,

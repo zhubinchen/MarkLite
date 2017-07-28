@@ -59,11 +59,11 @@ struct MarkdownHighlightManager {
     let syntaxArray: [Syntax] = [
         Syntax("^#{1,6} .*", .anchorsMatchLines) {
             $0.bold = true
-            $0.textColor = rgb(33,47,63)
+            $0.textColor = .cyan
         },//header
         Syntax(".*\\n=+[(\\s)|=]+") {
             $0.bold = true
-            $0.textColor = rgb(33,47,63)
+            $0.textColor = .orange
         },//Title
         Syntax("^[\\s]*[-\\*\\+] +(.*)", .anchorsMatchLines),//ULLists://无序列表
         Syntax("^[\\s]*[0-9]+\\.(.*)", .anchorsMatchLines),//OLLists有序列表
@@ -73,13 +73,15 @@ struct MarkdownHighlightManager {
         Syntax("!\\[[^\\]]+\\]\\([^\\)]+\\)") {
             $0.textColor = rgb(50,90,160)
         },//Images
-        Syntax("(\\*\\*|__)(.*?)\\1") {
-            $0.bold = true
-        },//Bold
-        Syntax("(\\*|_)(.*?)\\1") {
+        Syntax("(\\*|_)(.+?)\\1") {
+            $0.textColor = .blue
             $0.bold = true
         },//Emphasis
-        Syntax("~~(.*?)~~") {
+        Syntax("(\\*\\*|__)(.+?)\\1") {
+            $0.textColor = .red
+            $0.bold = true
+        },//Bold
+        Syntax("~~(.+?)~~") {
             $0.textColor = rgb(129,140,140)
             $0.deletionLine = true
         },//Deletions
@@ -88,7 +90,9 @@ struct MarkdownHighlightManager {
             $0.textColor = rgb(71,91,98)
             $0.backgroudColor = rgb(246,246,246)
         },//InlineCode
-        Syntax("\n(&gt;|\\>)(.*)"),//Blockquotes://引用块
+        Syntax("^(\\>)(.*)\n",.anchorsMatchLines) {
+            $0.backgroudColor = rgb(246,246,246)
+        },//Blockquotes://引用块
         Syntax("^-+$", .anchorsMatchLines),//Separate://分割线
         Syntax("```([\\s\\S]*?)```[\\s]?") {
             $0.textColor = rgb(71,91,98)
@@ -108,6 +112,7 @@ struct MarkdownHighlightManager {
         syntaxArray.forEach { (syntax) in
             syntax.matchsInText(string).forEach({ (range) in
                 result.addAttributes(syntax.style.attrs, range: range)
+                print(string.substring(with: range))
             })
         }
         return result

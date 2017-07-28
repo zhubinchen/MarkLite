@@ -38,14 +38,14 @@
 
 - (NSString*)render:(NSString *)string {
     NSString *docPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSString *styleDir = [docPath stringByAppendingPathComponent:@"markdown-style"];
+    NSString *styleDir =  [docPath stringByAppendingPathComponent:@"style/markdown-style"];
     NSString *styleFile = [NSURL fileURLWithPath:[[styleDir stringByAppendingPathComponent:self.markdownStyle] stringByAppendingPathExtension:@"css"]].absoluteString;
     
-    NSString *highlightStyleDir = [docPath stringByAppendingPathComponent:@"highlight-style"];
+    NSString *highlightStyleDir = [docPath stringByAppendingPathComponent:@"style/highlight-style"];
     NSString *highlightStyleFile = [NSURL fileURLWithPath:[[highlightStyleDir stringByAppendingPathComponent:self.highlightStyle] stringByAppendingPathExtension:@"css"]].absoluteString;
     
-    NSString *highlightjs1 = [NSURL fileURLWithPath:[docPath stringByAppendingPathComponent:@"highlightjs/highlight.min.js"]].absoluteString;
-    NSString *highlightjs2 = [NSURL fileURLWithPath:[docPath stringByAppendingPathComponent:@"highlightjs/swift.min.js"]].absoluteString;
+    NSString *highlightjs1 = [NSURL fileURLWithPath:[docPath stringByAppendingPathComponent:@"style/highlightjs/highlight.min.js"]].absoluteString;
+    NSString *highlightjs2 = [NSURL fileURLWithPath:[docPath stringByAppendingPathComponent:@"style/highlightjs/swift.min.js"]].absoluteString;
     NSString *body = HTMLFromMarkdown(string, HOEDOWN_EXT_BLOCK|HOEDOWN_EXT_SPAN|HOEDOWN_EXT_FLAGS, YES, @"", htmlRender, tocRender);
     return [NSString stringWithFormat:HTML,styleFile,highlightStyleFile,highlightjs1,highlightjs2,body];
 }

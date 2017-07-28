@@ -146,5 +146,16 @@ class File {
         path = newPath
         return true
     }
+    
+    @discardableResult
+    func save() -> Bool {
+        
+        guard let data = text.value.data(using: String.Encoding.utf8) else { return false }
+        
+        let url = URL(fileURLWithPath: self.path)
+        try? data.write(to: url)
+        return true
+    }
+    
 }
 

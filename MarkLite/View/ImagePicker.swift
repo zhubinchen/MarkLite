@@ -97,7 +97,10 @@ class ImagePicker: NSObject {
         imagePickerVc.sourceType = sourceType
         imagePickerVc.delegate = self
         imagePickerVc.allowsEditing = true
-        vc?.presentVC(imagePickerVc)
+        
+        DispatchQueue.main.async {
+            self.vc?.presentVC(imagePickerVc)
+        }
     }
 }
 

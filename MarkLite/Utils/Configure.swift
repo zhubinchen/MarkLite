@@ -9,10 +9,12 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Zip
 
 class Configure: NSObject, NSCoding {
     let currentFile: Variable<File?> = Variable(nil)
     let root = File(path: localPath)
+    let imageFolderPath = documentPath + "/images"
     var currentVerion: String?
     
     override init() {
@@ -49,10 +51,27 @@ class Configure: NSObject, NSCoding {
     
     func reset() {
         currentVerion = appVersion
+
+        try? FileManager.default.createDirectory(atPath: imageFolderPath, withIntermediateDirectories: true, attributes: nil)
+        
+        let stylePath = Bundle.main.url(forResource: "style", withExtension: "zip")
+        let destStylePath = URL(fileURLWithPath: documentPath)
+        try! Zip.unzipFile(stylePath!, destination: destStylePath, overwrite: true, password: nil, progress: nil)
+        
+        let samplesPath = Bundle.main.url(forResource: "samples", withExtension: "zip")
+        let destSamplesPath = URL(fileURLWithPath: localPath)
+        try! Zip.unzipFile(samplesPath!, destination: destSamplesPath, overwrite: true, password: nil, progress: nil)
+        loadRoot()
     }
+    
     
     func upgrade() {
         currentVerion = appVersion
+
+        loadRoot()
+    }
+    
+    func loadRoot() {
         let other = root.createFile(name: "其他", type: .folder)
         root.children.forEach { file in
             if file.type == .text {
@@ -62,7 +81,7 @@ class Configure: NSObject, NSCoding {
             }
         }
     }
-        
+    
     func refactor(at parent: File) {
         parent.children.filter{$0.type == .folder}.forEach { (file) in
             refactor(at: file)
