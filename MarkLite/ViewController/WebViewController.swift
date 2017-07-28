@@ -25,26 +25,26 @@ class WebViewController: UIViewController {
         renderManager.markdownStyle = "GitHub2"
         renderManager.highlightStyle = "rainbow"
 
-        Configure.shared.currentFile.asObservable().subscribe(onNext: { [unowned self] (file) in
-            guard let file = file else { return }
+        Configure.shared.currentFile.asObservable().subscribe(onNext: { [weak self] (file) in
+            guard let file = file, let this = self else { return }
             file.text.asObservable().subscribe(onNext: { (string) in
                 DispatchQueue.global().async {
-                    let html = self.renderManager.render(string) ?? string
+                    let html = this.renderManager.render(string) ?? string
                     DispatchQueue.main.async {
-                        self.webView.loadHTMLString(html, baseURL: nil)
+                        this.webView.loadHTMLString(html, baseURL: nil)
                     }
                 }
-            }).addDisposableTo(self.disposeBag)
+            }).addDisposableTo(this.disposeBag)
         }).addDisposableTo(disposeBag)
         
-        webView.rx.didStartLoad.subscribe {_ in
-            self.webView.startLoadingAnimation()
+        webView.rx.didStartLoad.subscribe { [weak self] _ in
+            self?.webView.startLoadingAnimation()
         }.addDisposableTo(disposeBag)
-        webView.rx.didFailLoad.subscribe { [unowned self] (_) in
-            self.webView.stopLoadingAnimation()
+        webView.rx.didFailLoad.subscribe { [weak self] _ in
+            self?.webView.stopLoadingAnimation()
         }.addDisposableTo(disposeBag)
-        webView.rx.didFinishLoad.subscribe { [unowned self] (_) in
-            self.webView.stopLoadingAnimation()
+        webView.rx.didFinishLoad.subscribe { [weak self] _ in
+            self?.webView.stopLoadingAnimation()
         }.addDisposableTo(disposeBag)
     }
 

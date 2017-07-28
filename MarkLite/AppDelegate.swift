@@ -8,7 +8,6 @@
 
 import UIKit
 import SideMenu
-import Zip
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,9 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let navigationBar = UINavigationBar.appearance()
         
-        navigationBar.tintColor = primaryColor
         navigationBar.barTintColor = .white
+        navigationBar.tintColor = primaryColor
         navigationBar.isTranslucent = false
+        navigationBar.shadowImage = UIImage(color: .clear, size: CGSize(width: 1000, height: 64))
+        navigationBar.setBackgroundImage(UIImage(color: .white, size: CGSize(width: 1000, height: 64)), for: .default)
         let backImage = #imageLiteral(resourceName: "nav_back")
         
         navigationBar.backIndicatorImage = backImage
@@ -36,9 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SideMenuManager.menuFadeStatusBar = false
         SideMenuManager.menuWidth = 300
         
-        let srcPath = Bundle.main.url(forResource: "style", withExtension: "zip")
-        let destPath = FileManager.default.urls(for:.documentDirectory, in: .userDomainMask)[0]
-        try! Zip.unzipFile(srcPath!, destination: destPath, overwrite: true, password: nil, progress: nil)
         Configure.shared.checkVersion()
         return true
     }
@@ -49,8 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        Configure.shared.currentFile.value?.save()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

@@ -17,29 +17,6 @@ extension UIViewController {
     func shouldReplacedWith(_ newVc: UIViewController) -> Bool {
         return false
     }
-    
-    var customNavBar: UIView {
-        if let v = self.view.viewWithTag(4654) {
-            return v
-        }
-        let v = UIView(x: 0, y: -64, w: windowWidth, h: 64)
-        v.backgroundColor = .white
-        v.tag = 4654
-        self.view.addSubview(v)
-        return v
-    }
-    
-    func showCustomNavBar() {
-        navigationController?.navigationBar.subviews.first?.alpha = 0
-        setNeedsStatusBarAppearanceUpdate()
-        customNavBar.isHidden = false
-    }
-    
-    func hideCustomNavBar() {
-        navigationController?.navigationBar.subviews.first?.alpha = 1
-        setNeedsStatusBarAppearanceUpdate()
-        customNavBar.isHidden = false
-    }
 }
 
 class NavigationController: UINavigationController {

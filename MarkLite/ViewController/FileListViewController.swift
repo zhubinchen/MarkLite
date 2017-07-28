@@ -9,6 +9,7 @@
 import UIKit
 import EZSwiftExtensions
 import SwipeCellKit
+import RxSwift
 
 class FileListViewController: UIViewController {
 
@@ -41,13 +42,13 @@ class FileListViewController: UIViewController {
     fileprivate var sections = [(String,[File])]()
 
     let root = Configure.shared.root
+    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "全部文件"
         menuBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
-        
         editModel = false
         loadFiles()
     }
@@ -160,7 +161,16 @@ extension FileListViewController: SwipeTableViewCellDelegate {
         }
 
         let renameAction = SwipeAction(style: .default, title: "重命名") { action, indexPath in
-            
+            let newName = Variable("")
+            self.showAlert(title: "重命名", message: nil, actionTitles: ["取消","确定"], textFieldconfigurationHandler: { (textFiled) in
+                textFiled.rx.text.map{$0 ?? ""}.bind(to: newName).addDisposableTo(self.disposeBag)
+            }, actionHandler: { (index) in
+                if index == 0 {
+                    return
+                }
+                file.rename(to: newName.value)
+                self.tableView.reloadData()
+            })
         }
         renameAction.backgroundColor = UIColor(red: 49/255.0, green: 105/255.0, blue: 254/255.0, alpha: 1)
 
