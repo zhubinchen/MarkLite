@@ -43,16 +43,25 @@ class TextViewController: UIViewController {
             self.editView.attributedText = self.manager.highlight(file.text.value)
         }).addDisposableTo(disposeBag)
         
-        editView.rx.didChange.subscribe { _ in
-            if (self.editView.markedTextRange == nil) {
-                self.editView.attributedText = self.manager.highlight(self.editView.text)
-            }
+        editView.rx.didChange.subscribe { [unowned self] _ in
+            self.highlight()
         }.addDisposableTo(disposeBag)
         
         editView.rx.text.map{($0?.length ?? 0) > 0}.bind(to: placeholderLabel.rx.isHidden).addDisposableTo(disposeBag)
         
         addNotificationObserver(Notification.Name.UIKeyboardWillChangeFrame.rawValue, selector: #selector(keyboardWillChange(_:)))
         
+    }
+    
+    func highlight() {
+        if editView.markedTextRange != nil {
+            return
+        }
+        editView.isScrollEnabled = false
+        let selectedRange = editView.selectedRange
+        editView.attributedText = manager.highlight(editView.text)
+        editView.selectedRange = selectedRange;
+        editView.isScrollEnabled = true
     }
     
     @IBAction func preview(_ sender:UIButton) {
