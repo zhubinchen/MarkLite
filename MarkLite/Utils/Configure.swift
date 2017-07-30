@@ -67,7 +67,7 @@ class Configure: NSObject, NSCoding {
     
     func upgrade() {
         currentVerion = appVersion
-
+        reset()
         loadRoot()
     }
     

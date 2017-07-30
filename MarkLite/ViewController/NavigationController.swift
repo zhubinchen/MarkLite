@@ -10,12 +10,12 @@ import UIKit
 
 extension UIViewController {
     
-    func back(_ sender: UIBarButtonItem) {
-        popVC()
-    }
-    
     func shouldReplacedWith(_ newVc: UIViewController) -> Bool {
         return false
+    }
+    
+    func shouldBack() -> Bool {
+        return true
     }
 }
 
@@ -25,6 +25,7 @@ class NavigationController: UINavigationController {
         super.viewDidLoad()
         
         self.delegate = self
+        self.navigationBar.delegate = self
         self.interactivePopGestureRecognizer?.delegate = self
     }
     
@@ -40,7 +41,7 @@ class NavigationController: UINavigationController {
 extension NavigationController: UINavigationControllerDelegate {
     
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        viewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(back))
+        viewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
@@ -52,7 +53,31 @@ extension NavigationController: UINavigationControllerDelegate {
 extension NavigationController: UIGestureRecognizerDelegate {
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return viewControllers.count > 1
+        guard let vc = self.topViewController else {
+            return false
+        }
+        return viewControllers.count > 1 && vc.shouldBack()
     }
     
+}
+
+extension NavigationController: UINavigationBarDelegate {
+    func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
+        guard let vc = self.topViewController else {
+            return false
+        }
+        if(vc.shouldBack()) {
+            popViewController(animated: true)
+            return true
+        } else {
+            for v in navigationBar.subviews {
+                if v.alpha > 0 && v.alpha < 1 {
+                    UIView.animate(withDuration: 0.25, animations: {
+                        v.alpha = 1
+                    })
+                }
+            }
+            return false
+        }
+    }
 }

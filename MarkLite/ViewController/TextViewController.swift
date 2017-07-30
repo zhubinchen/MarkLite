@@ -17,6 +17,11 @@ class TextViewController: UIViewController {
     @IBOutlet weak var placeholderLabel: UILabel!
     @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var bottomSpace: NSLayoutConstraint!
+    
+    @IBOutlet weak var undoButton: UIButton!
+    @IBOutlet weak var redoButton: UIButton!
+
+    var previewHandler: (()->Void)?
 
     let disposeBag = DisposeBag()
     let manager = MarkdownHighlightManager()
@@ -31,6 +36,8 @@ class TextViewController: UIViewController {
         editView.inputAccessoryView = AssistBar(textView: editView, viewController: self)
         Configure.shared.currentFile.asObservable().subscribe(onNext: { [unowned self] (file) in
             guard let file = file else { return }
+            self.undoButton.isEnabled = false
+            self.redoButton.isEnabled = false
             self.editView.attributedText = self.manager.highlight(file.text.value)
             self.editView.rx.text.map{ $0 ?? "" }.bind(to: file.text).addDisposableTo(self.disposeBag)
             self.editView.attributedText = self.manager.highlight(file.text.value)
@@ -45,15 +52,11 @@ class TextViewController: UIViewController {
         editView.rx.text.map{($0?.length ?? 0) > 0}.bind(to: placeholderLabel.rx.isHidden).addDisposableTo(disposeBag)
         
         addNotificationObserver(Notification.Name.UIKeyboardWillChangeFrame.rawValue, selector: #selector(keyboardWillChange(_:)))
+        
     }
     
-    @IBAction func export(_ sender: UIButton) {
-        let items = ["PDF","图片","markdown","html"]
-        let pos = CGPoint(x: windowWidth - 140, y: windowHeight - CGFloat(50) - CGFloat(items.count * 40))
-        MenuView(items: items,
-                 postion: pos) { (index) in
-                    //
-            }.show()
+    @IBAction func preview(_ sender:UIButton) {
+        previewHandler?()
     }
     
     @IBAction func chooseTag(_ sender: UIButton) {
@@ -62,6 +65,16 @@ class TextViewController: UIViewController {
         MenuView(items: items, postion: pos) { (index) in
             //
             }.show()
+    }
+    
+    @IBAction func undo(_ sender: UIButton) {
+        editView.undoManager?.undo()
+        sender.isEnabled = editView.undoManager?.canUndo ?? false
+    }
+    
+    @IBAction func redo(_ sender: UIButton) {
+        editView.undoManager?.redo()
+        sender.isEnabled = editView.undoManager?.canRedo ?? false
     }
     
     func keyboardWillChange(_ noti: NSNotification) {
