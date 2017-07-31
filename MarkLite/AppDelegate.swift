@@ -37,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SideMenuManager.menuFadeStatusBar = false
         SideMenuManager.menuWidth = 300
         
-        Configure.shared.checkVersion()
+        Configure.shared.setup()
         return true
     }
 

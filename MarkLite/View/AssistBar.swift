@@ -150,7 +150,7 @@ class AssistBar: UIView {
     
     func didPickImage(_ image: UIImage) {
         guard let data = UIImageJPEGRepresentation(image, 1) else { return }
-        let imagePath = Configure.shared.imageFolderPath + "/temp_\(String.unique).jpg"
+        let imagePath = Configure.shared.tempFolderPath + "/\(String.unique).jpg"
         try? data.write(to: URL(fileURLWithPath: imagePath))
         let currentRange = textView.selectedRange
         let insertText = "enter placeholder text here"

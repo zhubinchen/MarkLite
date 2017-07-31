@@ -14,9 +14,10 @@ import Zip
 class Configure: NSObject, NSCoding {
     let currentFile: Variable<File?> = Variable(nil)
     let root = File(path: localPath)
-    let imageFolderPath = documentPath + "/images"
-    var currentVerion: String?
+    let tempFolderPath = documentPath + "/temp"
     
+    var currentVerion: String?
+
     override init() {
         super.init()
     }
@@ -34,7 +35,9 @@ class Configure: NSObject, NSCoding {
         return configure
     }()
     
-    func checkVersion() {
+    func setup() {
+        try? FileManager.default.removeItem(atPath: tempFolderPath)
+        try? FileManager.default.createDirectory(atPath: tempFolderPath, withIntermediateDirectories: true, attributes: nil)
         if appVersion != currentVerion {
             upgrade()
         }
@@ -51,8 +54,6 @@ class Configure: NSObject, NSCoding {
     
     func reset() {
         currentVerion = appVersion
-
-        try? FileManager.default.createDirectory(atPath: imageFolderPath, withIntermediateDirectories: true, attributes: nil)
         
         let stylePath = Bundle.main.url(forResource: "style", withExtension: "zip")
         let destStylePath = URL(fileURLWithPath: documentPath)

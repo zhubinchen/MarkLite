@@ -48,14 +48,17 @@ class File {
     private(set) var modifyDate: Date
     private(set) var size: Int64
         
-    lazy var text:Variable<String> = {
+    lazy var text: Variable<String> = {
         let text = Variable("")
         guard let string = try? String(contentsOfFile: self.path, encoding: String.Encoding.utf8) else {
             return text
         }
         text.value = string
+        
         return text
     }()
+    
+    lazy var html = Variable("")
     
     var children: [File] {
         return _children

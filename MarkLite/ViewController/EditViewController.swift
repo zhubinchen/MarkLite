@@ -13,6 +13,8 @@ import RxCocoa
 class EditViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     
+    var webVC: WebViewController!
+    
     let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -25,12 +27,8 @@ class EditViewController: UIViewController {
     }
     
     @IBAction func export(_ sender: UIButton) {
-        let items = ["PDF","图片","markdown","html"]
-        let pos = CGPoint(x: windowWidth - 140, y: 65)
-        MenuView(items: items,
-                 postion: pos) { (index) in
-                    //
-            }.show()
+
+        webVC.showExportMenu()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -38,6 +36,8 @@ class EditViewController: UIViewController {
             vc.previewHandler = { [unowned self] _ in
                 self.scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)
             }
+        } else if let vc = segue.destination as? WebViewController {
+            webVC = vc
         }
     }
     

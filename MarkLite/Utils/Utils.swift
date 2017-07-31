@@ -278,3 +278,26 @@ extension UITextField {
         }
     }
 }
+
+extension UIScrollView {
+    
+    var snap: UIImage? {
+        
+        UIGraphicsBeginImageContextWithOptions(contentSize, isOpaque, 0.0)
+        guard let ctx = UIGraphicsGetCurrentContext() else { return nil }
+
+        let savedContentOffset = contentOffset
+        let savedFrame = frame
+        defer {
+            contentOffset = savedContentOffset
+            frame = savedFrame
+        }
+        
+        contentOffset = CGPoint(x: 0, y: 0)
+        frame = CGRect(origin: CGPoint(x: 0, y: 0), size: contentSize)
+        layer.render(in: ctx)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        
+        return image
+    }
+}
