@@ -11,18 +11,16 @@ import SwipeCellKit
 
 class FileTableViewCell: SwipeTableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var sizeLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var selectedMark: UIView!
     
     let selectedMarkView = UIView(hexString: "333333")
     let selectedBg = UIView(hexString: "e0e0e0")
-
+    
     var file: File! {
         didSet {
             nameLabel.text = file.name
-            sizeLabel.text = file.type == .text ? file.size.readabelSize : "子文件: \(file.children.count)"
-            timeLabel.text = (file.type == .text ? "上次编辑" : "创建于") + file.modifyDate.readableDate().1
+            timeLabel.text = file.modifyDate.readableDate().0 + file.modifyDate.readableDate().1
             selectedMark.isHidden = !file.isSelected
         }
     }

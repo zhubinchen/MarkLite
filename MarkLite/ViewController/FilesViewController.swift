@@ -1,5 +1,5 @@
 //
-//  FileListViewController.swift
+//  FilesViewController.swift
 //  MarkLite
 //
 //  Created by zhubch on 2017/6/22.
@@ -11,7 +11,7 @@ import EZSwiftExtensions
 import SwipeCellKit
 import RxSwift
 
-class FileListViewController: UIViewController {
+class FilesViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -50,6 +50,11 @@ class FileListViewController: UIViewController {
         title = "全部文件"
         menuBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
         editModel = false
+        loadFiles()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         loadFiles()
     }
     
@@ -92,7 +97,7 @@ class FileListViewController: UIViewController {
     }
 }
 
-extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
+extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         tableView.isHidden = sections.count == 0
         return sections.count
@@ -104,21 +109,30 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  tableView.dequeueReusableCell(withIdentifier: "file", for: indexPath) as! FileTableViewCell
-        cell.file = sections[indexPath.section].1[indexPath.row]
+        let items = sections[indexPath.section].1
+        cell.file = items[indexPath.row]
         cell.delegate = self
+        
         return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let label = UILabel(x: 0, y: 0, w: windowWidth, h: 20)
-        label.text = "  " + sections[section].0
+        let label = UILabel(x: 0, y: 0, w: self.view.w - 16, h: 30)
+        
+        label.text = sections[section].0
         label.textColor = rgb("a0a0a0")
         label.font = UIFont.font(ofSize: 12)
-        return label
+        label.backgroundColor = .white
+        label.textAlignment = .right
+        
+        let header = UIView(x: 0, y: 0, w: self.view.w, h: 30)
+        header.addSubview(label)
+        header.backgroundColor = .white
+        return header
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+        return 30
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -140,7 +154,7 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension FileListViewController: SwipeTableViewCellDelegate {
+extension FilesViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         if orientation == .left {
             return nil

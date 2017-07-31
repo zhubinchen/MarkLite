@@ -185,6 +185,16 @@ extension UIView {
         self.init(frame: CGRect.zero)
         backgroundColor = UIColor(hexString: hexString)
     }
+    
+    func makeCorner(_ radius: CGFloat, corners: UIRectCorner = UIRectCorner.allCorners) {
+        self.layer.mask = nil
+        let maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = self.bounds
+        maskLayer.path = maskPath.cgPath
+        self.layer.mask = maskLayer
+    }
+
 }
 
 
