@@ -23,7 +23,7 @@ class EditViewController: UIViewController {
         if let popGestureRecognizer = self.navigationController?.interactivePopGestureRecognizer {
             scrollView.panGestureRecognizer.require(toFail: popGestureRecognizer)
         }
-        Configure.shared.currentFile.asObservable().map{$0?.name ?? ""}.bind(to: self.rx.title).addDisposableTo(disposeBag)
+        Configure.shared.currentFile.asObservable().map{ $0?.name ?? "" }.bind(to: self.rx.title).addDisposableTo(disposeBag)
     }
     
     @IBAction func export(_ sender: UIButton) {
@@ -47,5 +47,9 @@ class EditViewController: UIViewController {
             return false
         }
         return true
+    }
+    
+    deinit {
+        print("deinit edit_vc")
     }
 }

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		07381D851F0A360B00E362E9 /* RenderManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 07381D841F0A360B00E362E9 /* RenderManager.m */; };
 		07381D8E1F0A467B00E362E9 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 07381D8B1F0A467B00E362E9 /* icon.png */; };
 		07381D8F1F0A467B00E362E9 /* samples.zip in Resources */ = {isa = PBXBuildFile; fileRef = 07381D8C1F0A467B00E362E9 /* samples.zip */; };
 		07381D901F0A467B00E362E9 /* style.zip in Resources */ = {isa = PBXBuildFile; fileRef = 07381D8D1F0A467B00E362E9 /* style.zip */; };
@@ -48,14 +47,13 @@
 		07CC988A1F2D8A38008F65F9 /* EditTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC98891F2D8A38008F65F9 /* EditTextView.swift */; };
 		07CC98F21F2F4328008F65F9 /* PdfRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC98F11F2F4328008F65F9 /* PdfRender.swift */; };
 		07CC98F51F2F4393008F65F9 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07CC98F41F2F4393008F65F9 /* StoreKit.framework */; };
+		07CC99341F316E9D008F65F9 /* RenderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC99331F316E9D008F65F9 /* RenderManager.swift */; };
 		07DAA8951F07BDDA00A8D030 /* Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07DAA8941F07BDDA00A8D030 /* Configure.swift */; };
 		3A63F46FBE6505D22E4425F7 /* Pods_MarkLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C052F2782AE8AAE804B89C9 /* Pods_MarkLite.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		07381D821F0A31C700E362E9 /* MarkLite-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MarkLite-Bridging-Header.h"; sourceTree = "<group>"; };
-		07381D831F0A360B00E362E9 /* RenderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderManager.h; sourceTree = "<group>"; };
-		07381D841F0A360B00E362E9 /* RenderManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RenderManager.m; sourceTree = "<group>"; };
 		07381D8B1F0A467B00E362E9 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		07381D8C1F0A467B00E362E9 /* samples.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = samples.zip; sourceTree = "<group>"; };
 		07381D8D1F0A467B00E362E9 /* style.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = style.zip; sourceTree = "<group>"; };
@@ -81,7 +79,6 @@
 		079693491F078F4C00F435C7 /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
 		0796934A1F078F4C00F435C7 /* escape.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = escape.c; sourceTree = "<group>"; };
 		0796934B1F078F4C00F435C7 /* escape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = escape.h; sourceTree = "<group>"; };
-		0796934C1F078F4C00F435C7 /* hoedown_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoedown_helper.h; sourceTree = "<group>"; };
 		0796934D1F078F4C00F435C7 /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
 		0796934E1F078F4C00F435C7 /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
 		0796934F1F078F4C00F435C7 /* html.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = html.c; sourceTree = "<group>"; };
@@ -108,6 +105,8 @@
 		07CC98F11F2F4328008F65F9 /* PdfRender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PdfRender.swift; sourceTree = "<group>"; };
 		07CC98F31F2F4388008F65F9 /* MarkLite.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MarkLite.entitlements; sourceTree = "<group>"; };
 		07CC98F41F2F4393008F65F9 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		07CC99321F316CB2008F65F9 /* hoedown_helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hoedown_helper.h; sourceTree = "<group>"; };
+		07CC99331F316E9D008F65F9 /* RenderManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderManager.swift; sourceTree = "<group>"; };
 		07DAA8941F07BDDA00A8D030 /* Configure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configure.swift; sourceTree = "<group>"; };
 		1BCD713C28020F7BA4F7C30E /* Pods-MarkLite.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarkLite.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MarkLite/Pods-MarkLite.debug.xcconfig"; sourceTree = "<group>"; };
 		3C052F2782AE8AAE804B89C9 /* Pods_MarkLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarkLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,7 +147,6 @@
 				079693491F078F4C00F435C7 /* document.h */,
 				0796934A1F078F4C00F435C7 /* escape.c */,
 				0796934B1F078F4C00F435C7 /* escape.h */,
-				0796934C1F078F4C00F435C7 /* hoedown_helper.h */,
 				0796934D1F078F4C00F435C7 /* hoedown_html_patch.c */,
 				0796934E1F078F4C00F435C7 /* hoedown_html_patch.h */,
 				0796934F1F078F4C00F435C7 /* html.c */,
@@ -262,10 +260,10 @@
 			children = (
 				079693431F078F4C00F435C7 /* hoedown */,
 				07381D821F0A31C700E362E9 /* MarkLite-Bridging-Header.h */,
-				07381D831F0A360B00E362E9 /* RenderManager.h */,
-				07381D841F0A360B00E362E9 /* RenderManager.m */,
+				07CC99321F316CB2008F65F9 /* hoedown_helper.h */,
 				079693611F0790C500F435C7 /* HighlightManager.swift */,
 				07CC98F11F2F4328008F65F9 /* PdfRender.swift */,
+				07CC99331F316E9D008F65F9 /* RenderManager.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -444,6 +442,7 @@
 				079693601F078F4C00F435C7 /* version.c in Sources */,
 				07B7C1F11EF926280027B2FC /* File.swift in Sources */,
 				079693571F078F4C00F435C7 /* autolink.c in Sources */,
+				07CC99341F316E9D008F65F9 /* RenderManager.swift in Sources */,
 				075269B51EFBC40B00C4DAD9 /* FilesViewController.swift in Sources */,
 				079693591F078F4C00F435C7 /* document.c in Sources */,
 				07B7C1BB1EF913A50027B2FC /* AppDelegate.swift in Sources */,
@@ -454,7 +453,6 @@
 				075269DB1EFCE78A00C4DAD9 /* EditViewController.swift in Sources */,
 				0796935F1F078F4C00F435C7 /* stack.c in Sources */,
 				079693581F078F4C00F435C7 /* buffer.c in Sources */,
-				07381D851F0A360B00E362E9 /* RenderManager.m in Sources */,
 				0796935C1F078F4C00F435C7 /* html.c in Sources */,
 				07CC98F21F2F4328008F65F9 /* PdfRender.swift in Sources */,
 				077403B11F0373A5001AB56A /* TextViewController.swift in Sources */,

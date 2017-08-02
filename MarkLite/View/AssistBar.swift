@@ -23,19 +23,16 @@ class AssistBar: UIView {
         (#imageLiteral(resourceName: "bar_quote"), #selector(tapQuote)),
         (#imageLiteral(resourceName: "bar_code"), #selector(tapCode))]
     
-    let textView: UITextView
-    let vc: UIViewController
+    weak var textView: UITextView?
+    weak var viewController: UIViewController?
+    
     let link = Variable("")
     let disposeBag = DisposeBag()
     var imagePicker: ImagePicker!
 
-    init(textView: UITextView,viewController: UIViewController) {
-        self.textView = textView
-        self.vc = viewController
+    init() {
         super.init(frame: CGRect(x: 0, y: 0, w: windowWidth, h: 50))
-        self.imagePicker = ImagePicker(viewController: viewController, completionHanlder: { (image) in
-            self.didPickImage(image)
-        })
+
         self.backgroundColor = rgb("f2f2f2")
         
         items.forEachEnumerated { (index, item) in
@@ -62,10 +59,15 @@ class AssistBar: UIView {
     }
 
     func tapImage() {
-        self.imagePicker.pickImage()
+        guard let vc = viewController else { return }
+        let imagePicker = ImagePicker(viewController: vc, completionHanlder: { (image) in
+            self.didPickImage(image)
+        })
+        imagePicker.pickImage()
     }
     
     func tapLink() {
+        guard let vc = viewController else { return }
         vc.showAlert(title: "请输入链接", message: "", actionTitles: ["取消","确定"], textFieldconfigurationHandler: { (textField) in
             textField.placeholder = "请输入链接"
             textField.text = "http://example.com"
@@ -80,6 +82,7 @@ class AssistBar: UIView {
     }
     
     func insertLink() {
+        guard let textView = self.textView else { return }
         if link.value.length == 0 {
             return
         }
@@ -90,6 +93,8 @@ class AssistBar: UIView {
     }
     
     func tapCode() {
+        guard let textView = self.textView else { return }
+
         let currentRange = textView.selectedRange
         let text = textView.text.substring(with: currentRange)
         let isEmpty = text.length == 0
@@ -100,16 +105,20 @@ class AssistBar: UIView {
         }
     }
     func tapHeader(_ sender: UIButton) {
+        guard let textView = self.textView else { return }
+
         let pos = sender.convert(sender.center, to: sender.window)
         MenuView(items: ["一级标题","二级标题","三级标题","四级标题"],
                  postion: CGPoint(x: pos.x - 20, y: pos.y - 200)) { (index) in
-                    let currentRange = self.textView.selectedRange
+                    let currentRange = textView.selectedRange
                     let insertText = ("#" * (index+1)) + " Header"
-                    self.textView.insertText("\n\(insertText)\n")
-                    self.textView.selectedRange = NSMakeRange(currentRange.location + index + 3, "Header".length)
+                    textView.insertText("\n\(insertText)\n")
+                    textView.selectedRange = NSMakeRange(currentRange.location + index + 3, "Header".length)
         }.show()
     }
     func tapDeletion() {
+        guard let textView = self.textView else { return }
+
         let currentRange = textView.selectedRange
         let text = textView.text.substring(with: currentRange)
         let isEmpty = text.length == 0
@@ -121,6 +130,8 @@ class AssistBar: UIView {
     }
     
     func tapQuote() {
+        guard let textView = self.textView else { return }
+
         let currentRange = textView.selectedRange
         let insertText = "Blockquote"
         textView.insertText("\n> \(insertText)\n")
@@ -128,6 +139,8 @@ class AssistBar: UIView {
     }
     
     func tapBold() {
+        guard let textView = self.textView else { return }
+
         let currentRange = textView.selectedRange
         let text = textView.text.substring(with: currentRange)
         let isEmpty = text.length == 0
@@ -138,6 +151,8 @@ class AssistBar: UIView {
         }
     }
     func tapItalic() {
+        guard let textView = self.textView else { return }
+
         let currentRange = textView.selectedRange
         let text = textView.text.substring(with: currentRange)
         let isEmpty = text.length == 0
@@ -149,7 +164,8 @@ class AssistBar: UIView {
     }
     
     func didPickImage(_ image: UIImage) {
-        guard let data = UIImageJPEGRepresentation(image, 1) else { return }
+        guard let textView = self.textView, let data = UIImageJPEGRepresentation(image, 1) else { return }
+
         let imagePath = Configure.shared.tempFolderPath + "/\(String.unique).jpg"
         try? data.write(to: URL(fileURLWithPath: imagePath))
         let currentRange = textView.selectedRange
@@ -168,7 +184,7 @@ class AssistBar: UIView {
                 upload.responseString(completionHandler: { (response) in
                     if case .success(let string) = response.result {
                         print(string)
-                        self.textView.text = self.textView.text.replacingOccurrences(of: imagePath, with: string)
+                        textView.text = textView.text.replacingOccurrences(of: imagePath, with: string)
                     } else if case .failure(let error) = response.result {
                         print(error.localizedDescription)
                     }

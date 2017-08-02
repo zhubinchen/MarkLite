@@ -117,13 +117,11 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let label = UILabel(x: 0, y: 0, w: self.view.w - 16, h: 30)
+        let label = UILabel(x: 16, y: 0, w: self.view.w, h: 30)
         
         label.text = sections[section].0
         label.textColor = rgb("a0a0a0")
         label.font = UIFont.font(ofSize: 12)
-        label.backgroundColor = .white
-        label.textAlignment = .right
         
         let header = UIView(x: 0, y: 0, w: self.view.w, h: 30)
         header.addSubview(label)

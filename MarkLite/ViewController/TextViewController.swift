@@ -26,18 +26,18 @@ class TextViewController: UIViewController {
     let disposeBag = DisposeBag()
     let manager = MarkdownHighlightManager()
     
-    let canUndo = Variable(false)
-    let canRedo = Variable(false)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         editView.backgroundColor = .white
-        editView.inputAccessoryView = AssistBar(textView: editView, viewController: self)
+        editView.inputAccessoryView = AssistBar()
+        let assistBar = AssistBar()
+        assistBar.textView = editView
+        assistBar.viewController = self
+        
         Configure.shared.currentFile.asObservable().subscribe(onNext: { [unowned self] (file) in
             guard let file = file else { return }
-            self.undoButton.isEnabled = false
-            self.redoButton.isEnabled = false
+
             self.editView.attributedText = self.manager.highlight(file.text.value)
             self.editView.rx.text.map{ $0 ?? "" }.bind(to: file.text).addDisposableTo(self.disposeBag)
             self.editView.attributedText = self.manager.highlight(file.text.value)
@@ -64,6 +64,7 @@ class TextViewController: UIViewController {
     }
     
     @IBAction func preview(_ sender:UIButton) {
+        editView.resignFirstResponder()
         previewHandler?()
     }
     
@@ -77,20 +78,28 @@ class TextViewController: UIViewController {
     
     @IBAction func undo(_ sender: UIButton) {
         editView.undoManager?.undo()
-        sender.isEnabled = editView.undoManager?.canUndo ?? false
+        
+        self.redoButton.isEnabled = self.editView.undoManager?.canRedo ?? false
+        self.undoButton.isEnabled = self.editView.undoManager?.canUndo ?? false
     }
     
     @IBAction func redo(_ sender: UIButton) {
         editView.undoManager?.redo()
-        sender.isEnabled = editView.undoManager?.canRedo ?? false
+        self.redoButton.isEnabled = self.editView.undoManager?.canRedo ?? false
+        self.undoButton.isEnabled = self.editView.undoManager?.canUndo ?? false
     }
     
     func keyboardWillChange(_ noti: NSNotification) {
         guard let frame = (noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
-        bottomSpace.constant = max((self.view.h - frame.y - 40),0)
+        bottomSpace.constant = self.view.h - frame.y
+        editView.scrollRangeToVisible(editView.selectedRange)
         UIView.animate(withDuration: 1) {
             self.view.layoutIfNeeded()
         }
+    }
+    
+    deinit {
+        print("deinit text_vc")
     }
     
 }

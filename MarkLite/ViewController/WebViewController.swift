@@ -26,10 +26,22 @@ class WebViewController: UIViewController {
         }
     }
     
+    var currentFile: File! {
+        didSet {
+            fileDisposeBag = DisposeBag()
+            currentFile.text.asObservable().map{ [unowned self] text in
+                self.renderManager.render(text)
+                }.subscribe(onNext: { [unowned self] (html) in
+                self.htmlString = html
+            }).addDisposableTo(fileDisposeBag)
+        }
+    }
+    
     let disposeBag = DisposeBag()
+    
     var fileDisposeBag: DisposeBag!
     
-    let renderManager: RenderManager = RenderManager.default()
+    let renderManager: RenderManager = RenderManager.default
 
     let pdfRender = PdfRender()
     
@@ -41,10 +53,7 @@ class WebViewController: UIViewController {
 
         Configure.shared.currentFile.asObservable().subscribe(onNext: { [weak self] (file) in
             guard let file = file, let this = self else { return }
-            this.fileDisposeBag = DisposeBag()
-            file.text.asObservable().map{ this.renderManager.render($0) ?? "" }.subscribe(onNext: { (html) in
-                this.htmlString = html
-            }).addDisposableTo(this.fileDisposeBag)
+            this.currentFile = file
         }).addDisposableTo(disposeBag)
         
         webView.rx.didStartLoad.subscribe { [weak self] _ in
@@ -100,4 +109,7 @@ class WebViewController: UIViewController {
         presentVC(vc)
     }
     
+    deinit {
+        print("deinit web_vc")
+    }
 }

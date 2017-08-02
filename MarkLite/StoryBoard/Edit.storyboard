@@ -20,8 +20,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lId-Dt-n2r">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="453"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lId-Dt-n2r">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="553"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -110,7 +110,7 @@
                         <constraints>
                             <constraint firstItem="lId-Dt-n2r" firstAttribute="leading" secondItem="eCS-3y-9qx" secondAttribute="leading" id="EzB-oc-JMH"/>
                             <constraint firstItem="d5L-1x-TTM" firstAttribute="leading" secondItem="eCS-3y-9qx" secondAttribute="leading" constant="5" id="Jx8-50-U0f"/>
-                            <constraint firstItem="A59-fe-PiA" firstAttribute="top" secondItem="lId-Dt-n2r" secondAttribute="bottom" constant="100" id="P3Y-cM-WEY"/>
+                            <constraint firstItem="A59-fe-PiA" firstAttribute="top" secondItem="lId-Dt-n2r" secondAttribute="bottom" id="P3Y-cM-WEY"/>
                             <constraint firstItem="d5L-1x-TTM" firstAttribute="top" secondItem="eCS-3y-9qx" secondAttribute="top" constant="8" id="dcn-A2-C7X"/>
                             <constraint firstItem="A59-fe-PiA" firstAttribute="leading" secondItem="eCS-3y-9qx" secondAttribute="leading" id="g29-4E-a7C"/>
                             <constraint firstItem="lId-Dt-n2r" firstAttribute="leading" secondItem="eCS-3y-9qx" secondAttribute="leading" id="j5T-KS-ysC"/>
