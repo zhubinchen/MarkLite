@@ -17,11 +17,14 @@ let uploadToken = "97ade20b4c5a86b625cf449f45f720d686a0154f:Mlg-545PK1Jp5vnxH0v1
 let primaryColor = UIColor(hexString: "333333")!
 
 let defaultFont = UIFont.font(ofSize: 16)
-let windowWidth = UIApplication.shared.keyWindow?.w ?? 0
-let windowHeight = UIApplication.shared.keyWindow?.h ?? 0
+
+var windowWidth: CGFloat { return UIApplication.shared.keyWindow?.w ?? 0}
+var windowHeight: CGFloat { return UIApplication.shared.keyWindow?.h ?? 0 }
 
 let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
 
+let isPad = UIDevice.current.userInterfaceIdiom == .pad
+let isPhone = UIDevice.current.userInterfaceIdiom == .phone
 
 let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
 

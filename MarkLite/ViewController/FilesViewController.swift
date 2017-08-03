@@ -48,9 +48,13 @@ class FilesViewController: UIViewController {
         super.viewDidLoad()
         
         title = "全部文件"
-        menuBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
+
         editModel = false
         loadFiles()
+        
+        if isPhone {
+            menuBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -65,6 +69,7 @@ class FilesViewController: UIViewController {
     }
     
     func showSettings() {
+
         performSegue(withIdentifier: "menu", sender: nil)
     }
     
@@ -80,7 +85,9 @@ class FilesViewController: UIViewController {
                 guard let file = self.root.createFile(name: "未命名", type: .text) else { return }
                 file.isTemp = true
                 Configure.shared.currentFile.value = file
-                self.performSegue(withIdentifier: "edit", sender: file)
+                if isPhone {
+                    self.performSegue(withIdentifier: "edit", sender: file)
+                }
             } else {
                 self.editModel = true
             }
@@ -148,8 +155,11 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
             return
         }
         Configure.shared.currentFile.value = file
-        performSegue(withIdentifier: "edit", sender: file)
+        if isPhone {
+            performSegue(withIdentifier: "edit", sender: file)
+        }
     }
+
 }
 
 extension FilesViewController: SwipeTableViewCellDelegate {

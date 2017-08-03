@@ -12,6 +12,7 @@ import RxCocoa
 
 class EditViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var textViewWidth: NSLayoutConstraint!
     
     var webVC: WebViewController!
     
@@ -47,6 +48,11 @@ class EditViewController: UIViewController {
             return false
         }
         return true
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        textViewWidth.constant = windowWidth > windowHeight ? (windowWidth - 64) * 0.5 : windowWidth
     }
     
     deinit {

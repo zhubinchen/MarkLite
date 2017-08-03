@@ -13,6 +13,7 @@ import Zip
 
 class Configure: NSObject, NSCoding {
     let currentFile: Variable<File?> = Variable(nil)
+    let isLandscape = Variable(false)
     let root = File(path: localPath)
     let tempFolderPath = documentPath + "/temp"
     
