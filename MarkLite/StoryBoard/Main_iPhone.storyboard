@@ -24,10 +24,10 @@
             </objects>
             <point key="canvasLocation" x="-6745" y="-4953"/>
         </scene>
-        <!--Menu-->
+        <!--Settings-->
         <scene sceneID="Pjb-bz-DTK">
             <objects>
-                <viewControllerPlaceholder storyboardName="Menu" id="tKl-d2-mKZ" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="Settings" id="tKl-d2-mKZ" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="UAZ-F7-2Yq"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9qj-Pu-50g" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -1,5 +1,5 @@
 //
-//  MenuViewController.swift
+//  SettingsViewController.swift
 //  MarkLite
 //
 //  Created by zhubch on 2017/6/23.
@@ -9,7 +9,7 @@
 import UIKit
 import SideMenu
 
-class MenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -18,21 +18,23 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     let items = [
-        ("同步",[
-            ("UseCloud",#selector(icloud(_:)))]),
         ("功能",[
-            ("PicServer",#selector(picServer)),
-            ("Font",#selector(font)),
-            ("Style",#selector(style))
+            ("iCloud 同步",#selector(icloud(_:))),
+            ("图床",#selector(picServer)),
+            ("辅助键盘",#selector(picServer)),
+            ]),
+        ("外观",[
+            ("主题色",#selector(picServer)),
+            ("预览样式",#selector(picServer)),
+            ("编辑器字体",#selector(picServer)),
             ]),
         ("支持一下",[
-            ("RateIt",#selector(rate)),
-            ("Donate",#selector(donate))
+            ("五星好评",#selector(rate)),
+            ("打赏开发者",#selector(donate))
             ]),
-        ("问题反馈",[
-            ("Feedback",#selector(feedback))
+        ("反馈",[
+            ("问题与意见",#selector(feedback))
             ])
-        
     ]
     
     override func viewDidLoad() {
@@ -61,24 +63,24 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         perform(item.1)
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let label = UILabel(x: 0, y: 0, w: windowWidth, h: 20)
-        label.text = "  " + items[section].0
-        label.textColor = rgb("a0a0a0")
-        label.font = UIFont.font(ofSize: 12)
-        return label
-    }
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let label = UILabel(x: 0, y: 0, w: windowWidth, h: 20)
+//        label.text = "  " + items[section].0
+//        label.textColor = rgb("a0a0a0")
+//        label.font = UIFont.font(ofSize: 12)
+//        return label
+//    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+        return 0.01
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 10
+        return 20
     }
 }
 
-extension MenuViewController {
+extension SettingsViewController {
     
     func icloud(_ sender: UISwitch) {
         

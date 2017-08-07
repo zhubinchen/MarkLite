@@ -14,7 +14,7 @@
 		075269B51EFBC40B00C4DAD9 /* FilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075269B41EFBC40B00C4DAD9 /* FilesViewController.swift */; };
 		075269B91EFBD40D00C4DAD9 /* FileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075269B81EFBD40D00C4DAD9 /* FileTableViewCell.swift */; };
 		075269DB1EFCE78A00C4DAD9 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075269DA1EFCE78A00C4DAD9 /* EditViewController.swift */; };
-		075269DD1EFCE7C200C4DAD9 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075269DC1EFCE7C200C4DAD9 /* MenuViewController.swift */; };
+		075269DD1EFCE7C200C4DAD9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075269DC1EFCE7C200C4DAD9 /* SettingsViewController.swift */; };
 		075269DF1EFCEE9E00C4DAD9 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075269DE1EFCEE9E00C4DAD9 /* Constant.swift */; };
 		075360161F1602770007DF6A /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075360151F1602770007DF6A /* MenuView.swift */; };
 		076AF2F71EFA437100DCF6EF /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076AF2F61EFA437100DCF6EF /* Utils.swift */; };
@@ -41,7 +41,7 @@
 		07B7C1FA1EF926EA0027B2FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1F41EF926EA0027B2FC /* LaunchScreen.storyboard */; };
 		07B7C1FB1EF926EA0027B2FC /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1F51EF926EA0027B2FC /* Main_iPad.storyboard */; };
 		07B7C1FC1EF926EA0027B2FC /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1F61EF926EA0027B2FC /* Main_iPhone.storyboard */; };
-		07B7C1FD1EF926EA0027B2FC /* Menu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1F71EF926EA0027B2FC /* Menu.storyboard */; };
+		07B7C1FD1EF926EA0027B2FC /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1F71EF926EA0027B2FC /* Settings.storyboard */; };
 		07B867831F31CD8300374459 /* WrapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B867821F31CD8300374459 /* WrapViewController.swift */; };
 		07B867851F32E9D600374459 /* DottedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B867841F32E9D600374459 /* DottedLineView.swift */; };
 		07CC988A1F2D8A38008F65F9 /* EditTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07CC98891F2D8A38008F65F9 /* EditTextView.swift */; };
@@ -61,7 +61,7 @@
 		075269B41EFBC40B00C4DAD9 /* FilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesViewController.swift; sourceTree = "<group>"; };
 		075269B81EFBD40D00C4DAD9 /* FileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileTableViewCell.swift; sourceTree = "<group>"; };
 		075269DA1EFCE78A00C4DAD9 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
-		075269DC1EFCE7C200C4DAD9 /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		075269DC1EFCE7C200C4DAD9 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		075269DE1EFCEE9E00C4DAD9 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		075360151F1602770007DF6A /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		076AF2F61EFA437100DCF6EF /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -98,7 +98,7 @@
 		07B7C1F41EF926EA0027B2FC /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		07B7C1F51EF926EA0027B2FC /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPad.storyboard; sourceTree = "<group>"; };
 		07B7C1F61EF926EA0027B2FC /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
-		07B7C1F71EF926EA0027B2FC /* Menu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Menu.storyboard; sourceTree = "<group>"; };
+		07B7C1F71EF926EA0027B2FC /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		07B867821F31CD8300374459 /* WrapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapViewController.swift; sourceTree = "<group>"; };
 		07B867841F32E9D600374459 /* DottedLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DottedLineView.swift; sourceTree = "<group>"; };
 		07CC98891F2D8A38008F65F9 /* EditTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditTextView.swift; sourceTree = "<group>"; };
@@ -236,7 +236,7 @@
 				075269DA1EFCE78A00C4DAD9 /* EditViewController.swift */,
 				077403AE1F03739D001AB56A /* WebViewController.swift */,
 				077403B01F0373A5001AB56A /* TextViewController.swift */,
-				075269DC1EFCE7C200C4DAD9 /* MenuViewController.swift */,
+				075269DC1EFCE7C200C4DAD9 /* SettingsViewController.swift */,
 				077403AC1F037043001AB56A /* NavigationController.swift */,
 				07B867821F31CD8300374459 /* WrapViewController.swift */,
 			);
@@ -249,7 +249,7 @@
 				07B7C1F41EF926EA0027B2FC /* LaunchScreen.storyboard */,
 				07B7C1F51EF926EA0027B2FC /* Main_iPad.storyboard */,
 				07B7C1F61EF926EA0027B2FC /* Main_iPhone.storyboard */,
-				07B7C1F71EF926EA0027B2FC /* Menu.storyboard */,
+				07B7C1F71EF926EA0027B2FC /* Settings.storyboard */,
 				07B7C1F31EF926EA0027B2FC /* Edit.storyboard */,
 			);
 			path = StoryBoard;
@@ -339,8 +339,6 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
-				Base,
 			);
 			mainGroup = 07B7C1AE1EF913A50027B2FC;
 			productRefGroup = 07B7C1B81EF913A50027B2FC /* Products */;
@@ -362,7 +360,7 @@
 				0777CBCB1F14674300DE1D29 /* AssistBar.xib in Resources */,
 				07381D8F1F0A467B00E362E9 /* samples.zip in Resources */,
 				07B7C1FC1EF926EA0027B2FC /* Main_iPhone.storyboard in Resources */,
-				07B7C1FD1EF926EA0027B2FC /* Menu.storyboard in Resources */,
+				07B7C1FD1EF926EA0027B2FC /* Settings.storyboard in Resources */,
 				07381D8E1F0A467B00E362E9 /* icon.png in Resources */,
 				07B7C1F91EF926EA0027B2FC /* Edit.storyboard in Resources */,
 				07B7C1C21EF913A50027B2FC /* Assets.xcassets in Resources */,
@@ -426,7 +424,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				077403AF1F03739D001AB56A /* WebViewController.swift in Sources */,
-				075269DD1EFCE7C200C4DAD9 /* MenuViewController.swift in Sources */,
+				075269DD1EFCE7C200C4DAD9 /* SettingsViewController.swift in Sources */,
 				07DAA8951F07BDDA00A8D030 /* Configure.swift in Sources */,
 				075269DF1EFCEE9E00C4DAD9 /* Constant.swift in Sources */,
 				074402EE1F14DF5F00410765 /* ImagePicker.swift in Sources */,

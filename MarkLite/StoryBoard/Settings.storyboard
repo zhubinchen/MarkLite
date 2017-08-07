@@ -11,7 +11,7 @@
         <!--设置-->
         <scene sceneID="AmT-Ic-2ck">
             <objects>
-                <viewController title="设置" id="vGY-hr-mhh" customClass="MenuViewController" customModule="MarkLite" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="设置" id="vGY-hr-mhh" customClass="SettingsViewController" customModule="MarkLite" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LX5-CP-lAO"/>
                         <viewControllerLayoutGuide type="bottom" id="uff-cy-QGb"/>
@@ -25,13 +25,13 @@
                                 <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="separatorColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="lk7-RY-7Ew">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="30"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settings" textLabel="uX0-Z0-Ptk" style="IBUITableViewCellStyleDefault" id="XbE-6q-RXd">
-                                        <rect key="frame" x="0.0" y="85.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XbE-6q-RXd" id="b2t-3p-tUd">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
@@ -40,8 +40,8 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uX0-Z0-Ptk">
                                                     <rect key="frame" x="15" y="0.0" width="325" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.85999999999999999" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -54,11 +54,19 @@
                                     <outlet property="delegate" destination="vGY-hr-mhh" id="YKc-Kv-4kU"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MarkLite v.4.2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTn-c3-YLw">
+                                <rect key="frame" x="137.5" y="637.5" width="102" height="19.5"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="16"/>
+                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="PTn-c3-YLw" firstAttribute="centerX" secondItem="tDM-8d-VsW" secondAttribute="centerX" id="1vI-yz-xld"/>
+                            <constraint firstItem="uff-cy-QGb" firstAttribute="top" secondItem="PTn-c3-YLw" secondAttribute="bottom" constant="10" id="FNB-9W-9NO"/>
+                            <constraint firstItem="uff-cy-QGb" firstAttribute="top" secondItem="IEC-f4-3bg" secondAttribute="bottom" id="JwN-87-1xO"/>
                             <constraint firstItem="IEC-f4-3bg" firstAttribute="top" secondItem="LX5-CP-lAO" secondAttribute="bottom" id="NaU-hw-k4z"/>
-                            <constraint firstItem="uff-cy-QGb" firstAttribute="top" secondItem="IEC-f4-3bg" secondAttribute="bottom" id="RK8-cS-VaR"/>
                             <constraint firstAttribute="trailing" secondItem="IEC-f4-3bg" secondAttribute="trailing" id="c8y-W9-JeV"/>
                             <constraint firstItem="IEC-f4-3bg" firstAttribute="leading" secondItem="tDM-8d-VsW" secondAttribute="leading" id="vap-04-DQi"/>
                         </constraints>

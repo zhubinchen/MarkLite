@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>zh_CN</string>
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
@@ -60,7 +60,7 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>拍摄图片和视频，需要开启照相机权限</string>
+	<string>拍摄图片，需要开启照相机权限</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>选择图片，需要开启相册权限</string>
 	<key>UILaunchStoryboardName</key>
