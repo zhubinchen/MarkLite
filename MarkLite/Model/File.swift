@@ -47,18 +47,6 @@ class File {
     private(set) var path: String
     private(set) var modifyDate: Date
     private(set) var size: Int64
-        
-    lazy var text: Variable<String> = {
-        let text = Variable("")
-        guard let string = try? String(contentsOfFile: self.path, encoding: String.Encoding.utf8) else {
-            return text
-        }
-        text.value = string
-        
-        return text
-    }()
-    
-    lazy var html = Variable("")
     
     var children: [File] {
         return _children
@@ -150,13 +138,28 @@ class File {
         return true
     }
     
-    @discardableResult
-    func save() -> Bool {
+    func readText(_ completion:(String)->Void) {
+        guard let string = try? String(contentsOfFile: self.path, encoding: String.Encoding.utf8) else {
+            completion("")
+            print("error to read file at:\(path)")
+            return
+        }
         
-        guard let data = text.value.data(using: String.Encoding.utf8) else { return false }
+        completion(string)
+    }
+    
+    @discardableResult
+    func write(text: String) -> Bool {
+        
+        guard let data = text.data(using: String.Encoding.utf8) else { return false }
         
         let url = URL(fileURLWithPath: self.path)
-        try? data.write(to: url)
+        do {
+            try data.write(to: url)
+        } catch {
+            print("error to save file at:\(path)")
+            return false
+        }
         return true
     }
     

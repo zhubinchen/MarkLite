@@ -71,16 +71,28 @@
                                         <state key="normal" image="nav_settings"/>
                                         <connections>
                                             <segue destination="GbO-q4-l0w" kind="popoverPresentation" popoverAnchorView="LMn-G2-vBB" id="UwJ-Cr-HFT">
-                                                <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                                <popoverArrowDirection key="popoverArrowDirection" left="YES"/>
                                             </segue>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="文件名" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xoa-4h-kmT">
+                                        <rect key="frame" x="22" y="301.5" width="20" height="64.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="kfx-o3-OG2"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="LMn-G2-vBB" firstAttribute="centerX" secondItem="Soy-RX-NnA" secondAttribute="centerX" id="5Ic-xN-JAa"/>
+                                    <constraint firstItem="LMn-G2-vBB" firstAttribute="centerX" secondItem="Soy-RX-NnA" secondAttribute="centerX" id="F3H-gx-oPx"/>
                                     <constraint firstAttribute="width" constant="64" id="KAr-zJ-KPh"/>
                                     <constraint firstItem="9Pb-MS-3a9" firstAttribute="top" secondItem="Soy-RX-NnA" secondAttribute="top" constant="20" id="PHe-LP-rzQ"/>
+                                    <constraint firstItem="Xoa-4h-kmT" firstAttribute="centerY" secondItem="Soy-RX-NnA" secondAttribute="centerY" id="PLb-w3-fFX"/>
+                                    <constraint firstItem="Xoa-4h-kmT" firstAttribute="centerX" secondItem="Soy-RX-NnA" secondAttribute="centerX" id="Uax-vb-W1c"/>
                                     <constraint firstItem="9Pb-MS-3a9" firstAttribute="centerX" secondItem="Soy-RX-NnA" secondAttribute="centerX" id="a5I-lB-dvK"/>
                                     <constraint firstAttribute="bottom" secondItem="LMn-G2-vBB" secondAttribute="bottom" constant="10" id="igU-1o-Eua"/>
                                 </constraints>
@@ -114,10 +126,18 @@
                                             </segue>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="文件名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jM5-6u-txk">
+                                        <rect key="frame" x="159.5" y="32" width="55.5" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="jM5-6u-txk" firstAttribute="centerY" secondItem="Pef-RJ-j4j" secondAttribute="centerY" id="COy-Z9-oWO"/>
                                     <constraint firstAttribute="bottom" secondItem="Abw-PP-Igt" secondAttribute="bottom" id="KGk-j0-CGy"/>
+                                    <constraint firstItem="jM5-6u-txk" firstAttribute="centerX" secondItem="cXS-sU-9as" secondAttribute="centerX" id="Mb6-Cq-uFL"/>
                                     <constraint firstAttribute="trailing" secondItem="Abw-PP-Igt" secondAttribute="trailing" constant="10" id="SQr-5U-EBs"/>
                                     <constraint firstAttribute="height" constant="64" id="VpQ-lJ-9Cb"/>
                                     <constraint firstItem="Pef-RJ-j4j" firstAttribute="leading" secondItem="cXS-sU-9as" secondAttribute="leading" constant="10" id="cLG-3d-Xtn"/>
@@ -149,8 +169,10 @@
                     <connections>
                         <outlet property="leftBar" destination="Soy-RX-NnA" id="mKl-zv-tie"/>
                         <outlet property="leftBarWidth" destination="KAr-zJ-KPh" id="F0y-mB-Ied"/>
+                        <outlet property="leftTitle" destination="Xoa-4h-kmT" id="chQ-SI-S8b"/>
                         <outlet property="topBar" destination="cXS-sU-9as" id="DSz-1N-93J"/>
                         <outlet property="topBarHeight" destination="VpQ-lJ-9Cb" id="hRz-Tf-FvW"/>
+                        <outlet property="topTitle" destination="jM5-6u-txk" id="k9G-ah-3GI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y6M-0o-WDV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -288,7 +310,7 @@
         <image name="nav_settings" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Nav-Zi-MNo"/>
+        <segue reference="UwJ-Cr-HFT"/>
         <segue reference="TE6-LX-4kH"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -22,6 +22,7 @@ class TextViewController: UIViewController {
     @IBOutlet weak var redoButton: UIButton!
 
     var previewHandler: (()->Void)?
+    var textChangedHandler: ((String)->Void)?
 
     let disposeBag = DisposeBag()
     let manager = MarkdownHighlightManager()
@@ -35,24 +36,28 @@ class TextViewController: UIViewController {
         assistBar.textView = editView
         assistBar.viewController = self
         
-        Configure.shared.currentFile.asObservable().subscribe(onNext: { [unowned self] (file) in
+        Configure.shared.currentFile.asObservable().subscribe(onNext: { [weak self] (file) in
             guard let file = file else { return }
-
-            self.editView.attributedText = self.manager.highlight(file.text.value)
-            self.editView.rx.text.map{ $0 ?? "" }.bind(to: file.text).addDisposableTo(self.disposeBag)
-            self.editView.attributedText = self.manager.highlight(file.text.value)
+            file.readText{
+                self?.editView.text = $0
+                self?.textChanged()
+            }
         }).addDisposableTo(disposeBag)
         
-        editView.rx.didChange.subscribe { [unowned self] _ in
-            self.highlight()
+        editView.rx.didChange.subscribe { [weak self] _ in
+            self?.textChanged()
         }.addDisposableTo(disposeBag)
         
-        editView.rx.text.map{($0?.length ?? 0) > 0}.bind(to: placeholderLabel.rx.isHidden).addDisposableTo(disposeBag)
+        editView.rx.text.map{($0?.length ?? 0) > 0}
+            .bind(to: placeholderLabel.rx.isHidden)
+            .addDisposableTo(disposeBag)
         
         addNotificationObserver(Notification.Name.UIKeyboardWillChangeFrame.rawValue, selector: #selector(keyboardWillChange(_:)))
     }
     
-    func highlight() {
+    func textChanged() {
+        textChangedHandler?(editView.text ?? "")
+
         if editView.markedTextRange != nil {
             return
         }

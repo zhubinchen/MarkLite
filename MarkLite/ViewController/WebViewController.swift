@@ -20,26 +20,19 @@ enum ExportType: String {
 class WebViewController: UIViewController {
     @IBOutlet weak var webView: UIWebView!
     
+    var text = "" {
+        didSet {
+            htmlString = renderManager.render(text)
+        }
+    }
+    
     var htmlString = "" {
         didSet {
             webView.loadHTMLString(htmlString, baseURL: nil)
         }
     }
     
-    var currentFile: File! {
-        didSet {
-            fileDisposeBag = DisposeBag()
-            currentFile.text.asObservable().map{ [unowned self] text in
-                self.renderManager.render(text)
-                }.subscribe(onNext: { [unowned self] (html) in
-                self.htmlString = html
-            }).addDisposableTo(fileDisposeBag)
-        }
-    }
-    
     let disposeBag = DisposeBag()
-    
-    var fileDisposeBag: DisposeBag!
     
     let renderManager: RenderManager = RenderManager.default
 
@@ -50,11 +43,6 @@ class WebViewController: UIViewController {
         
         renderManager.markdownStyle = "GitHub2"
         renderManager.highlightStyle = "rainbow"
-
-        Configure.shared.currentFile.asObservable().subscribe(onNext: { [weak self] (file) in
-            guard let file = file, let this = self else { return }
-            this.currentFile = file
-        }).addDisposableTo(disposeBag)
         
         webView.rx.didStartLoad.subscribe { [weak self] _ in
             self?.webView.startLoadingAnimation()
@@ -78,26 +66,25 @@ class WebViewController: UIViewController {
     }
     
     func url(for type: ExportType) -> URL? {
-        let name = Configure.shared.currentFile.value?.name ?? "temp"
+        guard let file = Configure.shared.currentFile.value else { return nil }
         switch type {
         case .PDF:
             let data = pdfRender.render(html: htmlString)
-            let path = Configure.shared.tempFolderPath + "/" + name + ".pdf"
+            let path = Configure.shared.tempFolderPath + "/" + file.name + ".pdf"
             let url = URL(fileURLWithPath: path)
             try? data.write(to: url)
             return url
         case .image:
             guard let img = webView.scrollView.snap, let data = UIImagePNGRepresentation(img) else { return nil }
-            let path = Configure.shared.tempFolderPath + "/" + name + ".png"
+            let path = Configure.shared.tempFolderPath + "/" + file.name + ".png"
             let url = URL(fileURLWithPath: path)
             try? data.write(to: url)
             return url
         case .markdown:
-            guard let path = Configure.shared.currentFile.value?.path else { return nil }
-            return URL(fileURLWithPath: path)
+            return URL(fileURLWithPath: file.path)
         case .html:
             guard let data = htmlString.data(using: String.Encoding.utf8) else { return nil }
-            let path = Configure.shared.tempFolderPath + "/" + name + ".html"
+            let path = Configure.shared.tempFolderPath + "/" + file.name + ".html"
             let url = URL(fileURLWithPath: path)
             try? data.write(to: url)
             return url

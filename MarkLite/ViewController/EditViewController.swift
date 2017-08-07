@@ -34,9 +34,13 @@ class EditViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? TextViewController {
-            vc.previewHandler = { [unowned self] _ in
-                self.scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)
+            vc.previewHandler = { [weak self] _ in
+                self?.scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)
             }
+            vc.textChangedHandler = { [weak self] text in
+                self?.webVC.text = text
+            }
+
         } else if let vc = segue.destination as? WebViewController {
             webVC = vc
         }

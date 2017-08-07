@@ -22,22 +22,7 @@ class FilesViewController: UIViewController {
     
     @IBOutlet weak var emptyView: UIView!
     
-    var editModel = false {
-        didSet {
-            if editModel {
-                navigationItem.rightBarButtonItem = UIBarButtonItem(title: "完成", style: .plain, target: self, action: #selector(finish))
-                navigationItem.leftBarButtonItem = UIBarButtonItem(title: "全选", style: .plain, target: self, action: #selector(selectAllModel))
-            } else {
-                navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_edit"), style: .plain, target: self, action: #selector(showMenu))
-                navigationItem.leftBarButtonItem = menuBarButton
-                root.children.forEach{$0.isSelected = false}
-                tableView.reloadData()
-            }
-            tableView.allowsMultipleSelection = editModel
-        }
-    }
-    
-    var menuBarButton: UIBarButtonItem?
+    var selectedIndexPath: IndexPath?
 
     fileprivate var sections = [(String,[File])]()
 
@@ -49,11 +34,11 @@ class FilesViewController: UIViewController {
         
         title = "全部文件"
 
-        editModel = false
         loadFiles()
         
         if isPhone {
-            menuBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_edit"), style: .plain, target: self, action: #selector(createNewNote))
         }
     }
     
@@ -73,35 +58,15 @@ class FilesViewController: UIViewController {
         performSegue(withIdentifier: "menu", sender: nil)
     }
     
-    func finish() {
-        root.children.filter{$0.isSelected}.forEach{$0.trash()}
-        loadFiles()
-        editModel = false
+    func createNewNote() {
+        guard let file = self.root.createFile(name: "未命名", type: .text) else { return }
+        file.isTemp = true
+        Configure.shared.currentFile.value = file
+        if isPhone {
+            self.performSegue(withIdentifier: "edit", sender: file)
+        }
     }
     
-    func showMenu() {
-        MenuView(items: ["新建笔记","批量删除"], postion: CGPoint(x: windowWidth - 140, y: 65 )) { (index) in
-            if index == 0 {
-                guard let file = self.root.createFile(name: "未命名", type: .text) else { return }
-                file.isTemp = true
-                Configure.shared.currentFile.value = file
-                if isPhone {
-                    self.performSegue(withIdentifier: "edit", sender: file)
-                }
-            } else {
-                self.editModel = true
-            }
-        }.show()
-    }
-    
-    func selectAllModel() {
-        root.children.forEach{$0.isSelected = true}
-        tableView.reloadData()
-    }
-    
-    func createFile() {
-        
-    }
 }
 
 extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
@@ -147,16 +112,18 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let file = sections[indexPath.section].1[indexPath.row]
 
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        if editModel {
-            file.isSelected.toggle()
-            tableView.reloadRows(at: [indexPath], with: .automatic)
-            return
-        }
         Configure.shared.currentFile.value = file
         if isPhone {
+            tableView.deselectRow(at: indexPath, animated: true)
             performSegue(withIdentifier: "edit", sender: file)
+        } else {
+            if let oldIndexPath = selectedIndexPath {
+                sections[oldIndexPath.section].1[oldIndexPath.row].isSelected = false
+                tableView.reloadRows(at: [oldIndexPath], with: .automatic)
+            }
+            file.isSelected = true
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+            selectedIndexPath = indexPath
         }
     }
 
