@@ -15,29 +15,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
+        
         let navigationBar = UINavigationBar.appearance()
         
-        navigationBar.barTintColor = .white
-        navigationBar.tintColor = primaryColor
         navigationBar.isTranslucent = false
         navigationBar.shadowImage = UIImage(color: .clear, size: CGSize(width: 1000, height: 64))
-        navigationBar.setBackgroundImage(UIImage(color: .white, size: CGSize(width: 1000, height: 64)), for: .default)
         let backImage = #imageLiteral(resourceName: "nav_back")
         
         navigationBar.backIndicatorImage = backImage
         navigationBar.backIndicatorTransitionMaskImage = backImage
-
-            let attr: [String: Any] = [
-            NSFontAttributeName: UIFont.font(ofSize: 18),
-            NSForegroundColorAttributeName: primaryColor
-        ]
-        navigationBar.titleTextAttributes = attr
         
         SideMenuManager.menuFadeStatusBar = false
         SideMenuManager.menuWidth = 300
         
         Configure.shared.setup()
+        _ = Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in
+            ColorCenter.shared.theme = theme
+        })
         return true
     }
 

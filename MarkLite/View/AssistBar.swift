@@ -28,7 +28,7 @@ class AssistBar: UIView {
     
     let link = Variable("")
     let disposeBag = DisposeBag()
-    var imagePicker: ImagePicker!
+    var imagePicker: ImagePicker?
 
     init() {
         super.init(frame: CGRect(x: 0, y: 0, w: windowWidth, h: 50))
@@ -60,10 +60,10 @@ class AssistBar: UIView {
 
     func tapImage() {
         guard let vc = viewController else { return }
-        let imagePicker = ImagePicker(viewController: vc, completionHanlder: { (image) in
+        imagePicker = ImagePicker(viewController: vc, completionHanlder: { (image) in
             self.didPickImage(image)
         })
-        imagePicker.pickImage()
+        imagePicker?.pickImage()
     }
     
     func tapLink() {
@@ -72,7 +72,7 @@ class AssistBar: UIView {
             textField.placeholder = "请输入链接"
             textField.text = "http://example.com"
             textField.font = UIFont.font(ofSize: 13)
-            textField.textColor = primaryColor
+            textField.setTextColor(.primary)
             textField.rx.text.map{$0 ?? ""}.bind(to: self.link).addDisposableTo(self.disposeBag)
         }) { (index) in
             if index == 1 {
@@ -164,27 +164,28 @@ class AssistBar: UIView {
     }
     
     func didPickImage(_ image: UIImage) {
+        imagePicker = nil
         guard let textView = self.textView, let data = UIImageJPEGRepresentation(image, 1) else { return }
 
-        let imagePath = Configure.shared.tempFolderPath + "/\(String.unique).jpg"
-        try? data.write(to: URL(fileURLWithPath: imagePath))
-        let currentRange = textView.selectedRange
-        let insertText = "enter placeholder text here"
-        textView.insertText("![\(insertText)](\(imagePath))")
-        textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
-        
+        textView.startLoadingAnimation()
         upload(multipartFormData: { (formData) in
-            if let token = uploadToken.data(using: String.Encoding.utf8) {
-                formData.append(token, withName: "Token")
-                formData.append(data, withName: "file", mimeType: "image/jpg")
-            }
+            formData.append(data, withName: "smfile", fileName: "temp", mimeType: "image/jpg")
         }, to: imageUploadUrl) { (result) in
             switch result {
             case .success(let upload,_, _):
-                upload.responseString(completionHandler: { (response) in
-                    if case .success(let string) = response.result {
-                        print(string)
-                        textView.text = textView.text.replacingOccurrences(of: imagePath, with: string)
+                upload.responseJSON(completionHandler: { (response) in
+                    if case .success(let json) = response.result {
+                        if let dict = json as? [String:Any],
+                            let data = dict["data"] as? [String:Any],
+                            let url = data["url"] as? String {
+                            
+                            let currentRange = textView.selectedRange
+                            
+                            let insertText = "enter placeholder text here"
+                            textView.insertText("![\(insertText)](\(url))")
+                            textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
+                            textView.stopLoadingAnimation()
+                        }
                     } else if case .failure(let error) = response.result {
                         print(error.localizedDescription)
                     }

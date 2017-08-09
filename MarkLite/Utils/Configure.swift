@@ -18,7 +18,11 @@ class Configure: NSObject, NSCoding {
     let tempFolderPath = documentPath + "/temp"
     
     var currentVerion: String?
-
+    var markdownStyle = Variable("GitHub2")
+    var highlightStyle = Variable("rainbow")
+    var theme = Variable(Theme.white)
+    var icloudEnable = true
+    
     override init() {
         super.init()
     }

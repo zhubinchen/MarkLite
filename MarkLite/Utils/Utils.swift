@@ -92,7 +92,7 @@ extension UIViewController {
             }))
         }
         if actionTitles.isEmpty {
-            alert.addAction(UIAlertAction(title: "好，知道了", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "完成", style: .cancel, handler: nil))
         }
         if let _ = textFieldconfigurationHandler {
             alert.addTextField(configurationHandler: textFieldconfigurationHandler)

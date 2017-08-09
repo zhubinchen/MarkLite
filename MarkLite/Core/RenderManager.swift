@@ -39,6 +39,8 @@ class RenderManager: NSObject {
         let path = documentPath + "style/highlightjs/swift.min.js"
         return URL(fileURLWithPath:path).absoluteString
     }()
+    
+    
     func render(_ markdown: String) -> String {
 
         guard let body = HTMLFromMarkdown(markdown, htmlRender, tocRender) else { return "" }
@@ -50,7 +52,6 @@ class RenderManager: NSObject {
                       body)
 
     }
-
 }
 
 fileprivate let htmlFormat = "<html lang=\"zh-CN\"><head><meta charset=\"UTF-8\"><style type=\"text/css\"></style><link rel=\"stylesheet\" href=\"%@\"></style><link rel=\"stylesheet\" href=\"%@\"><script src=\"%@\"></script><script src=\"%@\"></script><script>hljs.initHighlightingOnLoad();</script></head><body>%@</body></html>"

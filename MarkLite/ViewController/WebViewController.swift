@@ -41,9 +41,6 @@ class WebViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        renderManager.markdownStyle = "GitHub2"
-        renderManager.highlightStyle = "rainbow"
-        
         webView.rx.didStartLoad.subscribe { [weak self] _ in
             self?.webView.startLoadingAnimation()
         }.addDisposableTo(disposeBag)
@@ -53,6 +50,15 @@ class WebViewController: UIViewController {
         webView.rx.didFinishLoad.subscribe { [weak self] _ in
             self?.webView.stopLoadingAnimation()
         }.addDisposableTo(disposeBag)
+        
+        Configure.shared.markdownStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
+            self.renderManager.markdownStyle = style
+            self.htmlString = self.renderManager.render(self.text)
+        }).addDisposableTo(disposeBag)
+        Configure.shared.highlightStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
+            self.renderManager.highlightStyle = style
+            self.htmlString = self.renderManager.render(self.text)
+        }).addDisposableTo(disposeBag)
     }
     
     func showExportMenu() {

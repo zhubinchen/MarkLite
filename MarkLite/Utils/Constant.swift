@@ -8,13 +8,13 @@
 
 import UIKit
 
+let rateUrl = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1098107145&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"
+
+let emailUrl = "mailto:cheng4741@gmail.com?subject=MarkLite%20Report&body="
+
 let donateProductID = "com.zhubch.MarkLite.Donate"
 
-let imageUploadUrl = "http://up.imgapi.com/"
-
-let uploadToken = "97ade20b4c5a86b625cf449f45f720d686a0154f:Mlg-545PK1Jp5vnxH0v1RP1_vc4=:eyJkZWFkbGluZSI6MTQ2NzEyODc0OCwiYWN0aW9uIjoiZ2V0IiwidWlkIjoiNTY3OTU0IiwiYWlkIjoiMTIyNjk3MSIsImZyb20iOiJmaWxlIn0="
-
-let primaryColor = UIColor(hexString: "333333")!
+let imageUploadUrl = "https://sm.ms/api/upload"
 
 let defaultFont = UIFont.font(ofSize: 16)
 

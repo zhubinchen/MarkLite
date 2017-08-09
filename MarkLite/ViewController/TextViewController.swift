@@ -30,12 +30,12 @@ class TextViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        editView.backgroundColor = .white
-        editView.inputAccessoryView = AssistBar()
         let assistBar = AssistBar()
         assistBar.textView = editView
         assistBar.viewController = self
-        
+        editView.inputAccessoryView = assistBar
+        editView.backgroundColor = .white
+
         Configure.shared.currentFile.asObservable().subscribe(onNext: { [weak self] (file) in
             guard let file = file else { return }
             file.readText{

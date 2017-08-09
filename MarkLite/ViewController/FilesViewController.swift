@@ -40,6 +40,9 @@ class FilesViewController: UIViewController {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_edit"), style: .plain, target: self, action: #selector(createNewNote))
         }
+        
+        navBar?.setBarTintColor(.navBar)
+        navBar?.setContentColor(.navBarTint)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,7 +57,6 @@ class FilesViewController: UIViewController {
     }
     
     func showSettings() {
-
         performSegue(withIdentifier: "menu", sender: nil)
     }
     
@@ -84,7 +86,6 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
         let items = sections[indexPath.section].1
         cell.file = items[indexPath.row]
         cell.delegate = self
-        
         return cell
     }
     
@@ -92,7 +93,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
         let label = UILabel(x: 16, y: 0, w: self.view.w, h: 30)
         
         label.text = sections[section].0
-        label.textColor = rgb("a0a0a0")
+        label.setTextColor(.secondary)
         label.font = UIFont.font(ofSize: 12)
         
         let header = UIView(x: 0, y: 0, w: self.view.w, h: 30)

@@ -13,20 +13,19 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {
-            tableView.rowHeight = 40
+            tableView.rowHeight = 48
+            tableView.setSeparatorColor(.primary)
         }
     }
     
     let items = [
         ("功能",[
             ("iCloud 同步",#selector(icloud(_:))),
-            ("图床",#selector(picServer)),
-            ("辅助键盘",#selector(picServer)),
+            ("辅助键盘",#selector(assistBar)),
             ]),
         ("外观",[
-            ("主题色",#selector(picServer)),
-            ("预览样式",#selector(picServer)),
-            ("编辑器字体",#selector(picServer)),
+            ("主题色",#selector(theme)),
+            ("渲染样式",#selector(style)),
             ]),
         ("支持一下",[
             ("五星好评",#selector(rate)),
@@ -41,6 +40,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
 
         self.title = "设置"
+        navBar?.setBarTintColor(.navBar)
+        navBar?.setContentColor(.navBarTint)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -55,6 +56,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "settings", for: indexPath)
         let item = items[indexPath.section].1[indexPath.row]
         cell.textLabel?.text = item.0
+        cell.textLabel?.setTextColor(.primary)
         return cell
     }
 
@@ -62,14 +64,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         let item = items[indexPath.section].1[indexPath.row]
         perform(item.1)
     }
-    
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let label = UILabel(x: 0, y: 0, w: windowWidth, h: 20)
-//        label.text = "  " + items[section].0
-//        label.textColor = rgb("a0a0a0")
-//        label.font = UIFont.font(ofSize: 12)
-//        return label
-//    }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.01
@@ -83,30 +77,49 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 extension SettingsViewController {
     
     func icloud(_ sender: UISwitch) {
-        
     }
     
     func rate() {
-        
+        UIApplication.shared.openURL(URL(string: rateUrl)!)
     }
     
     func donate() {
-        
+        self.view.startLoadingAnimation()
+        IAP.requestProducts([donateProductID]) { (response, error) in
+            guard let product = response?.products.first else {
+                self.view.stopLoadingAnimation()
+                return
+            }
+            IAP.purchaseProduct(product.productIdentifier, handler: { (identifier, error) in
+                
+                if let err = error {
+                    print(err.localizedDescription)
+                    self.showAlert(title: "虽然没有打赏成功，还是感谢你的心意")
+                    return
+                } else {
+                    self.showAlert(title: "谢谢你的支持🙏，我会努力做的更好的")
+                }
+                self.view.stopLoadingAnimation()
+            })
+        }
     }
     
     func feedback() {
+        UIApplication.shared.openURL(URL(string: emailUrl)!)
+    }
+    
+    func assistBar() {
         
     }
     
-    func font() {
-        
+    func theme() {
+        let vc = ThemeViewController()
+        pushVC(vc)
     }
     
     func style() {
-        
+        let vc = StyleViewController()
+        pushVC(vc)
     }
     
-    func picServer() {
-        
-    }
 }

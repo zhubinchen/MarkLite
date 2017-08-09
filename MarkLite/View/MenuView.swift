@@ -79,7 +79,7 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "")
         cell.textLabel?.text = items[indexPath.row]
         cell.textLabel?.font = UIFont.font(ofSize: 15)
-        cell.textLabel?.textColor = primaryColor * 0.8
+        cell.textLabel?.setTextColor(.primary)
         cell.selectedBackgroundView = UIView(hexString: "F8F9FA")
         return cell
     }
