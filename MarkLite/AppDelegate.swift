@@ -9,6 +9,7 @@
 import UIKit
 import SideMenu
 import RxSwift
+import SwiftyDropbox
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -37,7 +38,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = Observable.combineLatest(Configure.shared.theme.asObservable(), Configure.shared.isLandscape.asObservable()){ $0 == .white || $1 }.subscribe(onNext: { (black) in
             UIApplication.shared.statusBarStyle = black ? .default : .lightContent
         })
+        DropboxClientsManager.setupWithAppKey(dropboxKey)
+        return true
+    }
     
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        if let authResult = DropboxClientsManager.handleRedirectURL(url) {
+            switch authResult {
+            case .success:
+                print("Success! User is logged into Dropbox.")
+            case .cancel:
+                print("Authorization flow was manually canceled by user!")
+            case .error(_, let description):
+                print("Error: \(description)")
+            }
+        }
         return true
     }
 

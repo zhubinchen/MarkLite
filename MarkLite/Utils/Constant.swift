@@ -8,6 +8,9 @@
 
 import UIKit
 
+let dropboxKey = "efmdoostf798xsr"
+let dropboxSecret = "lqia8vqvxbk9a7o"
+
 let rateUrl = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1098107145&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"
 
 let emailUrl = "mailto:cheng4741@gmail.com?subject=MarkLite%20Report&body="

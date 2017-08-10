@@ -8,6 +8,7 @@
 
 import UIKit
 import SideMenu
+import SwiftyDropbox
 
 class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -20,7 +21,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     let items = [
         ("功能",[
-            ("iCloud 同步",#selector(icloud(_:))),
+            ("iCloud 同步",#selector(icloud)),
             ("辅助键盘",#selector(assistBar)),
             ]),
         ("外观",[
@@ -76,7 +77,11 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 
 extension SettingsViewController {
     
-    func icloud(_ sender: UISwitch) {
+    func icloud() {
+        DropboxClientsManager.authorizeFromController(UIApplication.shared,
+                                                      controller: self) { (url) in
+                                                        UIApplication.shared.openURL(url)
+        }
     }
     
     func rate() {
