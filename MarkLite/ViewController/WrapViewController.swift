@@ -24,10 +24,6 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
     
     var _popoverPresentationController : UIPopoverPresentationController?
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return Configure.shared.isLandscape.value ? .default : .lightContent
-    }
-    
     override var popoverPresentationController: UIPopoverPresentationController? {
         return _popoverPresentationController
     }
@@ -39,7 +35,14 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
         Configure.shared.currentFile.asObservable().map{$0?.name ?? ""}.bind(to: leftTitle.rx.text).addDisposableTo(disposeBag)
         Configure.shared.currentFile.value = Configure.shared.root.children.first
         
-        self.popoverPresentationController?.delegate = self
+        popoverPresentationController?.delegate = self
+        
+        topBar.setBackgroundColor(.navBar)
+        leftBar.setBackgroundColor(.navBar)
+        topBar.setTintColor(.navBarTint)
+        leftBar.setTintColor(.navBarTint)
+        topTitle.setTextColor(.navBarTint)
+        leftTitle.setTextColor(.navBarTint)
     }
     
     override func viewWillLayoutSubviews() {
@@ -54,7 +57,6 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
         topBar.isHidden = isLandscape
         leftBar.isHidden = !isLandscape
         
-        setNeedsStatusBarAppearanceUpdate()
         popoverPresentationController?.presentedViewController.dismissVC(completion: nil)
     }
     

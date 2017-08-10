@@ -10,19 +10,25 @@ import UIKit
 
 class ThemeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let items = [Theme.white,.black,.blue,.red,.pink,.green]
-    
+    let items = [Theme.white,.black,.blue,.purple,.red,.green]
+    let table = UITableView(frame: CGRect(), style: .grouped)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = "设置"
         
-        let table = UITableView(frame: view.bounds, style: .grouped)
         table.rowHeight = 48
         table.delegate = self
         table.dataSource = self
         table.setSeparatorColor(.primary)
         view.addSubview(table)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        table.frame = self.view.bounds
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -43,7 +49,7 @@ class ThemeViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = items[indexPath.row]
-        ColorCenter.shared.theme = item
+        Configure.shared.theme.value = item
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

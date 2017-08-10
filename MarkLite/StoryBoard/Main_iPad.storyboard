@@ -55,7 +55,6 @@
                                             <constraint firstAttribute="width" constant="44" id="TvH-Ye-WwW"/>
                                             <constraint firstAttribute="height" constant="44" id="Zit-1h-To9"/>
                                         </constraints>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="nav_files"/>
                                         <connections>
                                             <segue destination="Ybd-Ex-5FK" kind="presentation" id="D1O-fz-iCM"/>
@@ -67,7 +66,6 @@
                                             <constraint firstAttribute="height" constant="44" id="cQ8-zc-kgI"/>
                                             <constraint firstAttribute="width" constant="44" id="fxJ-Un-KH1"/>
                                         </constraints>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="nav_settings"/>
                                         <connections>
                                             <segue destination="GbO-q4-l0w" kind="popoverPresentation" popoverAnchorView="LMn-G2-vBB" id="UwJ-Cr-HFT">
@@ -106,7 +104,6 @@
                                             <constraint firstAttribute="width" constant="44" id="Bra-KW-Rys"/>
                                             <constraint firstAttribute="height" constant="44" id="luD-Dm-Ry4"/>
                                         </constraints>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="nav_files"/>
                                         <connections>
                                             <segue destination="Ybd-Ex-5FK" kind="presentation" id="TE6-LX-4kH"/>
@@ -118,7 +115,6 @@
                                             <constraint firstAttribute="height" constant="44" id="MiS-Ba-Wta"/>
                                             <constraint firstAttribute="width" constant="44" id="N88-QZ-YAz"/>
                                         </constraints>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" image="nav_settings"/>
                                         <connections>
                                             <segue destination="GbO-q4-l0w" kind="popoverPresentation" popoverAnchorView="Abw-PP-Igt" id="Nav-Zi-MNo">

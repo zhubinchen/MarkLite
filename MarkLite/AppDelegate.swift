@@ -8,6 +8,7 @@
 
 import UIKit
 import SideMenu
+import RxSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -29,9 +30,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SideMenuManager.menuWidth = 300
         
         Configure.shared.setup()
+        
         _ = Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in
             ColorCenter.shared.theme = theme
         })
+        _ = Observable.combineLatest(Configure.shared.theme.asObservable(), Configure.shared.isLandscape.asObservable()){ $0 == .white || $1 }.subscribe(onNext: { (black) in
+            UIApplication.shared.statusBarStyle = black ? .default : .lightContent
+        })
+    
         return true
     }
 

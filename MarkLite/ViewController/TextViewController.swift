@@ -16,10 +16,13 @@ class TextViewController: UIViewController {
     @IBOutlet weak var editView: UITextView!
     @IBOutlet weak var placeholderLabel: UILabel!
     @IBOutlet weak var countLabel: UILabel!
-    @IBOutlet weak var bottomSpace: NSLayoutConstraint!
     
     @IBOutlet weak var undoButton: UIButton!
     @IBOutlet weak var redoButton: UIButton!
+    
+    @IBOutlet weak var bottomView: UIView!
+
+    @IBOutlet weak var bottomSpace: NSLayoutConstraint!
 
     var previewHandler: (()->Void)?
     var textChangedHandler: ((String)->Void)?
@@ -29,7 +32,7 @@ class TextViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let assistBar = AssistBar()
         assistBar.textView = editView
         assistBar.viewController = self

@@ -11,6 +11,7 @@ import UIKit
 class StyleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var styles: [String]!
+    let table = UITableView(frame: CGRect(), style: .grouped)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,12 +23,17 @@ class StyleViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         styles = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}
         
-        let table = UITableView(frame: view.bounds, style: .grouped)
         table.rowHeight = 48
         table.delegate = self
         table.dataSource = self
         table.setSeparatorColor(.primary)
         view.addSubview(table)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        table.frame = self.view.bounds
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

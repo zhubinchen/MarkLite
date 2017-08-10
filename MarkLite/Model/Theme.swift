@@ -12,10 +12,10 @@ import RxSwift
 enum Theme: String {
     case white
     case black
-    case pink
     case green
     case red
     case blue
+    case purple
 }
 
 enum ThemeColorType {
@@ -31,15 +31,15 @@ extension Theme {
         case .white:
             return [rgba("ffffff",1)!,rgba("333333",1)!,rgba("333333", 0.8)!,rgba("333333", 0.5)!]
         case .black:
-            return [rgba("ffffff",1)!,rgba("ffffff",1)!,rgba("333333", 0.8)!,rgba("333333", 0.5)!]
+            return [rgba("242424",1)!,rgba("ffffff",1)!,rgba("242424", 0.8)!,rgba("242424", 0.5)!]
         case .blue:
-            return [rgba("2b5876",1)!,rgba("ffffff",1)!,rgba("2b5876", 0.8)!,rgba("2b5876", 0.5)!]
+            return [rgba("0291D4",1)!,rgba("ffffff",1)!,rgba("0291D4", 0.8)!,rgba("0291D4", 0.5)!]
+        case .purple:
+            return [rgba("6c16c7",1)!,rgba("ffffff",1)!,rgba("6c16c7", 0.8)!,rgba("6c16c7", 0.5)!]
         case .red:
-            return [rgba("FF512F",1)!,rgba("ffffff",1)!,rgba("FF512F", 0.8)!,rgba("FF512F", 0.5)!]
-        case .pink:
-            return [rgba("F7BB97",1)!,rgba("ffffff",1)!,rgba("F7BB97", 0.8)!,rgba("F7BB97", 0.5)!]
+            return [rgba("D2373B",1)!,rgba("ffffff",1)!,rgba("D2373B", 0.8)!,rgba("D2373B", 0.5)!]
         case .green:
-            return [rgba("00CDAC",1)!,rgba("ffffff",1)!,rgba("00CDAC", 0.8)!,rgba("00CDAC", 0.5)!]
+            return [rgba("01BD70",1)!,rgba("ffffff",1)!,rgba("01BD70", 0.8)!,rgba("01BD70", 0.5)!]
         }
     }
     
@@ -53,8 +53,8 @@ extension Theme {
             return "清新蓝"
         case .red:
             return "中国红"
-        case .pink:
-            return "骚气粉"
+        case .purple:
+            return "风骚紫"
         case .green:
             return "当然是选择原谅她啊"
         }
