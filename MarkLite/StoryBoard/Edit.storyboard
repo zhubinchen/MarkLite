@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kJS-Hc-QJ3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="kJS-Hc-QJ3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -35,12 +35,6 @@
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="标签:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5wO-pH-v1n">
-                                        <rect key="frame" x="84" y="16.5" width="35" height="18"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aui-tE-OMW">
                                         <rect key="frame" x="277" y="10" width="40" height="30"/>
                                         <constraints>
@@ -61,42 +55,16 @@
                                             <action selector="redo:" destination="CPR-Rc-22a" eventType="touchUpInside" id="wHc-Dc-aGe"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkK-lC-UfR">
-                                        <rect key="frame" x="123" y="10" width="66" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="66" id="P8L-fY-aZ1"/>
-                                        </constraints>
-                                        <state key="normal" title="其他"/>
-                                        <connections>
-                                            <action selector="chooseTag:" destination="CPR-Rc-22a" eventType="touchUpInside" id="6DT-KQ-l6e"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c0j-2w-xo6">
-                                        <rect key="frame" x="229" y="10" width="40" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="GNz-RB-n1z"/>
-                                        </constraints>
-                                        <state key="normal" title="预览"/>
-                                        <connections>
-                                            <action selector="preview:" destination="CPR-Rc-22a" eventType="touchUpInside" id="Jrf-Jg-cKC"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="tkK-lC-UfR" firstAttribute="leading" secondItem="5wO-pH-v1n" secondAttribute="trailing" constant="4" id="0pC-PD-xBQ"/>
-                                    <constraint firstItem="tkK-lC-UfR" firstAttribute="centerY" secondItem="A59-fe-PiA" secondAttribute="centerY" id="2EX-ds-Vw1"/>
                                     <constraint firstItem="Als-NQ-ZQc" firstAttribute="centerY" secondItem="A59-fe-PiA" secondAttribute="centerY" id="5fu-I7-cgU"/>
                                     <constraint firstItem="vV5-i3-4Pf" firstAttribute="leading" secondItem="aui-tE-OMW" secondAttribute="trailing" constant="8" id="BXl-u6-rP6"/>
                                     <constraint firstAttribute="trailing" secondItem="vV5-i3-4Pf" secondAttribute="trailing" constant="10" id="OqI-Fo-ryC"/>
-                                    <constraint firstItem="5wO-pH-v1n" firstAttribute="centerY" secondItem="A59-fe-PiA" secondAttribute="centerY" id="RWk-ZU-Qes"/>
                                     <constraint firstItem="vV5-i3-4Pf" firstAttribute="centerY" secondItem="A59-fe-PiA" secondAttribute="centerY" id="X8m-Cn-UlJ"/>
                                     <constraint firstItem="Als-NQ-ZQc" firstAttribute="leading" secondItem="A59-fe-PiA" secondAttribute="leading" constant="10" id="bHK-vG-PYE"/>
                                     <constraint firstItem="aui-tE-OMW" firstAttribute="centerY" secondItem="A59-fe-PiA" secondAttribute="centerY" id="dTM-L3-l2h"/>
-                                    <constraint firstItem="5wO-pH-v1n" firstAttribute="leading" secondItem="Als-NQ-ZQc" secondAttribute="trailing" constant="20" id="dlq-jF-EgP"/>
                                     <constraint firstAttribute="height" constant="50" id="ekm-Wy-87Q"/>
-                                    <constraint firstItem="aui-tE-OMW" firstAttribute="leading" secondItem="c0j-2w-xo6" secondAttribute="trailing" constant="8" id="ptU-a3-koJ"/>
-                                    <constraint firstItem="aui-tE-OMW" firstAttribute="centerY" secondItem="c0j-2w-xo6" secondAttribute="centerY" id="t74-tb-uPP"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开始你的写作" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5L-1x-TTM">

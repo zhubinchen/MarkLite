@@ -24,12 +24,13 @@ class EditViewController: UIViewController {
         if let popGestureRecognizer = self.navigationController?.interactivePopGestureRecognizer {
             scrollView.panGestureRecognizer.require(toFail: popGestureRecognizer)
         }
-        Configure.shared.currentFile.asObservable().map{ $0?.name ?? "" }.bind(to: self.rx.title).addDisposableTo(disposeBag)
-        Configure.shared.currentFile.value?.readText{ webVC?.text = $0 }
+        Configure.shared.editingFile.asObservable().map{ $0?.name ?? "" }.bind(to: self.rx.title).addDisposableTo(disposeBag)
+        Configure.shared.editingFile.value?.readText{ webVC?.text = $0 }
     }
     
     @IBAction func export(_ sender: UIButton) {
-
+        self.view.resignFirstResponder()
+        self.scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)
         webVC?.showExportMenu()
     }
 
@@ -37,9 +38,6 @@ class EditViewController: UIViewController {
         if let vc = segue.destination as? TextViewController {
             vc.textChangedHandler = { [weak self] text in
                 self?.webVC?.text = text
-            }
-            vc.previewHandler = { [weak self] _ in
-                self?.scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)
             }
 
         } else if let vc = segue.destination as? WebViewController {

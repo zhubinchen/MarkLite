@@ -38,6 +38,7 @@
 		0796935F1F078F4C00F435C7 /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = 079693531F078F4C00F435C7 /* stack.c */; };
 		079693601F078F4C00F435C7 /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 079693551F078F4C00F435C7 /* version.c */; };
 		079693621F0790C500F435C7 /* HighlightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079693611F0790C500F435C7 /* HighlightManager.swift */; };
+		07A21A9B1F3DA6F00082511F /* DropboxHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A21A9A1F3DA6F00082511F /* DropboxHelper.swift */; };
 		07B7C1BB1EF913A50027B2FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7C1BA1EF913A50027B2FC /* AppDelegate.swift */; };
 		07B7C1C21EF913A50027B2FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1C11EF913A50027B2FC /* Assets.xcassets */; };
 		07B7C1F11EF926280027B2FC /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7C1F01EF926280027B2FC /* File.swift */; };
@@ -97,6 +98,7 @@
 		079693551F078F4C00F435C7 /* version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = version.c; sourceTree = "<group>"; };
 		079693561F078F4C00F435C7 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		079693611F0790C500F435C7 /* HighlightManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightManager.swift; sourceTree = "<group>"; };
+		07A21A9A1F3DA6F00082511F /* DropboxHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropboxHelper.swift; sourceTree = "<group>"; };
 		07B7C1B71EF913A50027B2FC /* MarkLite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkLite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07B7C1BA1EF913A50027B2FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07B7C1C11EF913A50027B2FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				076AF2F61EFA437100DCF6EF /* Utils.swift */,
 				075269DE1EFCEE9E00C4DAD9 /* Constant.swift */,
 				076941F91F3ADD1E004B8E95 /* IAPHelper.swift */,
+				07A21A9A1F3DA6F00082511F /* DropboxHelper.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -253,8 +256,8 @@
 			children = (
 				075269B41EFBC40B00C4DAD9 /* FilesViewController.swift */,
 				075269DA1EFCE78A00C4DAD9 /* EditViewController.swift */,
-				077403AE1F03739D001AB56A /* WebViewController.swift */,
 				077403B01F0373A5001AB56A /* TextViewController.swift */,
+				077403AE1F03739D001AB56A /* WebViewController.swift */,
 				075269DC1EFCE7C200C4DAD9 /* SettingsViewController.swift */,
 				077403AC1F037043001AB56A /* NavigationController.swift */,
 				07B867821F31CD8300374459 /* WrapViewController.swift */,
@@ -358,6 +361,9 @@
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
 			mainGroup = 07B7C1AE1EF913A50027B2FC;
 			productRefGroup = 07B7C1B81EF913A50027B2FC /* Products */;
 			projectDirPath = "";
@@ -463,6 +469,7 @@
 			files = (
 				077403AF1F03739D001AB56A /* WebViewController.swift in Sources */,
 				075269DD1EFCE7C200C4DAD9 /* SettingsViewController.swift in Sources */,
+				07A21A9B1F3DA6F00082511F /* DropboxHelper.swift in Sources */,
 				07DAA8951F07BDDA00A8D030 /* Configure.swift in Sources */,
 				075269DF1EFCEE9E00C4DAD9 /* Constant.swift in Sources */,
 				074402EE1F14DF5F00410765 /* ImagePicker.swift in Sources */,

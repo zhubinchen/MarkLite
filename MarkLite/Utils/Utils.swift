@@ -19,6 +19,12 @@ func *(string: String, repeatCount: Int) -> String {
 
 extension String {
     
+    func stringByDeleteLastPath() -> String {
+        var paths = self.components(separatedBy: "/")
+        paths.removeLast()
+        return paths.joined(separator: "/")
+    }
+    
     fileprivate func pathByAppendingNumber() -> String {
         if self.length < 3 {
             return self + "(1)"

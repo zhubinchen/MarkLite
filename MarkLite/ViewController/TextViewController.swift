@@ -24,7 +24,6 @@ class TextViewController: UIViewController {
 
     @IBOutlet weak var bottomSpace: NSLayoutConstraint!
 
-    var previewHandler: (()->Void)?
     var textChangedHandler: ((String)->Void)?
 
     let disposeBag = DisposeBag()
@@ -39,7 +38,7 @@ class TextViewController: UIViewController {
         editView.inputAccessoryView = assistBar
         editView.backgroundColor = .white
 
-        Configure.shared.currentFile.asObservable().subscribe(onNext: { [weak self] (file) in
+        Configure.shared.editingFile.asObservable().subscribe(onNext: { [weak self] (file) in
             guard let file = file else { return }
             file.readText{
                 self?.editView.text = $0
@@ -69,19 +68,6 @@ class TextViewController: UIViewController {
         editView.attributedText = manager.highlight(editView.text)
         editView.selectedRange = selectedRange;
         editView.isScrollEnabled = true
-    }
-    
-    @IBAction func preview(_ sender:UIButton) {
-        editView.resignFirstResponder()
-        previewHandler?()
-    }
-    
-    @IBAction func chooseTag(_ sender: UIButton) {
-        let items = Configure.shared.root.children.map{$0.name}
-        let pos = CGPoint(x: sender.x, y: windowHeight - CGFloat(50) - CGFloat(items.count * 40))
-        MenuView(items: items, postion: pos) { (index) in
-            //
-            }.show()
     }
     
     @IBAction func undo(_ sender: UIButton) {

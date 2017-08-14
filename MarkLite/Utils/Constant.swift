@@ -10,6 +10,7 @@ import UIKit
 
 let dropboxKey = "efmdoostf798xsr"
 let dropboxSecret = "lqia8vqvxbk9a7o"
+let dropboxToken = "U8P2_p2-VQAAAAAAAAAAD6CtjD75IjwamQSkEblPY4NqwJG4VEJZbxk9F877jtdm"
 
 let rateUrl = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1098107145&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"
 
@@ -31,11 +32,15 @@ let isPhone = UIDevice.current.userInterfaceIdiom == .phone
 
 let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""
 
-let localPath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? "") + "/MarkLite"
+let tempFolderPath = documentPath + "/temp"
 
-let cloudPath: String? = {
+let localPath = documentPath + "/MarkLite"
+
+let draftPath = documentPath + "/Draft"
+
+let iCloudPath: String = {
     guard let ubiquityURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents") else {
-        return nil
+        return ""
     }
-    return ubiquityURL.path + "/MarkLite"
+    return ubiquityURL.path
 }()

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Z5v-6s-8T8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Z5v-6s-8T8">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -53,13 +53,21 @@
             </objects>
             <point key="canvasLocation" x="-5658" y="-4052"/>
         </scene>
+        <!--FilesViewController-->
+        <scene sceneID="5PS-YV-eIo">
+            <objects>
+                <viewControllerPlaceholder referencedIdentifier="FilesViewController" id="8BC-ri-ZLy" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qhB-mP-HBs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4976" y="-5026"/>
+        </scene>
         <!--Edit-->
         <scene sceneID="MVs-Ws-fYc">
             <objects>
                 <viewControllerPlaceholder storyboardName="Edit" id="d0C-0T-5SW" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NDC-vU-hbT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4701" y="-4954"/>
+            <point key="canvasLocation" x="-5051" y="-4900"/>
         </scene>
         <!--Files View Controller-->
         <scene sceneID="uIe-9r-63y">
@@ -73,9 +81,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="95" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="83Y-dl-37W">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="73" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="83Y-dl-37W">
+                                <rect key="frame" x="0.0" y="69" width="375" height="598"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="ag6-Fa-Xmb">
@@ -84,51 +92,61 @@
                                     <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="file" id="A1C-bp-L53" customClass="FileTableViewCell" customModule="MarkLite" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="95"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="file" rowHeight="60" id="A1C-bp-L53" customClass="FileTableViewCell" customModule="MarkLite" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A1C-bp-L53" id="1NM-6U-ZG8">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="95"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HnP-0J-m30">
-                                                    <rect key="frame" x="0.0" y="0.0" width="5" height="94.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="5" height="60"/>
                                                     <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="5" id="5cE-hm-RI7"/>
                                                     </constraints>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="文件名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTj-yB-eNz">
-                                                    <rect key="frame" x="15" y="37.5" width="48" height="19"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.85999999999999999" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDy-wk-6CH">
-                                                    <rect key="frame" x="306.5" y="38" width="35.5" height="19"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="19" id="9CA-uN-BYh"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Olx-RZ-yKD">
+                                                    <rect key="frame" x="15" y="9.5" width="48" height="41.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="文件名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTj-yB-eNz">
+                                                            <rect key="frame" x="0.0" y="0.0" width="48" height="19"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                                            <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="0.85999999999999999" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YDy-wk-6CH">
+                                                            <rect key="frame" x="0.0" y="25" width="34.5" height="16.5"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1320字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G1J-d5-gJK">
+                                                    <rect key="frame" x="295.5" y="22" width="46.5" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="YDy-wk-6CH" firstAttribute="centerY" secondItem="1NM-6U-ZG8" secondAttribute="centerY" id="5bs-KG-SnG"/>
                                                 <constraint firstItem="HnP-0J-m30" firstAttribute="top" secondItem="1NM-6U-ZG8" secondAttribute="top" id="G6O-En-V6Q"/>
+                                                <constraint firstItem="G1J-d5-gJK" firstAttribute="centerY" secondItem="1NM-6U-ZG8" secondAttribute="centerY" id="TPS-Jb-ezU"/>
+                                                <constraint firstAttribute="trailing" secondItem="G1J-d5-gJK" secondAttribute="trailing" id="UCI-x4-y5Z"/>
                                                 <constraint firstAttribute="bottom" secondItem="HnP-0J-m30" secondAttribute="bottom" id="Vn2-hB-RRj"/>
-                                                <constraint firstItem="XTj-yB-eNz" firstAttribute="centerY" secondItem="1NM-6U-ZG8" secondAttribute="centerY" id="f7q-8f-g9P"/>
-                                                <constraint firstItem="XTj-yB-eNz" firstAttribute="leading" secondItem="HnP-0J-m30" secondAttribute="trailing" constant="10" id="g8G-RA-jwQ"/>
+                                                <constraint firstItem="Olx-RZ-yKD" firstAttribute="top" secondItem="1NM-6U-ZG8" secondAttribute="top" constant="9.5" id="WZB-gQ-kDC"/>
+                                                <constraint firstItem="Olx-RZ-yKD" firstAttribute="leading" secondItem="HnP-0J-m30" secondAttribute="trailing" constant="10" id="fvD-C9-HZO"/>
+                                                <constraint firstAttribute="bottom" secondItem="Olx-RZ-yKD" secondAttribute="bottom" constant="9" id="jmk-Tg-yMd"/>
                                                 <constraint firstItem="HnP-0J-m30" firstAttribute="leading" secondItem="1NM-6U-ZG8" secondAttribute="leading" id="mgG-xs-YqH"/>
-                                                <constraint firstAttribute="trailing" secondItem="YDy-wk-6CH" secondAttribute="trailing" id="ye0-B6-n3e"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="nameLabel" destination="XTj-yB-eNz" id="CqF-oM-tws"/>
                                             <outlet property="selectedMark" destination="HnP-0J-m30" id="Ibf-0A-0Nk"/>
+                                            <outlet property="sizeLabel" destination="G1J-d5-gJK" id="pax-ib-Ph5"/>
                                             <outlet property="timeLabel" destination="YDy-wk-6CH" id="6fR-79-0bv"/>
                                         </connections>
                                     </tableViewCell>
@@ -143,8 +161,8 @@
                         <constraints>
                             <constraint firstItem="83Y-dl-37W" firstAttribute="leading" secondItem="f9h-lx-5pm" secondAttribute="leading" id="5Hx-pd-RSb"/>
                             <constraint firstItem="rbK-wX-2I0" firstAttribute="top" secondItem="83Y-dl-37W" secondAttribute="bottom" id="Avb-jd-lWr"/>
+                            <constraint firstItem="83Y-dl-37W" firstAttribute="top" secondItem="qp0-cM-zaO" secondAttribute="bottom" constant="5" id="IMW-1y-ljz"/>
                             <constraint firstAttribute="trailing" secondItem="83Y-dl-37W" secondAttribute="trailing" id="mdA-LH-a1x"/>
-                            <constraint firstItem="83Y-dl-37W" firstAttribute="top" secondItem="qp0-cM-zaO" secondAttribute="bottom" id="oZ0-5e-xa4"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="IME-TV-BmA">
@@ -155,11 +173,12 @@
                         <outlet property="tableView" destination="83Y-dl-37W" id="BGw-pt-n7P"/>
                         <segue destination="d0C-0T-5SW" kind="show" identifier="edit" id="fPb-fX-4aD"/>
                         <segue destination="v2L-Vb-XgI" kind="presentation" identifier="menu" id="G3o-rL-1Oj"/>
+                        <segue destination="8BC-ri-ZLy" kind="show" identifier="next" id="dVI-Ms-UwQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kfx-vO-FSr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5658" y="-4952"/>
+            <point key="canvasLocation" x="-5658.3999999999996" y="-4952.4737631184407"/>
         </scene>
     </scenes>
 </document>

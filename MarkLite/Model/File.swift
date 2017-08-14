@@ -11,6 +11,12 @@ import EZSwiftExtensions
 import RxSwift
 import RxCocoa
 
+enum FileLocation {
+    case local
+    case iCloud
+    case dropbox
+}
+
 enum FileType {
     case text
     case folder
@@ -47,7 +53,15 @@ class File {
     private(set) var path: String
     private(set) var modifyDate: Date
     private(set) var size: Int64
+    private(set) var location: FileLocation = .local
     
+    var tempPath: String {
+        if location == .dropbox {
+            return draftPath + "/" + path
+        }
+        return path
+    }
+
     var children: [File] {
         return _children
     }
@@ -62,7 +76,7 @@ class File {
     var isTemp = false
     var isSelected = false
     
-    init(path:String) {
+    init(path:String, loadChildren: Bool = false) {
         self.path = path
         self.name = path.components(separatedBy: "/").last?.components(separatedBy: ".").first ?? ""
         
@@ -89,6 +103,24 @@ class File {
     
     public static func ==(lhs: File, rhs: File) -> Bool {
         return lhs.path == rhs.path
+    }
+    
+    func childAtPath(_ path: String) -> File? {
+        if self.path == path {
+            return self
+        }
+        
+        for child in children {
+            if let c = child.childAtPath(path) {
+                return c
+            }
+        }
+        return nil
+    }
+    
+    func appendChild(_ path: String) {
+        let file = File(path: path, parent: self)
+        _children.append(file)
     }
     
     @discardableResult
@@ -164,4 +196,35 @@ class File {
     }
     
 }
+
+extension File {
+    
+    class func loadLocal(_ completion: @escaping (File)->Void) {
+        DispatchQueue.global().async {
+            let local = File(path: localPath,loadChildren: true)
+            DispatchQueue.main.sync {
+                completion(local)
+            }
+        }
+    }
+    
+    class func loadCloud(_ completion: @escaping (File?)->Void) {
+        DispatchQueue.global().async {
+            var cloud: File? = nil
+            defer {
+                DispatchQueue.main.sync {
+                    completion(cloud)
+                }
+            }
+            cloud = File(path: iCloudPath,loadChildren: true)
+        }
+    }
+    
+    class func loadDropbox(_ completion: @escaping (File?)->Void) {
+        dropbox.loadFiles { (file) in
+            completion(file)
+        }
+    }
+}
+
 

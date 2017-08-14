@@ -72,17 +72,17 @@ class WebViewController: UIViewController {
     }
     
     func url(for type: ExportType) -> URL? {
-        guard let file = Configure.shared.currentFile.value else { return nil }
+        guard let file = Configure.shared.editingFile.value else { return nil }
         switch type {
         case .PDF:
             let data = pdfRender.render(html: htmlString)
-            let path = Configure.shared.tempFolderPath + "/" + file.name + ".pdf"
+            let path = tempFolderPath + "/" + file.name + ".pdf"
             let url = URL(fileURLWithPath: path)
             try? data.write(to: url)
             return url
         case .image:
             guard let img = webView.scrollView.snap, let data = UIImagePNGRepresentation(img) else { return nil }
-            let path = Configure.shared.tempFolderPath + "/" + file.name + ".png"
+            let path = tempFolderPath + "/" + file.name + ".png"
             let url = URL(fileURLWithPath: path)
             try? data.write(to: url)
             return url
@@ -90,7 +90,7 @@ class WebViewController: UIViewController {
             return URL(fileURLWithPath: file.path)
         case .html:
             guard let data = htmlString.data(using: String.Encoding.utf8) else { return nil }
-            let path = Configure.shared.tempFolderPath + "/" + file.name + ".html"
+            let path = tempFolderPath + "/" + file.name + ".html"
             let url = URL(fileURLWithPath: path)
             try? data.write(to: url)
             return url

@@ -21,110 +21,151 @@ class FilesViewController: UIViewController {
     }
     
     @IBOutlet weak var emptyView: UIView!
-    
+
     var selectedIndexPath: IndexPath?
 
-    fileprivate var sections = [(String,[File])]()
+    fileprivate var childrens = [File]()
+    
+    var root: File? {
+        didSet {
+            if root == nil {
+                childrens = []
+            } else {
+                childrens = root!.children.sorted{$0.0.modifyDate < $0.1.modifyDate}
+            }
+            if isViewLoaded {
+                tableView.reloadData()
+            }
+        }
+    }
 
-    let root = Configure.shared.root
     let disposeBag = DisposeBag()
+    
+    let titleTextField = UITextField(x: 0, y: 0, w: 100, h: 30)
+    
+    let titleButton = UIButton(type: .system)
+    
+    override var title: String? {
+        didSet {
+            titleButton.setTitle(title, for: .normal)
+            titleTextField.text = title
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "全部文件"
-
-        loadFiles()
-        
-        if isPhone {
+        if isPhone && root == nil {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_edit"), style: .plain, target: self, action: #selector(createNewNote))
         }
         
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_edit"), style: .plain, target: self, action: #selector(showCreateMenu))
+
         navBar?.setBarTintColor(.navBar)
         navBar?.setContentColor(.navBarTint)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        loadFiles()
-    }
-    
-    func loadFiles() {
-        sections = root.children.filter{$0.children.count > 0}.sorted{$0.0.modifyDate < $0.1.modifyDate}.map{($0.name,$0.children)}
-
-        tableView.reloadData()
+        
+        if root == nil {
+            title = "本地文件"
+            File.loadLocal{ self.root = $0 }
+            titleButton.titleLabel?.font = UIFont.font(ofSize: 18)
+            navigationItem.titleView = titleButton
+            titleButton.addTarget(self, action: #selector(showStorageMenu), for: .touchUpInside)
+        } else {
+            title = root?.name
+            navigationItem.titleView = titleTextField
+        }
     }
     
     func showSettings() {
         performSegue(withIdentifier: "menu", sender: nil)
     }
     
-    func createNewNote() {
-        guard let file = self.root.createFile(name: "未命名", type: .text) else { return }
-        file.isTemp = true
-        Configure.shared.currentFile.value = file
-        if isPhone {
-            self.performSegue(withIdentifier: "edit", sender: file)
-        }
+    func showStorageMenu() {
+        let items = ["本地文件","iCloud"]
+        MenuView(items: items,
+                 postion: CGPoint(x:(view.w - 140) * 0.5,y: 64),
+                 textAlignment: .center) { (index) in
+                    self.title = items[index]
+                    if index == 0 {
+                        File.loadLocal{ self.root = $0 }
+                    } else if index == 1 {
+                        File.loadCloud{ self.root = $0 }
+                    } else {
+                        File.loadDropbox{ self.root = $0 }
+                    }
+        }.show()
     }
     
+    func showCreateMenu() {
+        MenuView(items: ["新建文档","新建文件夹"],
+                 postion: CGPoint(x:view.w - 140,y: 64),
+                 textAlignment: .right) { (index) in
+            guard let file = self.root?.createFile(name: "未命名", type: index == 0 ? .folder : .text) else {
+                return
+            }
+            file.isTemp = true
+            
+            self.childrens.insert(file, at: 0)
+            if file.type == .text {
+                Configure.shared.editingFile.value = file
+                if isPhone {
+                    self.performSegue(withIdentifier: "edit", sender: file)
+                }
+            } else if file.type == .folder {
+                self.performSegue(withIdentifier: "next", sender: file)
+            }
+        }.show()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? FilesViewController,let file = sender as? File {
+            vc.root = file
+        }
+    }
 }
 
 extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        tableView.isHidden = sections.count == 0
-        return sections.count
+        tableView.isHidden = childrens.count == 0
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return sections[section].1.count
+        return childrens.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  tableView.dequeueReusableCell(withIdentifier: "file", for: indexPath) as! FileTableViewCell
-        let items = sections[indexPath.section].1
-        cell.file = items[indexPath.row]
+        let file = childrens[indexPath.row]
+        cell.file = file
         cell.delegate = self
         return cell
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let label = UILabel(x: 16, y: 0, w: self.view.w, h: 30)
-        
-        label.text = sections[section].0
-        label.setTextColor(.secondary)
-        label.font = UIFont.font(ofSize: 12)
-        
-        let header = UIView(x: 0, y: 0, w: self.view.w, h: 30)
-        header.addSubview(label)
-        header.backgroundColor = .white
-        return header
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 10
-    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let file = sections[indexPath.section].1[indexPath.row]
+        let file = childrens[indexPath.row]
 
-        Configure.shared.currentFile.value = file
         if isPhone {
             tableView.deselectRow(at: indexPath, animated: true)
-            performSegue(withIdentifier: "edit", sender: file)
+            if file.type == .folder {
+                performSegue(withIdentifier: "next", sender: file)
+            } else {
+                Configure.shared.editingFile.value = file
+                performSegue(withIdentifier: "edit", sender: file)
+            }
         } else {
             if let oldIndexPath = selectedIndexPath {
-                sections[oldIndexPath.section].1[oldIndexPath.row].isSelected = false
+                childrens[oldIndexPath.row].isSelected = false
                 tableView.reloadRows(at: [oldIndexPath], with: .automatic)
             }
             file.isSelected = true
             tableView.reloadRows(at: [indexPath], with: .automatic)
             selectedIndexPath = indexPath
+            if file.type == .folder {
+                performSegue(withIdentifier: "next", sender: file)
+            } else {
+                Configure.shared.editingFile.value = file
+            }
         }
     }
 
@@ -135,18 +176,13 @@ extension FilesViewController: SwipeTableViewCellDelegate {
         if orientation == .left {
             return nil
         }
-        let file = sections[indexPath.section].1[indexPath.row]
+        let file = childrens[indexPath.row]
 
         let deleteAction = SwipeAction(style: .destructive, title: "删除") { action, indexPath in
             file.trash()
-            self.sections[indexPath.section].1.remove(at: indexPath.row)
+            self.childrens.remove(at: indexPath.row)
             self.tableView.beginUpdates()
-            if self.sections[indexPath.section].1.count == 0 {
-                self.sections.remove(at: indexPath.section)
-                self.tableView.deleteSections([indexPath.section], with: .bottom)
-            } else {
-                self.tableView.deleteRows(at: [indexPath], with: .bottom)
-            }
+            self.tableView.deleteRows(at: [indexPath], with: .bottom)
             self.tableView.endUpdates()
         }
 

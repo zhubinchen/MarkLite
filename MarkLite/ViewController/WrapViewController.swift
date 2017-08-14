@@ -31,9 +31,8 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Configure.shared.currentFile.asObservable().map{$0?.name ?? ""}.bind(to: topTitle.rx.text).addDisposableTo(disposeBag)
-        Configure.shared.currentFile.asObservable().map{$0?.name ?? ""}.bind(to: leftTitle.rx.text).addDisposableTo(disposeBag)
-        Configure.shared.currentFile.value = Configure.shared.root.children.first
+        Configure.shared.editingFile.asObservable().map{$0?.name ?? ""}.bind(to: topTitle.rx.text).addDisposableTo(disposeBag)
+        Configure.shared.editingFile.asObservable().map{$0?.name ?? ""}.bind(to: leftTitle.rx.text).addDisposableTo(disposeBag)
         
         popoverPresentationController?.delegate = self
         

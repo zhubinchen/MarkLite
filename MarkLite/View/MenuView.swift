@@ -28,10 +28,14 @@ class MenuView: UIView {
     
     var dismissed: (() -> Void)?
     
+    var textAlignment: NSTextAlignment
+    
     init(items: [String],
          postion: CGPoint,
+         textAlignment: NSTextAlignment = .left,
          selectedChanged: @escaping (Int) -> Void) {
         self.items = items
+        self.textAlignment = textAlignment
         self.selectedChanged = selectedChanged
         super.init(frame: CGRect(x: postion.x, y: postion.y, width: 130, height: CGFloat(items.count) * cellHeight))
         self.cornerRadius = 1.5
@@ -77,9 +81,14 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "")
-        cell.textLabel?.text = items[indexPath.row]
-        cell.textLabel?.font = UIFont.font(ofSize: 15)
-        cell.textLabel?.setTextColor(.primary)
+        cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        let label = UILabel(x: 10, y: 0, w: 110, h: cellHeight)
+        cell.addSubview(label)
+
+        label.textAlignment = textAlignment
+        label.text = items[indexPath.row]
+        label.font = UIFont.font(ofSize: 15)
+        label.setTextColor(.primary)
         cell.selectedBackgroundView = UIView(hexString: "F8F9FA")
         return cell
     }

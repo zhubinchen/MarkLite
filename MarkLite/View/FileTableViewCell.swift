@@ -12,6 +12,7 @@ import SwipeCellKit
 class FileTableViewCell: SwipeTableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var sizeLabel: UILabel!
     @IBOutlet weak var selectedMark: UIView!
     
     let selectedMarkView = UIView(hexString: "333333")
@@ -21,6 +22,7 @@ class FileTableViewCell: SwipeTableViewCell {
         didSet {
             nameLabel.text = file.name
             timeLabel.text = file.modifyDate.readableDate().0 + file.modifyDate.readableDate().1
+            sizeLabel.text = file.type == .folder ? file.children.count.toString + " 文件" : "\(file.size) B"
             selectedMark.isHidden = !file.isSelected
         }
     }
@@ -37,6 +39,7 @@ class FileTableViewCell: SwipeTableViewCell {
         
         nameLabel.setTextColor(.primary)
         timeLabel.setTextColor(.secondary)
+        sizeLabel.setTextColor(.secondary)
     }
     
     override func layoutSubviews() {

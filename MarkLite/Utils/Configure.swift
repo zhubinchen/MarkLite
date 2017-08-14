@@ -12,11 +12,9 @@ import RxCocoa
 import Zip
 
 class Configure: NSObject, NSCoding {
-    let currentFile: Variable<File?> = Variable(nil)
+    let editingFile: Variable<File?> = Variable(nil)
     let isLandscape = Variable(false)
-    let root = File(path: localPath)
-    let tempFolderPath = documentPath + "/temp"
-    
+        
     var currentVerion: String?
     var markdownStyle = Variable("GitHub2")
     var highlightStyle = Variable("rainbow")
@@ -67,35 +65,13 @@ class Configure: NSObject, NSCoding {
         let samplesPath = Bundle.main.url(forResource: "samples", withExtension: "zip")
         let destSamplesPath = URL(fileURLWithPath: localPath)
         try! Zip.unzipFile(samplesPath!, destination: destSamplesPath, overwrite: true, password: nil, progress: nil)
-        loadRoot()
+        
+        try! FileManager.default.createDirectory(atPath: draftPath, withIntermediateDirectories: true, attributes: nil)
     }
     
     
     func upgrade() {
         currentVerion = appVersion
         reset()
-        loadRoot()
-    }
-    
-    func loadRoot() {
-        let other = root.createFile(name: "其他", type: .folder)
-        root.children.forEach { file in
-            if file.type == .text {
-                file.move(to: other!)
-            } else {
-                refactor(at: file)
-            }
-        }
-    }
-    
-    func refactor(at parent: File) {
-        parent.children.filter{$0.type == .folder}.forEach { (file) in
-            refactor(at: file)
-            if file.children.count > 0 {
-                file.move(to: self.root)
-            } else {
-                file.trash()
-            }
-        }
     }
 }
