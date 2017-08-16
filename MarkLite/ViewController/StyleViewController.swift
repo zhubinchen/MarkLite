@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import RxSwift
 
 class StyleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var styles: [String]!
     let table = UITableView(frame: CGRect(), style: .grouped)
+    let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +30,10 @@ class StyleViewController: UIViewController, UITableViewDelegate, UITableViewDat
         table.dataSource = self
         table.setSeparatorColor(.primary)
         view.addSubview(table)
+        
+        Configure.shared.theme.asObservable().subscribe(onNext: { [unowned self] (theme) in
+            self.table.backgroundColor = theme == .black ? rgb("101010") : rgb("F2F2F2")
+        }).addDisposableTo(disposeBag)
     }
     
     override func viewDidLayoutSubviews() {
@@ -49,11 +55,13 @@ class StyleViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.textLabel?.text = styles[indexPath.row]
         cell.textLabel?.setTextColor(.primary)
         cell.textLabel?.font = UIFont.font(ofSize: 16)
+        cell.setBackgroundColor(.background)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         Configure.shared.markdownStyle.value = styles[indexPath.row]
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

@@ -8,6 +8,7 @@
 
 import UIKit
 import SwipeCellKit
+import RxSwift
 
 class FileTableViewCell: SwipeTableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
@@ -17,7 +18,7 @@ class FileTableViewCell: SwipeTableViewCell {
     
     let selectedMarkView = UIView(hexString: "333333")
     let selectedBg = UIView(hexString: "e0e0e0")
-    
+    let disposeBag = DisposeBag()
     var file: File! {
         didSet {
             nameLabel.text = file.name
@@ -30,9 +31,11 @@ class FileTableViewCell: SwipeTableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        Configure.shared.theme.asObservable().subscribe(onNext: { [unowned self] (theme) in
+            self.selectedBg.backgroundColor = theme == .black ? rgb("151515") : rgb("e0e0e0")
+        }).addDisposableTo(disposeBag)
         selectedBg.addSubview(selectedMarkView)
         self.selectedBackgroundView = selectedBg
-        
         
         selectedMarkView.setBackgroundColor(.navBar)
         selectedMark.setBackgroundColor(.navBar)

@@ -20,10 +20,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lId-Dt-n2r">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lId-Dt-n2r">
                                 <rect key="frame" x="0.0" y="20" width="375" height="533"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <mutableString key="text">
+### 1.怎么重命名文件
+&gt;点击顶部文件标题，就可以重命名了，按换行结束。记住别输入特殊字符。
+
+![Markdown](http://i1.piimg.com/567954/423cf063996d02df.gif)
+
+### 2.怎么预览markdown
+&gt; 左右滑动就能在编辑和预览模式切换了，当然，如果你是iPad版还可以实时预览
+
+![Markdown](http://i1.piimg.com/567954/226912d76250e7b6.gif)
+
+### 3.为什么有时候移动文件失败了*
+
+**strong text**
+*emphasized text*
+`enter code here`
+~~delection~~
+# Header
+</mutableString>
+                                <fontDescription key="fontDescription" name="Thonburi" family="Thonburi" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A59-fe-PiA">
@@ -107,6 +125,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="bottomSpace" destination="P3Y-cM-WEY" id="QDC-FJ-Rfx"/>
+                        <outlet property="bottomView" destination="A59-fe-PiA" id="uwH-DN-1MD"/>
                         <outlet property="countLabel" destination="Als-NQ-ZQc" id="1zM-UT-XDY"/>
                         <outlet property="editView" destination="lId-Dt-n2r" id="Dkb-tE-FtC"/>
                         <outlet property="placeholderLabel" destination="d5L-1x-TTM" id="hHW-dg-KOn"/>
@@ -172,13 +191,7 @@
                             <constraint firstItem="DJa-dk-TN5" firstAttribute="top" secondItem="aFk-J8-hpV" secondAttribute="bottom" id="yH1-xI-agZ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="tA2-yd-E6o">
-                        <barButtonItem key="rightBarButtonItem" image="export" id="rUX-gC-CfI">
-                            <connections>
-                                <action selector="export:" destination="kJS-Hc-QJ3" id="aqH-8C-qea"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="tA2-yd-E6o"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="scrollView" destination="DJa-dk-TN5" id="R3r-3r-vlH"/>
@@ -223,7 +236,4 @@
             <point key="canvasLocation" x="-2042" y="-3476"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="export" width="16" height="16"/>
-    </resources>
 </document>

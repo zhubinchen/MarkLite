@@ -26,7 +26,6 @@
 		077403AF1F03739D001AB56A /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077403AE1F03739D001AB56A /* WebViewController.swift */; };
 		077403B11F0373A5001AB56A /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077403B01F0373A5001AB56A /* TextViewController.swift */; };
 		0777CBC91F14672500DE1D29 /* AssistBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0777CBC81F14672500DE1D29 /* AssistBar.swift */; };
-		0777CBCB1F14674300DE1D29 /* AssistBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0777CBCA1F14674300DE1D29 /* AssistBar.xib */; };
 		079693571F078F4C00F435C7 /* autolink.c in Sources */ = {isa = PBXBuildFile; fileRef = 079693441F078F4C00F435C7 /* autolink.c */; };
 		079693581F078F4C00F435C7 /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 079693461F078F4C00F435C7 /* buffer.c */; };
 		079693591F078F4C00F435C7 /* document.c in Sources */ = {isa = PBXBuildFile; fileRef = 079693481F078F4C00F435C7 /* document.c */; };
@@ -78,7 +77,6 @@
 		077403AE1F03739D001AB56A /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		077403B01F0373A5001AB56A /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		0777CBC81F14672500DE1D29 /* AssistBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssistBar.swift; sourceTree = "<group>"; };
-		0777CBCA1F14674300DE1D29 /* AssistBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssistBar.xib; sourceTree = "<group>"; };
 		079693441F078F4C00F435C7 /* autolink.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = autolink.c; sourceTree = "<group>"; };
 		079693451F078F4C00F435C7 /* autolink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autolink.h; sourceTree = "<group>"; };
 		079693461F078F4C00F435C7 /* buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = buffer.c; sourceTree = "<group>"; };
@@ -244,7 +242,6 @@
 				075360151F1602770007DF6A /* MenuView.swift */,
 				074402ED1F14DF5F00410765 /* ImagePicker.swift */,
 				0777CBC81F14672500DE1D29 /* AssistBar.swift */,
-				0777CBCA1F14674300DE1D29 /* AssistBar.xib */,
 				07CC98891F2D8A38008F65F9 /* EditTextView.swift */,
 				07B867841F32E9D600374459 /* DottedLineView.swift */,
 			);
@@ -322,6 +319,7 @@
 				07B7C1B51EF913A50027B2FC /* Resources */,
 				FF70E780CC0C16A9C430B32B /* [CP] Embed Pods Frameworks */,
 				5A61CF44F5AFCD3DA06D6DB0 /* [CP] Copy Pods Resources */,
+				0799D8741F430B7300E45E2C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -381,7 +379,6 @@
 			files = (
 				07B7C1FA1EF926EA0027B2FC /* LaunchScreen.storyboard in Resources */,
 				07B7C1FB1EF926EA0027B2FC /* Main_iPad.storyboard in Resources */,
-				0777CBCB1F14674300DE1D29 /* AssistBar.xib in Resources */,
 				07381D8F1F0A467B00E362E9 /* samples.zip in Resources */,
 				07B7C1FC1EF926EA0027B2FC /* Main_iPhone.storyboard in Resources */,
 				07B7C1FD1EF926EA0027B2FC /* Settings.storyboard in Resources */,
@@ -395,6 +392,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0799D8741F430B7300E45E2C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"FIXME:\"\nfind \"${SRCROOT}\" \\( -name \"*.h\" -or -name \"*.m\" -or -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
+		};
 		5A61CF44F5AFCD3DA06D6DB0 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

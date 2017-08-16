@@ -26,6 +26,14 @@ class WebViewController: UIViewController {
         }
     }
     
+    var offset: CGFloat = 0 {
+        didSet {
+            if isViewLoaded {
+                webView.scrollView.contentOffset = CGPoint(x: 0, y: offset * webView.scrollView.contentSize.height)
+            }
+        }
+    }
+    
     var htmlString = "" {
         didSet {
             webView.loadHTMLString(htmlString, baseURL: nil)

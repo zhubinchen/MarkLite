@@ -9,6 +9,7 @@
 import UIKit
 import SideMenu
 import SwiftyDropbox
+import RxSwift
 
 class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -37,12 +38,17 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             ])
     ]
     
+    let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.title = "设置"
         navBar?.setBarTintColor(.navBar)
         navBar?.setContentColor(.navBarTint)
+        Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in
+            self.tableView.backgroundColor = theme == .black ? rgb("101010") : rgb("F2F2F2")
+        }).addDisposableTo(disposeBag)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -58,12 +64,14 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         let item = items[indexPath.section].1[indexPath.row]
         cell.textLabel?.text = item.0
         cell.textLabel?.setTextColor(.primary)
+        cell.setBackgroundColor(.background)
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = items[indexPath.section].1[indexPath.row]
         perform(item.1)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

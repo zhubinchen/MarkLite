@@ -25,9 +25,10 @@ class TextViewController: UIViewController {
     @IBOutlet weak var bottomSpace: NSLayoutConstraint!
 
     var textChangedHandler: ((String)->Void)?
+    var offsetChangedHandler: ((CGFloat)->Void)?
 
     let disposeBag = DisposeBag()
-    let manager = MarkdownHighlightManager()
+    var manager = MarkdownHighlightManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,10 @@ class TextViewController: UIViewController {
         editView.inputAccessoryView = assistBar
         editView.backgroundColor = .white
 
+        Configure.shared.theme.asObservable().subscribe(onNext: { [weak self] _ in
+            self?.manager = MarkdownHighlightManager()
+        }).addDisposableTo(disposeBag)
+        
         Configure.shared.editingFile.asObservable().subscribe(onNext: { [weak self] (file) in
             guard let file = file else { return }
             file.readText{
@@ -53,20 +58,36 @@ class TextViewController: UIViewController {
         editView.rx.text.map{($0?.length ?? 0) > 0}
             .bind(to: placeholderLabel.rx.isHidden)
             .addDisposableTo(disposeBag)
+        editView.rx.contentOffset.map{$0.y}.subscribe(onNext: { [weak self] (offset) in
+            guard let this = self else { return }
+            this.offsetChangedHandler?(offset / this.editView.contentSize.height)
+        }).addDisposableTo(disposeBag)
         
         addNotificationObserver(Notification.Name.UIKeyboardWillChangeFrame.rawValue, selector: #selector(keyboardWillChange(_:)))
+        
+        editView.setBackgroundColor(.background)
+        bottomView.setBackgroundColor(.background)
+        bottomView.setTintColor(.primary)
+        countLabel.setTextColor(.secondary)
     }
     
     func textChanged() {
-        textChangedHandler?(editView.text ?? "")
+        
+        textChangedHandler?(editView.text)
 
         if editView.markedTextRange != nil {
             return
         }
+        manager.highlight(editView.text) { [weak self] (attrText) in
+            self?.didHighlight(attrText: attrText)
+        }
+    }
+    
+    func didHighlight(attrText: NSAttributedString) {
         editView.isScrollEnabled = false
         let selectedRange = editView.selectedRange
-        editView.attributedText = manager.highlight(editView.text)
-        editView.selectedRange = selectedRange;
+        editView.attributedText = attrText
+        editView.selectedRange = selectedRange
         editView.isScrollEnabled = true
     }
     

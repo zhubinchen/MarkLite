@@ -63,7 +63,7 @@ class FilesViewController: UIViewController {
 
         navBar?.setBarTintColor(.navBar)
         navBar?.setContentColor(.navBarTint)
-        
+        view.setBackgroundColor(.background)
         if root == nil {
             title = "本地文件"
             File.loadLocal{ self.root = $0 }
@@ -73,6 +73,8 @@ class FilesViewController: UIViewController {
         } else {
             title = root?.name
             navigationItem.titleView = titleTextField
+            titleTextField.font = UIFont.font(ofSize: 18)
+            titleTextField.setTextColor(.navBarTint)
         }
     }
     

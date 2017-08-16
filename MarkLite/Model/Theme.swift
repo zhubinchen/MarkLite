@@ -16,11 +16,13 @@ enum Theme: String {
     case red
     case blue
     case purple
+    case pink
 }
 
 enum ThemeColorType {
     case navBar
     case navBarTint
+    case background
     case primary
     case secondary
 }
@@ -29,17 +31,19 @@ extension Theme {
     var colors: [UIColor] {
         switch self {
         case .white:
-            return [rgba("ffffff",1)!,rgba("333333",1)!,rgba("333333", 0.8)!,rgba("333333", 0.5)!]
+            return [rgb("ffffff")!,rgb("333333")!,rgb("ffffff")!,rgba("333333", 0.8)!,rgba("333333", 0.5)!]
         case .black:
-            return [rgba("242424",1)!,rgba("ffffff",1)!,rgba("242424", 0.8)!,rgba("242424", 0.5)!]
+            return [rgb("101010")!,rgb("cccccc")!,rgb("242424")!,rgba("cccccc", 0.8)!,rgba("cccccc", 0.5)!]
         case .blue:
-            return [rgba("0291D4",1)!,rgba("ffffff",1)!,rgba("0291D4", 0.8)!,rgba("0291D4", 0.5)!]
+            return [rgb("0291D4")!,rgb("ffffff")!,rgb("ffffff")!,rgba("0291D4", 0.8)!,rgba("0291D4", 0.5)!]
         case .purple:
-            return [rgba("6c16c7",1)!,rgba("ffffff",1)!,rgba("6c16c7", 0.8)!,rgba("6c16c7", 0.5)!]
+            return [rgb("6c16c7")!,rgb("ffffff")!,rgb("ffffff")!,rgba("6c16c7", 0.8)!,rgba("6c16c7", 0.5)!]
         case .red:
-            return [rgba("D2373B",1)!,rgba("ffffff",1)!,rgba("D2373B", 0.8)!,rgba("D2373B", 0.5)!]
+            return [rgb("D2373B")!,rgb("ffffff")!,rgb("ffffff")!,rgba("D2373B", 0.8)!,rgba("D2373B", 0.5)!]
         case .green:
-            return [rgba("01BD70",1)!,rgba("ffffff",1)!,rgba("01BD70", 0.8)!,rgba("01BD70", 0.5)!]
+            return [rgb("01BD70")!,rgb("ffffff")!,rgb("ffffff")!,rgba("01BD70", 0.8)!,rgba("01BD70", 0.5)!]
+        case .pink:
+            return [rgb("E52D7C")!,rgb("ffffff")!,rgb("ffffff")!,rgba("E52D7C", 0.8)!,rgba("E52D7C", 0.5)!]
         }
     }
     
@@ -48,15 +52,17 @@ extension Theme {
         case .white:
             return "简洁白"
         case .black:
-            return "炫酷黑"
+            return "高端黑"
         case .blue:
             return "清新蓝"
         case .red:
             return "中国红"
         case .purple:
             return "风骚紫"
+        case .pink:
+            return "脑残粉"
         case .green:
-            return "当然是选择原谅她啊"
+            return "原谅绿"
         }
     }
 }
@@ -68,13 +74,15 @@ class ColorCenter {
     let navBarTint = Variable(UIColor.clear)
     let primary = Variable(UIColor.clear)
     let secondary = Variable(UIColor.clear)
+    let background = Variable(UIColor.clear)
     
     var theme: Theme = .white {
         didSet {
             navBar.value = theme.colors[0]
             navBarTint.value = theme.colors[1]
-            primary.value = theme.colors[2]
-            secondary.value = theme.colors[3]
+            background.value = theme.colors[2]
+            primary.value = theme.colors[3]
+            secondary.value = theme.colors[4]
         }
     }
     
@@ -88,6 +96,8 @@ class ColorCenter {
             return primary
         case .secondary:
             return secondary
+        case .background:
+            return background
         }
     }
 }

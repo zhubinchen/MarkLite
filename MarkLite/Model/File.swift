@@ -170,14 +170,13 @@ class File {
         return true
     }
     
-    func readText(_ completion:(String)->Void) {
-        guard let string = try? String(contentsOfFile: self.path, encoding: String.Encoding.utf8) else {
-            completion("")
-            print("error to read file at:\(path)")
-            return
+    func readText(_ completion:@escaping (String)->Void) {
+        DispatchQueue.global().async {
+            let text = try? String(contentsOfFile: self.path, encoding: String.Encoding.utf8)
+            DispatchQueue.main.async {
+                completion(text ?? "")
+            }
         }
-        
-        completion(string)
     }
     
     @discardableResult

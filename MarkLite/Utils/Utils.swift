@@ -230,8 +230,11 @@ extension Date {
 }
 
 extension UIFont {
-    static func font(ofSize: CGFloat) -> UIFont {
-        return self.systemFont(ofSize:ofSize)
+    static func font(ofSize: CGFloat,bold: Bool = false) -> UIFont {
+        if bold {
+            return boldSystemFont(ofSize: ofSize)
+        }
+        return systemFont(ofSize: ofSize)
     }
 }
 

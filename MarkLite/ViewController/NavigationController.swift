@@ -21,12 +21,28 @@ extension UIViewController {
 
 class NavigationController: UINavigationController {
     
+    var isPoping = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.delegate = self
         self.navigationBar.delegate = self
         self.interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    @discardableResult
+    override func popViewController(animated: Bool) -> UIViewController? {
+        if isPoping {
+            return nil
+        }
+        isPoping = true
+        
+        //FIXME: it is a bad idea
+        Timer.runThisAfterDelay(seconds: 0.3) {
+            self.isPoping = false
+        }
+        return super.popViewController(animated: true)
     }
     
     override var childViewControllerForStatusBarHidden: UIViewController? {
@@ -63,6 +79,7 @@ extension NavigationController: UIGestureRecognizerDelegate {
 
 extension NavigationController: UINavigationBarDelegate {
     func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
+
         guard let vc = self.topViewController else {
             return false
         }
