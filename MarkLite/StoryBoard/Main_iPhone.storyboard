@@ -142,7 +142,7 @@
                                                 <constraint firstItem="HnP-0J-m30" firstAttribute="leading" secondItem="1NM-6U-ZG8" secondAttribute="leading" id="mgG-xs-YqH"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="nameLabel" destination="XTj-yB-eNz" id="CqF-oM-tws"/>
                                             <outlet property="selectedMark" destination="HnP-0J-m30" id="Ibf-0A-0Nk"/>

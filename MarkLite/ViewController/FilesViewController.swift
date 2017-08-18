@@ -63,7 +63,9 @@ class FilesViewController: UIViewController {
 
         navBar?.setBarTintColor(.navBar)
         navBar?.setContentColor(.navBarTint)
+        tableView.setBackgroundColor(.tableBackground)
         view.setBackgroundColor(.background)
+        
         if root == nil {
             title = "本地文件"
             File.loadLocal{ self.root = $0 }

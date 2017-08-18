@@ -37,6 +37,8 @@
 		0796935F1F078F4C00F435C7 /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = 079693531F078F4C00F435C7 /* stack.c */; };
 		079693601F078F4C00F435C7 /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 079693551F078F4C00F435C7 /* version.c */; };
 		079693621F0790C500F435C7 /* HighlightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079693611F0790C500F435C7 /* HighlightManager.swift */; };
+		0799D87E1F45C59E00E45E2C /* PurchaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0799D87D1F45C59D00E45E2C /* PurchaseView.swift */; };
+		0799D8801F45C5B600E45E2C /* PurchaseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0799D87F1F45C5B600E45E2C /* PurchaseView.xib */; };
 		07A21A9B1F3DA6F00082511F /* DropboxHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07A21A9A1F3DA6F00082511F /* DropboxHelper.swift */; };
 		07B7C1BB1EF913A50027B2FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B7C1BA1EF913A50027B2FC /* AppDelegate.swift */; };
 		07B7C1C21EF913A50027B2FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07B7C1C11EF913A50027B2FC /* Assets.xcassets */; };
@@ -96,6 +98,8 @@
 		079693551F078F4C00F435C7 /* version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = version.c; sourceTree = "<group>"; };
 		079693561F078F4C00F435C7 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
 		079693611F0790C500F435C7 /* HighlightManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightManager.swift; sourceTree = "<group>"; };
+		0799D87D1F45C59D00E45E2C /* PurchaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseView.swift; sourceTree = "<group>"; };
+		0799D87F1F45C5B600E45E2C /* PurchaseView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PurchaseView.xib; sourceTree = "<group>"; };
 		07A21A9A1F3DA6F00082511F /* DropboxHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropboxHelper.swift; sourceTree = "<group>"; };
 		07B7C1B71EF913A50027B2FC /* MarkLite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkLite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07B7C1BA1EF913A50027B2FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -244,6 +248,8 @@
 				0777CBC81F14672500DE1D29 /* AssistBar.swift */,
 				07CC98891F2D8A38008F65F9 /* EditTextView.swift */,
 				07B867841F32E9D600374459 /* DottedLineView.swift */,
+				0799D87D1F45C59D00E45E2C /* PurchaseView.swift */,
+				0799D87F1F45C5B600E45E2C /* PurchaseView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -380,6 +386,7 @@
 				07B7C1FA1EF926EA0027B2FC /* LaunchScreen.storyboard in Resources */,
 				07B7C1FB1EF926EA0027B2FC /* Main_iPad.storyboard in Resources */,
 				07381D8F1F0A467B00E362E9 /* samples.zip in Resources */,
+				0799D8801F45C5B600E45E2C /* PurchaseView.xib in Resources */,
 				07B7C1FC1EF926EA0027B2FC /* Main_iPhone.storyboard in Resources */,
 				07B7C1FD1EF926EA0027B2FC /* Settings.storyboard in Resources */,
 				07381D8E1F0A467B00E362E9 /* icon.png in Resources */,
@@ -498,6 +505,7 @@
 				07B7C1F11EF926280027B2FC /* File.swift in Sources */,
 				079693571F078F4C00F435C7 /* autolink.c in Sources */,
 				07CC99341F316E9D008F65F9 /* RenderManager.swift in Sources */,
+				0799D87E1F45C59E00E45E2C /* PurchaseView.swift in Sources */,
 				075269B51EFBC40B00C4DAD9 /* FilesViewController.swift in Sources */,
 				079693591F078F4C00F435C7 /* document.c in Sources */,
 				07B7C1BB1EF913A50027B2FC /* AppDelegate.swift in Sources */,

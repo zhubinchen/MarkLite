@@ -23,6 +23,7 @@ enum ThemeColorType {
     case navBar
     case navBarTint
     case background
+    case tableBackground
     case primary
     case secondary
 }
@@ -31,19 +32,19 @@ extension Theme {
     var colors: [UIColor] {
         switch self {
         case .white:
-            return [rgb("ffffff")!,rgb("333333")!,rgb("ffffff")!,rgba("333333", 0.8)!,rgba("333333", 0.5)!]
+            return [rgb("ffffff")!,rgb("333333")!,rgb("ffffff")!,rgb("f2f2f2")!,rgba("333333", 0.8)!,rgba("333333", 0.5)!]
         case .black:
-            return [rgb("101010")!,rgb("cccccc")!,rgb("242424")!,rgba("cccccc", 0.8)!,rgba("cccccc", 0.5)!]
+            return [rgb("313231")!,rgb("cccccc")!,rgb("313231")!,rgb("333333")!,rgba("cccccc", 0.8)!,rgba("cccccc", 0.5)!]
         case .blue:
-            return [rgb("0291D4")!,rgb("ffffff")!,rgb("ffffff")!,rgba("0291D4", 0.8)!,rgba("0291D4", 0.5)!]
+            return [rgb("0291D4")!,rgb("ffffff")!,rgb("ffffff")!,rgb("f2f2f2")!,rgba("0291D4", 0.8)!,rgba("0291D4", 0.5)!]
         case .purple:
-            return [rgb("6c16c7")!,rgb("ffffff")!,rgb("ffffff")!,rgba("6c16c7", 0.8)!,rgba("6c16c7", 0.5)!]
+            return [rgb("6c16c7")!,rgb("ffffff")!,rgb("ffffff")!,rgb("f2f2f2")!,rgba("6c16c7", 0.8)!,rgba("6c16c7", 0.5)!]
         case .red:
-            return [rgb("D2373B")!,rgb("ffffff")!,rgb("ffffff")!,rgba("D2373B", 0.8)!,rgba("D2373B", 0.5)!]
+            return [rgb("D2373B")!,rgb("ffffff")!,rgb("ffffff")!,rgb("f2f2f2")!,rgba("D2373B", 0.8)!,rgba("D2373B", 0.5)!]
         case .green:
-            return [rgb("01BD70")!,rgb("ffffff")!,rgb("ffffff")!,rgba("01BD70", 0.8)!,rgba("01BD70", 0.5)!]
+            return [rgb("01BD70")!,rgb("ffffff")!,rgb("ffffff")!,rgb("f2f2f2")!,rgba("01BD70", 0.8)!,rgba("01BD70", 0.5)!]
         case .pink:
-            return [rgb("E52D7C")!,rgb("ffffff")!,rgb("ffffff")!,rgba("E52D7C", 0.8)!,rgba("E52D7C", 0.5)!]
+            return [rgb("E52D7C")!,rgb("ffffff")!,rgb("ffffff")!,rgb("f2f2f2")!,rgba("E52D7C", 0.8)!,rgba("E52D7C", 0.5)!]
         }
     }
     
@@ -75,14 +76,16 @@ class ColorCenter {
     let primary = Variable(UIColor.clear)
     let secondary = Variable(UIColor.clear)
     let background = Variable(UIColor.clear)
+    let tableBackground = Variable(UIColor.clear)
     
     var theme: Theme = .white {
         didSet {
             navBar.value = theme.colors[0]
             navBarTint.value = theme.colors[1]
             background.value = theme.colors[2]
-            primary.value = theme.colors[3]
-            secondary.value = theme.colors[4]
+            tableBackground.value = theme.colors[3]
+            primary.value = theme.colors[4]
+            secondary.value = theme.colors[5]
         }
     }
     
@@ -98,6 +101,8 @@ class ColorCenter {
             return secondary
         case .background:
             return background
+        case .tableBackground:
+            return tableBackground
         }
     }
 }

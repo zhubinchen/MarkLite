@@ -37,12 +37,13 @@ class FileTableViewCell: SwipeTableViewCell {
         selectedBg.addSubview(selectedMarkView)
         self.selectedBackgroundView = selectedBg
         
-        selectedMarkView.setBackgroundColor(.navBar)
-        selectedMark.setBackgroundColor(.navBar)
+        selectedMarkView.setBackgroundColor(.primary)
+        selectedMark.setBackgroundColor(.primary)
         
         nameLabel.setTextColor(.primary)
         timeLabel.setTextColor(.secondary)
         sizeLabel.setTextColor(.secondary)
+        setBackgroundColor(.background)
     }
     
     override func layoutSubviews() {

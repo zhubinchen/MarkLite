@@ -20,20 +20,21 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    let themeSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
+    let assitBarSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
+    
     let items = [
         ("功能",[
-            ("iCloud 同步",#selector(icloud)),
+            ("升级到高级帐户",#selector(purchase)),
             ("辅助键盘",#selector(assistBar)),
             ]),
         ("外观",[
+            ("夜间模式",#selector(night)),
             ("主题色",#selector(theme)),
             ("渲染样式",#selector(style)),
             ]),
         ("支持一下",[
             ("五星好评",#selector(rate)),
-            ("打赏开发者",#selector(donate))
-            ]),
-        ("反馈",[
             ("问题与意见",#selector(feedback))
             ])
     ]
@@ -46,9 +47,21 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         self.title = "设置"
         navBar?.setBarTintColor(.navBar)
         navBar?.setContentColor(.navBarTint)
-        Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in
-            self.tableView.backgroundColor = theme == .black ? rgb("101010") : rgb("F2F2F2")
-        }).addDisposableTo(disposeBag)
+        themeSwitch.setTintColor(.navBarTint)
+        assitBarSwitch.setTintColor(.navBarTint)
+        tableView.setBackgroundColor(.tableBackground)
+
+        themeSwitch.isOn = Configure.shared.theme.value == .black
+        assitBarSwitch.isOn = Configure.shared.isAssistBarEnabled.value
+        
+        themeSwitch.addTarget(self, action: #selector(night(_:)), for: .valueChanged)
+        assitBarSwitch.addTarget(self, action: #selector(assistBar(_:)), for: .valueChanged)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        themeSwitch.x = view.w - 60
+        assitBarSwitch.x = view.w - 60
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -65,13 +78,26 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         cell.textLabel?.text = item.0
         cell.textLabel?.setTextColor(.primary)
         cell.setBackgroundColor(.background)
+        
+        if item.0 == "辅助键盘" {
+            cell.addSubview(assitBarSwitch)
+            cell.accessoryType = .none
+        }
+        if item.0 == "夜间模式" {
+            cell.addSubview(themeSwitch)
+            cell.accessoryType = .none
+        }
         return cell
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = items[indexPath.section].1[indexPath.row]
-        perform(item.1)
         tableView.deselectRow(at: indexPath, animated: true)
+
+        let item = items[indexPath.section].1[indexPath.row]
+        if item.0 == "辅助键盘" || item.0 == "夜间模式" {
+            return
+        }
+        perform(item.1)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -85,44 +111,24 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 
 extension SettingsViewController {
     
-    func icloud() {
-        DropboxClientsManager.authorizeFromController(UIApplication.shared,
-                                                      controller: self) { (url) in
-                                                        UIApplication.shared.openURL(url)
-        }
+    func purchase() {
+        PurchaseView.showWithViewController(self)
     }
     
     func rate() {
         UIApplication.shared.openURL(URL(string: rateUrl)!)
     }
     
-    func donate() {
-        self.view.startLoadingAnimation()
-        IAP.requestProducts([donateProductID]) { (response, error) in
-            guard let product = response?.products.first else {
-                self.view.stopLoadingAnimation()
-                return
-            }
-            IAP.purchaseProduct(product.productIdentifier, handler: { (identifier, error) in
-                
-                if let err = error {
-                    print(err.localizedDescription)
-                    self.showAlert(title: "虽然没有打赏成功，还是感谢你的心意")
-                    return
-                } else {
-                    self.showAlert(title: "谢谢你的支持🙏，我会努力做的更好的")
-                }
-                self.view.stopLoadingAnimation()
-            })
-        }
-    }
-    
     func feedback() {
         UIApplication.shared.openURL(URL(string: emailUrl)!)
     }
     
-    func assistBar() {
-        
+    func night(_ sender: UISwitch) {
+        Configure.shared.theme.value = sender.isOn ? .black : .white
+    }
+    
+    func assistBar(_ sender: UISwitch) {
+        Configure.shared.isAssistBarEnabled.value = sender.isOn
     }
     
     func theme() {

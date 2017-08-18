@@ -26,9 +26,7 @@ class ThemeViewController: UIViewController, UITableViewDelegate, UITableViewDat
         table.setSeparatorColor(.primary)
         view.addSubview(table)
         
-        Configure.shared.theme.asObservable().subscribe(onNext: { [unowned self] (theme) in
-            self.table.backgroundColor = theme == .black ? rgb("101010") : rgb("F2F2F2")
-        }).addDisposableTo(disposeBag)
+        table.setBackgroundColor(.tableBackground)
     }
     
     override func viewDidLayoutSubviews() {

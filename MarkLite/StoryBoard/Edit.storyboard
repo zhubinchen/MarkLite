@@ -21,7 +21,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lId-Dt-n2r">
-                                <rect key="frame" x="0.0" y="20" width="375" height="533"/>
+                                <rect key="frame" x="8" y="20" width="367" height="533"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <mutableString key="text">
 ### 1.怎么重命名文件
 &gt;点击顶部文件标题，就可以重命名了，按换行结束。记住别输入特殊字符。
@@ -74,7 +75,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Als-NQ-ZQc" firstAttribute="centerY" secondItem="A59-fe-PiA" secondAttribute="centerY" id="5fu-I7-cgU"/>
                                     <constraint firstItem="vV5-i3-4Pf" firstAttribute="leading" secondItem="aui-tE-OMW" secondAttribute="trailing" constant="8" id="BXl-u6-rP6"/>
@@ -86,7 +87,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开始你的写作" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5L-1x-TTM">
-                                <rect key="frame" x="5" y="26" width="104" height="20.5"/>
+                                <rect key="frame" x="13" y="26" width="104" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -102,12 +103,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="wg0-wg-03a" secondAttribute="trailing" id="5Ml-5w-Fdz"/>
-                            <constraint firstItem="lId-Dt-n2r" firstAttribute="leading" secondItem="eCS-3y-9qx" secondAttribute="leading" id="EzB-oc-JMH"/>
-                            <constraint firstItem="d5L-1x-TTM" firstAttribute="leading" secondItem="eCS-3y-9qx" secondAttribute="leading" constant="5" id="Jx8-50-U0f"/>
+                            <constraint firstItem="lId-Dt-n2r" firstAttribute="leading" secondItem="eCS-3y-9qx" secondAttribute="leading" constant="8" id="EzB-oc-JMH"/>
+                            <constraint firstItem="d5L-1x-TTM" firstAttribute="leading" secondItem="eCS-3y-9qx" secondAttribute="leading" constant="13" id="Jx8-50-U0f"/>
                             <constraint firstItem="A59-fe-PiA" firstAttribute="top" secondItem="lId-Dt-n2r" secondAttribute="bottom" id="P3Y-cM-WEY"/>
                             <constraint firstItem="lId-Dt-n2r" firstAttribute="top" secondItem="TIu-dC-VAg" secondAttribute="bottom" id="XMb-9U-Tbo"/>
                             <constraint firstItem="A59-fe-PiA" firstAttribute="leading" secondItem="eCS-3y-9qx" secondAttribute="leading" id="g29-4E-a7C"/>
-                            <constraint firstItem="lId-Dt-n2r" firstAttribute="leading" secondItem="eCS-3y-9qx" secondAttribute="leading" id="j5T-KS-ysC"/>
                             <constraint firstItem="ovg-w3-4Uh" firstAttribute="top" secondItem="A59-fe-PiA" secondAttribute="bottom" id="lvf-mE-Z47"/>
                             <constraint firstAttribute="trailing" secondItem="lId-Dt-n2r" secondAttribute="trailing" id="mEU-zT-PTk"/>
                             <constraint firstAttribute="bottom" secondItem="wg0-wg-03a" secondAttribute="bottom" id="mp5-tE-6z8"/>
@@ -130,6 +130,7 @@
                         <outlet property="editView" destination="lId-Dt-n2r" id="Dkb-tE-FtC"/>
                         <outlet property="placeholderLabel" destination="d5L-1x-TTM" id="hHW-dg-KOn"/>
                         <outlet property="redoButton" destination="vV5-i3-4Pf" id="On1-Jh-DDU"/>
+                        <outlet property="seperator" destination="wg0-wg-03a" id="IE9-f3-1sa"/>
                         <outlet property="undoButton" destination="aui-tE-OMW" id="Tsh-qo-o1z"/>
                         <outlet property="view" destination="eCS-3y-9qx" id="38Y-iP-Fys"/>
                     </connections>
@@ -216,7 +217,7 @@
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iyH-tF-DAu">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

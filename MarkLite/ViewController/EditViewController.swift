@@ -36,6 +36,7 @@ class EditViewController: UIViewController {
         Configure.shared.editingFile.value?.readText{ [weak self] text in
             self?.webVC?.text = text
         }
+        
     }
     
     func toggleBarButton(_ showExport: Bool) {

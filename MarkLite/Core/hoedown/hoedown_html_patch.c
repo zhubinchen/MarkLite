@@ -95,6 +95,7 @@ void hoedown_patch_render_listitem(
         // Do task list checkbox ([x] or [ ]).
         if (text->size >= 3)
         {
+            printf("%s", (char *)(text->data + offset));
             if (strncmp((char *)(text->data + offset), "[ ]", 3) == 0)
             {
                 HOEDOWN_BUFPUTSL(ob, "<li class=\"task-list-item\">");

@@ -12,14 +12,17 @@ import RxCocoa
 import Zip
 
 class Configure: NSObject, NSCoding {
+    
     let editingFile: Variable<File?> = Variable(nil)
     let isLandscape = Variable(false)
-        
+    
     var currentVerion: String?
+    var isVip = false
+    var isOldUser = false
+    var isAssistBarEnabled = Variable(true)
     var markdownStyle = Variable("GitHub2")
     var highlightStyle = Variable("rainbow")
     var theme = Variable(Theme.white)
-    var icloudEnable = true
     
     override init() {
         super.init()
@@ -46,13 +49,24 @@ class Configure: NSObject, NSCoding {
         }
     }
     
-    func encode(with aCoder: NSCoder) {
-        aCoder.encode(currentVerion, forKey: "currentVersion")
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init()
-        currentVerion = aDecoder.decodeObject(forKey: "currentVersion") as? String
+    func checkVipAvailable(_ completion:((Bool)->Void)? = nil){
+        IAP.validateReceipt(itunsSecretKey) { (statusCode, products, json) in
+            defer {
+                DispatchQueue.main.async {
+                    completion?(self.isVip)
+                }
+            }
+            guard let products = products else {
+                self.isVip = false
+                return
+            }
+            print("products: \(products)")
+            let expiredDate1 = products[monthlyVIPProductID] ?? Date(timeIntervalSince1970: 0)
+            let expiredDate2 = products[annualVIPProductID] ?? Date(timeIntervalSince1970: 0)
+            let expiredDate = max(expiredDate1, expiredDate2)
+
+            self.isVip = expiredDate.isFuture
+        }
     }
     
     func reset() {
@@ -69,9 +83,35 @@ class Configure: NSObject, NSCoding {
         try! FileManager.default.createDirectory(atPath: draftPath, withIntermediateDirectories: true, attributes: nil)
     }
     
-    
     func upgrade() {
         currentVerion = appVersion
+        isOldUser = true
         reset()
+    }
+    
+    func save() {
+        let data = NSKeyedArchiver.archivedData(withRootObject: self)
+        UserDefaults.standard.set(data, forKey: "CurrentUser")
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(currentVerion, forKey: "currentVersion")
+        aCoder.encode(isOldUser, forKey: "isOldUser")
+        aCoder.encode(isVip, forKey: "isVip")
+        aCoder.encode(isAssistBarEnabled.value, forKey: "isAssistBarEnabled")
+        aCoder.encode(markdownStyle.value, forKey: "markdownStyle")
+        aCoder.encode(highlightStyle.value, forKey: "highlightStyle")
+        aCoder.encode(theme.value, forKey: "theme")
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init()
+        currentVerion = aDecoder.decodeObject(forKey: "currentVersion") as? String
+        isOldUser = aDecoder.decodeObject(forKey: "isOldUser") as? Bool ?? false
+        isVip = aDecoder.decodeObject(forKey: "isVip") as? Bool ?? false
+        isAssistBarEnabled.value = aDecoder.decodeObject(forKey: "isAssistBarEnabled") as? Bool ?? true
+        markdownStyle.value = aDecoder.decodeObject(forKey: "markdownStyle") as? String ?? "GitHub2"
+        highlightStyle.value = aDecoder.decodeObject(forKey: "highlightStyle") as? String ?? "rainbow"
+        theme.value = aDecoder.decodeObject(forKey: "theme") as? Theme ?? .white
     }
 }

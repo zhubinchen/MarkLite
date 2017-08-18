@@ -49,20 +49,27 @@ class WebViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupRx()
+    }
+    
+    func setupRx() {
         webView.rx.didStartLoad.subscribe { [weak self] _ in
             self?.webView.startLoadingAnimation()
-        }.addDisposableTo(disposeBag)
+            }.addDisposableTo(disposeBag)
+        
         webView.rx.didFailLoad.subscribe { [weak self] _ in
             self?.webView.stopLoadingAnimation()
-        }.addDisposableTo(disposeBag)
+            }.addDisposableTo(disposeBag)
+        
         webView.rx.didFinishLoad.subscribe { [weak self] _ in
             self?.webView.stopLoadingAnimation()
-        }.addDisposableTo(disposeBag)
+            }.addDisposableTo(disposeBag)
         
         Configure.shared.markdownStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
             self.renderManager.markdownStyle = style
             self.htmlString = self.renderManager.render(self.text)
         }).addDisposableTo(disposeBag)
+        
         Configure.shared.highlightStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
             self.renderManager.highlightStyle = style
             self.htmlString = self.renderManager.render(self.text)
