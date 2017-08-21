@@ -60,6 +60,11 @@ extension String {
 
 extension String {
     
+    var vertical: String {
+        let chars = self.characters.map{String($0).uppercased()}
+        return chars.joined(separator: "\n")
+    }
+    
     static var unique: String {
         let time = Date().timeIntervalSince1970
         return time.toString
@@ -103,11 +108,13 @@ extension UIViewController {
         if let _ = textFieldconfigurationHandler {
             alert.addTextField(configurationHandler: textFieldconfigurationHandler)
         }
+
         present(alert, animated: true, completion: nil)
         return alert
     }
     
-    func showActionSheet(title: String? = nil,
+    func showActionSheet(sender: UIView? = nil,
+                         title: String? = nil,
                          message: String? = nil,
                          actionTitles: [String],
                          actionHandler: ((Int) -> Void)?){
@@ -119,6 +126,11 @@ extension UIViewController {
             }))
         }
         alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        if alert.popoverPresentationController != nil {
+            guard let sender = sender else { return }
+            alert.popoverPresentationController!.sourceView = sender
+            alert.popoverPresentationController!.sourceRect = sender.bounds
+        }
         present(alert, animated: true, completion: nil)
     }
 }

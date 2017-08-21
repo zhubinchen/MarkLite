@@ -78,6 +78,12 @@ class FilesViewController: UIViewController {
             titleTextField.font = UIFont.font(ofSize: 18)
             titleTextField.setTextColor(.navBarTint)
         }
+        
+        if isPad {
+            navigationController?.delegate = navigationController
+            navigationController?.delegate = navigationController
+            navigationController?.interactivePopGestureRecognizer?.delegate = navigationController
+        }
     }
     
     func showSettings() {

@@ -15,6 +15,7 @@ class EditViewController: UIViewController {
     @IBOutlet weak var textViewWidth: NSLayoutConstraint!
     
     var webVC: WebViewController?
+    var textVC: TextViewController?
     
     var showExport = true
     
@@ -37,37 +38,61 @@ class EditViewController: UIViewController {
             self?.webVC?.text = text
         }
         
+        textVC?.textChangedHandler = { [weak self] text in
+            self?.webVC?.text = text
+        }
+        
+        textVC?.offsetChangedHandler = { [weak self] offset in
+            self?.webVC?.offset = offset
+        }
     }
     
     func toggleBarButton(_ showExport: Bool) {
+        textVC?.editView.resignFirstResponder()
+
         if self.showExport == showExport {
             return
         }
         self.showExport = showExport
         if showExport {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "export"), style: .plain, target: self, action: #selector(export))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "export"), style: .plain, target: self, action: #selector(showExportMenu(_:)))
         } else {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: "预览", style: .plain, target: self, action: #selector(preview))
         }
     }
-    func export() {
-        self.view.resignFirstResponder()
-        webVC?.showExportMenu()
+    
+    func showExportMenu(_ sender: Any) {
+        textVC?.editView.resignFirstResponder()
+        if isPad && Configure.shared.isLandscape.value == false {
+            scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)
+        }
+        
+        let items = [ExportType.PDF,.markdown,.html,.image]
+        var pos = CGPoint(x: windowWidth - 140, y: 65)
+        if let view = sender as? UIView {
+            pos = view.origin
+            if Configure.shared.isLandscape.value {
+                pos.x += 44
+            } else {
+                pos.y += 44
+            }
+        }
+        MenuView(items: items.map{$0.rawValue},
+                 postion: pos) { (index) in
+                    guard let url = self.webVC?.url(for: items[index]) else { return }
+                    let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+                    self.presentVC(vc)
+            }.show()
     }
     
     func preview() {
-        self.view.resignFirstResponder()
-        self.scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)
+        textVC?.editView.resignFirstResponder()
+        scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? TextViewController {
-            vc.textChangedHandler = { [weak self] text in
-                self?.webVC?.text = text
-            }
-            vc.offsetChangedHandler = { [weak self] offset in
-                self?.webVC?.offset = offset
-            }
+            textVC = vc
         } else if let vc = segue.destination as? WebViewController {
             webVC = vc
         }

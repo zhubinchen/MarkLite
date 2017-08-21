@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SideMenu
 
 extension UIViewController {
     
@@ -38,7 +39,7 @@ class NavigationController: UINavigationController {
         }
         isPoping = true
         
-        //FIXME: it is a bad idea
+        //FIXME: 下下策
         Timer.runThisAfterDelay(seconds: 0.3) {
             self.isPoping = false
         }
@@ -54,21 +55,21 @@ class NavigationController: UINavigationController {
     }
 }
 
-extension NavigationController: UINavigationControllerDelegate {
+extension UINavigationController: UINavigationControllerDelegate {
     
-    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+    public func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         viewController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+    public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         interactivePopGestureRecognizer?.isEnabled = true
     }
     
 }
 
-extension NavigationController: UIGestureRecognizerDelegate {
+extension UINavigationController: UIGestureRecognizerDelegate {
     
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+    public func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         guard let vc = self.topViewController else {
             return false
         }
@@ -77,8 +78,8 @@ extension NavigationController: UIGestureRecognizerDelegate {
     
 }
 
-extension NavigationController: UINavigationBarDelegate {
-    func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
+extension UINavigationController: UINavigationBarDelegate {
+    public func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
 
         guard let vc = self.topViewController else {
             return false

@@ -23,8 +23,8 @@ class ImagePicker: NSObject {
         super.init()
     }
     
-    func pickImage() {
-        vc?.showActionSheet(title: "选取照片", actionTitles: ["相册","拍照"]) { [unowned self] (index) in
+    func pickImage(_ sender: UIView? = nil) {
+        vc?.showActionSheet(sender: sender, title: "选取照片", actionTitles: ["相册","拍照"]) { [unowned self] (index) in
             if index == 0 {
                 self.pickFromLibray()
             } else if index == 1 {
@@ -93,11 +93,11 @@ class ImagePicker: NSObject {
     
     func showImagePickerFor(sourceType: UIImagePickerControllerSourceType) {
         let imagePickerVc = UIImagePickerController()
-        imagePickerVc.modalPresentationStyle = sourceType == .camera ? .fullScreen : .popover
+        imagePickerVc.modalPresentationStyle = .formSheet
         imagePickerVc.sourceType = sourceType
         imagePickerVc.delegate = self
         imagePickerVc.allowsEditing = true
-        
+
         DispatchQueue.main.async {
             self.vc?.presentVC(imagePickerVc)
         }

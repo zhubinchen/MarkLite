@@ -23,25 +23,6 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lId-Dt-n2r">
                                 <rect key="frame" x="8" y="20" width="367" height="533"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">
-### 1.怎么重命名文件
-&gt;点击顶部文件标题，就可以重命名了，按换行结束。记住别输入特殊字符。
-
-![Markdown](http://i1.piimg.com/567954/423cf063996d02df.gif)
-
-### 2.怎么预览markdown
-&gt; 左右滑动就能在编辑和预览模式切换了，当然，如果你是iPad版还可以实时预览
-
-![Markdown](http://i1.piimg.com/567954/226912d76250e7b6.gif)
-
-### 3.为什么有时候移动文件失败了*
-
-**strong text**
-*emphasized text*
-`enter code here`
-~~delection~~
-# Header
-</mutableString>
                                 <fontDescription key="fontDescription" name="Thonburi" family="Thonburi" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textView>

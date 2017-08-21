@@ -45,21 +45,22 @@ class TextViewController: UIViewController {
     
     func setupRx() {
         
-        Configure.shared.isAssistBarEnabled.asObservable().subscribe(onNext: { (enable) in
+        Configure.shared.isAssistBarEnabled.asObservable().subscribe(onNext: { [unowned self](enable) in
             if enable {
                 let assistBar = AssistBar()
-                assistBar.textView = editView
+                assistBar.textView = self.editView
                 assistBar.viewController = self
-                editView.inputAccessoryView = assistBar
+                self.editView.inputAccessoryView = assistBar
             } else {
-                editView.inputAccessoryView = nil
+                self.editView.inputAccessoryView = nil
             }
-        })
+        }).addDisposableTo(disposeBag)
         
         Configure.shared.isLandscape.asObservable().map{!$0}.bind(to: seperator.rx.isHidden).addDisposableTo(disposeBag)
         
         Configure.shared.theme.asObservable().subscribe(onNext: { [weak self] _ in
             self?.manager = MarkdownHighlightManager()
+            self?.textChanged()
         }).addDisposableTo(disposeBag)
         
         Configure.shared.editingFile.asObservable().subscribe(onNext: { [weak self] (file) in

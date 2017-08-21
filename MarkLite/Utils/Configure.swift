@@ -13,6 +13,8 @@ import Zip
 
 class Configure: NSObject, NSCoding {
     
+    static let configureFile = documentPath + "/Configure.plist"
+    
     let editingFile: Variable<File?> = Variable(nil)
     let isLandscape = Variable(false)
     
@@ -29,10 +31,9 @@ class Configure: NSObject, NSCoding {
     }
     
     static let shared: Configure = {
-        let path = documentPath + "/Configure.plist"
         var configure = Configure()
         NSKeyedUnarchiver.setClass(Configure.self, forClassName: "Configure")
-        if let old = NSKeyedUnarchiver.unarchiveObject(withFile: path) as? Configure {
+        if let old = NSKeyedUnarchiver.unarchiveObject(withFile: configureFile) as? Configure {
             configure = old
         } else {
             configure.reset()
@@ -90,8 +91,7 @@ class Configure: NSObject, NSCoding {
     }
     
     func save() {
-        let data = NSKeyedArchiver.archivedData(withRootObject: self)
-        UserDefaults.standard.set(data, forKey: "CurrentUser")
+        NSKeyedArchiver.archiveRootObject(self, toFile: Configure.configureFile)
     }
     
     func encode(with aCoder: NSCoder) {
@@ -101,17 +101,18 @@ class Configure: NSObject, NSCoding {
         aCoder.encode(isAssistBarEnabled.value, forKey: "isAssistBarEnabled")
         aCoder.encode(markdownStyle.value, forKey: "markdownStyle")
         aCoder.encode(highlightStyle.value, forKey: "highlightStyle")
-        aCoder.encode(theme.value, forKey: "theme")
+        aCoder.encode(theme.value.rawValue, forKey: "theme")
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init()
+
         currentVerion = aDecoder.decodeObject(forKey: "currentVersion") as? String
         isOldUser = aDecoder.decodeObject(forKey: "isOldUser") as? Bool ?? false
         isVip = aDecoder.decodeObject(forKey: "isVip") as? Bool ?? false
         isAssistBarEnabled.value = aDecoder.decodeObject(forKey: "isAssistBarEnabled") as? Bool ?? true
         markdownStyle.value = aDecoder.decodeObject(forKey: "markdownStyle") as? String ?? "GitHub2"
         highlightStyle.value = aDecoder.decodeObject(forKey: "highlightStyle") as? String ?? "rainbow"
-        theme.value = aDecoder.decodeObject(forKey: "theme") as? Theme ?? .white
+        theme.value = Theme(rawValue:aDecoder.decodeObject(forKey: "theme") as? String ?? "") ?? .white
     }
 }

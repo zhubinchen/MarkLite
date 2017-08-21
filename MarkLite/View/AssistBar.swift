@@ -10,18 +10,60 @@ import UIKit
 import Alamofire
 import RxSwift
 
+protocol ButtonConvertiable {
+    func makeButton() -> UIButton
+}
+
+extension UIImage: ButtonConvertiable {
+    func makeButton() -> UIButton {
+        let button = UIButton(type: UIButtonType.system)
+        button.setImage(self, for: .normal)
+        button.contentEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15)
+        return button
+    }
+}
+
+extension String: ButtonConvertiable {
+    func makeButton() -> UIButton {
+        let button = UIButton(type: UIButtonType.system)
+        button.setTitle(self, for: .normal)
+        button.titleLabel?.font = UIFont.font(ofSize: 18, bold: true)
+        return button
+    }
+}
+
 fileprivate let uploadURL = ""
 class AssistBar: UIView {
     let scrollView = UIScrollView()
-    let items = [
-        (#imageLiteral(resourceName: "bar_image"), #selector(tapImage)),
+    var endButton: UIButton!
+    
+    let items: [(ButtonConvertiable,Selector)] = [
+        (#imageLiteral(resourceName: "bar_image"), #selector(tapImage(_:))),
         (#imageLiteral(resourceName: "bar_link"), #selector(tapLink)),
         (#imageLiteral(resourceName: "bar_header"), #selector(tapHeader)),
         (#imageLiteral(resourceName: "bar_bold"), #selector(tapBold)),
         (#imageLiteral(resourceName: "bar_italic"), #selector(tapItalic)),
         (#imageLiteral(resourceName: "bar_deleteLine"), #selector(tapDeletion)),
         (#imageLiteral(resourceName: "bar_quote"), #selector(tapQuote)),
-        (#imageLiteral(resourceName: "bar_code"), #selector(tapCode))]
+        (#imageLiteral(resourceName: "bar_code"), #selector(tapCode)),
+        ("@", #selector(tapChar(_:))),
+        ("\"", #selector(tapChar(_:))),
+        ("`", #selector(tapChar(_:))),
+        ("(", #selector(tapChar(_:))),
+        (")", #selector(tapChar(_:))),
+        ("[", #selector(tapChar(_:))),
+        ("]", #selector(tapChar(_:))),
+        ("|", #selector(tapChar(_:))),
+        ("#", #selector(tapChar(_:))),
+        ("*", #selector(tapChar(_:))),
+        ("=", #selector(tapChar(_:))),
+        ("+", #selector(tapChar(_:))),
+        ("-", #selector(tapChar(_:))),
+        ("/", #selector(tapChar(_:))),
+        ("?", #selector(tapChar(_:))),
+        ("<", #selector(tapChar(_:))),
+        (">", #selector(tapChar(_:))),
+        ]
     
     weak var textView: UITextView?
     weak var viewController: UIViewController?
@@ -36,17 +78,20 @@ class AssistBar: UIView {
         self.backgroundColor = rgb("f2f2f2")
         
         items.forEachEnumerated { (index, item) in
-            let button = UIButton(type: UIButtonType.system)
+            let button = item.0.makeButton()
             button.addTarget(self, action: item.1, for: .touchUpInside)
-            button.setImage(item.0, for: .normal)
             button.tintColor = .gray
             button.tag = index
-            button.contentEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15)
             button.frame = CGRect(x: CGFloat(index * 50), y: 0, w: 50, h: 50)
             self.scrollView.addSubview(button)
         }
         scrollView.contentSize = CGSize(width: items.count * 50, height: 50)
         addSubview(scrollView)
+        
+        endButton = #imageLiteral(resourceName: "bar_keyboard").makeButton()
+        endButton.tintColor = .gray
+        endButton.addTarget(self, action: #selector(hideKeyboard), for: .touchUpInside)
+        addSubview(endButton)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -55,15 +100,25 @@ class AssistBar: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        scrollView.frame = self.bounds
+        scrollView.frame = CGRect(x: 0, y: 0, w: w - 50, h: 50)
+        endButton.frame = CGRect(x: w - 50, y: 0, w: 50, h: 50)
+    }
+    
+    func hideKeyboard() {
+        textView?.resignFirstResponder()
+    }
+    
+    func tapChar(_ sender: UIButton) {
+        let char = sender.currentTitle ?? ""
+        textView?.insertText(char)
     }
 
-    func tapImage() {
+    func tapImage(_ sender: UIButton) {
         guard let vc = viewController else { return }
         imagePicker = ImagePicker(viewController: vc, completionHanlder: { (image) in
             self.didPickImage(image)
         })
-        imagePicker?.pickImage()
+        imagePicker?.pickImage(sender)
     }
     
     func tapLink() {

@@ -84,7 +84,8 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
         cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         let label = UILabel(x: 10, y: 0, w: 110, h: cellHeight)
         cell.addSubview(label)
-
+        cell.setBackgroundColor(.background)
+        
         label.textAlignment = textAlignment
         label.text = items[indexPath.row]
         label.font = UIFont.font(ofSize: 15)

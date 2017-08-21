@@ -76,16 +76,6 @@ class WebViewController: UIViewController {
         }).addDisposableTo(disposeBag)
     }
     
-    func showExportMenu() {
-        let items = [ExportType.PDF,.markdown,.html,.image]
-        let pos = CGPoint(x: windowWidth - 140, y: 65)
-        MenuView(items: items.map{$0.rawValue},
-                 postion: pos) { (index) in
-                    guard let url = self.url(for: items[index]) else { return }
-                    self.exportFile(url)
-            }.show()
-    }
-    
     func url(for type: ExportType) -> URL? {
         guard let file = Configure.shared.editingFile.value else { return nil }
         switch type {
@@ -110,11 +100,6 @@ class WebViewController: UIViewController {
             try? data.write(to: url)
             return url
         }
-    }
-    
-    func exportFile(_ url: URL) {
-        let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-        presentVC(vc)
     }
     
     deinit {

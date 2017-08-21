@@ -56,6 +56,10 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         
         themeSwitch.addTarget(self, action: #selector(night(_:)), for: .valueChanged)
         assitBarSwitch.addTarget(self, action: #selector(assistBar(_:)), for: .valueChanged)
+        
+        navigationController?.delegate = navigationController
+        navigationController?.delegate = navigationController
+        navigationController?.interactivePopGestureRecognizer?.delegate = navigationController
     }
     
     override func viewDidLayoutSubviews() {
