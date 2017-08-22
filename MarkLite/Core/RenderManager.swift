@@ -21,7 +21,7 @@ class RenderManager: NSObject {
     
     var highlightStyle: String! {
         didSet {
-            let path = documentPath + "/style/style/highlight-style/" + highlightStyle + ".css"
+            let path = documentPath + "/style/highlight-style/" + highlightStyle + ".css"
             highlightStyleURL = URL(fileURLWithPath:path).absoluteString
         }
     }
@@ -32,11 +32,11 @@ class RenderManager: NSObject {
     fileprivate var htmlStyleURL: String = ""
     fileprivate var highlightStyleURL: String = ""
     fileprivate var highlightjs1URL: String = {
-        let path = documentPath + "style/highlightjs/highlight.min.js"
+        let path = documentPath + "/style/highlightjs/highlight.min.js"
         return URL(fileURLWithPath:path).absoluteString
     }()
     fileprivate var highlightjs2URL: String = {
-        let path = documentPath + "style/highlightjs/swift.min.js"
+        let path = documentPath + "/style/highlightjs/swift.min.js"
         return URL(fileURLWithPath:path).absoluteString
     }()
     
@@ -54,4 +54,4 @@ class RenderManager: NSObject {
     }
 }
 
-fileprivate let htmlFormat = "<html lang=\"zh-CN\"><head><meta charset=\"UTF-8\"><style type=\"text/css\"></style><link rel=\"stylesheet\" href=\"%@\"></style><link rel=\"stylesheet\" href=\"%@\"><script src=\"%@\"></script><script src=\"%@\"></script><script>hljs.initHighlightingOnLoad();</script></head><body>%@</body></html>"
+fileprivate let htmlFormat = "<!DOCTYPE html><html><head><meta charset=\"utf-8\"><link rel=\"stylesheet\" href=\"%@\"/><link rel=\"stylesheet\" href=\"%@\"/><script src=\"%@\"></script><script src=\"%@\"></script><script>hljs.initHighlightingOnLoad();</script></head><body>%@</body></html>"

@@ -22,6 +22,12 @@
 "Preview"="预览";
 "Undo"="撤销";
 "Redo"="重做";
+"Characters"="字符";
+
+"Header1"="一级标题";
+"Header2"="二级标题";
+"Header3"="三级标题";
+"Header4"="四级标题";
 
 "PDF"="PDF 文档";
 "WebPage"="Web 页面";
@@ -66,3 +72,11 @@
 "StartEdit"="写点什么吧";
 
 "Recieved"="收到的文件";
+
+"PickImage"="选取图片";
+"Photo"="相册";
+"Camera"="相机";
+"CameraError"="没有访问相机的权限";
+"PhotoError"="没有访问照片的权限";
+"EnableCameraTips"="去iPhone的【设置】图标，打开【隐私】，打开【相机】，找到【MarkLite】开启即可";
+"EnablePhotoTips"="去iPhone的【设置】图标，打开【隐私】，打开【照片】，找到【MarkLite】开启即可";

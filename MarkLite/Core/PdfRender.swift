@@ -34,11 +34,10 @@ class PdfRender: UIPrintPageRenderer {
     func render(html: String) -> Data {
         let formatter = UIMarkupTextPrintFormatter(markupText: html)
         addPrintFormatter(formatter, startingAtPageAt: 0)
-        
         let data = NSMutableData()
         
         UIGraphicsBeginPDFContextToData(data, CGRect(), nil)
-        
+        prepare(forDrawingPages: NSMakeRange(0, numberOfPages))
         for i in 0..<numberOfPages {
             UIGraphicsBeginPDFPage()
             let bounds = UIGraphicsGetPDFContextBounds()

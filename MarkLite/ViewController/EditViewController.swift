@@ -69,7 +69,7 @@ class EditViewController: UIViewController {
         if showExport {
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "export"), style: .plain, target: self, action: #selector(showExportMenu(_:)))
         } else {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "预览", style: .plain, target: self, action: #selector(preview))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: /"Preview", style: .plain, target: self, action: #selector(preview))
         }
     }
     
@@ -79,7 +79,7 @@ class EditViewController: UIViewController {
             scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)
         }
         
-        let items = [ExportType.PDF,.markdown,.html,.image]
+        let items = [ExportType.pdf,.markdown,.html,.image]
         var pos = CGPoint(x: windowWidth - 140, y: 65)
         if let view = sender as? UIView {
             pos = view.origin
@@ -89,7 +89,7 @@ class EditViewController: UIViewController {
                 pos.y += 44
             }
         }
-        MenuView(items: items.map{$0.rawValue},
+        MenuView(items: items.map{$0.displayName},
                  postion: pos) { (index) in
                     guard let url = self.webVC?.url(for: items[index]) else { return }
                     let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
@@ -145,7 +145,7 @@ extension EditViewController: UITextFieldDelegate {
             file.rename(to: name)
             textField.text = file.name
         } else {
-            showAlert(title: "请输入正确的文件名")
+            showAlert(title: /"FileNameError")
             textField.text = file.name
         }
     }

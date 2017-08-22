@@ -88,7 +88,7 @@ class TextViewController: UIViewController {
     func textChanged() {
         
         textChangedHandler?(editView.text)
-        countLabel.text = editView.text.length.toString + "字符"
+        countLabel.text = editView.text.length.toString + " " + /"Characters"
         if editView.markedTextRange != nil {
             return
         }

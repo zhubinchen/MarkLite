@@ -22,6 +22,12 @@
 "Preview"="Preview";
 "Undo"="Undo";
 "Redo"="Redo";
+"Characters"="characters";
+
+"Header1"="Header 1";
+"Header2"="Header 2";
+"Header3"="Header 3";
+"Header4"="Header 4";
 
 "PDF"="PDF";
 "WebPage"="Web pages";
@@ -65,3 +71,12 @@
 "StartEdit"="Write something here";
 
 "Recieved"="Recieved files";
+
+"PickImage"="Pick an image";
+"Photo"="Image Library";
+"Camera"="Camera";
+"CameraError"="Can not access your camera";
+"PhotoError"="Can not access yours photos";
+"EnableCameraTips"="Tap \"settings\" icon, find and tap \"privacy\", tap \"Camera\", find \"MarkLite\" and enable it.";
+"EnablePhotoTips"="Tap \"settings\" icon, find and tap \"privacy\", tap \"Photos\", find \"MarkLite\" and enable it.";
+

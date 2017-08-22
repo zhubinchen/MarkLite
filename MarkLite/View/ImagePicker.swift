@@ -24,7 +24,7 @@ class ImagePicker: NSObject {
     }
     
     func pickImage(_ sender: UIView? = nil) {
-        vc?.showActionSheet(sender: sender, title: "选取照片", actionTitles: ["相册","拍照"]) { [unowned self] (index) in
+        vc?.showActionSheet(sender: sender, title: /"PickImage", actionTitles: [/"Photo",/"Camera"]) { [unowned self] (index) in
             if index == 0 {
                 self.pickFromLibray()
             } else if index == 1 {
@@ -51,7 +51,7 @@ class ImagePicker: NSObject {
         let authStatus = PHPhotoLibrary.authorizationStatus()
         switch authStatus {
         case .denied:
-            vc?.showAlert(title: "无法打开照片，因为你没有允许微篇访问照片", message: "打开 设置->微篇 开启权限", actionTitles: ["取消","去设置"]) { (index) in
+            vc?.showAlert(title: /"PhotoError", message: /"EnablePhotoTips", actionTitles: [/"Cancel",/"Settings"]) { (index) in
                 if index == 1 {
                     UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
                 }
@@ -73,7 +73,7 @@ class ImagePicker: NSObject {
         let authStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
         switch authStatus {
         case .denied:
-            vc?.showAlert(title: "无法打开相机，因为你没有允许微篇访问相机", message: "打开 设置->微篇 开启权限", actionTitles: ["取消","去设置"]) { (index) in
+            vc?.showAlert(title: /"CameraError", message: /"EnableCameraTips", actionTitles: [/"Cancel",/"Settings"]) { (index) in
                 if index == 1 {
                     UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
                 }
@@ -96,7 +96,6 @@ class ImagePicker: NSObject {
         imagePickerVc.modalPresentationStyle = .formSheet
         imagePickerVc.sourceType = sourceType
         imagePickerVc.delegate = self
-        imagePickerVc.allowsEditing = true
 
         DispatchQueue.main.async {
             self.vc?.presentVC(imagePickerVc)

@@ -68,10 +68,10 @@ class AssistBar: UIView {
     weak var textView: UITextView?
     weak var viewController: UIViewController?
     
-    let link = Variable("")
     let disposeBag = DisposeBag()
     var imagePicker: ImagePicker?
-
+    var textField: UITextField?
+    
     init() {
         super.init(frame: CGRect(x: 0, y: 0, w: windowWidth, h: 50))
 
@@ -123,12 +123,11 @@ class AssistBar: UIView {
     
     func tapLink() {
         guard let vc = viewController else { return }
-        vc.showAlert(title: "请输入链接", message: "", actionTitles: ["取消","确定"], textFieldconfigurationHandler: { (textField) in
-            textField.placeholder = "请输入链接"
+        vc.showAlert(title: /"InsertHref", message: "", actionTitles: [/"Cancel","OK"], textFieldconfigurationHandler: { (textField) in
             textField.text = "http://example.com"
             textField.font = UIFont.font(ofSize: 13)
             textField.setTextColor(.primary)
-            textField.rx.text.map{$0 ?? ""}.bind(to: self.link).addDisposableTo(self.disposeBag)
+            self.textField = textField
         }) { (index) in
             if index == 1 {
                 self.insertLink()
@@ -138,12 +137,10 @@ class AssistBar: UIView {
     
     func insertLink() {
         guard let textView = self.textView else { return }
-        if link.value.length == 0 {
-            return
-        }
+        let link = textField?.text ?? ""
         let currentRange = textView.selectedRange
         let insertText = "enter link description here"
-        textView.insertText("[\(insertText)](\(self.link.value))")
+        textView.insertText("[\(insertText)](\(link))")
         textView.selectedRange = NSMakeRange(currentRange.location + 1, insertText.length)
     }
     
@@ -163,7 +160,7 @@ class AssistBar: UIView {
         guard let textView = self.textView else { return }
 
         let pos = sender.convert(sender.center, to: sender.window)
-        MenuView(items: ["一级标题","二级标题","三级标题","四级标题"],
+        MenuView(items: [/"Header1","Header2","Header3","Header4"],
                  postion: CGPoint(x: pos.x - 20, y: pos.y - 200)) { (index) in
                     let currentRange = textView.selectedRange
                     let insertText = ("#" * (index+1)) + " Header"

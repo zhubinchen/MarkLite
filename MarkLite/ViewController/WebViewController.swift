@@ -11,10 +11,23 @@ import RxSwift
 import RxCocoa
 
 enum ExportType: String {
-    case PDF
+    case pdf
     case html
     case image
     case markdown
+    
+    var displayName: String {
+        switch self {
+        case .pdf:
+            return /"PDF"
+        case .html:
+            return /"WebPage"
+        case .image:
+            return /"Image"
+        default:
+            return /"Markdown"
+        }
+    }
 }
 
 class WebViewController: UIViewController {
@@ -79,11 +92,15 @@ class WebViewController: UIViewController {
     func url(for type: ExportType) -> URL? {
         guard let file = Configure.shared.editingFile.value else { return nil }
         switch type {
-        case .PDF:
+        case .pdf:
             let data = pdfRender.render(html: htmlString)
             let path = tempFolderPath + "/" + file.name + ".pdf"
             let url = URL(fileURLWithPath: path)
-            try? data.write(to: url)
+            do {
+                try data.write(to: url)
+            } catch {
+                print(error.localizedDescription)
+            }
             return url
         case .image:
             guard let img = webView.scrollView.snap, let data = UIImagePNGRepresentation(img) else { return nil }
