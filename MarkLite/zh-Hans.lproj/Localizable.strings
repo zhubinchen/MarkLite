@@ -1,0 +1,68 @@
+/*
+ Localizable.strings
+ MarkLite
+ 
+ Created by zhubch on 2017/8/21.
+ Copyright © 2017年 zhubch. All rights reserved.
+ */
+
+"LocalFile"="本地文件";
+"CloudFile"="iCloud";
+"Dropbox"="Dropbox";
+
+"Settings"="设置";
+
+"Children"="子文件";
+"CreateNote"="新建文档";
+"CreateFolder"="新建文件夹";
+
+"Untitled"="未命名";
+"UntitledFolder"="未命名文件夹";
+
+"Preview"="预览";
+"Undo"="撤销";
+"Redo"="重做";
+
+"PDF"="PDF 文档";
+"WebPage"="Web 页面";
+"Image"="图片";
+"Markdown"="Markdown";
+
+"VIP"="升级到高级帐户";
+"AssistKeyboard"="辅助键盘";
+"NightMode"="夜间模式";
+"Theme"="主题色";
+"Feedback"="问题与意见";
+"RateIt"="五星好评";
+"Style"="渲染样式";
+
+"PreviewTips"="向右滑动进入预览模式";
+"Gotit"="我知道了";
+
+"OK"="确定";
+"Close"="关闭";
+"Cancel"="取消";
+
+"Delete"="删除";
+"Rename"="重命名";
+"LastUpdate"="上次修改: ";
+
+"DeleteMessage"="删除后不可恢复，确定要删除吗？";
+"FileNameError"="请输入正确的文件名";
+"RenameTips"="请输入新的文件名";
+"InvalidCloud"="无法访问iCloud目录，请检查您当前的设备是否登录iCloud";
+"InsertHref"="添加链接";
+
+"Open"="打开";
+"Ignore"="忽略";
+"ReceivedNewFile"="收到新文件：%@";
+"Error"="出错了";
+
+"UpgradeTitle"="MarkLite更新啦";
+"UpgradeTips"="为了有更好的体验，建议升级到最新版！大小不到2M呢😄";
+"Upgrade"="更新";
+"DontUpgrade"="以后再说";
+
+"StartEdit"="写点什么吧";
+
+"Recieved"="收到的文件";

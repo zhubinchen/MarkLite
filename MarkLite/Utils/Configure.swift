@@ -62,9 +62,8 @@ class Configure: NSObject, NSCoding {
                 return
             }
             print("products: \(products)")
-            let expiredDate1 = products[monthlyVIPProductID] ?? Date(timeIntervalSince1970: 0)
-            let expiredDate2 = products[annualVIPProductID] ?? Date(timeIntervalSince1970: 0)
-            let expiredDate = max(expiredDate1, expiredDate2)
+            let vipIdentifier = [monthlyVIPProductID,annualVIPProductID,oldUserVIPProductID]
+            let expiredDate = vipIdentifier.map{ products[$0] ?? Date(timeIntervalSince1970: 0) }.max() ?? Date(timeIntervalSince1970: 0)
 
             self.isVip = expiredDate.isFuture
         }

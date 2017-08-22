@@ -20,6 +20,14 @@ class PurchaseView: UIView {
         purchaseProduct(annualVIPProductID)
     }
     
+    @IBAction func oldUserAnnualVIP(_ sender: UIButton) {
+        purchaseProduct(oldUserVIPProductID)
+    }
+    
+    @IBAction func premiumUserAnnualVIP(_ sender: UIButton) {
+
+    }
+    
     func purchaseProduct(_ identifier: String) {
         self.startLoadingAnimation()
         IAP.requestProducts([identifier]) { (response, error) in

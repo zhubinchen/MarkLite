@@ -45,6 +45,8 @@ class FilesViewController: UIViewController {
     
     let titleButton = UIButton(type: .system)
     
+    var textField: UITextField?
+    
     override var title: String? {
         didSet {
             titleButton.setTitle(title, for: .normal)
@@ -67,7 +69,7 @@ class FilesViewController: UIViewController {
         view.setBackgroundColor(.background)
         
         if root == nil {
-            title = "本地文件"
+            title = /"LocalFile"
             File.loadLocal{ self.root = $0 }
             titleButton.titleLabel?.font = UIFont.font(ofSize: 18)
             navigationItem.titleView = titleButton
@@ -77,6 +79,7 @@ class FilesViewController: UIViewController {
             navigationItem.titleView = titleTextField
             titleTextField.font = UIFont.font(ofSize: 18)
             titleTextField.setTextColor(.navBarTint)
+            titleTextField.delegate = self
         }
         
         if isPad {
@@ -86,12 +89,17 @@ class FilesViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
     func showSettings() {
         performSegue(withIdentifier: "menu", sender: nil)
     }
     
     func showStorageMenu() {
-        let items = ["本地文件","iCloud"]
+        let items = [/"LocalFile",/"iCloud"]
         MenuView(items: items,
                  postion: CGPoint(x:(view.w - 140) * 0.5,y: 64),
                  textAlignment: .center) { (index) in
@@ -107,10 +115,10 @@ class FilesViewController: UIViewController {
     }
     
     func showCreateMenu() {
-        MenuView(items: ["新建文档","新建文件夹"],
+        MenuView(items: [/"CreateNote",/"CreateFolder"],
                  postion: CGPoint(x:view.w - 140,y: 64),
                  textAlignment: .right) { (index) in
-            guard let file = self.root?.createFile(name: "未命名", type: index == 0 ? .folder : .text) else {
+            guard let file = self.root?.createFile(name: /"Untitled", type: index == 0 ? .folder : .text) else {
                 return
             }
             file.isTemp = true
@@ -125,6 +133,18 @@ class FilesViewController: UIViewController {
                 self.performSegue(withIdentifier: "next", sender: file)
             }
         }.show()
+    }
+    
+    func rename(file: File, newName: String) {
+        let name = newName.trimmed()
+        let pattern = "^[^\\.\\*\\:/]+$"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", pattern)
+        
+        if predicate.evaluate(with: name) {
+            file.rename(to: name)
+        } else {
+            showAlert(title: /"FileNameError")
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -181,6 +201,19 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
 
 }
 
+extension FilesViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        rename(file:root!, newName:textField.text ?? "")
+        textField.text = root?.name
+    }
+}
+
 extension FilesViewController: SwipeTableViewCellDelegate {
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         if orientation == .left {
@@ -188,7 +221,7 @@ extension FilesViewController: SwipeTableViewCellDelegate {
         }
         let file = childrens[indexPath.row]
 
-        let deleteAction = SwipeAction(style: .destructive, title: "删除") { action, indexPath in
+        let deleteAction = SwipeAction(style: .destructive, title: /"Delete") { [unowned self] action, indexPath in
             file.trash()
             self.childrens.remove(at: indexPath.row)
             self.tableView.beginUpdates()
@@ -196,15 +229,15 @@ extension FilesViewController: SwipeTableViewCellDelegate {
             self.tableView.endUpdates()
         }
 
-        let renameAction = SwipeAction(style: .default, title: "重命名") { action, indexPath in
-            let newName = Variable("")
-            self.showAlert(title: "重命名", message: nil, actionTitles: ["取消","确定"], textFieldconfigurationHandler: { (textFiled) in
-                textFiled.rx.text.map{$0 ?? ""}.bind(to: newName).addDisposableTo(self.disposeBag)
+        let renameAction = SwipeAction(style: .default, title: /"Rename") { [unowned self] action, indexPath in
+            self.showAlert(title: /"Rename", message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
+                textField.text = file.name
+                self.textField = textField
             }, actionHandler: { (index) in
                 if index == 0 {
                     return
                 }
-                file.rename(to: newName.value)
+                self.rename(file: file, newName:self.textField?.text ?? "")
                 self.tableView.reloadData()
             })
         }

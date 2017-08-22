@@ -22,20 +22,19 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     let themeSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
     let assitBarSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
-    
     let items = [
         ("功能",[
-            ("升级到高级帐户",#selector(purchase)),
-            ("辅助键盘",#selector(assistBar)),
+            ("VIP",#selector(purchase)),
+            ("AssistKeyboard",#selector(assistBar)),
             ]),
         ("外观",[
-            ("夜间模式",#selector(night)),
-            ("主题色",#selector(theme)),
-            ("渲染样式",#selector(style)),
+            ("NightMode",#selector(night)),
+            ("Theme",#selector(theme)),
+            ("Style",#selector(style)),
             ]),
         ("支持一下",[
-            ("五星好评",#selector(rate)),
-            ("问题与意见",#selector(feedback))
+            ("RateIt",#selector(rate)),
+            ("Feedback",#selector(feedback))
             ])
     ]
     
@@ -44,7 +43,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "设置"
+        self.title = /"Settings"
         navBar?.setBarTintColor(.navBar)
         navBar?.setContentColor(.navBarTint)
         themeSwitch.setTintColor(.navBarTint)
@@ -79,15 +78,15 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "settings", for: indexPath)
         let item = items[indexPath.section].1[indexPath.row]
-        cell.textLabel?.text = item.0
+        cell.textLabel?.text = /(item.0)
         cell.textLabel?.setTextColor(.primary)
         cell.setBackgroundColor(.background)
         
-        if item.0 == "辅助键盘" {
+        if item.0 == "AssistKeyboard" {
             cell.addSubview(assitBarSwitch)
             cell.accessoryType = .none
         }
-        if item.0 == "夜间模式" {
+        if item.0 == "NightMode" {
             cell.addSubview(themeSwitch)
             cell.accessoryType = .none
         }
@@ -98,7 +97,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.deselectRow(at: indexPath, animated: true)
 
         let item = items[indexPath.section].1[indexPath.row]
-        if item.0 == "辅助键盘" || item.0 == "夜间模式" {
+        if item.0 == "AssistKeyboard" || item.0 == "NightMode" {
             return
         }
         perform(item.1)

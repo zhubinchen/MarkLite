@@ -39,7 +39,7 @@ class NavigationController: UINavigationController {
         }
         isPoping = true
         
-        //FIXME: 下下策
+        //FIXME: 这样不好
         Timer.runThisAfterDelay(seconds: 0.3) {
             self.isPoping = false
         }

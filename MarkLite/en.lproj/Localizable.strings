@@ -1,0 +1,67 @@
+/*
+ Localizable.strings
+ MarkLite
+ 
+ Created by zhubch on 2017/8/21.
+ Copyright © 2017年 zhubch. All rights reserved.
+ */
+
+"LocalFile"="Local files";
+"CloudFile"="iCloud";
+"Dropbox" = "Dropbox";
+"Settings"="Settings";
+
+"CreateNote"="New note";
+"CreateFolder"="New folder";
+
+"Children"="Children";
+
+"Untitled"="Untitled";
+"UntitledFolder"="UntitledFolder";
+
+"Preview"="Preview";
+"Undo"="Undo";
+"Redo"="Redo";
+
+"PDF"="PDF";
+"WebPage"="Web pages";
+"Image"="Picture";
+"Markdown"="Markdown";
+
+"VIP"="Subscribe VIP";
+"AssistKeyboard"="Keyboard assist bar";
+"NightMode"="Night mode";
+"Theme"="Theme";
+"Feedback"="Feedback";
+"RateIt"="Rate it";
+"Style"="Style";
+
+"PreviewTips"="Scroll right to preview the markdown";
+"Gotit"="Got it";
+
+"OK"="OK";
+"Close"="Close";
+"Cancel"="Cancel";
+
+"Delete"="Delete";
+"Rename"="Rename";
+"LastUpdate"="Last update: ";
+
+"DeleteMessage"="Sure you want to delete the file? This action cannot be undone!";
+"FileNameError"="Invalid name";
+"RenameTips"="Please input new name";
+"InvalidCloud"="Can not access iCloud,whether your iCloud account was loginnd on this device?";
+"InsertHref"="Insert href";
+
+"Open"="Open it";
+"Ignore"="Ignore";
+"ReceivedNewFile"="Received new file: %@";
+
+"UpgradeTitle"="New version is available!";
+"UpgradeTips"="Upgrade to the latest version to have a better experience!😄";
+"Upgrade"="Upgrade";
+"DontUpgrade"="Remind me later";
+
+"StartEdit"="Write something here";
+
+"Recieved"="Recieved files";

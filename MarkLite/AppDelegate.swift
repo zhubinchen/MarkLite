@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBar.backIndicatorTransitionMaskImage = backImage
         
         SideMenuManager.menuFadeStatusBar = false
-        SideMenuManager.menuWidth = isPad ? 350 : 300
+        SideMenuManager.menuWidth = isPad ? 400 : 300
         SideMenuManager.menuPushStyle = .subMenu
         DropboxClientsManager.setupWithAppKey(dropboxKey)
 

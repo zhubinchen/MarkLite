@@ -20,7 +20,14 @@ class EditViewController: UIViewController {
     var showExport = true
     
     let disposeBag = DisposeBag()
-
+    let titleTextField = UITextField(x: 0, y: 0, w: 100, h: 30)
+    
+    override var title: String? {
+        didSet {
+            titleTextField.text = title
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,6 +52,11 @@ class EditViewController: UIViewController {
         textVC?.offsetChangedHandler = { [weak self] offset in
             self?.webVC?.offset = offset
         }
+        
+        navigationItem.titleView = titleTextField
+        titleTextField.font = UIFont.font(ofSize: 18)
+        titleTextField.setTextColor(.navBarTint)
+        titleTextField.delegate = self
     }
     
     func toggleBarButton(_ showExport: Bool) {
@@ -113,5 +125,28 @@ class EditViewController: UIViewController {
     
     deinit {
         print("deinit edit_vc")
+    }
+}
+
+extension EditViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let file = Configure.shared.editingFile.value else { return }
+        let text = textField.text ?? ""
+        let name = text.trimmed()
+        let pattern = "^[^\\.\\*\\:/]+$"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", pattern)
+        if predicate.evaluate(with: name) {
+            file.rename(to: name)
+            textField.text = file.name
+        } else {
+            showAlert(title: "请输入正确的文件名")
+            textField.text = file.name
+        }
     }
 }
