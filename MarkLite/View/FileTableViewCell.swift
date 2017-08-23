@@ -22,7 +22,7 @@ class FileTableViewCell: SwipeTableViewCell {
     var file: File! {
         didSet {
             nameLabel.text = file.name
-            timeLabel.text = /"LastUpdate" + file.modifyDate.readableDate().0 + file.modifyDate.readableDate().1
+            timeLabel.text = /"LastUpdate" + file.modifyDate.readableDate().0 + " " + file.modifyDate.readableDate().1
             sizeLabel.text = file.type == .folder ? file.children.count.toString + " " + /"Children" : "\(file.size) B"
             selectedMark.isHidden = !file.isSelected
         }

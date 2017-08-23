@@ -14,6 +14,8 @@
 "CreateNote"="New note";
 "CreateFolder"="New folder";
 
+"Today"="today";
+"Yesterday"="yesterday";
 "Children"="Children";
 
 "Untitled"="Untitled";
@@ -24,11 +26,6 @@
 "Redo"="Redo";
 "Characters"="characters";
 
-"Header1"="Header 1";
-"Header2"="Header 2";
-"Header3"="Header 3";
-"Header4"="Header 4";
-
 "PDF"="PDF";
 "WebPage"="Web pages";
 "Image"="Picture";
@@ -36,6 +33,7 @@
 
 "VIP"="Subscribe VIP";
 "AssistKeyboard"="Keyboard assist bar";
+"AutoClear"="Delete blank files";
 "NightMode"="Night mode";
 "Theme"="Theme";
 "Feedback"="Feedback";
@@ -69,7 +67,18 @@
 "DontUpgrade"="Remind me later";
 
 "StartEdit"="Write something here";
-
+"Header"="Header";
+"Header1"="Header 1";
+"Header2"="Header 2";
+"Header3"="Header 3";
+"Header4"="Header 4";
+"StrongText"="Strong text";
+"EmphasizedText"="Emphasized text";
+"Blockquote"="Blockquote";
+"Delection"="Delection";
+"EnterCode"="Enter code here";
+"EnterLink"="Enter link description here";
+"EnterPlaceholder"="Enter placeholder here";
 "Recieved"="Recieved files";
 
 "PickImage"="Pick an image";

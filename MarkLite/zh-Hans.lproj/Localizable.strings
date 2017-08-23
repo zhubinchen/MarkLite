@@ -12,7 +12,10 @@
 
 "Settings"="设置";
 
+"Today"="今天";
+"Yesterday"="昨天";
 "Children"="子文件";
+
 "CreateNote"="新建文档";
 "CreateFolder"="新建文件夹";
 
@@ -24,11 +27,6 @@
 "Redo"="重做";
 "Characters"="字符";
 
-"Header1"="一级标题";
-"Header2"="二级标题";
-"Header3"="三级标题";
-"Header4"="四级标题";
-
 "PDF"="PDF 文档";
 "WebPage"="Web 页面";
 "Image"="图片";
@@ -36,6 +34,7 @@
 
 "VIP"="升级到高级帐户";
 "AssistKeyboard"="辅助键盘";
+"AutoClear"="自动清理空白文件";
 "NightMode"="夜间模式";
 "Theme"="主题色";
 "Feedback"="问题与意见";
@@ -70,6 +69,18 @@
 "DontUpgrade"="以后再说";
 
 "StartEdit"="写点什么吧";
+"Header"="标题";
+"Header1"="一级标题";
+"Header2"="二级标题";
+"Header3"="三级标题";
+"Header4"="四级标题";
+"StrongText"="加粗文本";
+"EmphasizedText"="强调文本";
+"Blockquote"="引用";
+"Delection"="要删除的文本";
+"EnterCode"="代码";
+"EnterLink"="在这输入连接描述";
+"EnterPlaceholder"="在这输入图片占位文本";
 
 "Recieved"="收到的文件";
 

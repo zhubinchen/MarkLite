@@ -123,7 +123,7 @@ class AssistBar: UIView {
     
     func tapLink() {
         guard let vc = viewController else { return }
-        vc.showAlert(title: /"InsertHref", message: "", actionTitles: [/"Cancel","OK"], textFieldconfigurationHandler: { (textField) in
+        vc.showAlert(title: /"InsertHref", message: "", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
             textField.text = "http://example.com"
             textField.font = UIFont.font(ofSize: 13)
             textField.setTextColor(.primary)
@@ -139,7 +139,7 @@ class AssistBar: UIView {
         guard let textView = self.textView else { return }
         let link = textField?.text ?? ""
         let currentRange = textView.selectedRange
-        let insertText = "enter link description here"
+        let insertText = /"EnterLink"
         textView.insertText("[\(insertText)](\(link))")
         textView.selectedRange = NSMakeRange(currentRange.location + 1, insertText.length)
     }
@@ -150,7 +150,7 @@ class AssistBar: UIView {
         let currentRange = textView.selectedRange
         let text = textView.text.substring(with: currentRange)
         let isEmpty = text.length == 0
-        let insertText = isEmpty ? "enter code here": text
+        let insertText = isEmpty ? /"EnterCode": text
         textView.insertText("`\(insertText)`")
         if isEmpty {
             textView.selectedRange = NSMakeRange(currentRange.location + 1, insertText.length)
@@ -160,12 +160,12 @@ class AssistBar: UIView {
         guard let textView = self.textView else { return }
 
         let pos = sender.convert(sender.center, to: sender.window)
-        MenuView(items: [/"Header1","Header2","Header3","Header4"],
-                 postion: CGPoint(x: pos.x - 20, y: pos.y - 200)) { (index) in
+        MenuView(items: [/"Header1",/"Header2",/"Header3",/"Header4"],
+                 postion: CGPoint(x: pos.x - 100, y: pos.y - 190)) { (index) in
                     let currentRange = textView.selectedRange
-                    let insertText = ("#" * (index+1)) + " Header"
+                    let insertText = ("#" * (index+1)) + " " + /"Header"
                     textView.insertText("\n\(insertText)\n")
-                    textView.selectedRange = NSMakeRange(currentRange.location + index + 3, "Header".length)
+                    textView.selectedRange = NSMakeRange(currentRange.location + index + 3, (/"Header").length)
         }.show()
     }
     func tapDeletion() {
@@ -174,7 +174,7 @@ class AssistBar: UIView {
         let currentRange = textView.selectedRange
         let text = textView.text.substring(with: currentRange)
         let isEmpty = text.length == 0
-        let insertText = isEmpty ? "delection": text
+        let insertText = isEmpty ? /"Delection": text
         textView.insertText("~~\(insertText)~~")
         if isEmpty {
             textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
@@ -185,7 +185,7 @@ class AssistBar: UIView {
         guard let textView = self.textView else { return }
 
         let currentRange = textView.selectedRange
-        let insertText = "Blockquote"
+        let insertText = /"Blockquote"
         textView.insertText("\n> \(insertText)\n")
         textView.selectedRange = NSMakeRange(currentRange.location + 3, insertText.length)
     }
@@ -196,7 +196,7 @@ class AssistBar: UIView {
         let currentRange = textView.selectedRange
         let text = textView.text.substring(with: currentRange)
         let isEmpty = text.length == 0
-        let insertText = isEmpty ? "strong text": text
+        let insertText = isEmpty ? /"StrongText": text
         textView.insertText("**\(insertText)**")
         if isEmpty {
             textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
@@ -208,7 +208,7 @@ class AssistBar: UIView {
         let currentRange = textView.selectedRange
         let text = textView.text.substring(with: currentRange)
         let isEmpty = text.length == 0
-        let insertText = isEmpty ? "emphasized text": text
+        let insertText = isEmpty ? /"EmphasizedText": text
         textView.insertText("*\(insertText)*")
         if isEmpty {
             textView.selectedRange = NSMakeRange(currentRange.location + 1, insertText.length)
@@ -217,9 +217,13 @@ class AssistBar: UIView {
     
     func didPickImage(_ image: UIImage) {
         imagePicker = nil
-        guard let textView = self.textView, let data = UIImageJPEGRepresentation(image, 1) else { return }
-
-        textView.startLoadingAnimation()
+        guard let textView = self.textView, var data = UIImageJPEGRepresentation(image, 0.9) else { return }
+        if data.count > 3000000 {
+            if let newData = UIImageJPEGRepresentation(image, 0.7) {
+                data = newData
+            }
+        }
+        viewController?.view.startLoadingAnimation()
         upload(multipartFormData: { (formData) in
             formData.append(data, withName: "smfile", fileName: "temp", mimeType: "image/jpg")
         }, to: imageUploadUrl) { (result) in
@@ -233,17 +237,19 @@ class AssistBar: UIView {
                             
                             let currentRange = textView.selectedRange
                             
-                            let insertText = "enter placeholder text here"
+                            let insertText = /"EnterPlaceholder"
                             textView.insertText("![\(insertText)](\(url))")
                             textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
-                            textView.stopLoadingAnimation()
+                            self.viewController?.view.stopLoadingAnimation()
                         }
                     } else if case .failure(let error) = response.result {
                         print(error.localizedDescription)
+                        self.viewController?.view.stopLoadingAnimation()
                     }
                 })
             case .failure(let error):
                 print(error.localizedDescription)
+                self.viewController?.view.stopLoadingAnimation()
             }
         }
     }

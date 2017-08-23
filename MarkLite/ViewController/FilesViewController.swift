@@ -28,14 +28,7 @@ class FilesViewController: UIViewController {
     
     var root: File? {
         didSet {
-            if root == nil {
-                childrens = []
-            } else {
-                childrens = root!.children.sorted{$0.0.modifyDate < $0.1.modifyDate}
-            }
-            if isViewLoaded {
-                tableView.reloadData()
-            }
+            refresh()
         }
     }
 
@@ -78,6 +71,7 @@ class FilesViewController: UIViewController {
             title = root?.name
             navigationItem.titleView = titleTextField
             titleTextField.font = UIFont.font(ofSize: 18)
+            titleTextField.textAlignment = .center
             titleTextField.setTextColor(.navBarTint)
             titleTextField.delegate = self
         }
@@ -91,8 +85,33 @@ class FilesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableView.reloadData()
+        if root?.isBlank ?? false {
+            titleTextField.becomeFirstResponder()
+        }
+        
+        refresh()
     }
+    
+    func refresh() {
+        if root == nil {
+            childrens = []
+        } else {
+            root?.children.forEach({ (file) in
+                
+                if file.isBlank {
+                    if let value = Configure.shared.editingFile.value, value == file {
+                        return
+                    }
+                    file.trash()
+                }
+            })
+            childrens = root!.children.sorted{$0.0.modifyDate < $0.1.modifyDate}
+        }
+        if isViewLoaded {
+            tableView.reloadData()
+        }
+    }
+    
     
     func showSettings() {
         performSegue(withIdentifier: "menu", sender: nil)
@@ -117,11 +136,11 @@ class FilesViewController: UIViewController {
     func showCreateMenu() {
         MenuView(items: [/"CreateNote",/"CreateFolder"],
                  postion: CGPoint(x:view.w - 140,y: 64),
-                 textAlignment: .right) { (index) in
-            guard let file = self.root?.createFile(name: /"Untitled", type: index == 0 ? .folder : .text) else {
+                 textAlignment: .left) { (index) in
+            guard let file = self.root?.createFile(name: /"Untitled", type: index == 0 ? .text : .folder) else {
                 return
             }
-            file.isTemp = true
+            file.isBlank = true
             
             self.childrens.insert(file, at: 0)
             if file.type == .text {

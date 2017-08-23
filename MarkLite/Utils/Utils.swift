@@ -103,7 +103,7 @@ extension UIViewController {
             }))
         }
         if actionTitles.isEmpty {
-            alert.addAction(UIAlertAction(title: /"完成", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: /"OK", style: .cancel, handler: nil))
         }
         if let _ = textFieldconfigurationHandler {
             alert.addTextField(configurationHandler: textFieldconfigurationHandler)
@@ -125,7 +125,7 @@ extension UIViewController {
                 actionHandler?(index)
             }))
         }
-        alert.addAction(UIAlertAction(title: /"取消", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: /"Cancel", style: .cancel, handler: nil))
         if alert.popoverPresentationController != nil {
             guard let sender = sender else { return }
             alert.popoverPresentationController!.sourceView = sender
@@ -174,7 +174,7 @@ extension UIView {
         } else {
             bg.backgroundColor = UIColor.clear
         }
-        let v = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        let v = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         bg.addSubview(v)
         v.center = bg.center
         v.startAnimating()
@@ -224,19 +224,19 @@ extension Date {
         let time = dateFormatter.string(from: self)
 
         if calendar.isDateInToday(self) {
-            return ("今天",time)
+            return (/"Today",time)
         }
         
         if calendar.isDateInYesterday(self) {
-            return ("昨天",time)
+            return (/"Yesterday",time)
         }
         
         if calendar.compare(Date(), to: self, toGranularity: .year) == .orderedSame {
-            dateFormatter.dateFormat = "M月d日"
+            dateFormatter.dateFormat = "M-d"
             return (dateFormatter.string(from: self),time)
         }
         
-        dateFormatter.dateFormat = "yyyy年M月d日"
+        dateFormatter.dateFormat = "yyyy-M-d"
         return (dateFormatter.string(from: self),time)
     }
 }

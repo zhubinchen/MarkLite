@@ -55,6 +55,7 @@ class EditViewController: UIViewController {
         
         navigationItem.titleView = titleTextField
         titleTextField.font = UIFont.font(ofSize: 18)
+        titleTextField.textAlignment = .center
         titleTextField.setTextColor(.navBarTint)
         titleTextField.delegate = self
     }
@@ -115,6 +116,7 @@ class EditViewController: UIViewController {
             scrollView.setContentOffset(CGPoint(x:0,y:0), animated: true)
             return false
         }
+        
         return true
     }
     

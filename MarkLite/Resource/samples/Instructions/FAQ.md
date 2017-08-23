@@ -1,16 +1,22 @@
+### Switch to iCloud
+1. Clicking the title of the home page, the iCloud option will appear
+2. If you can not access iCloud, go to the system settings, check if your iCloud account is logined on your device
 
-### 1.How to rename file
-> Click the file name on the navigation bar,then edit the name,end by return
+### Create a note or folder
+1. Pull down the file list to create a note
+2. Click the edit button at topRight
 
-![Markdown](http://i1.piimg.com/567954/423cf063996d02df.gif)
+### Rename file
+1. Slide the file list cell left
+2. Click the file name at top bar
 
-### 2.How to preview
-> You can scroll right to preview;If you are using MarkLite on iPad,you can click the split button to preview realtime.
+### Save file
+1. MarkLite will save your file after edited automatically
 
-![Markdown](http://i1.piimg.com/567954/226912d76250e7b6.gif)
+### iCloud issues
+1. File may not be synchronized realtime
+2. If a file write to iCloud successed, you can find it in your iCloud drive
 
-### 3.Why did I failed to move some files
-> Check whether there is an dumplicate file at the destination folder
+### Other quetions
 
-### 4.If you have other questions,contact me.
- Email: [cheng4741@gmail.com](mailto:cheng4741@gmail.com)
+Email me: [cheng4741@gmail.com](mailto:cheng4741@gmail.com)

@@ -73,7 +73,7 @@ class File {
         return name + type.extensionName
     }
     
-    var isTemp = false
+    var isBlank = false
     var isSelected = false
     
     init(path:String, loadChildren: Bool = false) {

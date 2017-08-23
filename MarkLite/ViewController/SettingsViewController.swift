@@ -22,10 +22,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     let themeSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
     let assitBarSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
+    let autoClearSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
+    
     let items = [
         ("功能",[
             ("VIP",#selector(purchase)),
             ("AssistKeyboard",#selector(assistBar)),
+            ("AutoClear",#selector(assistBar)),
             ]),
         ("外观",[
             ("NightMode",#selector(night)),
@@ -65,6 +68,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLayoutSubviews()
         themeSwitch.x = view.w - 60
         assitBarSwitch.x = view.w - 60
+        autoClearSwitch.x = view.w - 60
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -90,6 +94,10 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             cell.addSubview(themeSwitch)
             cell.accessoryType = .none
         }
+        if item.0 == "AutoClear" {
+            cell.addSubview(autoClearSwitch)
+            cell.accessoryType = .none
+        }
         return cell
     }
 
@@ -97,7 +105,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.deselectRow(at: indexPath, animated: true)
 
         let item = items[indexPath.section].1[indexPath.row]
-        if item.0 == "AssistKeyboard" || item.0 == "NightMode" {
+        if item.0 == "AssistKeyboard" || item.0 == "NightMode" || item.0 == "AutoClear" {
             return
         }
         perform(item.1)

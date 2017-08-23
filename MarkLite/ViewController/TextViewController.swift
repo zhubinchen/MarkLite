@@ -30,13 +30,15 @@ class TextViewController: UIViewController {
 
     let disposeBag = DisposeBag()
     var manager = MarkdownHighlightManager()
+    var currentFile: File?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupRx()
-        
+
         addNotificationObserver(Notification.Name.UIKeyboardWillChangeFrame.rawValue, selector: #selector(keyboardWillChange(_:)))
+        addNotificationObserver(Notification.Name.UIApplicationWillTerminate.rawValue, selector: #selector(applicationWillTerminate))
         
         view.setBackgroundColor(.background)
         bottomView.setTintColor(.primary)
@@ -64,11 +66,13 @@ class TextViewController: UIViewController {
         }).addDisposableTo(disposeBag)
         
         Configure.shared.editingFile.asObservable().subscribe(onNext: { [weak self] (file) in
+            self?.saveFile()
             guard let file = file else { return }
             file.readText{
                 self?.editView.text = $0
                 self?.textChanged()
             }
+            self?.currentFile = file
         }).addDisposableTo(disposeBag)
         
         editView.rx.didChange.subscribe { [weak self] _ in
@@ -86,7 +90,13 @@ class TextViewController: UIViewController {
     }
     
     func textChanged() {
+        DispatchQueue.main.async {
+            self.redoButton.isEnabled = self.editView.undoManager?.canRedo ?? false
+            self.undoButton.isEnabled = self.editView.undoManager?.canUndo ?? false
+        }
         
+        currentFile?.isBlank = editView.text.trimmed().length == 0
+
         textChangedHandler?(editView.text)
         countLabel.text = editView.text.length.toString + " " + /"Characters"
         if editView.markedTextRange != nil {
@@ -107,15 +117,10 @@ class TextViewController: UIViewController {
     
     @IBAction func undo(_ sender: UIButton) {
         editView.undoManager?.undo()
-        
-        self.redoButton.isEnabled = self.editView.undoManager?.canRedo ?? false
-        self.undoButton.isEnabled = self.editView.undoManager?.canUndo ?? false
     }
     
     @IBAction func redo(_ sender: UIButton) {
         editView.undoManager?.redo()
-        self.redoButton.isEnabled = self.editView.undoManager?.canRedo ?? false
-        self.undoButton.isEnabled = self.editView.undoManager?.canUndo ?? false
     }
     
     func keyboardWillChange(_ noti: NSNotification) {
@@ -128,7 +133,23 @@ class TextViewController: UIViewController {
         }
     }
     
+    func applicationWillTerminate() {
+        saveFile()
+    }
+    
+    func saveFile() {
+        if let text = editView.text {
+            currentFile?.write(text: text)
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        saveFile()
+    }
+    
     deinit {
+        removeNotificationObserver()
         print("deinit text_vc")
     }
     

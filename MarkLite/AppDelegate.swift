@@ -37,10 +37,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
+        ApplicationWillTerminate.post(info: nil)
         Configure.shared.save()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
+        ApplicationWillTerminate.post(info: nil)
         Configure.shared.save()
     }
     

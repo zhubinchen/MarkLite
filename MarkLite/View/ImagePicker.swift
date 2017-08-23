@@ -36,7 +36,7 @@ class ImagePicker: NSObject {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         picker.dismissVC(completion: nil)
 
-        let image = info[UIImagePickerControllerEditedImage] as? UIImage
+        let image = info[UIImagePickerControllerOriginalImage] as? UIImage
         guard image != nil else {
             return
         }

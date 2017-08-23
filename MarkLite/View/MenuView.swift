@@ -19,7 +19,6 @@ class MenuView: UIView {
         table.delegate = self
         table.dataSource = self
         table.isScrollEnabled = false
-        table.separatorColor = rgb("E7E7EC")
         self.addSubview(table)
         return table
     }()
@@ -37,9 +36,10 @@ class MenuView: UIView {
         self.items = items
         self.textAlignment = textAlignment
         self.selectedChanged = selectedChanged
-        super.init(frame: CGRect(x: postion.x, y: postion.y, width: 130, height: CGFloat(items.count) * cellHeight))
+        super.init(frame: CGRect(x: postion.x, y: postion.y, width: 130, height: CGFloat(items.count) * cellHeight - 1))
+        self.tableView.setBackgroundColor(.tableBackground)
+        self.tableView.setSeparatorColor(.primary)
         self.cornerRadius = 1.5
-        self.borderColor = .white
     }
     
     func show() {
@@ -81,7 +81,7 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "")
-        cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        cell.separatorInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
         let label = UILabel(x: 10, y: 0, w: 110, h: cellHeight)
         cell.addSubview(label)
         cell.setBackgroundColor(.background)
@@ -90,7 +90,7 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
         label.text = items[indexPath.row]
         label.font = UIFont.font(ofSize: 15)
         label.setTextColor(.primary)
-        cell.selectedBackgroundView = UIView(hexString: "F8F9FA")
+
         return cell
     }
     
