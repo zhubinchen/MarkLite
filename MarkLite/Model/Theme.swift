@@ -26,6 +26,7 @@ enum ThemeColorType {
     case tableBackground
     case primary
     case secondary
+    case selectedCell
 }
 
 extension Theme {
@@ -77,6 +78,7 @@ class ColorCenter {
     let secondary = Variable(UIColor.clear)
     let background = Variable(UIColor.clear)
     let tableBackground = Variable(UIColor.clear)
+    let selectedCell = Variable(UIColor.clear)
     
     var theme: Theme = .white {
         didSet {
@@ -86,6 +88,7 @@ class ColorCenter {
             tableBackground.value = theme.colors[3]
             primary.value = theme.colors[4]
             secondary.value = theme.colors[5]
+            selectedCell.value = theme == .black ? rgb("151515")! : rgb("e0e0e0")!
         }
     }
     
@@ -103,6 +106,8 @@ class ColorCenter {
             return background
         case .tableBackground:
             return tableBackground
+        case .selectedCell:
+            return selectedCell
         }
     }
 }

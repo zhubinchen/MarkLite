@@ -1,29 +1,45 @@
 //
-//  StyleViewController.swift
+//  OptionsViewController.swift
 //  MarkLite
 //
-//  Created by zhubch on 2017/8/9.
+//  Created by zhubch on 2017/8/23.
 //  Copyright © 2017年 zhubch. All rights reserved.
 //
 
 import UIKit
-import RxSwift
 
-class StyleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+protocol StringConvertible {
+    var toString: String { get }
+}
+
+struct OptionsWraper {
+    var selectedIndex: Int? = nil
+    let title: String
+    let items: [StringConvertible]
+    let didSelect: (Int)->Void
+}
+
+extension Theme: StringConvertible {
+    var toString: String {
+        return displayName
+    }
+}
+
+extension String: StringConvertible {
+    var toString: String {
+        return self
+    }
+}
+
+class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var styles: [String]!
+    var options: OptionsWraper!
     let table = UITableView(frame: CGRect(), style: .grouped)
-    let disposeBag = DisposeBag()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "渲染样式"
-        let path = documentPath + "/style/markdown-style/"
-
-        guard let subPaths = FileManager.default.subpaths(atPath: path) else { return }
-        
-        styles = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}
+        title = options.title
         
         table.rowHeight = 48
         table.delegate = self
@@ -40,26 +56,41 @@ class StyleViewController: UIViewController, UITableViewDelegate, UITableViewDat
         table.frame = self.view.bounds
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let index = options.selectedIndex {
+            table.selectRow(at: IndexPath(row: index, section: 0), animated: true, scrollPosition: .none)
+        }
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return styles.count
+        return options.items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.textLabel?.text = styles[indexPath.row]
+        cell.textLabel?.text = options.items[indexPath.row].toString
         cell.textLabel?.setTextColor(.primary)
         cell.textLabel?.font = UIFont.font(ofSize: 16)
+        let selectedBg = UIView(x: 0, y: 0, w: view.w, h: 48)
+        let selectedMark = UIView(x: 0, y: 0, w: 5, h: 48)
+        selectedBg.addSubview(selectedMark)
+        
+        selectedBg.setBackgroundColor(.selectedCell)
+        selectedMark.setBackgroundColor(.primary)
+        
+        cell.selectedBackgroundView = selectedBg
+        
         cell.setBackgroundColor(.background)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        Configure.shared.markdownStyle.value = styles[indexPath.row]
-        tableView.deselectRow(at: indexPath, animated: true)
+        options.didSelect(indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -69,5 +100,5 @@ class StyleViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 20
     }
-
+    
 }

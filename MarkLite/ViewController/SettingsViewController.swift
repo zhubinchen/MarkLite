@@ -28,12 +28,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         ("功能",[
             ("VIP",#selector(purchase)),
             ("AssistKeyboard",#selector(assistBar)),
-            ("AutoClear",#selector(assistBar)),
+            ("AutoClear",#selector(autoClear)),
             ]),
         ("外观",[
             ("NightMode",#selector(night)),
             ("Theme",#selector(theme)),
             ("Style",#selector(style)),
+            ("CodeStyle",#selector(codeStyle))
             ]),
         ("支持一下",[
             ("RateIt",#selector(rate)),
@@ -55,9 +56,11 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 
         themeSwitch.isOn = Configure.shared.theme.value == .black
         assitBarSwitch.isOn = Configure.shared.isAssistBarEnabled.value
+        assitBarSwitch.isOn = Configure.shared.isAutoClearEnabled
         
         themeSwitch.addTarget(self, action: #selector(night(_:)), for: .valueChanged)
         assitBarSwitch.addTarget(self, action: #selector(assistBar(_:)), for: .valueChanged)
+        autoClearSwitch.addTarget(self, action: #selector(assistBar(_:)), for: .valueChanged)
         
         navigationController?.delegate = navigationController
         navigationController?.delegate = navigationController
@@ -142,14 +145,51 @@ extension SettingsViewController {
         Configure.shared.isAssistBarEnabled.value = sender.isOn
     }
     
+    func autoClear(_ sender: UISwitch) {
+        Configure.shared.isAutoClearEnabled = sender.isOn
+    }
+    
     func theme() {
-        let vc = ThemeViewController()
+        let items = [Theme.white,.black,.pink,.green,.blue,.purple,.red]
+        let index = items.index{ Configure.shared.theme.value == $0 }
+
+        let wraper = OptionsWraper(selectedIndex: index, title: /"Theme", items: items) { (index) in
+            Configure.shared.theme.value = items[index]
+        }
+        let vc = OptionsViewController()
+        vc.options = wraper
         pushVC(vc)
     }
     
     func style() {
-        let vc = StyleViewController()
+        let path = documentPath + "/style/markdown-style/"
+        
+        guard let subPaths = FileManager.default.subpaths(atPath: path) else { return }
+        
+        let items = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}
+        let index = items.index{ Configure.shared.markdownStyle.value == $0 }
+        let wraper = OptionsWraper(selectedIndex: index, title: /"Style", items: items) { (index) in
+            Configure.shared.markdownStyle.value = items[index]
+        }
+        let vc = OptionsViewController()
+        vc.options = wraper
         pushVC(vc)
     }
     
+    func codeStyle() {
+        let path = documentPath + "/style/highlight-style/"
+        
+        guard let subPaths = FileManager.default.subpaths(atPath: path) else { return }
+        
+        let items = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}
+        let index = items.index{ Configure.shared.highlightStyle.value == $0 }
+
+        let wraper = OptionsWraper(selectedIndex: index, title: /"CodeStyle", items: items) { (index) in
+            Configure.shared.highlightStyle.value = items[index]
+        }
+        let vc = OptionsViewController()
+        vc.options = wraper
+        pushVC(vc)
+    }
+
 }

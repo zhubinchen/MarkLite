@@ -59,15 +59,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SideMenuManager.menuFadeStatusBar = false
         SideMenuManager.menuWidth = isPad ? 400 : 300
         SideMenuManager.menuPushStyle = .subMenu
+        SideMenuManager.menuPresentMode = isPhone ? .viewSlideOut : .menuSlideIn
         DropboxClientsManager.setupWithAppKey(dropboxKey)
 
         Configure.shared.setup()
         
         _ = Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in
             ColorCenter.shared.theme = theme
-            UIApplication.shared.statusBarStyle = theme == .black ? .lightContent : .default
         })
-
+        
+        _ = Observable.combineLatest(Configure.shared.theme.asObservable(), Configure.shared.isLandscape.asObservable()){ $0 == .black || ($0 != .white && !$1) }.subscribe(onNext: { (light) in
+            UIApplication.shared.statusBarStyle = light ? .lightContent : .default
+        })
     }
 }
 

@@ -42,18 +42,18 @@ class MenuView: UIView {
         self.cornerRadius = 1.5
     }
     
-    func show() {
+    func show(on view: UIView? = nil) {
         
-        guard let win = UIApplication.shared.keyWindow else {
+        guard let superView = view ?? UIApplication.shared.keyWindow else {
             return
         }
-        let control = UIControl(superView: win, padding: 0)
+        let control = UIControl(superView: superView, padding: 0)
         control.backgroundColor = UIColor(white: 0, alpha: 0.1)
         control.addTarget(self, action: #selector(dismiss(sender:)), for: .touchDown)
         control.addSubview(self)
         
-        win.addSubview(control)
-        win.isUserInteractionEnabled = true
+        superView.addSubview(control)
+        superView.isUserInteractionEnabled = true
         
         self.tableView.reloadData()
     }

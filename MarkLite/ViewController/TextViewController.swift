@@ -31,7 +31,7 @@ class TextViewController: UIViewController {
     let disposeBag = DisposeBag()
     var manager = MarkdownHighlightManager()
     var currentFile: File?
-    
+    var orignText = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -70,6 +70,7 @@ class TextViewController: UIViewController {
             guard let file = file else { return }
             file.readText{
                 self?.editView.text = $0
+                self?.orignText = $0
                 self?.textChanged()
             }
             self?.currentFile = file
@@ -139,7 +140,9 @@ class TextViewController: UIViewController {
     
     func saveFile() {
         if let text = editView.text {
-            currentFile?.write(text: text)
+            if text != orignText {
+                currentFile?.write(text: text)
+            }
         }
     }
     

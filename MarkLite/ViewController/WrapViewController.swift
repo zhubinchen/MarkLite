@@ -55,9 +55,10 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
         let isLandscape = windowWidth > windowHeight
         Configure.shared.isLandscape.value = isLandscape
         
-        topBarHeight.constant = isLandscape ? 0 : 64
+        topBarHeight.constant = isLandscape ? 20 : 64
         leftBarWidth.constant = isLandscape ? 64 : 0
         
+        statusBar.isHidden = !isLandscape
         topBar.isHidden = isLandscape
         leftBar.isHidden = !isLandscape
         

@@ -18,12 +18,11 @@ class FileTableViewCell: SwipeTableViewCell {
     
     let selectedMarkView = UIView(hexString: "333333")
     let selectedBg = UIView(hexString: "e0e0e0")
-    let disposeBag = DisposeBag()
     var file: File! {
         didSet {
             nameLabel.text = file.name
             timeLabel.text = /"LastUpdate" + file.modifyDate.readableDate().0 + " " + file.modifyDate.readableDate().1
-            sizeLabel.text = file.type == .folder ? file.children.count.toString + " " + /"Children" : "\(file.size) B"
+            sizeLabel.text = file.type == .folder ? file.children.count.toString + " " + /"Children" : file.size.readabelSize
             selectedMark.isHidden = !file.isSelected
         }
     }
@@ -31,12 +30,9 @@ class FileTableViewCell: SwipeTableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        Configure.shared.theme.asObservable().subscribe(onNext: { [unowned self] (theme) in
-            self.selectedBg.backgroundColor = theme == .black ? rgb("151515") : rgb("e0e0e0")
-        }).addDisposableTo(disposeBag)
-        selectedBg.addSubview(selectedMarkView)
-        self.selectedBackgroundView = selectedBg
+        selectedBackgroundView = selectedBg
         
+        selectedBg.setBackgroundColor(.selectedCell)
         selectedMarkView.setBackgroundColor(.primary)
         selectedMark.setBackgroundColor(.primary)
         

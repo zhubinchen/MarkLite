@@ -21,9 +21,10 @@ class Configure: NSObject, NSCoding {
     var currentVerion: String?
     var isVip = false
     var isOldUser = false
+    var isAutoClearEnabled = false
     var isAssistBarEnabled = Variable(true)
     var markdownStyle = Variable("GitHub2")
-    var highlightStyle = Variable("rainbow")
+    var highlightStyle = Variable("github")
     var theme = Variable(Theme.white)
     
     override init() {
@@ -97,6 +98,7 @@ class Configure: NSObject, NSCoding {
         aCoder.encode(currentVerion, forKey: "currentVersion")
         aCoder.encode(isOldUser, forKey: "isOldUser")
         aCoder.encode(isVip, forKey: "isVip")
+        aCoder.encode(isAutoClearEnabled, forKey: "isAutoClearEnabled")
         aCoder.encode(isAssistBarEnabled.value, forKey: "isAssistBarEnabled")
         aCoder.encode(markdownStyle.value, forKey: "markdownStyle")
         aCoder.encode(highlightStyle.value, forKey: "highlightStyle")
@@ -109,6 +111,7 @@ class Configure: NSObject, NSCoding {
         currentVerion = aDecoder.decodeObject(forKey: "currentVersion") as? String
         isOldUser = aDecoder.decodeObject(forKey: "isOldUser") as? Bool ?? false
         isVip = aDecoder.decodeObject(forKey: "isVip") as? Bool ?? false
+        isAutoClearEnabled = aDecoder.decodeObject(forKey: "isAutoClearEnabled") as? Bool ?? true
         isAssistBarEnabled.value = aDecoder.decodeObject(forKey: "isAssistBarEnabled") as? Bool ?? true
         markdownStyle.value = aDecoder.decodeObject(forKey: "markdownStyle") as? String ?? "GitHub2"
         highlightStyle.value = aDecoder.decodeObject(forKey: "highlightStyle") as? String ?? "rainbow"

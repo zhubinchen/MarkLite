@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		070F5E7F1F4D8A0600BA6F2D /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 070F5E7E1F4D8A0600BA6F2D /* OptionsViewController.swift */; };
 		07381D8E1F0A467B00E362E9 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 07381D8B1F0A467B00E362E9 /* icon.png */; };
 		07381D8F1F0A467B00E362E9 /* samples.zip in Resources */ = {isa = PBXBuildFile; fileRef = 07381D8C1F0A467B00E362E9 /* samples.zip */; };
 		07381D901F0A467B00E362E9 /* style.zip in Resources */ = {isa = PBXBuildFile; fileRef = 07381D8D1F0A467B00E362E9 /* style.zip */; };
@@ -17,9 +18,7 @@
 		075269DD1EFCE7C200C4DAD9 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075269DC1EFCE7C200C4DAD9 /* SettingsViewController.swift */; };
 		075269DF1EFCEE9E00C4DAD9 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075269DE1EFCEE9E00C4DAD9 /* Constant.swift */; };
 		075360161F1602770007DF6A /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 075360151F1602770007DF6A /* MenuView.swift */; };
-		076941F21F39820A004B8E95 /* ThemeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076941F11F39820A004B8E95 /* ThemeViewController.swift */; };
 		076941F41F39824F004B8E95 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076941F31F39824F004B8E95 /* Theme.swift */; };
-		076941F81F3AAC5F004B8E95 /* StyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076941F71F3AAC5F004B8E95 /* StyleViewController.swift */; };
 		076941FA1F3ADD1E004B8E95 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076941F91F3ADD1E004B8E95 /* IAPHelper.swift */; };
 		076AF2F71EFA437100DCF6EF /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076AF2F61EFA437100DCF6EF /* Utils.swift */; };
 		077403AD1F037043001AB56A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077403AC1F037043001AB56A /* NavigationController.swift */; };
@@ -61,6 +60,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		070F5E7E1F4D8A0600BA6F2D /* OptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
 		07381D821F0A31C700E362E9 /* MarkLite-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MarkLite-Bridging-Header.h"; sourceTree = "<group>"; };
 		07381D8B1F0A467B00E362E9 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		07381D8C1F0A467B00E362E9 /* samples.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = samples.zip; sourceTree = "<group>"; };
@@ -72,9 +72,7 @@
 		075269DC1EFCE7C200C4DAD9 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		075269DE1EFCEE9E00C4DAD9 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		075360151F1602770007DF6A /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
-		076941F11F39820A004B8E95 /* ThemeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeViewController.swift; sourceTree = "<group>"; };
 		076941F31F39824F004B8E95 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		076941F71F3AAC5F004B8E95 /* StyleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleViewController.swift; sourceTree = "<group>"; };
 		076941F91F3ADD1E004B8E95 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
 		076AF2F61EFA437100DCF6EF /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		077403AC1F037043001AB56A /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -152,15 +150,6 @@
 				07381D8D1F0A467B00E362E9 /* style.zip */,
 			);
 			path = Resource;
-			sourceTree = "<group>";
-		};
-		076941F01F3981F3004B8E95 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				076941F11F39820A004B8E95 /* ThemeViewController.swift */,
-				076941F71F3AAC5F004B8E95 /* StyleViewController.swift */,
-			);
-			name = Settings;
 			sourceTree = "<group>";
 		};
 		079693431F078F4C00F435C7 /* hoedown */ = {
@@ -272,7 +261,7 @@
 				075269DC1EFCE7C200C4DAD9 /* SettingsViewController.swift */,
 				077403AC1F037043001AB56A /* NavigationController.swift */,
 				07B867821F31CD8300374459 /* WrapViewController.swift */,
-				076941F01F3981F3004B8E95 /* Settings */,
+				070F5E7E1F4D8A0600BA6F2D /* OptionsViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -503,14 +492,13 @@
 				075269DF1EFCEE9E00C4DAD9 /* Constant.swift in Sources */,
 				074402EE1F14DF5F00410765 /* ImagePicker.swift in Sources */,
 				0796935A1F078F4C00F435C7 /* escape.c in Sources */,
-				076941F21F39820A004B8E95 /* ThemeViewController.swift in Sources */,
+				070F5E7F1F4D8A0600BA6F2D /* OptionsViewController.swift in Sources */,
 				079693621F0790C500F435C7 /* HighlightManager.swift in Sources */,
 				077403AD1F037043001AB56A /* NavigationController.swift in Sources */,
 				075269B91EFBD40D00C4DAD9 /* FileTableViewCell.swift in Sources */,
 				0796935D1F078F4C00F435C7 /* html_blocks.c in Sources */,
 				0796935E1F078F4C00F435C7 /* html_smartypants.c in Sources */,
 				079693601F078F4C00F435C7 /* version.c in Sources */,
-				076941F81F3AAC5F004B8E95 /* StyleViewController.swift in Sources */,
 				07B867831F31CD8300374459 /* WrapViewController.swift in Sources */,
 				076941F41F39824F004B8E95 /* Theme.swift in Sources */,
 				07B7C1F11EF926280027B2FC /* File.swift in Sources */,

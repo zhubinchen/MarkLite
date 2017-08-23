@@ -135,7 +135,7 @@ class FilesViewController: UIViewController {
     
     func showCreateMenu() {
         MenuView(items: [/"CreateNote",/"CreateFolder"],
-                 postion: CGPoint(x:view.w - 140,y: 64),
+                 postion: CGPoint(x:view.w - 140,y: isPad ? 44 : 64),
                  textAlignment: .left) { (index) in
             guard let file = self.root?.createFile(name: /"Untitled", type: index == 0 ? .text : .folder) else {
                 return
@@ -151,7 +151,7 @@ class FilesViewController: UIViewController {
             } else if file.type == .folder {
                 self.performSegue(withIdentifier: "next", sender: file)
             }
-        }.show()
+        }.show(on: self.navigationController?.view)
     }
     
     func rename(file: File, newName: String) {
@@ -265,3 +265,4 @@ extension FilesViewController: SwipeTableViewCellDelegate {
         return [deleteAction,renameAction]
     }
 }
+

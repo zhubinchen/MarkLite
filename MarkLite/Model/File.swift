@@ -32,7 +32,7 @@ enum FileType {
     }
 }
 
-extension Int64 {
+extension Int {
     var readabelSize: String {
         if self > 1024*1024 {
             let size = String(format: "%.2f", Double(self) / 1024.0 / 1024.0)
@@ -52,7 +52,7 @@ class File {
     private(set) var type: FileType
     private(set) var path: String
     private(set) var modifyDate: Date
-    private(set) var size: Int64
+    private(set) var size: Int
     private(set) var location: FileLocation = .local
     
     var tempPath: String {
@@ -88,7 +88,7 @@ class File {
     
         let attr = try? fileManager.attributesOfItem(atPath: path)
         modifyDate = attr?[FileAttributeKey.modificationDate] as? Date ?? Date()
-        size = attr?[FileAttributeKey.size] as? Int64 ?? 0
+        size = attr?[FileAttributeKey.size] as? Int ?? 0
         
         guard let subPaths = try? fileManager.contentsOfDirectory(atPath: path) else {
             return
@@ -191,6 +191,8 @@ class File {
             print("error to save file at:\(path)")
             return false
         }
+        modifyDate = Date()
+        size = data.count
         return true
     }
     
