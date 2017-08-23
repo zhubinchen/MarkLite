@@ -13,7 +13,8 @@ let dropboxSecret = "lqia8vqvxbk9a7o"
 let dropboxToken = "U8P2_p2-VQAAAAAAAAAAD6CtjD75IjwamQSkEblPY4NqwJG4VEJZbxk9F877jtdm"
 
 let rateUrl = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1098107145&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"
-
+let upgradeUrl = "itms-apps://itunes.apple.com/app/id1098107145"
+let checkVersionUrl = "http://itunes.apple.com/lookup?id=1098107145"
 let emailUrl = "mailto:cheng4741@gmail.com?subject=MarkLite%20Report&body="
 
 let donateProductID = "com.zhubch.MarkLite.Donate"

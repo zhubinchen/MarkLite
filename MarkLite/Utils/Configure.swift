@@ -15,6 +15,8 @@ class Configure: NSObject, NSCoding {
     
     static let configureFile = documentPath + "/Configure.plist"
     
+    var newVersionAvaliable = false
+    
     let editingFile: Variable<File?> = Variable(nil)
     let isLandscape = Variable(false)
     
@@ -22,10 +24,10 @@ class Configure: NSObject, NSCoding {
     var isVip = false
     var isOldUser = false
     var isAutoClearEnabled = false
-    var isAssistBarEnabled = Variable(true)
-    var markdownStyle = Variable("GitHub2")
-    var highlightStyle = Variable("github")
-    var theme = Variable(Theme.white)
+    let isAssistBarEnabled = Variable(true)
+    let markdownStyle = Variable("GitHub2")
+    let highlightStyle = Variable("github")
+    let theme = Variable(Theme.white)
     
     override init() {
         super.init()

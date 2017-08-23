@@ -67,6 +67,13 @@ class FilesViewController: UIViewController {
             titleButton.titleLabel?.font = UIFont.font(ofSize: 18)
             navigationItem.titleView = titleButton
             titleButton.addTarget(self, action: #selector(showStorageMenu), for: .touchUpInside)
+            if Configure.shared.newVersionAvaliable {
+                showAlert(title: /"UpgradeTitle", message: /"UpgradeTips", actionTitles: [/"Upgrade",/"DontUpgrade"], actionHandler: { (index) in
+                    if index == 0 {
+                        UIApplication.shared.openURL(URL(string: upgradeUrl)!)
+                    }
+                })
+            }
         } else {
             title = root?.name
             navigationItem.titleView = titleTextField
