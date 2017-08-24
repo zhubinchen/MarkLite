@@ -26,19 +26,19 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     let items = [
         ("功能",[
-            ("VIP",#selector(purchase)),
-            ("AssistKeyboard",#selector(assistBar)),
-            ("AutoClear",#selector(autoClear)),
+            ("VIP",Configure.shared.isVip ? "已订阅" : "立即订阅",#selector(purchase)),
+            ("AssistKeyboard","",#selector(assistBar)),
+            ("AutoClear","",#selector(autoClear)),
             ]),
         ("外观",[
-            ("NightMode",#selector(night)),
-            ("Theme",#selector(theme)),
-            ("Style",#selector(style)),
-            ("CodeStyle",#selector(codeStyle))
+            ("NightMode","",#selector(night)),
+            ("Theme","",#selector(theme)),
+            ("Style","",#selector(style)),
+            ("CodeStyle","",#selector(codeStyle))
             ]),
         ("支持一下",[
-            ("RateIt",#selector(rate)),
-            ("Feedback",#selector(feedback))
+            ("RateIt","",#selector(rate)),
+            ("Feedback","",#selector(feedback))
             ])
     ]
     
@@ -86,7 +86,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "settings", for: indexPath)
         let item = items[indexPath.section].1[indexPath.row]
         cell.textLabel?.text = /(item.0)
+        cell.detailTextLabel?.text = /(item.1)
         cell.textLabel?.setTextColor(.primary)
+        cell.detailTextLabel?.setTextColor(.secondary)
         cell.setBackgroundColor(.background)
         
         if item.0 == "AssistKeyboard" {
@@ -111,7 +113,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         if item.0 == "AssistKeyboard" || item.0 == "NightMode" || item.0 == "AutoClear" {
             return
         }
-        perform(item.1)
+        perform(item.2)
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

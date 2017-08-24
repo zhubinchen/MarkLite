@@ -8,6 +8,7 @@
 
 import UIKit
 import EZSwiftExtensions
+import RxSwift
 
 func *(string: String, repeatCount: Int) -> String {
     var ret = ""
@@ -90,6 +91,19 @@ extension String {
 }
 
 extension UIViewController {
+    
+    func checkVIP() -> Bool {
+        if Configure.shared.isVip {
+            return true
+        }
+        showAlert(title: /"VIPOnly", message: nil, actionTitles: [/"Cancel",/"SubscribeNow"]) { (index) in
+            if index == 1 {
+                PurchaseView.showWithViewController(self)
+            }
+        }
+        return false
+    }
+    
     @discardableResult
     func showAlert(title: String? = nil,
                    message: String? = nil,
@@ -174,7 +188,7 @@ extension UIView {
         } else {
             bg.backgroundColor = UIColor.clear
         }
-        let v = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        let v = UIActivityIndicatorView(activityIndicatorStyle: Configure.shared.theme.value == .black ? .whiteLarge : .gray)
         bg.addSubview(v)
         v.center = bg.center
         v.startAnimating()
@@ -320,5 +334,17 @@ extension UIScrollView {
         let image = UIGraphicsGetImageFromCurrentImageContext()
         
         return image
+    }
+}
+
+extension UITableView {
+    func addPullDownView(_ view: UIView, disposeBag: DisposeBag, comletion:@escaping (Void)->Void) {
+        view.frame = CGRect(x: (windowWidth - 200) * 0.5, y: -40, w: 200, h: 20)
+        addSubview(view)
+        rx.didEndDragging.subscribe(onNext: { [unowned self] (end) in
+            if self.contentOffset.y < -60 {
+                comletion()
+            }
+        }).addDisposableTo(disposeBag)
     }
 }

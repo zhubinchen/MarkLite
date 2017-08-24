@@ -40,7 +40,7 @@ class NavigationController: UINavigationController {
         isPoping = true
         
         //FIXME: 这样不好
-        Timer.runThisAfterDelay(seconds: 0.3) {
+        Timer.runThisAfterDelay(seconds: 0.01) {
             self.isPoping = false
         }
         return super.popViewController(animated: true)

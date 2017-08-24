@@ -21,6 +21,8 @@
 "Untitled"="Untitled";
 "UntitledFolder"="UntitledFolder";
 
+"ReleaseToCreate"="Release to create note";
+
 "Preview"="Preview";
 "Undo"="Undo";
 "Redo"="Redo";
@@ -30,6 +32,9 @@
 "WebPage"="Web pages";
 "Image"="Picture";
 "Markdown"="Markdown";
+
+"VIPOnly"="This function is vip only";
+"SubscribeNow"="Subscribe it now";
 
 "VIP"="Subscribe VIP";
 "AssistKeyboard"="Keyboard assist bar";
@@ -41,8 +46,19 @@
 "Style"="Style";
 "CodeStyle"="Code block";
 
-"PreviewTips"="Scroll right to preview the markdown";
-"Gotit"="Got it";
+"MonthlyVIP"="Monthly VIP";
+"AnnualVIP"="Annual VIP";
+"MonthlyPrice"="$0.99";
+"AnnualPrice"="$8.49";
+"FreeTrial"="1 week free trial";
+"SubsribeTips"="Subscribe to MarkLite to support further development and gain access to some great extra features:\n 1. Application themes\n 2. Advanced exports to PDF,HTML,JPG\n 3. Markdown styles & code block styles";
+"CancelSubsribeTips"="All subscriptions can be canceled at any time.";
+"Restore"="Restore";
+"SubscribeFailed"="Subcribe failed";
+"SubscribedSuccess"="Subscribed Success";
+"RestoreFailed"="No valid purchases found";
+"RestoreSuccess"="Restore purchases Success";
+
 
 "OK"="OK";
 "Close"="Close";

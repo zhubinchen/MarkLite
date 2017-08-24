@@ -15,22 +15,33 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YHh-lf-EwZ">
-                    <rect key="frame" x="37.5" y="123.5" width="300" height="420"/>
+                    <rect key="frame" x="37.5" y="155" width="300" height="358"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OTp-tj-TjP">
                             <rect key="frame" x="0.0" y="0.0" width="300" height="44"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="升级到高级帐户" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTz-u3-44o">
-                                    <rect key="frame" x="86" y="11.5" width="128.5" height="21.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VIP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTz-u3-44o">
+                                    <rect key="frame" x="136.5" y="11.5" width="27.5" height="21.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R82-nd-sfs">
+                                    <rect key="frame" x="239" y="7" width="53" height="30"/>
+                                    <state key="normal" title="Restore">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="restoreVIP:" destination="iN0-l3-epB" eventType="touchUpInside" id="klu-cq-gR5"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="PTz-u3-44o" firstAttribute="centerX" secondItem="OTp-tj-TjP" secondAttribute="centerX" id="2d3-5a-8zT"/>
                                 <constraint firstItem="PTz-u3-44o" firstAttribute="centerY" secondItem="OTp-tj-TjP" secondAttribute="centerY" id="Z54-JV-MR8"/>
+                                <constraint firstItem="R82-nd-sfs" firstAttribute="centerY" secondItem="OTp-tj-TjP" secondAttribute="centerY" id="pPk-qV-JQG"/>
+                                <constraint firstAttribute="trailing" secondItem="R82-nd-sfs" secondAttribute="trailing" constant="8" id="r6d-L5-XYp"/>
                                 <constraint firstAttribute="height" constant="44" id="yjF-eu-cfe"/>
                             </constraints>
                         </view>
@@ -38,10 +49,10 @@
                             <rect key="frame" x="0.0" y="54" width="300" height="54"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ISL-q6-hFL">
-                                    <rect key="frame" x="12" y="17" width="69.5" height="20.5"/>
+                                    <rect key="frame" x="12" y="17" width="87.5" height="20.5"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="按月订阅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MBL-ek-1zI">
-                                            <rect key="frame" x="0.0" y="0.0" width="69.5" height="20.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MonthlyVIP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MBL-ek-1zI">
+                                            <rect key="frame" x="0.0" y="0.0" width="87.5" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -54,7 +65,7 @@
                                         <constraint firstAttribute="height" constant="30" id="PZX-kb-wse"/>
                                         <constraint firstAttribute="width" constant="80" id="zTc-NW-Pb6"/>
                                     </constraints>
-                                    <state key="normal" title="¥6/月"/>
+                                    <state key="normal" title="MonthlyPrice"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                             <real key="value" value="5"/>
@@ -84,16 +95,16 @@
                             <rect key="frame" x="0.0" y="109" width="300" height="54"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="L8c-o6-c27">
-                                    <rect key="frame" x="12" y="7" width="93" height="40.5"/>
+                                    <rect key="frame" x="12" y="7" width="78.5" height="40.5"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="按年订阅" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bf6-er-mMp">
-                                            <rect key="frame" x="0.0" y="0.0" width="69.5" height="20.5"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AnnualVIP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bf6-er-mMp">
+                                            <rect key="frame" x="0.0" y="0.0" width="78.5" height="20.5"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第一周免费试用" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UaS-F8-GPd">
-                                            <rect key="frame" x="0.0" y="24.5" width="93" height="16"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FreeTrial" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UaS-F8-GPd">
+                                            <rect key="frame" x="0.0" y="24.5" width="52" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
@@ -106,7 +117,7 @@
                                         <constraint firstAttribute="width" constant="80" id="gbK-Y0-ou9"/>
                                         <constraint firstAttribute="height" constant="30" id="oAA-29-H3T"/>
                                     </constraints>
-                                    <state key="normal" title="¥58/年"/>
+                                    <state key="normal" title="AnnualPrice"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                             <real key="value" value="5"/>
@@ -241,19 +252,14 @@
                                 </view>
                             </subviews>
                         </stackView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5PS-4c-JJ4">
-                            <rect key="frame" x="12" y="290" width="278" height="78"/>
-                            <string key="text">升级到高级帐户后，你将获得以下额外功能：
-    1. 可导出所有格式
-    2. 可使用更多渲染样式
-    3. 可更改主题颜色
-    4. 后续版本中添加的更多特性</string>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SubsribeTips" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5PS-4c-JJ4">
+                            <rect key="frame" x="12" y="290" width="278" height="16"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <color key="textColor" red="0.62745098039215685" green="0.62745098039215685" blue="0.62745098039215685" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="你可以随时取消这些订阅" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uyo-bH-fPS">
-                            <rect key="frame" x="12" y="388" width="288" height="17"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CancelSubsribeTips" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uyo-bH-fPS">
+                            <rect key="frame" x="12" y="326" width="288" height="17"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -297,6 +303,8 @@
                 <constraint firstItem="YHh-lf-EwZ" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="sJj-Wg-jaf"/>
             </constraints>
             <connections>
+                <outlet property="oldUserView" destination="lhl-yu-5QI" id="Cx3-IW-oKm"/>
+                <outlet property="premiumUserView" destination="5YK-ge-azr" id="STn-kL-T8L"/>
                 <outletCollection property="gestureRecognizers" destination="Au0-3p-LcH" appends="YES" id="fT8-VO-HgW"/>
             </connections>
             <point key="canvasLocation" x="33.5" y="84.5"/>

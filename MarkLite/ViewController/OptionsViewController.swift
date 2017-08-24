@@ -90,7 +90,15 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        options.didSelect(indexPath.row)
+        if checkVIP() {
+            options.didSelect(indexPath.row)
+        } else {
+            if let index = options.selectedIndex {
+                tableView.selectRow(at: IndexPath(row: index, section: 0), animated: true, scrollPosition: .none)
+            } else {
+                tableView.deselectRow(at: indexPath, animated: true)
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

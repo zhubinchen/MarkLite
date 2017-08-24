@@ -18,6 +18,7 @@
 
 "CreateNote"="新建文档";
 "CreateFolder"="新建文件夹";
+"ReleaseToCreate"="松手创建文档";
 
 "Untitled"="未命名";
 "UntitledFolder"="未命名文件夹";
@@ -42,8 +43,21 @@
 "Style"="渲染样式";
 "CodeStyle"="代码块样式";
 
-"PreviewTips"="向右滑动进入预览模式";
-"Gotit"="我知道了";
+"VIPOnly"="该功能需开通高级帐户";
+"SubscribeNow"="立即开通";
+
+"MonthlyVIP"="按月订阅";
+"AnnualVIP"="按年订阅";
+"MonthlyPrice"="¥6／月";
+"AnnualPrice"="¥58／年";
+"FreeTrial"="免费试用1周";
+"SubsribeTips"="升级到高级帐户后，你将获得以下额外功能：\n1. 可导出所有格式(PDF,HTML,JPG)\n2. 可使用更多渲染样式\n3. 可更改主题颜色\n4. 后续版本中添加的更多特性";
+"CancelSubsribeTips"="你随时可以取消这些订阅";
+"Restore"="恢复订阅";
+"SubscribeFailed"="没有完成订阅";
+"SubscribedSuccess"="已成功订阅高级帐户";
+"RestoreFailed"="没有有效的订阅记录，请重新订阅";
+"RestoreSuccess"="已恢复订阅";
 
 "OK"="确定";
 "Close"="关闭";
@@ -65,7 +79,7 @@
 "Error"="出错了";
 
 "UpgradeTitle"="MarkLite更新啦";
-"UpgradeTips"="为了有更好的体验，建议升级到最新版！大小不到2M呢😄";
+"UpgradeTips"="为了有更好的使用体验，建议升级到最新版！";
 "Upgrade"="更新";
 "DontUpgrade"="以后再说";
 

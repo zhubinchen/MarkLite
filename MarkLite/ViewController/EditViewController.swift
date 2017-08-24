@@ -92,9 +92,11 @@ class EditViewController: UIViewController {
         }
         MenuView(items: items.map{$0.displayName},
                  postion: pos) { (index) in
-                    guard let url = self.webVC?.url(for: items[index]) else { return }
-                    let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-                    self.presentVC(vc)
+                    if self.checkVIP() {
+                        guard let url = self.webVC?.url(for: items[index]) else { return }
+                        let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+                        self.presentVC(vc)
+                    }
             }.show()
     }
     

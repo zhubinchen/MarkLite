@@ -12,6 +12,22 @@ class PurchaseView: UIView {
     
     weak var vc: UIViewController?
     
+    @IBOutlet weak var oldUserView: UIView!
+    @IBOutlet weak var premiumUserView: UIView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        let language = UserDefaults.standard.string(forKey: "AppleLanguages")
+        if language == "zh-Hans" && Configure.shared.isOldUser {
+            oldUserView.isHidden = false
+            premiumUserView.isHidden = false
+        } else {
+            oldUserView.isHidden = true
+            premiumUserView.isHidden = true
+        }
+    }
+    
     @IBAction func subscribeMonthlyVIP(_ sender: UIButton) {
         purchaseProduct(monthlyVIPProductID)
     }
@@ -28,6 +44,29 @@ class PurchaseView: UIView {
 
     }
     
+    @IBAction func restoreVIP(_ sender: UIButton) {
+        self.startLoadingAnimation()
+
+        IAP.restorePurchases { (identifiers, error) in
+            if let err = error {
+                print(err.localizedDescription)
+                self.vc?.showAlert(title: /"RestoreFailed")
+                self.stopLoadingAnimation()
+                return
+            }
+            Configure.shared.checkVipAvailable({ (availabel) in
+                if availabel {
+                    self.vc?.showAlert(title: /"RestoreSuccess")
+                    self.dismiss(nil)
+                } else {
+                    self.vc?.showAlert(title: /"RestoreFailed")
+                }
+                self.stopLoadingAnimation()
+            })
+            print(identifiers)
+        }
+    }
+    
     func purchaseProduct(_ identifier: String) {
         self.startLoadingAnimation()
         IAP.requestProducts([identifier]) { (response, error) in
@@ -36,13 +75,17 @@ class PurchaseView: UIView {
                 return
             }
             IAP.purchaseProduct(product.productIdentifier, handler: { (identifier, error) in
-                
+                if error != nil {
+                    self.stopLoadingAnimation()
+                    print(error?.localizedDescription ?? "")
+                    return
+                }
                 Configure.shared.checkVipAvailable({ (availabel) in
                     if availabel {
-                        self.vc?.showAlert(title: "已成功升级到高级帐户！")
+                        self.vc?.showAlert(title: /"SubscribedSuccess")
                         self.dismiss(nil)
                     } else {
-                        self.vc?.showAlert(title: "没有完成订阅😢")
+                        self.vc?.showAlert(title: /"SubscribeFailed")
                     }
                     self.stopLoadingAnimation()
                 })
@@ -51,6 +94,9 @@ class PurchaseView: UIView {
     }
 
     @IBAction func dismiss(_ sender: Any?) {
+        if let vc = vc as? SettingsViewController {
+            vc.tableView.reloadData()
+        }
         removeFromSuperview()
     }
     

@@ -51,11 +51,28 @@ class FilesViewController: UIViewController {
         super.viewDidLoad()
         
         if isPhone && root == nil {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
         }
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_edit"), style: .plain, target: self, action: #selector(showCreateMenu))
-
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_edit"), style: .plain, target: self, action: #selector(showCreateMenu))
+        
+        let pulldDownLabel = UILabel()
+        pulldDownLabel.text = /"ReleaseToCreate"
+        pulldDownLabel.textAlignment = .center
+        pulldDownLabel.setTextColor(.secondary)
+        pulldDownLabel.font = UIFont.font(ofSize: 14)
+        tableView.addPullDownView(pulldDownLabel, disposeBag: disposeBag) { [unowned self] _ in
+            guard let file = self.root?.createFile(name: /"Untitled", type: .text ) else {
+                return
+            }
+            file.isBlank = true
+            
+            self.childrens.insert(file, at: 0)
+            Configure.shared.editingFile.value = file
+            if isPhone {
+                self.performSegue(withIdentifier: "edit", sender: file)
+            }
+        }
         navBar?.setBarTintColor(.navBar)
         navBar?.setContentColor(.navBarTint)
         tableView.setBackgroundColor(.tableBackground)

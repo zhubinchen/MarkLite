@@ -51,6 +51,7 @@ class Configure: NSObject, NSCoding {
         if appVersion != currentVerion {
             upgrade()
         }
+        checkVipAvailable()
     }
     
     func checkVipAvailable(_ completion:((Bool)->Void)? = nil){
@@ -69,6 +70,9 @@ class Configure: NSObject, NSCoding {
             let expiredDate = vipIdentifier.map{ products[$0] ?? Date(timeIntervalSince1970: 0) }.max() ?? Date(timeIntervalSince1970: 0)
 
             self.isVip = expiredDate.isFuture
+            
+            print("会员到期\(expiredDate.readableDate())")
+            print("会员状态\(self.isVip)")
         }
     }
     
