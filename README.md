@@ -34,15 +34,16 @@ MarkLite 是一个极简风格的markdown编辑器，界面干净，运行流畅
 
 ### Todo
 
-[X]Dropbox同步
-[X]3D-Touch支持
-[X]更多扩展语法
+[x] Dropbox同步
+[x] 3D-Touch支持
+[x] 更多扩展语法
+
+### 历史版本
+`release` 分支中包含了所有版本
 
 ### 联系作者
 ##### Email:[cheng4741@gmail.com](mailto:cheng4741@gmail.com)
 
 ### 开源协议
-
-希望本app或者源代码能对你有所帮助，也欢迎在此基础上写出更好用的作品。同时也希望能尊重他人劳动成果，不要改个名字变成自己的app就拿去上线。
 
 本项目使用`SATA`协议。详见[LICENSE](LICENSE.txt)文件。
