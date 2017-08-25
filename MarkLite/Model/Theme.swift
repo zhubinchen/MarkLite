@@ -52,19 +52,19 @@ extension Theme {
     var displayName: String {
         switch self {
         case .white:
-            return "简洁白"
+            return /"ThemeWhite"
         case .black:
-            return "高端黑"
+            return /"ThemeBlack"
         case .blue:
-            return "清新蓝"
+            return /"ThemeBlue"
         case .red:
-            return "中国红"
+            return /"ThemeRed"
         case .purple:
-            return "风骚紫"
+            return /"ThemePurple"
         case .pink:
-            return "脑残粉"
+            return /"ThemePink"
         case .green:
-            return "原谅绿"
+            return /"ThemeGreen"
         }
     }
 }

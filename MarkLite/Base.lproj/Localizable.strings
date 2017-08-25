@@ -109,3 +109,10 @@
 
 "Instructions"="Instructions";
 
+"ThemeWhite"="White";
+"ThemeBlack"="Dark";
+"ThemeBlue"="Blue";
+"ThemeRed"="Red";
+"ThemePurple"="Purple";
+"ThemePink"="Pink";
+"ThemeGreen"="Green";
