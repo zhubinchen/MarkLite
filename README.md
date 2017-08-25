@@ -1,9 +1,7 @@
 
 [![Codewake](https://img.shields.io/badge/build-success-brightgreen.svg)]()
-[![Codewake](https://img.shields.io/badge/release-v%204.1-blue.svg)]()
-
-[![Codewake](https://www.codewake.com/badges/codewake.svg)](https://www.codewake.com/p/marklite)
-[![Codewake](https://www.codewake.com/badges/codewake2.svg)](https://www.codewake.com/p/marklite)
+[![Codewake](https://img.shields.io/badge/release-v.42-brightgreen.svg)]()
+[![Codewake](https://img.shields.io/badge/license-MIT-green.svg)]()
 [![Codewake](https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg)](https://saythanks.io/inbox)
 
 ### 简介
@@ -17,6 +15,10 @@ MarkLite 是一个极简风格的markdown编辑器，界面干净，运行流畅
 有任何Bug或者改进意见欢迎提issue。
 
 想要支持本项目，欢迎可以去AppStore下载一个内购版的👏
+
+### 运行截图
+![iPad_ScreenShot.jpg](https://i.loli.net/2017/08/25/599fe7b70664b.jpg)
+![iPhone_ScreenShot.jpg](https://i.loli.net/2017/08/25/599fe7b70dff6.jpg)
 
 ### 功能
 
@@ -34,9 +36,9 @@ MarkLite 是一个极简风格的markdown编辑器，界面干净，运行流畅
 
 ### Todo
 
-[x] Dropbox同步
-[x] 3D-Touch支持
-[x] 更多扩展语法
++ Dropbox同步
++ 3D-Touch支持
++ 更多扩展语法
 
 ### 历史版本
 `release` 分支中包含了所有版本
@@ -46,4 +48,4 @@ MarkLite 是一个极简风格的markdown编辑器，界面干净，运行流畅
 
 ### 开源协议
 
-本项目使用`SATA`协议。详见[LICENSE](LICENSE.txt)文件。
+本项目使用[LGPL](https://www.gnu.org/licenses/lgpl-3.0.html)协议。详见[LICENSE](LICENSE)文件。
