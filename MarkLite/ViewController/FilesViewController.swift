@@ -146,10 +146,14 @@ class FilesViewController: UIViewController {
             root?.children.forEach({ (file) in
                 
                 if file.isBlank {
-                    if let value = Configure.shared.editingFile.value, value == file, isPad {
+                    if let value = Configure.shared.editingFile.value,
+                        value == file,
+                        isPad {
                         return
                     }
-                    file.trash()
+                    if Configure.shared.isAutoClearEnabled {
+                        file.trash()
+                    }
                 }
             })
             childrens = root!.children.sorted{$0.0.modifyDate < $0.1.modifyDate}
