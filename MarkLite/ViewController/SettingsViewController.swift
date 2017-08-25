@@ -134,15 +134,11 @@ extension SettingsViewController {
     }
     
     func rate() {
-        UIApplication.shared.open(URL(fileURLWithPath:rateUrl), options: [ : ], completionHandler: {
-            (success) in
-        })
+        UIApplication.shared.openURL(URL(string: rateUrl)!)
     }
     
     func feedback() {
-        UIApplication.shared.open(URL(fileURLWithPath:emailUrl), options: [ : ], completionHandler: {
-            (success) in
-        })
+        UIApplication.shared.openURL(URL(string: emailUrl)!)
     }
     
     func night(_ sender: UISwitch) {

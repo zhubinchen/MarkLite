@@ -97,10 +97,7 @@ class FilesViewController: UIViewController {
             if Configure.shared.newVersionAvaliable {
                 showAlert(title: /"UpgradeTitle", message: /"UpgradeTips", actionTitles: [/"Upgrade",/"DontUpgrade"], actionHandler: { (index) in
                     if index == 0 {
-                        //UIApplication.shared.upgradeUrl
-                        UIApplication.shared.open(URL(fileURLWithPath:upgradeUrl), options: [ : ], completionHandler: {
-                            (success) in
-                        })
+                        UIApplication.shared.openURL(URL(string: upgradeUrl)!)
                     }
                 })
             }
