@@ -1,5 +1,3 @@
-### 不是完整版，还在用swift重写中...更好的版本正在向你招手，欢迎关注
-
 
 [![Codewake](https://img.shields.io/badge/build-success-brightgreen.svg)]()
 [![Codewake](https://img.shields.io/badge/release-v%204.1-blue.svg)]()
@@ -10,24 +8,35 @@
 
 ### 简介
 
-MarkLite 是极简风格的markdown编辑器，界面主色调只有简单的黑白两色，大小只有1.5M左右，功能上一直保持够用而不冗余。如果你像我一样是个极简主义者，一定不会想要错过它。
+MarkLite 是一个极简风格的markdown编辑器，界面干净，运行流畅，没有多余的元素，只保留一个编辑器它应有的样子。
+
+编辑过程中由于有辅助键盘的助攻，你不用担心各种符号让你来回切换。图片一键导入，免去你上传图片粘贴链接的麻烦。如果你像我一样是个极简主义者，一定不会想要错过它。
 
 目前支持的语言有英语、简体中文、繁体。
 
-有任何Bug或者改进意见欢迎提issue
+有任何Bug或者改进意见欢迎提issue。
+
+想要支持本项目，欢迎可以去AppStore下载一个内购版的👏
 
 ### 功能
 
+* 支持夜间模式，以及多种主题
 * 支持从其他app打开md文件
-* 图片本地引用
 * 代码块内部高亮，有多种样式
+* iPad同屏预览，iPhone滑动切换编辑预览
 * 支持iCloud存储，可以在不同设备上共享文件
-* 可以导出多种格式，PDF，Web页面等
+* 可以导出多种格式，PDF，Web页面，图片等
 * 一键插入图片并上传到图床
 * 快速的渲染，支持多种`CSS`
 * 支持Airdrop导入导出
 * 标准的`Markdown`语法和扩展语法
 * 键盘工具条辅助输入
+
+### Todo
+
+[X]Dropbox同步
+[X]3D-Touch支持
+[X]更多扩展语法
 
 ### 联系作者
 ##### Email:[cheng4741@gmail.com](mailto:cheng4741@gmail.com)
