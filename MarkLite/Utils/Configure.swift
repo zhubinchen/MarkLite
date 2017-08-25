@@ -23,7 +23,7 @@ class Configure: NSObject, NSCoding {
     var currentVerion: String?
     var isVip = false
     var isOldUser = false
-    var isAutoClearEnabled = false
+    var isAutoClearEnabled = true
     let isAssistBarEnabled = Variable(true)
     let markdownStyle = Variable("GitHub2")
     let highlightStyle = Variable("github")
