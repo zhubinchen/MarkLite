@@ -44,8 +44,6 @@
 		07D069811F4FF85A00162B7A /* FileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D069351F4FF85A00162B7A /* FileTableViewCell.swift */; };
 		07D069821F4FF85A00162B7A /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D069361F4FF85A00162B7A /* ImagePicker.swift */; };
 		07D069831F4FF85A00162B7A /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D069371F4FF85A00162B7A /* MenuView.swift */; };
-		07D069841F4FF85A00162B7A /* PurchaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D069381F4FF85A00162B7A /* PurchaseView.swift */; };
-		07D069851F4FF85A00162B7A /* PurchaseView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 07D069391F4FF85A00162B7A /* PurchaseView.xib */; };
 		07D069861F4FF85A00162B7A /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D0693B1F4FF85A00162B7A /* EditViewController.swift */; };
 		07D069871F4FF85A00162B7A /* FilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D0693C1F4FF85A00162B7A /* FilesViewController.swift */; };
 		07D069881F4FF85A00162B7A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D0693D1F4FF85A00162B7A /* NavigationController.swift */; };
@@ -109,8 +107,6 @@
 		07D069351F4FF85A00162B7A /* FileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileTableViewCell.swift; sourceTree = "<group>"; };
 		07D069361F4FF85A00162B7A /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		07D069371F4FF85A00162B7A /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
-		07D069381F4FF85A00162B7A /* PurchaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PurchaseView.swift; sourceTree = "<group>"; };
-		07D069391F4FF85A00162B7A /* PurchaseView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PurchaseView.xib; sourceTree = "<group>"; };
 		07D0693B1F4FF85A00162B7A /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		07D0693C1F4FF85A00162B7A /* FilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesViewController.swift; sourceTree = "<group>"; };
 		07D0693D1F4FF85A00162B7A /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -167,11 +163,11 @@
 				07D068101F4FF5B200162B7A /* AppDelegate.swift */,
 				07D068DE1F4FF85A00162B7A /* Core */,
 				07D068F71F4FF85A00162B7A /* Model */,
-				07D068FA1F4FF85A00162B7A /* Resource */,
-				07D069251F4FF85A00162B7A /* StoryBoard */,
 				07D0692A1F4FF85A00162B7A /* Utils */,
 				07D069321F4FF85A00162B7A /* View */,
 				07D0693A1F4FF85A00162B7A /* ViewController */,
+				07D068FA1F4FF85A00162B7A /* Resource */,
+				07D069251F4FF85A00162B7A /* StoryBoard */,
 				07D068171F4FF5B200162B7A /* Assets.xcassets */,
 				07713E171F4FFC5400CE7F44 /* Info.plist */,
 				07D068191F4FF5B200162B7A /* LaunchScreen.storyboard */,
@@ -270,8 +266,6 @@
 				07D069351F4FF85A00162B7A /* FileTableViewCell.swift */,
 				07D069361F4FF85A00162B7A /* ImagePicker.swift */,
 				07D069371F4FF85A00162B7A /* MenuView.swift */,
-				07D069381F4FF85A00162B7A /* PurchaseView.swift */,
-				07D069391F4FF85A00162B7A /* PurchaseView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -391,7 +385,6 @@
 				07D069751F4FF85A00162B7A /* Main_iPad.storyboard in Resources */,
 				07D069731F4FF85A00162B7A /* style.zip in Resources */,
 				07D069741F4FF85A00162B7A /* Edit.storyboard in Resources */,
-				07D069851F4FF85A00162B7A /* PurchaseView.xib in Resources */,
 				07D069761F4FF85A00162B7A /* Main_iPhone.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -514,7 +507,6 @@
 				07D0698D1F4FF85A00162B7A /* WrapViewController.swift in Sources */,
 				07D0694C1F4FF85A00162B7A /* stack.c in Sources */,
 				07D069781F4FF85A00162B7A /* Configure.swift in Sources */,
-				07D069841F4FF85A00162B7A /* PurchaseView.swift in Sources */,
 				07D069881F4FF85A00162B7A /* NavigationController.swift in Sources */,
 				07D0698B1F4FF85A00162B7A /* TextViewController.swift in Sources */,
 				07D069471F4FF85A00162B7A /* escape.c in Sources */,

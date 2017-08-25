@@ -93,15 +93,7 @@ extension String {
 extension UIViewController {
     
     func checkVIP() -> Bool {
-        if Configure.shared.isVip {
-            return true
-        }
-        showAlert(title: /"VIPOnly", message: nil, actionTitles: [/"Cancel",/"SubscribeNow"]) { (index) in
-            if index == 1 {
-                PurchaseView.showWithViewController(self)
-            }
-        }
-        return false
+        return true
     }
     
     @discardableResult

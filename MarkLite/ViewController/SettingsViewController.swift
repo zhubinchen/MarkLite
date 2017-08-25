@@ -26,7 +26,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     let items = [
         ("功能",[
-            ("VIP",Configure.shared.isVip ? /"SubscribeNow" : /"Subscribed",#selector(purchase)),
             ("AssistKeyboard","",#selector(assistBar)),
             ("AutoClear","",#selector(autoClear)),
             ]),
@@ -129,9 +128,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 
 extension SettingsViewController {
     
-    func purchase() {
-        PurchaseView.showWithViewController(self)
-    }
     
     func rate() {
         UIApplication.shared.openURL(URL(string: rateUrl)!)
