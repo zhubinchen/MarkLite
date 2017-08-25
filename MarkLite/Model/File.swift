@@ -66,7 +66,7 @@ class File {
         return _children
     }
     
-    fileprivate weak var parent: File?
+    fileprivate(set) weak var parent: File?
     fileprivate var _children: [File] = [File]()
     
     fileprivate var fullName: String {
@@ -76,7 +76,7 @@ class File {
     var isBlank = false
     var isSelected = false
     
-    init(path:String, loadChildren: Bool = false) {
+    init(path:String) {
         self.path = path
         self.name = path.components(separatedBy: "/").last?.components(separatedBy: ".").first ?? ""
         
@@ -202,7 +202,7 @@ extension File {
     
     class func loadLocal(_ completion: @escaping (File)->Void) {
         DispatchQueue.global().async {
-            let local = File(path: localPath,loadChildren: true)
+            let local = File(path: localPath)
             DispatchQueue.main.sync {
                 completion(local)
             }
@@ -217,7 +217,7 @@ extension File {
                     completion(cloud)
                 }
             }
-            cloud = File(path: iCloudPath,loadChildren: true)
+            cloud = File(path: iCloudPath)
         }
     }
     

@@ -86,14 +86,18 @@ class Configure: NSObject, NSCoding {
         let samplesPath = Bundle.main.url(forResource: "samples", withExtension: "zip")
         let destSamplesPath = URL(fileURLWithPath: localPath)
         try! Zip.unzipFile(samplesPath!, destination: destSamplesPath, overwrite: true, password: nil, progress: nil)
-        
-        try! FileManager.default.createDirectory(atPath: draftPath, withIntermediateDirectories: true, attributes: nil)
+        try? FileManager.default.moveItem(atPath: localPath + "/samples/" + /"Instructions", toPath: localPath + "/" + /"Instructions")
+        try? FileManager.default.removeItem(atPath: localPath + "/samples")
+        try? FileManager.default.createDirectory(atPath: draftPath, withIntermediateDirectories: true, attributes: nil)
+        save()
     }
     
     func upgrade() {
+        reset()
+
         currentVerion = appVersion
         isOldUser = true
-        reset()
+        save()
     }
     
     func save() {
@@ -113,12 +117,11 @@ class Configure: NSObject, NSCoding {
     
     required init?(coder aDecoder: NSCoder) {
         super.init()
-
         currentVerion = aDecoder.decodeObject(forKey: "currentVersion") as? String
-        isOldUser = aDecoder.decodeObject(forKey: "isOldUser") as? Bool ?? false
-        isVip = aDecoder.decodeObject(forKey: "isVip") as? Bool ?? false
-        isAutoClearEnabled = aDecoder.decodeObject(forKey: "isAutoClearEnabled") as? Bool ?? true
-        isAssistBarEnabled.value = aDecoder.decodeObject(forKey: "isAssistBarEnabled") as? Bool ?? true
+        isOldUser = aDecoder.decodeBool(forKey: "isOldUser")
+        isVip = aDecoder.decodeBool(forKey: "isVip")
+        isAutoClearEnabled = aDecoder.decodeBool(forKey: "isAutoClearEnabled")
+        isAssistBarEnabled.value = aDecoder.decodeBool(forKey: "isAssistBarEnabled")
         markdownStyle.value = aDecoder.decodeObject(forKey: "markdownStyle") as? String ?? "GitHub2"
         highlightStyle.value = aDecoder.decodeObject(forKey: "highlightStyle") as? String ?? "rainbow"
         theme.value = Theme(rawValue:aDecoder.decodeObject(forKey: "theme") as? String ?? "") ?? .white

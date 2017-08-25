@@ -17,6 +17,23 @@ class FilesViewController: UIViewController {
         didSet {
             tableView.estimatedRowHeight = 50
             tableView.rowHeight = UITableViewAutomaticDimension
+            let pulldDownLabel = UILabel()
+            pulldDownLabel.text = /"ReleaseToCreate"
+            pulldDownLabel.textAlignment = .center
+            pulldDownLabel.setTextColor(.secondary)
+            pulldDownLabel.font = UIFont.font(ofSize: 14)
+            tableView.addPullDownView(pulldDownLabel, disposeBag: disposeBag) { [unowned self] _ in
+                guard let file = self.root?.createFile(name: /"Untitled", type: .text ) else {
+                    return
+                }
+                file.isBlank = true
+                
+                self.childrens.insert(file, at: 0)
+                Configure.shared.editingFile.value = file
+                if isPhone {
+                    self.performSegue(withIdentifier: "edit", sender: file)
+                }
+            }
         }
     }
     
@@ -40,6 +57,8 @@ class FilesViewController: UIViewController {
     
     var textField: UITextField?
     
+    var isHomePage = false
+    
     override var title: String? {
         didSet {
             titleButton.setTitle(title, for: .normal)
@@ -50,37 +69,28 @@ class FilesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if isPhone && root == nil {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
-        }
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_edit"), style: .plain, target: self, action: #selector(showCreateMenu))
-        
-        let pulldDownLabel = UILabel()
-        pulldDownLabel.text = /"ReleaseToCreate"
-        pulldDownLabel.textAlignment = .center
-        pulldDownLabel.setTextColor(.secondary)
-        pulldDownLabel.font = UIFont.font(ofSize: 14)
-        tableView.addPullDownView(pulldDownLabel, disposeBag: disposeBag) { [unowned self] _ in
-            guard let file = self.root?.createFile(name: /"Untitled", type: .text ) else {
-                return
-            }
-            file.isBlank = true
-            
-            self.childrens.insert(file, at: 0)
-            Configure.shared.editingFile.value = file
-            if isPhone {
-                self.performSegue(withIdentifier: "edit", sender: file)
-            }
-        }
-        navBar?.setBarTintColor(.navBar)
-        navBar?.setContentColor(.navBarTint)
-        tableView.setBackgroundColor(.tableBackground)
-        view.setBackgroundColor(.background)
-        
         if root == nil {
+            isHomePage = true
+            RecievedNewFile.observe(eventBlock: { [weak self] (path) in
+                self?.title = /"LocalFile"
+                File.loadLocal{
+                    let name = path.components(separatedBy: "/").last ?? "Untitled"
+                    self?.root = $0
+                    self?.showAlert(title: /"ReceivedNewFile" + name)
+                }
+            })
+        }
+        
+        setupUI()
+        loadFiles()
+    }
+    
+    func loadFiles() {
+        if isHomePage {
+            
             title = /"LocalFile"
             File.loadLocal{ self.root = $0 }
+
             titleButton.titleLabel?.font = UIFont.font(ofSize: 18)
             navigationItem.titleView = titleButton
             titleButton.addTarget(self, action: #selector(showStorageMenu), for: .touchUpInside)
@@ -99,12 +109,25 @@ class FilesViewController: UIViewController {
             titleTextField.setTextColor(.navBarTint)
             titleTextField.delegate = self
         }
+    }
+    
+    func setupUI() {
+        if isPhone && isHomePage {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
+        }
         
         if isPad {
             navigationController?.delegate = navigationController
             navigationController?.delegate = navigationController
             navigationController?.interactivePopGestureRecognizer?.delegate = navigationController
         }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_edit"), style: .plain, target: self, action: #selector(showCreateMenu))
+        
+        navBar?.setBarTintColor(.navBar)
+        navBar?.setContentColor(.navBarTint)
+        tableView.setBackgroundColor(.tableBackground)
+        view.setBackgroundColor(.background)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -123,7 +146,7 @@ class FilesViewController: UIViewController {
             root?.children.forEach({ (file) in
                 
                 if file.isBlank {
-                    if let value = Configure.shared.editingFile.value, value == file {
+                    if let value = Configure.shared.editingFile.value, value == file, isPad {
                         return
                     }
                     file.trash()
@@ -151,8 +174,6 @@ class FilesViewController: UIViewController {
                         File.loadLocal{ self.root = $0 }
                     } else if index == 1 {
                         File.loadCloud{ self.root = $0 }
-                    } else {
-                        File.loadDropbox{ self.root = $0 }
                     }
         }.show()
     }

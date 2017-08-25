@@ -71,6 +71,8 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
             popoverPresentationController.sourceRect = sourceView.bounds
         } else if let vc = segue.destination as? EditViewController {
             editVC = vc
+        } else if let vc = segue.destination as? FilesViewController {
+            vc.root = Configure.shared.editingFile.value?.parent
         }
     }
     

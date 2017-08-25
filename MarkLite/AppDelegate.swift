@@ -24,6 +24,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        if FileManager.default.fileExists(atPath: url.path) {
+            let oldPath = url.path
+            let fileName = oldPath.components(separatedBy: "/").last ?? /"Untitled"
+            let recievedPath = localPath + "/" + /"ReceivedFiles"
+            let newPath = recievedPath + "/" + fileName
+            
+            do {
+                try FileManager.default.createDirectory(atPath: recievedPath, withIntermediateDirectories: true, attributes: nil)
+                try FileManager.default.moveItem(atPath: oldPath, toPath: newPath)
+                RecievedNewFile.post(info: newPath)
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
         if let authResult = DropboxClientsManager.handleRedirectURL(url) {
             switch authResult {
             case .success:
@@ -36,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return true
     }
+    
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         ApplicationWillTerminate.post(info: nil)
@@ -62,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         
-        if latestVersion != currentVersion {
+        if (latestVersion.toDouble() ?? 0) > (currentVersion?.toDouble() ?? 0) {
             Configure.shared.newVersionAvaliable = true
         }
     }

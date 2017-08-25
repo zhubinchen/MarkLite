@@ -66,9 +66,9 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>拍摄图片，需要开启照相机权限</string>
+	<string>Use your camera to pick a picture</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>选择图片，需要开启相册权限</string>
+	<string>Choose a picture from your Photos.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

@@ -1,7 +1,110 @@
-/* 
-  Localizable.strings
-  MarkLite
+/*
+ Localizable.strings
+ MarkLite
+ 
+ Created by zhubch on 2017/8/21.
+ Copyright © 2017年 zhubch. All rights reserved.
+ */
 
-  Created by zhubch on 2017/8/21.
-  Copyright © 2017年 zhubch. All rights reserved.
-*/
+"LocalFile"="本地文件";
+"CloudFile"="iCloud";
+"Dropbox"="Dropbox";
+
+"Settings"="設定";
+
+"Today"="今天";
+"Yesterday"="昨天";
+"Children"="子文件";
+
+"CreateNote"="新建文檔";
+"CreateFolder"="新建文件夾";
+"ReleaseToCreate"="松手創建文檔";
+
+"Untitled"="未命名";
+"UntitledFolder"="未命名文件夾";
+
+"Preview"="預覽";
+"Undo"="撤銷";
+"Redo"="重做";
+"Characters"="字符";
+
+"PDF"="PDF 文檔";
+"WebPage"="Web 頁面";
+"Image"="圖片";
+"Markdown"="Markdown";
+
+"VIP"="升級到高級帳戶";
+"AssistKeyboard"="輔助鍵盤";
+"AutoClear"="自動清理空白文件";
+"NightMode"="夜間模式";
+"Theme"="主題色";
+"Feedback"="問題與意見";
+"RateIt"="五星好評";
+"Style"="渲染樣式";
+"CodeStyle"="程式塊樣式";
+
+"VIPOnly"="該功能需開通高級帳戶";
+"SubscribeNow"="立即開通";
+"Subscribed"="立即開通";
+
+"MonthlyVIP"="按月訂閱";
+"AnnualVIP"="按年訂閱";
+"MonthlyPrice"="¥6／月";
+"AnnualPrice"="¥58／年";
+"FreeTrial"="免費試用1周";
+"SubsribeTips"="升級到高級帳戶後，你將獲得以下額外功能：\n1. 可導出所有格式(PDF,HTML,JPG)\n2. 可使用更多渲染樣式\n3. 可更改主題顔色\n4. 後續版本中添加的更多特性";
+"CancelSubsribeTips"="你隨時可以取消這些訂閱";
+"Restore"="恢複訂閱";
+"SubscribeFailed"="沒有完成訂閱";
+"SubscribedSuccess"="已成功訂閱高級帳戶";
+"RestoreFailed"="沒有有效的訂閱記錄，請重新訂閱";
+"RestoreSuccess"="已恢複訂閱";
+
+"OK"="確定";
+"Close"="關閉";
+"Cancel"="取消";
+
+"Delete"="刪除";
+"Rename"="重命名";
+"LastUpdate"="上次修改: ";
+
+"DeleteMessage"="刪除後不可恢複，確定要刪除嗎？";
+"FileNameError"="請輸入正確的文件名";
+"RenameTips"="請輸入新的文件名";
+"InvalidCloud"="無法訪問iCloud目錄，請檢查您當前的設備是否登錄iCloud";
+"InsertHref"="添加鏈接";
+
+"Open"="打開";
+"Ignore"="忽略";
+"ReceivedNewFile"="收到新文件:";
+"ReceivedFiles" = "收到的文件";
+"Error"="出錯了";
+
+"UpgradeTitle"="MarkLite更新啦";
+"UpgradeTips"="為了有更好的使用體驗，建議升級到最新版！";
+"Upgrade"="更新";
+"DontUpgrade"="以後再說";
+
+"StartEdit"="寫點什麽吧";
+"Header"="標題";
+"Header1"="一級標題";
+"Header2"="二級標題";
+"Header3"="三級標題";
+"Header4"="四級標題";
+"StrongText"="加粗文本";
+"EmphasizedText"="強調文本";
+"Blockquote"="引用";
+"Delection"="要刪除的文本";
+"EnterCode"="代碼";
+"EnterLink"="在這輸入連接描述";
+"EnterPlaceholder"="在這輸入圖片占位文本";
+
+"PickImage"="選取圖片";
+"Photo"="相冊";
+"Camera"="相機";
+"CameraError"="沒有訪問相機的權限";
+"PhotoError"="沒有訪問照片的權限";
+"EnableCameraTips"="去iPhone的【設定】圖標，打開【隱私】，打開【相機】，找到【MarkLite】開啓即可";
+"EnablePhotoTips"="去iPhone的【設定】圖標，打開【隱私】，打開【照片】，找到【MarkLite】開啓即可";
+
+"Instructions"="使用說明";

@@ -45,6 +45,7 @@
 
 "VIPOnly"="该功能需开通高级帐户";
 "SubscribeNow"="立即开通";
+"Subscribed"="已开通";
 
 "MonthlyVIP"="按月订阅";
 "AnnualVIP"="按年订阅";
@@ -75,7 +76,9 @@
 
 "Open"="打开";
 "Ignore"="忽略";
-"ReceivedNewFile"="收到新文件：%@";
+"ReceivedNewFile"="收到新文件:";
+"ReceivedFiles" = "收到的文件";
+
 "Error"="出错了";
 
 "UpgradeTitle"="MarkLite更新啦";
@@ -97,8 +100,6 @@
 "EnterLink"="在这输入连接描述";
 "EnterPlaceholder"="在这输入图片占位文本";
 
-"Recieved"="收到的文件";
-
 "PickImage"="选取图片";
 "Photo"="相册";
 "Camera"="相机";
@@ -106,3 +107,6 @@
 "PhotoError"="没有访问照片的权限";
 "EnableCameraTips"="去iPhone的【设置】图标，打开【隐私】，打开【相机】，找到【MarkLite】开启即可";
 "EnablePhotoTips"="去iPhone的【设置】图标，打开【隐私】，打开【照片】，找到【MarkLite】开启即可";
+
+"Instructions"="使用教程";
+

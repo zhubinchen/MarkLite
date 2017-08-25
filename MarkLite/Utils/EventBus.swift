@@ -45,3 +45,9 @@ class ApplicationWillTerminate: EventBus{
     typealias InfoType = Void
     static var name = Notification.Name("ApplicationWillTerminate")
 }
+
+class RecievedNewFile: EventBus{
+    
+    typealias InfoType = String
+    static var name = Notification.Name("RecievedNewFile")
+}

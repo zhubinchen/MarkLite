@@ -185,7 +185,7 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
-                                                <action selector="subscribeMonthlyVIP:" destination="iN0-l3-epB" eventType="touchUpInside" id="d8k-2o-qhc"/>
+                                                <action selector="oldUserVIP:" destination="iN0-l3-epB" eventType="touchUpInside" id="d2r-hO-tPj"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -237,7 +237,7 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
-                                                <action selector="subscribeAnnualVIP:" destination="iN0-l3-epB" eventType="touchUpInside" id="1ov-Nj-RHg"/>
+                                                <action selector="premiumUserVIP:" destination="iN0-l3-epB" eventType="touchUpInside" id="b9r-5W-M8d"/>
                                             </connections>
                                         </button>
                                     </subviews>

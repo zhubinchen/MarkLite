@@ -18,8 +18,9 @@ class PurchaseView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        let language = UserDefaults.standard.string(forKey: "AppleLanguages")
-        if language == "zh-Hans" && Configure.shared.isOldUser {
+        let language = NSLocale.preferredLanguages.first ?? ""
+
+        if language.hasPrefix("zh-Han") && Configure.shared.isOldUser {
             oldUserView.isHidden = false
             premiumUserView.isHidden = false
         } else {
@@ -36,12 +37,13 @@ class PurchaseView: UIView {
         purchaseProduct(annualVIPProductID)
     }
     
-    @IBAction func oldUserAnnualVIP(_ sender: UIButton) {
+    @IBAction func oldUserVIP(_ sender: UIButton) {
         purchaseProduct(oldUserVIPProductID)
     }
     
-    @IBAction func premiumUserAnnualVIP(_ sender: UIButton) {
-
+    @IBAction func premiumUserVIP(_ sender: UIButton) {
+        Configure.shared.isVip = true
+        vc?.showAlert(title: "感谢你的支持，已经为你免费开通", message: "你将永久获得高级帐户，除非你卸载", actionTitles: ["知道了"])
     }
     
     @IBAction func restoreVIP(_ sender: UIButton) {

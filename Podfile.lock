@@ -1,10 +1,10 @@
 PODS:
   - Alamofire (4.4.0)
   - EZSwiftExtensions (1.10)
-  - RxCocoa (3.5.0):
-    - RxSwift (~> 3.4)
-  - RxSwift (3.5.0)
-  - SideMenu (2.3.2)
+  - RxCocoa (3.6.1):
+    - RxSwift (~> 3.6)
+  - RxSwift (3.6.1)
+  - SideMenu (2.3.3)
   - SwiftyDropbox (4.1.2):
     - Alamofire (~> 4.4.0)
   - SwipeCellKit (1.9.0)
@@ -23,9 +23,9 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   EZSwiftExtensions: 172160bfb3635161c8b833d9111961ff3e6f517d
-  RxCocoa: a0a09f45d0e5b48ecb6a4a7b4b4c89c88d3f633f
-  RxSwift: 18ee9d78b45edb3b0b7e79916b47a116e6dbc842
-  SideMenu: 3fa07dd05d4bade2b6f9889fb1877e312e1ba319
+  RxCocoa: 84a08739ab186248c7f31ce4ee92d6f8a947d690
+  RxSwift: f9de85ea20cd2f7716ee5409fc13523dc638e4e4
+  SideMenu: a447554ae5c982e8077666389e1c8b0c8656e065
   SwiftyDropbox: eb79d166c2850e50eed01c280c7c64b4b69c50a5
   SwipeCellKit: 893661973276ae3512a84ac0a47055923b10731e
   Zip: e34513299ac38c0686d5b24504da7ce343799ab9

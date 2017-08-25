@@ -35,6 +35,7 @@
 
 "VIPOnly"="This function is vip only";
 "SubscribeNow"="Subscribe it now";
+"Subscribed"="Subscribed";
 
 "VIP"="Subscribe VIP";
 "AssistKeyboard"="Keyboard assist bar";
@@ -76,7 +77,8 @@
 
 "Open"="Open it";
 "Ignore"="Ignore";
-"ReceivedNewFile"="Received new file: %@";
+"ReceivedNewFile"="Received new file:";
+"ReceivedFiles" = "Received files";
 
 "UpgradeTitle"="New version is available!";
 "UpgradeTips"="Upgrade to the latest version to have a better experience!😄";
@@ -96,7 +98,6 @@
 "EnterCode"="Enter code here";
 "EnterLink"="Enter link description here";
 "EnterPlaceholder"="Enter placeholder here";
-"Recieved"="Recieved files";
 
 "PickImage"="Pick an image";
 "Photo"="Image Library";
@@ -105,4 +106,6 @@
 "PhotoError"="Can not access yours photos";
 "EnableCameraTips"="Tap \"settings\" icon, find and tap \"privacy\", tap \"Camera\", find \"MarkLite\" and enable it.";
 "EnablePhotoTips"="Tap \"settings\" icon, find and tap \"privacy\", tap \"Photos\", find \"MarkLite\" and enable it.";
+
+"Instructions"="Instructions";
 

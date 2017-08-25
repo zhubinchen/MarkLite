@@ -26,7 +26,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     let items = [
         ("功能",[
-            ("VIP",Configure.shared.isVip ? "已订阅" : "立即订阅",#selector(purchase)),
+            ("VIP",Configure.shared.isVip ? /"SubscribeNow" : /"Subscribed",#selector(purchase)),
             ("AssistKeyboard","",#selector(assistBar)),
             ("AutoClear","",#selector(autoClear)),
             ]),
@@ -50,17 +50,19 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         self.title = /"Settings"
         navBar?.setBarTintColor(.navBar)
         navBar?.setContentColor(.navBarTint)
+        tableView.setBackgroundColor(.tableBackground)
+
         themeSwitch.setTintColor(.navBarTint)
         assitBarSwitch.setTintColor(.navBarTint)
-        tableView.setBackgroundColor(.tableBackground)
+        autoClearSwitch.setTintColor(.navBarTint)
 
         themeSwitch.isOn = Configure.shared.theme.value == .black
         assitBarSwitch.isOn = Configure.shared.isAssistBarEnabled.value
-        assitBarSwitch.isOn = Configure.shared.isAutoClearEnabled
+        autoClearSwitch.isOn = Configure.shared.isAutoClearEnabled
         
         themeSwitch.addTarget(self, action: #selector(night(_:)), for: .valueChanged)
         assitBarSwitch.addTarget(self, action: #selector(assistBar(_:)), for: .valueChanged)
-        autoClearSwitch.addTarget(self, action: #selector(assistBar(_:)), for: .valueChanged)
+        autoClearSwitch.addTarget(self, action: #selector(autoClear(_:)), for: .valueChanged)
         
         navigationController?.delegate = navigationController
         navigationController?.delegate = navigationController
@@ -140,7 +142,9 @@ extension SettingsViewController {
     }
     
     func night(_ sender: UISwitch) {
-        Configure.shared.theme.value = sender.isOn ? .black : .white
+        if checkVIP() {
+            Configure.shared.theme.value = sender.isOn ? .black : .white
+        }
     }
     
     func assistBar(_ sender: UISwitch) {
