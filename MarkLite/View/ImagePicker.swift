@@ -52,8 +52,10 @@ class ImagePicker: NSObject {
         switch authStatus {
         case .denied:
             vc?.showAlert(title: /"PhotoError", message: /"EnablePhotoTips", actionTitles: [/"Cancel",/"Settings"]) { (index) in
-                if index == 1 {
-                    UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+                if index == 1 {                    
+                    UIApplication.shared.open(URL(fileURLWithPath:UIApplicationOpenSettingsURLString), options: [ : ], completionHandler: {
+                        (success) in
+                    })
                 }
             }
         case .notDetermined:
@@ -75,7 +77,9 @@ class ImagePicker: NSObject {
         case .denied:
             vc?.showAlert(title: /"CameraError", message: /"EnableCameraTips", actionTitles: [/"Cancel",/"Settings"]) { (index) in
                 if index == 1 {
-                    UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+                    UIApplication.shared.open(URL(fileURLWithPath:UIApplicationOpenSettingsURLString), options: [ : ], completionHandler: {
+                        (success) in
+                    })
                 }
             }
         case .notDetermined:

@@ -97,7 +97,10 @@ class FilesViewController: UIViewController {
             if Configure.shared.newVersionAvaliable {
                 showAlert(title: /"UpgradeTitle", message: /"UpgradeTips", actionTitles: [/"Upgrade",/"DontUpgrade"], actionHandler: { (index) in
                     if index == 0 {
-                        UIApplication.shared.openURL(URL(string: upgradeUrl)!)
+                        //UIApplication.shared.upgradeUrl
+                        UIApplication.shared.open(URL(fileURLWithPath:upgradeUrl), options: [ : ], completionHandler: {
+                            (success) in
+                        })
                     }
                 })
             }
@@ -158,6 +161,17 @@ class FilesViewController: UIViewController {
             })
             childrens = root!.children.sorted{$0.0.modifyDate < $0.1.modifyDate}
         }
+        
+        var childrens_ = [File]()
+        
+        for index in 0..<childrens.count {
+            if childrens[index].name != "__MACOSX" {
+                childrens_.append(childrens[index])
+            }
+        }
+        
+        childrens = childrens_
+        
         if isViewLoaded {
             tableView.reloadData()
         }
@@ -223,6 +237,7 @@ class FilesViewController: UIViewController {
 }
 
 extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         tableView.isHidden = childrens.count == 0
         return 1
