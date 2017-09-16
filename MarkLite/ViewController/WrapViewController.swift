@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import SideMenu
 
 class WrapViewController: UIViewController, UIPopoverPresentationControllerDelegate {
     
@@ -15,6 +16,8 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
     @IBOutlet weak var leftBarWidth: NSLayoutConstraint!
     
     @IBOutlet weak var statusBar: UIView!
+    @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var emptyTipsView: UILabel!
 
     @IBOutlet weak var topBar: UIView!
     @IBOutlet weak var leftBar: UIView!
@@ -25,6 +28,8 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
     let disposeBag = DisposeBag()
     
     var editVC: EditViewController?
+    
+    var filesVC: UISideMenuNavigationController?
     
     var _popoverPresentationController : UIPopoverPresentationController?
     
@@ -41,12 +46,26 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
         popoverPresentationController?.delegate = self
         
         statusBar.setBackgroundColor(.background)
+        emptyView.setBackgroundColor(.background)
+        emptyTipsView.setTextColor(.navBarTint)
+        
         topBar.setBackgroundColor(.navBar)
         leftBar.setBackgroundColor(.navBar)
         topBar.setTintColor(.navBarTint)
         leftBar.setTintColor(.navBarTint)
         topTitle.setTextColor(.navBarTint)
         leftTitle.setTextColor(.navBarTint)
+        
+        emptyView.addTapGesture { [unowned self] (_) in
+            self.showFiles(self)
+        }
+        
+        Configure.shared.editingFile.asObservable().map{ $0 != nil }.bind(to: emptyView.rx.isHidden).addDisposableTo(disposeBag)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showFiles(self)
     }
     
     override func viewWillLayoutSubviews() {
@@ -71,8 +90,16 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
             popoverPresentationController.sourceRect = sourceView.bounds
         } else if let vc = segue.destination as? EditViewController {
             editVC = vc
-        } else if let vc = segue.destination as? FilesViewController {
-            vc.root = Configure.shared.editingFile.value?.parent
+        } else if let nav = segue.destination as? UISideMenuNavigationController {
+            filesVC = nav
+        }
+    }
+    
+    @IBAction func showFiles(_ sender: Any) {
+        if let vc = filesVC {
+            presentVC(vc)
+        } else {
+            performSegue(withIdentifier: "showFiles", sender: sender)
         }
     }
     

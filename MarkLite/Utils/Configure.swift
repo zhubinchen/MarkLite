@@ -21,7 +21,9 @@ class Configure: NSObject, NSCoding {
     let isLandscape = Variable(false)
     
     var currentVerion: String?
-    var isVip = false
+    var upgradeDate = Date()
+    var alertDate = Date()
+    var hasRate = false
     var isOldUser = false
     var isAutoClearEnabled = true
     let isAssistBarEnabled = Variable(true)
@@ -51,32 +53,10 @@ class Configure: NSObject, NSCoding {
         if appVersion != currentVerion {
             upgrade()
         }
-        checkVipAvailable()
-    }
-    
-    func checkVipAvailable(_ completion:((Bool)->Void)? = nil){
-        IAP.validateReceipt(itunsSecretKey) { (statusCode, products, json) in
-            defer {
-                DispatchQueue.main.async {
-                    completion?(self.isVip)
-                }
-            }
-            guard let products = products else {
-                self.isVip = false
-                return
-            }
-            print("products: \(products)")
-            let vipIdentifier = [monthlyVIPProductID,annualVIPProductID,oldUserVIPProductID]
-            let expiredDate = vipIdentifier.map{ products[$0] ?? Date(timeIntervalSince1970: 0) }.max() ?? Date(timeIntervalSince1970: 0)
-
-            self.isVip = expiredDate.isFuture
-            
-            print("会员到期\(expiredDate.readableDate())")
-            print("会员状态\(self.isVip)")
-        }
     }
     
     func reset() {
+        upgradeDate = Date()
         currentVerion = appVersion
         
         let stylePath = Bundle.main.url(forResource: "style", withExtension: "zip")
@@ -97,6 +77,7 @@ class Configure: NSObject, NSCoding {
 
         currentVerion = appVersion
         isOldUser = true
+        upgradeDate = Date()
         save()
     }
     
@@ -107,19 +88,23 @@ class Configure: NSObject, NSCoding {
     func encode(with aCoder: NSCoder) {
         aCoder.encode(currentVerion, forKey: "currentVersion")
         aCoder.encode(isOldUser, forKey: "isOldUser")
-        aCoder.encode(isVip, forKey: "isVip")
+        aCoder.encode(hasRate, forKey: "hasRate")
         aCoder.encode(isAutoClearEnabled, forKey: "isAutoClearEnabled")
         aCoder.encode(isAssistBarEnabled.value, forKey: "isAssistBarEnabled")
         aCoder.encode(markdownStyle.value, forKey: "markdownStyle")
         aCoder.encode(highlightStyle.value, forKey: "highlightStyle")
         aCoder.encode(theme.value.rawValue, forKey: "theme")
+        aCoder.encode(upgradeDate, forKey: "upgradeDate")
+        aCoder.encode(alertDate, forKey: "alertDate")
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init()
         currentVerion = aDecoder.decodeObject(forKey: "currentVersion") as? String
+        upgradeDate = aDecoder.decodeObject(forKey: "upgradeDate") as? Date ?? Date()
+        alertDate = aDecoder.decodeObject(forKey: "alertDate") as? Date ?? Date()
         isOldUser = aDecoder.decodeBool(forKey: "isOldUser")
-        isVip = aDecoder.decodeBool(forKey: "isVip")
+        hasRate = aDecoder.decodeBool(forKey: "hasRate")
         isAutoClearEnabled = aDecoder.decodeBool(forKey: "isAutoClearEnabled")
         isAssistBarEnabled.value = aDecoder.decodeBool(forKey: "isAssistBarEnabled")
         markdownStyle.value = aDecoder.decodeObject(forKey: "markdownStyle") as? String ?? "GitHub2"

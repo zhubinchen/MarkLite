@@ -181,6 +181,7 @@ extension UIView {
             bg.backgroundColor = UIColor.clear
         }
         let v = UIActivityIndicatorView(activityIndicatorStyle: Configure.shared.theme.value == .black ? .whiteLarge : .gray)
+        v.setColor(.primary)
         bg.addSubview(v)
         v.center = bg.center
         v.startAnimating()
@@ -321,7 +322,8 @@ extension UIScrollView {
         }
         
         contentOffset = CGPoint(x: 0, y: 0)
-        frame = CGRect(origin: CGPoint(x: 0, y: 0), size: contentSize)
+        let size = CGSize(width: contentSize.width, height: contentSize.height)
+        frame = CGRect(origin: CGPoint(x: 0, y: 0), size: size)
         layer.render(in: ctx)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         

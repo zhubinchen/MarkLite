@@ -9,7 +9,6 @@
 import UIKit
 import SideMenu
 import RxSwift
-import SwiftyDropbox
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,7 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         setup()
-        checkVersion()
+        let url = URL(fileURLWithPath: iCloudPath)
+        try? FileManager.default.startDownloadingUbiquitousItem(at: url)
+        DispatchQueue.global().async {
+            self.checkVersion()
+        }
         return true
     }
     
@@ -38,16 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print(error.localizedDescription)
             }
         }
-        if let authResult = DropboxClientsManager.handleRedirectURL(url) {
-            switch authResult {
-            case .success:
-                print("Success! User is logged into Dropbox.")
-            case .cancel:
-                print("Authorization flow was manually canceled by user!")
-            case .error(_, let description):
-                print("Error: \(description)")
-            }
-        }
+
         return true
     }
     
@@ -96,7 +90,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SideMenuManager.menuWidth = isPad ? 400 : 300
         SideMenuManager.menuPushStyle = .subMenu
         SideMenuManager.menuPresentMode = isPhone ? .viewSlideOut : .menuSlideIn
-        DropboxClientsManager.setupWithAppKey(dropboxKey)
 
         Configure.shared.setup()
         

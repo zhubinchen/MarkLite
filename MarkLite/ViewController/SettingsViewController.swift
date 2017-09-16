@@ -8,7 +8,6 @@
 
 import UIKit
 import SideMenu
-import SwiftyDropbox
 import RxSwift
 
 class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -24,28 +23,31 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     let assitBarSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
     let autoClearSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
     
-    let items = [
-        ("功能",[
-            ("AssistKeyboard","",#selector(assistBar)),
-            ("AutoClear","",#selector(autoClear)),
-            ]),
-        ("外观",[
-            ("NightMode","",#selector(night)),
-            ("Theme","",#selector(theme)),
-            ("Style","",#selector(style)),
-            ("CodeStyle","",#selector(codeStyle))
-            ]),
-        ("支持一下",[
-            ("RateIt","",#selector(rate)),
-            ("Feedback","",#selector(feedback))
-            ])
-    ]
+    var items: [(String,[(String,String,Selector)])] {
+        return [
+            ("功能",[
+                ("AssistKeyboard","",#selector(assistBar)),
+                ("AutoClear","",#selector(autoClear)),
+                ]),
+            ("外观",[
+                ("NightMode","",#selector(night)),
+                ("Theme","",#selector(theme)),
+                ("Style","",#selector(style)),
+                ("CodeStyle","",#selector(codeStyle))
+                ]),
+            ("支持一下",[
+                ("RateIt","",#selector(rate)),
+                ("Feedback","",#selector(feedback))
+                ])
+        ]
+    }
     
     let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        preferredContentSize = CGSize(width: 320, height: 500)
         self.title = /"Settings"
         navBar?.setBarTintColor(.navBar)
         navBar?.setContentColor(.navBarTint)
@@ -138,9 +140,7 @@ extension SettingsViewController {
     }
     
     func night(_ sender: UISwitch) {
-        if checkVIP() {
-            Configure.shared.theme.value = sender.isOn ? .black : .white
-        }
+        Configure.shared.theme.value = sender.isOn ? .black : .white
     }
     
     func assistBar(_ sender: UISwitch) {

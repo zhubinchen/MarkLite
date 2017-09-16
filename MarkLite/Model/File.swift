@@ -210,6 +210,10 @@ extension File {
     }
     
     class func loadCloud(_ completion: @escaping (File?)->Void) {
+        if iCloudPath.length == 0 {
+            completion(nil)
+            return
+        }
         DispatchQueue.global().async {
             var cloud: File? = nil
             defer {
@@ -217,15 +221,14 @@ extension File {
                     completion(cloud)
                 }
             }
+            let url = URL(fileURLWithPath: iCloudPath)
+            try? fileManager.startDownloadingUbiquitousItem(at: url)
             cloud = File(path: iCloudPath)
         }
     }
-    
-    class func loadDropbox(_ completion: @escaping (File?)->Void) {
-        dropbox.loadFiles { (file) in
-            completion(file)
-        }
-    }
 }
+
+
+
 
 

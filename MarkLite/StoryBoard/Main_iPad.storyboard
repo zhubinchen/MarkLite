@@ -68,7 +68,7 @@
                                         </constraints>
                                         <state key="normal" image="nav_files"/>
                                         <connections>
-                                            <segue destination="Ybd-Ex-5FK" kind="presentation" identifier="edit" id="TE6-LX-4kH"/>
+                                            <action selector="showFiles:" destination="ftx-bN-0dI" eventType="touchUpInside" id="HzH-GR-p9T"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Abw-PP-Igt">
@@ -122,7 +122,7 @@
                                         </constraints>
                                         <state key="normal" image="nav_files"/>
                                         <connections>
-                                            <segue destination="Ybd-Ex-5FK" kind="presentation" id="D1O-fz-iCM"/>
+                                            <action selector="showFiles:" destination="ftx-bN-0dI" eventType="touchUpInside" id="Cum-Nw-twi"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LMn-G2-vBB">
@@ -179,19 +179,39 @@
                                     <segue destination="arF-bN-AH9" kind="embed" id="AOW-dZ-jiH"/>
                                 </connections>
                             </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SI8-Ke-Ygy">
+                                <rect key="frame" x="64" y="64" width="311" height="603"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SelectFileTips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vFf-eT-gQu">
+                                        <rect key="frame" x="102" y="291" width="106" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="vFf-eT-gQu" firstAttribute="centerY" secondItem="SI8-Ke-Ygy" secondAttribute="centerY" id="CWQ-Bg-MVx"/>
+                                    <constraint firstItem="vFf-eT-gQu" firstAttribute="centerX" secondItem="SI8-Ke-Ygy" secondAttribute="centerX" id="a4b-w8-xDr"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Soy-RX-NnA" firstAttribute="top" secondItem="mjT-c0-3tc" secondAttribute="top" id="8fV-L2-pBI"/>
                             <constraint firstItem="cXS-sU-9as" firstAttribute="leading" secondItem="mjT-c0-3tc" secondAttribute="leading" id="FGs-q5-R5J"/>
                             <constraint firstItem="pq1-LI-wby" firstAttribute="top" secondItem="cXS-sU-9as" secondAttribute="bottom" id="Joj-c8-5xh"/>
+                            <constraint firstItem="SI8-Ke-Ygy" firstAttribute="leading" secondItem="Soy-RX-NnA" secondAttribute="trailing" id="Lbb-IB-JP6"/>
                             <constraint firstItem="cXS-sU-9as" firstAttribute="top" secondItem="mjT-c0-3tc" secondAttribute="top" id="Pn1-o2-DFV"/>
+                            <constraint firstItem="Jri-9T-Gmk" firstAttribute="top" secondItem="SI8-Ke-Ygy" secondAttribute="bottom" id="SaF-UC-wea"/>
                             <constraint firstItem="Jri-9T-Gmk" firstAttribute="top" secondItem="Soy-RX-NnA" secondAttribute="bottom" id="WXi-7n-1zo"/>
                             <constraint firstAttribute="trailing" secondItem="jT3-4d-EaH" secondAttribute="trailing" id="cEp-TP-Efc"/>
+                            <constraint firstAttribute="trailing" secondItem="SI8-Ke-Ygy" secondAttribute="trailing" id="g82-t2-Y1c"/>
                             <constraint firstItem="pq1-LI-wby" firstAttribute="leading" secondItem="Soy-RX-NnA" secondAttribute="trailing" id="gLh-GW-q7D"/>
                             <constraint firstItem="jT3-4d-EaH" firstAttribute="leading" secondItem="mjT-c0-3tc" secondAttribute="leading" id="gXf-Po-XLL"/>
                             <constraint firstItem="Jri-9T-Gmk" firstAttribute="top" secondItem="pq1-LI-wby" secondAttribute="bottom" id="ga9-PD-meM"/>
                             <constraint firstItem="jT3-4d-EaH" firstAttribute="top" secondItem="mjT-c0-3tc" secondAttribute="top" id="jEm-sH-8Ql"/>
+                            <constraint firstItem="SI8-Ke-Ygy" firstAttribute="top" secondItem="cXS-sU-9as" secondAttribute="bottom" id="jHj-Pt-VfK"/>
                             <constraint firstAttribute="trailing" secondItem="pq1-LI-wby" secondAttribute="trailing" id="ke4-ur-9D8"/>
                             <constraint firstItem="Soy-RX-NnA" firstAttribute="leading" secondItem="mjT-c0-3tc" secondAttribute="leading" id="rF8-Tf-fGT"/>
                             <constraint firstAttribute="trailing" secondItem="cXS-sU-9as" secondAttribute="trailing" id="sXJ-qy-gzF"/>
@@ -199,6 +219,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="Z4h-4V-dju"/>
                     <connections>
+                        <outlet property="emptyTipsView" destination="vFf-eT-gQu" id="HkH-D5-BfX"/>
+                        <outlet property="emptyView" destination="SI8-Ke-Ygy" id="Umz-Ob-bSy"/>
                         <outlet property="leftBar" destination="Soy-RX-NnA" id="mKl-zv-tie"/>
                         <outlet property="leftBarWidth" destination="KAr-zJ-KPh" id="F0y-mB-Ied"/>
                         <outlet property="leftTitle" destination="Xoa-4h-kmT" id="chQ-SI-S8b"/>
@@ -206,6 +228,7 @@
                         <outlet property="topBar" destination="cXS-sU-9as" id="DSz-1N-93J"/>
                         <outlet property="topBarHeight" destination="VpQ-lJ-9Cb" id="hRz-Tf-FvW"/>
                         <outlet property="topTitle" destination="jM5-6u-txk" id="k9G-ah-3GI"/>
+                        <segue destination="Ybd-Ex-5FK" kind="presentation" identifier="showFiles" id="lCQ-Hv-4eS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y6M-0o-WDV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -364,6 +387,5 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="UwJ-Cr-HFT"/>
-        <segue reference="D1O-fz-iCM"/>
     </inferredMetricsTieBreakers>
 </document>

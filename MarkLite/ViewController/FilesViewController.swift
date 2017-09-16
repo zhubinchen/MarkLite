@@ -94,13 +94,6 @@ class FilesViewController: UIViewController {
             titleButton.titleLabel?.font = UIFont.font(ofSize: 18)
             navigationItem.titleView = titleButton
             titleButton.addTarget(self, action: #selector(showStorageMenu), for: .touchUpInside)
-            if Configure.shared.newVersionAvaliable {
-                showAlert(title: /"UpgradeTitle", message: /"UpgradeTips", actionTitles: [/"Upgrade",/"DontUpgrade"], actionHandler: { (index) in
-                    if index == 0 {
-                        UIApplication.shared.openURL(URL(string: upgradeUrl)!)
-                    }
-                })
-            }
         } else {
             title = root?.name
             navigationItem.titleView = titleTextField
@@ -122,12 +115,43 @@ class FilesViewController: UIViewController {
             navigationController?.interactivePopGestureRecognizer?.delegate = navigationController
         }
         
+        Timer.runThisAfterDelay(seconds: 2) { 
+            let passedDay = Int(Date().timeIntervalSince(Configure.shared.alertDate) / (60 * 60 * 24))
+            if passedDay > 5 {
+                self.feedbackAlert()
+            }
+            if Configure.shared.newVersionAvaliable {
+                self.showAlert(title: /"UpgradeTitle", message: /"UpgradeTips", actionTitles: [/"Upgrade",/"DontUpgrade"], actionHandler: { (index) in
+                    if index == 0 {
+                        UIApplication.shared.openURL(URL(string: upgradeUrl)!)
+                    }
+                })
+            }
+        }
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_edit"), style: .plain, target: self, action: #selector(showCreateMenu))
         
         navBar?.setBarTintColor(.navBar)
         navBar?.setContentColor(.navBarTint)
         tableView.setBackgroundColor(.tableBackground)
         view.setBackgroundColor(.background)
+    }
+    
+    func feedbackAlert() {
+        if Configure.shared.hasRate {
+            return
+        }
+        showAlert(title: "抱歉打扰了", message: "你的反馈能帮助MarkLite做的更好，有什么要对开发者说的吗？", actionTitles: ["用着很好，好评鼓励","暂时没空","存在问题，提个意见"], actionHandler: { (index) in
+            if index == 0 {
+                UIApplication.shared.openURL(URL(string: rateUrl)!)
+                Configure.shared.hasRate = true
+            }
+            if index == 2 {
+                UIApplication.shared.openURL(URL(string: emailUrl)!)
+                Configure.shared.hasRate = true
+            }
+            Configure.shared.alertDate = Date()
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {

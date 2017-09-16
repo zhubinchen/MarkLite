@@ -107,7 +107,7 @@
                     <connections>
                         <outlet property="bottomSpace" destination="P3Y-cM-WEY" id="QDC-FJ-Rfx"/>
                         <outlet property="bottomView" destination="A59-fe-PiA" id="uwH-DN-1MD"/>
-                        <outlet property="countLabel" destination="Als-NQ-ZQc" id="1zM-UT-XDY"/>
+                        <outlet property="countLabel" destination="Als-NQ-ZQc" id="yxs-VP-EVY"/>
                         <outlet property="editView" destination="lId-Dt-n2r" id="Dkb-tE-FtC"/>
                         <outlet property="placeholderLabel" destination="d5L-1x-TTM" id="hHW-dg-KOn"/>
                         <outlet property="redoButton" destination="vV5-i3-4Pf" id="On1-Jh-DDU"/>
