@@ -49,7 +49,6 @@
 		07E8275B1F5BF1BA0077A017 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8270D1F5BF1BA0077A017 /* TextViewController.swift */; };
 		07E8275C1F5BF1BA0077A017 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8270E1F5BF1BA0077A017 /* WebViewController.swift */; };
 		07E8275D1F5BF1BA0077A017 /* WrapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8270F1F5BF1BA0077A017 /* WrapViewController.swift */; };
-		07E827601F5BF1DC0077A017 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07E8275F1F5BF1DB0077A017 /* StoreKit.framework */; };
 		07E827651F5BF24B0077A017 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07E827671F5BF24B0077A017 /* Localizable.strings */; };
 		07E8276C1F5BFD880077A017 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8276B1F5BFD880077A017 /* ImageSaver.swift */; };
 		C1D8DF07B0DF6E27F81AA609 /* Pods_MarkLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BAF011D2BD7C7FE8749C859 /* Pods_MarkLite.framework */; };
@@ -112,7 +111,6 @@
 		07E8270E1F5BF1BA0077A017 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		07E8270F1F5BF1BA0077A017 /* WrapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapViewController.swift; sourceTree = "<group>"; };
 		07E8275E1F5BF1D10077A017 /* MarkLite.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MarkLite.entitlements; sourceTree = "<group>"; };
-		07E8275F1F5BF1DB0077A017 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		07E827611F5BF1FC0077A017 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		07E827621F5BF2020077A017 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		07E827661F5BF24B0077A017 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -130,7 +128,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1D8DF07B0DF6E27F81AA609 /* Pods_MarkLite.framework in Frameworks */,
-				07E827601F5BF1DC0077A017 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,7 +282,6 @@
 		27D8A15A071498C039A9B873 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				07E8275F1F5BF1DB0077A017 /* StoreKit.framework */,
 				2BAF011D2BD7C7FE8749C859 /* Pods_MarkLite.framework */,
 			);
 			name = Frameworks;
@@ -339,7 +335,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.iCloud = {
 								enabled = 1;
