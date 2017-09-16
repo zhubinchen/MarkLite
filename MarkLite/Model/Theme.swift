@@ -179,3 +179,11 @@ extension UITextField {
         })
     }
 }
+
+extension UIActivityIndicatorView {
+    func setColor(_ color: ThemeColorType) {
+        _ = ColorCenter.shared.colorVariable(with: color).asObservable().takeUntil(rx.deallocated).subscribe(onNext: { [unowned self](color) in
+            self.color = color
+        })
+    }
+}
