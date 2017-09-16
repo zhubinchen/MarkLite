@@ -56,7 +56,6 @@ private let swizzling: (UIView.Type) -> () = { view in
 
 extension UIView {
     
-    //FIXME: 这样很方便，但是Xcode说不靠谱
     open override class func initialize() {
         guard self === UIView.self else {
             return

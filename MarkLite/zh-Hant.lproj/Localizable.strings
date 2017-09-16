@@ -30,10 +30,12 @@
 
 "PDF"="PDF 文檔";
 "WebPage"="Web 頁面";
-"Image"="圖片";
+"Image"="長屏截圖";
 "Markdown"="Markdown";
+"SaveFailed"="保存失敗";
+"SaveSuccessed"="已保存到手機相冊";
 
-"VIP"="升級到高級帳戶";
+"PremiumAccount"="升級到高級帳戶";
 "AssistKeyboard"="輔助鍵盤";
 "AutoClear"="自動清理空白文件";
 "NightMode"="夜間模式";
@@ -43,15 +45,16 @@
 "Style"="渲染樣式";
 "CodeStyle"="程式塊樣式";
 
-"VIPOnly"="該功能需開通高級帳戶";
+"PremiumOnly"="該功能需開通高級帳戶";
 "SubscribeNow"="立即開通";
 "Subscribed"="立即開通";
 
-"MonthlyVIP"="按月訂閱";
-"AnnualVIP"="按年訂閱";
-"MonthlyPrice"="¥6／月";
-"AnnualPrice"="¥58／年";
-"FreeTrial"="免費試用1周";
+"Premium"="高級帳戶";
+"SubscriptionInfo"="查看訂閱詳情";
+"Subscribe"="訂閱";
+"Sales"="$6／月，第壹周免費試用";
+"Terms"="使用條款";
+"PrivacyPolicy"="隱私策略";
 "SubsribeTips"="升級到高級帳戶後，你將獲得以下額外功能：\n1. 可導出所有格式(PDF,HTML,JPG)\n2. 可使用更多渲染樣式\n3. 可更改主題顔色\n4. 後續版本中添加的更多特性";
 "CancelSubsribeTips"="你隨時可以取消這些訂閱";
 "Restore"="恢複訂閱";
@@ -86,6 +89,8 @@
 "DontUpgrade"="以後再說";
 
 "StartEdit"="寫點什麽吧";
+"SelectFileTips"="請選擇要編輯的文件";
+
 "Header"="標題";
 "Header1"="一級標題";
 "Header2"="二級標題";

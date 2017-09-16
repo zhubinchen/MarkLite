@@ -30,10 +30,12 @@
 
 "PDF"="PDF 文档";
 "WebPage"="Web 页面";
-"Image"="图片";
+"Image"="长屏截图";
 "Markdown"="Markdown";
+"SaveFailed"="保存失败";
+"SaveSuccessed"="已保存到手机相册";
 
-"VIP"="升级到高级帐户";
+"PremiumAccount"="升级到高级帐户";
 "AssistKeyboard"="辅助键盘";
 "AutoClear"="自动清理空白文件";
 "NightMode"="夜间模式";
@@ -43,18 +45,20 @@
 "Style"="渲染样式";
 "CodeStyle"="代码块样式";
 
-"VIPOnly"="该功能需开通高级帐户";
+"PremiumOnly"="该功能需开通高级帐户";
 "SubscribeNow"="立即开通";
 "Subscribed"="已开通";
 
-"MonthlyVIP"="按月订阅";
-"AnnualVIP"="按年订阅";
-"MonthlyPrice"="¥6／月";
-"AnnualPrice"="¥58／年";
-"FreeTrial"="免费试用1周";
+"Premium"="高级帐户";
+"SubscriptionInfo"="查看订阅详情";
+"Subscribe"="订阅";
+"Sales"="¥6／月，第一周免费试用";
+"Terms"="使用条款";
+"PrivacyPolicy"="隐私策略";
 "SubsribeTips"="升级到高级帐户后，你将获得以下额外功能：\n1. 可导出所有格式(PDF,HTML,JPG)\n2. 可使用更多渲染样式\n3. 可更改主题颜色\n4. 后续版本中添加的更多特性";
-"CancelSubsribeTips"="你随时可以取消这些订阅";
+"CancelSubsribeTips"="你随时可以取消订阅";
 "Restore"="恢复订阅";
+"RestoreTips"="在其他设备上购买过？";
 "SubscribeFailed"="没有完成订阅";
 "SubscribedSuccess"="已成功订阅高级帐户";
 "RestoreFailed"="没有有效的订阅记录，请重新订阅";
@@ -87,6 +91,7 @@
 "DontUpgrade"="以后再说";
 
 "StartEdit"="写点什么吧";
+"SelectFileTips"="請選擇要編輯的文件";
 "Header"="标题";
 "Header1"="一级标题";
 "Header2"="二级标题";
