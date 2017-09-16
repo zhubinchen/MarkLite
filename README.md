@@ -14,7 +14,6 @@ MarkLite 是一个极简风格的markdown编辑器，界面干净，运行流畅
 
 有任何Bug或者改进意见欢迎提issue。
 
-想要支持本项目，欢迎可以去AppStore下载一个内购版的👏
 
 ### 运行截图
 ![iPad_ScreenShot.jpg](https://i.loli.net/2017/08/25/599fe7b70664b.jpg)
