@@ -30,7 +30,7 @@ enum ExportType: String {
     }
 }
 
-class WebViewController: UIViewController {
+class WebViewController: UIViewController, ImageSaver {
     @IBOutlet weak var webView: UIWebView!
     
     var text = "" {
@@ -104,10 +104,11 @@ class WebViewController: UIViewController {
             return url
         case .image:
             guard let img = webView.scrollView.snap, let data = UIImagePNGRepresentation(img) else { return nil }
-            let path = tempFolderPath + "/" + file.name + ".png"
-            let url = URL(fileURLWithPath: path)
-            try? data.write(to: url)
-            return url
+            saveImage(img)
+//            let path = tempFolderPath + "/" + file.name + ".png"
+//            let url = URL(fileURLWithPath: path)
+//            try? data.write(to: url)
+            return nil
         case .markdown:
             return URL(fileURLWithPath: file.path)
         case .html:
