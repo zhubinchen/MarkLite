@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0724281B1F726B0300C02F87 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0724281A1F726B0300C02F87 /* ImagePicker.swift */; };
 		07E826961F5BF0F20077A017 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826951F5BF0F20077A017 /* AppDelegate.swift */; };
 		07E8269D1F5BF0F20077A017 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07E8269C1F5BF0F20077A017 /* Assets.xcassets */; };
 		07E826A01F5BF0F20077A017 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E8269E1F5BF0F20077A017 /* LaunchScreen.storyboard */; };
@@ -39,7 +40,6 @@
 		07E8274E1F5BF1BA0077A017 /* AssistBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826FF1F5BF1BA0077A017 /* AssistBar.swift */; };
 		07E8274F1F5BF1BA0077A017 /* DottedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827001F5BF1BA0077A017 /* DottedLineView.swift */; };
 		07E827501F5BF1BA0077A017 /* FileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827011F5BF1BA0077A017 /* FileTableViewCell.swift */; };
-		07E827511F5BF1BA0077A017 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827021F5BF1BA0077A017 /* ImagePicker.swift */; };
 		07E827521F5BF1BA0077A017 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827031F5BF1BA0077A017 /* MenuView.swift */; };
 		07E827551F5BF1BA0077A017 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827071F5BF1BA0077A017 /* EditViewController.swift */; };
 		07E827561F5BF1BA0077A017 /* FilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827081F5BF1BA0077A017 /* FilesViewController.swift */; };
@@ -56,6 +56,7 @@
 
 /* Begin PBXFileReference section */
 		0708A5651F6A2E4B0018B4CF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0724281A1F726B0300C02F87 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		07E826921F5BF0F20077A017 /* MarkLite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkLite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E826951F5BF0F20077A017 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07E8269C1F5BF0F20077A017 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -100,7 +101,6 @@
 		07E826FF1F5BF1BA0077A017 /* AssistBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssistBar.swift; sourceTree = "<group>"; };
 		07E827001F5BF1BA0077A017 /* DottedLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DottedLineView.swift; sourceTree = "<group>"; };
 		07E827011F5BF1BA0077A017 /* FileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileTableViewCell.swift; sourceTree = "<group>"; };
-		07E827021F5BF1BA0077A017 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		07E827031F5BF1BA0077A017 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		07E827071F5BF1BA0077A017 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		07E827081F5BF1BA0077A017 /* FilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesViewController.swift; sourceTree = "<group>"; };
@@ -248,6 +248,7 @@
 				07E826FC1F5BF1BA0077A017 /* Localization.swift */,
 				07E826FD1F5BF1BA0077A017 /* Utils.swift */,
 				07E8276B1F5BFD880077A017 /* ImageSaver.swift */,
+				0724281A1F726B0300C02F87 /* ImagePicker.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -258,7 +259,6 @@
 				07E826FF1F5BF1BA0077A017 /* AssistBar.swift */,
 				07E827001F5BF1BA0077A017 /* DottedLineView.swift */,
 				07E827011F5BF1BA0077A017 /* FileTableViewCell.swift */,
-				07E827021F5BF1BA0077A017 /* ImagePicker.swift */,
 				07E827031F5BF1BA0077A017 /* MenuView.swift */,
 			);
 			path = View;
@@ -471,11 +471,11 @@
 				07E8271D1F5BF1BA0077A017 /* File.swift in Sources */,
 				07E827111F5BF1BA0077A017 /* autolink.c in Sources */,
 				07E8274F1F5BF1BA0077A017 /* DottedLineView.swift in Sources */,
+				0724281B1F726B0300C02F87 /* ImagePicker.swift in Sources */,
 				07E8275C1F5BF1BA0077A017 /* WebViewController.swift in Sources */,
 				07E827191F5BF1BA0077A017 /* stack.c in Sources */,
 				07E8271C1F5BF1BA0077A017 /* RenderManager.swift in Sources */,
 				07E827151F5BF1BA0077A017 /* hoedown_html_patch.c in Sources */,
-				07E827511F5BF1BA0077A017 /* ImagePicker.swift in Sources */,
 				07E8276C1F5BFD880077A017 /* ImageSaver.swift in Sources */,
 				07E827121F5BF1BA0077A017 /* buffer.c in Sources */,
 				07E827131F5BF1BA0077A017 /* document.c in Sources */,
