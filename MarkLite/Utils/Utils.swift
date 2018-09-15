@@ -80,8 +80,8 @@ extension String {
     }
     
     func rangeFromNSRange(_ nsRange: NSRange) -> Range<String.Index>? {
-        let from16 = utf16.startIndex //advanced(by: nsRange.location)
-        let to16 = from16 //.advanced(by: nsRange.length)
+        let from16 = utf16.index(startIndex, offsetBy: nsRange.location)
+        let to16 = index(from16, offsetBy: nsRange.length)
         if let from = String.Index(from16, within: self),
             let to = String.Index(to16, within: self) {
             return from ..< to
