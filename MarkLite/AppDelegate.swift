@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        UIView.initializeOnceMethod()
         setup()
         let url = URL(fileURLWithPath: iCloudPath)
         try? FileManager.default.startDownloadingUbiquitousItem(at: url)
@@ -86,10 +87,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBar.backIndicatorImage = backImage
         navigationBar.backIndicatorTransitionMaskImage = backImage
         
-        SideMenuManager.menuFadeStatusBar = false
-        SideMenuManager.menuWidth = isPad ? 400 : 300
-        SideMenuManager.menuPushStyle = .subMenu
-        SideMenuManager.menuPresentMode = isPhone ? .viewSlideOut : .menuSlideIn
+        SideMenuManager.default.menuFadeStatusBar = false
+        SideMenuManager.default.menuWidth = isPad ? 400 : 300
+        SideMenuManager.default.menuPushStyle = .subMenu
+        SideMenuManager.default.menuPresentMode = isPhone ? .viewSlideOut : .menuSlideIn
 
         Configure.shared.setup()
         

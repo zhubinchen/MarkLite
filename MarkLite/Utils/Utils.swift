@@ -62,7 +62,7 @@ extension String {
 extension String {
     
     var vertical: String {
-        let chars = self.characters.map{String($0).uppercased()}
+        let chars = map{String($0).uppercased()}
         return chars.joined(separator: "\n")
     }
     
@@ -80,8 +80,8 @@ extension String {
     }
     
     func rangeFromNSRange(_ nsRange: NSRange) -> Range<String.Index>? {
-        let from16 = utf16.startIndex.advanced(by: nsRange.location)
-        let to16 = from16.advanced(by: nsRange.length)
+        let from16 = utf16.startIndex //advanced(by: nsRange.location)
+        let to16 = from16 //.advanced(by: nsRange.length)
         if let from = String.Index(from16, within: self),
             let to = String.Index(to16, within: self) {
             return from ..< to
@@ -332,13 +332,13 @@ extension UIScrollView {
 }
 
 extension UITableView {
-    func addPullDownView(_ view: UIView, disposeBag: DisposeBag, comletion:@escaping (Void)->Void) {
+    func addPullDownView(_ view: UIView, disposeBag: DisposeBag, comletion:@escaping ()->Void) {
         view.frame = CGRect(x: (windowWidth - 200) * 0.5, y: -40, w: 200, h: 20)
         addSubview(view)
         rx.didEndDragging.subscribe(onNext: { [unowned self] (end) in
             if self.contentOffset.y < -60 {
                 comletion()
             }
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
     }
 }

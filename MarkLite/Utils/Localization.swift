@@ -46,17 +46,17 @@ private let swizzling: (UIView.Type) -> () = { view in
     let originalMethod = class_getInstanceMethod(view, originalSelector)
     let swizzledMethod = class_getInstanceMethod(view, swizzledSelector)
     
-    let didAddMethod = class_addMethod(view, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod))
+    let didAddMethod = class_addMethod(view, originalSelector, method_getImplementation(swizzledMethod!), method_getTypeEncoding(swizzledMethod!))
     if didAddMethod {
-        class_replaceMethod(view, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod))
+        class_replaceMethod(view, swizzledSelector, method_getImplementation(originalMethod!), method_getTypeEncoding(originalMethod!))
     } else {
-        method_exchangeImplementations(originalMethod, swizzledMethod)
+        method_exchangeImplementations(originalMethod!, swizzledMethod!)
     }
 }
 
 extension UIView {
     
-    open override class func initialize() {
+    open class func initializeOnceMethod() {
         guard self === UIView.self else {
             return
         }
@@ -64,7 +64,7 @@ extension UIView {
         swizzling(self)
     }
     
-    func swizzled_localization_awakeFromNib() {
+    @objc func swizzled_localization_awakeFromNib() {
         swizzled_localization_awakeFromNib()
         
         if let localizableView = self as? Localizable {

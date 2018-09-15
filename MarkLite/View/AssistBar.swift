@@ -104,16 +104,16 @@ class AssistBar: UIView {
         endButton.frame = CGRect(x: w - 50, y: 0, w: 50, h: 50)
     }
     
-    func hideKeyboard() {
+    @objc func hideKeyboard() {
         textView?.resignFirstResponder()
     }
     
-    func tapChar(_ sender: UIButton) {
+    @objc func tapChar(_ sender: UIButton) {
         let char = sender.currentTitle ?? ""
         textView?.insertText(char)
     }
 
-    func tapImage(_ sender: UIButton) {
+    @objc func tapImage(_ sender: UIButton) {
         guard let vc = viewController else { return }
         imagePicker = ImagePicker(viewController: vc, completionHanlder: { (image) in
             self.didPickImage(image)
@@ -121,7 +121,7 @@ class AssistBar: UIView {
         imagePicker?.pickImage(sender)
     }
     
-    func tapLink() {
+    @objc func tapLink() {
         guard let vc = viewController else { return }
         vc.showAlert(title: /"InsertHref", message: "", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
             textField.text = "http://example.com"
@@ -144,7 +144,7 @@ class AssistBar: UIView {
         textView.selectedRange = NSMakeRange(currentRange.location + 1, insertText.length)
     }
     
-    func tapCode() {
+    @objc func tapCode() {
         guard let textView = self.textView else { return }
 
         let currentRange = textView.selectedRange
@@ -156,7 +156,7 @@ class AssistBar: UIView {
             textView.selectedRange = NSMakeRange(currentRange.location + 1, insertText.length)
         }
     }
-    func tapHeader(_ sender: UIButton) {
+    @objc func tapHeader(_ sender: UIButton) {
         guard let textView = self.textView else { return }
 
         let pos = sender.convert(sender.center, to: sender.window)
@@ -168,7 +168,7 @@ class AssistBar: UIView {
                     textView.selectedRange = NSMakeRange(currentRange.location + index + 3, (/"Header").length)
         }.show()
     }
-    func tapDeletion() {
+    @objc func tapDeletion() {
         guard let textView = self.textView else { return }
 
         let currentRange = textView.selectedRange
@@ -181,7 +181,7 @@ class AssistBar: UIView {
         }
     }
     
-    func tapQuote() {
+    @objc func tapQuote() {
         guard let textView = self.textView else { return }
 
         let currentRange = textView.selectedRange
@@ -190,7 +190,7 @@ class AssistBar: UIView {
         textView.selectedRange = NSMakeRange(currentRange.location + 3, insertText.length)
     }
     
-    func tapBold() {
+    @objc func tapBold() {
         guard let textView = self.textView else { return }
 
         let currentRange = textView.selectedRange
@@ -202,7 +202,7 @@ class AssistBar: UIView {
             textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
         }
     }
-    func tapItalic() {
+    @objc func tapItalic() {
         guard let textView = self.textView else { return }
 
         let currentRange = textView.selectedRange

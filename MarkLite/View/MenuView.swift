@@ -62,7 +62,7 @@ class MenuView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func dismiss(sender: UIControl!){
+    @objc func dismiss(sender: UIControl!){
         dismissed?()
         sender.removeFromSuperview()
     }

@@ -51,13 +51,13 @@ class PdfRender: UIPrintPageRenderer {
 
     override func drawFooterForPage(at pageIndex: Int, in footerRect: CGRect) {
         let font = UIFont(name: "HelveticaNeue", size: 18)
-        let attr: [String:NSObject] = [
-            NSFontAttributeName : font ?? UIFont.font(ofSize: 18),
-            NSForegroundColorAttributeName : rgb("0f2f2f")!
+        let attr: [NSAttributedStringKey : NSObject] = [
+            NSAttributedStringKey.font : font ?? UIFont.font(ofSize: 18),
+            NSAttributedStringKey.foregroundColor : rgb("0f2f2f")!
         ]
         
         let text = (pageIndex + 1).toString as NSString
-        let textSize = text.size(attributes: attr)
+        let textSize = text.size(withAttributes: attr)
         let rect = CGRect(x: (pageSize.width - textSize.width) * 0.5,
                           y: footerRect.origin.y + 15 - textSize.height * 0.5,
                           w: textSize.width,

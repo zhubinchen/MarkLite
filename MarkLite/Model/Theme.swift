@@ -123,9 +123,9 @@ extension UINavigationBar {
     func setContentColor(_ color: ThemeColorType) {
         _ = ColorCenter.shared.colorVariable(with: color).asObservable().takeUntil(rx.deallocated).subscribe(onNext: { [unowned self](color) in
             self.tintColor = color
-            let attr: [String: Any] = [
-                NSFontAttributeName: UIFont.font(ofSize: 18),
-                NSForegroundColorAttributeName: color
+            let attr: [NSAttributedStringKey: Any] = [
+                NSAttributedStringKey.font: UIFont.font(ofSize: 18),
+                NSAttributedStringKey.foregroundColor: color
             ]
             self.titleTextAttributes = attr
         })
