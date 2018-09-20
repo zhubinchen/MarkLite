@@ -25,7 +25,7 @@ class FilesViewController: UIViewController {
             pulldDownLabel.textAlignment = .center
             pulldDownLabel.setTextColor(.secondary)
             pulldDownLabel.font = UIFont.font(ofSize: 14)
-            tableView.addPullDownView(pulldDownLabel, disposeBag: disposeBag) { [unowned self] _ in
+            tableView.addPullDownView(pulldDownLabel, disposeBag: disposeBag) { [unowned self] in
                 guard let file = self.root?.createFile(name: /"Untitled", type: .text ) else {
                     return
                 }
@@ -190,7 +190,7 @@ class FilesViewController: UIViewController {
                     }
                 }
             })
-            childrens = root!.children.sorted{$0.0.modifyDate < $0.1.modifyDate}
+            childrens = root!.children.sorted{$0.modifyDate < $1.modifyDate}
         }
         if isViewLoaded {
             tableView.reloadData()
@@ -198,11 +198,11 @@ class FilesViewController: UIViewController {
     }
     
     
-    func showSettings() {
+    @objc func showSettings() {
         performSegue(withIdentifier: "menu", sender: nil)
     }
     
-    func showStorageMenu() {
+    @objc func showStorageMenu() {
         let items = [/"LocalFile",/"iCloud"]
         MenuView(items: items,
                  postion: CGPoint(x:(view.w - 140) * 0.5,y: 64),
@@ -216,7 +216,7 @@ class FilesViewController: UIViewController {
         }.show()
     }
     
-    func showCreateMenu() {
+    @objc func showCreateMenu() {
         MenuView(items: [/"CreateNote",/"CreateFolder"],
                  postion: CGPoint(x:view.w - 140,y: isPad ? 44 : 64),
                  textAlignment: .left) { (index) in

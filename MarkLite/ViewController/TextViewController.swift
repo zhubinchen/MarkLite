@@ -57,14 +57,14 @@ class TextViewController: UIViewController {
             } else {
                 self.editView.inputAccessoryView = nil
             }
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
-        Configure.shared.isLandscape.asObservable().map{!$0}.bind(to: seperator.rx.isHidden).addDisposableTo(disposeBag)
+        Configure.shared.isLandscape.asObservable().map{!$0}.bind(to: seperator.rx.isHidden).disposed(by: disposeBag)
         
         Configure.shared.theme.asObservable().subscribe(onNext: { [weak self] _ in
             self?.manager = MarkdownHighlightManager()
             self?.textChanged()
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
         Configure.shared.editingFile.asObservable().subscribe(onNext: { [weak self] (file) in
             self?.saveFile()
@@ -75,20 +75,20 @@ class TextViewController: UIViewController {
                 self?.textChanged()
             }
             self?.currentFile = file
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
         editView.rx.didChange.subscribe { [weak self] _ in
             self?.textChanged()
-            }.addDisposableTo(disposeBag)
+            }.disposed(by: disposeBag)
         
         editView.rx.text.map{($0?.length ?? 0) > 0}
             .bind(to: placeholderLabel.rx.isHidden)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
         
         editView.rx.contentOffset.map{$0.y}.subscribe(onNext: { [weak self] (offset) in
             guard let this = self else { return }
             this.offsetChangedHandler?(offset / this.editView.contentSize.height)
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
     }
     
     func textChanged() {
@@ -125,7 +125,7 @@ class TextViewController: UIViewController {
         editView.undoManager?.redo()
     }
     
-    func keyboardWillChange(_ noti: NSNotification) {
+    @objc func keyboardWillChange(_ noti: NSNotification) {
         guard let frame = (noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         bottomSpace.constant = max(self.view.h - frame.y + 10,0)
         UIView.animate(withDuration: 0.5, animations: {
@@ -135,7 +135,7 @@ class TextViewController: UIViewController {
         }
     }
     
-    func applicationWillTerminate() {
+    @objc func applicationWillTerminate() {
         saveFile()
     }
     

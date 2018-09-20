@@ -133,28 +133,28 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 extension SettingsViewController {
     
     
-    func rate() {
+    @objc func rate() {
         Configure.shared.hasRate = true
         UIApplication.shared.openURL(URL(string: rateUrl)!)
     }
     
-    func feedback() {
+    @objc func feedback() {
         UIApplication.shared.openURL(URL(string: emailUrl)!)
     }
     
-    func night(_ sender: UISwitch) {
+    @objc func night(_ sender: UISwitch) {
         Configure.shared.theme.value = sender.isOn ? .black : .white
     }
     
-    func assistBar(_ sender: UISwitch) {
+    @objc func assistBar(_ sender: UISwitch) {
         Configure.shared.isAssistBarEnabled.value = sender.isOn
     }
     
-    func autoClear(_ sender: UISwitch) {
+    @objc func autoClear(_ sender: UISwitch) {
         Configure.shared.isAutoClearEnabled = sender.isOn
     }
     
-    func theme() {
+    @objc func theme() {
         let items = [Theme.white,.black,.pink,.green,.blue,.purple,.red]
         let index = items.index{ Configure.shared.theme.value == $0 }
 
@@ -166,7 +166,7 @@ extension SettingsViewController {
         pushVC(vc)
     }
     
-    func style() {
+    @objc func style() {
         let path = documentPath + "/style/markdown-style/"
         
         guard let subPaths = FileManager.default.subpaths(atPath: path) else { return }
@@ -181,7 +181,7 @@ extension SettingsViewController {
         pushVC(vc)
     }
     
-    func codeStyle() {
+    @objc func codeStyle() {
         let path = documentPath + "/style/highlight-style/"
         
         guard let subPaths = FileManager.default.subpaths(atPath: path) else { return }

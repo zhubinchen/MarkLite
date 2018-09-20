@@ -68,27 +68,25 @@ class WebViewController: UIViewController, ImageSaver {
     func setupRx() {
         webView.rx.didStartLoad.subscribe { [weak self] _ in
             self?.webView.startLoadingAnimation()
-            }.addDisposableTo(disposeBag)
+            }.disposed(by: disposeBag)
         
         webView.rx.didFailLoad.subscribe { [weak self] _ in
             self?.webView.stopLoadingAnimation()
-            }.addDisposableTo(disposeBag)
+            }.disposed(by: disposeBag)
         
         webView.rx.didFinishLoad.subscribe { [weak self] _ in
-            guard let this = self else {return}
-            this.webView.scrollView.contentOffset = CGPoint(x: 0, y: this.offset * this.webView.scrollView.contentSize.height)
-            this.webView.stopLoadingAnimation()
-            }.addDisposableTo(disposeBag)
+            self?.webView.stopLoadingAnimation()
+            }.disposed(by: disposeBag)
         
         Configure.shared.markdownStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
             self.renderManager.markdownStyle = style
             self.htmlString = self.renderManager.render(self.text)
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
         Configure.shared.highlightStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
             self.renderManager.highlightStyle = style
             self.htmlString = self.renderManager.render(self.text)
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
     }
     
     func url(for type: ExportType) -> URL? {
@@ -105,8 +103,11 @@ class WebViewController: UIViewController, ImageSaver {
             }
             return url
         case .image:
-            guard let img = webView.scrollView.snap  else { return nil }
+            guard let img = webView.scrollView.snap, let data = UIImagePNGRepresentation(img) else { return nil }
             saveImage(img)
+//            let path = tempFolderPath + "/" + file.name + ".png"
+//            let url = URL(fileURLWithPath: path)
+//            try? data.write(to: url)
             return nil
         case .markdown:
             return URL(fileURLWithPath: file.path)

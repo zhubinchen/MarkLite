@@ -7,25 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		070BA5A0214A9BC1008BD216 /* public.pem in Resources */ = {isa = PBXBuildFile; fileRef = 070BA59F214A9BC0008BD216 /* public.pem */; };
 		0724281B1F726B0300C02F87 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0724281A1F726B0300C02F87 /* ImagePicker.swift */; };
-		074C7B93214410BD00DD1E6D /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 074C7B92214410BD00DD1E6D /* libresolv.tbd */; };
-		0764C3FB21417EF200CE5B3D /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 0764C3FA21417EF200CE5B3D /* hoedown_html_patch.c */; };
-		0764C3FF2141802A00CE5B3D /* document.c in Sources */ = {isa = PBXBuildFile; fileRef = 0764C3FD2141802900CE5B3D /* document.c */; };
-		0764C4002141802A00CE5B3D /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 0764C3FE2141802A00CE5B3D /* version.c */; };
-		07DE505D2150EACC007B38D0 /* Style.zip in Resources */ = {isa = PBXBuildFile; fileRef = 07DE505C2150EACC007B38D0 /* Style.zip */; };
-		07E20E2B1FA6FA5500626EFD /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 07E20E2A1FA6FA5500626EFD /* icon.png */; };
+		07DE506F2153867A007B38D0 /* Style.zip in Resources */ = {isa = PBXBuildFile; fileRef = 07DE506E21538679007B38D0 /* Style.zip */; };
 		07E826961F5BF0F20077A017 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826951F5BF0F20077A017 /* AppDelegate.swift */; };
 		07E8269D1F5BF0F20077A017 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07E8269C1F5BF0F20077A017 /* Assets.xcassets */; };
 		07E826A01F5BF0F20077A017 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E8269E1F5BF0F20077A017 /* LaunchScreen.storyboard */; };
 		07E827101F5BF1BA0077A017 /* HighlightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826A81F5BF1BA0077A017 /* HighlightManager.swift */; };
 		07E827111F5BF1BA0077A017 /* autolink.c in Sources */ = {isa = PBXBuildFile; fileRef = 07E826AA1F5BF1BA0077A017 /* autolink.c */; };
 		07E827121F5BF1BA0077A017 /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 07E826AC1F5BF1BA0077A017 /* buffer.c */; };
+		07E827131F5BF1BA0077A017 /* document.c in Sources */ = {isa = PBXBuildFile; fileRef = 07E826AE1F5BF1BA0077A017 /* document.c */; };
 		07E827141F5BF1BA0077A017 /* escape.c in Sources */ = {isa = PBXBuildFile; fileRef = 07E826B01F5BF1BA0077A017 /* escape.c */; };
+		07E827151F5BF1BA0077A017 /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 07E826B21F5BF1BA0077A017 /* hoedown_html_patch.c */; };
 		07E827161F5BF1BA0077A017 /* html.c in Sources */ = {isa = PBXBuildFile; fileRef = 07E826B41F5BF1BA0077A017 /* html.c */; };
 		07E827171F5BF1BA0077A017 /* html_blocks.c in Sources */ = {isa = PBXBuildFile; fileRef = 07E826B61F5BF1BA0077A017 /* html_blocks.c */; };
 		07E827181F5BF1BA0077A017 /* html_smartypants.c in Sources */ = {isa = PBXBuildFile; fileRef = 07E826B71F5BF1BA0077A017 /* html_smartypants.c */; };
 		07E827191F5BF1BA0077A017 /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = 07E826B81F5BF1BA0077A017 /* stack.c */; };
+		07E8271A1F5BF1BA0077A017 /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 07E826BA1F5BF1BA0077A017 /* version.c */; };
 		07E8271B1F5BF1BA0077A017 /* PdfRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826BE1F5BF1BA0077A017 /* PdfRender.swift */; };
 		07E8271C1F5BF1BA0077A017 /* RenderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826BF1F5BF1BA0077A017 /* RenderManager.swift */; };
 		07E8271D1F5BF1BA0077A017 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826C11F5BF1BA0077A017 /* File.swift */; };
@@ -59,18 +56,8 @@
 
 /* Begin PBXFileReference section */
 		0708A5651F6A2E4B0018B4CF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		070BA59F214A9BC0008BD216 /* public.pem */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = public.pem; sourceTree = "<group>"; };
-		0723332E1FC0663700C5D429 /* hoedown_helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hoedown_helper.h; sourceTree = "<group>"; };
 		0724281A1F726B0300C02F87 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
-		074C7B92214410BD00DD1E6D /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
-		0764C3F621417EB700CE5B3D /* document.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
-		0764C3F921417EF200CE5B3D /* hoedown_html_patch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
-		0764C3FA21417EF200CE5B3D /* hoedown_html_patch.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
-		0764C3FC2141802900CE5B3D /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
-		0764C3FD2141802900CE5B3D /* document.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = document.c; sourceTree = "<group>"; };
-		0764C3FE2141802A00CE5B3D /* version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = version.c; sourceTree = "<group>"; };
-		07DE505C2150EACC007B38D0 /* Style.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Style.zip; sourceTree = "<group>"; };
-		07E20E2A1FA6FA5500626EFD /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		07DE506E21538679007B38D0 /* Style.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Style.zip; sourceTree = "<group>"; };
 		07E826921F5BF0F20077A017 /* MarkLite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkLite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E826951F5BF0F20077A017 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07E8269C1F5BF0F20077A017 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -81,14 +68,21 @@
 		07E826AB1F5BF1BA0077A017 /* autolink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autolink.h; sourceTree = "<group>"; };
 		07E826AC1F5BF1BA0077A017 /* buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = buffer.c; sourceTree = "<group>"; };
 		07E826AD1F5BF1BA0077A017 /* buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffer.h; sourceTree = "<group>"; };
+		07E826AE1F5BF1BA0077A017 /* document.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = document.c; sourceTree = "<group>"; };
+		07E826AF1F5BF1BA0077A017 /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
 		07E826B01F5BF1BA0077A017 /* escape.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = escape.c; sourceTree = "<group>"; };
 		07E826B11F5BF1BA0077A017 /* escape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = escape.h; sourceTree = "<group>"; };
+		07E826B21F5BF1BA0077A017 /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
+		07E826B31F5BF1BA0077A017 /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
 		07E826B41F5BF1BA0077A017 /* html.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = html.c; sourceTree = "<group>"; };
 		07E826B51F5BF1BA0077A017 /* html.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = html.h; sourceTree = "<group>"; };
 		07E826B61F5BF1BA0077A017 /* html_blocks.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = html_blocks.c; sourceTree = "<group>"; };
 		07E826B71F5BF1BA0077A017 /* html_smartypants.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = html_smartypants.c; sourceTree = "<group>"; };
 		07E826B81F5BF1BA0077A017 /* stack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stack.c; sourceTree = "<group>"; };
 		07E826B91F5BF1BA0077A017 /* stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
+		07E826BA1F5BF1BA0077A017 /* version.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = version.c; sourceTree = "<group>"; };
+		07E826BB1F5BF1BA0077A017 /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
+		07E826BC1F5BF1BA0077A017 /* hoedown_helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoedown_helper.h; sourceTree = "<group>"; };
 		07E826BD1F5BF1BA0077A017 /* MarkLite-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MarkLite-Bridging-Header.h"; sourceTree = "<group>"; };
 		07E826BE1F5BF1BA0077A017 /* PdfRender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PdfRender.swift; sourceTree = "<group>"; };
 		07E826BF1F5BF1BA0077A017 /* RenderManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderManager.swift; sourceTree = "<group>"; };
@@ -133,7 +127,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				074C7B93214410BD00DD1E6D /* libresolv.tbd in Frameworks */,
 				C1D8DF07B0DF6E27F81AA609 /* Pods_MarkLite.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -162,7 +155,6 @@
 		07E826941F5BF0F20077A017 /* MarkLite */ = {
 			isa = PBXGroup;
 			children = (
-				070BA59F214A9BC0008BD216 /* public.pem */,
 				07E8275E1F5BF1D10077A017 /* MarkLite.entitlements */,
 				07E826951F5BF0F20077A017 /* AppDelegate.swift */,
 				07E826A71F5BF1BA0077A017 /* Core */,
@@ -185,7 +177,7 @@
 			children = (
 				07E826A81F5BF1BA0077A017 /* HighlightManager.swift */,
 				07E826A91F5BF1BA0077A017 /* hoedown */,
-				0723332E1FC0663700C5D429 /* hoedown_helper.h */,
+				07E826BC1F5BF1BA0077A017 /* hoedown_helper.h */,
 				07E826BD1F5BF1BA0077A017 /* MarkLite-Bridging-Header.h */,
 				07E826BE1F5BF1BA0077A017 /* PdfRender.swift */,
 				07E826BF1F5BF1BA0077A017 /* RenderManager.swift */,
@@ -200,20 +192,20 @@
 				07E826AB1F5BF1BA0077A017 /* autolink.h */,
 				07E826AC1F5BF1BA0077A017 /* buffer.c */,
 				07E826AD1F5BF1BA0077A017 /* buffer.h */,
+				07E826AE1F5BF1BA0077A017 /* document.c */,
+				07E826AF1F5BF1BA0077A017 /* document.h */,
 				07E826B01F5BF1BA0077A017 /* escape.c */,
 				07E826B11F5BF1BA0077A017 /* escape.h */,
+				07E826B21F5BF1BA0077A017 /* hoedown_html_patch.c */,
+				07E826B31F5BF1BA0077A017 /* hoedown_html_patch.h */,
 				07E826B41F5BF1BA0077A017 /* html.c */,
 				07E826B51F5BF1BA0077A017 /* html.h */,
-				0764C3FD2141802900CE5B3D /* document.c */,
-				0764C3FE2141802A00CE5B3D /* version.c */,
-				0764C3FC2141802900CE5B3D /* version.h */,
 				07E826B61F5BF1BA0077A017 /* html_blocks.c */,
 				07E826B71F5BF1BA0077A017 /* html_smartypants.c */,
 				07E826B81F5BF1BA0077A017 /* stack.c */,
 				07E826B91F5BF1BA0077A017 /* stack.h */,
-				0764C3F621417EB700CE5B3D /* document.h */,
-				0764C3F921417EF200CE5B3D /* hoedown_html_patch.h */,
-				0764C3FA21417EF200CE5B3D /* hoedown_html_patch.c */,
+				07E826BA1F5BF1BA0077A017 /* version.c */,
+				07E826BB1F5BF1BA0077A017 /* version.h */,
 			);
 			path = hoedown;
 			sourceTree = "<group>";
@@ -230,9 +222,8 @@
 		07E826C31F5BF1BA0077A017 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				07E20E2A1FA6FA5500626EFD /* icon.png */,
 				07E826D31F5BF1BA0077A017 /* samples.zip */,
-				07DE505C2150EACC007B38D0 /* Style.zip */,
+				07DE506E21538679007B38D0 /* Style.zip */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -291,7 +282,6 @@
 		27D8A15A071498C039A9B873 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				074C7B92214410BD00DD1E6D /* libresolv.tbd */,
 				2BAF011D2BD7C7FE8749C859 /* Pods_MarkLite.framework */,
 			);
 			name = Frameworks;
@@ -335,19 +325,17 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = zhubch;
 				TargetAttributes = {
 					07E826911F5BF0F20077A017 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = HX6HU45L64;
+						LastSwiftMigration = 0940;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 0;
-							};
-							com.apple.Push = {
-								enabled = 1;
 							};
 							com.apple.iCloud = {
 								enabled = 1;
@@ -385,13 +373,11 @@
 				07E827441F5BF1BA0077A017 /* Edit.storyboard in Resources */,
 				07E826A01F5BF0F20077A017 /* LaunchScreen.storyboard in Resources */,
 				07E827461F5BF1BA0077A017 /* Main_iPhone.storyboard in Resources */,
-				070BA5A0214A9BC1008BD216 /* public.pem in Resources */,
 				07E827291F5BF1BA0077A017 /* samples.zip in Resources */,
-				07DE505D2150EACC007B38D0 /* Style.zip in Resources */,
-				07E20E2B1FA6FA5500626EFD /* icon.png in Resources */,
 				07E827451F5BF1BA0077A017 /* Main_iPad.storyboard in Resources */,
 				07E8269D1F5BF0F20077A017 /* Assets.xcassets in Resources */,
 				07E827651F5BF24B0077A017 /* Localizable.strings in Resources */,
+				07DE506F2153867A007B38D0 /* Style.zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,8 +448,6 @@
 				07E8275A1F5BF1BA0077A017 /* SettingsViewController.swift in Sources */,
 				07E8274E1F5BF1BA0077A017 /* AssistBar.swift in Sources */,
 				07E827521F5BF1BA0077A017 /* MenuView.swift in Sources */,
-				0764C4002141802A00CE5B3D /* version.c in Sources */,
-				0764C3FF2141802A00CE5B3D /* document.c in Sources */,
 				07E827591F5BF1BA0077A017 /* OptionsViewController.swift in Sources */,
 				07E827551F5BF1BA0077A017 /* EditViewController.swift in Sources */,
 				07E827161F5BF1BA0077A017 /* html.c in Sources */,
@@ -476,12 +460,14 @@
 				07E8275C1F5BF1BA0077A017 /* WebViewController.swift in Sources */,
 				07E827191F5BF1BA0077A017 /* stack.c in Sources */,
 				07E8271C1F5BF1BA0077A017 /* RenderManager.swift in Sources */,
+				07E827151F5BF1BA0077A017 /* hoedown_html_patch.c in Sources */,
 				07E8276C1F5BFD880077A017 /* ImageSaver.swift in Sources */,
 				07E827121F5BF1BA0077A017 /* buffer.c in Sources */,
+				07E827131F5BF1BA0077A017 /* document.c in Sources */,
 				07E8271B1F5BF1BA0077A017 /* PdfRender.swift in Sources */,
 				07E827501F5BF1BA0077A017 /* FileTableViewCell.swift in Sources */,
-				0764C3FB21417EF200CE5B3D /* hoedown_html_patch.c in Sources */,
 				07E827491F5BF1BA0077A017 /* Constant.swift in Sources */,
+				07E8271A1F5BF1BA0077A017 /* version.c in Sources */,
 				07E827581F5BF1BA0077A017 /* NavigationController.swift in Sources */,
 				07E827481F5BF1BA0077A017 /* Configure.swift in Sources */,
 				07E8275D1F5BF1BA0077A017 /* WrapViewController.swift in Sources */,
@@ -533,6 +519,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -540,6 +527,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -572,6 +560,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -591,6 +580,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -598,6 +588,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -622,6 +613,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -637,14 +629,11 @@
 				INFOPLIST_FILE = MarkLite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/MarkLite/Core",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhubc.marklite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhubch.MarkLite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MarkLite/Core/MarkLite-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -658,14 +647,11 @@
 				INFOPLIST_FILE = MarkLite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/MarkLite/Core",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zhubc.marklite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zhubch.MarkLite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MarkLite/Core/MarkLite-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

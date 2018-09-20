@@ -11,11 +11,11 @@ import SideMenu
 
 extension UIViewController {
     
-    func shouldReplacedWith(_ newVc: UIViewController) -> Bool {
+    @objc func shouldReplacedWith(_ newVc: UIViewController) -> Bool {
         return false
     }
     
-    func shouldBack() -> Bool {
+    @objc func shouldBack() -> Bool {
         return true
     }
 }

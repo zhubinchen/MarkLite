@@ -70,7 +70,7 @@ class ImagePicker: NSObject {
     }
     
     func pickFromCamera() {
-        let authStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
         switch authStatus {
         case .denied:
             vc?.showAlert(title: /"CameraError", message: /"EnableCameraTips", actionTitles: [/"Cancel",/"Settings"]) { (index) in

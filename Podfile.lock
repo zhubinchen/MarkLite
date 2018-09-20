@@ -1,23 +1,23 @@
 PODS:
-  - Alamofire (4.5.0)
+  - Alamofire (4.7.3)
   - Bugly (2.5.0)
-  - EZSwiftExtensions (1.11)
-  - RxCocoa (3.6.1):
-    - RxSwift (~> 3.6)
-  - RxSwift (3.6.1)
-  - SideMenu (2.3.3)
-  - SwipeCellKit (1.9.1)
-  - Zip (0.7.0)
+  - EZSwiftExtensions (2.0)
+  - RxCocoa (4.3.0):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.3.0)
+  - SideMenu (4.0.0)
+  - SwipeCellKit (2.4.3)
+  - Zip (1.1.0)
 
 DEPENDENCIES:
   - Alamofire
   - Bugly
-  - EZSwiftExtensions (~> 1.10)
+  - EZSwiftExtensions (= 2.0)
   - RxCocoa
   - RxSwift
-  - SideMenu
-  - SwipeCellKit
-  - Zip (~> 0.7)
+  - SideMenu (= 4.0.0)
+  - SwipeCellKit (= 2.4.3)
+  - Zip
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -31,15 +31,15 @@ SPEC REPOS:
     - Zip
 
 SPEC CHECKSUMS:
-  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
-  EZSwiftExtensions: 84000042202d9fd574f626cda3064143f27fa767
-  RxCocoa: 84a08739ab186248c7f31ce4ee92d6f8a947d690
-  RxSwift: f9de85ea20cd2f7716ee5409fc13523dc638e4e4
-  SideMenu: a447554ae5c982e8077666389e1c8b0c8656e065
-  SwipeCellKit: e9ff953c820394a4e641cfb0118b6c959506aec2
-  Zip: e34513299ac38c0686d5b24504da7ce343799ab9
+  EZSwiftExtensions: f73648a591e529a1dbd83c22b19fd3e57df6fb7d
+  RxCocoa: 71b9cce833fbcb89a8eec11816dd225830c2bd3c
+  RxSwift: a9717a34df3179fe63563f76e046ad345078dd3a
+  SideMenu: 70ee5657df63ec3382660ec4ef470bf1cf5db07d
+  SwipeCellKit: cee9906e6d3a36e22ad1a852fba7f8fa0839d113
+  Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 40a7a629d0c073a38793834b3f15a06c119809a5
+PODFILE CHECKSUM: 283cdb0e632f18b8c27f1342f738eb5be0bfa653
 
 COCOAPODS: 1.5.0

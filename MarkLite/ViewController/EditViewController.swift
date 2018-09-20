@@ -37,9 +37,9 @@ class EditViewController: UIViewController {
         
         scrollView.rx.contentOffset.map{ $0.x > windowWidth - 10 }.subscribe(onNext: { [weak self] showExport in
             self?.toggleBarButton(showExport)
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
         
-        Configure.shared.editingFile.asObservable().map{ $0?.name ?? "" }.bind(to: self.rx.title).addDisposableTo(disposeBag)
+        Configure.shared.editingFile.asObservable().map{ $0?.name ?? "" }.bind(to: self.rx.title).disposed(by: disposeBag)
         
         Configure.shared.editingFile.value?.readText{ [weak self] text in
             self?.webVC?.text = text
@@ -74,7 +74,7 @@ class EditViewController: UIViewController {
         }
     }
     
-    func showExportMenu(_ sender: Any) {
+    @objc func showExportMenu(_ sender: Any) {
         textVC?.editView.resignFirstResponder()
         if isPad && Configure.shared.isLandscape.value == false {
             scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)
@@ -103,7 +103,7 @@ class EditViewController: UIViewController {
             }.show()
     }
     
-    func preview() {
+    @objc func preview() {
         textVC?.editView.resignFirstResponder()
         scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)
     }
