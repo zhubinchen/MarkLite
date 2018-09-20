@@ -40,6 +40,7 @@ class TextViewController: UIViewController {
         addNotificationObserver(Notification.Name.UIKeyboardWillChangeFrame.rawValue, selector: #selector(keyboardWillChange(_:)))
         addNotificationObserver(Notification.Name.UIApplicationWillTerminate.rawValue, selector: #selector(applicationWillTerminate))
         
+        editView.textContainer.lineBreakMode = .byCharWrapping
         view.setBackgroundColor(.background)
         bottomView.setTintColor(.primary)
         countLabel.setTextColor(.secondary)

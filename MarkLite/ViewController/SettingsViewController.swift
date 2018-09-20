@@ -24,11 +24,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     let autoClearSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
     
     var items: [(String,[(String,String,Selector)])] {
+        var section = [
+            ("AssistKeyboard","",#selector(assistBar)),
+            ("AutoClear","",#selector(autoClear)),
+            ]
+        
         return [
-            ("功能",[
-                ("AssistKeyboard","",#selector(assistBar)),
-                ("AutoClear","",#selector(autoClear)),
-                ]),
+            ("功能",section),
             ("外观",[
                 ("NightMode","",#selector(night)),
                 ("Theme","",#selector(theme)),
@@ -132,6 +134,7 @@ extension SettingsViewController {
     
     
     func rate() {
+        Configure.shared.hasRate = true
         UIApplication.shared.openURL(URL(string: rateUrl)!)
     }
     

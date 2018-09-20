@@ -75,7 +75,9 @@ class WebViewController: UIViewController, ImageSaver {
             }.addDisposableTo(disposeBag)
         
         webView.rx.didFinishLoad.subscribe { [weak self] _ in
-            self?.webView.stopLoadingAnimation()
+            guard let this = self else {return}
+            this.webView.scrollView.contentOffset = CGPoint(x: 0, y: this.offset * this.webView.scrollView.contentSize.height)
+            this.webView.stopLoadingAnimation()
             }.addDisposableTo(disposeBag)
         
         Configure.shared.markdownStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
@@ -94,7 +96,7 @@ class WebViewController: UIViewController, ImageSaver {
         switch type {
         case .pdf:
             let data = pdfRender.render(html: htmlString)
-            let path = tempFolderPath + "/" + file.name + ".pdf"
+            let path = tempPath + "/" + file.name + ".pdf"
             let url = URL(fileURLWithPath: path)
             do {
                 try data.write(to: url)
@@ -103,17 +105,14 @@ class WebViewController: UIViewController, ImageSaver {
             }
             return url
         case .image:
-            guard let img = webView.scrollView.snap, let data = UIImagePNGRepresentation(img) else { return nil }
+            guard let img = webView.scrollView.snap  else { return nil }
             saveImage(img)
-//            let path = tempFolderPath + "/" + file.name + ".png"
-//            let url = URL(fileURLWithPath: path)
-//            try? data.write(to: url)
             return nil
         case .markdown:
             return URL(fileURLWithPath: file.path)
         case .html:
             guard let data = htmlString.data(using: String.Encoding.utf8) else { return nil }
-            let path = tempFolderPath + "/" + file.name + ".html"
+            let path = tempPath + "/" + file.name + ".html"
             let url = URL(fileURLWithPath: path)
             try? data.write(to: url)
             return url

@@ -15,7 +15,7 @@
 #import "hoedown_html_patch.h"
 
 static size_t kRendererNestingLevel = SIZE_MAX;
-static int kRendererTOCLevel = 6;  
+static int kRendererTOCLevel = 6;
 
 NS_INLINE NSString *HTMLFromMarkdown(NSString *text,
                                      hoedown_renderer *htmlRenderer,

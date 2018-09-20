@@ -202,7 +202,7 @@ extension File {
     
     class func loadLocal(_ completion: @escaping (File)->Void) {
         DispatchQueue.global().async {
-            let local = File(path: localPath)
+            let local = File(path: documentPath)
             DispatchQueue.main.sync {
                 completion(local)
             }

@@ -11,6 +11,8 @@ target 'MarkLite' do
   pod 'SideMenu'
   pod 'Zip', '~> 0.7'
   pod 'SwipeCellKit'
+  pod 'Bugly'
+
   # Pods for MarkLite
 
 end

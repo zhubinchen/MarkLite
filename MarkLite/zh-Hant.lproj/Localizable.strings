@@ -51,15 +51,18 @@
 
 "Premium"="高級帳戶";
 "SubscriptionInfo"="查看訂閱詳情";
-"Subscribe"="訂閱";
-"Sales"="$6／月，第壹周免費試用";
+"Subscribe"="現在訂閱，免費試用壹周";
+"Price"="$0.99／月";
 "Terms"="使用條款";
 "PrivacyPolicy"="隱私策略";
-"SubsribeTips"="升級到高級帳戶後，你將獲得以下額外功能：\n1. 可導出所有格式(PDF,HTML,JPG)\n2. 可使用更多渲染樣式\n3. 可更改主題顔色\n4. 後續版本中添加的更多特性";
-"CancelSubsribeTips"="你隨時可以取消這些訂閱";
+"PremiumPrice"="現在訂閱可以免費試用壹周，$0.99/月";
+"PremiumTitle"="訂閱高級賬戶後，妳將獲得MarkLite的全部功能";
+"PremiumDesc"="1. 可導出所有格式(PDF,HTML,JPG)\n2. 可使用更多渲染樣式\n3. 可更改主題顔色\n4. 後續版本中添加的更多特性";
+"SubscribeTips"="【連續包月高級賬戶說明】\n1.訂閱周期：壹個月\n2.訂閱價格： 每月6元\n3.付款：用戶確認購買並付款後記入iTunes賬戶\n4.取消續訂：如需取消續訂，請在當前訂閱到期24小時以前，手動在iTunes/Apple ID設置管理中關閉自動續訂功能\n5.續訂：蘋果iTunes賬戶會在到期前24小時內扣款，扣款成功後訂閱周期順延壹個月";
 "Restore"="恢複訂閱";
+"NotNow"="暂不訂閱";
 "SubscribeFailed"="沒有完成訂閱";
-"SubscribedSuccess"="已成功訂閱高級帳戶";
+"SubscribeSuccess"="已成功訂閱高級帳戶";
 "RestoreFailed"="沒有有效的訂閱記錄，請重新訂閱";
 "RestoreSuccess"="已恢複訂閱";
 

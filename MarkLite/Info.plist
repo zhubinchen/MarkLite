@@ -19,7 +19,7 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>com.zhubch.MarkLite.md</string>
+				<string>com.zhubc.marklite.md</string>
 			</array>
 		</dict>
 	</array>
@@ -34,7 +34,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>4.2</string>
+	<string>1.1</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -43,22 +43,23 @@
 			<key>CFBundleURLIconFile</key>
 			<string>icon</string>
 			<key>CFBundleURLName</key>
-			<string>com.zhubch.MarkLite.marklite</string>
+			<string>com.zhubc.marklite.marklite</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>marklite</string>
-				<string>db-efmdoostf798xsr</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>103</string>
+	<string>16</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>dbapi-8-emm</string>
 		<string>dbapi-2</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
@@ -71,7 +72,7 @@
 	<string>Choose a picture from your Photos.</string>
 	<key>NSUbiquitousContainers</key>
 	<dict>
-		<key>iCloud.com.zhubch.MarkLite</key>
+		<key>iCloud.com.zhubc.marklite</key>
 		<dict>
 			<key>NSUbiquitousContainerIsDocumentScopePublic</key>
 			<true/>
@@ -81,6 +82,8 @@
 			<string>Any</string>
 		</dict>
 	</dict>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -117,7 +120,7 @@
 			<key>UTTypeDescription</key>
 			<string>Markdown File</string>
 			<key>UTTypeIdentifier</key>
-			<string>com.zhubch.MarkLite.md</string>
+			<string>com.zhubc.marklite.md</string>
 			<key>UTTypeSize320IconFile</key>
 			<string>icon</string>
 			<key>UTTypeSize64IconFile</key>

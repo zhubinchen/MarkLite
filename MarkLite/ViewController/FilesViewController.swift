@@ -10,8 +10,11 @@ import UIKit
 import EZSwiftExtensions
 import SwipeCellKit
 import RxSwift
+import StoreKit
 
 class FilesViewController: UIViewController {
+    
+    static var current: FilesViewController?
 
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -69,6 +72,7 @@ class FilesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        FilesViewController.current = self
         if root == nil {
             isHomePage = true
             RecievedNewFile.observe(eventBlock: { [weak self] (path) in
@@ -115,9 +119,9 @@ class FilesViewController: UIViewController {
             navigationController?.interactivePopGestureRecognizer?.delegate = navigationController
         }
         
-        Timer.runThisAfterDelay(seconds: 2) { 
-            let passedDay = Int(Date().timeIntervalSince(Configure.shared.alertDate) / (60 * 60 * 24))
-            if passedDay > 5 {
+        Timer.runThisAfterDelay(seconds: 2) {
+            let passedTime = Date().timeIntervalSince(Configure.shared.alertDate)
+            if passedTime > 60 * 60 * 24 * 5 {
                 self.feedbackAlert()
             }
             if Configure.shared.newVersionAvaliable {
@@ -141,17 +145,23 @@ class FilesViewController: UIViewController {
         if Configure.shared.hasRate {
             return
         }
-        showAlert(title: "抱歉打扰了", message: "你的反馈能帮助MarkLite做的更好，有什么要对开发者说的吗？", actionTitles: ["用着很好，好评鼓励","暂时没空","存在问题，提个意见"], actionHandler: { (index) in
+        showAlert(title: "抱歉打扰了", message: "你的反馈能帮助MarkLite做的更好(写评价可能需要花费30秒左右时间)，有什么要对开发者说的吗？", actionTitles: ["去评价","暂时没空"], actionHandler: { (index) in
             if index == 0 {
-                UIApplication.shared.openURL(URL(string: rateUrl)!)
-                Configure.shared.hasRate = true
-            }
-            if index == 2 {
-                UIApplication.shared.openURL(URL(string: emailUrl)!)
+                self.rate()
                 Configure.shared.hasRate = true
             }
             Configure.shared.alertDate = Date()
         })
+    }
+    
+    func rate() {
+        let vc = SKStoreProductViewController()
+        vc.delegate = self
+        vc.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier:appID]) { (_, err) in
+            if err == nil {
+                self.presentVC(vc)
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -307,6 +317,7 @@ extension FilesViewController: UITextFieldDelegate {
 }
 
 extension FilesViewController: SwipeTableViewCellDelegate {
+
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
         if orientation == .left {
             return nil
@@ -339,3 +350,8 @@ extension FilesViewController: SwipeTableViewCellDelegate {
     }
 }
 
+extension FilesViewController: SKStoreProductViewControllerDelegate {
+    func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
+        viewController.dismissVC(completion: nil)
+    }
+}

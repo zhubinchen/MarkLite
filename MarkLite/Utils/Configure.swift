@@ -13,7 +13,7 @@ import Zip
 
 class Configure: NSObject, NSCoding {
     
-    static let configureFile = documentPath + "/Configure.plist"
+    static let configureFile = configPath + "/Configure.plist"
     
     var newVersionAvaliable = false
     
@@ -37,7 +37,7 @@ class Configure: NSObject, NSCoding {
     
     static let shared: Configure = {
         var configure = Configure()
-        NSKeyedUnarchiver.setClass(Configure.self, forClassName: "Configure")
+
         if let old = NSKeyedUnarchiver.unarchiveObject(withFile: configureFile) as? Configure {
             configure = old
         } else {
@@ -48,8 +48,8 @@ class Configure: NSObject, NSCoding {
     }()
     
     func setup() {
-        try? FileManager.default.removeItem(atPath: tempFolderPath)
-        try? FileManager.default.createDirectory(atPath: tempFolderPath, withIntermediateDirectories: true, attributes: nil)
+        try? FileManager.default.removeItem(atPath: tempPath)
+        try? FileManager.default.createDirectory(atPath: tempPath, withIntermediateDirectories: true, attributes: nil)
         if appVersion != currentVerion {
             upgrade()
         }
@@ -59,15 +59,16 @@ class Configure: NSObject, NSCoding {
         upgradeDate = Date()
         currentVerion = appVersion
         
-        let stylePath = Bundle.main.url(forResource: "style", withExtension: "zip")
-        let destStylePath = URL(fileURLWithPath: documentPath)
-        try! Zip.unzipFile(stylePath!, destination: destStylePath, overwrite: true, password: nil, progress: nil)
+        let destStylePath = URL(fileURLWithPath: supportPath)
+        try! Zip.unzipFile(Bundle.main.url(forResource: "Style", withExtension: "zip")!, destination: destStylePath, overwrite: true, password: nil, progress: nil)
         
         let samplesPath = Bundle.main.url(forResource: "samples", withExtension: "zip")
-        let destSamplesPath = URL(fileURLWithPath: localPath)
+        let destSamplesPath = URL(fileURLWithPath: documentPath)
         try! Zip.unzipFile(samplesPath!, destination: destSamplesPath, overwrite: true, password: nil, progress: nil)
-        try? FileManager.default.moveItem(atPath: localPath + "/samples/" + /"Instructions", toPath: localPath + "/" + /"Instructions")
-        try? FileManager.default.removeItem(atPath: localPath + "/samples")
+        try? FileManager.default.moveItem(atPath: documentPath + "/samples/" + /"Instructions", toPath: documentPath + "/" + /"Instructions")
+        try? FileManager.default.moveItem(atPath: documentPath + "/samples/" + "样本展示.md", toPath: documentPath + "/" + "样本展示.md")
+        try? FileManager.default.removeItem(atPath: documentPath + "/samples")
+        try? FileManager.default.removeItem(atPath: documentPath + "/__MACOSX")
         try? FileManager.default.createDirectory(atPath: draftPath, withIntermediateDirectories: true, attributes: nil)
         save()
     }

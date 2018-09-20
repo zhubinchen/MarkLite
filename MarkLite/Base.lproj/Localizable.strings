@@ -36,7 +36,7 @@
 "SaveSuccessed"="Save to photo successed";
 
 "PremiumOnly"="This feature is only for premium user";
-"SubscribeNow"="Subscribe it now";
+"SubscribeNow"="Subscribe";
 "Subscribed"="Subscribed";
 
 "PremiumAccount"="Premium account";
@@ -51,16 +51,16 @@
 
 "Premium"="Premium";
 "SubscriptionInfo"="Subscription infomation";
-"Subscribe"="Subscribe";
-"Sales"="$0.99/month,1 week free trial";
+"Subscribe"="Subscribe now, 1 week free trial";
+"Price"="Price: $0.49/month";
 "Terms"="Terms";
 "PrivacyPolicy"="Privacy Policy";
-"SubsribeTips"="Subscribe to MarkLite to support further development and gain access to some great extra features:\n 1. Application themes\n 2. Advanced exports to PDF,HTML,JPG\n 3. Markdown styles & code block styles";
-"CancelSubsribeTips"="The subscription can be canceled at any time.";
+"PremiumDesc"="Subscribe to MarkLite to support further development and gain access to some great extra features:\n 1. Application themes\n 2. Advanced exports to PDF,HTML,JPG\n 3. Markdown styles & code block styles";
+"SubscribeTips"="The subscription can be canceled at any time.";
 "Restore"="Restore purchase";
 "RestoreTips"="Subscribed on other devices?";
 "SubscribeFailed"="Subcribe failed";
-"SubscribedSuccess"="Subscribed Success";
+"SubscribeSuccess"="Subscribe Success";
 "RestoreFailed"="No valid purchases found";
 "RestoreSuccess"="Restore purchases Success";
 

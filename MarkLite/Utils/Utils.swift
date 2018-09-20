@@ -9,6 +9,7 @@
 import UIKit
 import EZSwiftExtensions
 import RxSwift
+import Alamofire
 
 func *(string: String, repeatCount: Int) -> String {
     var ret = ""
@@ -19,6 +20,20 @@ func *(string: String, repeatCount: Int) -> String {
 }
 
 extension String {
+    
+    func md5() ->String!{
+        let str = cString(using: .utf8)
+        let strLen = CUnsignedInt(lengthOfBytes(using: .utf8))
+        let digestLen = CC_MD5_DIGEST_LENGTH
+        let result = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: Int(digestLen))
+        CC_MD5(str!, strLen, result)
+        let hash = NSMutableString()
+        for i in 0 ..< digestLen {
+            hash.appendFormat("%02x", result[Int(i)])
+        }
+        result.deallocate()
+        return String(format: hash as String)
+    }
     
     func stringByDeleteLastPath() -> String {
         var paths = self.components(separatedBy: "/")
@@ -90,11 +105,8 @@ extension String {
     }
 }
 
+
 extension UIViewController {
-    
-    func checkVIP() -> Bool {
-        return true
-    }
     
     @discardableResult
     func showAlert(title: String? = nil,

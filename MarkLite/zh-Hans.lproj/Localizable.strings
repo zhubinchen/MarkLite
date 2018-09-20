@@ -51,16 +51,19 @@
 
 "Premium"="高级帐户";
 "SubscriptionInfo"="查看订阅详情";
-"Subscribe"="订阅";
-"Sales"="¥6／月，第一周免费试用";
+"Subscribe"="立即订阅(6元/月，一周内免费)";
+"Price"="限时优惠：$0.99／月";
 "Terms"="使用条款";
 "PrivacyPolicy"="隐私策略";
-"SubsribeTips"="升级到高级帐户后，你将获得以下额外功能：\n1. 可导出所有格式(PDF,HTML,JPG)\n2. 可使用更多渲染样式\n3. 可更改主题颜色\n4. 后续版本中添加的更多特性";
-"CancelSubsribeTips"="你随时可以取消订阅";
+"PremiumPrice"="现在订阅可免费试用一周";
+"PremiumTitle"="订阅高级账户后，你将获得MarkLite的全部功能";
+"PremiumDesc"="1. 可将文档导出为任意格式(PDF,HTML,长图)\n2. 可使用更多渲染样式\n3. 可选择更多好看的主题颜色\n4. 后续版本中添加的更多特性";
+"SubscribeTips"="【连续包月高级账户说明】\n1.订阅周期：一个月\n2.订阅价格： 每月6元\n3.付款：用户确认购买并付款后记入iTunes账户\n4.取消续订：如需取消续订，请在当前订阅到期24小时以前，手动在iTunes/Apple ID设置管理中关闭自动续订功能\n5.续订：苹果iTunes账户会在到期前24小时内扣款，扣款成功后订阅周期顺延一个月";
 "Restore"="恢复订阅";
-"RestoreTips"="在其他设备上购买过？";
+"NotNow"="暂不订阅";
+"RestoreTips"="在其他设备上购买过？可在此恢复";
 "SubscribeFailed"="没有完成订阅";
-"SubscribedSuccess"="已成功订阅高级帐户";
+"SubscribeSuccess"="已成功订阅高级帐户";
 "RestoreFailed"="没有有效的订阅记录，请重新订阅";
 "RestoreSuccess"="已恢复订阅";
 

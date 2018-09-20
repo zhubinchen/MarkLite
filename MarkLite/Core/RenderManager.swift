@@ -14,14 +14,14 @@ class RenderManager: NSObject {
     
     var markdownStyle: String! {
         didSet {
-            let path = documentPath + "/style/markdown-style/" + markdownStyle + ".css"
+            let path = stylePath + "/markdown-style/" + markdownStyle + ".css"
             htmlStyleURL = URL(fileURLWithPath:path).absoluteString
         }
     }
     
     var highlightStyle: String! {
         didSet {
-            let path = documentPath + "/style/highlight-style/" + highlightStyle + ".css"
+            let path = stylePath + "/highlight-style/" + highlightStyle + ".css"
             highlightStyleURL = URL(fileURLWithPath:path).absoluteString
         }
     }
@@ -32,11 +32,11 @@ class RenderManager: NSObject {
     fileprivate var htmlStyleURL: String = ""
     fileprivate var highlightStyleURL: String = ""
     fileprivate var highlightjs1URL: String = {
-        let path = documentPath + "/style/highlightjs/highlight.min.js"
+        let path = stylePath + "/highlightjs/highlight.min.js"
         return URL(fileURLWithPath:path).absoluteString
     }()
     fileprivate var highlightjs2URL: String = {
-        let path = documentPath + "/style/highlightjs/swift.min.js"
+        let path = stylePath + "/highlightjs/swift.min.js"
         return URL(fileURLWithPath:path).absoluteString
     }()
     

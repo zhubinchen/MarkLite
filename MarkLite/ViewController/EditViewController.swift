@@ -80,7 +80,7 @@ class EditViewController: UIViewController {
             scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)
         }
         
-        let items = [ExportType.pdf,.markdown,.html,.image]
+        let items = [ExportType.markdown,.pdf,.html,.image]
         var pos = CGPoint(x: windowWidth - 140, y: 65)
         if let view = sender as? UIView {
             pos = view.origin
@@ -90,13 +90,16 @@ class EditViewController: UIViewController {
                 pos.y += 44
             }
         }
+        
+        func export(_ index: Int) {
+            guard let url = self.webVC?.url(for: items[index]) else { return }
+            let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+            self.presentVC(vc)
+        }
+        
         MenuView(items: items.map{$0.displayName},
                  postion: pos) { (index) in
-                    if self.checkVIP() {
-                        guard let url = self.webVC?.url(for: items[index]) else { return }
-                        let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-                        self.presentVC(vc)
-                    }
+                    export(index)
             }.show()
     }
     

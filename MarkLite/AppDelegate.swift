@@ -9,6 +9,7 @@
 import UIKit
 import SideMenu
 import RxSwift
+import Bugly
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,11 +19,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         setup()
+
         let url = URL(fileURLWithPath: iCloudPath)
         try? FileManager.default.startDownloadingUbiquitousItem(at: url)
         DispatchQueue.global().async {
             self.checkVersion()
         }
+
+        Bugly.start(withAppId: "57bc8a7c74")
+
         return true
     }
     
@@ -30,9 +35,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if FileManager.default.fileExists(atPath: url.path) {
             let oldPath = url.path
             let fileName = oldPath.components(separatedBy: "/").last ?? /"Untitled"
-            let recievedPath = localPath + "/" + /"ReceivedFiles"
+            let recievedPath = documentPath + "/" + /"ReceivedFiles"
             let newPath = recievedPath + "/" + fileName
-            
+            if oldPath.contains(documentPath) {
+                return true
+            }
             do {
                 try FileManager.default.createDirectory(atPath: recievedPath, withIntermediateDirectories: true, attributes: nil)
                 try FileManager.default.moveItem(atPath: oldPath, toPath: newPath)
@@ -41,7 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print(error.localizedDescription)
             }
         }
-
         return true
     }
     
