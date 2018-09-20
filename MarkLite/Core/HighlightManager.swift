@@ -26,8 +26,8 @@ class HighlightOperation: Operation {
     override func main() {
         let nomarlColor = Configure.shared.theme.value == .black ? rgb(180,180,170) : rgb(53,57,63)
         let result = NSMutableAttributedString(string: text)
-        result.addAttributes([NSFontAttributeName : UIFont.font(ofSize:17),
-                              NSForegroundColorAttributeName : nomarlColor], range: range(0,text.length))
+        result.addAttributes([NSAttributedStringKey.font : UIFont.font(ofSize:17),
+                              NSAttributedStringKey.foregroundColor : nomarlColor], range: range(0,text.length))
         if isCancelled {
             return
         }
@@ -60,7 +60,7 @@ class HighlightStyle {
     var deletionLine: Bool = false
     var size: CGFloat = 17
 
-    var attrs: [String : Any] {
+    var attrs: [NSAttributedStringKey : Any] {
         
         var font: UIFont = UIFont.font(ofSize: size, bold: bold)
         if (italic) {
@@ -70,11 +70,11 @@ class HighlightStyle {
             let desc = UIFontDescriptor(name: fontName, matrix: matrix)
             font = UIFont(descriptor: desc, size: size)
         }
-        return [NSFontAttributeName : font,
-                NSForegroundColorAttributeName : textColor,
-                NSBackgroundColorAttributeName : backgroundColor,
-                NSStrikethroughStyleAttributeName : deletionLine ? NSUnderlineStyle.styleSingle.rawValue :  NSUnderlineStyle.styleNone.rawValue,
-                NSStrikethroughColorAttributeName : textColor
+        return [NSAttributedStringKey.font : font,
+                NSAttributedStringKey.foregroundColor : textColor,
+                NSAttributedStringKey.backgroundColor : backgroundColor,
+                NSAttributedStringKey.strikethroughStyle : deletionLine ? NSUnderlineStyle.styleSingle :  NSUnderlineStyle.styleNone,
+                NSAttributedStringKey.strikethroughColor : textColor
         ]
     }
 }
@@ -158,8 +158,8 @@ struct MarkdownHighlightManager {
     func highlight(_ text: String, completion:@escaping (NSAttributedString)->Void) {
         let nomarlColor = Configure.shared.theme.value == .black ? rgb(180,180,170) : rgb(53,57,63)
         let result = NSMutableAttributedString(string: text)
-        result.addAttributes([NSFontAttributeName : UIFont.font(ofSize:17),
-                              NSForegroundColorAttributeName : nomarlColor], range: range(0,text.length))
+        result.addAttributes([NSAttributedStringKey.font : UIFont.font(ofSize:17),
+                              NSAttributedStringKey.foregroundColor : nomarlColor], range: range(0,text.length))
 
         syntaxArray.forEach { (syntax) in
             syntax.expression.enumerateMatches(in: text, options: .reportCompletion, range: range(0, text.length), using: { (match, _, _) in

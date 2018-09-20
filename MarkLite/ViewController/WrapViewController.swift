@@ -40,8 +40,8 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Configure.shared.editingFile.asObservable().map{$0?.name ?? ""}.bind(to: topTitle.rx.text).addDisposableTo(disposeBag)
-        Configure.shared.editingFile.asObservable().map{($0?.name ?? "").vertical}.bind(to: leftTitle.rx.text).addDisposableTo(disposeBag)
+        Configure.shared.editingFile.asObservable().map{$0?.name ?? ""}.bind(to: topTitle.rx.text).disposed(by: disposeBag)
+        Configure.shared.editingFile.asObservable().map{($0?.name ?? "").vertical}.bind(to: leftTitle.rx.text).disposed(by: disposeBag)
         
         popoverPresentationController?.delegate = self
         
@@ -60,7 +60,7 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
             self.showFiles(self)
         }
         
-        Configure.shared.editingFile.asObservable().map{ $0 != nil }.bind(to: emptyView.rx.isHidden).addDisposableTo(disposeBag)
+        Configure.shared.editingFile.asObservable().map{ $0 != nil }.bind(to: emptyView.rx.isHidden).disposed(by: disposeBag)
     }
     
     override func viewDidAppear(_ animated: Bool) {
