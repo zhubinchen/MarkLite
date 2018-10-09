@@ -10,6 +10,5 @@
 #define MarkLite_Bridging_Header_h
 
 #import <Foundation/Foundation.h>
-#import <CommonCrypto/CommonDigest.h>
 #import "hoedown_helper.h"
 #endif /* MarkLite_Bridging_Header_h */

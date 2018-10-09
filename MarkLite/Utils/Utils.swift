@@ -10,6 +10,7 @@ import UIKit
 import EZSwiftExtensions
 import RxSwift
 import Alamofire
+import CommonCrypto
 
 func *(string: String, repeatCount: Int) -> String {
     var ret = ""
