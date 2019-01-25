@@ -64,31 +64,6 @@
 
 - (void)toggleCloud
 {
-    NSString *tryTitle = ZHLS(@"Try");
-    if ([tryTitle isEqualToString:@"试用1天"] && [[NSDate date] compare:[NSDate dateWithString:@"2016-07-8 12:00:00"]] == NSOrderedDescending) {
-        tryTitle = @"好评后免费试用一天";
-    }
-    if ([Configure sharedConfigure].iCloudState == 1) {
-        tryTitle = nil;
-    }
-    if (self.cloud == NO && [Configure sharedConfigure].iCloudState < 2) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:ZHLS(@"UnlockTitle") message:@"" delegate:nil cancelButtonTitle:ZHLS(@"Cancel") otherButtonTitles:ZHLS(@"Unlock"), tryTitle,nil];
-        alert.clickedButton = ^(NSInteger index){
-            if (index == 1) {
-                [self requestProductData:kProductCloud];
-            }else if (index == 2){
-                [Configure sharedConfigure].iCloudState = 2;
-                if ([tryTitle isEqualToString:@"好评后免费试用一天"]) {
-                    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1098107145&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
-                }else{
-                    showToast(ZHLS(@"TriedTips"));
-                }
-            }
-        };
-        [alert show];
-        return;
-    }
-
     self.cloud = !self.cloud;
     self.tabBarController.title = ZHLS(self.cloud?@"NavTitleCloudFile":@"NavTitleLocalFile");
     leftItem.title = ZHLS(self.cloud?@"NavTitleLocalFile":@"NavTitleCloudFile");
