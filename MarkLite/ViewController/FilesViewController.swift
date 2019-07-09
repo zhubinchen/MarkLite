@@ -8,7 +8,6 @@
 
 import UIKit
 import EZSwiftExtensions
-import SwipeCellKit
 import RxSwift
 import StoreKit
 
@@ -270,7 +269,6 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
         let cell =  tableView.dequeueReusableCell(withIdentifier: "file", for: indexPath) as! FileTableViewCell
         let file = childrens[indexPath.row]
         cell.file = file
-        cell.delegate = self
         return cell
     }
     
@@ -300,7 +298,34 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
 
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .destructive, title: /"Delete") { [unowned self](_, indexPath) in
+            let file = self.childrens[indexPath.row]
+            file.trash()
+            self.childrens.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .middle)
+        }
+        let renameAction = UITableViewRowAction(style: .default, title: /"Rename") { [unowned self](_, indexPath) in
+            let file = self.childrens[indexPath.row]
+            self.showAlert(title: /"Rename", message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
+                textField.text = file.name
+                self.textField = textField
+            }, actionHandler: { (index) in
+                if index == 0 {
+                    return
+                }
+                self.rename(file: file, newName:self.textField?.text ?? "")
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+            })
+        }
+        renameAction.backgroundColor = .lightGray
+        return [deleteAction,renameAction]
+    }
 }
 
 extension FilesViewController: UITextFieldDelegate {
@@ -316,39 +341,6 @@ extension FilesViewController: UITextFieldDelegate {
     }
 }
 
-extension FilesViewController: SwipeTableViewCellDelegate {
-
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
-        if orientation == .left {
-            return nil
-        }
-        let file = childrens[indexPath.row]
-
-        let deleteAction = SwipeAction(style: .destructive, title: /"Delete") { [unowned self] action, indexPath in
-            file.trash()
-            self.childrens.remove(at: indexPath.row)
-            self.tableView.beginUpdates()
-            self.tableView.deleteRows(at: [indexPath], with: .bottom)
-            self.tableView.endUpdates()
-        }
-
-        let renameAction = SwipeAction(style: .default, title: /"Rename") { [unowned self] action, indexPath in
-            self.showAlert(title: /"Rename", message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
-                textField.text = file.name
-                self.textField = textField
-            }, actionHandler: { (index) in
-                if index == 0 {
-                    return
-                }
-                self.rename(file: file, newName:self.textField?.text ?? "")
-                self.tableView.reloadData()
-            })
-        }
-        renameAction.backgroundColor = UIColor(red: 49/255.0, green: 105/255.0, blue: 254/255.0, alpha: 1)
-
-        return [deleteAction,renameAction]
-    }
-}
 
 extension FilesViewController: SKStoreProductViewControllerDelegate {
     func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {

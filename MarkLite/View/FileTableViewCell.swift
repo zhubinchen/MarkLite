@@ -7,10 +7,9 @@
 //
 
 import UIKit
-import SwipeCellKit
 import RxSwift
 
-class FileTableViewCell: SwipeTableViewCell {
+class FileTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var sizeLabel: UILabel!

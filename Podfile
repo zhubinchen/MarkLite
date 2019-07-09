@@ -10,7 +10,6 @@ target 'MarkLite' do
   pod 'EZSwiftExtensions'
   pod 'SideMenu'
   pod 'Zip'
-  pod 'SwipeCellKit'
   pod 'Bugly'
 
   # Pods for MarkLite
