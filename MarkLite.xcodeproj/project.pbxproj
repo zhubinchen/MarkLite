@@ -53,7 +53,6 @@
 		76DFA18422D496540025B44B /* context_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 76DFA17522D496530025B44B /* context_test.c */; };
 		76DFA18522D496540025B44B /* document.c in Sources */ = {isa = PBXBuildFile; fileRef = 76DFA17722D496530025B44B /* document.c */; };
 		76DFA18622D496540025B44B /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = 76DFA17922D496530025B44B /* stack.c */; };
-		76DFA18822D496FF0025B44B /* hoedown_fuzzer.c in Sources */ = {isa = PBXBuildFile; fileRef = 76DFA18722D496FF0025B44B /* hoedown_fuzzer.c */; };
 		C1D8DF07B0DF6E27F81AA609 /* Pods_MarkLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BAF011D2BD7C7FE8749C859 /* Pods_MarkLite.framework */; };
 /* End PBXBuildFile section */
 
@@ -95,7 +94,6 @@
 		07E8270D1F5BF1BA0077A017 /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		07E8270E1F5BF1BA0077A017 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		07E8270F1F5BF1BA0077A017 /* WrapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapViewController.swift; sourceTree = "<group>"; };
-		07E8275E1F5BF1D10077A017 /* MarkLite.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MarkLite.entitlements; sourceTree = "<group>"; };
 		07E827611F5BF1FC0077A017 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		07E827621F5BF2020077A017 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		07E827661F5BF24B0077A017 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -126,7 +124,6 @@
 		76DFA17822D496530025B44B /* stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
 		76DFA17922D496530025B44B /* stack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stack.c; sourceTree = "<group>"; };
 		76DFA17A22D496530025B44B /* autolink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autolink.h; sourceTree = "<group>"; };
-		76DFA18722D496FF0025B44B /* hoedown_fuzzer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_fuzzer.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,7 +159,6 @@
 		07E826941F5BF0F20077A017 /* MarkLite */ = {
 			isa = PBXGroup;
 			children = (
-				07E8275E1F5BF1D10077A017 /* MarkLite.entitlements */,
 				07E826951F5BF0F20077A017 /* AppDelegate.swift */,
 				07E826A71F5BF1BA0077A017 /* Core */,
 				07E826F71F5BF1BA0077A017 /* Utils */,
@@ -185,7 +181,6 @@
 				07E826A81F5BF1BA0077A017 /* HighlightManager.swift */,
 				07E826A91F5BF1BA0077A017 /* hoedown */,
 				07E826BC1F5BF1BA0077A017 /* hoedown_helper.h */,
-				76DFA18722D496FF0025B44B /* hoedown_fuzzer.c */,
 				07E826BD1F5BF1BA0077A017 /* MarkLite-Bridging-Header.h */,
 				07E826BE1F5BF1BA0077A017 /* PdfRender.swift */,
 				07E826BF1F5BF1BA0077A017 /* RenderManager.swift */,
@@ -348,8 +343,11 @@
 							com.apple.InAppPurchase = {
 								enabled = 0;
 							};
+							com.apple.Push = {
+								enabled = 0;
+							};
 							com.apple.iCloud = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -471,7 +469,6 @@
 				0724281B1F726B0300C02F87 /* ImagePicker.swift in Sources */,
 				76DFA18222D496540025B44B /* html5_blocks.c in Sources */,
 				76DFA18422D496540025B44B /* context_test.c in Sources */,
-				76DFA18822D496FF0025B44B /* hoedown_fuzzer.c in Sources */,
 				76DFA17F22D496540025B44B /* html_blocks.c in Sources */,
 				07E8275C1F5BF1BA0077A017 /* WebViewController.swift in Sources */,
 				76DFA18322D496540025B44B /* escape.c in Sources */,
@@ -637,7 +634,6 @@
 			baseConfigurationReference = 35BB96C49577417FB30DDAC7 /* Pods-MarkLite.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = MarkLite/MarkLite.entitlements;
 				DEVELOPMENT_TEAM = TS5H34GM7Q;
 				INFOPLIST_FILE = MarkLite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -656,7 +652,6 @@
 			baseConfigurationReference = 58249A080329B6A7C4EEF3E3 /* Pods-MarkLite.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = MarkLite/MarkLite.entitlements;
 				DEVELOPMENT_TEAM = TS5H34GM7Q;
 				INFOPLIST_FILE = MarkLite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;

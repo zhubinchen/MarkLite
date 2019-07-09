@@ -55,15 +55,12 @@ class FilesViewController: UIViewController {
     
     let titleTextField = UITextField(x: 0, y: 0, w: 100, h: 30)
     
-    let titleButton = UIButton(type: .system)
-    
     var textField: UITextField?
     
     var isHomePage = false
     
     override var title: String? {
         didSet {
-            titleButton.setTitle(title, for: .normal)
             titleTextField.text = title
         }
     }
@@ -93,10 +90,6 @@ class FilesViewController: UIViewController {
             
             title = /"LocalFile"
             File.loadLocal{ self.root = $0 }
-
-            titleButton.titleLabel?.font = UIFont.font(ofSize: 18)
-            navigationItem.titleView = titleButton
-            titleButton.addTarget(self, action: #selector(showStorageMenu), for: .touchUpInside)
         } else {
             title = root?.name
             navigationItem.titleView = titleTextField
@@ -199,20 +192,6 @@ class FilesViewController: UIViewController {
     
     @objc func showSettings() {
         performSegue(withIdentifier: "menu", sender: nil)
-    }
-    
-    @objc func showStorageMenu() {
-        let items = [/"LocalFile",/"iCloud"]
-        MenuView(items: items,
-                 postion: CGPoint(x:(view.w - 140) * 0.5,y: 64),
-                 textAlignment: .center) { (index) in
-                    self.title = items[index]
-                    if index == 0 {
-                        File.loadLocal{ self.root = $0 }
-                    } else if index == 1 {
-                        File.loadCloud{ self.root = $0 }
-                    }
-        }.show()
     }
     
     @objc func showCreateMenu() {
