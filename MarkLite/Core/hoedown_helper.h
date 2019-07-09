@@ -10,95 +10,104 @@
 #define hoedown_helper_h
 
 #import <limits.h>
-#import "html.h"
-#import "document.h"
-#import "hoedown_html_patch.h"
+#include <stddef.h>
+#include <stdint.h>
+#include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "document.h"
+#include "html.h"
+#include "context_test.h"
+
+enum renderer_type {
+    RENDERER_HTML,
+    RENDERER_HTML_TOC,
+    RENDERER_CONTEXT_TEST
+};
+
+#define DEF_IUNIT 1024
+#define DEF_OUNIT 64
+#define DEF_MAX_NESTING 16
+
+struct option_data {
+    char *basename;
+    int done;
+    
+    /* time reporting */
+    int show_time;
+    
+    /* I/O */
+    size_t iunit;
+    size_t ounit;
+    const char *filename;
+    
+    /* renderer */
+    enum renderer_type renderer;
+    int toc_level;
+    hoedown_html_flags html_flags;
+    
+    /* document */
+    uint8_t attr_activation;
+    
+    /* parsing */
+    hoedown_extensions extensions;
+    size_t max_nesting;
+    
+    /* link_attributes */
+    int link_attributes;
+};
 
 static size_t kRendererNestingLevel = SIZE_MAX;
 static int kRendererTOCLevel = 6;
 
-NS_INLINE NSString *HTMLFromMarkdown(NSString *text,
-                                     hoedown_renderer *htmlRenderer,
-                                     hoedown_renderer *tocRenderer)
+NS_INLINE NSString *HTMLFromMarkdown(NSString *text)
 {
-    NSData *inputData = [text dataUsingEncoding:NSUTF8StringEncoding];
-    hoedown_extensions flags = HOEDOWN_EXT_BLOCK|HOEDOWN_EXT_SPAN|HOEDOWN_EXT_FLAGS;
-    hoedown_document *document = hoedown_document_new(htmlRenderer,
-                                                      flags,
-                                                      kRendererNestingLevel);
-    hoedown_buffer *ob = hoedown_buffer_new(64);
-    hoedown_document_render(document, ob, inputData.bytes, inputData.length);
+    NSData *data = [text dataUsingEncoding:NSUTF8StringEncoding];
+    struct option_data opt;
+    hoedown_buffer *ib, *ob, *meta;
+    hoedown_renderer *renderer = NULL;
+    void (*renderer_free)(hoedown_renderer *) = NULL;
+    hoedown_document *document;
+    
+    /* Parse options */
+    opt.basename = "fuzz";
+    opt.done = 0;
+    opt.show_time = 0;
+    opt.iunit = DEF_IUNIT;
+    opt.ounit = DEF_OUNIT;
+    opt.filename = NULL;
+    opt.renderer = RENDERER_HTML;
+    opt.toc_level = 0;
+    opt.attr_activation = 0;
+    // opt.html_flags = 0;
+    opt.html_flags = HOEDOWN_HTML_SKIP_HTML | HOEDOWN_HTML_ESCAPE | HOEDOWN_HTML_HARD_WRAP | HOEDOWN_HTML_USE_XHTML | HOEDOWN_HTML_USE_TASK_LIST | HOEDOWN_HTML_LINE_CONTINUE | HOEDOWN_HTML_HEADER_ID | HOEDOWN_HTML_FENCED_CODE_SCRIPT;
+    //opt.extensions = 0;
+    opt.extensions = HOEDOWN_EXT_TABLES | HOEDOWN_EXT_MULTILINE_TABLES | HOEDOWN_EXT_FENCED_CODE | HOEDOWN_EXT_FOOTNOTES | HOEDOWN_EXT_DEFINITION_LISTS | HOEDOWN_EXT_BLOCKQUOTE_EMPTY_LINE | HOEDOWN_EXT_AUTOLINK | HOEDOWN_EXT_STRIKETHROUGH | HOEDOWN_EXT_UNDERLINE | HOEDOWN_EXT_HIGHLIGHT | HOEDOWN_EXT_QUOTE | HOEDOWN_EXT_SUPERSCRIPT | HOEDOWN_EXT_MATH | HOEDOWN_EXT_NO_INTRA_EMPHASIS | HOEDOWN_EXT_SPACE_HEADERS | HOEDOWN_EXT_MATH_EXPLICIT | HOEDOWN_EXT_HTML5_BLOCKS | HOEDOWN_EXT_NO_INTRA_UNDERLINE_EMPHASIS | HOEDOWN_EXT_DISABLE_INDENTED_CODE | HOEDOWN_EXT_SPECIAL_ATTRIBUTE | HOEDOWN_EXT_SCRIPT_TAGS | HOEDOWN_EXT_META_BLOCK;
+    opt.max_nesting = DEF_MAX_NESTING;
+    opt.link_attributes = 0;
+    
+    /* Read everything */
+    ib = hoedown_buffer_new(opt.iunit);
+    hoedown_buffer_put(ib, data.bytes, data.length);
+    
+    renderer = hoedown_html_renderer_new(opt.html_flags, opt.toc_level);
+    renderer_free = hoedown_html_renderer_free;
+    
+    /* Perform Markdown rendering */
+    ob = hoedown_buffer_new(opt.ounit);
+    meta = hoedown_buffer_new(opt.ounit);
+    document = hoedown_document_new(renderer, opt.extensions, opt.max_nesting, opt.attr_activation, NULL, meta);
 
-    hoedown_buffer *ib = ob;
     ob = hoedown_buffer_new(64);
-    hoedown_html_smartypants(ob, ib->data, ib->size);
-    hoedown_buffer_free(ib);
-    
+    hoedown_document_render(document, ob, data.bytes, data.length);
     NSString *result = [NSString stringWithUTF8String:hoedown_buffer_cstr(ob)];
-    hoedown_document_free(document);
-    hoedown_buffer_free(ob);
     
-    document = hoedown_document_new(tocRenderer,
-                                    flags,
-                                    kRendererNestingLevel);
-    ob = hoedown_buffer_new(64);
-    hoedown_document_render(
-                            document, ob, inputData.bytes, inputData.length);
-    NSString *toc = [NSString stringWithUTF8String:hoedown_buffer_cstr(ob)];
-    
-    static NSRegularExpression *tocRegex = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString *pattern = @"<p.*?>\\s*\\[TOC\\]\\s*</p>";
-        NSRegularExpressionOptions ops = NSRegularExpressionCaseInsensitive;
-        tocRegex = [[NSRegularExpression alloc] initWithPattern:pattern
-                                                        options:ops
-                                                          error:NULL];
-    });
-    NSRange replaceRange = NSMakeRange(0, result.length);
-    result = [tocRegex stringByReplacingMatchesInString:result options:0 range:replaceRange withTemplate:toc];
     hoedown_document_free(document);
     hoedown_buffer_free(ob);
     
     return result;
-}
-
-NS_INLINE BOOL AreNilableStringsEqual(NSString *s1, NSString *s2)
-{
-    
-    return ([s1 isEqualToString:s2] || s1 == s2);
-}
-
-NS_INLINE hoedown_renderer *CreateHTMLRenderer()
-{
-    int flags = 0;
-    hoedown_renderer *htmlRenderer = hoedown_html_renderer_new(
-                                                               flags, kRendererTOCLevel);
-    htmlRenderer->blockcode = hoedown_patch_render_blockcode;
-    htmlRenderer->listitem = hoedown_patch_render_listitem;
-    
-    hoedown_html_renderer_state_extra *extra =
-    hoedown_malloc(sizeof(hoedown_html_renderer_state_extra));
-    
-    ((hoedown_html_renderer_state *)htmlRenderer->opaque)->opaque = extra;
-    return htmlRenderer;
-}
-
-NS_INLINE hoedown_renderer *CreateHTMLTOCRenderer()
-{
-    hoedown_renderer *tocRenderer =
-    hoedown_html_toc_renderer_new(kRendererTOCLevel);
-    tocRenderer->header = hoedown_patch_render_toc_header;
-    return tocRenderer;
-}
-
-NS_INLINE void FreeHTMLRenderer(hoedown_renderer *htmlRenderer)
-{
-    hoedown_html_renderer_state_extra *extra =
-    ((hoedown_html_renderer_state *)htmlRenderer->opaque)->opaque;
-    if (extra)
-        free(extra);
-    hoedown_html_renderer_free(htmlRenderer);
 }
 
 #endif /* hoedown_helper_h */

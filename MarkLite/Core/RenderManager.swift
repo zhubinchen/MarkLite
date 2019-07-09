@@ -26,9 +26,6 @@ class RenderManager: NSObject {
         }
     }
     
-    fileprivate let htmlRender = CreateHTMLRenderer()
-    fileprivate let tocRender = CreateHTMLTOCRenderer()
-    
     fileprivate var htmlStyleURL: String = ""
     fileprivate var highlightStyleURL: String = ""
     fileprivate var highlightjs1URL: String = {
@@ -43,7 +40,7 @@ class RenderManager: NSObject {
     
     func render(_ markdown: String) -> String {
 
-        guard let body = HTMLFromMarkdown(markdown, htmlRender, tocRender) else { return "" }
+        guard let body = HTMLFromMarkdown(markdown) else { return "" }
         return String(format: htmlFormat,
                       htmlStyleURL,
                       highlightStyleURL,

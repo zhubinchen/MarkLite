@@ -5,6 +5,7 @@
 
 #include "document.h"
 #include "buffer.h"
+#include "hash.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -19,7 +20,11 @@ typedef enum hoedown_html_flags {
 	HOEDOWN_HTML_SKIP_HTML = (1 << 0),
 	HOEDOWN_HTML_ESCAPE = (1 << 1),
 	HOEDOWN_HTML_HARD_WRAP = (1 << 2),
-	HOEDOWN_HTML_USE_XHTML = (1 << 3)
+	HOEDOWN_HTML_USE_XHTML = (1 << 3),
+	HOEDOWN_HTML_USE_TASK_LIST = (1 << 4),
+	HOEDOWN_HTML_LINE_CONTINUE = (1 << 5),
+	HOEDOWN_HTML_HEADER_ID = (1 << 6),
+	HOEDOWN_HTML_FENCED_CODE_SCRIPT = (1 << 7)
 } hoedown_html_flags;
 
 typedef enum hoedown_html_tag {
@@ -41,7 +46,13 @@ struct hoedown_html_renderer_state {
 		int current_level;
 		int level_offset;
 		int nesting_level;
+		char *header;
+		char *footer;
 	} toc_data;
+
+	struct {
+		hoedown_hash *header_id;
+	} hash;
 
 	hoedown_html_flags flags;
 
