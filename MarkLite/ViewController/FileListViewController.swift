@@ -110,16 +110,6 @@ class FileListViewController: UIViewController {
             navigationController?.interactivePopGestureRecognizer?.delegate = navigationController
         }
         
-        Timer.runThisAfterDelay(seconds: 2) {
-            if Configure.shared.newVersionAvaliable {
-                self.showAlert(title: /"UpgradeTitle", message: /"UpgradeTips", actionTitles: [/"Upgrade",/"DontUpgrade"], actionHandler: { (index) in
-                    if index == 0 {
-                        UIApplication.shared.openURL(URL(string: upgradeUrl)!)
-                    }
-                })
-            }
-        }
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showCreateMenu))
         
         navBar?.setBarTintColor(.navBar)

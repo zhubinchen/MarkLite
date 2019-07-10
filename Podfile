@@ -10,7 +10,7 @@ target 'Markdown' do
   pod 'EZSwiftExtensions'
   pod 'SideMenu'
   pod 'Zip'
-
+  pod 'UMCAnalytics'
   # Pods for MarkLite
 
 end

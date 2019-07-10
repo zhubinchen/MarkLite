@@ -87,11 +87,6 @@
 "ReceivedFiles" = "收到的文件";
 "Error"="出錯了";
 
-"UpgradeTitle"="Markdown更新啦";
-"UpgradeTips"="為了有更好的使用體驗，建議升級到最新版！";
-"Upgrade"="更新";
-"DontUpgrade"="以後再說";
-
 "StartEdit"="寫點什麽吧";
 "SelectFileTips"="請選擇要編輯的文件";
 

@@ -18,13 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         UIView.initializeOnceMethod()
+        UMConfigure.initWithAppkey(umengKey, channel: "App Store")
         setup()
-
-        let url = URL(fileURLWithPath: iCloudPath)
-        try? FileManager.default.startDownloadingUbiquitousItem(at: url)
-        DispatchQueue.global().async {
-            self.checkVersion()
-        }
 
         return true
     }
@@ -58,26 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         ApplicationWillTerminate.post(info: nil)
         Configure.shared.save()
-    }
-    
-    func checkVersion() {
-
-        let url = URL(string: checkVersionUrl)
-        guard let data = try? Data(contentsOf: url!),
-            let json = try? JSONSerialization.jsonObject(with: data, options: .mutableLeaves),
-            let dict = json as? Dictionary<String, Any> else { return }
-        
-        var latestVersion = "1.0"
-        
-        guard let resultArray = dict["results"] as? Array<Dictionary<String, Any>> else { return }
-        for config in resultArray {
-            latestVersion = config["version"] as? String ?? ""
-        }
-        let currentVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        
-        if (latestVersion.toDouble() ?? 0) > (currentVersion?.toDouble() ?? 0) {
-            Configure.shared.newVersionAvaliable = true
-        }
     }
     
     func setup() {

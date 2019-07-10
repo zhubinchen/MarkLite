@@ -85,11 +85,6 @@
 "ReceivedNewFile"="Received new file:";
 "ReceivedFiles" = "Received files";
 
-"UpgradeTitle"="New version is available!";
-"UpgradeTips"="Upgrade to the latest version to have a better experience!😄";
-"Upgrade"="Upgrade";
-"DontUpgrade"="Remind me later";
-
 "StartEdit"="Write something here";
 "SelectFileTips"="Select a file to edit";
 "Header"="Header";

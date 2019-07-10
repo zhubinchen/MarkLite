@@ -90,11 +90,6 @@
 
 "Error"="出错了";
 
-"UpgradeTitle"="Markdown更新啦";
-"UpgradeTips"="为了有更好的使用体验，建议升级到最新版！";
-"Upgrade"="更新";
-"DontUpgrade"="以后再说";
-
 "StartEdit"="写点什么吧";
 "SelectFileTips"="請選擇要編輯的文件";
 "Header"="标题";
