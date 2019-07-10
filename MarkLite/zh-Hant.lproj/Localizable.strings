@@ -6,9 +6,10 @@
  Copyright © 2017年 zhubch. All rights reserved.
  */
 
-"LocalFile"="本地文件";
+"LocalFile"="文件";
 "CloudFile"="iCloud";
 "Dropbox"="Dropbox";
+"EmptyFolder"="当前目录没有任何文件";
 
 "Settings"="設定";
 

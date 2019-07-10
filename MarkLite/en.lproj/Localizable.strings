@@ -6,10 +6,11 @@
  Copyright © 2017年 zhubch. All rights reserved.
  */
 
-"LocalFile"="Local files";
+"LocalFile"="Documents";
 "CloudFile"="iCloud";
 "Dropbox" = "Dropbox";
 "Settings"="Settings";
+"EmptyFolder"="There is no file in current folder";
 
 "CreateNote"="New note";
 "CreateFolder"="New folder";

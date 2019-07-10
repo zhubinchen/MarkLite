@@ -355,10 +355,9 @@
 			};
 			buildConfigurationList = 07E8268D1F5BF0F20077A017 /* Build configuration list for PBXProject "MarkLite" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 				"zh-Hans",
@@ -638,7 +637,7 @@
 				INFOPLIST_FILE = MarkLite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.qinxiu.MarkLite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qinxiu.markdown;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ENABLE_BATCH_MODE = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "MarkLite/Core/MarkLite-Bridging-Header.h";
@@ -656,7 +655,7 @@
 				INFOPLIST_FILE = MarkLite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.qinxiu.MarkLite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.qinxiu.markdown;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ENABLE_BATCH_MODE = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "MarkLite/Core/MarkLite-Bridging-Header.h";
