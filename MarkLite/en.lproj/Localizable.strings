@@ -1,6 +1,6 @@
 /*
  Localizable.strings
- MarkLite
+ Markdown
  
  Created by zhubch on 2017/8/21.
  Copyright © 2017年 zhubch. All rights reserved.
@@ -56,7 +56,7 @@
 "Terms"="Terms";
 "PrivacyPolicy"="Privacy Policy";
 "PremiumPrice"="1 week free trial, $0.99/month";
-"PremiumTitle"="Subscribe to MarkLite to support further development and gain access to some great extra features";
+"PremiumTitle"="Subscribe to Markdown to support further development and gain access to some great extra features";
 "PremiumDesc"="1. Application themes\n2. Advanced exports to PDF,HTML,JPG\n3. Markdown styles & code block styles";
 "SubscribeTips"="【Premium SubScription】\n–The duration of every period of the subscription is 1 month\n– Payment will be charged to iTunes Account at confirmation of purchase\n– Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period\n– Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of the renewal\n– Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase\n– Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable\n- Monthly subscription with 7-day free trial period for $0.99 USD";
 "Restore"="Restore";
@@ -111,8 +111,8 @@
 "Camera"="Camera";
 "CameraError"="Can not access your camera";
 "PhotoError"="Can not access yours photos";
-"EnableCameraTips"="Tap \"settings\" icon, find and tap \"privacy\", tap \"Camera\", find \"MarkLite\" and enable it.";
-"EnablePhotoTips"="Tap \"settings\" icon, find and tap \"privacy\", tap \"Photos\", find \"MarkLite\" and enable it.";
+"EnableCameraTips"="Tap \"settings\" icon, find and tap \"privacy\", tap \"Camera\", find \"Markdown\" and enable it.";
+"EnablePhotoTips"="Tap \"settings\" icon, find and tap \"privacy\", tap \"Photos\", find \"Markdown\" and enable it.";
 
 "Instructions"="Instructions";
 

@@ -1,6 +1,5 @@
 PODS:
   - Alamofire (4.7.3)
-  - Bugly (2.5.0)
   - EZSwiftExtensions (2.0)
   - RxCocoa (4.3.0):
     - RxSwift (~> 4.0)
@@ -10,7 +9,6 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
-  - Bugly
   - EZSwiftExtensions
   - RxCocoa
   - RxSwift
@@ -20,7 +18,6 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
-    - Bugly
     - EZSwiftExtensions
     - RxCocoa
     - RxSwift
@@ -29,13 +26,12 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
   EZSwiftExtensions: f73648a591e529a1dbd83c22b19fd3e57df6fb7d
   RxCocoa: 71b9cce833fbcb89a8eec11816dd225830c2bd3c
   RxSwift: a9717a34df3179fe63563f76e046ad345078dd3a
   SideMenu: 70ee5657df63ec3382660ec4ef470bf1cf5db07d
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: d533baeff85ffadaa7bfa1b3ddb3ed811b16736d
+PODFILE CHECKSUM: abefff849d9ad8cc9abe0941a056fbd6840b7244
 
 COCOAPODS: 1.5.3

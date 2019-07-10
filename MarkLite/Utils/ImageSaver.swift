@@ -1,6 +1,6 @@
 //
 //  ImageSaver.swift
-//  MarkLite
+//  Markdown
 //
 //  Created by zhubch on 2017/9/3.
 //  Copyright © 2017年 zhubch. All rights reserved.

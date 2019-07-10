@@ -1,6 +1,6 @@
 //
 //  Utils.swift
-//  MarkLite
+//  Markdown
 //
 //  Created by zhubch on 2017/6/21.
 //  Copyright © 2017年 zhubch. All rights reserved.
@@ -345,13 +345,13 @@ extension UIScrollView {
 }
 
 extension UITableView {
-    func addPullDownView(_ view: UIView, disposeBag: DisposeBag, comletion:@escaping ()->Void) {
+    func addPullDownView(_ view: UIView, bag: DisposeBag, comletion:@escaping ()->Void) {
         view.frame = CGRect(x: (windowWidth - 200) * 0.5, y: -40, w: 200, h: 20)
         addSubview(view)
         rx.didEndDragging.subscribe(onNext: { [unowned self] (end) in
             if self.contentOffset.y < -60 {
                 comletion()
             }
-        }).disposed(by: disposeBag)
+        }).disposed(by: bag)
     }
 }

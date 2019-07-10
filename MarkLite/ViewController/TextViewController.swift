@@ -1,6 +1,6 @@
 //
 //  TextViewController.swift
-//  MarkLite
+//  Markdown
 //
 //  Created by zhubch on 2017/6/28.
 //  Copyright © 2017年 zhubch. All rights reserved.
@@ -28,7 +28,7 @@ class TextViewController: UIViewController {
     var textChangedHandler: ((String)->Void)?
     var offsetChangedHandler: ((CGFloat)->Void)?
 
-    let disposeBag = DisposeBag()
+    let bag = DisposeBag()
     var manager = MarkdownHighlightManager()
     var currentFile: File?
     var orignText = ""
@@ -50,21 +50,21 @@ class TextViewController: UIViewController {
         
         Configure.shared.isAssistBarEnabled.asObservable().subscribe(onNext: { [unowned self](enable) in
             if enable {
-                let assistBar = AssistBar()
+                let assistBar = AssistKeyboardBar()
                 assistBar.textView = self.editView
                 assistBar.viewController = self
                 self.editView.inputAccessoryView = assistBar
             } else {
                 self.editView.inputAccessoryView = nil
             }
-        }).disposed(by: disposeBag)
+        }).disposed(by: bag)
         
-        Configure.shared.isLandscape.asObservable().map{!$0}.bind(to: seperator.rx.isHidden).disposed(by: disposeBag)
+        Configure.shared.isLandscape.asObservable().map{!$0}.bind(to: seperator.rx.isHidden).disposed(by: bag)
         
         Configure.shared.theme.asObservable().subscribe(onNext: { [weak self] _ in
             self?.manager = MarkdownHighlightManager()
             self?.textChanged()
-        }).disposed(by: disposeBag)
+        }).disposed(by: bag)
         
         Configure.shared.editingFile.asObservable().subscribe(onNext: { [weak self] (file) in
             self?.saveFile()
@@ -75,20 +75,20 @@ class TextViewController: UIViewController {
                 self?.textChanged()
             }
             self?.currentFile = file
-        }).disposed(by: disposeBag)
+        }).disposed(by: bag)
         
         editView.rx.didChange.subscribe { [weak self] _ in
             self?.textChanged()
-            }.disposed(by: disposeBag)
+            }.disposed(by: bag)
         
         editView.rx.text.map{($0?.length ?? 0) > 0}
             .bind(to: placeholderLabel.rx.isHidden)
-            .disposed(by: disposeBag)
+            .disposed(by: bag)
         
         editView.rx.contentOffset.map{$0.y}.subscribe(onNext: { [weak self] (offset) in
             guard let this = self else { return }
             this.offsetChangedHandler?(offset / this.editView.contentSize.height)
-        }).disposed(by: disposeBag)
+        }).disposed(by: bag)
     }
     
     func textChanged() {

@@ -1,6 +1,6 @@
 //
 //  WebViewController.swift
-//  MarkLite
+//  Markdown
 //
 //  Created by zhubch on 2017/6/28.
 //  Copyright © 2017年 zhubch. All rights reserved.
@@ -53,7 +53,7 @@ class WebViewController: UIViewController, ImageSaver {
         }
     }
     
-    let disposeBag = DisposeBag()
+    let bag = DisposeBag()
     
     let renderManager: RenderManager = RenderManager.default
 
@@ -68,25 +68,25 @@ class WebViewController: UIViewController, ImageSaver {
     func setupRx() {
         webView.rx.didStartLoad.subscribe { [weak self] _ in
             self?.webView.startLoadingAnimation()
-            }.disposed(by: disposeBag)
+            }.disposed(by: bag)
         
         webView.rx.didFailLoad.subscribe { [weak self] _ in
             self?.webView.stopLoadingAnimation()
-            }.disposed(by: disposeBag)
+            }.disposed(by: bag)
         
         webView.rx.didFinishLoad.subscribe { [weak self] _ in
             self?.webView.stopLoadingAnimation()
-            }.disposed(by: disposeBag)
+            }.disposed(by: bag)
         
         Configure.shared.markdownStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
             self.renderManager.markdownStyle = style
             self.htmlString = self.renderManager.render(self.text)
-        }).disposed(by: disposeBag)
+        }).disposed(by: bag)
         
         Configure.shared.highlightStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
             self.renderManager.highlightStyle = style
             self.htmlString = self.renderManager.render(self.text)
-        }).disposed(by: disposeBag)
+        }).disposed(by: bag)
     }
     
     func url(for type: ExportType) -> URL? {

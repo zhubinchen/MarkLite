@@ -1,6 +1,6 @@
 //
-//  AssistBar.swift
-//  MarkLite
+//  AssistKeyboardBar.swift
+//  Markdown
 //
 //  Created by zhubch on 2017/7/11.
 //  Copyright © 2017年 zhubch. All rights reserved.
@@ -33,7 +33,7 @@ extension String: ButtonConvertiable {
 }
 
 fileprivate let uploadURL = ""
-class AssistBar: UIView {
+class AssistKeyboardBar: UIView {
     let scrollView = UIScrollView()
     var endButton: UIButton!
     
@@ -68,7 +68,7 @@ class AssistBar: UIView {
     weak var textView: UITextView?
     weak var viewController: UIViewController?
     
-    let disposeBag = DisposeBag()
+    let bag = DisposeBag()
     var imagePicker: ImagePicker?
     var textField: UITextField?
     

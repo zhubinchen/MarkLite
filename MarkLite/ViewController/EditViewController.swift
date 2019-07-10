@@ -1,6 +1,6 @@
 //
 //  EditViewController.swift
-//  MarkLite
+//  Markdown
 //
 //  Created by zhubch on 2017/6/23.
 //  Copyright © 2017年 zhubch. All rights reserved.
@@ -19,7 +19,7 @@ class EditViewController: UIViewController {
     
     var showExport = true
     
-    let disposeBag = DisposeBag()
+    let bag = DisposeBag()
     let titleTextField = UITextField(x: 0, y: 0, w: 100, h: 30)
     
     override var title: String? {
@@ -37,9 +37,9 @@ class EditViewController: UIViewController {
         
         scrollView.rx.contentOffset.map{ $0.x > windowWidth - 10 }.subscribe(onNext: { [weak self] showExport in
             self?.toggleBarButton(showExport)
-        }).disposed(by: disposeBag)
+        }).disposed(by: bag)
         
-        Configure.shared.editingFile.asObservable().map{ $0?.name ?? "" }.bind(to: self.rx.title).disposed(by: disposeBag)
+        Configure.shared.editingFile.asObservable().map{ $0?.name ?? "" }.bind(to: self.rx.title).disposed(by: bag)
         
         Configure.shared.editingFile.value?.readText{ [weak self] text in
             self?.webVC?.text = text

@@ -27,12 +27,12 @@
 		07E8274A1F5BF1BA0077A017 /* EventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826FA1F5BF1BA0077A017 /* EventBus.swift */; };
 		07E8274C1F5BF1BA0077A017 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826FC1F5BF1BA0077A017 /* Localization.swift */; };
 		07E8274D1F5BF1BA0077A017 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826FD1F5BF1BA0077A017 /* Utils.swift */; };
-		07E8274E1F5BF1BA0077A017 /* AssistBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826FF1F5BF1BA0077A017 /* AssistBar.swift */; };
+		07E8274E1F5BF1BA0077A017 /* AssistKeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826FF1F5BF1BA0077A017 /* AssistKeyboardBar.swift */; };
 		07E8274F1F5BF1BA0077A017 /* DottedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827001F5BF1BA0077A017 /* DottedLineView.swift */; };
 		07E827501F5BF1BA0077A017 /* FileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827011F5BF1BA0077A017 /* FileTableViewCell.swift */; };
 		07E827521F5BF1BA0077A017 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827031F5BF1BA0077A017 /* MenuView.swift */; };
 		07E827551F5BF1BA0077A017 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827071F5BF1BA0077A017 /* EditViewController.swift */; };
-		07E827561F5BF1BA0077A017 /* FilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827081F5BF1BA0077A017 /* FilesViewController.swift */; };
+		07E827561F5BF1BA0077A017 /* FileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827081F5BF1BA0077A017 /* FileListViewController.swift */; };
 		07E827581F5BF1BA0077A017 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8270A1F5BF1BA0077A017 /* NavigationController.swift */; };
 		07E827591F5BF1BA0077A017 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8270B1F5BF1BA0077A017 /* OptionsViewController.swift */; };
 		07E8275A1F5BF1BA0077A017 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8270C1F5BF1BA0077A017 /* SettingsViewController.swift */; };
@@ -53,14 +53,14 @@
 		76DFA18422D496540025B44B /* context_test.c in Sources */ = {isa = PBXBuildFile; fileRef = 76DFA17522D496530025B44B /* context_test.c */; };
 		76DFA18522D496540025B44B /* document.c in Sources */ = {isa = PBXBuildFile; fileRef = 76DFA17722D496530025B44B /* document.c */; };
 		76DFA18622D496540025B44B /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = 76DFA17922D496530025B44B /* stack.c */; };
-		C1D8DF07B0DF6E27F81AA609 /* Pods_MarkLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BAF011D2BD7C7FE8749C859 /* Pods_MarkLite.framework */; };
+		89C305FDB08983CC88E50F5B /* Pods_Markdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CED168CEF9A6EB3A1E2F9CC /* Pods_Markdown.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0708A5651F6A2E4B0018B4CF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0724281A1F726B0300C02F87 /* ImagePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		07DE506E21538679007B38D0 /* Style.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Style.zip; sourceTree = "<group>"; };
-		07E826921F5BF0F20077A017 /* MarkLite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarkLite.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		07E826921F5BF0F20077A017 /* Markdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Markdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07E826951F5BF0F20077A017 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07E8269C1F5BF0F20077A017 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07E8269F1F5BF0F20077A017 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -82,12 +82,12 @@
 		07E826FA1F5BF1BA0077A017 /* EventBus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventBus.swift; sourceTree = "<group>"; };
 		07E826FC1F5BF1BA0077A017 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		07E826FD1F5BF1BA0077A017 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		07E826FF1F5BF1BA0077A017 /* AssistBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssistBar.swift; sourceTree = "<group>"; };
+		07E826FF1F5BF1BA0077A017 /* AssistKeyboardBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssistKeyboardBar.swift; sourceTree = "<group>"; };
 		07E827001F5BF1BA0077A017 /* DottedLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DottedLineView.swift; sourceTree = "<group>"; };
 		07E827011F5BF1BA0077A017 /* FileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileTableViewCell.swift; sourceTree = "<group>"; };
 		07E827031F5BF1BA0077A017 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		07E827071F5BF1BA0077A017 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
-		07E827081F5BF1BA0077A017 /* FilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesViewController.swift; sourceTree = "<group>"; };
+		07E827081F5BF1BA0077A017 /* FileListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileListViewController.swift; sourceTree = "<group>"; };
 		07E8270A1F5BF1BA0077A017 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		07E8270B1F5BF1BA0077A017 /* OptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
 		07E8270C1F5BF1BA0077A017 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -100,9 +100,7 @@
 		07E827691F5BF24E0077A017 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		07E8276A1F5BF2500077A017 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		07E8276B1F5BFD880077A017 /* ImageSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
-		2BAF011D2BD7C7FE8749C859 /* Pods_MarkLite.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MarkLite.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		35BB96C49577417FB30DDAC7 /* Pods-MarkLite.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarkLite.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MarkLite/Pods-MarkLite.debug.xcconfig"; sourceTree = "<group>"; };
-		58249A080329B6A7C4EEF3E3 /* Pods-MarkLite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MarkLite.release.xcconfig"; path = "Pods/Target Support Files/Pods-MarkLite/Pods-MarkLite.release.xcconfig"; sourceTree = "<group>"; };
+		0CED168CEF9A6EB3A1E2F9CC /* Pods_Markdown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Markdown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76DFA16622D496510025B44B /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
 		76DFA16722D496510025B44B /* context_test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = context_test.h; sourceTree = "<group>"; };
 		76DFA16822D496510025B44B /* hash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hash.c; sourceTree = "<group>"; };
@@ -124,6 +122,8 @@
 		76DFA17822D496530025B44B /* stack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stack.h; sourceTree = "<group>"; };
 		76DFA17922D496530025B44B /* stack.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stack.c; sourceTree = "<group>"; };
 		76DFA17A22D496530025B44B /* autolink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = autolink.h; sourceTree = "<group>"; };
+		8E2576E76534F3FE3E3CAA53 /* Pods-Markdown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Markdown.release.xcconfig"; path = "Pods/Target Support Files/Pods-Markdown/Pods-Markdown.release.xcconfig"; sourceTree = "<group>"; };
+		E32330D5B24C5C34EEE58119 /* Pods-Markdown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Markdown.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Markdown/Pods-Markdown.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,7 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1D8DF07B0DF6E27F81AA609 /* Pods_MarkLite.framework in Frameworks */,
+				89C305FDB08983CC88E50F5B /* Pods_Markdown.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,7 +151,7 @@
 		07E826931F5BF0F20077A017 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				07E826921F5BF0F20077A017 /* MarkLite.app */,
+				07E826921F5BF0F20077A017 /* Markdown.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -262,7 +262,7 @@
 		07E826FE1F5BF1BA0077A017 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				07E826FF1F5BF1BA0077A017 /* AssistBar.swift */,
+				07E826FF1F5BF1BA0077A017 /* AssistKeyboardBar.swift */,
 				07E827001F5BF1BA0077A017 /* DottedLineView.swift */,
 				07E827011F5BF1BA0077A017 /* FileTableViewCell.swift */,
 				07E827031F5BF1BA0077A017 /* MenuView.swift */,
@@ -274,7 +274,7 @@
 			isa = PBXGroup;
 			children = (
 				07E827071F5BF1BA0077A017 /* EditViewController.swift */,
-				07E827081F5BF1BA0077A017 /* FilesViewController.swift */,
+				07E827081F5BF1BA0077A017 /* FileListViewController.swift */,
 				07E8270A1F5BF1BA0077A017 /* NavigationController.swift */,
 				07E8270B1F5BF1BA0077A017 /* OptionsViewController.swift */,
 				07E8270C1F5BF1BA0077A017 /* SettingsViewController.swift */,
@@ -288,7 +288,7 @@
 		27D8A15A071498C039A9B873 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2BAF011D2BD7C7FE8749C859 /* Pods_MarkLite.framework */,
+				0CED168CEF9A6EB3A1E2F9CC /* Pods_Markdown.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -296,8 +296,8 @@
 		884442E41EEF6850184F9E8F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				35BB96C49577417FB30DDAC7 /* Pods-MarkLite.debug.xcconfig */,
-				58249A080329B6A7C4EEF3E3 /* Pods-MarkLite.release.xcconfig */,
+				E32330D5B24C5C34EEE58119 /* Pods-Markdown.debug.xcconfig */,
+				8E2576E76534F3FE3E3CAA53 /* Pods-Markdown.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -305,9 +305,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		07E826911F5BF0F20077A017 /* MarkLite */ = {
+		07E826911F5BF0F20077A017 /* Markdown */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 07E826A41F5BF0F20077A017 /* Build configuration list for PBXNativeTarget "MarkLite" */;
+			buildConfigurationList = 07E826A41F5BF0F20077A017 /* Build configuration list for PBXNativeTarget "Markdown" */;
 			buildPhases = (
 				78860D184327593D2CFAEC38 /* [CP] Check Pods Manifest.lock */,
 				07E8268E1F5BF0F20077A017 /* Sources */,
@@ -319,9 +319,9 @@
 			);
 			dependencies = (
 			);
-			name = MarkLite;
+			name = Markdown;
 			productName = MarkLite;
-			productReference = 07E826921F5BF0F20077A017 /* MarkLite.app */;
+			productReference = 07E826921F5BF0F20077A017 /* Markdown.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -353,7 +353,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 07E8268D1F5BF0F20077A017 /* Build configuration list for PBXProject "MarkLite" */;
+			buildConfigurationList = 07E8268D1F5BF0F20077A017 /* Build configuration list for PBXProject "Markdown" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -368,7 +368,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				07E826911F5BF0F20077A017 /* MarkLite */,
+				07E826911F5BF0F20077A017 /* Markdown */,
 			);
 		};
 /* End PBXProject section */
@@ -404,7 +404,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MarkLite-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Markdown-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -417,7 +417,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MarkLite/Pods-MarkLite-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-Markdown/Pods-Markdown-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/EZSwiftExtensions/EZSwiftExtensions.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
@@ -436,7 +436,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MarkLite/Pods-MarkLite-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Markdown/Pods-Markdown-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -448,12 +448,12 @@
 			files = (
 				76DFA17D22D496540025B44B /* html.c in Sources */,
 				07E8274C1F5BF1BA0077A017 /* Localization.swift in Sources */,
-				07E827561F5BF1BA0077A017 /* FilesViewController.swift in Sources */,
+				07E827561F5BF1BA0077A017 /* FileListViewController.swift in Sources */,
 				07E827101F5BF1BA0077A017 /* HighlightManager.swift in Sources */,
 				07E8275B1F5BF1BA0077A017 /* TextViewController.swift in Sources */,
 				07E8274A1F5BF1BA0077A017 /* EventBus.swift in Sources */,
 				07E8275A1F5BF1BA0077A017 /* SettingsViewController.swift in Sources */,
-				07E8274E1F5BF1BA0077A017 /* AssistBar.swift in Sources */,
+				07E8274E1F5BF1BA0077A017 /* AssistKeyboardBar.swift in Sources */,
 				07E827521F5BF1BA0077A017 /* MenuView.swift in Sources */,
 				76DFA17E22D496540025B44B /* autolink.c in Sources */,
 				76DFA18522D496540025B44B /* document.c in Sources */,
@@ -630,7 +630,7 @@
 		};
 		07E826A51F5BF0F20077A017 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 35BB96C49577417FB30DDAC7 /* Pods-MarkLite.debug.xcconfig */;
+			baseConfigurationReference = E32330D5B24C5C34EEE58119 /* Pods-Markdown.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = TS5H34GM7Q;
@@ -648,7 +648,7 @@
 		};
 		07E826A61F5BF0F20077A017 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 58249A080329B6A7C4EEF3E3 /* Pods-MarkLite.release.xcconfig */;
+			baseConfigurationReference = 8E2576E76534F3FE3E3CAA53 /* Pods-Markdown.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = TS5H34GM7Q;
@@ -667,7 +667,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		07E8268D1F5BF0F20077A017 /* Build configuration list for PBXProject "MarkLite" */ = {
+		07E8268D1F5BF0F20077A017 /* Build configuration list for PBXProject "Markdown" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				07E826A21F5BF0F20077A017 /* Debug */,
@@ -676,7 +676,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		07E826A41F5BF0F20077A017 /* Build configuration list for PBXNativeTarget "MarkLite" */ = {
+		07E826A41F5BF0F20077A017 /* Build configuration list for PBXNativeTarget "Markdown" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				07E826A51F5BF0F20077A017 /* Debug */,

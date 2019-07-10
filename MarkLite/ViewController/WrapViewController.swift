@@ -1,6 +1,6 @@
 //
 //  WrapViewController.swift
-//  MarkLite
+//  Markdown
 //
 //  Created by zhubch on 2017/8/2.
 //  Copyright © 2017年 zhubch. All rights reserved.
@@ -25,7 +25,7 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
     @IBOutlet weak var topTitle: UILabel!
     @IBOutlet weak var leftTitle: UILabel!
 
-    let disposeBag = DisposeBag()
+    let bag = DisposeBag()
     
     var editVC: EditViewController?
     
@@ -40,8 +40,8 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Configure.shared.editingFile.asObservable().map{$0?.name ?? ""}.bind(to: topTitle.rx.text).disposed(by: disposeBag)
-        Configure.shared.editingFile.asObservable().map{($0?.name ?? "").vertical}.bind(to: leftTitle.rx.text).disposed(by: disposeBag)
+        Configure.shared.editingFile.asObservable().map{$0?.name ?? ""}.bind(to: topTitle.rx.text).disposed(by: bag)
+        Configure.shared.editingFile.asObservable().map{($0?.name ?? "").vertical}.bind(to: leftTitle.rx.text).disposed(by: bag)
         
         popoverPresentationController?.delegate = self
         
@@ -60,7 +60,7 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
             self.showFiles(self)
         }
         
-        Configure.shared.editingFile.asObservable().map{ $0 != nil }.bind(to: emptyView.rx.isHidden).disposed(by: disposeBag)
+        Configure.shared.editingFile.asObservable().map{ $0 != nil }.bind(to: emptyView.rx.isHidden).disposed(by: bag)
     }
     
     override func viewDidAppear(_ animated: Bool) {

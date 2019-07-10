@@ -263,10 +263,10 @@
             </objects>
             <point key="canvasLocation" x="-4124" y="-2797"/>
         </scene>
-        <!--Files View Controller-->
+        <!--File List View Controller-->
         <scene sceneID="V6a-OO-T4s">
             <objects>
-                <viewController storyboardIdentifier="FilesViewController" automaticallyAdjustsScrollViewInsets="NO" id="7Qi-Sq-Fm9" customClass="FilesViewController" customModule="MarkLite" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FilesViewController" automaticallyAdjustsScrollViewInsets="NO" id="7Qi-Sq-Fm9" customClass="FileListViewController" customModule="MarkLite" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5mA-8H-cB1"/>
                         <viewControllerLayoutGuide type="bottom" id="tub-aa-rob"/>

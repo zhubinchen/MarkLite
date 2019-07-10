@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  MarkLite
+//  Markdown
 //
 //  Created by zhubch on 2017/6/20.
 //  Copyright © 2017年 zhubch. All rights reserved.
@@ -9,7 +9,6 @@
 import UIKit
 import SideMenu
 import RxSwift
-import Bugly
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,8 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DispatchQueue.global().async {
             self.checkVersion()
         }
-
-        Bugly.start(withAppId: "57bc8a7c74")
 
         return true
     }

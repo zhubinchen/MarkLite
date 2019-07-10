@@ -1,6 +1,6 @@
 //
-//  FilesViewController.swift
-//  MarkLite
+//  FileListViewController.swift
+//  Markdown
 //
 //  Created by zhubch on 2017/6/22.
 //  Copyright © 2017年 zhubch. All rights reserved.
@@ -10,9 +10,9 @@ import UIKit
 import EZSwiftExtensions
 import RxSwift
 
-class FilesViewController: UIViewController {
+class FileListViewController: UIViewController {
     
-    static var current: FilesViewController?
+    static var current: FileListViewController?
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -23,7 +23,7 @@ class FilesViewController: UIViewController {
             pulldDownLabel.textAlignment = .center
             pulldDownLabel.setTextColor(.secondary)
             pulldDownLabel.font = UIFont.font(ofSize: 14)
-            tableView.addPullDownView(pulldDownLabel, disposeBag: disposeBag) { [unowned self] in
+            tableView.addPullDownView(pulldDownLabel, bag: bag) { [unowned self] in
                 guard let file = self.root?.createFile(name: /"Untitled", type: .text ) else {
                     return
                 }
@@ -50,7 +50,7 @@ class FilesViewController: UIViewController {
         }
     }
     
-    let disposeBag = DisposeBag()
+    let bag = DisposeBag()
     
     let titleTextField = UITextField(x: 0, y: 0, w: 100, h: 30)
     
@@ -67,7 +67,7 @@ class FilesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        FilesViewController.current = self
+        FileListViewController.current = self
         if root == nil {
             isHomePage = true
             RecievedNewFile.observe(eventBlock: { [weak self] (path) in
@@ -206,13 +206,13 @@ class FilesViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? FilesViewController,let file = sender as? File {
+        if let vc = segue.destination as? FileListViewController,let file = sender as? File {
             vc.root = file
         }
     }
 }
 
-extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
+extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         tableView.isHidden = childrens.count == 0
         return 1
@@ -285,7 +285,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension FilesViewController: UITextFieldDelegate {
+extension FileListViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -300,7 +300,7 @@ extension FilesViewController: UITextFieldDelegate {
 
 
 
-extension FilesViewController: UIDocumentPickerDelegate {
+extension FileListViewController: UIDocumentPickerDelegate {
     
     func pickFromFiles() {
         let picker = UIDocumentPickerViewController(documentTypes: ["public.text"], in: .import)

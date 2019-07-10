@@ -1,6 +1,6 @@
 //
 //  OptionsViewController.swift
-//  MarkLite
+//  Markdown
 //
 //  Created by zhubch on 2017/8/23.
 //  Copyright © 2017年 zhubch. All rights reserved.

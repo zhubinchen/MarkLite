@@ -1,6 +1,6 @@
 /*
  Localizable.strings
- MarkLite
+ Markdown
  
  Created by zhubch on 2017/8/21.
  Copyright © 2017年 zhubch. All rights reserved.
@@ -57,7 +57,7 @@
 "Terms"="使用條款";
 "PrivacyPolicy"="隱私策略";
 "PremiumPrice"="現在訂閱可以免費試用壹周，$0.99/月";
-"PremiumTitle"="訂閱高級賬戶後，妳將獲得MarkLite的全部功能";
+"PremiumTitle"="訂閱高級賬戶後，妳將獲得Markdown的全部功能";
 "PremiumDesc"="1. 可導出所有格式(PDF,HTML,JPG)\n2. 可使用更多渲染樣式\n3. 可更改主題顔色\n4. 後續版本中添加的更多特性";
 "SubscribeTips"="【連續包月高級賬戶說明】\n1.訂閱周期：壹個月\n2.訂閱價格： 每月6元\n3.付款：用戶確認購買並付款後記入iTunes賬戶\n4.取消續訂：如需取消續訂，請在當前訂閱到期24小時以前，手動在iTunes/Apple ID設置管理中關閉自動續訂功能\n5.續訂：蘋果iTunes賬戶會在到期前24小時內扣款，扣款成功後訂閱周期順延壹個月";
 "Restore"="恢複訂閱";
@@ -87,7 +87,7 @@
 "ReceivedFiles" = "收到的文件";
 "Error"="出錯了";
 
-"UpgradeTitle"="MarkLite更新啦";
+"UpgradeTitle"="Markdown更新啦";
 "UpgradeTips"="為了有更好的使用體驗，建議升級到最新版！";
 "Upgrade"="更新";
 "DontUpgrade"="以後再說";
@@ -113,8 +113,8 @@
 "Camera"="相機";
 "CameraError"="沒有訪問相機的權限";
 "PhotoError"="沒有訪問照片的權限";
-"EnableCameraTips"="去iPhone的【設定】圖標，打開【隱私】，打開【相機】，找到【MarkLite】開啓即可";
-"EnablePhotoTips"="去iPhone的【設定】圖標，打開【隱私】，打開【照片】，找到【MarkLite】開啓即可";
+"EnableCameraTips"="去iPhone的【設定】圖標，打開【隱私】，打開【相機】，找到【Markdown】開啓即可";
+"EnablePhotoTips"="去iPhone的【設定】圖標，打開【隱私】，打開【照片】，找到【Markdown】開啓即可";
 
 "Instructions"="使用說明";
 

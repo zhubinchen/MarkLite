@@ -1,6 +1,6 @@
 //
 //  SettingsViewController.swift
-//  MarkLite
+//  Markdown
 //
 //  Created by zhubch on 2017/6/23.
 //  Copyright © 2017年 zhubch. All rights reserved.
@@ -24,7 +24,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     let autoClearSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
     
     var items: [(String,[(String,String,Selector)])] {
-        var section = [
+        let section = [
             ("AssistKeyboard","",#selector(assistBar)),
             ("AutoClear","",#selector(autoClear)),
             ]
@@ -44,7 +44,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         ]
     }
     
-    let disposeBag = DisposeBag()
+    let bag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -167,7 +167,7 @@ extension SettingsViewController {
     }
     
     @objc func style() {
-        let path = documentPath + "/style/markdown-style/"
+        let path = stylePath + "/markdown-style/"
         
         guard let subPaths = FileManager.default.subpaths(atPath: path) else { return }
         
@@ -182,7 +182,7 @@ extension SettingsViewController {
     }
     
     @objc func codeStyle() {
-        let path = documentPath + "/style/highlight-style/"
+        let path = stylePath + "/highlight-style/"
         
         guard let subPaths = FileManager.default.subpaths(atPath: path) else { return }
         
