@@ -25,7 +25,7 @@ class Configure: NSObject, NSCoding {
     var alertDate = Date()
     var hasRate = false
     var isOldUser = false
-    var isAutoClearEnabled = true
+    var isAutoClearEnabled = false
     let isAssistBarEnabled = Variable(true)
     let markdownStyle = Variable("GitHub2")
     let highlightStyle = Variable("github")

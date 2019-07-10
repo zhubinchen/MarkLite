@@ -9,12 +9,11 @@
 import UIKit
 import EZSwiftExtensions
 import RxSwift
-import StoreKit
 
 class FilesViewController: UIViewController {
     
     static var current: FilesViewController?
-
+    
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableView.estimatedRowHeight = 50
@@ -40,9 +39,9 @@ class FilesViewController: UIViewController {
     }
     
     @IBOutlet weak var emptyView: UIView!
-
+    
     var selectedIndexPath: IndexPath?
-
+    
     fileprivate var childrens = [File]()
     
     var root: File? {
@@ -50,7 +49,7 @@ class FilesViewController: UIViewController {
             refresh()
         }
     }
-
+    
     let disposeBag = DisposeBag()
     
     let titleTextField = UITextField(x: 0, y: 0, w: 100, h: 30)
@@ -112,10 +111,6 @@ class FilesViewController: UIViewController {
         }
         
         Timer.runThisAfterDelay(seconds: 2) {
-            let passedTime = Date().timeIntervalSince(Configure.shared.alertDate)
-            if passedTime > 60 * 60 * 24 * 5 {
-                self.feedbackAlert()
-            }
             if Configure.shared.newVersionAvaliable {
                 self.showAlert(title: /"UpgradeTitle", message: /"UpgradeTips", actionTitles: [/"Upgrade",/"DontUpgrade"], actionHandler: { (index) in
                     if index == 0 {
@@ -125,35 +120,12 @@ class FilesViewController: UIViewController {
             }
         }
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_edit"), style: .plain, target: self, action: #selector(showCreateMenu))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showCreateMenu))
         
         navBar?.setBarTintColor(.navBar)
         navBar?.setContentColor(.navBarTint)
         tableView.setBackgroundColor(.tableBackground)
         view.setBackgroundColor(.background)
-    }
-    
-    func feedbackAlert() {
-        if Configure.shared.hasRate {
-            return
-        }
-        showAlert(title: "抱歉打扰了", message: "你的反馈能帮助MarkLite做的更好(写评价可能需要花费30秒左右时间)，有什么要对开发者说的吗？", actionTitles: ["去评价","暂时没空"], actionHandler: { (index) in
-            if index == 0 {
-                self.rate()
-                Configure.shared.hasRate = true
-            }
-            Configure.shared.alertDate = Date()
-        })
-    }
-    
-    func rate() {
-        let vc = SKStoreProductViewController()
-        vc.delegate = self
-        vc.loadProduct(withParameters: [SKStoreProductParameterITunesItemIdentifier:appID]) { (_, err) in
-            if err == nil {
-                self.presentVC(vc)
-            }
-        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -195,24 +167,30 @@ class FilesViewController: UIViewController {
     }
     
     @objc func showCreateMenu() {
-        MenuView(items: [/"CreateNote",/"CreateFolder"],
+        MenuView(items: [/"CreateNote",/"CreateFolder",/"ImportFromFiles"],
                  postion: CGPoint(x:view.w - 140,y: isPad ? 44 : 64),
                  textAlignment: .left) { (index) in
-            guard let file = self.root?.createFile(name: /"Untitled", type: index == 0 ? .text : .folder) else {
-                return
-            }
-            file.isBlank = true
-            
-            self.childrens.insert(file, at: 0)
-            if file.type == .text {
-                Configure.shared.editingFile.value = file
-                if isPhone {
-                    self.performSegue(withIdentifier: "edit", sender: file)
-                }
-            } else if file.type == .folder {
-                self.performSegue(withIdentifier: "next", sender: file)
-            }
-        }.show(on: self.navigationController?.view)
+                    if index == 2 {
+                        self.pickFromFiles()
+                        return
+                    }
+                    guard let file = self.root?.createFile(name: /"Untitled", type: index == 0 ? .text : .folder) else {
+                        return
+                    }
+                    file.isBlank = true
+                    
+                    self.childrens.insert(file, at: 0)
+                    if file.type == .text {
+                        Configure.shared.editingFile.value = file
+                        if isPhone {
+                            self.performSegue(withIdentifier: "edit", sender: file)
+                        } else {
+                            self.dismissVC(completion: nil)
+                        }
+                    } else if file.type == .folder {
+                        self.performSegue(withIdentifier: "next", sender: file)
+                    }
+            }.show(on: self.navigationController?.view)
     }
     
     func rename(file: File, newName: String) {
@@ -253,7 +231,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let file = childrens[indexPath.row]
-
+        
         if isPhone {
             tableView.deselectRow(at: indexPath, animated: true)
             if file.type == .folder {
@@ -281,7 +259,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
-
+    
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .destructive, title: /"Delete") { [unowned self](_, indexPath) in
             let file = self.childrens[indexPath.row]
@@ -321,8 +299,36 @@ extension FilesViewController: UITextFieldDelegate {
 }
 
 
-extension FilesViewController: SKStoreProductViewControllerDelegate {
-    func productViewControllerDidFinish(_ viewController: SKStoreProductViewController) {
-        viewController.dismissVC(completion: nil)
+
+extension FilesViewController: UIDocumentPickerDelegate {
+    
+    func pickFromFiles() {
+        let picker = UIDocumentPickerViewController(documentTypes: ["public.text"], in: .import)
+        picker.delegate = self
+        presentVC(picker)
+    }
+    
+    func didPickFile(_ url: URL) {
+        let str = (try? String(contentsOf: url)) ?? ""
+        if let file = root?.createFile(name: url.lastPathComponent, type: .text) {
+            file.write(text: str)
+            self.performSegue(withIdentifier: "next", sender: file)
+        }
+    }
+    
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        
+    }
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
+        didPickFile(url)
+    }
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        if urls.count > 0 {
+            didPickFile(urls.first!)
+        }
+        
     }
 }
+

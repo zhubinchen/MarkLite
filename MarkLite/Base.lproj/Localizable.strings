@@ -13,6 +13,8 @@
 
 "CreateNote"="New note";
 "CreateFolder"="New folder";
+"ImportFromFiles"="Import file";
+"ReleaseToCreate"="Release to create note";
 
 "Today"="today";
 "Yesterday"="yesterday";
@@ -20,8 +22,6 @@
 
 "Untitled"="Untitled";
 "UntitledFolder"="UntitledFolder";
-
-"ReleaseToCreate"="Release to create note";
 
 "Preview"="Preview";
 "Undo"="Undo";
@@ -48,16 +48,18 @@
 "RateIt"="Rate it";
 "Style"="Style";
 "CodeStyle"="Code block";
-
 "Premium"="Premium";
 "SubscriptionInfo"="Subscription infomation";
-"Subscribe"="Subscribe now, 1 week free trial";
-"Price"="Price: $0.49/month";
+"Subscribe"="Subscribe now";
+"Price"="$0.99/month";
 "Terms"="Terms";
 "PrivacyPolicy"="Privacy Policy";
-"PremiumDesc"="Subscribe to MarkLite to support further development and gain access to some great extra features:\n 1. Application themes\n 2. Advanced exports to PDF,HTML,JPG\n 3. Markdown styles & code block styles";
-"SubscribeTips"="The subscription can be canceled at any time.";
-"Restore"="Restore purchase";
+"PremiumPrice"="1 week free trial, $0.99/month";
+"PremiumTitle"="Subscribe to MarkLite to support further development and gain access to some great extra features";
+"PremiumDesc"="1. Application themes\n2. Advanced exports to PDF,HTML,JPG\n3. Markdown styles & code block styles";
+"SubscribeTips"="【Premium SubScription】\n–The duration of every period of the subscription is 1 month\n– Payment will be charged to iTunes Account at confirmation of purchase\n– Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period\n– Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of the renewal\n– Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase\n– Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable\n- Monthly subscription with 7-day free trial period for $0.99 USD";
+"Restore"="Restore";
+"NotNow"="Close";
 "RestoreTips"="Subscribed on other devices?";
 "SubscribeFailed"="Subcribe failed";
 "SubscribeSuccess"="Subscribe Success";
@@ -120,3 +122,4 @@
 "ThemePurple"="Purple";
 "ThemePink"="Pink";
 "ThemeGreen"="Green";
+

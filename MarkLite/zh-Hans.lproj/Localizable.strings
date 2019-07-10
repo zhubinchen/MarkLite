@@ -18,6 +18,7 @@
 
 "CreateNote"="新建文档";
 "CreateFolder"="新建文件夹";
+"ImportFromFiles"="导入文件";
 "ReleaseToCreate"="松手创建文档";
 
 "Untitled"="未命名";

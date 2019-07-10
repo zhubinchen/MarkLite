@@ -65,7 +65,9 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showFiles(self)
+        if isMovingToParentViewController {
+            showFiles(self)
+        }
     }
     
     override func viewWillLayoutSubviews() {

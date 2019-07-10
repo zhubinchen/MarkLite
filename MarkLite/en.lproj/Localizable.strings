@@ -13,6 +13,8 @@
 
 "CreateNote"="New note";
 "CreateFolder"="New folder";
+"ImportFromFiles"="Import file";
+"ReleaseToCreate"="Release to create note";
 
 "Today"="today";
 "Yesterday"="yesterday";
@@ -20,8 +22,6 @@
 
 "Untitled"="Untitled";
 "UntitledFolder"="UntitledFolder";
-
-"ReleaseToCreate"="Release to create note";
 
 "Preview"="Preview";
 "Undo"="Undo";
