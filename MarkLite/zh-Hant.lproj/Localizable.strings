@@ -7,8 +7,6 @@
  */
 
 "LocalFile"="文件";
-"CloudFile"="iCloud";
-"Dropbox"="Dropbox";
 "EmptyFolder"="当前目录没有任何文件";
 
 "Settings"="設定";
@@ -36,7 +34,6 @@
 "SaveFailed"="保存失敗";
 "SaveSuccessed"="已保存到手機相冊";
 
-"PremiumAccount"="升級到高級帳戶";
 "AssistKeyboard"="輔助鍵盤";
 "AutoClear"="自動清理空白文件";
 "NightMode"="夜間模式";
@@ -45,27 +42,6 @@
 "RateIt"="五星好評";
 "Style"="渲染樣式";
 "CodeStyle"="程式塊樣式";
-
-"PremiumOnly"="該功能需開通高級帳戶";
-"SubscribeNow"="立即開通";
-"Subscribed"="立即開通";
-
-"Premium"="高級帳戶";
-"SubscriptionInfo"="查看訂閱詳情";
-"Subscribe"="現在訂閱，免費試用壹周";
-"Price"="$0.99／月";
-"Terms"="使用條款";
-"PrivacyPolicy"="隱私策略";
-"PremiumPrice"="現在訂閱可以免費試用壹周，$0.99/月";
-"PremiumTitle"="訂閱高級賬戶後，妳將獲得Markdown的全部功能";
-"PremiumDesc"="1. 可導出所有格式(PDF,HTML,JPG)\n2. 可使用更多渲染樣式\n3. 可更改主題顔色\n4. 後續版本中添加的更多特性";
-"SubscribeTips"="【連續包月高級賬戶說明】\n1.訂閱周期：壹個月\n2.訂閱價格： 每月6元\n3.付款：用戶確認購買並付款後記入iTunes賬戶\n4.取消續訂：如需取消續訂，請在當前訂閱到期24小時以前，手動在iTunes/Apple ID設置管理中關閉自動續訂功能\n5.續訂：蘋果iTunes賬戶會在到期前24小時內扣款，扣款成功後訂閱周期順延壹個月";
-"Restore"="恢複訂閱";
-"NotNow"="暂不訂閱";
-"SubscribeFailed"="沒有完成訂閱";
-"SubscribeSuccess"="已成功訂閱高級帳戶";
-"RestoreFailed"="沒有有效的訂閱記錄，請重新訂閱";
-"RestoreSuccess"="已恢複訂閱";
 
 "OK"="確定";
 "Close"="關閉";
@@ -120,3 +96,21 @@
 "ThemePurple"="風騷紫";
 "ThemePink"="腦殘粉";
 "ThemeGreen"="原諒綠";
+
+"PremiumOnly"="該功能需開通高級帳戶";
+"SubscribeNow"="立即開通";
+
+"Premium"="高级帐户";
+"Subscribe"="立即订阅 ¥3/月";
+"Terms"="使用条款";
+"Privacy"="隐私策略";
+"SubscriptionPrice"="现在订阅可免费试用一周，试用期结束后按照3元/月自动续费，您可在任何时候取消订阅";
+"SubscriptionTitle"="订阅高级账户，支持作者后续开发，同时解锁文档导出为任意格式(PDF,HTML,长图)的功能";
+
+"SubscribeTips"="【连续包月高级账户说明】\n1.订阅周期：一个月\n2.订阅价格： 每月3元\n3.付款：用户确认购买并付款后记入iTunes账户\n4.取消续订：如需取消续订，请在当前订阅到期24小时以前，手动在iTunes/Apple ID设置管理中关闭自动续订功能\n5.续订：苹果iTunes账户会在到期前24小时内扣款，扣款成功后订阅周期顺延一个月";
+"Restore"="恢复订阅";
+
+"SubscribeFailed"="没有完成订阅";
+"SubscribeSuccess"="已成功订阅高级帐户";
+"RestoreFailed"="没有有效的订阅记录，请重新订阅";
+"RestoreSuccess"="已恢复订阅";

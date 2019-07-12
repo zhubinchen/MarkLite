@@ -7,8 +7,6 @@
  */
 
 "LocalFile"="文件";
-"CloudFile"="iCloud";
-"Dropbox"="Dropbox";
 "EmptyFolder"="当前目录没有任何文件";
 
 "Settings"="设置";
@@ -37,7 +35,6 @@
 "SaveFailed"="保存失败";
 "SaveSuccessed"="已保存到手机相册";
 
-"PremiumAccount"="升级到高级帐户";
 "AssistKeyboard"="辅助键盘";
 "AutoClear"="自动清理空白文件";
 "NightMode"="夜间模式";
@@ -46,28 +43,6 @@
 "RateIt"="五星好评";
 "Style"="渲染样式";
 "CodeStyle"="代码块样式";
-
-"PremiumOnly"="该功能需开通高级帐户";
-"SubscribeNow"="立即开通";
-"Subscribed"="已开通";
-
-"Premium"="高级帐户";
-"SubscriptionInfo"="查看订阅详情";
-"Subscribe"="立即订阅(6元/月，一周内免费)";
-"Price"="限时优惠：$0.99／月";
-"Terms"="使用条款";
-"PrivacyPolicy"="隐私策略";
-"PremiumPrice"="现在订阅可免费试用一周";
-"PremiumTitle"="订阅高级账户后，你将获得Markdown的全部功能";
-"PremiumDesc"="1. 可将文档导出为任意格式(PDF,HTML,长图)\n2. 可使用更多渲染样式\n3. 可选择更多好看的主题颜色\n4. 后续版本中添加的更多特性";
-"SubscribeTips"="【连续包月高级账户说明】\n1.订阅周期：一个月\n2.订阅价格： 每月6元\n3.付款：用户确认购买并付款后记入iTunes账户\n4.取消续订：如需取消续订，请在当前订阅到期24小时以前，手动在iTunes/Apple ID设置管理中关闭自动续订功能\n5.续订：苹果iTunes账户会在到期前24小时内扣款，扣款成功后订阅周期顺延一个月";
-"Restore"="恢复订阅";
-"NotNow"="暂不订阅";
-"RestoreTips"="在其他设备上购买过？可在此恢复";
-"SubscribeFailed"="没有完成订阅";
-"SubscribeSuccess"="已成功订阅高级帐户";
-"RestoreFailed"="没有有效的订阅记录，请重新订阅";
-"RestoreSuccess"="已恢复订阅";
 
 "OK"="确定";
 "Close"="关闭";
@@ -80,13 +55,12 @@
 "DeleteMessage"="删除后不可恢复，确定要删除吗？";
 "FileNameError"="请输入正确的文件名";
 "RenameTips"="请输入新的文件名";
-"InvalidCloud"="无法访问iCloud目录，请检查您当前的设备是否登录iCloud";
 "InsertHref"="添加链接";
 
 "Open"="打开";
 "Ignore"="忽略";
 "ReceivedNewFile"="收到新文件:";
-"ReceivedFiles" = "收到的文件";
+"ReceivedFiles"="收到的文件";
 
 "Error"="出错了";
 
@@ -122,3 +96,21 @@
 "ThemePurple"="风骚紫";
 "ThemePink"="脑残粉";
 "ThemeGreen"="原谅绿";
+
+"PremiumOnly"="该功能需开通高级帐户";
+"SubscribeNow"="立即开通";
+
+"Premium"="高级帐户";
+"Subscribe"="立即订阅 ¥3/月";
+"Terms"="使用条款";
+"Privacy"="隐私策略";
+"SubscriptionPrice"="现在订阅可免费试用一周，试用期结束后按照3元/月自动续费，您可在任何时候取消订阅";
+"SubscriptionTitle"="订阅高级账户，支持作者后续开发，同时解锁文档导出为任意格式(PDF,HTML,长图)的功能";
+
+"SubscribeTips"="【连续包月高级账户说明】\n1.订阅周期：一个月\n2.订阅价格： 每月3元\n3.付款：用户确认购买并付款后记入iTunes账户\n4.取消续订：如需取消续订，请在当前订阅到期24小时以前，手动在iTunes/Apple ID设置管理中关闭自动续订功能\n5.续订：苹果iTunes账户会在到期前24小时内扣款，扣款成功后订阅周期顺延一个月";
+"Restore"="恢复订阅";
+
+"SubscribeFailed"="没有完成订阅";
+"SubscribeSuccess"="已成功订阅高级帐户";
+"RestoreFailed"="没有有效的订阅记录，请重新订阅";
+"RestoreSuccess"="已恢复订阅";
