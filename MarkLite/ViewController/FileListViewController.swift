@@ -12,7 +12,7 @@ import RxSwift
 
 class FileListViewController: UIViewController {
     
-    static var current: FileListViewController?
+    static var root: FileListViewController?
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {
@@ -67,8 +67,8 @@ class FileListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        FileListViewController.current = self
         if root == nil {
+            FileListViewController.root = self
             isHomePage = true
             RecievedNewFile.observe(eventBlock: { [weak self] (path) in
                 self?.title = /"LocalFile"

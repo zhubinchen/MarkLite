@@ -87,10 +87,10 @@
             </objects>
             <point key="canvasLocation" x="-4757.6000000000004" y="-3965.0246305418723"/>
         </scene>
-        <!--Upgrade View Controller-->
+        <!--Purchase View Controller-->
         <scene sceneID="Fvr-sg-Xzy">
             <objects>
-                <viewController storyboardIdentifier="XPUpgradeViewController" hidesBottomBarWhenPushed="YES" id="xDY-Be-TL6" customClass="XPUpgradeViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PurchaseViewController" hidesBottomBarWhenPushed="YES" id="xDY-Be-TL6" customClass="PurchaseViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XQi-VH-Iuo">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -119,8 +119,8 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="4PY-mV-FG0">
-                                                <rect key="frame" x="0.0" y="150" width="374" height="69"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4PY-mV-FG0">
+                                                <rect key="frame" x="0.0" y="150" width="374" height="18"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="SubscriptionTitle" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SY0-UN-Rps">
                                                         <rect key="frame" x="0.0" y="0.0" width="374" height="18"/>
@@ -128,8 +128,8 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="gIM-wx-M13">
-                                                        <rect key="frame" x="0.0" y="24" width="374" height="19"/>
+                                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="gIM-wx-M13">
+                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="19"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BCa-BV-qhM">
                                                                 <rect key="frame" x="0.0" y="5.5" width="8" height="8"/>
@@ -155,8 +155,8 @@
                                                             </label>
                                                         </subviews>
                                                     </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="uR3-jn-KhA">
-                                                        <rect key="frame" x="0.0" y="49" width="374" height="20"/>
+                                                    <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="uR3-jn-KhA">
+                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="20"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QKh-AL-Efl">
                                                                 <rect key="frame" x="0.0" y="6" width="8" height="8"/>
@@ -184,7 +184,7 @@
                                                         </constraints>
                                                     </stackView>
                                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="OhC-bK-Vim">
-                                                        <rect key="frame" x="0.0" y="69" width="374" height="20"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="20"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ObM-Ej-qK0">
                                                                 <rect key="frame" x="0.0" y="6" width="8" height="8"/>
@@ -212,7 +212,7 @@
                                                         </constraints>
                                                     </stackView>
                                                     <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="dVn-rE-LhC">
-                                                        <rect key="frame" x="0.0" y="69" width="374" height="20"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="20"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uQh-Lc-vyS">
                                                                 <rect key="frame" x="0.0" y="6" width="8" height="8"/>
@@ -242,13 +242,13 @@
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zCZ-as-pOL">
-                                                <rect key="frame" x="0.0" y="249" width="374" height="50"/>
+                                                <rect key="frame" x="0.0" y="198" width="374" height="50"/>
                                                 <color key="backgroundColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="gyh-IC-gGZ"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                                <state key="normal" title="YearlySubscribe">
+                                                <state key="normal" title="Subscribe">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <userDefinedRuntimeAttributes>
@@ -257,7 +257,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="monthlySubscribe:" destination="xDY-Be-TL6" eventType="touchUpInside" id="H7H-Gm-APd"/>
+                                                    <action selector="subscribe:" destination="xDY-Be-TL6" eventType="touchUpInside" id="jfm-ie-Uz0"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kbk-3n-eML">
@@ -283,38 +283,13 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SubscribeTips" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H2x-mK-LUV">
-                                                <rect key="frame" x="0.0" y="461" width="374" height="17"/>
+                                                <rect key="frame" x="0.0" y="304" width="374" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="euE-ws-PJu">
-                                                <rect key="frame" x="0.0" y="355" width="374" height="50"/>
-                                                <color key="backgroundColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="50" id="ALs-40-Ywa"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                                                <state key="normal" title="MonthlySubscribe">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="8"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <action selector="monthlySubscribe:" destination="xDY-Be-TL6" eventType="touchUpInside" id="wpv-2j-Z2X"/>
-                                                </connections>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="YearlySubscriptionPrice" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rjl-oc-87L">
-                                                <rect key="frame" x="0.0" y="307" width="374" height="18"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="MonthlySubscriptionPrice" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YfJ-DD-kSU">
-                                                <rect key="frame" x="0.0" y="413" width="374" height="18"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="SubscriptionPrice" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rjl-oc-87L">
+                                                <rect key="frame" x="0.0" y="256" width="374" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -322,18 +297,12 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="YfJ-DD-kSU" secondAttribute="trailing" id="0nL-j3-jh1"/>
-                                            <constraint firstItem="YfJ-DD-kSU" firstAttribute="leading" secondItem="onG-De-hCE" secondAttribute="leading" id="1xw-J4-Yh5"/>
                                             <constraint firstItem="4PY-mV-FG0" firstAttribute="top" secondItem="m1q-ed-vfl" secondAttribute="bottom" constant="30" id="CIO-yV-6d4"/>
-                                            <constraint firstItem="H2x-mK-LUV" firstAttribute="top" secondItem="YfJ-DD-kSU" secondAttribute="bottom" constant="30" id="J3K-1M-w95"/>
                                             <constraint firstItem="m1q-ed-vfl" firstAttribute="top" secondItem="onG-De-hCE" secondAttribute="top" constant="40" id="JS6-3N-geN"/>
-                                            <constraint firstItem="euE-ws-PJu" firstAttribute="top" secondItem="Rjl-oc-87L" secondAttribute="bottom" constant="30" id="KNo-IN-hK7"/>
                                             <constraint firstAttribute="bottom" secondItem="Kbk-3n-eML" secondAttribute="bottom" constant="10" id="QVx-BY-Hjp"/>
                                             <constraint firstItem="zCZ-as-pOL" firstAttribute="leading" secondItem="onG-De-hCE" secondAttribute="leading" id="ROU-3a-9YN"/>
                                             <constraint firstItem="X4a-OP-olO" firstAttribute="leading" secondItem="onG-De-hCE" secondAttribute="leading" id="Y7R-uq-sAt"/>
                                             <constraint firstItem="H2x-mK-LUV" firstAttribute="leading" secondItem="onG-De-hCE" secondAttribute="leading" id="a6I-EP-ftv"/>
-                                            <constraint firstItem="euE-ws-PJu" firstAttribute="leading" secondItem="onG-De-hCE" secondAttribute="leading" id="auU-et-zgr"/>
-                                            <constraint firstAttribute="trailing" secondItem="euE-ws-PJu" secondAttribute="trailing" id="byd-Jo-TCs"/>
                                             <constraint firstItem="Rjl-oc-87L" firstAttribute="leading" secondItem="onG-De-hCE" secondAttribute="leading" id="d36-BA-nJk"/>
                                             <constraint firstItem="Rjl-oc-87L" firstAttribute="top" secondItem="zCZ-as-pOL" secondAttribute="bottom" constant="8" id="dYC-SY-hUx"/>
                                             <constraint firstAttribute="trailing" secondItem="Rjl-oc-87L" secondAttribute="trailing" id="elY-KX-6Qj"/>
@@ -342,9 +311,9 @@
                                             <constraint firstItem="4PY-mV-FG0" firstAttribute="leading" secondItem="onG-De-hCE" secondAttribute="leading" id="i8k-kF-2VL"/>
                                             <constraint firstAttribute="trailing" secondItem="zCZ-as-pOL" secondAttribute="trailing" id="mKd-NN-zY3"/>
                                             <constraint firstAttribute="trailing" secondItem="H2x-mK-LUV" secondAttribute="trailing" id="mXH-cb-CNy"/>
+                                            <constraint firstItem="H2x-mK-LUV" firstAttribute="top" secondItem="Rjl-oc-87L" secondAttribute="bottom" constant="30" id="pZD-hx-g3j"/>
                                             <constraint firstItem="m1q-ed-vfl" firstAttribute="width" secondItem="onG-De-hCE" secondAttribute="width" multiplier="0.3" priority="999" id="r8o-LQ-Nxn"/>
                                             <constraint firstAttribute="bottom" secondItem="X4a-OP-olO" secondAttribute="bottom" constant="10" id="rOx-VJ-dWB"/>
-                                            <constraint firstItem="YfJ-DD-kSU" firstAttribute="top" secondItem="euE-ws-PJu" secondAttribute="bottom" constant="8" id="s81-CN-xaH"/>
                                             <constraint firstAttribute="trailing" secondItem="Kbk-3n-eML" secondAttribute="trailing" id="vLh-wt-bor"/>
                                             <constraint firstAttribute="trailing" secondItem="4PY-mV-FG0" secondAttribute="trailing" id="wzl-CT-Zcq"/>
                                             <constraint firstItem="m1q-ed-vfl" firstAttribute="centerX" secondItem="onG-De-hCE" secondAttribute="centerX" id="xmi-uX-okK"/>
@@ -373,31 +342,20 @@
                         <viewLayoutGuide key="safeArea" id="dwd-md-GQg"/>
                     </view>
                     <navigationItem key="navigationItem" id="3LY-qg-eaH">
-                        <barButtonItem key="leftBarButtonItem" title="Item" style="plain" id="XTj-T2-FUN">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="JNd-Lh-ruc">
-                                <rect key="frame" x="20" y="9.5" width="25" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="close"/>
-                                <connections>
-                                    <action selector="back" destination="xDY-Be-TL6" eventType="touchUpInside" id="sV3-7V-3cV"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="k2u-Nf-YWv">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="bBX-DS-VeO">
                                 <rect key="frame" x="311" y="7" width="83" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Restore"/>
                                 <connections>
-                                    <action selector="restorePurchase:" destination="xDY-Be-TL6" eventType="touchUpInside" id="oA0-Uf-Jaw"/>
+                                    <action selector="restore:" destination="xDY-Be-TL6" eventType="touchUpInside" id="LLG-ti-iQB"/>
                                 </connections>
                             </button>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="monthlyButton" destination="euE-ws-PJu" id="j7E-nJ-6yw"/>
-                        <outlet property="yearlyButton" destination="zCZ-as-pOL" id="SjH-1v-898"/>
+                        <outlet property="subscribeButton" destination="zCZ-as-pOL" id="Y0z-QG-JSh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="awg-Y7-9RG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -406,7 +364,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="close" width="16" height="16"/>
         <image name="logo" width="16" height="16"/>
     </resources>
 </document>

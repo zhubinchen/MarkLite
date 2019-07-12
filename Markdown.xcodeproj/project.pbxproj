@@ -41,6 +41,8 @@
 		07E8275D1F5BF1BA0077A017 /* WrapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8270F1F5BF1BA0077A017 /* WrapViewController.swift */; };
 		07E827651F5BF24B0077A017 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07E827671F5BF24B0077A017 /* Localizable.strings */; };
 		07E8276C1F5BFD880077A017 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8276B1F5BFD880077A017 /* ImageSaver.swift */; };
+		768762B922D86CE900A54EB1 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762B822D86CE900A54EB1 /* IAPHelper.swift */; };
+		768762BB22D86D1C00A54EB1 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */; };
 		76DFA17B22D496540025B44B /* hash.c in Sources */ = {isa = PBXBuildFile; fileRef = 76DFA16822D496510025B44B /* hash.c */; };
 		76DFA17C22D496540025B44B /* version.c in Sources */ = {isa = PBXBuildFile; fileRef = 76DFA16922D496510025B44B /* version.c */; };
 		76DFA17D22D496540025B44B /* html.c in Sources */ = {isa = PBXBuildFile; fileRef = 76DFA16C22D496520025B44B /* html.c */; };
@@ -121,6 +123,8 @@
 		07E8276A1F5BF2500077A017 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		07E8276B1F5BFD880077A017 /* ImageSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 		0CED168CEF9A6EB3A1E2F9CC /* Pods_Markdown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Markdown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		768762B822D86CE900A54EB1 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
+		768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		76DFA16622D496510025B44B /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
 		76DFA16722D496510025B44B /* context_test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = context_test.h; sourceTree = "<group>"; };
 		76DFA16822D496510025B44B /* hash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hash.c; sourceTree = "<group>"; };
@@ -290,6 +294,7 @@
 		07E826F71F5BF1BA0077A017 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				768762B822D86CE900A54EB1 /* IAPHelper.swift */,
 				07E826F81F5BF1BA0077A017 /* Configure.swift */,
 				07E826F91F5BF1BA0077A017 /* Constant.swift */,
 				07E826FA1F5BF1BA0077A017 /* EventBus.swift */,
@@ -323,6 +328,7 @@
 				07E8270D1F5BF1BA0077A017 /* TextViewController.swift */,
 				07E8270E1F5BF1BA0077A017 /* WebViewController.swift */,
 				07E8270F1F5BF1BA0077A017 /* WrapViewController.swift */,
+				768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -668,6 +674,7 @@
 				07E827101F5BF1BA0077A017 /* HighlightManager.swift in Sources */,
 				07E8275B1F5BF1BA0077A017 /* TextViewController.swift in Sources */,
 				07E8274A1F5BF1BA0077A017 /* EventBus.swift in Sources */,
+				768762BB22D86D1C00A54EB1 /* PurchaseViewController.swift in Sources */,
 				07E8275A1F5BF1BA0077A017 /* SettingsViewController.swift in Sources */,
 				76DFA1CB22D5D32A0025B44B /* UIImage+Draw.swift in Sources */,
 				07E8274E1F5BF1BA0077A017 /* AssistKeyboardBar.swift in Sources */,
@@ -710,6 +717,7 @@
 				76DFA18622D496540025B44B /* stack.c in Sources */,
 				76DFA1E022D5D32A0025B44B /* CLTabBarController.swift in Sources */,
 				07E8275D1F5BF1BA0077A017 /* WrapViewController.swift in Sources */,
+				768762B922D86CE900A54EB1 /* IAPHelper.swift in Sources */,
 				76DFA18122D496540025B44B /* html_smartypants.c in Sources */,
 				07E826961F5BF0F20077A017 /* AppDelegate.swift in Sources */,
 				76DFA1D022D5D32A0025B44B /* CLShoppingVC.swift in Sources */,

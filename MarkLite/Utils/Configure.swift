@@ -24,7 +24,7 @@ class Configure: NSObject, NSCoding {
     var upgradeDate = Date()
     var alertDate = Date()
     var hasRate = false
-    var isOldUser = false
+    var isPro = false
     var isAutoClearEnabled = false
     let isAssistBarEnabled = Variable(true)
     let markdownStyle = Variable("GitHub2")
@@ -77,7 +77,6 @@ class Configure: NSObject, NSCoding {
         reset()
 
         currentVerion = appVersion
-        isOldUser = true
         upgradeDate = Date()
         save()
     }
@@ -88,7 +87,7 @@ class Configure: NSObject, NSCoding {
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(currentVerion, forKey: "currentVersion")
-        aCoder.encode(isOldUser, forKey: "isOldUser")
+        aCoder.encode(isPro, forKey: "isPro")
         aCoder.encode(hasRate, forKey: "hasRate")
         aCoder.encode(isAutoClearEnabled, forKey: "isAutoClearEnabled")
         aCoder.encode(isAssistBarEnabled.value, forKey: "isAssistBarEnabled")
@@ -104,7 +103,7 @@ class Configure: NSObject, NSCoding {
         currentVerion = aDecoder.decodeObject(forKey: "currentVersion") as? String
         upgradeDate = aDecoder.decodeObject(forKey: "upgradeDate") as? Date ?? Date()
         alertDate = aDecoder.decodeObject(forKey: "alertDate") as? Date ?? Date()
-        isOldUser = aDecoder.decodeBool(forKey: "isOldUser")
+        isPro = aDecoder.decodeBool(forKey: "isPro")
         hasRate = aDecoder.decodeBool(forKey: "hasRate")
         isAutoClearEnabled = aDecoder.decodeBool(forKey: "isAutoClearEnabled")
         isAssistBarEnabled.value = aDecoder.decodeBool(forKey: "isAssistBarEnabled")

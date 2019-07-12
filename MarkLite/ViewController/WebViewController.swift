@@ -103,7 +103,7 @@ class WebViewController: UIViewController, ImageSaver {
             }
             return url
         case .image:
-            guard let img = webView.scrollView.snap, let data = UIImagePNGRepresentation(img) else { return nil }
+            guard let img = webView.scrollView.snap, let _ = UIImagePNGRepresentation(img) else { return nil }
             saveImage(img)
 //            let path = tempFolderPath + "/" + file.name + ".png"
 //            let url = URL(fileURLWithPath: path)

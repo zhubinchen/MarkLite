@@ -99,7 +99,13 @@ class EditViewController: UIViewController {
         
         MenuView(items: items.map{$0.displayName},
                  postion: pos) { (index) in
-                    export(index)
+                    if index > 0 {
+                        self.doIfPro {
+                            export(index)
+                        }
+                    } else {
+                        export(index)
+                    }
             }.show()
     }
     

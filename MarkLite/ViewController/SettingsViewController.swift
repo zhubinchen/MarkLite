@@ -24,11 +24,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     let autoClearSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
     
     var items: [(String,[(String,String,Selector)])] {
-        let section = [
+        var section = [
             ("AssistKeyboard","",#selector(assistBar)),
             ("AutoClear","",#selector(autoClear)),
             ]
-        
+        if !Configure.shared.isPro {
+            section.insert(("Premium","",#selector(premium)), at: 0)
+        }
         return [
             ("功能",section),
             ("外观",[
@@ -132,6 +134,15 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 
 extension SettingsViewController {
     
+    @objc func premium() {
+        let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
+        let vc = sb.instantiateVC(PurchaseViewController.self)!
+        dismiss(animated: false) {
+            if let nav = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
+                nav.pushViewController(vc, animated: true)
+            }
+        }
+    }
     
     @objc func rate() {
         Configure.shared.hasRate = true
