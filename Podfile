@@ -11,6 +11,7 @@ target 'Markdown' do
   pod 'SideMenu'
   pod 'Zip'
   pod 'UMCAnalytics'
+  pod 'SnapKit'
   # Pods for MarkLite
 
 end

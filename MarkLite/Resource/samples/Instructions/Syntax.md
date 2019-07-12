@@ -35,14 +35,14 @@ Italic：
 
 ----------
 
-[MarkLite](https://appsto.re/cn/jK8Cbb.i) is a powerful editor.
+[Markdown](https://appsto.re/cn/jK8Cbb.i) is a powerful editor.
 
 
 ### Image
 
 ----------
 
-![MarkLite](https://i.loli.net/2017/08/23/599c5c1dc7226.jpg)
+![Markdown](https://i.loli.net/2017/08/23/599c5c1dc7226.jpg)
 
 ### List
 
