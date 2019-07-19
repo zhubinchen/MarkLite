@@ -41,6 +41,7 @@
 		07E8275D1F5BF1BA0077A017 /* WrapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8270F1F5BF1BA0077A017 /* WrapViewController.swift */; };
 		07E827651F5BF24B0077A017 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07E827671F5BF24B0077A017 /* Localizable.strings */; };
 		07E8276C1F5BFD880077A017 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8276B1F5BFD880077A017 /* ImageSaver.swift */; };
+		761F825022E16D6500C3435C /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761F824F22E16D6500C3435C /* InfoViewController.swift */; };
 		768762B922D86CE900A54EB1 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762B822D86CE900A54EB1 /* IAPHelper.swift */; };
 		768762BB22D86D1C00A54EB1 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */; };
 		76C64C4D22DC314100E2851F /* CLDiscoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C1822DC314100E2851F /* CLDiscoverVC.swift */; };
@@ -123,6 +124,7 @@
 		07E8276A1F5BF2500077A017 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		07E8276B1F5BFD880077A017 /* ImageSaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 		0CED168CEF9A6EB3A1E2F9CC /* Pods_Markdown.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Markdown.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		761F824F22E16D6500C3435C /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		768762B822D86CE900A54EB1 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
 		768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		76C64C1822DC314100E2851F /* CLDiscoverVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDiscoverVC.swift; sourceTree = "<group>"; };
@@ -329,6 +331,7 @@
 				07E8270E1F5BF1BA0077A017 /* WebViewController.swift */,
 				07E8270F1F5BF1BA0077A017 /* WrapViewController.swift */,
 				768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */,
+				761F824F22E16D6500C3435C /* InfoViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -695,6 +698,7 @@
 				0724281B1F726B0300C02F87 /* ImagePicker.swift in Sources */,
 				76C64C6422DC314100E2851F /* CLCommon.swift in Sources */,
 				76DFA18222D496540025B44B /* html5_blocks.c in Sources */,
+				761F825022E16D6500C3435C /* InfoViewController.swift in Sources */,
 				76DFA18422D496540025B44B /* context_test.c in Sources */,
 				76C64C6522DC314100E2851F /* CLNewFeatureView.swift in Sources */,
 				76DFA17F22D496540025B44B /* html_blocks.c in Sources */,
