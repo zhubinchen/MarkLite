@@ -12,5 +12,4 @@ target 'Markdown' do
   pod 'Zip'
   pod 'UMCAnalytics'
   pod 'SnapKit'
-  pod ''
 end
