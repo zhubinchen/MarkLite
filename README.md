@@ -4,6 +4,8 @@
 [![Codewake](https://img.shields.io/badge/license-MIT-green.svg)]()
 [![Codewake](https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg)](https://saythanks.io/inbox)
 
+[![Codewake](https://i.loli.net/2019/07/26/5d3a79cc70b2372536.png)](https://apps.apple.com/cn/app/markdown/id1472328263)
+
 ### 简介
 
 MarkLite 是一个极简风格的markdown编辑器，界面干净，运行流畅，没有多余的元素，只保留一个编辑器它应有的样子。
