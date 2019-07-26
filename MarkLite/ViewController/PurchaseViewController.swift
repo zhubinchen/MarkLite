@@ -18,6 +18,7 @@ class PurchaseViewController: UIViewController {
         if self.navigationController?.viewControllers.count == 1 {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
         }
+        MobClick.event("enter_purchase")
     }
     
     @objc func close() {
@@ -26,12 +27,14 @@ class PurchaseViewController: UIViewController {
     
 
     @IBAction func subscribe(_ sender: UIButton!) {
+        MobClick.event("begin_purchase")
         purchaseProduct(premiumProductID)
     }
     
     @IBAction func restore(_ sender: UIButton!) {
         self.view.startLoadingAnimation()
-        
+        MobClick.event("begin_purchase")
+
         IAP.restorePurchases { (identifiers, error) in
             if let err = error {
                 print(err.localizedDescription)
@@ -41,6 +44,7 @@ class PurchaseViewController: UIViewController {
             }
             Configure.shared.checkProAvailable({ (availabel) in
                 if availabel {
+                    MobClick.event("finish_purchase")
                     self.showAlert(title: /"RestoreSuccess")
                     self.popVC()
                 } else {

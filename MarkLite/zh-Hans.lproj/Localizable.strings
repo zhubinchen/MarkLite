@@ -112,3 +112,5 @@
 "SubscribeSuccess"="已成功订阅高级帐户";
 "RestoreFailed"="没有有效的订阅记录，请重新订阅";
 "RestoreSuccess"="已恢复订阅";
+
+"Instructions"="使用教程";

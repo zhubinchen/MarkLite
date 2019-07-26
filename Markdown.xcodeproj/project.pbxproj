@@ -148,6 +148,7 @@
 		76C64C4922DC314100E2851F /* CLAfter_Time.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLAfter_Time.swift; sourceTree = "<group>"; };
 		76C64C4A22DC314100E2851F /* UILable+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILable+Extensions.swift"; sourceTree = "<group>"; };
 		76C64C4B22DC314100E2851F /* UIImage+Draw.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Draw.swift"; sourceTree = "<group>"; };
+		76C94A6A22EAA43D004CE602 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		76DFA16622D496510025B44B /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
 		76DFA16722D496510025B44B /* context_test.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = context_test.h; sourceTree = "<group>"; };
 		76DFA16822D496510025B44B /* hash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hash.c; sourceTree = "<group>"; };
@@ -746,6 +747,7 @@
 				07E827661F5BF24B0077A017 /* Base */,
 				07E827691F5BF24E0077A017 /* zh-Hans */,
 				07E8276A1F5BF2500077A017 /* zh-Hant */,
+				76C94A6A22EAA43D004CE602 /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

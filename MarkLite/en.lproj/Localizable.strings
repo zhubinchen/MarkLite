@@ -1,25 +1,24 @@
 /*
  Localizable.strings
  Markdown
- 
+
  Created by zhubch on 2017/8/21.
  Copyright © 2017年 zhubch. All rights reserved.
  */
 
-"LocalFile"="Documents";
-"CloudFile"="iCloud";
-"Dropbox" = "Dropbox";
-"Settings"="Settings";
+"LocalFile"="Local files";
 "EmptyFolder"="There is no file in current folder";
 
-"CreateNote"="New note";
-"CreateFolder"="New folder";
-"ImportFromFiles"="Import file";
-"ReleaseToCreate"="Release to create note";
+"Settings"="Settings";
 
 "Today"="today";
 "Yesterday"="yesterday";
 "Children"="Children";
+
+"CreateNote"="New File";
+"CreateFolder"="New Folder";
+"ImportFromFiles"="Import File";
+"ReleaseToCreate"="Release to create note";
 
 "Untitled"="Untitled";
 "UntitledFolder"="UntitledFolder";
@@ -36,11 +35,6 @@
 "SaveFailed"="Save to photo failed";
 "SaveSuccessed"="Save to photo successed";
 
-"PremiumOnly"="This feature is only for premium user";
-"SubscribeNow"="Subscribe";
-"Subscribed"="Subscribed";
-
-"PremiumAccount"="Premium account";
 "AssistKeyboard"="Keyboard assist bar";
 "AutoClear"="Delete blank files";
 "NightMode"="Night mode";
@@ -49,23 +43,6 @@
 "RateIt"="Rate it";
 "Style"="Style";
 "CodeStyle"="Code block";
-"Premium"="Premium";
-"SubscriptionInfo"="Subscription infomation";
-"Subscribe"="Subscribe now";
-"Price"="$0.99/month";
-"Terms"="Terms";
-"PrivacyPolicy"="Privacy Policy";
-"PremiumPrice"="1 week free trial, $0.99/month";
-"PremiumTitle"="Subscribe to Markdown to support further development and gain access to some great extra features";
-"PremiumDesc"="1. Application themes\n2. Advanced exports to PDF,HTML,JPG\n3. Markdown styles & code block styles";
-"SubscribeTips"="【Premium SubScription】\n–The duration of every period of the subscription is 1 month\n– Payment will be charged to iTunes Account at confirmation of purchase\n– Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period\n– Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of the renewal\n– Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase\n– Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable\n- Monthly subscription with 7-day free trial period for $0.99 USD";
-"Restore"="Restore";
-"NotNow"="Close";
-"RestoreTips"="Subscribed on other devices?";
-"SubscribeFailed"="Subcribe failed";
-"SubscribeSuccess"="Subscribe Success";
-"RestoreFailed"="No valid purchases found";
-"RestoreSuccess"="Restore purchases Success";
 
 "OK"="OK";
 "Close"="Close";
@@ -78,13 +55,14 @@
 "DeleteMessage"="Sure you want to delete the file? This action cannot be undone!";
 "FileNameError"="Invalid name";
 "RenameTips"="Please input new name";
-"InvalidCloud"="Can not access iCloud,whether your iCloud account was loginnd on this device?";
 "InsertHref"="Insert href";
 
 "Open"="Open it";
 "Ignore"="Ignore";
 "ReceivedNewFile"="Received new file:";
 "ReceivedFiles" = "Received files";
+
+"Error"="Error";
 
 "StartEdit"="Write something here";
 "SelectFileTips"="Select a file to edit";
@@ -109,8 +87,6 @@
 "EnableCameraTips"="Tap \"settings\" icon, find and tap \"privacy\", tap \"Camera\", find \"Markdown\" and enable it.";
 "EnablePhotoTips"="Tap \"settings\" icon, find and tap \"privacy\", tap \"Photos\", find \"Markdown\" and enable it.";
 
-"Instructions"="Instructions";
-
 "ThemeWhite"="White";
 "ThemeBlack"="Dark";
 "ThemeBlue"="Blue";
@@ -119,3 +95,22 @@
 "ThemePink"="Pink";
 "ThemeGreen"="Green";
 
+"PremiumOnly"="This feature is only for premium user";
+"SubscribeNow"="Subscribe";
+
+"Premium"="Premium";
+"Subscribe"="Subscribe Now $0.49/month";
+"Terms"="Terms";
+"Privacyy"="Privacy Policy";
+"Price"="$0.99/month";
+"SubscriptionPrice"="1 week free trial, $0.99/month";
+"SubscriptionTitle"="Subscribe to Markdown to support further development and gain access to exports to PDF,HTML,JPG";
+"SubscribeTips"="【Premium SubScription】\n–The duration of every period of the subscription is 1 month\n– Payment will be charged to iTunes Account at confirmation of purchase\n– Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period\n– Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of the renewal\n– Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase\n– Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable\n- Monthly subscription with 7-day free trial period for $0.49 USD";
+"Restore"="Restore";
+
+"SubscribeFailed"="Subcribe failed";
+"SubscribeSuccess"="Subscribe Success";
+"RestoreFailed"="No valid purchases found";
+"RestoreSuccess"="Restore purchases Success";
+
+"Instructions"="Instructions";
