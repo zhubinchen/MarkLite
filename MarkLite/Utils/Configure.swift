@@ -111,4 +111,26 @@ class Configure: NSObject, NSCoding {
         highlightStyle.value = aDecoder.decodeObject(forKey: "highlightStyle") as? String ?? "rainbow"
         theme.value = Theme(rawValue:aDecoder.decodeObject(forKey: "theme") as? String ?? "") ?? .white
     }
+    
+    func checkProAvailable(_ completion:((Bool)->Void)? = nil){
+        IAP.validateReceipt(itunesSecret) { (statusCode, products, json) in
+            defer {
+                DispatchQueue.main.async {
+                    completion?(self.isPro)
+                }
+            }
+            guard let products = products else {
+                self.isPro = false
+                return
+            }
+            print("products: \(products)")
+            let ProIdentifier = [premiumProductID]
+            let expiredDate = ProIdentifier.map{ products[$0] ?? Date(timeIntervalSince1970: 0) }.max() ?? Date(timeIntervalSince1970: 0)
+            
+            self.isPro = expiredDate.isFuture
+            
+            print("会员到期\(expiredDate.readableDate())")
+            print("会员状态\(self.isPro)")
+        }
+    }
 }

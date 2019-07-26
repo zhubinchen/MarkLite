@@ -1,245 +1,115 @@
-///*
-// Localizable.strings
-// Markdown
-//
-// Created by zhubch on 2017/8/21.
-// Copyright © 2017年 zhubch. All rights reserved.
-// */
-//
-//"LocalFile"="Local files";
-//"CloudFile"="iCloud";
-//"Dropbox" = "Dropbox";
-//"Settings"="Settings";
-//
-//"CreateNote"="New note";
-//"CreateFolder"="New folder";
-//"ImportFromFiles"="Import file";
-//"ReleaseToCreate"="Release to create note";
-//
-//"Today"="today";
-//"Yesterday"="yesterday";
-//"Children"="Children";
-//
-//"Untitled"="Untitled";
-//"UntitledFolder"="UntitledFolder";
-//
-//"Preview"="Preview";
-//"Undo"="Undo";
-//"Redo"="Redo";
-//"Characters"="characters";
-//
-//"PDF"="PDF";
-//"WebPage"="Web pages";
-//"Image"="Picture";
-//"Markdown"="Markdown";
-//"SaveFailed"="Save to photo failed";
-//"SaveSuccessed"="Save to photo successed";
-//
-//"PremiumOnly"="This feature is only for premium user";
-//"SubscribeNow"="Subscribe";
-//"Subscribed"="Subscribed";
-//
-//"PremiumAccount"="Premium account";
-//"AssistKeyboard"="Keyboard assist bar";
-//"AutoClear"="Delete blank files";
-//"NightMode"="Night mode";
-//"Theme"="Theme";
-//"Feedback"="Feedback";
-//"RateIt"="Rate it";
-//"Style"="Style";
-//"CodeStyle"="Code block";
-//"Premium"="Premium";
-//"SubscriptionInfo"="Subscription infomation";
-//"Subscribe"="Subscribe now";
-//"Price"="$0.99/month";
-//"Terms"="Terms";
-//"PrivacyPolicy"="Privacy Policy";
-//"PremiumPrice"="1 week free trial, $0.99/month";
-//"PremiumTitle"="Subscribe to Markdown to support further development and gain access to some great extra features";
-//"PremiumDesc"="1. Application themes\n2. Advanced exports to PDF,HTML,JPG\n3. Markdown styles & code block styles";
-//"SubscribeTips"="【Premium SubScription】\n–The duration of every period of the subscription is 1 month\n– Payment will be charged to iTunes Account at confirmation of purchase\n– Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period\n– Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of the renewal\n– Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase\n– Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable\n- Monthly subscription with 7-day free trial period for $0.99 USD";
-//"Restore"="Restore";
-//"NotNow"="Close";
-//"RestoreTips"="Subscribed on other devices?";
-//"SubscribeFailed"="Subcribe failed";
-//"SubscribeSuccess"="Subscribe Success";
-//"RestoreFailed"="No valid purchases found";
-//"RestoreSuccess"="Restore purchases Success";
-//
-//"OK"="OK";
-//"Close"="Close";
-//"Cancel"="Cancel";
-//
-//"Delete"="Delete";
-//"Rename"="Rename";
-//"LastUpdate"="Last update: ";
-//
-//"DeleteMessage"="Sure you want to delete the file? This action cannot be undone!";
-//"FileNameError"="Invalid name";
-//"RenameTips"="Please input new name";
-//"InvalidCloud"="Can not access iCloud,whether your iCloud account was loginnd on this device?";
-//"InsertHref"="Insert href";
-//
-//"Open"="Open it";
-//"Ignore"="Ignore";
-//"ReceivedNewFile"="Received new file:";
-//"ReceivedFiles" = "Received files";
-//
-//"StartEdit"="Write something here";
-//"SelectFileTips"="Select a file to edit";
-//"Header"="Header";
-//"Header1"="Header 1";
-//"Header2"="Header 2";
-//"Header3"="Header 3";
-//"Header4"="Header 4";
-//"StrongText"="Strong text";
-//"EmphasizedText"="Emphasized text";
-//"Blockquote"="Blockquote";
-//"Delection"="Delection";
-//"EnterCode"="Enter code here";
-//"EnterLink"="Enter link description here";
-//"EnterPlaceholder"="Enter placeholder here";
-//
-//"PickImage"="Pick an image";
-//"Photo"="Image Library";
-//"Camera"="Camera";
-//"CameraError"="Can not access your camera";
-//"PhotoError"="Can not access yours photos";
-//"EnableCameraTips"="Tap \"settings\" icon, find and tap \"privacy\", tap \"Camera\", find \"Markdown\" and enable it.";
-//"EnablePhotoTips"="Tap \"settings\" icon, find and tap \"privacy\", tap \"Photos\", find \"Markdown\" and enable it.";
-//
-//"Instructions"="Instructions";
-//
-//"ThemeWhite"="White";
-//"ThemeBlack"="Dark";
-//"ThemeBlue"="Blue";
-//"ThemeRed"="Red";
-//"ThemePurple"="Purple";
-//"ThemePink"="Pink";
-//"ThemeGreen"="Green";
-//
-
 /*
  Localizable.strings
  Markdown
- 
+
  Created by zhubch on 2017/8/21.
  Copyright © 2017年 zhubch. All rights reserved.
  */
 
-"LocalFile"="文件";
-"CloudFile"="iCloud";
-"Dropbox"="Dropbox";
-"EmptyFolder"="当前目录没有任何文件";
+"LocalFile"="Local files";
+"EmptyFolder"="There is no file in current folder";
 
-"Settings"="设置";
+"Settings"="Settings";
 
-"Today"="今天";
-"Yesterday"="昨天";
-"Children"="子文件";
+"Today"="today";
+"Yesterday"="yesterday";
+"Children"="Children";
 
-"CreateNote"="新建文档";
-"CreateFolder"="新建文件夹";
-"ImportFromFiles"="导入文件";
-"ReleaseToCreate"="松手创建文档";
+"CreateNote"="New File";
+"CreateFolder"="New Folder";
+"ImportFromFiles"="Import File";
+"ReleaseToCreate"="Release to create note";
 
-"Untitled"="未命名";
-"UntitledFolder"="未命名文件夹";
+"Untitled"="Untitled";
+"UntitledFolder"="UntitledFolder";
 
-"Preview"="预览";
-"Undo"="撤销";
-"Redo"="重做";
-"Characters"="字符";
+"Preview"="Preview";
+"Undo"="Undo";
+"Redo"="Redo";
+"Characters"="characters";
 
-"PDF"="PDF 文档";
-"WebPage"="Web 页面";
-"Image"="长屏截图";
+"PDF"="PDF";
+"WebPage"="Web pages";
+"Image"="Picture";
 "Markdown"="Markdown";
-"SaveFailed"="保存失败";
-"SaveSuccessed"="已保存到手机相册";
+"SaveFailed"="Save to photo failed";
+"SaveSuccessed"="Save to photo successed";
 
-"PremiumAccount"="升级到高级帐户";
-"AssistKeyboard"="辅助键盘";
-"AutoClear"="自动清理空白文件";
-"NightMode"="夜间模式";
-"Theme"="主题色";
-"Feedback"="问题与意见";
-"RateIt"="五星好评";
-"Style"="渲染样式";
-"CodeStyle"="代码块样式";
+"AssistKeyboard"="Keyboard assist bar";
+"AutoClear"="Delete blank files";
+"NightMode"="Night mode";
+"Theme"="Theme";
+"Feedback"="Feedback";
+"RateIt"="Rate it";
+"Style"="Style";
+"CodeStyle"="Code block";
 
-"PremiumOnly"="该功能需开通高级帐户";
-"SubscribeNow"="立即开通";
-"Subscribed"="已开通";
+"OK"="OK";
+"Close"="Close";
+"Cancel"="Cancel";
 
-"Premium"="高级帐户";
-"SubscriptionInfo"="查看订阅详情";
-"Subscribe"="立即订阅(6元/月，一周内免费)";
-"Price"="限时优惠：$0.99／月";
-"Terms"="使用条款";
-"PrivacyPolicy"="隐私策略";
-"PremiumPrice"="现在订阅可免费试用一周";
-"PremiumTitle"="订阅高级账户后，你将获得Markdown的全部功能";
-"PremiumDesc"="1. 可将文档导出为任意格式(PDF,HTML,长图)\n2. 可使用更多渲染样式\n3. 可选择更多好看的主题颜色\n4. 后续版本中添加的更多特性";
-"SubscribeTips"="【连续包月高级账户说明】\n1.订阅周期：一个月\n2.订阅价格： 每月6元\n3.付款：用户确认购买并付款后记入iTunes账户\n4.取消续订：如需取消续订，请在当前订阅到期24小时以前，手动在iTunes/Apple ID设置管理中关闭自动续订功能\n5.续订：苹果iTunes账户会在到期前24小时内扣款，扣款成功后订阅周期顺延一个月";
-"Restore"="恢复订阅";
-"NotNow"="暂不订阅";
-"RestoreTips"="在其他设备上购买过？可在此恢复";
-"SubscribeFailed"="没有完成订阅";
-"SubscribeSuccess"="已成功订阅高级帐户";
-"RestoreFailed"="没有有效的订阅记录，请重新订阅";
-"RestoreSuccess"="已恢复订阅";
+"Delete"="Delete";
+"Rename"="Rename";
+"LastUpdate"="Last update: ";
 
-"OK"="确定";
-"Close"="关闭";
-"Cancel"="取消";
+"DeleteMessage"="Sure you want to delete the file? This action cannot be undone!";
+"FileNameError"="Invalid name";
+"RenameTips"="Please input new name";
+"InsertHref"="Insert href";
 
-"Delete"="删除";
-"Rename"="重命名";
-"LastUpdate"="上次修改: ";
+"Open"="Open it";
+"Ignore"="Ignore";
+"ReceivedNewFile"="Received new file:";
+"ReceivedFiles" = "Received files";
 
-"DeleteMessage"="删除后不可恢复，确定要删除吗？";
-"FileNameError"="请输入正确的文件名";
-"RenameTips"="请输入新的文件名";
-"InvalidCloud"="无法访问iCloud目录，请检查您当前的设备是否登录iCloud";
-"InsertHref"="添加链接";
+"Error"="Error";
 
-"Open"="打开";
-"Ignore"="忽略";
-"ReceivedNewFile"="收到新文件:";
-"ReceivedFiles" = "收到的文件";
+"StartEdit"="Write something here";
+"SelectFileTips"="Select a file to edit";
+"Header"="Header";
+"Header1"="Header 1";
+"Header2"="Header 2";
+"Header3"="Header 3";
+"Header4"="Header 4";
+"StrongText"="Strong text";
+"EmphasizedText"="Emphasized text";
+"Blockquote"="Blockquote";
+"Delection"="Delection";
+"EnterCode"="Enter code here";
+"EnterLink"="Enter link description here";
+"EnterPlaceholder"="Enter placeholder here";
 
-"Error"="出错了";
+"PickImage"="Pick an image";
+"Photo"="Image Library";
+"Camera"="Camera";
+"CameraError"="Can not access your camera";
+"PhotoError"="Can not access yours photos";
+"EnableCameraTips"="Tap \"settings\" icon, find and tap \"privacy\", tap \"Camera\", find \"Markdown\" and enable it.";
+"EnablePhotoTips"="Tap \"settings\" icon, find and tap \"privacy\", tap \"Photos\", find \"Markdown\" and enable it.";
 
-"StartEdit"="写点什么吧";
-"SelectFileTips"="請選擇要編輯的文件";
-"Header"="标题";
-"Header1"="一级标题";
-"Header2"="二级标题";
-"Header3"="三级标题";
-"Header4"="四级标题";
-"StrongText"="加粗文本";
-"EmphasizedText"="强调文本";
-"Blockquote"="引用";
-"Delection"="要删除的文本";
-"EnterCode"="代码";
-"EnterLink"="在这输入连接描述";
-"EnterPlaceholder"="在这输入图片占位文本";
+"ThemeWhite"="White";
+"ThemeBlack"="Dark";
+"ThemeBlue"="Blue";
+"ThemeRed"="Red";
+"ThemePurple"="Purple";
+"ThemePink"="Pink";
+"ThemeGreen"="Green";
 
-"PickImage"="选取图片";
-"Photo"="相册";
-"Camera"="相机";
-"CameraError"="没有访问相机的权限";
-"PhotoError"="没有访问照片的权限";
-"EnableCameraTips"="去iPhone的【设置】图标，打开【隐私】，打开【相机】，找到【Markdown】开启即可";
-"EnablePhotoTips"="去iPhone的【设置】图标，打开【隐私】，打开【照片】，找到【Markdown】开启即可";
+"PremiumOnly"="This feature is only for premium user";
+"SubscribeNow"="Subscribe";
 
-"Instructions"="使用教程";
+"Premium"="Premium";
+"Subscribe"="Subscribe Now $0.49/month";
+"Terms"="Terms";
+"Privacyy"="Privacy Policy";
+"Price"="$0.99/month";
+"SubscriptionPrice"="1 week free trial, $0.99/month";
+"SubscriptionTitle"="Subscribe to Markdown to support further development and gain access to exports to PDF,HTML,JPG";
+"SubscribeTips"="【Premium SubScription】\n–The duration of every period of the subscription is 1 month\n– Payment will be charged to iTunes Account at confirmation of purchase\n– Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period\n– Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of the renewal\n– Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase\n– Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable\n- Monthly subscription with 7-day free trial period for $0.49 USD";
+"Restore"="Restore";
 
-"ThemeWhite"="简洁白";
-"ThemeBlack"="高端黑";
-"ThemeBlue"="清新蓝";
-"ThemeRed"="中国红";
-"ThemePurple"="风骚紫";
-"ThemePink"="脑残粉";
-"ThemeGreen"="原谅绿";
+"SubscribeFailed"="Subcribe failed";
+"SubscribeSuccess"="Subscribe Success";
+"RestoreFailed"="No valid purchases found";
+"RestoreSuccess"="Restore purchases Success";
+

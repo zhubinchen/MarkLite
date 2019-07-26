@@ -14,6 +14,14 @@ class PurchaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = /"Premium"
+        
+        if self.navigationController?.viewControllers.count == 1 {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
+        }
+    }
+    
+    @objc func close() {
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
 
@@ -31,22 +39,22 @@ class PurchaseViewController: UIViewController {
                 self.view.stopLoadingAnimation()
                 return
             }
-//            Configure.shared.checkVipAvailable({ (availabel) in
-//                if availabel {
-//                    self.showAlert(title: /"RestoreSuccess")
-//                    self.dismiss(nil)
-//                } else {
-//                    self.showAlert(title: /"RestoreFailed")
-//                }
-//                self.view.stopLoadingAnimation()
-//            })
+            Configure.shared.checkProAvailable({ (availabel) in
+                if availabel {
+                    self.showAlert(title: /"RestoreSuccess")
+                    self.popVC()
+                } else {
+                    self.showAlert(title: /"RestoreFailed")
+                }
+                self.view.stopLoadingAnimation()
+            })
             print(identifiers)
         }
     }
 
     @IBAction func privacy(_ sender: UIButton!) {
         let vc = InfoViewController()
-        vc.urlString = "https://www.freeprivacypolicy.com/privacy/view/0c071aa1336dd9e73585f2535466bcf6"
+        vc.urlString = "https://zhubinchen.github.io/Page/Markdown/privacy.html"
         vc.title = /"Privacy"
         let nav = UINavigationController(rootViewController: vc)
         presentVC(nav)
@@ -54,7 +62,7 @@ class PurchaseViewController: UIViewController {
 
     @IBAction func terms(_ sender: UIButton!) {
         let vc = InfoViewController()
-        vc.urlString = "https://www.freeprivacypolicy.com/privacy/view/0c071aa1336dd9e73585f2535466bcf6"
+        vc.urlString = "https://zhubinchen.github.io/Page/Markdown/terms.html"
         vc.title = /"Terms"
         let nav = UINavigationController(rootViewController: vc)
         presentVC(nav)
@@ -73,15 +81,15 @@ class PurchaseViewController: UIViewController {
                     print(error?.localizedDescription ?? "")
                     return
                 }
-//                Configure.shared.checkVipAvailable({ (availabel) in
-//                    if availabel {
-//                        self.showAlert(title: /"SubscribedSuccess")
-//                        self.dismiss(nil)
-//                    } else {
-//                        self.showAlert(title: /"SubscribeFailed")
-//                    }
-//                    self.view.stopLoadingAnimation()
-//                })
+                Configure.shared.checkProAvailable({ (availabel) in
+                    if availabel {
+                        self.showAlert(title: /"SubscribedSuccess")
+                        self.popVC()
+                    } else {
+                        self.showAlert(title: /"SubscribeFailed")
+                    }
+                    self.view.stopLoadingAnimation()
+                })
             })
         }
     }

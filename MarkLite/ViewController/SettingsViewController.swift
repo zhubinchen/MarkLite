@@ -138,6 +138,10 @@ extension SettingsViewController {
         let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
         let vc = sb.instantiateVC(PurchaseViewController.self)!
         dismiss(animated: false) {
+            if isPad {
+                let nav = UINavigationController(rootViewController: vc)
+                UIApplication.shared.keyWindow?.rootViewController?.presentVC(nav)
+            }
             if let nav = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
                 nav.pushViewController(vc, animated: true)
             }
