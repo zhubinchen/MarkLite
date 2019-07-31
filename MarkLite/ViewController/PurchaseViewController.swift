@@ -18,6 +18,11 @@ class PurchaseViewController: UIViewController {
         if self.navigationController?.viewControllers.count == 1 {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
         }
+        let date = Date(fromString: "2019-08-02", format: "yyyy-MM-dd")!
+        let now = Date()
+        if now > date {
+            subscribeButton.setTitle(/"SubscribeL", for: .normal)
+        }
         MobClick.event("enter_purchase")
     }
     
@@ -87,6 +92,7 @@ class PurchaseViewController: UIViewController {
                 }
                 Configure.shared.checkProAvailable({ (availabel) in
                     if availabel {
+                        MobClick.event("finish_purchase")
                         self.showAlert(title: /"SubscribedSuccess")
                         self.popVC()
                     } else {
