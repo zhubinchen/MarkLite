@@ -110,17 +110,19 @@ extension String {
 extension UIViewController {
     
     func doIfPro(_ task: (() -> Void)) {
-        if Configure.shared.isPro {
-            task()
-            return
-        }
-        showAlert(title: /"PremiumOnly", message: nil, actionTitles: [/"SubscribeNow",/"Cancel"], textFieldconfigurationHandler: nil) { [unowned self](index) in
-            if index == 0 {
-                let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
-                let vc = sb.instantiateVC(PurchaseViewController.self)!
-                self.pushVC(vc)
-            }
-        }
+        task()
+
+//        if Configure.shared.isPro {
+//            task()
+//            return
+//        }
+//        showAlert(title: /"PremiumOnly", message: nil, actionTitles: [/"SubscribeNow",/"Cancel"], textFieldconfigurationHandler: nil) { [unowned self](index) in
+//            if index == 0 {
+//                let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
+//                let vc = sb.instantiateVC(PurchaseViewController.self)!
+//                self.pushVC(vc)
+//            }
+//        }
     }
     
     @discardableResult

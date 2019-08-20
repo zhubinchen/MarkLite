@@ -24,6 +24,7 @@ class Configure: NSObject, NSCoding {
     var upgradeDate = Date()
     var alertDate = Date()
     var hasRate = false
+    var foreverPro = false
     var isPro = false
     var isAutoClearEnabled = false
     let isAssistBarEnabled = Variable(true)
@@ -88,6 +89,7 @@ class Configure: NSObject, NSCoding {
     func encode(with aCoder: NSCoder) {
         aCoder.encode(currentVerion, forKey: "currentVersion")
         aCoder.encode(isPro, forKey: "isPro")
+        aCoder.encode(foreverPro, forKey: "foreverPro")
         aCoder.encode(hasRate, forKey: "hasRate")
         aCoder.encode(isAutoClearEnabled, forKey: "isAutoClearEnabled")
         aCoder.encode(isAssistBarEnabled.value, forKey: "isAssistBarEnabled")
@@ -104,6 +106,7 @@ class Configure: NSObject, NSCoding {
         upgradeDate = aDecoder.decodeObject(forKey: "upgradeDate") as? Date ?? Date()
         alertDate = aDecoder.decodeObject(forKey: "alertDate") as? Date ?? Date()
         isPro = aDecoder.decodeBool(forKey: "isPro")
+        foreverPro = aDecoder.decodeBool(forKey: "foreverPro")
         hasRate = aDecoder.decodeBool(forKey: "hasRate")
         isAutoClearEnabled = aDecoder.decodeBool(forKey: "isAutoClearEnabled")
         isAssistBarEnabled.value = aDecoder.decodeBool(forKey: "isAssistBarEnabled")
@@ -113,6 +116,11 @@ class Configure: NSObject, NSCoding {
     }
     
     func checkProAvailable(_ completion:((Bool)->Void)? = nil){
+        if foreverPro {
+            self.isPro = true
+            completion?(self.isPro)
+            return
+        }
         IAP.validateReceipt(itunesSecret) { (statusCode, products, json) in
             defer {
                 DispatchQueue.main.async {

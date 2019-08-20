@@ -18,6 +18,12 @@ class FileListViewController: UIViewController {
         didSet {
             tableView.estimatedRowHeight = 50
             tableView.rowHeight = UITableViewAutomaticDimension
+            let tipsLabel = UILabel(frame: CGRect(x: 0, y: 0, w: windowWidth, h: 30))
+            tipsLabel.text = "   ".appending(/"SwipeTips")
+            tipsLabel.setTextColor(.secondary)
+            tipsLabel.font = UIFont.font(ofSize: 14)
+            tableView.tableFooterView = tipsLabel
+            
             let pulldDownLabel = UILabel()
             pulldDownLabel.text = /"ReleaseToCreate"
             pulldDownLabel.textAlignment = .center

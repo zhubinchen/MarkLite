@@ -19,6 +19,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
+    var textField: UITextField?
+    
     let themeSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
     let assitBarSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
     let autoClearSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
@@ -31,7 +33,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         if !Configure.shared.isPro {
             section.insert(("Premium","",#selector(premium)), at: 0)
         }
-        return [
+        var items = [
             ("功能",section),
             ("外观",[
                 ("NightMode","",#selector(night)),
@@ -44,6 +46,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 ("Feedback","",#selector(feedback))
                 ])
         ]
+        return items;
     }
     
     let bag = DisposeBag()

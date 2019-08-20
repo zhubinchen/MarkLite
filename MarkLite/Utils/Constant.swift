@@ -8,7 +8,7 @@
 
 import UIKit
 
-let rateUrl = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1302563558&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"
+let rateUrl = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1472328263&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"
 
 let emailUrl = "mailto:zhubingcheng.dev@gmail.com?subject=MarkDown%20Report&body="
 let itunesSecret = "cf86d5cf3c0e440692140e5e80fd376e"

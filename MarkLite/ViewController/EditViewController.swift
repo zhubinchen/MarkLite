@@ -94,6 +94,8 @@ class EditViewController: UIViewController {
         func export(_ index: Int) {
             guard let url = self.webVC?.url(for: items[index]) else { return }
             let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+            vc.popoverPresentationController?.sourceView = sender as? UIView
+            vc.popoverPresentationController?.sourceRect = (sender as? UIView)?.frame ?? CGRect(x: 62, y: 20, w: 44, h: 44)
             self.presentVC(vc)
         }
         
