@@ -185,7 +185,7 @@ extension SettingsViewController {
     }
     
     @objc func style() {
-        let path = stylePath + "/markdown-style/"
+        let path = stylePath + "/Styles/"
         
         guard let subPaths = FileManager.default.subpaths(atPath: path) else { return }
         
@@ -200,7 +200,7 @@ extension SettingsViewController {
     }
     
     @objc func codeStyle() {
-        let path = stylePath + "/highlight-style/"
+        let path = stylePath + "/Highlight/highlight-style/"
         
         guard let subPaths = FileManager.default.subpaths(atPath: path) else { return }
         

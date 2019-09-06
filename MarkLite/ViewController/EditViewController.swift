@@ -21,6 +21,7 @@ class EditViewController: UIViewController {
     
     let bag = DisposeBag()
     let titleTextField = UITextField(x: 0, y: 0, w: 100, h: 30)
+    let renderer = MarkdownRender.shared()
     
     override var title: String? {
         didSet {
@@ -30,7 +31,7 @@ class EditViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if let popGestureRecognizer = self.navigationController?.interactivePopGestureRecognizer {
             scrollView.panGestureRecognizer.require(toFail: popGestureRecognizer)
         }
@@ -41,12 +42,8 @@ class EditViewController: UIViewController {
         
         Configure.shared.editingFile.asObservable().map{ $0?.name ?? "" }.bind(to: self.rx.title).disposed(by: bag)
         
-        Configure.shared.editingFile.value?.readText{ [weak self] text in
-            self?.webVC?.text = text
-        }
-        
         textVC?.textChangedHandler = { [weak self] text in
-            self?.webVC?.text = text
+            self?.webVC?.htmlString = self?.renderer?.renderMarkdown(text) ?? ""
         }
         
         textVC?.offsetChangedHandler = { [weak self] offset in
@@ -142,6 +139,73 @@ class EditViewController: UIViewController {
     
     deinit {
         print("deinit edit_vc")
+    }
+}
+
+extension EditViewController: MPRendererDelegate,MPRendererDataSource {
+    func rendererExtensions(_ renderer: MPRenderer!) -> Int32 {
+        return MPPreferences.sharedInstance().extensionFlags
+    }
+
+    func rendererHasSmartyPants(_ renderer: MPRenderer!) -> Bool {
+        return MPPreferences.sharedInstance().extensionSmartyPants
+    }
+
+    func rendererRendersTOC(_ renderer: MPRenderer!) -> Bool {
+        return MPPreferences.sharedInstance().htmlRendersTOC
+    }
+
+    func rendererStyleName(_ renderer: MPRenderer!) -> String! {
+        let name = Configure.shared.markdownStyle.value
+        let path = stylePath + "/Styles/" + name + ".css"
+        return path
+    }
+
+    func rendererDetectsFrontMatter(_ renderer: MPRenderer!) -> Bool {
+        return MPPreferences.sharedInstance().htmlDetectFrontMatter
+    }
+
+    func rendererHasSyntaxHighlighting(_ renderer: MPRenderer!) -> Bool {
+        return MPPreferences.sharedInstance().extensionHighlight
+    }
+
+    func rendererHasMermaid(_ renderer: MPRenderer!) -> Bool {
+        return MPPreferences.sharedInstance().htmlMermaid
+    }
+
+    func rendererHasGraphviz(_ renderer: MPRenderer!) -> Bool {
+        return MPPreferences.sharedInstance().htmlGraphviz
+    }
+
+    func rendererCodeBlockAccesory(_ renderer: MPRenderer!) -> MPCodeBlockAccessoryType {
+        return MPCodeBlockAccessoryType(rawValue: UInt(MPPreferences.sharedInstance().htmlCodeBlockAccessory))!
+    }
+
+    func rendererHasMathJax(_ renderer: MPRenderer!) -> Bool {
+        return MPPreferences.sharedInstance().htmlMathJax
+    }
+
+    func rendererHighlightingThemeName(_ renderer: MPRenderer!) -> String! {
+        let name = Configure.shared.highlightStyle.value
+        let path = stylePath + "/Highlight/highlight-style/" + name + ".css"
+        return path
+    }
+
+    func renderer(_ renderer: MPRenderer!, didProduceHTMLOutput html: String!) {
+        self.webVC?.htmlString = html
+        print(html)
+    }
+
+    func rendererLoading() -> Bool {
+        return false
+    }
+
+    func rendererMarkdown(_ renderer: MPRenderer!) -> String! {
+        return self.textVC?.editView.text
+    }
+
+    func rendererHTMLTitle(_ renderer: MPRenderer!) -> String! {
+        return self.titleTextField.text
     }
 }
 

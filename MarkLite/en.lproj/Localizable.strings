@@ -14,7 +14,7 @@
 
 "Today"="today";
 "Yesterday"="yesterday";
-"Children"="Children";
+"Children"="Item(s)";
 
 "CreateNote"="New File";
 "CreateFolder"="New Folder";

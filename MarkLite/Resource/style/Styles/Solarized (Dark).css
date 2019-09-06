@@ -12,7 +12,11 @@ ol,
 ul,
 li,
 img {
-    max-width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 html * {
   font-family: "ff-din-web-pro-1", "ff-din-web-pro-2", sans-serif;
@@ -21,14 +25,13 @@ html * {
   color-profile: sRGB;
 }
 body {
-    margin: 5px 5px 5px 5px;
+  margin: 40px 70px;
 }
 p {
   font-weight: lighter;
   margin-bottom: 20px;
 }
 strong {
-    font-size: 16px;
   font-weight: bold;
 }
 ol,
@@ -57,28 +60,28 @@ h6 {
   margin-bottom: 20px;
 }
 h1 {
-    font-size: 26px;
-    line-height: 29.548799999999996px;
+  font-size: 24.624px;
+  line-height: 29.548799999999996px;
 }
 h2 {
-    font-size: 24px;
-    line-height: 29.548799999999996px;
+  font-size: 24.624px;
+  line-height: 29.548799999999996px;
 }
 h3 {
-    font-size: 22px;
-    line-height: 28.128px;
+  font-size: 23.44px;
+  line-height: 28.128px;
 }
 h4 {
-    font-size: 20px;
-    line-height: 26.592px;
+  font-size: 22.16px;
+  line-height: 26.592px;
 }
 h5 {
-    font-size: 18px;
-    line-height: 26.592px;
+  font-size: 22.16px;
+  line-height: 26.592px;
 }
 h6 {
-    font-size: 16px;
-    line-height: 26.592px;
+  font-size: 22.16px;
+  line-height: 26.592px;
 }
 img {
   margin-bottom: 20px;
@@ -130,10 +133,10 @@ h6 {
   border-bottom: none;
 }
 html * {
-  color: #657b83;
+  color: #839496;
 }
 html body {
-  background-color: #fdf6e3;
+  background-color: #002b36;
 }
 html h1,
 html h2,
@@ -141,20 +144,20 @@ html h3,
 html h4,
 html h5,
 html h6 {
-  color: #586e75;
-  border-color: #657b83;
+  color: #93a1a1;
+  border-color: #839496;
 }
 html a,
 html a:active,
 html a:visited {
-  color: #586e75;
+  color: #93a1a1;
 }
 html a:hover {
-  background-color: #eee8d5;
+  background-color: #073642;
 }
 html pre {
-  color: #586e75;
-  background-color: #eee8d5;
+  color: #93a1a1;
+  background-color: #073642;
 }
 html a,
 html a:active,
@@ -172,12 +175,22 @@ html h5,
 html h6 {
   color: #b58900;
 }
+kbd {
+  display: inline-block;
+  padding: 3px 5px;
+  font-size: 11px;
+  line-height: 10px;
+  color: #555;
+  vertical-align: middle;
+  background-color: #fcfcfc;
+  border: solid 1px #ccc;
+  border-bottom-color: #bbb;
+  border-radius: 3px;
+  box-shadow: inset 0 -1px 0 #bbb;
+}
 
 @media print {
   body {
-    margin: 0;
-  }
-  * {
-    color: #000 !important;
+    margin: 2cm; 
   }
 }

@@ -1,6 +1,6 @@
 *{margin:0;padding:0;}
 body {
-	font:16px helvetica,arial,freesans,clean,sans-serif;
+	font:13.34px helvetica,arial,freesans,clean,sans-serif;
 	color:black;
 	line-height:1.4em;
 	background-color: #F8F8F8;
@@ -23,7 +23,7 @@ optgroup{margin-top:.5em;}
 pre,code{font:12px Monaco,"Courier New","DejaVu Sans Mono","Bitstream Vera Sans Mono",monospace;}
 pre {
 	margin:1em 0;
-	font-size:14px;
+	font-size:12px;
 	background-color:#eee;
 	border:1px solid #ddd;
 	padding:5px;
@@ -36,12 +36,12 @@ pre {
 }
 pre code {
 	padding:0;
-	font-size:14px;
+	font-size:12px;
 	background-color:#eee;
 	border:none;
 }
 code {
-	font-size:14px;
+	font-size:12px;
 	background-color:#f8f8ff;
 	color:#444;
 	padding:0 .2em;
@@ -71,6 +71,9 @@ sup {
     vertical-align: super;
     line-height: 0;
 }
+kbd {
+  display: inline-block;padding: 3px 5px;font-size: 11px;line-height: 10px;color: #555;vertical-align: middle;background-color: #fcfcfc;border: solid 1px #ccc;border-bottom-color: #bbb;border-radius: 3px;box-shadow: inset 0 -1px 0 #bbb;
+}
 * {
 	-webkit-print-color-adjust: exact;
 }
@@ -87,4 +90,7 @@ sup {
 	pre {
 		word-wrap: break-word;
 	}
+  body {
+    padding: 2cm; 
+  }
 }

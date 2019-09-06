@@ -258,10 +258,15 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .destructive, title: /"Delete") { [unowned self](_, indexPath) in
-            let file = self.childrens[indexPath.row]
-            file.trash()
-            self.childrens.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .middle)
+            self.showAlert(title: /"DeleteMessage", message: nil, actionTitles: [/"Cancel",/"Delete"], textFieldconfigurationHandler: nil, actionHandler: { (index) in
+                if index == 0 {
+                    return
+                }
+                let file = self.childrens[indexPath.row]
+                file.trash()
+                self.childrens.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .middle)
+            })
         }
         let renameAction = UITableViewRowAction(style: .default, title: /"Rename") { [unowned self](_, indexPath) in
             let file = self.childrens[indexPath.row]

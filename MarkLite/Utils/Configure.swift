@@ -61,7 +61,7 @@ class Configure: NSObject, NSCoding {
         currentVerion = appVersion
         
         let destStylePath = URL(fileURLWithPath: supportPath)
-        try! Zip.unzipFile(Bundle.main.url(forResource: "Style", withExtension: "zip")!, destination: destStylePath, overwrite: true, password: nil, progress: nil)
+        try! Zip.unzipFile(Bundle.main.url(forResource: "style", withExtension: "zip")!, destination: destStylePath, overwrite: true, password: nil, progress: nil)
         
         let samplesPath = Bundle.main.url(forResource: "samples", withExtension: "zip")
         let destSamplesPath = URL(fileURLWithPath: documentPath)

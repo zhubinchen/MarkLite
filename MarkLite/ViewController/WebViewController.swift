@@ -9,6 +9,8 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import WebKit
+import SnapKit
 
 enum ExportType: String {
     case pdf
@@ -31,13 +33,8 @@ enum ExportType: String {
 }
 
 class WebViewController: UIViewController, ImageSaver {
-    @IBOutlet weak var webView: UIWebView!
     
-    var text = "" {
-        didSet {
-            htmlString = renderManager.render(text)
-        }
-    }
+    let webView = WKWebView(frame: CGRect())
     
     var offset: CGFloat = 0 {
         didSet {
@@ -49,44 +46,22 @@ class WebViewController: UIViewController, ImageSaver {
     
     var htmlString = "" {
         didSet {
-            webView.loadHTMLString(htmlString, baseURL: nil)
+            print(htmlString)
+            webView.loadHTMLString(htmlString, baseURL: URL(fileURLWithPath: stylePath, isDirectory: true))
         }
     }
     
     let bag = DisposeBag()
     
-    let renderManager: RenderManager = RenderManager.default
-
     let pdfRender = PdfRender()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupRx()
-    }
-    
-    func setupRx() {
-        webView.rx.didStartLoad.subscribe { [weak self] _ in
-            self?.webView.startLoadingAnimation()
-            }.disposed(by: bag)
-        
-        webView.rx.didFailLoad.subscribe { [weak self] _ in
-            self?.webView.stopLoadingAnimation()
-            }.disposed(by: bag)
-        
-        webView.rx.didFinishLoad.subscribe { [weak self] _ in
-            self?.webView.stopLoadingAnimation()
-            }.disposed(by: bag)
-        
-        Configure.shared.markdownStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
-            self.renderManager.markdownStyle = style
-            self.htmlString = self.renderManager.render(self.text)
-        }).disposed(by: bag)
-        
-        Configure.shared.highlightStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
-            self.renderManager.highlightStyle = style
-            self.htmlString = self.renderManager.render(self.text)
-        }).disposed(by: bag)
+        self.view.addSubview(webView)
+        webView.snp.makeConstraints { (make) in
+            make.edges.equalTo(0)
+        }
     }
     
     func url(for type: ExportType) -> URL? {
@@ -122,5 +97,27 @@ class WebViewController: UIViewController, ImageSaver {
     
     deinit {
         print("deinit web_vc")
+    }
+}
+
+extension WebViewController: WKNavigationDelegate,WKUIDelegate {
+    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
+        webView.startLoadingAnimation()
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        webView.stopLoadingAnimation()
+    }
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        
+    }
+    
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        decisionHandler(.allow)
     }
 }
