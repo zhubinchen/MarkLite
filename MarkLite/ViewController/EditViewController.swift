@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import StoreKit
+
 class EditViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var textViewWidth: NSLayoutConstraint!
@@ -18,13 +19,15 @@ class EditViewController: UIViewController {
     var textVC: TextViewController?
     
     var showExport = true
-    
+    var markdownToRender: String?
+    var timer: Timer!
     let bag = DisposeBag()
     let titleTextField = UITextField(x: 0, y: 0, w: 100, h: 30)
     let renderer = MarkdownRender.shared()
     
     override var title: String? {
         didSet {
+            renderer?.title = title
             titleTextField.text = title
         }
     }
@@ -43,11 +46,34 @@ class EditViewController: UIViewController {
         Configure.shared.editingFile.asObservable().map{ $0?.name ?? "" }.bind(to: self.rx.title).disposed(by: bag)
         
         textVC?.textChangedHandler = { [weak self] text in
-            self?.webVC?.htmlString = self?.renderer?.renderMarkdown(text) ?? ""
+            self?.markdownToRender = text
         }
         
         textVC?.offsetChangedHandler = { [weak self] offset in
             self?.webVC?.offset = offset
+        }
+        
+        Configure.shared.markdownStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
+            self.renderer?.styleName = style
+            self.markdownToRender = self.textVC?.editView.text
+        }).disposed(by: bag)
+        
+        Configure.shared.highlightStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
+            self.renderer?.highlightName = style
+            self.markdownToRender = self.textVC?.editView.text
+        }).disposed(by: bag)
+        
+        Configure.shared.editingFile.asObservable().subscribe(onNext: { [weak self] (file) in
+            self?.scrollView.contentOffset = CGPoint()
+            self?.markdownToRender = ""
+        }).disposed(by: bag)
+        
+        timer = Timer.runThisEvery(seconds: 0.01) { [weak self] _ in
+            guard let this = self else { return }
+            if let markdown = this.markdownToRender {
+                this.webVC?.htmlString = this.renderer?.renderMarkdown(markdown) ?? ""
+                this.markdownToRender = nil
+            }
         }
         
         navigationItem.titleView = titleTextField
@@ -138,74 +164,8 @@ class EditViewController: UIViewController {
     }
     
     deinit {
+        timer.invalidate()
         print("deinit edit_vc")
-    }
-}
-
-extension EditViewController: MPRendererDelegate,MPRendererDataSource {
-    func rendererExtensions(_ renderer: MPRenderer!) -> Int32 {
-        return MPPreferences.sharedInstance().extensionFlags
-    }
-
-    func rendererHasSmartyPants(_ renderer: MPRenderer!) -> Bool {
-        return MPPreferences.sharedInstance().extensionSmartyPants
-    }
-
-    func rendererRendersTOC(_ renderer: MPRenderer!) -> Bool {
-        return MPPreferences.sharedInstance().htmlRendersTOC
-    }
-
-    func rendererStyleName(_ renderer: MPRenderer!) -> String! {
-        let name = Configure.shared.markdownStyle.value
-        let path = stylePath + "/Styles/" + name + ".css"
-        return path
-    }
-
-    func rendererDetectsFrontMatter(_ renderer: MPRenderer!) -> Bool {
-        return MPPreferences.sharedInstance().htmlDetectFrontMatter
-    }
-
-    func rendererHasSyntaxHighlighting(_ renderer: MPRenderer!) -> Bool {
-        return MPPreferences.sharedInstance().extensionHighlight
-    }
-
-    func rendererHasMermaid(_ renderer: MPRenderer!) -> Bool {
-        return MPPreferences.sharedInstance().htmlMermaid
-    }
-
-    func rendererHasGraphviz(_ renderer: MPRenderer!) -> Bool {
-        return MPPreferences.sharedInstance().htmlGraphviz
-    }
-
-    func rendererCodeBlockAccesory(_ renderer: MPRenderer!) -> MPCodeBlockAccessoryType {
-        return MPCodeBlockAccessoryType(rawValue: UInt(MPPreferences.sharedInstance().htmlCodeBlockAccessory))!
-    }
-
-    func rendererHasMathJax(_ renderer: MPRenderer!) -> Bool {
-        return MPPreferences.sharedInstance().htmlMathJax
-    }
-
-    func rendererHighlightingThemeName(_ renderer: MPRenderer!) -> String! {
-        let name = Configure.shared.highlightStyle.value
-        let path = stylePath + "/Highlight/highlight-style/" + name + ".css"
-        return path
-    }
-
-    func renderer(_ renderer: MPRenderer!, didProduceHTMLOutput html: String!) {
-        self.webVC?.htmlString = html
-        print(html)
-    }
-
-    func rendererLoading() -> Bool {
-        return false
-    }
-
-    func rendererMarkdown(_ renderer: MPRenderer!) -> String! {
-        return self.textVC?.editView.text
-    }
-
-    func rendererHTMLTitle(_ renderer: MPRenderer!) -> String! {
-        return self.titleTextField.text
     }
 }
 

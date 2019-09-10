@@ -32,9 +32,9 @@ enum ExportType: String {
     }
 }
 
-class WebViewController: UIViewController, ImageSaver {
+class WebViewController: UIViewController, ImageSaver, UIWebViewDelegate {
     
-    let webView = WKWebView(frame: CGRect())
+    let webView = UIWebView(frame: CGRect())
     
     var offset: CGFloat = 0 {
         didSet {
@@ -47,18 +47,24 @@ class WebViewController: UIViewController, ImageSaver {
     var htmlString = "" {
         didSet {
             print(htmlString)
-            webView.loadHTMLString(htmlString, baseURL: URL(fileURLWithPath: stylePath, isDirectory: true))
+            webView.loadHTMLString(htmlString, baseURL: URL(fileURLWithPath: resourcesPath, isDirectory: true))
         }
     }
-    
-    let bag = DisposeBag()
-    
+        
     let pdfRender = PdfRender()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.addSubview(webView)
+        self.webView.delegate = self
+        self.webView.scalesPageToFit = true
+        
+        if #available(iOS 11.0, *) {
+            self.webView.scrollView.contentInsetAdjustmentBehavior = .never
+        } else {
+            self.automaticallyAdjustsScrollViewInsets = false
+        }
         webView.snp.makeConstraints { (make) in
             make.edges.equalTo(0)
         }
@@ -80,9 +86,6 @@ class WebViewController: UIViewController, ImageSaver {
         case .image:
             guard let img = webView.scrollView.snap, let _ = UIImagePNGRepresentation(img) else { return nil }
             saveImage(img)
-//            let path = tempFolderPath + "/" + file.name + ".png"
-//            let url = URL(fileURLWithPath: path)
-//            try? data.write(to: url)
             return nil
         case .markdown:
             return URL(fileURLWithPath: file.path)
@@ -95,29 +98,14 @@ class WebViewController: UIViewController, ImageSaver {
         }
     }
     
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        print("webViewDidStartLoad")
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        print("webViewDidFinishLoad")
+    }
     deinit {
         print("deinit web_vc")
-    }
-}
-
-extension WebViewController: WKNavigationDelegate,WKUIDelegate {
-    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-        webView.startLoadingAnimation()
-    }
-    
-    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        webView.stopLoadingAnimation()
-    }
-    
-    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        
-    }
-    
-    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
-        
-    }
-    
-    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        decisionHandler(.allow)
     }
 }

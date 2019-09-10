@@ -15,7 +15,6 @@
 		07E8271B1F5BF1BA0077A017 /* PdfRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826BE1F5BF1BA0077A017 /* PdfRender.swift */; };
 		07E8271D1F5BF1BA0077A017 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826C11F5BF1BA0077A017 /* File.swift */; };
 		07E8271E1F5BF1BA0077A017 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826C21F5BF1BA0077A017 /* Theme.swift */; };
-		07E827291F5BF1BA0077A017 /* samples.zip in Resources */ = {isa = PBXBuildFile; fileRef = 07E826D31F5BF1BA0077A017 /* samples.zip */; };
 		07E827441F5BF1BA0077A017 /* Edit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E826F31F5BF1BA0077A017 /* Edit.storyboard */; };
 		07E827451F5BF1BA0077A017 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E826F41F5BF1BA0077A017 /* Main_iPad.storyboard */; };
 		07E827461F5BF1BA0077A017 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E826F51F5BF1BA0077A017 /* Main_iPhone.storyboard */; };
@@ -49,15 +48,11 @@
 		760C296F2320F3EC002E613E /* escape.c in Sources */ = {isa = PBXBuildFile; fileRef = 760C29662320F3EB002E613E /* escape.c */; };
 		760C29702320F3EC002E613E /* document.c in Sources */ = {isa = PBXBuildFile; fileRef = 760C29672320F3EB002E613E /* document.c */; };
 		760C29732320F3FA002E613E /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 760C29712320F3FA002E613E /* hoedown_html_patch.c */; };
-		760C29782320F40B002E613E /* MPAsset.m in Sources */ = {isa = PBXBuildFile; fileRef = 760C29742320F40B002E613E /* MPAsset.m */; };
-		760C29792320F40B002E613E /* MPRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 760C29752320F40B002E613E /* MPRenderer.m */; };
-		760C297E2320F833002E613E /* NSJSONSerialization+File.m in Sources */ = {isa = PBXBuildFile; fileRef = 760C297A2320F832002E613E /* NSJSONSerialization+File.m */; };
-		760C297F2320F833002E613E /* NSObject+HTMLTabularize.m in Sources */ = {isa = PBXBuildFile; fileRef = 760C297B2320F833002E613E /* NSObject+HTMLTabularize.m */; };
-		760C29822320F969002E613E /* NSString+Lookup.m in Sources */ = {isa = PBXBuildFile; fileRef = 760C29812320F969002E613E /* NSString+Lookup.m */; };
-		760C29852320F9C3002E613E /* MPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 760C29842320F9C3002E613E /* MPUtilities.m */; };
-		760C29882320FA09002E613E /* YAMLSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 760C29872320FA09002E613E /* YAMLSerialization.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		760C298B2320FB6B002E613E /* MPPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 760C298A2320FB6B002E613E /* MPPreferences.m */; };
-		760C299C2321182B002E613E /* style.zip in Resources */ = {isa = PBXBuildFile; fileRef = 760C299B2321182B002E613E /* style.zip */; };
+		7613F11F2325F6FE006EE3B9 /* Resources.zip in Resources */ = {isa = PBXBuildFile; fileRef = 7613F11D2325F6FE006EE3B9 /* Resources.zip */; };
+		7613F1242325F8AF006EE3B9 /* MathJax.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1202325F8AF006EE3B9 /* MathJax.md */; };
+		7613F1272325F8AF006EE3B9 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1232325F8AF006EE3B9 /* ReadMe.md */; };
+		7613F12A2325FA02006EE3B9 /* 使用教程.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1282325FA02006EE3B9 /* 使用教程.md */; };
+		7613F12B2325FA02006EE3B9 /* 使用說明.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1292325FA02006EE3B9 /* 使用說明.md */; };
 		761F825022E16D6500C3435C /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761F824F22E16D6500C3435C /* InfoViewController.swift */; };
 		762CF0F92322650A00F2FF90 /* MarkdownRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 762CF0F82322650A00F2FF90 /* MarkdownRender.m */; };
 		768762B922D86CE900A54EB1 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762B822D86CE900A54EB1 /* IAPHelper.swift */; };
@@ -98,7 +93,6 @@
 		07E826BE1F5BF1BA0077A017 /* PdfRender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PdfRender.swift; sourceTree = "<group>"; };
 		07E826C11F5BF1BA0077A017 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		07E826C21F5BF1BA0077A017 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		07E826D31F5BF1BA0077A017 /* samples.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = samples.zip; sourceTree = "<group>"; };
 		07E826F31F5BF1BA0077A017 /* Edit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Edit.storyboard; sourceTree = "<group>"; };
 		07E826F41F5BF1BA0077A017 /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPad.storyboard; sourceTree = "<group>"; };
 		07E826F51F5BF1BA0077A017 /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
@@ -145,23 +139,11 @@
 		760C29672320F3EB002E613E /* document.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = document.c; sourceTree = "<group>"; };
 		760C29712320F3FA002E613E /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
 		760C29722320F3FA002E613E /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
-		760C29742320F40B002E613E /* MPAsset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPAsset.m; sourceTree = "<group>"; };
-		760C29752320F40B002E613E /* MPRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPRenderer.m; sourceTree = "<group>"; };
-		760C29762320F40B002E613E /* MPAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPAsset.h; sourceTree = "<group>"; };
-		760C29772320F40B002E613E /* MPRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPRenderer.h; sourceTree = "<group>"; };
-		760C297A2320F832002E613E /* NSJSONSerialization+File.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSJSONSerialization+File.m"; sourceTree = "<group>"; };
-		760C297B2320F833002E613E /* NSObject+HTMLTabularize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+HTMLTabularize.m"; sourceTree = "<group>"; };
-		760C297C2320F833002E613E /* NSJSONSerialization+File.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSJSONSerialization+File.h"; sourceTree = "<group>"; };
-		760C297D2320F833002E613E /* NSObject+HTMLTabularize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+HTMLTabularize.h"; sourceTree = "<group>"; };
-		760C29802320F968002E613E /* NSString+Lookup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Lookup.h"; sourceTree = "<group>"; };
-		760C29812320F969002E613E /* NSString+Lookup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Lookup.m"; sourceTree = "<group>"; };
-		760C29832320F9C3002E613E /* MPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPUtilities.h; sourceTree = "<group>"; };
-		760C29842320F9C3002E613E /* MPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPUtilities.m; sourceTree = "<group>"; };
-		760C29862320FA09002E613E /* YAMLSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YAMLSerialization.h; sourceTree = "<group>"; };
-		760C29872320FA09002E613E /* YAMLSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YAMLSerialization.m; sourceTree = "<group>"; };
-		760C29892320FB6B002E613E /* MPPreferences.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPPreferences.h; sourceTree = "<group>"; };
-		760C298A2320FB6B002E613E /* MPPreferences.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPPreferences.m; sourceTree = "<group>"; };
-		760C299B2321182B002E613E /* style.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = style.zip; sourceTree = "<group>"; };
+		7613F11D2325F6FE006EE3B9 /* Resources.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Resources.zip; sourceTree = "<group>"; };
+		7613F1202325F8AF006EE3B9 /* MathJax.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = MathJax.md; path = Instructions/MathJax.md; sourceTree = "<group>"; };
+		7613F1232325F8AF006EE3B9 /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = ReadMe.md; path = Instructions/ReadMe.md; sourceTree = "<group>"; };
+		7613F1282325FA02006EE3B9 /* 使用教程.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "使用教程.md"; path = "Instructions/使用教程.md"; sourceTree = "<group>"; };
+		7613F1292325FA02006EE3B9 /* 使用說明.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "使用說明.md"; path = "Instructions/使用說明.md"; sourceTree = "<group>"; };
 		761F824F22E16D6500C3435C /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		762CF0F72322650A00F2FF90 /* MarkdownRender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkdownRender.h; sourceTree = "<group>"; };
 		762CF0F82322650A00F2FF90 /* MarkdownRender.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownRender.m; sourceTree = "<group>"; };
@@ -248,22 +230,6 @@
 			children = (
 				07E826A81F5BF1BA0077A017 /* HighlightManager.swift */,
 				07E826A91F5BF1BA0077A017 /* hoedown */,
-				760C297C2320F833002E613E /* NSJSONSerialization+File.h */,
-				760C297A2320F832002E613E /* NSJSONSerialization+File.m */,
-				760C29802320F968002E613E /* NSString+Lookup.h */,
-				760C29812320F969002E613E /* NSString+Lookup.m */,
-				760C297D2320F833002E613E /* NSObject+HTMLTabularize.h */,
-				760C297B2320F833002E613E /* NSObject+HTMLTabularize.m */,
-				760C29862320FA09002E613E /* YAMLSerialization.h */,
-				760C29872320FA09002E613E /* YAMLSerialization.m */,
-				760C29762320F40B002E613E /* MPAsset.h */,
-				760C29742320F40B002E613E /* MPAsset.m */,
-				760C29832320F9C3002E613E /* MPUtilities.h */,
-				760C29842320F9C3002E613E /* MPUtilities.m */,
-				760C29772320F40B002E613E /* MPRenderer.h */,
-				760C29752320F40B002E613E /* MPRenderer.m */,
-				760C29892320FB6B002E613E /* MPPreferences.h */,
-				760C298A2320FB6B002E613E /* MPPreferences.m */,
 				07E826BD1F5BF1BA0077A017 /* MarkLite-Bridging-Header.h */,
 				762CF0F72322650A00F2FF90 /* MarkdownRender.h */,
 				762CF0F82322650A00F2FF90 /* MarkdownRender.m */,
@@ -309,8 +275,11 @@
 		07E826C31F5BF1BA0077A017 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				07E826D31F5BF1BA0077A017 /* samples.zip */,
-				760C299B2321182B002E613E /* style.zip */,
+				7613F1282325FA02006EE3B9 /* 使用教程.md */,
+				7613F1292325FA02006EE3B9 /* 使用說明.md */,
+				7613F1202325F8AF006EE3B9 /* MathJax.md */,
+				7613F1232325F8AF006EE3B9 /* ReadMe.md */,
+				7613F11D2325F6FE006EE3B9 /* Resources.zip */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -626,16 +595,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7613F1242325F8AF006EE3B9 /* MathJax.md in Resources */,
+				7613F12B2325FA02006EE3B9 /* 使用說明.md in Resources */,
+				7613F1272325F8AF006EE3B9 /* ReadMe.md in Resources */,
+				7613F11F2325F6FE006EE3B9 /* Resources.zip in Resources */,
+				7613F12A2325FA02006EE3B9 /* 使用教程.md in Resources */,
 				76C64C5F22DC314100E2851F /* main.json in Resources */,
 				07E827471F5BF1BA0077A017 /* Settings.storyboard in Resources */,
 				07E827441F5BF1BA0077A017 /* Edit.storyboard in Resources */,
 				07E826A01F5BF0F20077A017 /* LaunchScreen.storyboard in Resources */,
 				07E827461F5BF1BA0077A017 /* Main_iPhone.storyboard in Resources */,
-				07E827291F5BF1BA0077A017 /* samples.zip in Resources */,
 				07E827451F5BF1BA0077A017 /* Main_iPad.storyboard in Resources */,
 				07E8269D1F5BF0F20077A017 /* Assets.xcassets in Resources */,
 				07E827651F5BF24B0077A017 /* Localizable.strings in Resources */,
-				760C299C2321182B002E613E /* style.zip in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -669,27 +641,21 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Markdown/Pods-Markdown-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/EZSwiftExtensions/EZSwiftExtensions.framework",
-				"${BUILT_PRODUCTS_DIR}/LibYAML/LibYAML.framework",
-				"${BUILT_PRODUCTS_DIR}/M13OrderedDictionary/M13OrderedDictionary.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
-				"${BUILT_PRODUCTS_DIR}/handlebars-objc/HBHandlebars.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EZSwiftExtensions.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LibYAML.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/M13OrderedDictionary.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HBHandlebars.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -704,12 +670,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				76C64C6722DC314100E2851F /* UIImageView+Extensions.swift in Sources */,
-				760C29852320F9C3002E613E /* MPUtilities.m in Sources */,
 				07E8274C1F5BF1BA0077A017 /* Localization.swift in Sources */,
-				760C29822320F969002E613E /* NSString+Lookup.m in Sources */,
 				760C296F2320F3EC002E613E /* escape.c in Sources */,
 				07E827561F5BF1BA0077A017 /* FileListViewController.swift in Sources */,
-				760C297E2320F833002E613E /* NSJSONSerialization+File.m in Sources */,
 				07E827101F5BF1BA0077A017 /* HighlightManager.swift in Sources */,
 				07E8275B1F5BF1BA0077A017 /* TextViewController.swift in Sources */,
 				76C64C6C22DC314100E2851F /* CLAfter_Time.swift in Sources */,
@@ -723,7 +686,6 @@
 				76C64C6A22DC314100E2851F /* UIColor+Extensions.swift in Sources */,
 				760C296D2320F3EC002E613E /* buffer.c in Sources */,
 				760C29732320F3FA002E613E /* hoedown_html_patch.c in Sources */,
-				760C29782320F40B002E613E /* MPAsset.m in Sources */,
 				07E8274E1F5BF1BA0077A017 /* AssistKeyboardBar.swift in Sources */,
 				760C296A2320F3EC002E613E /* html.c in Sources */,
 				07E827521F5BF1BA0077A017 /* MenuView.swift in Sources */,
@@ -734,7 +696,6 @@
 				760C29692320F3EC002E613E /* html_smartypants.c in Sources */,
 				07E827551F5BF1BA0077A017 /* EditViewController.swift in Sources */,
 				07E8274D1F5BF1BA0077A017 /* Utils.swift in Sources */,
-				760C297F2320F833002E613E /* NSObject+HTMLTabularize.m in Sources */,
 				07E8271D1F5BF1BA0077A017 /* File.swift in Sources */,
 				76C64C6822DC314100E2851F /* UIButton+Extensions.swift in Sources */,
 				07E8274F1F5BF1BA0077A017 /* DottedLineView.swift in Sources */,
@@ -746,7 +707,6 @@
 				76C64C6522DC314100E2851F /* CLNewFeatureView.swift in Sources */,
 				07E8275C1F5BF1BA0077A017 /* WebViewController.swift in Sources */,
 				76C64C6D22DC314100E2851F /* UILable+Extensions.swift in Sources */,
-				760C298B2320FB6B002E613E /* MPPreferences.m in Sources */,
 				76C64C6222DC314100E2851F /* CLBaseView.swift in Sources */,
 				760C29682320F3EC002E613E /* stack.c in Sources */,
 				76C64C6122DC314100E2851F /* CLBaseVC.swift in Sources */,
@@ -761,14 +721,12 @@
 				07E827581F5BF1BA0077A017 /* NavigationController.swift in Sources */,
 				07E827481F5BF1BA0077A017 /* Configure.swift in Sources */,
 				76C64C6022DC314100E2851F /* CLNavigationVC.swift in Sources */,
-				760C29882320FA09002E613E /* YAMLSerialization.m in Sources */,
 				07E8275D1F5BF1BA0077A017 /* WrapViewController.swift in Sources */,
 				768762B922D86CE900A54EB1 /* IAPHelper.swift in Sources */,
 				07E826961F5BF0F20077A017 /* AppDelegate.swift in Sources */,
 				762CF0F92322650A00F2FF90 /* MarkdownRender.m in Sources */,
 				07E8271E1F5BF1BA0077A017 /* Theme.swift in Sources */,
 				76C64C6622DC314100E2851F /* CLPhotoRecorder.swift in Sources */,
-				760C29792320F40B002E613E /* MPRenderer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

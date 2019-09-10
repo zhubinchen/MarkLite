@@ -31,6 +31,6 @@ let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .user
 let supportPath =  NSSearchPathForDirectoriesInDomains(.applicationSupportDirectory, .userDomainMask, true).first ?? ""
 
 let configPath = supportPath
-let stylePath = supportPath + "/style"
+let resourcesPath = supportPath + "/Resources"
 let tempPath = supportPath + "/Temp"
 let draftPath = supportPath + "/Draft"

@@ -1,9 +1,6 @@
 PODS:
   - Alamofire (4.7.3)
   - EZSwiftExtensions (2.0)
-  - handlebars-objc (1.4.4)
-  - LibYAML (0.1.4)
-  - M13OrderedDictionary (1.1.0)
   - RxCocoa (4.3.0):
     - RxSwift (~> 4.0)
   - RxSwift (4.3.0)
@@ -17,9 +14,6 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - EZSwiftExtensions
-  - handlebars-objc (~> 1.4)
-  - LibYAML (~> 0.1)
-  - M13OrderedDictionary (~> 1.1)
   - RxCocoa
   - RxSwift
   - SideMenu
@@ -31,9 +25,6 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - EZSwiftExtensions
-    - handlebars-objc
-    - LibYAML
-    - M13OrderedDictionary
     - RxCocoa
     - RxSwift
     - SideMenu
@@ -45,9 +36,6 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
   EZSwiftExtensions: f73648a591e529a1dbd83c22b19fd3e57df6fb7d
-  handlebars-objc: ffad49df7e6dd17630ecccb2ef5e91cbaf12ad70
-  LibYAML: 3af2c5adf3a40dff936d087aa6a77edc10036bc5
-  M13OrderedDictionary: 6e157fe9c82aa6b3cd7198f5c5c30c7a6834c4a6
   RxCocoa: 71b9cce833fbcb89a8eec11816dd225830c2bd3c
   RxSwift: a9717a34df3179fe63563f76e046ad345078dd3a
   SideMenu: 70ee5657df63ec3382660ec4ef470bf1cf5db07d
@@ -56,6 +44,6 @@ SPEC CHECKSUMS:
   UMCCommon: c9637200488c482b30cdebebb0bd595b9adf0847
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 104ae99c9569fe6c2d8630cf3f1ae30fdd014042
+PODFILE CHECKSUM: 4159f20058984d4906b8d97551d1e1fb0d4f8b3c
 
 COCOAPODS: 1.5.3

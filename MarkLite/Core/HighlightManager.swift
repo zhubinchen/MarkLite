@@ -59,7 +59,7 @@ class HighlightStyle {
     var bold: Bool = false
     var deletionLine: Bool = false
     var size: CGFloat = 17
-
+    
     var attrs: [NSAttributedStringKey : Any] {
         
         var font: UIFont = UIFont.font(ofSize: size, bold: bold)
@@ -98,11 +98,11 @@ struct MarkdownHighlightManager {
             $0.bold = true
             $0.textColor = rgb(89,89,184)
         },//header
-        Syntax(".*\\n=+[(\\s)|=]+") {
+        Syntax(".*\\n==+[(\\s)|=]+") {
             $0.bold = true
             $0.textColor = rgb(89,89,184)
         },//Title1
-        Syntax(".*\\n-+[(\\s)|-]+") {
+        Syntax(".*\\n--+[(\\s)|-]+") {
             $0.bold = true
             $0.textColor = rgb(89,89,184)
         },//Title2
@@ -112,8 +112,11 @@ struct MarkdownHighlightManager {
         Syntax("^[\\s]*[0-9]+\\.", .anchorsMatchLines){
             $0.textColor = rgb(236,90,103)
         },//OLLists有序列表
+        Syntax("- \\[( |x|X)\\] .*",.anchorsMatchLines){
+            $0.textColor = rgb(255,0,0)
+        },//TodoList
         Syntax("(\\[.+\\]\\([^\\)]+\\))|(<.+>)") {
-            $0.textColor = rgb(50,90,160)
+            $0.textColor = rgb(11,188,214)
         },//Links
         Syntax("!\\[[^\\]]+\\]\\([^\\)]+\\)") {
             $0.textColor = rgb(50,90,160)
@@ -130,6 +133,9 @@ struct MarkdownHighlightManager {
             $0.textColor = rgb(129,140,140)
             $0.deletionLine = true
         },//Deletions
+        Syntax("\\$.*\\$") {
+            $0.textColor = rgb(139,69,19)
+        },//数学公式
         Syntax("\\:\\\"(.*?)\\\"\\:"),//Quotes
         Syntax("`{1,2}[^`](.*?)`{1,2}") {
             $0.textColor = rgb(71,91,98)

@@ -12,6 +12,7 @@
 
 @property (nonatomic,strong) NSString *styleName;
 @property (nonatomic,strong) NSString *highlightName;
+@property (nonatomic,strong) NSString *title;
 
 + (instancetype)shared;
 

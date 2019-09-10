@@ -12,8 +12,5 @@ target 'Markdown' do
   pod 'Zip'
   pod 'UMCAnalytics'
   pod 'SnapKit'
-  pod 'handlebars-objc', '~> 1.4'
-  pod 'M13OrderedDictionary', '~> 1.1'
-  pod 'LibYAML', '~> 0.1'
 
 end

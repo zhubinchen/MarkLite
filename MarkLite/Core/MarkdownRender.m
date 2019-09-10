@@ -12,13 +12,12 @@
 #import "html.h"
 #import "hoedown_html_patch.h"
 
-#define HTMLFormat @"<!DOCTYPE html><html><head><meta charset=\"utf-8\">%@%@<script>hljs.initHighlightingOnLoad();</script></head><body>%@<script>MathJax.Hub.Config({'showProcessingMessages': false, 'messageStyle': 'none'});</script></body></html>"
-#define kStylePath [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"style"]
+#define kStylePath [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"Resources"]
 
 NS_INLINE hoedown_renderer *MPCreateHTMLRenderer(int flags)
 {
     hoedown_renderer *htmlRenderer = hoedown_html_renderer_new(flags, 6);
-    htmlRenderer->blockcode = hoedown_patch_render_blockcode;
+//    htmlRenderer->blockcode = hoedown_patch_render_blockcode;
     htmlRenderer->listitem = hoedown_patch_render_listitem;
     
 //    hoedown_html_renderer_state_extra *extra =
@@ -40,10 +39,6 @@ NS_INLINE hoedown_renderer *MPCreateHTMLTOCRenderer()
 
 NS_INLINE void MPFreeHTMLRenderer(hoedown_renderer *htmlRenderer)
 {
-    hoedown_html_renderer_state_extra *extra =
-    ((hoedown_html_renderer_state *)htmlRenderer->opaque)->opaque;
-    if (extra)
-        free(extra);
     hoedown_html_renderer_free(htmlRenderer);
 }
 
@@ -109,6 +104,7 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
     if (self = [super init]) {
         self.styleName = @"GitHub2";
         self.highlightName = @"androidstudio";
+        self.title = @"Title";
     }
     return self;
 }
@@ -125,11 +121,11 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
     NSString *highlightPath = [NSString stringWithFormat:@"Highlight/highlight-style/%@.css",self.highlightName];
     NSString *highlightJS1 = @"Highlight/highlightjs/highlight.min.js";
     NSString *highlightJS2 = @"Highlight/highlightjs/swift.min.js";
-    NSString *MathJaxCDN = @"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    return [self formatHTML:html styles:@[stylePath,highlightPath] scripts:@[highlightJS1,highlightJS2,MathJaxCDN]];
+    NSString *MathJaxJS = @"MathJax/MathJax.js";
+    return [self formatHTML:html title:(self.title?:@"") styles:@[stylePath,highlightPath] scripts:@[highlightJS1,highlightJS2,MathJaxJS]];
 }
 
-- (NSString*)formatHTML:(NSString*)body styles:(NSArray<NSString*>*)styles scripts:(NSArray<NSString*>*)scripts {
+- (NSString*)formatHTML:(NSString*)body title:(NSString*)title styles:(NSArray<NSString*>*)styles scripts:(NSArray<NSString*>*)scripts {
     NSMutableString *styleSheets = @"".mutableCopy;
     NSMutableString *scriptsString = @"".mutableCopy;
     for (NSString *style in styles) {
@@ -138,7 +134,13 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
     for (NSString *script in scripts) {
         [scriptsString appendFormat:@"\n<script src=\"%@\"></script>",script];
     }
-    return [NSString stringWithFormat:HTMLFormat,styleSheets,scriptsString,body];
+    static NSString *template = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSString *path = [kStylePath stringByAppendingPathComponent:@"Templates/default.html"];
+        template = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+    });
+    return [NSString stringWithFormat:template,title,styleSheets,scriptsString,body];
 }
 
 - (int)extensionFlags
@@ -163,9 +165,7 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
 {
     int flags = 0;
     flags |= HOEDOWN_HTML_USE_TASK_LIST;
-    flags |= HOEDOWN_HTML_BLOCKCODE_LINE_NUMBERS;
     flags |= HOEDOWN_HTML_HARD_WRAP;
-    flags |= HOEDOWN_HTML_BLOCKCODE_INFORMATION;
     return flags;
 }
 
