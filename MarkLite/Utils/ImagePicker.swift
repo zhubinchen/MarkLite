@@ -8,7 +8,6 @@
 
 import Foundation
 import Photos
-import Alamofire
 
 
 class ImagePicker: NSObject {

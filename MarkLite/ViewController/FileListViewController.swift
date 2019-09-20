@@ -310,10 +310,13 @@ extension FileListViewController: UIDocumentPickerDelegate {
     }
     
     func didPickFile(_ url: URL) {
+        
         let str = (try? String(contentsOf: url)) ?? ""
-        if let file = root?.createFile(name: url.lastPathComponent, type: .text) {
-            file.write(text: str)
-            self.performSegue(withIdentifier: "next", sender: file)
+        if let file = root?.createFile(name: url.deletingPathExtension().lastPathComponent, type: .text) {
+            file.text = str
+            file.save()
+            Configure.shared.editingFile.value = file
+            self.performSegue(withIdentifier: "edit", sender: file)
         }
     }
     

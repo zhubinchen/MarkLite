@@ -43,7 +43,14 @@
 "Feedback"="问题与意见";
 "RateIt"="五星好评";
 "Style"="渲染样式";
-"CodeStyle"="代码块样式";
+"CodeStyle"="代码块高亮";
+"CSS"="添加自定义样式";
+"InvalidStyleURL"="链接格式有误";
+"InvalidStyleName"="样式名无效";
+"DumplicatedName"="已经存在同名的样式，请换个名字";
+"StyleName"="样式名";
+"StyleURL"="CSS链接";
+"Download"="添加到本地";
 
 "OK"="确定";
 "Close"="关闭";

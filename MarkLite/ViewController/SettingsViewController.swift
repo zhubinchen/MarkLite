@@ -33,13 +33,14 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         if !Configure.shared.isPro {
             section.insert(("Premium","",#selector(premium)), at: 0)
         }
-        var items = [
+        let items = [
             ("功能",section),
             ("外观",[
                 ("NightMode","",#selector(night)),
                 ("Theme","",#selector(theme)),
                 ("Style","",#selector(style)),
-                ("CodeStyle","",#selector(codeStyle))
+                ("CodeStyle","",#selector(codeStyle)),
+                ("CSS","",#selector(downloadCSS))
                 ]),
             ("支持一下",[
                 ("RateIt","",#selector(rate)),
@@ -59,6 +60,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         navBar?.setBarTintColor(.navBar)
         navBar?.setContentColor(.navBarTint)
         tableView.setBackgroundColor(.tableBackground)
+        
+        tableView.sectionHeaderHeight = 0.01
+        tableView.sectionFooterHeight = 20
 
         themeSwitch.setTintColor(.navBarTint)
         assitBarSwitch.setTintColor(.navBarTint)
@@ -125,14 +129,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         }
         perform(item.2)
     }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.01
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 20
-    }
 }
 
 extension SettingsViewController {
@@ -149,6 +145,12 @@ extension SettingsViewController {
                 nav.pushViewController(vc, animated: true)
             }
         }
+    }
+    
+    @objc func downloadCSS() {
+        let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
+        let vc = sb.instantiateVC(CustomCSSViewController.self)!
+        pushVC(vc)
     }
     
     @objc func rate() {
@@ -176,8 +178,8 @@ extension SettingsViewController {
         let items = [Theme.white,.black,.pink,.green,.blue,.purple,.red]
         let index = items.index{ Configure.shared.theme.value == $0 }
 
-        let wraper = OptionsWraper(selectedIndex: index, title: /"Theme", items: items) { (index) in
-            Configure.shared.theme.value = items[index]
+        let wraper = OptionsWraper(selectedIndex: index, editable: false, title: /"Theme", items: items) {
+            Configure.shared.theme.value = $0 as! Theme
         }
         let vc = OptionsViewController()
         vc.options = wraper
@@ -191,9 +193,10 @@ extension SettingsViewController {
         
         let items = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}
         let index = items.index{ Configure.shared.markdownStyle.value == $0 }
-        let wraper = OptionsWraper(selectedIndex: index, title: /"Style", items: items) { (index) in
-            Configure.shared.markdownStyle.value = items[index]
+        let wraper = OptionsWraper(selectedIndex: index, editable: true, title: /"Style", items: items) {
+            Configure.shared.markdownStyle.value = $0.toString
         }
+
         let vc = OptionsViewController()
         vc.options = wraper
         pushVC(vc)
@@ -206,9 +209,8 @@ extension SettingsViewController {
         
         let items = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}
         let index = items.index{ Configure.shared.highlightStyle.value == $0 }
-
-        let wraper = OptionsWraper(selectedIndex: index, title: /"CodeStyle", items: items) { (index) in
-            Configure.shared.highlightStyle.value = items[index]
+        let wraper = OptionsWraper(selectedIndex: index, editable: false, title: /"CodeStyle", items: items) {
+            Configure.shared.highlightStyle.value = $0.toString
         }
         let vc = OptionsViewController()
         vc.options = wraper

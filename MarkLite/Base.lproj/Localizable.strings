@@ -44,6 +44,13 @@
 "RateIt"="Rate it";
 "Style"="Style";
 "CodeStyle"="Code block";
+"CSS"="Custom CSS";
+"InvalidStyleURL"="Invalid Style URL";
+"InvalidStyleName"="Invalid Style Name";
+"DumplicatedName"="Dumplicated Style Name";
+"StyleName"="Style Name";
+"StyleURL"="CSS URL";
+"Download"="Download";
 
 "OK"="OK";
 "Close"="Close";

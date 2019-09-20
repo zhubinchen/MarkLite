@@ -65,6 +65,7 @@ class File {
     
     var isBlank = false
     var isSelected = false
+    lazy var text = (try? String(contentsOfFile: self.path, encoding: String.Encoding.utf8)) ?? ""
     
     init(path:String) {
         self.path = path
@@ -160,17 +161,8 @@ class File {
         return true
     }
     
-    func readText(_ completion:@escaping (String)->Void) {
-        DispatchQueue.global().async {
-            let text = try? String(contentsOfFile: self.path, encoding: String.Encoding.utf8)
-            DispatchQueue.main.async {
-                completion(text ?? "")
-            }
-        }
-    }
-    
     @discardableResult
-    func write(text: String) -> Bool {
+    func save() -> Bool {
         
         guard let data = text.data(using: String.Encoding.utf8) else { return false }
         

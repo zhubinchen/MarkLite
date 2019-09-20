@@ -49,7 +49,6 @@ class PurchaseViewController: UIViewController {
             }
             Configure.shared.checkProAvailable({ (availabel) in
                 if availabel {
-                    MobClick.event("finish_purchase")
                     self.showAlert(title: /"RestoreSuccess")
                     self.popVC()
                 } else {

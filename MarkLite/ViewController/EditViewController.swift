@@ -9,7 +9,6 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import StoreKit
 
 class EditViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
@@ -151,9 +150,6 @@ class EditViewController: UIViewController {
         if scrollView.contentOffset.x > 10 {
             scrollView.setContentOffset(CGPoint(x:0,y:0), animated: true)
             return false
-        }
-        if #available(iOS 10.3, *) {
-            SKStoreReviewController.requestReview()
         }
         return true
     }

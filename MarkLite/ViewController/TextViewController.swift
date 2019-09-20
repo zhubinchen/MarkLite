@@ -31,15 +31,16 @@ class TextViewController: UIViewController {
     let bag = DisposeBag()
     var manager = MarkdownHighlightManager()
     var currentFile: File?
-    var orignText = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupRx()
 
         addNotificationObserver(Notification.Name.UIKeyboardWillChangeFrame.rawValue, selector: #selector(keyboardWillChange(_:)))
-        addNotificationObserver(Notification.Name.UIApplicationWillTerminate.rawValue, selector: #selector(applicationWillTerminate))
-        
+        addNotificationObserver(NSNotification.Name.UIApplicationWillTerminate.rawValue, selector: #selector(applicationWillTerminate))
+        addNotificationObserver(NSNotification.Name.UIApplicationDidEnterBackground.rawValue, selector: #selector(applicationWillTerminate))
+
         editView.textContainer.lineBreakMode = .byCharWrapping
         view.setBackgroundColor(.background)
         bottomView.setTintColor(.primary)
@@ -69,11 +70,8 @@ class TextViewController: UIViewController {
         Configure.shared.editingFile.asObservable().subscribe(onNext: { [weak self] (file) in
             self?.saveFile()
             guard let file = file else { return }
-            file.readText{
-                self?.editView.text = $0
-                self?.orignText = $0
-                self?.textChanged()
-            }
+            self?.editView.text = file.text
+            self?.textChanged()
             self?.currentFile = file
         }).disposed(by: bag)
         
@@ -140,10 +138,9 @@ class TextViewController: UIViewController {
     }
     
     func saveFile() {
-        if let text = editView.text {
-            if text != orignText {
-                currentFile?.write(text: text)
-            }
+        if editView.text != currentFile?.text {
+            currentFile?.text = editView.text
+            currentFile?.save()
         }
     }
     

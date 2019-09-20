@@ -18,6 +18,7 @@
 
 "CreateNote"="新建文檔";
 "CreateFolder"="新建文件夾";
+"ImportFromFiles"="导入文件";
 "ReleaseToCreate"="松手創建文檔";
 
 "Untitled"="未命名";
@@ -42,7 +43,14 @@
 "Feedback"="問題與意見";
 "RateIt"="五星好評";
 "Style"="渲染樣式";
-"CodeStyle"="程式塊樣式";
+"CodeStyle"="程式塊高亮";
+"CSS"="添加自定义样式";
+"InvalidStyleURL"="链接格式有误";
+"InvalidStyleName"="样式名无效";
+"DumplicatedName"="已经存在同名的样式，请换个名字";
+"StyleName"="样式名";
+"StyleURL"="CSS链接";
+"Download"="添加到本地";
 
 "OK"="確定";
 "Close"="關閉";

@@ -78,6 +78,7 @@
 		76C64C6C22DC314100E2851F /* CLAfter_Time.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C4922DC314100E2851F /* CLAfter_Time.swift */; };
 		76C64C6D22DC314100E2851F /* UILable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C4A22DC314100E2851F /* UILable+Extensions.swift */; };
 		76C64C6E22DC314100E2851F /* UIImage+Draw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C4B22DC314100E2851F /* UIImage+Draw.swift */; };
+		76DFD721232926AC00F97D56 /* CustomCSSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DFD720232926AC00F97D56 /* CustomCSSViewController.swift */; };
 		89C305FDB08983CC88E50F5B /* Pods_Markdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CED168CEF9A6EB3A1E2F9CC /* Pods_Markdown.framework */; };
 /* End PBXBuildFile section */
 
@@ -171,6 +172,7 @@
 		76C64C4A22DC314100E2851F /* UILable+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILable+Extensions.swift"; sourceTree = "<group>"; };
 		76C64C4B22DC314100E2851F /* UIImage+Draw.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Draw.swift"; sourceTree = "<group>"; };
 		76C94A6A22EAA43D004CE602 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		76DFD720232926AC00F97D56 /* CustomCSSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCSSViewController.swift; sourceTree = "<group>"; };
 		8E2576E76534F3FE3E3CAA53 /* Pods-Markdown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Markdown.release.xcconfig"; path = "Pods/Target Support Files/Pods-Markdown/Pods-Markdown.release.xcconfig"; sourceTree = "<group>"; };
 		E32330D5B24C5C34EEE58119 /* Pods-Markdown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Markdown.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Markdown/Pods-Markdown.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -329,6 +331,7 @@
 				07E8270A1F5BF1BA0077A017 /* NavigationController.swift */,
 				07E8270B1F5BF1BA0077A017 /* OptionsViewController.swift */,
 				07E8270C1F5BF1BA0077A017 /* SettingsViewController.swift */,
+				76DFD720232926AC00F97D56 /* CustomCSSViewController.swift */,
 				07E8270D1F5BF1BA0077A017 /* TextViewController.swift */,
 				07E8270E1F5BF1BA0077A017 /* WebViewController.swift */,
 				07E8270F1F5BF1BA0077A017 /* WrapViewController.swift */,
@@ -669,6 +672,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76DFD721232926AC00F97D56 /* CustomCSSViewController.swift in Sources */,
 				76C64C6722DC314100E2851F /* UIImageView+Extensions.swift in Sources */,
 				07E8274C1F5BF1BA0077A017 /* Localization.swift in Sources */,
 				760C296F2320F3EC002E613E /* escape.c in Sources */,
