@@ -14,6 +14,7 @@ let emailUrl = "mailto:zhubingcheng.dev@gmail.com?subject=MarkDown%20Report&body
 let itunesSecret = "cf86d5cf3c0e440692140e5e80fd376e"
 let imageUploadUrl = "https://sm.ms/api/upload"
 let umengKey = "5d2594e20cafb28ba1000dbe"
+let buglyId = "57bc8a7c74"
 
 let defaultFont = UIFont.font(ofSize: 16)
 

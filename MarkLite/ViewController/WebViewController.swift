@@ -47,7 +47,7 @@ class WebViewController: UIViewController, ImageSaver, UIWebViewDelegate {
     var htmlString = "" {
         didSet {
             print(htmlString)
-            webView.loadHTMLString(htmlString, baseURL: URL(fileURLWithPath: resourcesPath, isDirectory: true))
+            webView.loadHTMLString(htmlString, baseURL: nil)
         }
     }
         

@@ -25,21 +25,12 @@ class FileListViewController: UIViewController {
             tableView.tableFooterView = tipsLabel
             
             let pulldDownLabel = UILabel()
-            pulldDownLabel.text = /"ReleaseToCreate"
+            pulldDownLabel.text = /"ReleaseToRefresh"
             pulldDownLabel.textAlignment = .center
             pulldDownLabel.setTextColor(.secondary)
             pulldDownLabel.font = UIFont.font(ofSize: 14)
             tableView.addPullDownView(pulldDownLabel, bag: bag) { [unowned self] in
-                guard let file = self.root?.createFile(name: /"Untitled", type: .text ) else {
-                    return
-                }
-                file.isBlank = true
-                
-                self.childrens.insert(file, at: 0)
-                Configure.shared.editingFile.value = file
-                if isPhone {
-                    self.performSegue(withIdentifier: "edit", sender: file)
-                }
+                self.refresh()
             }
         }
     }
@@ -169,12 +160,12 @@ class FileListViewController: UIViewController {
                         self.pickFromFiles()
                         return
                     }
-                    guard let file = self.root?.createFile(name: /"Untitled", type: index == 0 ? .text : .folder) else {
+                    guard let file = self.root?.createFile(name: index == 0 ? /"Untitled" : /"UntitledFolder", type: index == 0 ? .text : .folder) else {
                         return
                     }
                     file.isBlank = true
                     
-                    self.showAlert(title: /(index == 1 ? "CreateNote" : "CreateFolder"), message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
+                    self.showAlert(title: /(index == 0 ? "CreateNote" : "CreateFolder"), message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
                         textField.text = file.name
                         self.textField = textField
                     }, actionHandler: { (index) in

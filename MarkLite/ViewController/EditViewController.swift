@@ -128,6 +128,21 @@ class EditViewController: UIViewController {
             }.show()
     }
     
+    func doIfPro(_ task: (() -> Void)) {
+        if Configure.shared.isPro {
+            task()
+            return
+        }
+        showAlert(title: /"PremiumOnly", message: /"PremiumTips", actionTitles: [/"SubscribeNow",/"Cancel"], textFieldconfigurationHandler: nil) { [unowned self](index) in
+            if index == 0 {
+                let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
+                let vc = sb.instantiateVC(PurchaseViewController.self)!
+                let nav = UINavigationController(rootViewController: vc)
+                self.presentVC(nav)
+            }
+        }
+    }
+    
     @objc func preview() {
         textVC?.editView.resignFirstResponder()
         scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)

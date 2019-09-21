@@ -9,6 +9,7 @@
 import UIKit
 import SideMenu
 import RxSwift
+import Bugly
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,8 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UIView.initializeOnceMethod()
         UMConfigure.initWithAppkey(umengKey, channel: "App Store")
+        Bugly.start(withAppId: buglyId)
         setup()
-
         return true
     }
     

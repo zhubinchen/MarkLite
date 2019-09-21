@@ -133,6 +133,18 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 
 extension SettingsViewController {
     
+    func doIfPro(_ task: (() -> Void)) {
+        if Configure.shared.isPro {
+            task()
+            return
+        }
+        showAlert(title: /"PremiumOnly", message: /"PremiumTips", actionTitles: [/"SubscribeNow",/"Cancel"], textFieldconfigurationHandler: nil) { [unowned self](index) in
+            if index == 0 {
+                self.premium()
+            }
+        }
+    }
+    
     @objc func premium() {
         let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
         let vc = sb.instantiateVC(PurchaseViewController.self)!

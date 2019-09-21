@@ -19,7 +19,7 @@
 "CreateNote"="新建文檔";
 "CreateFolder"="新建文件夾";
 "ImportFromFiles"="导入文件";
-"ReleaseToCreate"="松手創建文檔";
+"ReleaseToRefresh"="松手刷新列表";
 
 "Untitled"="未命名";
 "UntitledFolder"="未命名文件夾";
@@ -63,18 +63,17 @@
 "DeleteMessage"="刪除後不可恢複，確定要刪除嗎？";
 "FileNameError"="請輸入正確的文件名";
 "RenameTips"="請輸入新的文件名";
-"InvalidCloud"="無法訪問iCloud目錄，請檢查您當前的設備是否登錄iCloud";
 "InsertHref"="添加鏈接";
 
 "Open"="打開";
 "Ignore"="忽略";
 "ReceivedNewFile"="收到新文件:";
 "ReceivedFiles" = "收到的文件";
+
 "Error"="出錯了";
 
 "StartEdit"="寫點什麽吧";
 "SelectFileTips"="請選擇要編輯的文件";
-
 "Header"="標題";
 "Header1"="一級標題";
 "Header2"="二級標題";
@@ -105,17 +104,20 @@
 "ThemeGreen"="原諒綠";
 
 "PremiumOnly"="該功能需開通高級帳戶";
-"SubscribeNow"="立即開通";
+"PremiumTips"="现在订阅可免費試用，限7天";
+"SubscribeNow"="免費試用";
 
 "Premium"="高級帳戶";
-"Subscribe"="立即訂閱 $0.49/月";
-"SubscribeL"="免費試用壹周";
+"SubscribeMonthly"="$0.49 包月";
+"SubscribeYearly"="$3.99 包年";
+"SubscribeL"="免費試用7天";
 "Terms"="使用條款";
 "Privacy"="隱私策略";
-"SubscriptionPrice"="現在訂閱可免費試用壹周，試用期結束後按照3元/月自動續費，您可在任何時候取消訂閱";
-"SubscriptionTitle"="訂閱高級賬戶，支持作者後續開發，同時解鎖文檔導出為任意格式(PDF,HTML,長圖)的功能";
+"SubscriptionPriceMonthly"="訂閱後按照$0.49/月自動續費，您可在任何時候取消訂閱";
+"SubscriptionPriceYearly"="現在訂閱可免費試用7天，試用期結束後按照$3.99/年自動續費，您可在任何時候取消訂閱";
+"SubscriptionTitle"="訂閱高級賬戶，支持作者後續開發，同時解鎖以下實用功能:\n\n•文檔導出為任意格式(PDF,HTML,長圖)\n\n•添加自定義樣式";
 
-"SubscribeTips"="【連續包月高級賬戶說明】\n1.訂閱周期：壹個月\n2.訂閱價格： 每月$0.49美元\n3.付款：用戶確認購買並付款後記入iTunes賬戶\n4.取消續訂：如需取消續訂，請在當前訂閱到期24小時以前，手動在iTunes/Apple ID設置管理中關閉自動續訂功能\n5.續訂：蘋果iTunes賬戶會在到期前24小時內扣款，扣款成功後訂閱周期順延壹個月";
+"SubscribeTips"="連續包月高級賬戶說明: \n\n• 訂閱周期：按月訂閱的周期是壹個月；按年訂閱的周期是壹年。您可根據需要選擇\n\n• 訂閱價格： 按月訂閱的價格是每月$0.49 USD；按年訂閱的價格是每年$3.99 USD\n\n• 付款：用戶確認購買並付款後記入iTunes賬戶\n\n• 取消續訂：如需取消續訂，請在當前訂閱到期24小時以前，手動在iTunes/Apple ID設置管理中關閉自動續訂功能\n\n• 續訂：蘋果iTunes賬戶會在到期前24小時內扣款，除非在當前訂閱期之前24小時外關閉訂閱";
 "Restore"="恢復訂閱";
 
 "SubscribeFailed"="沒有完成訂閱";

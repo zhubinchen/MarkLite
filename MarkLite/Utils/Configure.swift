@@ -49,6 +49,7 @@ class Configure: NSObject, NSCoding {
     }()
     
     func setup() {
+        checkProAvailable()
         try? FileManager.default.removeItem(atPath: tempPath)
         try? FileManager.default.createDirectory(atPath: tempPath, withIntermediateDirectories: true, attributes: nil)
         if appVersion != currentVerion {

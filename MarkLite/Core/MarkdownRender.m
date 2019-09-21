@@ -129,10 +129,10 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
     NSMutableString *styleSheets = @"".mutableCopy;
     NSMutableString *scriptsString = @"".mutableCopy;
     for (NSString *style in styles) {
-        [styleSheets appendFormat:@"\n<link rel=\"stylesheet\" href=\"%@\"/>",style];
+        [styleSheets appendFormat:@"\n<link rel=\"stylesheet\" href=\"%@\"/>",[NSURL fileURLWithPath:[kStylePath stringByAppendingPathComponent:style]]];
     }
     for (NSString *script in scripts) {
-        [scriptsString appendFormat:@"\n<script src=\"%@\"></script>",script];
+        [scriptsString appendFormat:@"\n<script src=\"%@\"></script>",[NSURL fileURLWithPath:[kStylePath stringByAppendingPathComponent:script]]];
     }
     static NSString *template = nil;
     static dispatch_once_t onceToken;
