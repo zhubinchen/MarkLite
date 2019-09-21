@@ -92,7 +92,6 @@ class FileListViewController: UIViewController {
     
     func loadFiles() {
         if isHomePage {
-            
             title = /"LocalFile"
             File.loadLocal{ self.root = $0 }
         } else {
@@ -150,7 +149,7 @@ class FileListViewController: UIViewController {
                     }
                 }
             })
-            childrens = root!.children.sorted{$0.modifyDate < $1.modifyDate}
+            childrens = root!.children.sorted{$0.modifyDate > $1.modifyDate}
         }
         if isViewLoaded {
             tableView.reloadData()
@@ -175,17 +174,18 @@ class FileListViewController: UIViewController {
                     }
                     file.isBlank = true
                     
-                    self.childrens.insert(file, at: 0)
-                    if file.type == .text {
-                        Configure.shared.editingFile.value = file
-                        if isPhone {
-                            self.performSegue(withIdentifier: "edit", sender: file)
-                        } else {
-                            self.dismissVC(completion: nil)
+                    self.showAlert(title: /(index == 1 ? "CreateNote" : "CreateFolder"), message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
+                        textField.text = file.name
+                        self.textField = textField
+                    }, actionHandler: { (index) in
+                        if index == 0 {
+                            file.trash()
+                            return
                         }
-                    } else if file.type == .folder {
-                        self.performSegue(withIdentifier: "next", sender: file)
-                    }
+                        self.rename(file: file, newName:self.textField?.text ?? "")
+                        self.childrens.insert(file, at: 0)
+                        self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+                    })
             }.show(on: self.navigationController?.view)
     }
     

@@ -62,11 +62,6 @@ class EditViewController: UIViewController {
             self.markdownToRender = self.textVC?.editView.text
         }).disposed(by: bag)
         
-        Configure.shared.editingFile.asObservable().subscribe(onNext: { [weak self] (file) in
-            self?.scrollView.contentOffset = CGPoint()
-            self?.markdownToRender = ""
-        }).disposed(by: bag)
-        
         timer = Timer.runThisEvery(seconds: 0.01) { [weak self] _ in
             guard let this = self else { return }
             if let markdown = this.markdownToRender {
