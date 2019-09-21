@@ -22,7 +22,8 @@ var windowHeight: CGFloat { return UIApplication.shared.keyWindow?.h ?? 0 }
 
 let appID = "1472328263"
 let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
-let premiumProductID = "com.qinxiu.markdown.premium.monthly"
+let premiumMonthlyProductID = "com.qinxiu.markdown.premium.monthly"
+let premiumYearlyProductID = "com.qinxiu.markdown.premium.yearly"
 
 let isPad = UIDevice.current.userInterfaceIdiom == .pad
 let isPhone = UIDevice.current.userInterfaceIdiom == .phone

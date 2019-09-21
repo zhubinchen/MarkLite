@@ -148,9 +148,11 @@ extension SettingsViewController {
     }
     
     @objc func downloadCSS() {
-        let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
-        let vc = sb.instantiateVC(CustomCSSViewController.self)!
-        pushVC(vc)
+        self.doIfPro {
+            let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
+            let vc = sb.instantiateVC(CustomCSSViewController.self)!
+            pushVC(vc)
+        }
     }
     
     @objc func rate() {

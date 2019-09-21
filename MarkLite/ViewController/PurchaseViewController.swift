@@ -9,19 +9,27 @@
 import UIKit
 
 class PurchaseViewController: UIViewController {
-    @IBOutlet weak var subscribeButton: UIButton!
+    @IBOutlet weak var yearlyButton: UIButton!
+    @IBOutlet weak var scrollViewOffsetX: NSLayoutConstraint!
+    @IBOutlet weak var scrollViewOffsetY: NSLayoutConstraint!
+    @IBOutlet weak var scrollViewOffsetBottom: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = /"Premium"
         
+        if isPad {
+            self.scrollViewOffsetX.constant = min(windowWidth, windowHeight) * 0.12
+            self.scrollViewOffsetY.constant =  min(windowWidth, windowHeight) * 0.12
+            self.scrollViewOffsetBottom.constant =  min(windowWidth, windowHeight) * 0.12
+        }
         if self.navigationController?.viewControllers.count == 1 {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
         }
-        let date = Date(fromString: "2019-09-15", format: "yyyy-MM-dd")!
+        let date = Date(fromString: "2019-09-25", format: "yyyy-MM-dd")!
         let now = Date()
         if now > date {
-            subscribeButton.setTitle(/"SubscribeL", for: .normal)
+            yearlyButton.setTitle(/"SubscribeL", for: .normal)
         }
         MobClick.event("enter_purchase")
     }
@@ -30,15 +38,18 @@ class PurchaseViewController: UIViewController {
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
-
-    @IBAction func subscribe(_ sender: UIButton!) {
-        MobClick.event("begin_purchase")
-        purchaseProduct(premiumProductID)
+    @IBAction func subscribeMonthly(_ sender: UIButton!) {
+        MobClick.event("begin_purchase_monthly")
+        purchaseProduct(premiumMonthlyProductID)
+    }
+    
+    @IBAction func subscribeYearly(_ sender: UIButton!) {
+        MobClick.event("begin_purchase_yearly")
+        purchaseProduct(premiumYearlyProductID)
     }
     
     @IBAction func restore(_ sender: UIButton!) {
         self.view.startLoadingAnimation()
-        MobClick.event("begin_purchase")
 
         IAP.restorePurchases { (identifiers, error) in
             if let err = error {
@@ -91,8 +102,12 @@ class PurchaseViewController: UIViewController {
                 }
                 Configure.shared.checkProAvailable({ (availabel) in
                     if availabel {
-                        MobClick.event("finish_purchase")
-                        self.showAlert(title: /"SubscribedSuccess")
+                        if identifier == premiumYearlyProductID {
+                            MobClick.event("finish_purchase_yearly")
+                        } else {
+                            MobClick.event("finish_purchase_monthly")
+                        }
+                        self.showAlert(title: /"SubscribeSuccess")
                         self.popVC()
                     } else {
                         self.showAlert(title: /"SubscribeFailed")

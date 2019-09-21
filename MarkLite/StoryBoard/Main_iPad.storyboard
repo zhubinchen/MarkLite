@@ -38,7 +38,7 @@
         <!--Wrap View Controller-->
         <scene sceneID="S4u-O9-Mjy">
             <objects>
-                <viewController id="ftx-bN-0dI" customClass="WrapViewController" customModule="MarkLite" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ftx-bN-0dI" customClass="WrapViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9dh-pi-fVh"/>
                         <viewControllerLayoutGuide type="bottom" id="Jri-9T-Gmk"/>
@@ -186,7 +186,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SelectFileTips" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vFf-eT-gQu">
                                         <rect key="frame" x="102.5" y="291" width="106" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" red="0.1113215444628555" green="0.4203004177022921" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -266,7 +266,7 @@
         <!--File List View Controller-->
         <scene sceneID="V6a-OO-T4s">
             <objects>
-                <viewController storyboardIdentifier="FilesViewController" automaticallyAdjustsScrollViewInsets="NO" id="7Qi-Sq-Fm9" customClass="FileListViewController" customModule="MarkLite" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FilesViewController" automaticallyAdjustsScrollViewInsets="NO" id="7Qi-Sq-Fm9" customClass="FileListViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5mA-8H-cB1"/>
                         <viewControllerLayoutGuide type="bottom" id="tub-aa-rob"/>
@@ -307,7 +307,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="file" rowHeight="60" id="OoR-d0-FEa" customClass="FileTableViewCell" customModule="MarkLite" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="file" rowHeight="60" id="OoR-d0-FEa" customClass="FileTableViewCell" customModule="Markdown" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OoR-d0-FEa" id="zp0-59-m8u">

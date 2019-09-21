@@ -47,7 +47,6 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
         statusBar.setBackgroundColor(.background)
         emptyView.setBackgroundColor(.background)
-        emptyTipsView.setTextColor(.navBarTint)
         
         topBar.setBackgroundColor(.navBar)
         leftBar.setBackgroundColor(.navBar)
@@ -65,7 +64,7 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if isMovingToParentViewController {
+        if filesVC == nil {
             showFiles(self)
         }
     }

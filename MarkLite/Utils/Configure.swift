@@ -132,7 +132,7 @@ class Configure: NSObject, NSCoding {
                 return
             }
             print("products: \(products)")
-            let ProIdentifier = [premiumProductID]
+            let ProIdentifier = [premiumYearlyProductID,premiumMonthlyProductID]
             let expiredDate = ProIdentifier.map{ products[$0] ?? Date(timeIntervalSince1970: 0) }.max() ?? Date(timeIntervalSince1970: 0)
             
             self.isPro = expiredDate.isFuture
