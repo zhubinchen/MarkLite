@@ -48,18 +48,10 @@ class FileListViewController: UIViewController {
     }
     
     let bag = DisposeBag()
-    
-    let titleTextField = UITextField(x: 0, y: 0, w: 100, h: 30)
-    
+        
     var textField: UITextField?
     
     var isHomePage = false
-    
-    override var title: String? {
-        didSet {
-            titleTextField.text = title
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +60,7 @@ class FileListViewController: UIViewController {
             FileListViewController.root = self
             isHomePage = true
             RecievedNewFile.observe(eventBlock: { [weak self] (path) in
-                self?.title = /"LocalFile"
+                self?.title = /"Documents"
                 File.loadLocal{
                     let name = path.components(separatedBy: "/").last ?? "Untitled"
                     self?.root = $0
@@ -83,20 +75,19 @@ class FileListViewController: UIViewController {
     
     func loadFiles() {
         if isHomePage {
-            title = /"LocalFile"
-            File.loadLocal{ self.root = $0 }
+            title = /"Documents"
+            File.loadLocal{ root in
+                self.root = root
+                let file = root.children.first { $0.type == .text }
+                NotificationCenter.default.post(name: NSNotification.Name("FileLoadFinished"), object: file)
+            }
         } else {
             title = root?.name
-            navigationItem.titleView = titleTextField
-            titleTextField.font = UIFont.font(ofSize: 18)
-            titleTextField.textAlignment = .center
-            titleTextField.setTextColor(.navBarTint)
-            titleTextField.delegate = self
         }
     }
     
     func setupUI() {
-        if isPhone && isHomePage {
+        if isHomePage {
             navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
         }
         
@@ -116,9 +107,6 @@ class FileListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if root?.isBlank ?? false {
-            titleTextField.becomeFirstResponder()
-        }
         
         refresh()
     }
@@ -127,19 +115,6 @@ class FileListViewController: UIViewController {
         if root == nil {
             childrens = []
         } else {
-            root?.children.forEach({ (file) in
-                
-                if file.isBlank {
-                    if let value = Configure.shared.editingFile.value,
-                        value == file,
-                        isPad {
-                        return
-                    }
-                    if Configure.shared.isAutoClearEnabled {
-                        file.trash()
-                    }
-                }
-            })
             childrens = root!.children.sorted{$0.modifyDate > $1.modifyDate}
         }
         if isViewLoaded {
@@ -163,7 +138,6 @@ class FileListViewController: UIViewController {
                     guard let file = self.root?.createFile(name: index == 0 ? /"Untitled" : /"UntitledFolder", type: index == 0 ? .text : .folder) else {
                         return
                     }
-                    file.isBlank = true
                     
                     self.showAlert(title: /(index == 0 ? "CreateNote" : "CreateFolder"), message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
                         textField.text = file.name
@@ -193,8 +167,22 @@ class FileListViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? FileListViewController,let file = sender as? File {
+        if let vc = segue.destination as? FileListViewController,
+            let file = sender as? File {
             vc.root = file
+            return
+        }
+        
+        if let nav = segue.destination as? UINavigationController,
+            let vc = nav.topViewController as? EditViewController,
+            let file = sender as? File {
+            vc.file = file
+            return
+        }
+        
+        if let vc = segue.destination as? EditViewController,
+            let file = sender as? File {
+            vc.file = file
         }
     }
 }
@@ -224,7 +212,6 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
             if file.type == .folder {
                 performSegue(withIdentifier: "next", sender: file)
             } else {
-                Configure.shared.editingFile.value = file
                 performSegue(withIdentifier: "edit", sender: file)
             }
         } else {
@@ -238,7 +225,7 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
             if file.type == .folder {
                 performSegue(withIdentifier: "next", sender: file)
             } else {
-                Configure.shared.editingFile.value = file
+                performSegue(withIdentifier: "edit", sender: file)
             }
         }
     }
@@ -290,8 +277,6 @@ extension FileListViewController: UITextFieldDelegate {
     }
 }
 
-
-
 extension FileListViewController: UIDocumentPickerDelegate {
     
     func pickFromFiles() {
@@ -306,7 +291,6 @@ extension FileListViewController: UIDocumentPickerDelegate {
         if let file = root?.createFile(name: url.deletingPathExtension().lastPathComponent, type: .text) {
             file.text = str
             file.save()
-            Configure.shared.editingFile.value = file
             self.performSegue(withIdentifier: "edit", sender: file)
         }
     }

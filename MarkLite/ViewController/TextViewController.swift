@@ -30,7 +30,6 @@ class TextViewController: UIViewController {
 
     let bag = DisposeBag()
     var manager = MarkdownHighlightManager()
-    var currentFile: File?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,9 +37,7 @@ class TextViewController: UIViewController {
         setupRx()
 
         addNotificationObserver(Notification.Name.UIKeyboardWillChangeFrame.rawValue, selector: #selector(keyboardWillChange(_:)))
-        addNotificationObserver(NSNotification.Name.UIApplicationWillTerminate.rawValue, selector: #selector(applicationWillTerminate))
-        addNotificationObserver(NSNotification.Name.UIApplicationDidEnterBackground.rawValue, selector: #selector(applicationWillTerminate))
-
+        
         editView.textContainer.lineBreakMode = .byCharWrapping
         view.setBackgroundColor(.background)
         bottomView.setTintColor(.primary)
@@ -67,14 +64,6 @@ class TextViewController: UIViewController {
             self?.textChanged()
         }).disposed(by: bag)
         
-        Configure.shared.editingFile.asObservable().subscribe(onNext: { [weak self] (file) in
-            self?.saveFile()
-            guard let file = file else { return }
-            self?.editView.text = file.text
-            self?.textChanged()
-            self?.currentFile = file
-        }).disposed(by: bag)
-        
         editView.rx.didChange.subscribe { [weak self] _ in
             self?.textChanged()
             }.disposed(by: bag)
@@ -94,8 +83,6 @@ class TextViewController: UIViewController {
             self.redoButton.isEnabled = self.editView.undoManager?.canRedo ?? false
             self.undoButton.isEnabled = self.editView.undoManager?.canUndo ?? false
         }
-        
-        currentFile?.isBlank = editView.text.trimmed().length == 0
 
         textChangedHandler?(editView.text)
         countLabel.text = editView.text.length.toString + " " + /"Characters"
@@ -131,22 +118,6 @@ class TextViewController: UIViewController {
         }) { _ in
             self.editView.scrollRangeToVisible(self.editView.selectedRange)
         }
-    }
-    
-    @objc func applicationWillTerminate() {
-        saveFile()
-    }
-    
-    func saveFile() {
-        if editView.text != currentFile?.text {
-            currentFile?.text = editView.text
-            currentFile?.save()
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        saveFile()
     }
     
     deinit {

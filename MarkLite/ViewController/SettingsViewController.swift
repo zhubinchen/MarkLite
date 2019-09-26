@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SideMenu
 import RxSwift
 
 class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -23,12 +22,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     let themeSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
     let assitBarSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
-    let autoClearSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
+    let cloudSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
     
     var items: [(String,[(String,String,Selector)])] {
         var section = [
             ("AssistKeyboard","",#selector(assistBar)),
-            ("AutoClear","",#selector(autoClear)),
+            ("EnableCloud","",#selector(enableCloud)),
+            ("SplitOptions","",#selector(splitOption)),
             ]
         if !Configure.shared.isPro {
             section.insert(("Premium","",#selector(premium)), at: 0)
@@ -66,26 +66,32 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 
         themeSwitch.setTintColor(.navBarTint)
         assitBarSwitch.setTintColor(.navBarTint)
-        autoClearSwitch.setTintColor(.navBarTint)
+        cloudSwitch.setTintColor(.navBarTint)
 
         themeSwitch.isOn = Configure.shared.theme.value == .black
         assitBarSwitch.isOn = Configure.shared.isAssistBarEnabled.value
-        autoClearSwitch.isOn = Configure.shared.isAutoClearEnabled
+        cloudSwitch.isOn = Configure.shared.isCloudEnabled
         
         themeSwitch.addTarget(self, action: #selector(night(_:)), for: .valueChanged)
         assitBarSwitch.addTarget(self, action: #selector(assistBar(_:)), for: .valueChanged)
-        autoClearSwitch.addTarget(self, action: #selector(autoClear(_:)), for: .valueChanged)
+        cloudSwitch.addTarget(self, action: #selector(enableCloud(_:)), for: .valueChanged)
         
         navigationController?.delegate = navigationController
         navigationController?.delegate = navigationController
         navigationController?.interactivePopGestureRecognizer?.delegate = navigationController
+        
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        themeSwitch.x = view.w - 60
-        assitBarSwitch.x = view.w - 60
-        autoClearSwitch.x = view.w - 60
+        themeSwitch.x = view.w - 64
+        assitBarSwitch.x = view.w - 64
+        cloudSwitch.x = view.w - 64
+    }
+    
+    @objc func close() {
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -101,9 +107,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         let item = items[indexPath.section].1[indexPath.row]
         cell.textLabel?.text = /(item.0)
         cell.detailTextLabel?.text = /(item.1)
-        cell.textLabel?.setTextColor(.primary)
-        cell.detailTextLabel?.setTextColor(.secondary)
-        cell.setBackgroundColor(.background)
         
         if item.0 == "AssistKeyboard" {
             cell.addSubview(assitBarSwitch)
@@ -113,8 +116,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             cell.addSubview(themeSwitch)
             cell.accessoryType = .none
         }
-        if item.0 == "AutoClear" {
-            cell.addSubview(autoClearSwitch)
+        if item.0 == "EnableCloud" {
+            cell.addSubview(cloudSwitch)
             cell.accessoryType = .none
         }
         return cell
@@ -159,6 +162,10 @@ extension SettingsViewController {
         }
     }
     
+    @objc func splitOption() {
+
+    }
+    
     @objc func downloadCSS() {
         self.doIfPro {
             let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
@@ -184,8 +191,8 @@ extension SettingsViewController {
         Configure.shared.isAssistBarEnabled.value = sender.isOn
     }
     
-    @objc func autoClear(_ sender: UISwitch) {
-        Configure.shared.isAutoClearEnabled = sender.isOn
+    @objc func enableCloud(_ sender: UISwitch) {
+        Configure.shared.isCloudEnabled = sender.isOn
     }
     
     @objc func theme() {

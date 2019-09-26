@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Z5v-6s-8T8">
-    <device id="retina5_9" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Z5v-6s-8T8">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +11,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Lo7-j0-H8a">
             <objects>
-                <navigationController id="Z5v-6s-8T8" customClass="NavigationController" customModule="MarkLite" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="Z5v-6s-8T8" customClass="NavigationController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="TuT-jx-cMt">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -36,17 +34,14 @@
             </objects>
             <point key="canvasLocation" x="-4651" y="-4052"/>
         </scene>
-        <!--Side Menu Navigation Controller-->
+        <!--Navigation Controller-->
         <scene sceneID="FKs-Np-3ra">
             <objects>
-                <navigationController id="v2L-Vb-XgI" customClass="UISideMenuNavigationController" customModule="SideMenu" sceneMemberID="viewController">
+                <navigationController id="v2L-Vb-XgI" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="IcA-1N-9lY">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="boolean" keyPath="leftSide" value="YES"/>
-                    </userDefinedRuntimeAttributes>
                     <connections>
                         <segue destination="tKl-d2-mKZ" kind="relationship" relationship="rootViewController" id="Nfj-qT-9Qg"/>
                     </connections>
@@ -74,7 +69,7 @@
         <!--File List View Controller-->
         <scene sceneID="uIe-9r-63y">
             <objects>
-                <viewController storyboardIdentifier="FilesViewController" automaticallyAdjustsScrollViewInsets="NO" id="eMS-8l-8hi" customClass="FileListViewController" customModule="MarkLite" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FilesViewController" automaticallyAdjustsScrollViewInsets="NO" id="eMS-8l-8hi" customClass="FileListViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f9h-lx-5pm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -83,10 +78,10 @@
                                 <rect key="frame" x="0.0" y="93" width="375" height="719"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty_file" translatesAutoresizingMaskIntoConstraints="NO" id="E1Q-FM-7Ks">
-                                        <rect key="frame" x="179.66666666666666" y="251.66666666666669" width="16" height="16"/>
+                                        <rect key="frame" x="154.33333333333334" y="226.33333333333329" width="66.666666666666657" height="66.666666666666657"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EmptyFolder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VtH-Zg-pfD">
-                                        <rect key="frame" x="146.66666666666666" y="287.66666666666669" width="82" height="17"/>
+                                        <rect key="frame" x="146.66666666666666" y="313" width="82" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -111,11 +106,11 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="file" rowHeight="60" id="A1C-bp-L53" customClass="FileTableViewCell" customModule="MarkLite" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="file" rowHeight="60" id="A1C-bp-L53" customClass="FileTableViewCell" customModule="Markdown" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A1C-bp-L53" id="1NM-6U-ZG8">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="348.66666666666669" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HnP-0J-m30">
@@ -143,7 +138,7 @@
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1320字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G1J-d5-gJK">
-                                                    <rect key="frame" x="295.66666666666669" y="21.666666666666668" width="46.333333333333314" height="17.000000000000004"/>
+                                                    <rect key="frame" x="302.33333333333331" y="21.666666666666668" width="46.333333333333314" height="17.000000000000004"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>

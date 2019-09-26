@@ -12,27 +12,7 @@ import RxCocoa
 import WebKit
 import SnapKit
 
-enum ExportType: String {
-    case pdf
-    case html
-    case image
-    case markdown
-    
-    var displayName: String {
-        switch self {
-        case .pdf:
-            return /"PDF"
-        case .html:
-            return /"WebPage"
-        case .image:
-            return /"Image"
-        default:
-            return /"Markdown"
-        }
-    }
-}
-
-class WebViewController: UIViewController, ImageSaver, UIWebViewDelegate {
+class WebViewController: UIViewController, UIWebViewDelegate {
     
     let webView = UIWebView(frame: CGRect())
     
@@ -50,9 +30,7 @@ class WebViewController: UIViewController, ImageSaver, UIWebViewDelegate {
             webView.loadHTMLString(htmlString, baseURL: nil)
         }
     }
-        
-    let pdfRender = PdfRender()
-    
+            
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,34 +46,9 @@ class WebViewController: UIViewController, ImageSaver, UIWebViewDelegate {
         webView.snp.makeConstraints { (make) in
             make.edges.equalTo(0)
         }
-    }
-    
-    func url(for type: ExportType) -> URL? {
-        guard let file = Configure.shared.editingFile.value else { return nil }
-        switch type {
-        case .pdf:
-            let data = pdfRender.render(html: htmlString)
-            let path = tempPath + "/" + file.name + ".pdf"
-            let url = URL(fileURLWithPath: path)
-            do {
-                try data.write(to: url)
-            } catch {
-                print(error.localizedDescription)
-            }
-            return url
-        case .image:
-            guard let img = webView.scrollView.snap, let _ = UIImagePNGRepresentation(img) else { return nil }
-            saveImage(img)
-            return nil
-        case .markdown:
-            return URL(fileURLWithPath: file.path)
-        case .html:
-            guard let data = htmlString.data(using: String.Encoding.utf8) else { return nil }
-            let path = tempPath + "/" + file.name + ".html"
-            let url = URL(fileURLWithPath: path)
-            try? data.write(to: url)
-            return url
-        }
+        webView.backgroundColor = .clear
+        webView.isOpaque = false
+        view.setBackgroundColor(.background)
     }
     
     func webViewDidStartLoad(_ webView: UIWebView) {
@@ -104,7 +57,11 @@ class WebViewController: UIViewController, ImageSaver, UIWebViewDelegate {
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
         print("webViewDidFinishLoad")
+//        webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '100%'")
+//        webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('body')[0].style.webkitTextFillColor= 'black'")
+//        webView.stringByEvaluatingJavaScript(from: "document.getElementsByTagName('body')[0].style.background='#EFEFF4'")
     }
+    
     deinit {
         print("deinit web_vc")
     }

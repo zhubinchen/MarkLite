@@ -79,6 +79,7 @@
 		76C64C6D22DC314100E2851F /* UILable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C4A22DC314100E2851F /* UILable+Extensions.swift */; };
 		76C64C6E22DC314100E2851F /* UIImage+Draw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C4B22DC314100E2851F /* UIImage+Draw.swift */; };
 		76DFD721232926AC00F97D56 /* CustomCSSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DFD720232926AC00F97D56 /* CustomCSSViewController.swift */; };
+		76E7F271233CAEE10051DF6A /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E7F270233CAEE10051DF6A /* SettingsCell.swift */; };
 		89C305FDB08983CC88E50F5B /* Pods_Markdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CED168CEF9A6EB3A1E2F9CC /* Pods_Markdown.framework */; };
 /* End PBXBuildFile section */
 
@@ -173,6 +174,7 @@
 		76C64C4B22DC314100E2851F /* UIImage+Draw.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Draw.swift"; sourceTree = "<group>"; };
 		76C94A6A22EAA43D004CE602 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		76DFD720232926AC00F97D56 /* CustomCSSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCSSViewController.swift; sourceTree = "<group>"; };
+		76E7F270233CAEE10051DF6A /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		8E2576E76534F3FE3E3CAA53 /* Pods-Markdown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Markdown.release.xcconfig"; path = "Pods/Target Support Files/Pods-Markdown/Pods-Markdown.release.xcconfig"; sourceTree = "<group>"; };
 		E32330D5B24C5C34EEE58119 /* Pods-Markdown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Markdown.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Markdown/Pods-Markdown.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -318,6 +320,7 @@
 				07E826FF1F5BF1BA0077A017 /* AssistKeyboardBar.swift */,
 				07E827001F5BF1BA0077A017 /* DottedLineView.swift */,
 				07E827011F5BF1BA0077A017 /* FileTableViewCell.swift */,
+				76E7F270233CAEE10051DF6A /* SettingsCell.swift */,
 				07E827031F5BF1BA0077A017 /* MenuView.swift */,
 			);
 			path = View;
@@ -646,7 +649,6 @@
 				"${BUILT_PRODUCTS_DIR}/EZSwiftExtensions/EZSwiftExtensions.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
 			);
@@ -656,7 +658,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EZSwiftExtensions.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
 			);
@@ -686,6 +687,7 @@
 				760C29702320F3EC002E613E /* document.c in Sources */,
 				76C64C4E22DC314100E2851F /* CLShoppingVC.swift in Sources */,
 				07E8275A1F5BF1BA0077A017 /* SettingsViewController.swift in Sources */,
+				76E7F271233CAEE10051DF6A /* SettingsCell.swift in Sources */,
 				76C64C6E22DC314100E2851F /* UIImage+Draw.swift in Sources */,
 				76C64C6A22DC314100E2851F /* UIColor+Extensions.swift in Sources */,
 				760C296D2320F3EC002E613E /* buffer.c in Sources */,

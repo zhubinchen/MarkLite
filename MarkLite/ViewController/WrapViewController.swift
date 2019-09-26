@@ -8,29 +8,14 @@
 
 import UIKit
 import RxSwift
-import SideMenu
 
-class WrapViewController: UIViewController, UIPopoverPresentationControllerDelegate {
+class WrapViewController: UISplitViewController, UIPopoverPresentationControllerDelegate {
     
-    @IBOutlet weak var topBarHeight: NSLayoutConstraint!
-    @IBOutlet weak var leftBarWidth: NSLayoutConstraint!
-    
-    @IBOutlet weak var statusBar: UIView!
-    @IBOutlet weak var emptyView: UIView!
-    @IBOutlet weak var emptyTipsView: UILabel!
-
-    @IBOutlet weak var topBar: UIView!
-    @IBOutlet weak var leftBar: UIView!
-
-    @IBOutlet weak var topTitle: UILabel!
-    @IBOutlet weak var leftTitle: UILabel!
+//    @IBOutlet weak var emptyView: UIView!
+//    @IBOutlet weak var emptyTipsView: UILabel!
 
     let bag = DisposeBag()
-    
-    var editVC: EditViewController?
-    
-    var filesVC: UISideMenuNavigationController?
-    
+            
     var _popoverPresentationController : UIPopoverPresentationController?
     
     override var popoverPresentationController: UIPopoverPresentationController? {
@@ -39,34 +24,17 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        Configure.shared.editingFile.asObservable().map{$0?.name ?? ""}.bind(to: topTitle.rx.text).disposed(by: bag)
-        Configure.shared.editingFile.asObservable().map{($0?.name ?? "").vertical}.bind(to: leftTitle.rx.text).disposed(by: bag)
+
         
         popoverPresentationController?.delegate = self
         
-        statusBar.setBackgroundColor(.background)
-        emptyView.setBackgroundColor(.background)
-        
-        topBar.setBackgroundColor(.navBar)
-        leftBar.setBackgroundColor(.navBar)
-        topBar.setTintColor(.navBarTint)
-        leftBar.setTintColor(.navBarTint)
-        topTitle.setTextColor(.navBarTint)
-        leftTitle.setTextColor(.navBarTint)
-        
-        emptyView.addTapGesture { [unowned self] (_) in
-            self.showFiles(self)
-        }
-        
-        Configure.shared.editingFile.asObservable().map{ $0 != nil }.bind(to: emptyView.rx.isHidden).disposed(by: bag)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if filesVC == nil {
-            showFiles(self)
-        }
+//        emptyView.setBackgroundColor(.background)
+//
+//        emptyView.addTapGesture { [unowned self] (_) in
+//            self.showFiles(self)
+//        }
+//
+//        Configure.shared.editingFile.asObservable().map{ $0 != nil }.bind(to: emptyView.rx.isHidden).disposed(by: bag)
     }
     
     override func viewWillLayoutSubviews() {
@@ -74,14 +42,7 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
         
         let isLandscape = windowWidth > windowHeight
         Configure.shared.isLandscape.value = isLandscape
-        
-        topBarHeight.constant = isLandscape ? 20 : 64
-        leftBarWidth.constant = isLandscape ? 64 : 0
-        
-        statusBar.isHidden = !isLandscape
-        topBar.isHidden = isLandscape
-        leftBar.isHidden = !isLandscape
-        
+                
         popoverPresentationController?.presentedViewController.dismissVC(completion: nil)
     }
     
@@ -89,22 +50,6 @@ class WrapViewController: UIViewController, UIPopoverPresentationControllerDeleg
         if let popoverPresentationController = segue.destination.popoverPresentationController, let sourceView = sender as? UIView {
             _popoverPresentationController = popoverPresentationController
             popoverPresentationController.sourceRect = sourceView.bounds
-        } else if let vc = segue.destination as? EditViewController {
-            editVC = vc
-        } else if let nav = segue.destination as? UISideMenuNavigationController {
-            filesVC = nav
         }
-    }
-    
-    @IBAction func showFiles(_ sender: Any) {
-        if let vc = filesVC {
-            presentVC(vc)
-        } else {
-            performSegue(withIdentifier: "showFiles", sender: sender)
-        }
-    }
-    
-    @IBAction func export(_ sender: Any) {
-        editVC?.showExportMenu(sender)
     }
 }

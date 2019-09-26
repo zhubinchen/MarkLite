@@ -57,15 +57,20 @@ class File {
     }
     
     fileprivate(set) weak var parent: File?
-    fileprivate var _children: [File] = [File]()
+    
+    fileprivate var _text = ""
+    
+    fileprivate var _children = [File]()
     
     fileprivate var fullName: String {
         return name + type.extensionName
     }
     
-    var isBlank = false
     var isSelected = false
-    lazy var text = (try? String(contentsOfFile: self.path, encoding: String.Encoding.utf8)) ?? ""
+    lazy var text: String = {
+        _text = (try? String(contentsOfFile: self.path, encoding: String.Encoding.utf8)) ?? ""
+        return _text
+    }()
     
     init(path:String) {
         self.path = path
@@ -163,12 +168,15 @@ class File {
     
     @discardableResult
     func save() -> Bool {
-        
+        if text == _text {
+            return true
+        }
         guard let data = text.data(using: String.Encoding.utf8) else { return false }
         
         let url = URL(fileURLWithPath: self.path)
         do {
             try data.write(to: url)
+            _text = text
         } catch {
             print("error to save file at:\(path)")
             return false

@@ -6,7 +6,7 @@
  Copyright © 2017年 zhubch. All rights reserved.
  */
 
-"LocalFile"="Local files";
+"Documents"="Documents";
 "EmptyFolder"="There is no file in current folder";
 "SwipeTips"="Swipe left to delete or rename file";
 
@@ -36,8 +36,9 @@
 "SaveFailed"="Save to photo failed";
 "SaveSuccessed"="Save to photo successed";
 
-"AssistKeyboard"="Keyboard assist bar";
-"AutoClear"="Delete blank files";
+"AssistKeyboard"="Keyboard Assist Bar";
+"EnableCloud"="iCloud Sync";
+"SplitOptions"="Split Options";
 "NightMode"="Night mode";
 "Theme"="Theme";
 "Feedback"="Feedback";

@@ -17,7 +17,6 @@ class Configure: NSObject, NSCoding {
     
     var newVersionAvaliable = false
     
-    let editingFile: Variable<File?> = Variable(nil)
     let isLandscape = Variable(false)
     
     var currentVerion: String?
@@ -26,7 +25,7 @@ class Configure: NSObject, NSCoding {
     var hasRate = false
     var foreverPro = false
     var isPro = false
-    var isAutoClearEnabled = false
+    var isCloudEnabled = false
     let isAssistBarEnabled = Variable(true)
     let markdownStyle = Variable("GitHub2")
     let highlightStyle = Variable("github")
@@ -92,7 +91,7 @@ class Configure: NSObject, NSCoding {
         aCoder.encode(isPro, forKey: "isPro")
         aCoder.encode(foreverPro, forKey: "foreverPro")
         aCoder.encode(hasRate, forKey: "hasRate")
-        aCoder.encode(isAutoClearEnabled, forKey: "isAutoClearEnabled")
+        aCoder.encode(isCloudEnabled, forKey: "isCloudEnabled")
         aCoder.encode(isAssistBarEnabled.value, forKey: "isAssistBarEnabled")
         aCoder.encode(markdownStyle.value, forKey: "markdownStyle")
         aCoder.encode(highlightStyle.value, forKey: "highlightStyle")
@@ -109,7 +108,7 @@ class Configure: NSObject, NSCoding {
         isPro = aDecoder.decodeBool(forKey: "isPro")
         foreverPro = aDecoder.decodeBool(forKey: "foreverPro")
         hasRate = aDecoder.decodeBool(forKey: "hasRate")
-        isAutoClearEnabled = aDecoder.decodeBool(forKey: "isAutoClearEnabled")
+        isCloudEnabled = aDecoder.decodeBool(forKey: "isCloudEnabled")
         isAssistBarEnabled.value = aDecoder.decodeBool(forKey: "isAssistBarEnabled")
         markdownStyle.value = aDecoder.decodeObject(forKey: "markdownStyle") as? String ?? "GitHub2"
         highlightStyle.value = aDecoder.decodeObject(forKey: "highlightStyle") as? String ?? "rainbow"

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SideMenu
 
 extension UIViewController {
     
@@ -85,7 +84,6 @@ extension UINavigationController: UINavigationBarDelegate {
             return false
         }
         if(vc.shouldBack()) {
-            popViewController(animated: true)
             return true
         } else {
             for v in navigationBar.subviews {

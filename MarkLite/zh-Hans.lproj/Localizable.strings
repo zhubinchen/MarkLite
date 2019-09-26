@@ -6,7 +6,7 @@
  Copyright © 2017年 zhubch. All rights reserved.
  */
 
-"LocalFile"="文件";
+"Documents"="文件";
 "EmptyFolder"="当前目录没有任何文件";
 "SwipeTips"="向左滑动可重命名或删除文件";
 
@@ -37,7 +37,8 @@
 "SaveSuccessed"="已保存到手机相册";
 
 "AssistKeyboard"="辅助键盘";
-"AutoClear"="自动清理空白文件";
+"EnableCloud"="iCloud同步";
+"SplitOptions"="编辑预览分屏";
 "NightMode"="夜间模式";
 "Theme"="主题色";
 "Feedback"="问题与意见";

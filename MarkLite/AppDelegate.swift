@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SideMenu
 import RxSwift
 import Bugly
 
@@ -66,11 +65,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBar.backIndicatorImage = backImage
         navigationBar.backIndicatorTransitionMaskImage = backImage
         
-        SideMenuManager.default.menuFadeStatusBar = false
-        SideMenuManager.default.menuWidth = isPad ? 400 : 300
-        SideMenuManager.default.menuPushStyle = .subMenu
-        SideMenuManager.default.menuPresentMode = isPhone ? .viewSlideOut : .menuSlideIn
-        SideMenuManager.default.menuEnableSwipeGestures = false
         Configure.shared.setup()
         
         _ = Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in

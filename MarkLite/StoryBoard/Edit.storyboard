@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kJS-Hc-QJ3">
-    <device id="retina5_9" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kJS-Hc-QJ3">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,17 +13,17 @@
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="CPR-Rc-22a" customClass="TextViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eCS-3y-9qx">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
+                        <rect key="frame" x="0.0" y="0.0" width="187.66666666666666" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lId-Dt-n2r">
-                                <rect key="frame" x="8" y="44" width="367" height="630"/>
+                                <rect key="frame" x="8" y="44" width="179.66666666666666" height="630"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Thonburi" family="Thonburi" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A59-fe-PiA">
-                                <rect key="frame" x="0.0" y="674" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="674" width="187.66666666666666" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.85000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000 字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Als-NQ-ZQc">
                                         <rect key="frame" x="10" y="16" width="54" height="18"/>
@@ -34,7 +32,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aui-tE-OMW">
-                                        <rect key="frame" x="277" y="10" width="40" height="30"/>
+                                        <rect key="frame" x="89.666666666666686" y="10" width="40.000000000000014" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="bqg-pk-jlT"/>
                                         </constraints>
@@ -44,7 +42,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vV5-i3-4Pf">
-                                        <rect key="frame" x="325" y="10" width="40" height="30"/>
+                                        <rect key="frame" x="137.66666666666666" y="10" width="40" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="PqV-wq-ylT"/>
                                         </constraints>
@@ -72,7 +70,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wg0-wg-03a" customClass="DottedLineView" customModule="Markdown" customModuleProvider="target">
-                                <rect key="frame" x="374" y="44" width="1" height="680"/>
+                                <rect key="frame" x="186.66666666666666" y="44" width="1" height="680"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="1" id="5fQ-Z5-5yd"/>
@@ -131,32 +129,32 @@
                                 <rect key="frame" x="0.0" y="88" width="375" height="724"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XJt-c3-kNb">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="375" id="jmv-l3-LAb"/>
-                                        </constraints>
+                                        <rect key="frame" x="0.0" y="0.0" width="187.66666666666666" height="724"/>
                                         <connections>
                                             <segue destination="CPR-Rc-22a" kind="embed" id="szb-kD-ibo"/>
                                         </connections>
                                     </containerView>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zns-Dc-Cfg">
-                                        <rect key="frame" x="375" y="0.0" width="375" height="724"/>
+                                        <rect key="frame" x="187.66666666666663" y="0.0" width="187.33333333333337" height="724"/>
                                         <connections>
                                             <segue destination="7Y8-9G-Orv" kind="embed" id="bT1-xP-Sju"/>
                                         </connections>
                                     </containerView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="XJt-c3-kNb" firstAttribute="top" secondItem="DJa-dk-TN5" secondAttribute="top" id="4qi-7w-LI4"/>
-                                    <constraint firstItem="XJt-c3-kNb" firstAttribute="height" secondItem="DJa-dk-TN5" secondAttribute="height" id="FeT-hU-9e2"/>
-                                    <constraint firstItem="Zns-Dc-Cfg" firstAttribute="width" secondItem="XJt-c3-kNb" secondAttribute="width" id="OH5-yd-SlP"/>
-                                    <constraint firstAttribute="bottom" secondItem="XJt-c3-kNb" secondAttribute="bottom" id="fYY-k6-fPR"/>
-                                    <constraint firstItem="Zns-Dc-Cfg" firstAttribute="top" secondItem="DJa-dk-TN5" secondAttribute="top" id="oLO-i2-wvY"/>
-                                    <constraint firstItem="Zns-Dc-Cfg" firstAttribute="leading" secondItem="XJt-c3-kNb" secondAttribute="trailing" id="ovq-wj-eV5"/>
-                                    <constraint firstItem="XJt-c3-kNb" firstAttribute="leading" secondItem="DJa-dk-TN5" secondAttribute="leading" id="p6k-ih-qrI"/>
-                                    <constraint firstAttribute="bottom" secondItem="Zns-Dc-Cfg" secondAttribute="bottom" id="sxy-5g-b7R"/>
-                                    <constraint firstAttribute="trailing" secondItem="Zns-Dc-Cfg" secondAttribute="trailing" id="yN3-rK-QWY"/>
-                                    <constraint firstItem="Zns-Dc-Cfg" firstAttribute="height" secondItem="DJa-dk-TN5" secondAttribute="height" id="z3v-eA-9zc"/>
+                                    <constraint firstAttribute="bottom" secondItem="XJt-c3-kNb" secondAttribute="bottom" id="48o-RJ-smd"/>
+                                    <constraint firstItem="XJt-c3-kNb" firstAttribute="width" secondItem="DJa-dk-TN5" secondAttribute="width" priority="999" id="FwY-al-TXW"/>
+                                    <constraint firstItem="XJt-c3-kNb" firstAttribute="top" secondItem="DJa-dk-TN5" secondAttribute="top" id="Jxw-7b-644"/>
+                                    <constraint firstAttribute="trailing" secondItem="Zns-Dc-Cfg" secondAttribute="trailing" id="P06-Ph-QQx"/>
+                                    <constraint firstAttribute="bottom" secondItem="Zns-Dc-Cfg" secondAttribute="bottom" id="SLg-Sd-Rlc"/>
+                                    <constraint firstItem="XJt-c3-kNb" firstAttribute="height" secondItem="DJa-dk-TN5" secondAttribute="height" id="VKM-qN-WCy"/>
+                                    <constraint firstItem="XJt-c3-kNb" firstAttribute="leading" secondItem="DJa-dk-TN5" secondAttribute="leading" id="VPp-cj-GPe"/>
+                                    <constraint firstItem="Zns-Dc-Cfg" firstAttribute="leading" secondItem="XJt-c3-kNb" secondAttribute="trailing" id="kan-J4-ltt"/>
+                                    <constraint firstItem="XJt-c3-kNb" firstAttribute="width" secondItem="DJa-dk-TN5" secondAttribute="width" multiplier="0.5" id="lIN-qE-sRS"/>
+                                    <constraint firstItem="Zns-Dc-Cfg" firstAttribute="leading" secondItem="XJt-c3-kNb" secondAttribute="trailing" id="rjo-Rg-M8V"/>
+                                    <constraint firstItem="Zns-Dc-Cfg" firstAttribute="top" secondItem="DJa-dk-TN5" secondAttribute="top" id="sC8-sc-mNO"/>
+                                    <constraint firstItem="Zns-Dc-Cfg" firstAttribute="width" secondItem="XJt-c3-kNb" secondAttribute="width" id="sLc-1j-WLH"/>
+                                    <constraint firstItem="Zns-Dc-Cfg" firstAttribute="height" secondItem="DJa-dk-TN5" secondAttribute="height" id="xdz-Af-V2c"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -173,7 +171,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="scrollView" destination="DJa-dk-TN5" id="R3r-3r-vlH"/>
-                        <outlet property="textViewWidth" destination="jmv-l3-LAb" id="AH1-x6-0Kb"/>
+                        <outlet property="textViewWidth" destination="lIN-qE-sRS" id="Dwq-bG-lP3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HGS-99-TBi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -185,7 +183,7 @@
             <objects>
                 <viewController id="7Y8-9G-Orv" customClass="WebViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="99B-NM-Faa">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
+                        <rect key="frame" x="0.0" y="0.0" width="187.33333333333337" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="kBm-KN-iDv"/>

@@ -10,24 +10,49 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class EditViewController: UIViewController {
+enum ExportType: String {
+    case pdf
+    case html
+    case image
+    case markdown
+    
+    var displayName: String {
+        switch self {
+        case .pdf:
+            return /"PDF"
+        case .html:
+            return /"WebPage"
+        case .image:
+            return /"Image"
+        default:
+            return /"Markdown"
+        }
+    }
+}
+
+class EditViewController: UIViewController,ImageSaver {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var textViewWidth: NSLayoutConstraint!
     
-    var webVC: WebViewController?
-    var textVC: TextViewController?
+    var file: File? {
+        didSet {
+            self.title = file?.name
+        }
+    }
+    var timer: Timer?
+    var markdownToRender: String?
+
+    var webVC: WebViewController!
+    var textVC: TextViewController!
     
     var showExport = true
-    var markdownToRender: String?
-    var timer: Timer!
     let bag = DisposeBag()
-    let titleTextField = UITextField(x: 0, y: 0, w: 100, h: 30)
-    let renderer = MarkdownRender.shared()
-    
+    let markdownRenderer = MarkdownRender.shared()
+    let pdfRender = PdfRender()
+
     override var title: String? {
         didSet {
-            renderer?.title = title
-            titleTextField.text = title
+            markdownRenderer?.title = title
         }
     }
     
@@ -38,47 +63,82 @@ class EditViewController: UIViewController {
             scrollView.panGestureRecognizer.require(toFail: popGestureRecognizer)
         }
         
+        if self.file != nil {
+            setup()
+        }
+        
+        if let splitViewController = self.splitViewController {
+            let item = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_files"),
+            landscapeImagePhone: #imageLiteral(resourceName: "nav_files"),
+            style: .plain,
+            target: splitViewController.displayModeButtonItem.target,
+            action: splitViewController.displayModeButtonItem.action)
+            navigationItem.leftBarButtonItem = item
+            navigationItem.leftItemsSupplementBackButton = true
+        }
+        
+        navBar?.setBarTintColor(.navBar)
+        navBar?.setContentColor(.navBarTint)
+        addNotificationObserver(NSNotification.Name.UIApplicationWillTerminate.rawValue, selector: #selector(applicationWillTerminate))
+        addNotificationObserver(NSNotification.Name.UIApplicationDidEnterBackground.rawValue, selector: #selector(applicationWillTerminate))
+        addNotificationObserver("FileLoadFinished", selector: #selector(fileLoadFinished(_:)))
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        file?.save()
+    }
+    
+    @objc func applicationWillTerminate() {
+        file?.save()
+    }
+    
+    @objc func fileLoadFinished(_ noti: Notification) {
+        guard let file = noti.object as? File else { return }
+        self.file = file
+    }
+    
+    func setup() {
+        guard let file = self.file else {
+            return
+        }
         scrollView.rx.contentOffset.map{ $0.x > windowWidth - 10 }.subscribe(onNext: { [weak self] showExport in
             self?.toggleBarButton(showExport)
         }).disposed(by: bag)
-        
-        Configure.shared.editingFile.asObservable().map{ $0?.name ?? "" }.bind(to: self.rx.title).disposed(by: bag)
-        
-        textVC?.textChangedHandler = { [weak self] text in
+                
+        textVC.textChangedHandler = { [weak self] text in
+            file.text = text
             self?.markdownToRender = text
         }
         
-        textVC?.offsetChangedHandler = { [weak self] offset in
-            self?.webVC?.offset = offset
+        textVC.offsetChangedHandler = { [weak self] offset in
+            self?.webVC.offset = offset
         }
-        
+
         Configure.shared.markdownStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
-            self.renderer?.styleName = style
-            self.markdownToRender = self.textVC?.editView.text
+            self.markdownRenderer?.styleName = style
+            self.markdownToRender = file.text
         }).disposed(by: bag)
         
         Configure.shared.highlightStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
-            self.renderer?.highlightName = style
-            self.markdownToRender = self.textVC?.editView.text
+            self.markdownRenderer?.highlightName = style
+            self.markdownToRender = file.text
         }).disposed(by: bag)
         
-        timer = Timer.runThisEvery(seconds: 0.01) { [weak self] _ in
+        timer = Timer.runThisEvery(seconds: 0.05) { [weak self] _ in
             guard let this = self else { return }
             if let markdown = this.markdownToRender {
-                this.webVC?.htmlString = this.renderer?.renderMarkdown(markdown) ?? ""
+                this.webVC.htmlString = this.markdownRenderer?.renderMarkdown(markdown) ?? ""
                 this.markdownToRender = nil
             }
         }
         
-        navigationItem.titleView = titleTextField
-        titleTextField.font = UIFont.font(ofSize: 18)
-        titleTextField.textAlignment = .center
-        titleTextField.setTextColor(.navBarTint)
-        titleTextField.delegate = self
+        textVC.editView.text = file.text
+        textVC.textChanged()
     }
     
     func toggleBarButton(_ showExport: Bool) {
-        textVC?.editView.resignFirstResponder()
+        textVC.editView.resignFirstResponder()
 
         if self.showExport == showExport {
             return
@@ -92,7 +152,7 @@ class EditViewController: UIViewController {
     }
     
     @objc func showExportMenu(_ sender: Any) {
-        textVC?.editView.resignFirstResponder()
+        textVC.editView.resignFirstResponder()
         if isPad && Configure.shared.isLandscape.value == false {
             scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)
         }
@@ -109,7 +169,7 @@ class EditViewController: UIViewController {
         }
         
         func export(_ index: Int) {
-            guard let url = self.webVC?.url(for: items[index]) else { return }
+            guard let url = self.url(for: items[index]) else { return }
             let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
             vc.popoverPresentationController?.sourceView = sender as? UIView
             vc.popoverPresentationController?.sourceRect = (sender as? UIView)?.frame ?? CGRect(x: 62, y: 20, w: 44, h: 44)
@@ -143,8 +203,36 @@ class EditViewController: UIViewController {
         }
     }
     
+    func url(for type: ExportType) -> URL? {
+        guard let file = self.file else { return nil }
+        switch type {
+        case .pdf:
+            let data = pdfRender.render(html: self.webVC.htmlString)
+            let path = tempPath + "/" + file.name + ".pdf"
+            let url = URL(fileURLWithPath: path)
+            do {
+                try data.write(to: url)
+            } catch {
+                print(error.localizedDescription)
+            }
+            return url
+        case .image:
+            guard let img = self.webVC.webView.scrollView.snap, let _ = UIImagePNGRepresentation(img) else { return nil }
+            saveImage(img)
+            return nil
+        case .markdown:
+            return URL(fileURLWithPath: file.path)
+        case .html:
+            guard let data = self.webVC.htmlString.data(using: String.Encoding.utf8) else { return nil }
+            let path = tempPath + "/" + file.name + ".html"
+            let url = URL(fileURLWithPath: path)
+            try? data.write(to: url)
+            return url
+        }
+    }
+    
     @objc func preview() {
-        textVC?.editView.resignFirstResponder()
+        textVC.editView.resignFirstResponder()
         scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)
     }
 
@@ -166,34 +254,17 @@ class EditViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        textViewWidth.constant = windowWidth > windowHeight ? (windowWidth - 64) * 0.5 : windowWidth
+        textViewWidth.priority = windowWidth > windowHeight ? UILayoutPriority.required : .defaultLow
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        file?.save()
     }
     
     deinit {
-        timer.invalidate()
+        timer?.invalidate()
+        removeNotificationObserver()
         print("deinit edit_vc")
-    }
-}
-
-extension EditViewController: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        guard let file = Configure.shared.editingFile.value else { return }
-        let text = textField.text ?? ""
-        let name = text.trimmed()
-        let pattern = "^[^\\.\\*\\:/]+$"
-        let predicate = NSPredicate(format: "SELF MATCHES %@", pattern)
-        if predicate.evaluate(with: name) {
-            file.rename(to: name)
-            textField.text = file.name
-        } else {
-            showAlert(title: /"FileNameError")
-            textField.text = file.name
-        }
     }
 }

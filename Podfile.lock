@@ -5,7 +5,6 @@ PODS:
   - RxCocoa (4.3.0):
     - RxSwift (~> 4.0)
   - RxSwift (4.3.0)
-  - SideMenu (4.0.0)
   - SnapKit (4.2.0)
   - UMCAnalytics (6.0.5):
     - UMCCommon
@@ -18,7 +17,6 @@ DEPENDENCIES:
   - EZSwiftExtensions
   - RxCocoa
   - RxSwift
-  - SideMenu
   - SnapKit
   - UMCAnalytics
   - Zip
@@ -30,7 +28,6 @@ SPEC REPOS:
     - EZSwiftExtensions
     - RxCocoa
     - RxSwift
-    - SideMenu
     - SnapKit
     - UMCAnalytics
     - UMCCommon
@@ -42,12 +39,11 @@ SPEC CHECKSUMS:
   EZSwiftExtensions: f73648a591e529a1dbd83c22b19fd3e57df6fb7d
   RxCocoa: 71b9cce833fbcb89a8eec11816dd225830c2bd3c
   RxSwift: a9717a34df3179fe63563f76e046ad345078dd3a
-  SideMenu: 70ee5657df63ec3382660ec4ef470bf1cf5db07d
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   UMCAnalytics: 045be2cd1ec05aa95ad62405a850757f932e2d59
   UMCCommon: c9637200488c482b30cdebebb0bd595b9adf0847
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 377342c4ed2df341a69a1a0c35fd2dbc9bcdef37
+PODFILE CHECKSUM: 93ecb5aee44099c084a139dfee9d0b57aaa38f79
 
 COCOAPODS: 1.5.3
