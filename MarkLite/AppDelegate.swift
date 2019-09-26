@@ -25,7 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        if FileManager.default.fileExists(atPath: url.path) {
+
+        if url.startAccessingSecurityScopedResource() && FileManager.default.fileExists(atPath: url.path) {
             let oldPath = url.path
             let fileName = oldPath.components(separatedBy: "/").last ?? /"Untitled"
             let recievedPath = documentPath + "/" + /"ReceivedFiles"

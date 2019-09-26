@@ -80,6 +80,7 @@
 		76C64C6E22DC314100E2851F /* UIImage+Draw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C4B22DC314100E2851F /* UIImage+Draw.swift */; };
 		76DFD721232926AC00F97D56 /* CustomCSSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DFD720232926AC00F97D56 /* CustomCSSViewController.swift */; };
 		76E7F271233CAEE10051DF6A /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E7F270233CAEE10051DF6A /* SettingsCell.swift */; };
+		76E7F275233CB5E30051DF6A /* icon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 76E7F274233CB5E30051DF6A /* icon_logo.png */; };
 		89C305FDB08983CC88E50F5B /* Pods_Markdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CED168CEF9A6EB3A1E2F9CC /* Pods_Markdown.framework */; };
 /* End PBXBuildFile section */
 
@@ -175,6 +176,7 @@
 		76C94A6A22EAA43D004CE602 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		76DFD720232926AC00F97D56 /* CustomCSSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCSSViewController.swift; sourceTree = "<group>"; };
 		76E7F270233CAEE10051DF6A /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		76E7F274233CB5E30051DF6A /* icon_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_logo.png; sourceTree = "<group>"; };
 		8E2576E76534F3FE3E3CAA53 /* Pods-Markdown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Markdown.release.xcconfig"; path = "Pods/Target Support Files/Pods-Markdown/Pods-Markdown.release.xcconfig"; sourceTree = "<group>"; };
 		E32330D5B24C5C34EEE58119 /* Pods-Markdown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Markdown.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Markdown/Pods-Markdown.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -279,6 +281,7 @@
 		07E826C31F5BF1BA0077A017 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				76E7F274233CB5E30051DF6A /* icon_logo.png */,
 				7613F1282325FA02006EE3B9 /* 使用教程.md */,
 				7613F1292325FA02006EE3B9 /* 使用說明.md */,
 				7613F1202325F8AF006EE3B9 /* MathJax.md */,
@@ -604,6 +607,7 @@
 				7613F1242325F8AF006EE3B9 /* MathJax.md in Resources */,
 				7613F12B2325FA02006EE3B9 /* 使用說明.md in Resources */,
 				7613F1272325F8AF006EE3B9 /* ReadMe.md in Resources */,
+				76E7F275233CB5E30051DF6A /* icon_logo.png in Resources */,
 				7613F11F2325F6FE006EE3B9 /* Resources.zip in Resources */,
 				7613F12A2325FA02006EE3B9 /* 使用教程.md in Resources */,
 				76C64C5F22DC314100E2851F /* main.json in Resources */,

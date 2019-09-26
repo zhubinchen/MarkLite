@@ -60,7 +60,6 @@ class FileListViewController: UIViewController {
             FileListViewController.root = self
             isHomePage = true
             RecievedNewFile.observe(eventBlock: { [weak self] (path) in
-                self?.title = /"Documents"
                 File.loadLocal{
                     let name = path.components(separatedBy: "/").last ?? "Untitled"
                     self?.root = $0
