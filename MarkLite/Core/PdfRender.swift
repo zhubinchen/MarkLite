@@ -31,8 +31,9 @@ class PdfRender: UIPrintPageRenderer {
         self.footerHeight = 40.0
     }
     
-    func render(html: String) -> Data {
-        let formatter = UIMarkupTextPrintFormatter(markupText: html)
+    func render(formatter: UIViewPrintFormatter) -> Data {
+        
+//        let formatter = UIMarkupTextPrintFormatter(markupText: html)
         addPrintFormatter(formatter, startingAtPageAt: 0)
         let data = NSMutableData()
         

@@ -218,11 +218,20 @@ class AssistKeyboardBar: UIView {
     func didPickImage(_ image: UIImage) {
         imagePicker = nil
         guard let textView = self.textView, var data = UIImageJPEGRepresentation(image, 0.9) else { return }
-        if data.count > 3000000 {
+        if data.count > 1 * 1024 * 1024 {
             if let newData = UIImageJPEGRepresentation(image, 0.7) {
                 data = newData
             }
         }
+        
+//        let fileURL = URL(fileURLWithPath: imagePath + "/" + "\(Date().timeIntervalSince1970)")
+//        try? data.write(to: fileURL, options: .atomic)
+
+//        let insertText = /"EnterPlaceholder"
+//        let currentRange = textView.selectedRange
+//        textView.insertText("![\(insertText)](\(fileURL))")
+//        textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
+        
         viewController?.view.startLoadingAnimation()
         upload(multipartFormData: { (formData) in
             formData.append(data, withName: "smfile", fileName: "temp", mimeType: "image/jpg")
@@ -236,7 +245,6 @@ class AssistKeyboardBar: UIView {
                             let url = data["url"] as? String {
                             
                             let currentRange = textView.selectedRange
-                            
                             let insertText = /"EnterPlaceholder"
                             textView.insertText("![\(insertText)](\(url))")
                             textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)

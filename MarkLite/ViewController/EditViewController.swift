@@ -310,7 +310,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
         guard let file = self.file else { return nil }
         switch type {
         case .pdf:
-            let data = pdfRender.render(html: self.webVC.htmlString)
+            let data = pdfRender.render(formatter: self.webVC.webView.viewPrintFormatter())
             let path = tempPath + "/" + file.name + ".pdf"
             let url = URL(fileURLWithPath: path)
             do {

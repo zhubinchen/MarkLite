@@ -86,7 +86,7 @@ class Configure: NSObject, NSCoding {
 //            try? FileManager.default.copyItem(atPath: mathJaxPath, toPath: documentPath + "/" + "MathJax" + ".md")
 //        }
         
-        try? FileManager.default.createDirectory(atPath: draftPath, withIntermediateDirectories: true, attributes: nil)
+        try? FileManager.default.createDirectory(atPath: imagePath, withIntermediateDirectories: true, attributes: nil)
         save()
     }
     
