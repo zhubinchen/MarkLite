@@ -12,4 +12,5 @@ target 'Markdown' do
   pod 'UMCAnalytics'
   pod 'SnapKit'
   pod 'Bugly'
+  pod 'SVProgressHUD'
 end

@@ -105,7 +105,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
         
         guard let subPaths = FileManager.default.subpaths(atPath: path) else { return nil}
         
-        let items = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}
+        let items = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}.sorted(by: >)
         let index = items.index{ Configure.shared.markdownStyle.value == $0 }
         let wraper = OptionsWraper(selectedIndex: index, editable: true, title: /"Style", items: items) {
             Configure.shared.markdownStyle.value = $0.toString

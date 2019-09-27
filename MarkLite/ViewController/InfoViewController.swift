@@ -25,7 +25,7 @@ class InfoViewController: UIViewController, WKNavigationDelegate {
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action:#selector(close))
         
-        self.view.startLoadingAnimation()
+        SVProgressHUD.show()
     }
     
     @objc func close() {
@@ -38,6 +38,6 @@ class InfoViewController: UIViewController, WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        self.view.stopLoadingAnimation()
+        SVProgressHUD.dismiss()
     }
 }

@@ -27,7 +27,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     var items: [(String,[(String,String,Selector)])] {
         var section = [
             ("AssistKeyboard","",#selector(assistBar)),
-            ("EnableCloud","",#selector(enableCloud)),
+//            ("EnableCloud","",#selector(enableCloud)),
             ]
         if !Configure.shared.isPro {
             section.insert(("Premium","",#selector(premium)), at: 0)
@@ -220,7 +220,7 @@ extension SettingsViewController {
         
         guard let subPaths = FileManager.default.subpaths(atPath: path) else { return }
         
-        let items = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}
+        let items = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}.sorted(by: >)
         let index = items.index{ Configure.shared.markdownStyle.value == $0 }
         let wraper = OptionsWraper(selectedIndex: index, editable: true, title: /"Style", items: items) {
             Configure.shared.markdownStyle.value = $0.toString

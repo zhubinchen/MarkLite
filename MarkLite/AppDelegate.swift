@@ -69,6 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ColorCenter.shared.theme = theme
             UIApplication.shared.statusBarStyle = theme == .black ? .lightContent : .default
         })
+        
     }
     
 }

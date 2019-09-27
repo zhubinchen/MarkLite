@@ -1,0 +1,86 @@
+p{font-size:15px; line-height:28px; color:#595959;font-family:微软雅黑}
+pre, code{font-size:14px;  font-family: Roboto, 'Courier New', Consolas, Inconsolata, Courier, monospace;}
+code{margin:0 3px;  padding:0 6px;  white-space: pre-wrap;  background-color:#F8F8F8;  border-radius:2px;  display: inline;}
+pre{font-size:15px;  line-height:20px;}
+precode{white-space: pre; overflow:auto; border-radius:3px; padding:5px10px; display: block !important;}
+strong, b{color:#BF360C;}
+em, i{color:#009688;}
+big{font-size:22px;  color:#009688;  font-weight: bold;  vertical-align: middle;  border-bottom:1px solid #eee;}
+small{font-size:12px;  line-height:22px;}
+hr{border-bottom:0.05em dotted #eee;  margin:10px auto;}
+p{margin:15px 5px!important;}
+table, pre, dl, blockquote, q, ul, ol{margin:10px 5px;}
+ul, ol{padding-left:10px;}
+li{margin:5px;}
+li p{margin:5px 0!important;}
+ul ul, ul ol, ol ul, ol ol{margin:0;  padding-left:10px;}
+ol ol, ul ol{list-style-type: lower-roman;}
+ul ul ol, ul ol ol, ol ul ol, ol ol ol{list-style-type: lower-alpha;}
+dl{padding:0;}
+dl dt{font-size:1em;  font-weight: bold;  font-style: italic;}
+dl dd{margin:0 0 10px;  padding:0 10px;}
+blockquote, q{border-left:3px solid #009688;  padding:0 10px;  color:#777;  quotes: none;}
+blockquote::before, blockquote::after, q::before, q::after{content: none;}
+h1, h2, h3, h4, h5, h6{margin:20px 0 10px;  padding:0;  font-weight: bold;  color:#009688;}
+h1{font-size:24px;  border-bottom:1px solid #ddd;}
+h2{font-size:22px;  border-bottom:1px solid #eee;}
+h3{font-size:18px; text-align: center;}
+h4{font-size:18px;}
+h5{font-size:16px;}
+h6{font-size:16px; color:#777;}
+table {
+  padding: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: 12p;
+  font: inherit;
+  border: 0;
+  margin: 0 auto;
+  color:#777;
+}
+tbody {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+table tr {
+  border: 0;
+  border-top: 1px solid #C7FFF1;
+  background-color: white;
+  margin: 0;
+  padding: 0;
+}
+table tr:nth-child(2n) {
+  background-color: #F8F8F8;
+}
+table tr th, table tr td {
+  font-size: 16px;
+  border: 1px solid #C7FFF1;
+  margin: 0;
+  padding: 5px 10px;
+}
+table tr th {
+  font-weight: bold;
+  border: 1px solid #F2FFF6;
+  background-color: #F2FFF6;
+}
+* {
+ -webkit-print-color-adjust: exact;
+}
+img {
+max-width: 100%; }
+
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:0 auto;
+    }
+}
+@media print {
+    table, pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}

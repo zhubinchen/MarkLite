@@ -85,8 +85,8 @@
 "Blockquote"="引用";
 "Delection"="要删除的文本";
 "EnterCode"="代码";
-"EnterLink"="在这输入连接描述";
-"EnterPlaceholder"="在这输入图片占位文本";
+"EnterLink"="在这输入链接描述";
+"EnterPlaceholder"="Alt";
 
 "PickImage"="选取图片";
 "Photo"="相册";

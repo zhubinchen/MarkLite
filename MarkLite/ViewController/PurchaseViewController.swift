@@ -49,13 +49,13 @@ class PurchaseViewController: UIViewController {
     }
     
     @IBAction func restore(_ sender: UIButton!) {
-        self.view.startLoadingAnimation()
+        SVProgressHUD.show()
 
         IAP.restorePurchases { (identifiers, error) in
             if let err = error {
                 print(err.localizedDescription)
                 self.showAlert(title: /"RestoreFailed")
-                self.view.stopLoadingAnimation()
+                SVProgressHUD.dismiss()
                 return
             }
             Configure.shared.checkProAvailable({ (availabel) in
@@ -65,7 +65,7 @@ class PurchaseViewController: UIViewController {
                 } else {
                     self.showAlert(title: /"RestoreFailed")
                 }
-                self.view.stopLoadingAnimation()
+                SVProgressHUD.dismiss()
             })
             print(identifiers)
         }
@@ -88,15 +88,15 @@ class PurchaseViewController: UIViewController {
     }
     
     func purchaseProduct(_ identifier: String) {
-        self.view.startLoadingAnimation()
+        SVProgressHUD.show()
         IAP.requestProducts([identifier]) { (response, error) in
             guard let product = response?.products.first else {
-                self.view.stopLoadingAnimation()
+                SVProgressHUD.dismiss()
                 return
             }
             IAP.purchaseProduct(product.productIdentifier, handler: { (identifier, error) in
                 if error != nil {
-                    self.view.stopLoadingAnimation()
+                    SVProgressHUD.dismiss()
                     print(error?.localizedDescription ?? "")
                     return
                 }
@@ -112,7 +112,7 @@ class PurchaseViewController: UIViewController {
                     } else {
                         self.showAlert(title: /"SubscribeFailed")
                     }
-                    self.view.stopLoadingAnimation()
+                    SVProgressHUD.dismiss()
                 })
             })
         }

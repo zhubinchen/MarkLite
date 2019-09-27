@@ -85,8 +85,8 @@
 "Blockquote"="Blockquote";
 "Delection"="Delection";
 "EnterCode"="Enter code here";
-"EnterLink"="Enter link description here";
-"EnterPlaceholder"="Enter placeholder here";
+"EnterLink"="Link description";
+"EnterPlaceholder"="Alt";
 
 "PickImage"="Pick an image";
 "Photo"="Image Library";

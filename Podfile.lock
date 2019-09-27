@@ -6,6 +6,7 @@ PODS:
     - RxSwift (~> 4.0)
   - RxSwift (4.3.0)
   - SnapKit (4.2.0)
+  - SVProgressHUD (2.2.5)
   - UMCAnalytics (6.0.5):
     - UMCCommon
   - UMCCommon (2.1.0)
@@ -18,6 +19,7 @@ DEPENDENCIES:
   - RxCocoa
   - RxSwift
   - SnapKit
+  - SVProgressHUD
   - UMCAnalytics
   - Zip
 
@@ -29,6 +31,7 @@ SPEC REPOS:
     - RxCocoa
     - RxSwift
     - SnapKit
+    - SVProgressHUD
     - UMCAnalytics
     - UMCCommon
     - Zip
@@ -40,10 +43,11 @@ SPEC CHECKSUMS:
   RxCocoa: 71b9cce833fbcb89a8eec11816dd225830c2bd3c
   RxSwift: a9717a34df3179fe63563f76e046ad345078dd3a
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   UMCAnalytics: 045be2cd1ec05aa95ad62405a850757f932e2d59
   UMCCommon: c9637200488c482b30cdebebb0bd595b9adf0847
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 93ecb5aee44099c084a139dfee9d0b57aaa38f79
+PODFILE CHECKSUM: d5084f423ceeaa1daaf9bca7f3dc24c7c3447ec2
 
 COCOAPODS: 1.5.3

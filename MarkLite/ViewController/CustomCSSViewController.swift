@@ -52,7 +52,7 @@ class CustomCSSViewController: UITableViewController {
 
         guard let url = try? urlTextfield.text?.trimmed().asURL() else { return }
         guard url != nil else { return }
-        self.view.startLoadingAnimation()
+        SVProgressHUD.show()
         request(url!).responseData { resp in
             print(resp)
             guard resp.error == nil else {
@@ -61,7 +61,7 @@ class CustomCSSViewController: UITableViewController {
             }
             guard let data = resp.data else { return }
             FileManager.default.createFile(atPath: destPath, contents: data, attributes: nil)
-            self.view.stopLoadingAnimation()
+            SVProgressHUD.dismiss()
         }
     }
 }

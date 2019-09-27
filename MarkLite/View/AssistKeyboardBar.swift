@@ -197,9 +197,9 @@ class AssistKeyboardBar: UIView {
         let text = textView.text.substring(with: currentRange)
         let isEmpty = text.length == 0
         let insertText = isEmpty ? /"StrongText": text
-        textView.insertText("**\(insertText)**")
+        textView.insertText(" **\(insertText)**")
         if isEmpty {
-            textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
+            textView.selectedRange = NSMakeRange(currentRange.location + 3, insertText.length)
         }
     }
     @objc func tapItalic() {
@@ -209,9 +209,9 @@ class AssistKeyboardBar: UIView {
         let text = textView.text.substring(with: currentRange)
         let isEmpty = text.length == 0
         let insertText = isEmpty ? /"EmphasizedText": text
-        textView.insertText("*\(insertText)*")
+        textView.insertText(" *\(insertText)*")
         if isEmpty {
-            textView.selectedRange = NSMakeRange(currentRange.location + 1, insertText.length)
+            textView.selectedRange = NSMakeRange(currentRange.location + 3, insertText.length)
         }
     }
     
@@ -232,7 +232,7 @@ class AssistKeyboardBar: UIView {
 //        textView.insertText("![\(insertText)](\(fileURL))")
 //        textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
         
-        viewController?.view.startLoadingAnimation()
+        SVProgressHUD.show()
         upload(multipartFormData: { (formData) in
             formData.append(data, withName: "smfile", fileName: "temp", mimeType: "image/jpg")
         }, to: imageUploadUrl) { (result) in
@@ -248,16 +248,16 @@ class AssistKeyboardBar: UIView {
                             let insertText = /"EnterPlaceholder"
                             textView.insertText("![\(insertText)](\(url))")
                             textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
-                            self.viewController?.view.stopLoadingAnimation()
+                            SVProgressHUD.dismiss()
                         }
                     } else if case .failure(let error) = response.result {
-                        print(error.localizedDescription)
-                        self.viewController?.view.stopLoadingAnimation()
+                        SVProgressHUD.dismiss()
+                        SVProgressHUD.showError(withStatus: error.localizedDescription)
                     }
                 })
             case .failure(let error):
-                print(error.localizedDescription)
-                self.viewController?.view.stopLoadingAnimation()
+                SVProgressHUD.dismiss()
+                SVProgressHUD.showError(withStatus: error.localizedDescription)
             }
         }
     }

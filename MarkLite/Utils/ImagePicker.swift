@@ -58,7 +58,9 @@ class ImagePicker: NSObject {
         case .notDetermined:
             PHPhotoLibrary.requestAuthorization({ [unowned self] (status) in
                 if status == .authorized {
-                    self.showImagePickerFor(sourceType: .photoLibrary)
+                    DispatchQueue.main.async {
+                        self.showImagePickerFor(sourceType: .photoLibrary)
+                    }
                 }
             })
         case .authorized:
