@@ -121,11 +121,11 @@ struct MarkdownHighlightManager {
         Syntax("!\\[[^\\]]+\\]\\([^\\)]+\\)") {
             $0.textColor = rgb(50,90,160)
         },//Images
-        Syntax("(\\*|_)(.+?)\\1") {
+        Syntax("(\\*|_)(\\S+?)\\1") {
             $0.textColor = Configure.shared.theme.value == .black ? rgb(210,200,190) : rgb(23,27,33)
             $0.italic = true
         },//Emphasis
-        Syntax("(\\*\\*|__)(.+?)\\1") {
+        Syntax("(\\*\\*|__)(\\S+?)\\1") {
             $0.textColor = Configure.shared.theme.value == .black ? rgb(210,200,190) : rgb(23,27,33)
             $0.bold = true
         },//Bold

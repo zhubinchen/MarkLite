@@ -43,7 +43,7 @@ class Configure: NSObject, NSCoding {
     var isCloudEnabled = false
     let isAssistBarEnabled = Variable(true)
     let markdownStyle = Variable("GitHub")
-    let highlightStyle = Variable("github")
+    let highlightStyle = Variable("tomorrow")
     let theme = Variable(Theme.white)
     let splitOption = Variable(SplitOption.automatic)
 
@@ -68,13 +68,17 @@ class Configure: NSObject, NSCoding {
         try? FileManager.default.removeItem(atPath: tempPath)
         try? FileManager.default.createDirectory(atPath: tempPath, withIntermediateDirectories: true, attributes: nil)
         if appVersion != currentVerion {
-            upgrade()
+            reset()
         }
     }
     
     func reset() {
         upgradeDate = Date()
         currentVerion = appVersion
+        markdownStyle.value = "GitHub"
+        highlightStyle.value = "tomorrow"
+        theme.value = .white
+        splitOption.value = .automatic
         
         let destStylePath = URL(fileURLWithPath: supportPath)
         try! Zip.unzipFile(Bundle.main.url(forResource: "Resources", withExtension: "zip")!, destination: destStylePath, overwrite: true, password: nil, progress: nil)
@@ -87,14 +91,6 @@ class Configure: NSObject, NSCoding {
 //        }
         
         try? FileManager.default.createDirectory(atPath: imagePath, withIntermediateDirectories: true, attributes: nil)
-        save()
-    }
-    
-    func upgrade() {
-        reset()
-
-        currentVerion = appVersion
-        upgradeDate = Date()
         save()
     }
     
@@ -128,7 +124,7 @@ class Configure: NSObject, NSCoding {
         isCloudEnabled = aDecoder.decodeBool(forKey: "isCloudEnabled")
         isAssistBarEnabled.value = aDecoder.decodeBool(forKey: "isAssistBarEnabled")
         markdownStyle.value = aDecoder.decodeObject(forKey: "markdownStyle") as? String ?? "GitHub"
-        highlightStyle.value = aDecoder.decodeObject(forKey: "highlightStyle") as? String ?? "rainbow"
+        highlightStyle.value = aDecoder.decodeObject(forKey: "highlightStyle") as? String ?? "tomorrow"
         theme.value = Theme(rawValue:aDecoder.decodeObject(forKey: "theme") as? String ?? "") ?? .white
         splitOption.value = SplitOption(rawValue: aDecoder.decodeObject(forKey: "splitOption") as? String ?? "") ?? .automatic
     }

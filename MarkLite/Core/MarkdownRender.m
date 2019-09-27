@@ -103,7 +103,7 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
 - (instancetype)init {
     if (self = [super init]) {
         self.styleName = @"GitHub";
-        self.highlightName = @"androidstudio";
+        self.highlightName = @"tomorrow";
         self.title = @"Title";
     }
     return self;
