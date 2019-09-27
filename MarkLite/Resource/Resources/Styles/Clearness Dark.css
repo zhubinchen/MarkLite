@@ -14,7 +14,7 @@ body {
     font-size: 16px;
     line-height: 18px;
     color: #fff;
-    background-color: #282a36;
+    background-color: #202020;
     margin: 5px 5px 5px 5px;
 }
 table {
@@ -120,7 +120,7 @@ pre {
     word-wrap: break-word;
 }
 pre code {
-    background-color: #282a36;
+    background-color: #202020;
     color: #ff4a14;
     font-size: 13px;
     padding: 0;

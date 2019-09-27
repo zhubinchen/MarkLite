@@ -11,14 +11,29 @@ import RxSwift
 import RxCocoa
 import Zip
 
+enum SplitOption: String {
+    case automatic
+    case never
+    case always
+    
+    var displayName: String {
+        switch self {
+        case .automatic:
+            return /"Automatic"
+        case .never:
+            return /"Never"
+        case .always:
+            return /"Always"
+        }
+    }
+}
+
 class Configure: NSObject, NSCoding {
     
     static let configureFile = configPath + "/Configure.plist"
     
     var newVersionAvaliable = false
-    
-    let isLandscape = Variable(false)
-    
+        
     var currentVerion: String?
     var upgradeDate = Date()
     var alertDate = Date()
@@ -27,10 +42,11 @@ class Configure: NSObject, NSCoding {
     var isPro = false
     var isCloudEnabled = false
     let isAssistBarEnabled = Variable(true)
-    let markdownStyle = Variable("GitHub2")
+    let markdownStyle = Variable("GitHub")
     let highlightStyle = Variable("github")
     let theme = Variable(Theme.white)
-    
+    let splitOption = Variable(SplitOption.automatic)
+
     override init() {
         super.init()
     }
@@ -96,6 +112,7 @@ class Configure: NSObject, NSCoding {
         aCoder.encode(markdownStyle.value, forKey: "markdownStyle")
         aCoder.encode(highlightStyle.value, forKey: "highlightStyle")
         aCoder.encode(theme.value.rawValue, forKey: "theme")
+        aCoder.encode(splitOption.value.rawValue, forKey: "splitOption")
         aCoder.encode(upgradeDate, forKey: "upgradeDate")
         aCoder.encode(alertDate, forKey: "alertDate")
     }
@@ -110,9 +127,10 @@ class Configure: NSObject, NSCoding {
         hasRate = aDecoder.decodeBool(forKey: "hasRate")
         isCloudEnabled = aDecoder.decodeBool(forKey: "isCloudEnabled")
         isAssistBarEnabled.value = aDecoder.decodeBool(forKey: "isAssistBarEnabled")
-        markdownStyle.value = aDecoder.decodeObject(forKey: "markdownStyle") as? String ?? "GitHub2"
+        markdownStyle.value = aDecoder.decodeObject(forKey: "markdownStyle") as? String ?? "GitHub"
         highlightStyle.value = aDecoder.decodeObject(forKey: "highlightStyle") as? String ?? "rainbow"
         theme.value = Theme(rawValue:aDecoder.decodeObject(forKey: "theme") as? String ?? "") ?? .white
+        splitOption.value = SplitOption(rawValue: aDecoder.decodeObject(forKey: "splitOption") as? String ?? "") ?? .automatic
     }
     
     func checkProAvailable(_ completion:((Bool)->Void)? = nil){

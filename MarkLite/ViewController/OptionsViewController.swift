@@ -26,6 +26,12 @@ extension Theme: StringConvertible {
     }
 }
 
+extension SplitOption: StringConvertible {
+    var toString: String {
+        return displayName
+    }
+}
+
 extension String: StringConvertible {
     var toString: String {
         return self
@@ -40,6 +46,9 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navBar?.setBarTintColor(.navBar)
+        navBar?.setContentColor(.navBarTint)
         
         title = options.title
         items = options.items

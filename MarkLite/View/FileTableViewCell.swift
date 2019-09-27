@@ -15,8 +15,8 @@ class FileTableViewCell: UITableViewCell {
     @IBOutlet weak var sizeLabel: UILabel!
     @IBOutlet weak var selectedMark: UIView!
     
-    let selectedMarkView = UIView(hexString: "333333")
-    let selectedBg = UIView(hexString: "e0e0e0")
+    let selectedMarkView = UIView(hexString: "000000")
+    let selectedBg = UIView(hexString: "000000")
     var file: File! {
         didSet {
             nameLabel.text = file.name

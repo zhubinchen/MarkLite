@@ -68,6 +68,8 @@ class FileListViewController: UIViewController {
             })
         }
         
+        emptyView.setBackgroundColor(.background)
+        
         setupUI()
         loadFiles()
     }

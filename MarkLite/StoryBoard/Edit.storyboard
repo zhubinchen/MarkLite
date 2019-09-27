@@ -156,6 +156,9 @@
                                     <constraint firstItem="Zns-Dc-Cfg" firstAttribute="width" secondItem="XJt-c3-kNb" secondAttribute="width" id="sLc-1j-WLH"/>
                                     <constraint firstItem="Zns-Dc-Cfg" firstAttribute="height" secondItem="DJa-dk-TN5" secondAttribute="height" id="xdz-Af-V2c"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="kJS-Hc-QJ3" id="F8A-Cp-qDm"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -56,9 +56,7 @@ class TextViewController: UIViewController {
                 self.editView.inputAccessoryView = nil
             }
         }).disposed(by: bag)
-        
-        Configure.shared.isLandscape.asObservable().map{!$0}.bind(to: seperator.rx.isHidden).disposed(by: bag)
-        
+                
         Configure.shared.theme.asObservable().subscribe(onNext: { [weak self] _ in
             self?.manager = MarkdownHighlightManager()
             self?.textChanged()

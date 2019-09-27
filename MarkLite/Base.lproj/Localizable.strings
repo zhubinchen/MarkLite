@@ -22,7 +22,7 @@
 "ReleaseToRefresh"="Release to Refresh";
 
 "Untitled"="Untitled";
-"UntitledFolder"="UntitledFolder";
+"UntitledFolder"="Untitled folder";
 
 "Preview"="Preview";
 "Undo"="Undo";
@@ -103,6 +103,10 @@
 "ThemePurple"="Purple";
 "ThemePink"="Pink";
 "ThemeGreen"="Green";
+
+"Automatic"="Automatic";
+"Never"="Never";
+"Always"="Always";
 
 "PremiumOnly"="Subscribe to Premium to Unlock This Feature";
 "PremiumTips"="Every new user has 7-days free trial";

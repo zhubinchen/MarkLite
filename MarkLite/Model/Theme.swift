@@ -33,9 +33,9 @@ extension Theme {
     var colors: [UIColor] {
         switch self {
         case .white:
-            return [rgb("ffffff")!,rgb("333333")!,rgb("ffffff")!,rgb("f2f2f2")!,rgba("333333", 0.8)!,rgba("333333", 0.5)!]
+            return [rgb("ffffff")!,rgb("202020")!,rgb("ffffff")!,rgb("f2f2f2")!,rgba("202020", 0.8)!,rgba("202020", 0.5)!]
         case .black:
-            return [rgb("313231")!,rgb("cccccc")!,rgb("313231")!,rgb("333333")!,rgba("cccccc", 0.8)!,rgba("cccccc", 0.5)!]
+            return [rgb("202020")!,rgb("cccccc")!,rgb("202020")!,rgb("202020")!,rgba("cccccc", 0.8)!,rgba("cccccc", 0.5)!]
         case .blue:
             return [rgb("0291D4")!,rgb("ffffff")!,rgb("ffffff")!,rgb("f2f2f2")!,rgba("0291D4", 0.8)!,rgba("0291D4", 0.5)!]
         case .purple:

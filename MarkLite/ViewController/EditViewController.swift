@@ -30,7 +30,7 @@ enum ExportType: String {
     }
 }
 
-class EditViewController: UIViewController,ImageSaver {
+class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UISplitViewControllerDelegate,UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var textViewWidth: NSLayoutConstraint!
     
@@ -39,22 +39,87 @@ class EditViewController: UIViewController,ImageSaver {
             self.title = file?.name
         }
     }
+    
+    var landscape: Bool {
+        return windowWidth > windowHeight
+    }
+    
+    var split: Bool {
+        if Configure.shared.splitOption.value == .always {
+            return true
+        }
+        if Configure.shared.splitOption.value == .never {
+            return false
+        }
+        return landscape
+    }
+    
     var timer: Timer?
     var markdownToRender: String?
 
     var webVC: WebViewController!
     var textVC: TextViewController!
-    
-    var showExport = true
+
+    var webVisible = true
     let bag = DisposeBag()
     let markdownRenderer = MarkdownRender.shared()
     let pdfRender = PdfRender()
-
+    
     override var title: String? {
         didSet {
             markdownRenderer?.title = title
         }
     }
+    
+    lazy var exportButton: UIBarButtonItem = {
+        let export = UIBarButtonItem(image: #imageLiteral(resourceName: "export"), style: .plain, target: self, action: #selector(showExportMenu(_:)))
+        return export
+    }()
+    
+    lazy var styleButton: UIBarButtonItem = {
+        let export = UIBarButtonItem(image: #imageLiteral(resourceName: "style"), style: .plain, target: self, action: #selector(style(_:)))
+        return export
+    }()
+    
+    lazy var previewButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: /"Preview", style: .plain, target: self, action: #selector(preview))
+        return button
+    }()
+    
+    lazy var fullscreenButton: UIBarButtonItem = {
+        let export = UIBarButtonItem(image: #imageLiteral(resourceName: "fullscreen"), style: .plain, target: self, action: #selector(fullscreen))
+        return export
+    }()
+    
+    lazy var filelistButton: UIBarButtonItem = {
+        let export = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_files"),
+                    landscapeImagePhone: #imageLiteral(resourceName: "nav_files"),
+                    style: .plain,
+                    target: splitViewController?.displayModeButtonItem.target,
+                    action: splitViewController?.displayModeButtonItem.action)
+        return export
+    }()
+    
+    lazy var styleVC: UIViewController? = {
+        let path = resourcesPath + "/Styles/"
+        
+        guard let subPaths = FileManager.default.subpaths(atPath: path) else { return nil}
+        
+        let items = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}
+        let index = items.index{ Configure.shared.markdownStyle.value == $0 }
+        let wraper = OptionsWraper(selectedIndex: index, editable: true, title: /"Style", items: items) {
+            Configure.shared.markdownStyle.value = $0.toString
+        }
+
+        let vc = OptionsViewController()
+        vc.options = wraper
+        
+        let nav = UINavigationController(rootViewController: vc)
+        nav.preferredContentSize = CGSize(width:260, height: 340)
+        nav.modalPresentationStyle = .popover
+
+        return nav
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,26 +127,44 @@ class EditViewController: UIViewController,ImageSaver {
         if let popGestureRecognizer = self.navigationController?.interactivePopGestureRecognizer {
             scrollView.panGestureRecognizer.require(toFail: popGestureRecognizer)
         }
-        
+                
         if self.file != nil {
             setup()
         }
         
         if let splitViewController = self.splitViewController {
-            let item = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_files"),
+            
+            navigationItem.leftBarButtonItem  = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_files"),
             landscapeImagePhone: #imageLiteral(resourceName: "nav_files"),
             style: .plain,
-            target: splitViewController.displayModeButtonItem.target,
-            action: splitViewController.displayModeButtonItem.action)
-            navigationItem.leftBarButtonItem = item
-            navigationItem.leftItemsSupplementBackButton = true
+            target: self,
+            action: #selector(fullscreen))
+                
+            splitViewController.delegate = self
         }
+        
+        Configure.shared.splitOption.asObservable().subscribe(onNext: { [unowned self] _ in
+            self.textViewWidth.priority = self.split ? UILayoutPriority.required : .defaultLow
+            self.textVC.seperator.isHidden = self.split == false
+            self.toggleRightBarButton()
+        }).disposed(by: bag)
         
         navBar?.setBarTintColor(.navBar)
         navBar?.setContentColor(.navBarTint)
         addNotificationObserver(NSNotification.Name.UIApplicationWillTerminate.rawValue, selector: #selector(applicationWillTerminate))
         addNotificationObserver(NSNotification.Name.UIApplicationDidEnterBackground.rawValue, selector: #selector(applicationWillTerminate))
+        addNotificationObserver(Notification.Name.UIApplicationWillChangeStatusBarOrientation.rawValue, selector: #selector(deviceOrientationWillChange))
         addNotificationObserver("FileLoadFinished", selector: #selector(fileLoadFinished(_:)))
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        textViewWidth.priority = split ? UILayoutPriority.required : .defaultLow
+        textVC.seperator.isHidden = split == false
+        toggleRightBarButton()
+        if isPad {
+            navigationItem.leftBarButtonItem = landscape ? fullscreenButton : filelistButton
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -89,22 +172,10 @@ class EditViewController: UIViewController,ImageSaver {
         file?.save()
     }
     
-    @objc func applicationWillTerminate() {
-        file?.save()
-    }
-    
-    @objc func fileLoadFinished(_ noti: Notification) {
-        guard let file = noti.object as? File else { return }
-        self.file = file
-    }
-    
     func setup() {
         guard let file = self.file else {
             return
         }
-        scrollView.rx.contentOffset.map{ $0.x > windowWidth - 10 }.subscribe(onNext: { [weak self] showExport in
-            self?.toggleBarButton(showExport)
-        }).disposed(by: bag)
                 
         textVC.textChangedHandler = { [weak self] text in
             file.text = text
@@ -137,31 +208,63 @@ class EditViewController: UIViewController,ImageSaver {
         textVC.textChanged()
     }
     
-    func toggleBarButton(_ showExport: Bool) {
-        textVC.editView.resignFirstResponder()
-
-        if self.showExport == showExport {
+    @objc func applicationWillTerminate() {
+        file?.save()
+    }
+    
+    @objc func deviceOrientationWillChange() {
+        splitViewController?.preferredDisplayMode = .automatic
+    }
+    
+    @objc func fileLoadFinished(_ noti: Notification) {
+        guard let file = noti.object as? File else { return }
+        self.file = file
+    }
+    
+    @objc func style(_ sender: UIBarButtonItem) {
+        guard let styleVC = self.styleVC, let popoverVC = styleVC.popoverPresentationController else {
             return
         }
-        self.showExport = showExport
-        if showExport {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "export"), style: .plain, target: self, action: #selector(showExportMenu(_:)))
+        popoverVC.backgroundColor = UIColor.white
+        popoverVC.delegate = self
+        popoverVC.barButtonItem = sender
+        present(styleVC, animated: true, completion: nil)
+    }
+    
+    @objc func preview() {
+        textVC.editView.resignFirstResponder()
+        scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)
+        toggleRightBarButton()
+    }
+    
+    @objc func fullscreen() {
+        UIView.animate(withDuration: 0.5) {
+            if self.splitViewController?.preferredDisplayMode != .primaryHidden {
+                self.splitViewController?.preferredDisplayMode = .primaryHidden
+            } else {
+                self.splitViewController?.preferredDisplayMode = .allVisible
+            }
+        }
+    }
+    
+    func toggleRightBarButton() {
+        webVisible = scrollView.contentOffset.x > windowWidth - 10
+        
+        if webVisible || split {
+            navigationItem.rightBarButtonItems = [exportButton,styleButton]
         } else {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: /"Preview", style: .plain, target: self, action: #selector(preview))
+            navigationItem.rightBarButtonItems = [previewButton]
         }
     }
     
     @objc func showExportMenu(_ sender: Any) {
         textVC.editView.resignFirstResponder()
-        if isPad && Configure.shared.isLandscape.value == false {
-            scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)
-        }
         
         let items = [ExportType.markdown,.pdf,.html,.image]
         var pos = CGPoint(x: windowWidth - 140, y: 65)
         if let view = sender as? UIView {
             pos = view.origin
-            if Configure.shared.isLandscape.value {
+            if self.landscape {
                 pos.x += 44
             } else {
                 pos.y += 44
@@ -231,11 +334,6 @@ class EditViewController: UIViewController,ImageSaver {
         }
     }
     
-    @objc func preview() {
-        textVC.editView.resignFirstResponder()
-        scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)
-    }
-
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? TextViewController {
             textVC = vc
@@ -252,16 +350,27 @@ class EditViewController: UIViewController,ImageSaver {
         return true
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        textViewWidth.priority = windowWidth > windowHeight ? UILayoutPriority.required : .defaultLow
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         file?.save()
     }
     
+    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+        toggleRightBarButton()
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        toggleRightBarButton()
+    }
+    
+    func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewControllerDisplayMode) {
+
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+        
     deinit {
         timer?.invalidate()
         removeNotificationObserver()

@@ -44,15 +44,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return true
     }
-    
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        ApplicationWillTerminate.post(info: nil)
         Configure.shared.save()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        ApplicationWillTerminate.post(info: nil)
         Configure.shared.save()
     }
     
@@ -70,11 +67,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         _ = Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in
             ColorCenter.shared.theme = theme
-        })
-        
-        _ = Observable.combineLatest(Configure.shared.theme.asObservable(), Configure.shared.isLandscape.asObservable()){ $0 == .black || ($0 != .white && !$1) }.subscribe(onNext: { (light) in
-            UIApplication.shared.statusBarStyle = light ? .lightContent : .default
+            UIApplication.shared.statusBarStyle = theme == .black ? .lightContent : .default
         })
     }
+    
 }
 

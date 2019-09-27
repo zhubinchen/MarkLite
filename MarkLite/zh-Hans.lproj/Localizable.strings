@@ -104,6 +104,10 @@
 "ThemePink"="脑残粉";
 "ThemeGreen"="原谅绿";
 
+"Automatic"="横屏时分屏";
+"Never"="永不分屏";
+"Always"="始终分屏";
+
 "PremiumOnly"="该功能需开通高级帐户";
 "PremiumTips"="现在订阅可免费试用，限7天";
 "SubscribeNow"="免费试用";

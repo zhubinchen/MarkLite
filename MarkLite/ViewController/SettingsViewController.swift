@@ -28,10 +28,12 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         var section = [
             ("AssistKeyboard","",#selector(assistBar)),
             ("EnableCloud","",#selector(enableCloud)),
-            ("SplitOptions","",#selector(splitOption)),
             ]
         if !Configure.shared.isPro {
             section.insert(("Premium","",#selector(premium)), at: 0)
+        }
+        if isPad {
+            section.append(("SplitOptions","",#selector(splitOption)))
         }
         let items = [
             ("功能",section),
@@ -55,7 +57,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        preferredContentSize = CGSize(width: 320, height: 500)
         self.title = /"Settings"
         navBar?.setBarTintColor(.navBar)
         navBar?.setContentColor(.navBarTint)
@@ -155,15 +156,22 @@ extension SettingsViewController {
             if isPad {
                 let nav = UINavigationController(rootViewController: vc)
                 UIApplication.shared.keyWindow?.rootViewController?.presentVC(nav)
-            }
-            if let nav = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
+            } else if let nav = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
                 nav.pushViewController(vc, animated: true)
             }
         }
     }
     
     @objc func splitOption() {
+        let items = [SplitOption.automatic,.never,.always]
+        let index = items.index{ Configure.shared.splitOption.value == $0 }
 
+        let wraper = OptionsWraper(selectedIndex: index, editable: false, title: /"SplitOptions", items: items) {
+            Configure.shared.splitOption.value = $0 as! SplitOption
+        }
+        let vc = OptionsViewController()
+        vc.options = wraper
+        pushVC(vc)
     }
     
     @objc func downloadCSS() {
