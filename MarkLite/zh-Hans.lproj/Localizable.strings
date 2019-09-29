@@ -41,7 +41,7 @@
 "SplitOptions"="编辑预览分屏";
 "NightMode"="夜间模式";
 "Theme"="主题色";
-"Feedback"="问题与意见";
+"Contact"="联系开发者";
 "RateIt"="五星好评";
 "Style"="渲染样式";
 "CodeStyle"="代码块高亮";
@@ -52,6 +52,10 @@
 "StyleName"="样式名";
 "StyleURL"="CSS链接";
 "Download"="添加到本地";
+
+"ContactMessage"="如果你有任何好的建议或者使用遇到问题，你可以关注作者微博，或直接给作者发邮件";
+"Email"="写邮件";
+"Weibo"="去微博";
 
 "OK"="确定";
 "Close"="关闭";

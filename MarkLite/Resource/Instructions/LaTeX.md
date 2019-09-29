@@ -1,6 +1,4 @@
 
-### 数学公式的渲染需要网络，如果显示异常，请检查一下你网络
-
 ### 如何插入公式
 
 LaTeX的数学公式有两种：行中公式和独立公式。行中公式放在文中与其它文字混编，独立公式单独成行。
@@ -16,8 +14,11 @@ $[J_\alpha(x) = \sum_{m=0}^\infty \frac{(-1)^m}{m! \Gamma (m + \alpha + 1)} {\le
 ### 如何插入公式大括号
 
 矩阵：
-`$$\begin{bmatrix} 1&x&x^2\\\\ 1&y&y^2\\\\ 1&z&z^2 \end{bmatrix}$$ 
-vmatrix ||、Bmatrix{}、pmatrix()`
+
+```
+$$\begin{bmatrix} 1&x&x^2\\\\ 1&y&y^2\\\\ 1&z&z^2 \end{bmatrix}$$ 
+vmatrix ||、Bmatrix{}、pmatrix()
+```
 
 分段函数:
 
@@ -42,13 +43,21 @@ $$f(x)=
 
 ^表示上标, _表示下标。如果上下标的内容多于一个字符，要用{}把这些内容括起来当成一个整体。上下标是可以嵌套的，也可以同时使用。
 
-例子：`$x^{y^z}=(1+{\rm e}^x)^{-2xy^w}$`
+例子：
+
+```
+$x^{y^z}=(1+{\rm e}^x)^{-2xy^w}$
+```
 
 显示：$x^{y^z}=(1+{\rm e}^x)^{-2xy^w}$
 
 另外，如果要在左右两边都有上下标，可以用\sideset命令。
 
-例子：`$\sideset{^1_2}{^3_4}\bigotimes$`
+例子：
+
+```
+$\sideset{^1_2}{^3_4}\bigotimes$
+```
 
 显示：$\sideset{^1_2}{^3_4}\bigotimes$
 
@@ -59,13 +68,21 @@ $ \mathop{argmax}_{K} $
 
 ()、[]和|表示自己，{}表示{}。当要显示大号的括号或分隔符时，要用\left和\right命令。
 
-例子：`$f(x,y,z) = 3y^2z \left( 3+\frac{7x+5}{1+y^2} \right)$`
+例子：
+
+```
+$f(x,y,z) = 3y^2z \left( 3+\frac{7x+5}{1+y^2} \right)$
+```
 
 显示：$f(x,y,z) = 3y^2z \left( 3+\frac{7x+5}{1+y^2} \right)$
 
 有时候要用\left.或\right.进行匹配而不显示本身。
 
-例子：`$\left. \frac{{\rm d}u}{{\rm d}x} \right| _{x=0}$`
+例子：
+
+```
+$\left. \frac{{\rm d}u}{{\rm d}x} \right| _{x=0}$
+```
 
 显示：$ \left. \frac{{\rm d}u}{{\rm d}x} \right| _{x=0} $
 
@@ -85,7 +102,11 @@ $ \mathop{argmax}_{K} $
 
 数学公式中常见的省略号有两种，\ldots表示与文本底线对齐的省略号，\cdots表示与文本中线对齐的省略号。
 
-例子：`$f(x_1,x_2,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2$`
+例子：
+
+```
+$f(x_1,x_2,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2$
+```
 
 显示：$f(x_1,x_2,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2$
 
@@ -104,6 +125,7 @@ $ \mathop{argmax}_{K} $
 ### 如何输入极限运算
 
 例子：
+
 ```
 $\lim\limits_{n \rightarrow +\infty} \frac{1}{n(n+1)}$ 
 ```
@@ -113,13 +135,21 @@ $\lim\limits_{n \rightarrow +\infty} \frac{1}{n(n+1)}$
 
 ### 如何输入累加、累乘运算
 
-例子：`$$\sum_{i=0}^n \frac{1}{i^2}$　和　$\prod_{i=0}^n \frac{1}{i^2}$$`
+例子：
+
+```
+$$\sum_{i=0}^n \frac{1}{i^2}$　和　$\prod_{i=0}^n \frac{1}{i^2}$$
+```
 
 显示：$$\sum_{i=0}^n \frac{1}{i^2}$　和　$\prod_{i=0}^n \frac{1}{i^2}$$
 
 ### 如何进行公式应用
 
-例子：`$r = r_F+ \beta(r_M – r_F) + \epsilon$`
+例子：
+
+```
+$r = r_F+ \beta(r_M – r_F) + \epsilon$
+```
 
 显示： $r = r_F+ \beta(r_M – r_F) + \epsilon$
 

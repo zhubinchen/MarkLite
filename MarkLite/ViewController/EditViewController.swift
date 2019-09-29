@@ -37,6 +37,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
     var file: File? {
         didSet {
             self.title = file?.name
+            self.setup()
         }
     }
     
@@ -66,62 +67,6 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
     let markdownRenderer = MarkdownRender.shared()
     let pdfRender = PdfRender()
     
-    override var title: String? {
-        didSet {
-            markdownRenderer?.title = title
-        }
-    }
-    
-    lazy var exportButton: UIBarButtonItem = {
-        let export = UIBarButtonItem(image: #imageLiteral(resourceName: "export"), style: .plain, target: self, action: #selector(showExportMenu(_:)))
-        return export
-    }()
-    
-    lazy var styleButton: UIBarButtonItem = {
-        let export = UIBarButtonItem(image: #imageLiteral(resourceName: "style"), style: .plain, target: self, action: #selector(style(_:)))
-        return export
-    }()
-    
-    lazy var previewButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: /"Preview", style: .plain, target: self, action: #selector(preview))
-        return button
-    }()
-    
-    lazy var fullscreenButton: UIBarButtonItem = {
-        let export = UIBarButtonItem(image: #imageLiteral(resourceName: "fullscreen"), style: .plain, target: self, action: #selector(fullscreen))
-        return export
-    }()
-    
-    lazy var filelistButton: UIBarButtonItem = {
-        let export = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_files"),
-                    landscapeImagePhone: #imageLiteral(resourceName: "nav_files"),
-                    style: .plain,
-                    target: splitViewController?.displayModeButtonItem.target,
-                    action: splitViewController?.displayModeButtonItem.action)
-        return export
-    }()
-    
-    lazy var styleVC: UIViewController? = {
-        let path = resourcesPath + "/Styles/"
-        
-        guard let subPaths = FileManager.default.subpaths(atPath: path) else { return nil}
-        
-        let items = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}.sorted(by: >)
-        let index = items.index{ Configure.shared.markdownStyle.value == $0 }
-        let wraper = OptionsWraper(selectedIndex: index, editable: true, title: /"Style", items: items) {
-            Configure.shared.markdownStyle.value = $0.toString
-        }
-
-        let vc = OptionsViewController()
-        vc.options = wraper
-        
-        let nav = UINavigationController(rootViewController: vc)
-        nav.preferredContentSize = CGSize(width:260, height: 340)
-        nav.modalPresentationStyle = .popover
-
-        return nav
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -131,17 +76,6 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
                 
         if self.file != nil {
             setup()
-        }
-        
-        if let splitViewController = self.splitViewController {
-            
-            navigationItem.leftBarButtonItem  = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_files"),
-            landscapeImagePhone: #imageLiteral(resourceName: "nav_files"),
-            style: .plain,
-            target: self,
-            action: #selector(fullscreen))
-                
-            splitViewController.delegate = self
         }
         
         Configure.shared.splitOption.asObservable().subscribe(onNext: { [unowned self] _ in
@@ -178,9 +112,13 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
             return
         }
         
+        if isViewLoaded == false {
+            return
+        }
+        
         let path = tempPath + "/" + file.name + ".html"
         htmlURL = URL(fileURLWithPath: path)
-        webVC.webView.loadFileURL(htmlURL!, allowingReadAccessTo: URL(fileURLWithPath: supportPath, isDirectory: true))
+        webVC.webView.loadRequest(URLRequest(url:htmlURL!))
         
         textVC.textChangedHandler = { [weak self] text in
             file.text = text
@@ -229,7 +167,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
         self.file = file
     }
     
-    @objc func style(_ sender: UIBarButtonItem) {
+    @objc func showStylesView(_ sender: UIBarButtonItem) {
         guard let styleVC = self.styleVC, let popoverVC = styleVC.popoverPresentationController else {
             return
         }
@@ -249,8 +187,10 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
         UIView.animate(withDuration: 0.5) {
             if self.splitViewController?.preferredDisplayMode != .primaryHidden {
                 self.splitViewController?.preferredDisplayMode = .primaryHidden
+                self.navigationItem.leftBarButtonItem = self.exitFullscreenButton
             } else {
                 self.splitViewController?.preferredDisplayMode = .allVisible
+                self.navigationItem.leftBarButtonItem = self.fullscreenButton
             }
         }
     }
@@ -373,4 +313,65 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
         removeNotificationObserver()
         print("deinit edit_vc")
     }
+    
+    override var title: String? {
+           didSet {
+               markdownRenderer?.title = title
+           }
+       }
+       
+    lazy var exportButton: UIBarButtonItem = {
+           let export = UIBarButtonItem(image: #imageLiteral(resourceName: "export"), style: .plain, target: self, action: #selector(showExportMenu(_:)))
+           return export
+       }()
+       
+    lazy var styleButton: UIBarButtonItem = {
+           let export = UIBarButtonItem(image: #imageLiteral(resourceName: "style"), style: .plain, target: self, action: #selector(showStylesView(_:)))
+           return export
+       }()
+       
+    lazy var previewButton: UIBarButtonItem = {
+           let button = UIBarButtonItem(title: /"Preview", style: .plain, target: self, action: #selector(preview))
+           return button
+       }()
+       
+    lazy var fullscreenButton: UIBarButtonItem = {
+           let export = UIBarButtonItem(image: #imageLiteral(resourceName: "fullscreen"), style: .plain, target: self, action: #selector(fullscreen))
+           return export
+       }()
+       
+    lazy var exitFullscreenButton: UIBarButtonItem = {
+           let export = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_files"), style: .plain, target: self, action: #selector(fullscreen))
+           return export
+       }()
+       
+    lazy var filelistButton: UIBarButtonItem = {
+           let export = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_files"),
+                       landscapeImagePhone: #imageLiteral(resourceName: "nav_files"),
+                       style: .plain,
+                       target: splitViewController?.displayModeButtonItem.target,
+                       action: splitViewController?.displayModeButtonItem.action)
+           return export
+       }()
+       
+    lazy var styleVC: UIViewController? = {
+           let path = resourcesPath + "/Styles/"
+           
+           guard let subPaths = FileManager.default.subpaths(atPath: path) else { return nil}
+           
+           let items = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}.sorted(by: >)
+           let index = items.index{ Configure.shared.markdownStyle.value == $0 }
+           let wraper = OptionsWraper(selectedIndex: index, editable: true, title: /"Style", items: items) {
+               Configure.shared.markdownStyle.value = $0.toString
+           }
+
+           let vc = OptionsViewController()
+           vc.options = wraper
+           
+           let nav = UINavigationController(rootViewController: vc)
+           nav.preferredContentSize = CGSize(width:300, height:400)
+           nav.modalPresentationStyle = .popover
+
+           return nav
+       }()
 }

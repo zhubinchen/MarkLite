@@ -121,7 +121,7 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
     NSString *highlightPath = [NSString stringWithFormat:@"Highlight/highlight-style/%@.css",self.highlightName];
     NSString *highlightJS1 = @"Highlight/highlightjs/highlight.min.js";
     NSString *highlightJS2 = @"Highlight/highlightjs/swift.min.js";
-    NSString *MathJaxJS = @"https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js";
+    NSString *MathJaxJS = @"MathJax/tex-mml-chtml.js";
     return [self formatHTML:html title:(self.title?:@"") styles:@[stylePath,highlightPath] scripts:@[highlightJS1,highlightJS2,MathJaxJS]];
 }
 

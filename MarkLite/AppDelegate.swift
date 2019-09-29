@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UMConfigure.initWithAppkey(umengKey, channel: "App Store")
         Bugly.start(withAppId: buglyId)
         setup()
+    
         return true
     }
     
@@ -64,7 +65,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ColorCenter.shared.theme = theme
             UIApplication.shared.statusBarStyle = theme == .black ? .lightContent : .default
         })
-        
     }
     
 }

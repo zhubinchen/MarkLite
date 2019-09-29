@@ -56,6 +56,7 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>sinaweibo</string>
 		<string>dbapi-8-emm</string>
 		<string>dbapi-2</string>
 	</array>

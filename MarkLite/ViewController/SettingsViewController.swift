@@ -46,7 +46,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 ]),
             ("支持一下",[
                 ("RateIt","",#selector(rate)),
-                ("Feedback","",#selector(feedback))
+                ("Contact","",#selector(feedback))
                 ])
         ]
         return items;
@@ -185,7 +185,13 @@ extension SettingsViewController {
     }
     
     @objc func feedback() {
-        UIApplication.shared.openURL(URL(string: emailUrl)!)
+        showAlert(title: /"Contact", message: /"ContactMessage", actionTitles: [/"Cancel",/"Email",/"Weibo"]) { index in
+            if index == 1 {
+                UIApplication.shared.openURL(URL(string: emailUrl)!)
+            } else if index == 2 {
+                UIApplication.shared.openURL(URL(string: weiboURL)!)
+            }
+        }
     }
     
     @objc func night(_ sender: UISwitch) {

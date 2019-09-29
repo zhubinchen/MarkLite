@@ -41,7 +41,7 @@
 "SplitOptions"="Split Options";
 "NightMode"="Night mode";
 "Theme"="Theme";
-"Feedback"="Feedback";
+"Contact"="Contact us";
 "RateIt"="Rate it";
 "Style"="Style";
 "CodeStyle"="Code block";
@@ -52,6 +52,10 @@
 "StyleName"="Style Name";
 "StyleURL"="CSS URL";
 "Download"="Download";
+
+"ContactMessage"="If you have any suggestions or questions about this app, feel free to tell me please.";
+"Email"="Email";
+"Weibo"="Find me on Weibo";
 
 "OK"="OK";
 "Close"="Close";
