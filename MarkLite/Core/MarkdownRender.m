@@ -121,7 +121,7 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
     NSString *highlightPath = [NSString stringWithFormat:@"Highlight/highlight-style/%@.css",self.highlightName];
     NSString *highlightJS1 = @"Highlight/highlightjs/highlight.min.js";
     NSString *highlightJS2 = @"Highlight/highlightjs/swift.min.js";
-    NSString *MathJaxJS = @"MathJax/MathJax.js";
+    NSString *MathJaxJS = @"https://cdn.jsdelivr.net/npm/mathjax@3.0.0/es5/tex-mml-chtml.js";
     return [self formatHTML:html title:(self.title?:@"") styles:@[stylePath,highlightPath] scripts:@[highlightJS1,highlightJS2,MathJaxJS]];
 }
 
@@ -132,7 +132,11 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
         [styleSheets appendFormat:@"\n<link rel=\"stylesheet\" href=\"%@\"/>",[NSURL fileURLWithPath:[kStylePath stringByAppendingPathComponent:style]]];
     }
     for (NSString *script in scripts) {
-        [scriptsString appendFormat:@"\n<script src=\"%@\"></script>",[NSURL fileURLWithPath:[kStylePath stringByAppendingPathComponent:script]]];
+        if ([script hasPrefix:@"http"]) {
+            [scriptsString appendFormat:@"\n<script src=\"%@\"></script>",script];
+        } else {
+            [scriptsString appendFormat:@"\n<script src=\"%@\"></script>",[NSURL fileURLWithPath:[kStylePath stringByAppendingPathComponent:script]]];
+        }
     }
     static NSString *template = nil;
     static dispatch_once_t onceToken;

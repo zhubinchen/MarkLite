@@ -30,7 +30,6 @@
 		07E827521F5BF1BA0077A017 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827031F5BF1BA0077A017 /* MenuView.swift */; };
 		07E827551F5BF1BA0077A017 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827071F5BF1BA0077A017 /* EditViewController.swift */; };
 		07E827561F5BF1BA0077A017 /* FileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827081F5BF1BA0077A017 /* FileListViewController.swift */; };
-		07E827581F5BF1BA0077A017 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8270A1F5BF1BA0077A017 /* NavigationController.swift */; };
 		07E827591F5BF1BA0077A017 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8270B1F5BF1BA0077A017 /* OptionsViewController.swift */; };
 		07E8275A1F5BF1BA0077A017 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8270C1F5BF1BA0077A017 /* SettingsViewController.swift */; };
 		07E8275B1F5BF1BA0077A017 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8270D1F5BF1BA0077A017 /* TextViewController.swift */; };
@@ -49,7 +48,7 @@
 		760C29702320F3EC002E613E /* document.c in Sources */ = {isa = PBXBuildFile; fileRef = 760C29672320F3EB002E613E /* document.c */; };
 		760C29732320F3FA002E613E /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 760C29712320F3FA002E613E /* hoedown_html_patch.c */; };
 		7613F11F2325F6FE006EE3B9 /* Resources.zip in Resources */ = {isa = PBXBuildFile; fileRef = 7613F11D2325F6FE006EE3B9 /* Resources.zip */; };
-		7613F1242325F8AF006EE3B9 /* MathJax.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1202325F8AF006EE3B9 /* MathJax.md */; };
+		7613F1242325F8AF006EE3B9 /* LaTeX.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1202325F8AF006EE3B9 /* LaTeX.md */; };
 		7613F1272325F8AF006EE3B9 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1232325F8AF006EE3B9 /* ReadMe.md */; };
 		7613F12A2325FA02006EE3B9 /* 使用教程.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1282325FA02006EE3B9 /* 使用教程.md */; };
 		7613F12B2325FA02006EE3B9 /* 使用說明.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1292325FA02006EE3B9 /* 使用說明.md */; };
@@ -111,7 +110,6 @@
 		07E827031F5BF1BA0077A017 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		07E827071F5BF1BA0077A017 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		07E827081F5BF1BA0077A017 /* FileListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileListViewController.swift; sourceTree = "<group>"; };
-		07E8270A1F5BF1BA0077A017 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		07E8270B1F5BF1BA0077A017 /* OptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
 		07E8270C1F5BF1BA0077A017 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		07E8270D1F5BF1BA0077A017 /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
@@ -143,7 +141,7 @@
 		760C29712320F3FA002E613E /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
 		760C29722320F3FA002E613E /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
 		7613F11D2325F6FE006EE3B9 /* Resources.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Resources.zip; sourceTree = "<group>"; };
-		7613F1202325F8AF006EE3B9 /* MathJax.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = MathJax.md; path = Instructions/MathJax.md; sourceTree = "<group>"; };
+		7613F1202325F8AF006EE3B9 /* LaTeX.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = LaTeX.md; path = Instructions/LaTeX.md; sourceTree = "<group>"; };
 		7613F1232325F8AF006EE3B9 /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = ReadMe.md; path = Instructions/ReadMe.md; sourceTree = "<group>"; };
 		7613F1282325FA02006EE3B9 /* 使用教程.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "使用教程.md"; path = "Instructions/使用教程.md"; sourceTree = "<group>"; };
 		7613F1292325FA02006EE3B9 /* 使用說明.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "使用說明.md"; path = "Instructions/使用說明.md"; sourceTree = "<group>"; };
@@ -284,7 +282,7 @@
 				76E7F274233CB5E30051DF6A /* icon_logo.png */,
 				7613F1282325FA02006EE3B9 /* 使用教程.md */,
 				7613F1292325FA02006EE3B9 /* 使用說明.md */,
-				7613F1202325F8AF006EE3B9 /* MathJax.md */,
+				7613F1202325F8AF006EE3B9 /* LaTeX.md */,
 				7613F1232325F8AF006EE3B9 /* ReadMe.md */,
 				7613F11D2325F6FE006EE3B9 /* Resources.zip */,
 			);
@@ -334,7 +332,6 @@
 			children = (
 				07E827071F5BF1BA0077A017 /* EditViewController.swift */,
 				07E827081F5BF1BA0077A017 /* FileListViewController.swift */,
-				07E8270A1F5BF1BA0077A017 /* NavigationController.swift */,
 				07E8270B1F5BF1BA0077A017 /* OptionsViewController.swift */,
 				07E8270C1F5BF1BA0077A017 /* SettingsViewController.swift */,
 				76DFD720232926AC00F97D56 /* CustomCSSViewController.swift */,
@@ -604,7 +601,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7613F1242325F8AF006EE3B9 /* MathJax.md in Resources */,
+				7613F1242325F8AF006EE3B9 /* LaTeX.md in Resources */,
 				7613F12B2325FA02006EE3B9 /* 使用說明.md in Resources */,
 				7613F1272325F8AF006EE3B9 /* ReadMe.md in Resources */,
 				76E7F275233CB5E30051DF6A /* icon_logo.png in Resources */,
@@ -730,7 +727,6 @@
 				76C64C6922DC314100E2851F /* Date+Extension.swift in Sources */,
 				07E827491F5BF1BA0077A017 /* Constant.swift in Sources */,
 				76C64C6B22DC314100E2851F /* Bundle+Extension.swift in Sources */,
-				07E827581F5BF1BA0077A017 /* NavigationController.swift in Sources */,
 				07E827481F5BF1BA0077A017 /* Configure.swift in Sources */,
 				76C64C6022DC314100E2851F /* CLNavigationVC.swift in Sources */,
 				07E8275D1F5BF1BA0077A017 /* WrapViewController.swift in Sources */,

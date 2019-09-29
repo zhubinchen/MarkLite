@@ -11,7 +11,7 @@
         <!--Navigation Controller-->
         <scene sceneID="vdM-Ds-8Sc">
             <objects>
-                <navigationController id="GbO-q4-l0w" sceneMemberID="viewController">
+                <navigationController modalPresentationStyle="formSheet" id="GbO-q4-l0w" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="AVa-OT-oQ3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -53,7 +53,7 @@
         <!--Wrap View Controller-->
         <scene sceneID="reL-lE-bgg">
             <objects>
-                <splitViewController id="V8O-GX-0UX" customClass="WrapViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
+                <splitViewController preferredPrimaryColumnWidthFraction="0.29999999999999999" id="V8O-GX-0UX" customClass="WrapViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
                         <segue destination="xwV-ys-PIU" kind="relationship" relationship="masterViewController" id="cf9-O3-Cwj"/>
                         <segue destination="dMV-3u-vrK" kind="relationship" relationship="detailViewController" id="qvo-b5-ZJ5"/>
@@ -241,6 +241,6 @@
         <image name="empty_file" width="66.666664123535156" height="66.666664123535156"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xnN-SM-QNY"/>
+        <segue reference="qvo-b5-ZJ5"/>
     </inferredMetricsTieBreakers>
 </document>

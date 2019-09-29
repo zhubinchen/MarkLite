@@ -16,5 +16,4 @@ class WrapViewController: UISplitViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
 }

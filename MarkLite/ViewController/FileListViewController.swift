@@ -92,12 +92,6 @@ class FileListViewController: UIViewController {
             navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
         }
         
-        if isPad {
-            navigationController?.delegate = navigationController
-            navigationController?.delegate = navigationController
-            navigationController?.interactivePopGestureRecognizer?.delegate = navigationController
-        }
-        
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showCreateMenu))
         
         navBar?.setBarTintColor(.navBar)

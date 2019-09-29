@@ -30,6 +30,7 @@ class TextViewController: UIViewController {
 
     let bag = DisposeBag()
     var manager = MarkdownHighlightManager()
+    var offset: CGFloat = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,37 +60,10 @@ class TextViewController: UIViewController {
                 
         Configure.shared.theme.asObservable().subscribe(onNext: { [weak self] _ in
             self?.manager = MarkdownHighlightManager()
-            self?.textChanged()
+            self?.manager.highlight(self?.editView.text ?? "") { [weak self] (attrText) in
+                self?.didHighlight(attrText: attrText)
+            }
         }).disposed(by: bag)
-        
-        editView.rx.didChange.subscribe { [weak self] _ in
-            self?.textChanged()
-            }.disposed(by: bag)
-        
-        editView.rx.text.map{($0?.length ?? 0) > 0}
-            .bind(to: placeholderLabel.rx.isHidden)
-            .disposed(by: bag)
-        
-        editView.rx.contentOffset.map{$0.y}.subscribe(onNext: { [weak self] (offset) in
-            guard let this = self else { return }
-            this.offsetChangedHandler?(offset / this.editView.contentSize.height)
-        }).disposed(by: bag)
-    }
-    
-    func textChanged() {
-        DispatchQueue.main.async {
-            self.redoButton.isEnabled = self.editView.undoManager?.canRedo ?? false
-            self.undoButton.isEnabled = self.editView.undoManager?.canUndo ?? false
-        }
-
-        textChangedHandler?(editView.text)
-        countLabel.text = editView.text.length.toString + " " + /"Characters"
-        if editView.markedTextRange != nil {
-            return
-        }
-        manager.highlight(editView.text) { [weak self] (attrText) in
-            self?.didHighlight(attrText: attrText)  
-        }
     }
     
     func didHighlight(attrText: NSAttributedString) {
@@ -122,5 +96,34 @@ class TextViewController: UIViewController {
         removeNotificationObserver()
         print("deinit text_vc")
     }
+}
+
+extension TextViewController: UITextViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset.y
+        if offset == 0 || offset == self.offset {
+            return
+        }
+        self.offset = offset
+        offsetChangedHandler?(offset / max(scrollView.size.height,scrollView.contentSize.height))
+    }
     
+    func textViewDidChange(_ textView: UITextView) {
+        let text = editView.text ?? ""
+        placeholderLabel.isHidden = text.length > 0
+
+        DispatchQueue.main.async {
+            self.redoButton.isEnabled = self.editView.undoManager?.canRedo ?? false
+            self.undoButton.isEnabled = self.editView.undoManager?.canUndo ?? false
+        }
+
+        textChangedHandler?(editView.text)
+        countLabel.text = text.length.toString + " " + /"Characters"
+        if editView.markedTextRange != nil {
+            return
+        }
+        manager.highlight(editView.text) { [weak self] (attrText) in
+            self?.didHighlight(attrText: attrText)
+        }
+    }
 }

@@ -57,11 +57,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationBar = UINavigationBar.appearance()
         
         navigationBar.isTranslucent = false
-        navigationBar.shadowImage = UIImage(color: .clear, size: CGSize(width: 1000, height: 64))
-        let backImage = #imageLiteral(resourceName: "nav_back")
-        
-        navigationBar.backIndicatorImage = backImage
-        navigationBar.backIndicatorTransitionMaskImage = backImage
         
         Configure.shared.setup()
         

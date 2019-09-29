@@ -136,6 +136,9 @@ struct MarkdownHighlightManager {
         Syntax("\\$.*\\$") {
             $0.textColor = rgb(139,69,19)
         },//数学公式
+        Syntax("\\$\\$([\\s\\S]*?)\\$\\$",.anchorsMatchLines) {
+            $0.textColor = rgb(139,69,19)
+        },//多行数学公式
         Syntax("\\:\\\"(.*?)\\\"\\:"),//Quotes
         Syntax("`{1,2}[^`](.*?)`{1,2}") {
             $0.textColor = rgb(71,91,98)

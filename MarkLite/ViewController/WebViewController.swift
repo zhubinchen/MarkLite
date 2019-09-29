@@ -14,7 +14,7 @@ import SnapKit
 
 class WebViewController: UIViewController, UIWebViewDelegate {
     
-    let webView = UIWebView(frame: CGRect())
+    let webView = WKWebView(frame: CGRect())
     
     var offset: CGFloat = 0 {
         didSet {
@@ -24,19 +24,16 @@ class WebViewController: UIViewController, UIWebViewDelegate {
         }
     }
     
-    var htmlString = "" {
-        didSet {
-            print(htmlString)
-            webView.loadHTMLString(htmlString, baseURL: nil)
-        }
-    }
+    var timer: Timer?
+    
+    var contentChanged = false
             
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.addSubview(webView)
-        self.webView.delegate = self
-        self.webView.scalesPageToFit = true
+//        self.webView.navigationDelegate = self
+//        self.webView.scalesLargeContentImage = true
         
         if #available(iOS 11.0, *) {
             self.webView.scrollView.contentInsetAdjustmentBehavior = .never
@@ -49,6 +46,27 @@ class WebViewController: UIViewController, UIWebViewDelegate {
         webView.backgroundColor = .clear
         webView.isOpaque = false
         view.setBackgroundColor(.background)
+        
+        addNotificationObserver(Notification.Name.UIKeyboardWillChangeFrame.rawValue, selector: #selector(keyboardWillChange(_:)))
+        
+        timer = Timer.runThisEvery(seconds: 0.5) { [weak self] _ in
+            guard let this = self else { return }
+            if this.contentChanged {
+                this.webView.reload()
+                this.contentChanged = false
+            }
+        }
+    }
+    
+    @objc func keyboardWillChange(_ noti: NSNotification) {
+        guard let frame = (noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        webView.snp.remakeConstraints { make in
+            make.right.left.top.equalTo(0)
+            make.bottom.equalTo(-max(self.view.h - frame.y + 50,0))
+        }
+        UIView.animate(withDuration: 0.5, animations: {
+            self.view.layoutIfNeeded()
+        })
     }
     
     func webViewDidStartLoad(_ webView: UIWebView) {
@@ -63,6 +81,8 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     }
     
     deinit {
+        timer?.invalidate()
+        removeNotificationObserver()
         print("deinit web_vc")
     }
 }

@@ -21,6 +21,9 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Thonburi" family="Thonburi" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <connections>
+                                    <outlet property="delegate" destination="CPR-Rc-22a" id="tWk-Qb-oGh"/>
+                                </connections>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A59-fe-PiA">
                                 <rect key="frame" x="0.0" y="674" width="187.66666666666666" height="50"/>
@@ -32,7 +35,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aui-tE-OMW">
-                                        <rect key="frame" x="89.666666666666686" y="10" width="40.000000000000014" height="30"/>
+                                        <rect key="frame" x="89.666666666666671" y="10" width="40.000000000000014" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="bqg-pk-jlT"/>
                                         </constraints>

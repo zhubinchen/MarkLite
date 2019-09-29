@@ -77,10 +77,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         assitBarSwitch.addTarget(self, action: #selector(assistBar(_:)), for: .valueChanged)
         cloudSwitch.addTarget(self, action: #selector(enableCloud(_:)), for: .valueChanged)
         
-        navigationController?.delegate = navigationController
-        navigationController?.delegate = navigationController
-        navigationController?.interactivePopGestureRecognizer?.delegate = navigationController
-        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
     }
     
@@ -155,6 +151,7 @@ extension SettingsViewController {
         dismiss(animated: false) {
             if isPad {
                 let nav = UINavigationController(rootViewController: vc)
+                nav.modalPresentationStyle = .formSheet
                 UIApplication.shared.keyWindow?.rootViewController?.presentVC(nav)
             } else if let nav = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
                 nav.pushViewController(vc, animated: true)

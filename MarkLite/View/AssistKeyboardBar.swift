@@ -217,9 +217,15 @@ class AssistKeyboardBar: UIView {
     
     func didPickImage(_ image: UIImage) {
         imagePicker = nil
-        guard let textView = self.textView, var data = UIImageJPEGRepresentation(image, 0.9) else { return }
+        guard let textView = self.textView, var data = UIImageJPEGRepresentation(image, 0.8) else { return }
         if data.count > 1 * 1024 * 1024 {
-            if let newData = UIImageJPEGRepresentation(image, 0.7) {
+            if let newData = UIImageJPEGRepresentation(image, 0.6) {
+                data = newData
+            }
+        }
+        
+        if data.count > 1 * 1024 * 1024 {
+            if let newData = UIImageJPEGRepresentation(image, 0.4) {
                 data = newData
             }
         }

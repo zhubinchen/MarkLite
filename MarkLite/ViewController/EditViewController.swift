@@ -32,7 +32,7 @@ enum ExportType: String {
 
 class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UISplitViewControllerDelegate,UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var textViewWidth: NSLayoutConstraint!
+    @IBOutlet var textViewWidth: NSLayoutConstraint!
     
     var file: File? {
         didSet {
@@ -61,6 +61,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
     var textVC: TextViewController!
 
     var webVisible = true
+    var htmlURL: URL?
     let bag = DisposeBag()
     let markdownRenderer = MarkdownRender.shared()
     let pdfRender = PdfRender()
@@ -144,7 +145,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
         }
         
         Configure.shared.splitOption.asObservable().subscribe(onNext: { [unowned self] _ in
-            self.textViewWidth.priority = self.split ? UILayoutPriority.required : .defaultLow
+            self.textViewWidth.isActive = self.split
             self.textVC.seperator.isHidden = self.split == false
             self.toggleRightBarButton()
         }).disposed(by: bag)
@@ -159,7 +160,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        textViewWidth.priority = split ? UILayoutPriority.required : .defaultLow
+        textViewWidth.isActive = split
         textVC.seperator.isHidden = split == false
         toggleRightBarButton()
         if isPad {
@@ -176,7 +177,11 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
         guard let file = self.file else {
             return
         }
-                
+        
+        let path = tempPath + "/" + file.name + ".html"
+        htmlURL = URL(fileURLWithPath: path)
+        webVC.webView.loadFileURL(htmlURL!, allowingReadAccessTo: URL(fileURLWithPath: supportPath, isDirectory: true))
+        
         textVC.textChangedHandler = { [weak self] text in
             file.text = text
             self?.markdownToRender = text
@@ -199,13 +204,16 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
         timer = Timer.runThisEvery(seconds: 0.05) { [weak self] _ in
             guard let this = self else { return }
             if let markdown = this.markdownToRender {
-                this.webVC.htmlString = this.markdownRenderer?.renderMarkdown(markdown) ?? ""
+                let html = this.markdownRenderer?.renderMarkdown(markdown) ?? ""
                 this.markdownToRender = nil
+                guard let url = this.htmlURL, let data = html.data(using: String.Encoding.utf8) else { return }
+                try? data.write(to: url)
+                this.webVC.contentChanged = true
             }
         }
         
         textVC.editView.text = file.text
-        textVC.textChanged()
+        textVC.textViewDidChange(textVC.editView)
     }
     
     @objc func applicationWillTerminate() {
@@ -301,6 +309,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
                 let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
                 let vc = sb.instantiateVC(PurchaseViewController.self)!
                 let nav = UINavigationController(rootViewController: vc)
+                nav.modalPresentationStyle = .formSheet
                 self.presentVC(nav)
             }
         }
@@ -326,11 +335,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
         case .markdown:
             return URL(fileURLWithPath: file.path)
         case .html:
-            guard let data = self.webVC.htmlString.data(using: String.Encoding.utf8) else { return nil }
-            let path = tempPath + "/" + file.name + ".html"
-            let url = URL(fileURLWithPath: path)
-            try? data.write(to: url)
-            return url
+            return self.htmlURL
         }
     }
     
@@ -340,14 +345,6 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
         } else if let vc = segue.destination as? WebViewController {
             webVC = vc
         }
-    }
-    
-    override func shouldBack() -> Bool {
-        if scrollView.contentOffset.x > 10 {
-            scrollView.setContentOffset(CGPoint(x:0,y:0), animated: true)
-            return false
-        }
-        return true
     }
     
     override func didReceiveMemoryWarning() {

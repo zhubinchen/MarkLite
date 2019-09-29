@@ -1,3 +1,6 @@
+
+### 数学公式的渲染需要网络，如果显示异常，请检查一下你网络
+
 ### 如何插入公式
 
 LaTeX的数学公式有两种：行中公式和独立公式。行中公式放在文中与其它文字混编，独立公式单独成行。
@@ -35,7 +38,7 @@ $$f(x)=
 1& \text{x!=0}
 \end{cases}$$
 
-## 如何输入上下标
+### 如何输入上下标
 
 ^表示上标, _表示下标。如果上下标的内容多于一个字符，要用{}把这些内容括起来当成一个整体。上下标是可以嵌套的，也可以同时使用。
 
@@ -136,7 +139,6 @@ $\lim\limits_{n \rightarrow +\infty} \frac{1}{n(n+1)}$
 ### 如何输入其它特殊字符
 关系运算符：
 
-```
 ±：\pm 
 ×：\times 
 ÷：\div 
@@ -156,11 +158,9 @@ $\lim\limits_{n \rightarrow +\infty} \frac{1}{n(n+1)}$
 ∑：\sum 
 ∏：\prod 
 ∐：\coprod
-```
 
 集合运算符：
 
-```
 ∅：\emptyset 
 ∈：\in 
 ∉：\notin 
@@ -174,19 +174,17 @@ $\lim\limits_{n \rightarrow +\infty} \frac{1}{n(n+1)}$
 ⋀：\bigwedge 
 ⨄：\biguplus 
 ⨆：\bigsqcup
-```
+
 
 对数运算符：
 
-```
+
 log：\log 
 lg：\lg 
 ln：\ln
-```
 
 三角运算符：
 
-```
 ⊥：\bot 
 ∠：\angle 
 30∘：30^\circ 
@@ -196,11 +194,11 @@ tan：\tan
 cot：\cot 
 sec：\sec 
 csc：\csc
-```
+
 
 微积分运算符：
 
-```
+
 ′：\prime 
 ∫：\int 
 ∬：\iint 
@@ -210,11 +208,10 @@ csc：\csc
 lim：\lim 
 ∞：\infty 
 ∇：\nabla
-```
+
 
 逻辑运算符：
 
-```
 ∵：\because 
 ∴：\therefore 
 ∀：\forall 
@@ -222,27 +219,25 @@ lim：\lim
 ≠：\not= 
 ≯：\not> 
 ⊄：\not\subset
-```
+
 
 戴帽符号:
 
-```
+
 ：\hat{y} 
 ：\check{y} 
 ：\breve{y}
-```
+
 
 连线符号：
 
-```
 ：\overline{a+b+c+d} 
 ：\underline{a+b+c+d} 
 ：\overbrace{a+\underbrace{b+c}_{1.0}+d}^{2.0}
-```
+
 
 箭头符号：
 
-```
 ↑：\uparrow 
 ↓：\downarrow 
 ⇑：\Uparrow 
@@ -255,18 +250,15 @@ lim：\lim
 ⟵：\longleftarrow 
 ⟹：\Longrightarrow 
 ⟸：\Longleftarrow
-```
 
-要输出字符　空格　#　$　%　&　_　{　}　，用命令：`\空格　\#　\$　\%　\&　\_　\{　\}`
-
-### **如何进行字体转换**
+### 如何进行字体转换
 
 要对公式的某一部分字符进行字体转换，可以用{\rm 需转换的部分字符}命令，其中\rm可以参照下表选择合适的字体。一般情况下，公式默认为意大利体。
 
-```
+
 \rm　　罗马体　　　　　　　\it　　意大利体 
 \bf　　黑体　　　　　　　　\cal 　花体 
 \sl　　倾斜体　　　　　　　\sf　　等线体 
 \mit 　数学斜体　　　　　　\tt　　打字机字体 
 \sc　　小体大写字母
-```
+

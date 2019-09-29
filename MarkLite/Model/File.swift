@@ -47,10 +47,6 @@ class File {
     private(set) var path: String
     private(set) var modifyDate: Date
     private(set) var size: Int
-    
-    var tempPath: String {
-        return path
-    }
 
     var children: [File] {
         return _children

@@ -18,11 +18,11 @@ class PurchaseViewController: UIViewController {
         super.viewDidLoad()
         self.title = /"Premium"
         
-        if isPad {
-            self.scrollViewOffsetX.constant = min(windowWidth, windowHeight) * 0.1
-            self.scrollViewOffsetY.constant =  min(windowWidth, windowHeight) * 0.1
-            self.scrollViewOffsetBottom.constant =  min(windowWidth, windowHeight) * 0.1
-        }
+//        if isPad {
+//            self.scrollViewOffsetX.constant = min(windowWidth, windowHeight) * 0.1
+//            self.scrollViewOffsetY.constant =  min(windowWidth, windowHeight) * 0.1
+//            self.scrollViewOffsetBottom.constant =  min(windowWidth, windowHeight) * 0.1
+//        }
         if self.navigationController?.viewControllers.count == 1 {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
         }
