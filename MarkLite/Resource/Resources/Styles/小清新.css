@@ -115,34 +115,27 @@ h1, h2, h3, h4, h5, h6 {
   font-style: bold !important;
   color: #6f5a40!important;
   text-align: center !important;
-  margin: 1.5em 5px !important;
-  padding: 0.5em 1em !important;
 }
 h1 {
   font-size: 24px !important;
   text-align: left !important;
-  margin: 1.5em -10px !important;
   border-bottom: 1px solid #ddd !important;
 }
 h2 {
   font-size: 22px !important;
   text-align: left !important;
-  margin: 1.5em -8px !important;
 }
 h3 {
   font-size: 20px  !important;
   text-align: left !important;
-  margin: 1.5em -5px !important;
 }
 h4 {
   font-size: 18px;
   text-align: left !important;
- margin: 1.5em -5px !important;
 }
 h5 {
   font-size: 17px;
   text-align: left !important;
- margin: 1.5em -5px !important;
 }
 table {
   padding: 0;

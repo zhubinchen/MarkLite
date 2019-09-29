@@ -155,16 +155,13 @@ $r = r_F+ \beta(r_M – r_F) + \epsilon$
 
 ### 如何输入希腊字母
 
-例子：
-
-```
 \alpha　A　\beta　B　\gamma　\Gamma　\delta　\Delta　\epsilon　E 
 \varepsilon　　\zeta　Z　\eta　H　\theta　\Theta　\vartheta 
 \iota　I　\kappa　K　\lambda　\Lambda　\mu　M　\nu　N 
 \xi　\Xi　o　O　\pi　\Pi　\varpi　　\rho　P 
 \varrho　　\sigma　\Sigma　\varsigma　　\tau　T　\upsilon　\Upsilon 
 \phi　\Phi　\varphi　　\chi　X　\psi　\Psi　\omega　\Omega
-```
+
 
 ### 如何输入其它特殊字符
 关系运算符：

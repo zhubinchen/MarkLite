@@ -74,7 +74,11 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
             scrollView.panGestureRecognizer.require(toFail: popGestureRecognizer)
         }
                 
-        if self.file != nil {
+        if file == nil {
+            if landscape == false {
+                splitViewController?.preferredDisplayMode = .primaryOverlay
+            }
+        } else {
             setup()
         }
         
@@ -197,6 +201,12 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
     
     func toggleRightBarButton() {
         webVisible = scrollView.contentOffset.x > windowWidth - 10
+        
+        if webVisible && split == false {
+            navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        } else {
+            navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        }
         
         if webVisible || split {
             navigationItem.rightBarButtonItems = [exportButton,styleButton]
