@@ -10,23 +10,15 @@ import UIKit
 
 class PurchaseViewController: UIViewController {
     @IBOutlet weak var yearlyButton: UIButton!
-    @IBOutlet weak var scrollViewOffsetX: NSLayoutConstraint!
-    @IBOutlet weak var scrollViewOffsetY: NSLayoutConstraint!
-    @IBOutlet weak var scrollViewOffsetBottom: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = /"Premium"
         
-//        if isPad {
-//            self.scrollViewOffsetX.constant = min(windowWidth, windowHeight) * 0.1
-//            self.scrollViewOffsetY.constant =  min(windowWidth, windowHeight) * 0.1
-//            self.scrollViewOffsetBottom.constant =  min(windowWidth, windowHeight) * 0.1
-//        }
         if self.navigationController?.viewControllers.count == 1 {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
         }
-        let date = Date(fromString: "2019-09-25", format: "yyyy-MM-dd")!
+        let date = Date(fromString: "2019-10-01", format: "yyyy-MM-dd")!
         let now = Date()
         if now > date {
             yearlyButton.setTitle(/"SubscribeL", for: .normal)

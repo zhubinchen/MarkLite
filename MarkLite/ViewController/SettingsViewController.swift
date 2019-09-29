@@ -151,7 +151,12 @@ extension SettingsViewController {
         dismiss(animated: false) {
             if isPad {
                 let nav = UINavigationController(rootViewController: vc)
-                nav.modalPresentationStyle = .formSheet
+                nav.modalPresentationStyle = .fullScreen
+                let date = Date(fromString: "2019-10-01", format: "yyyy-MM-dd")!
+                let now = Date()
+                if now > date {
+                    nav.modalPresentationStyle = .formSheet
+                }
                 UIApplication.shared.keyWindow?.rootViewController?.presentVC(nav)
             } else if let nav = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
                 nav.pushViewController(vc, animated: true)

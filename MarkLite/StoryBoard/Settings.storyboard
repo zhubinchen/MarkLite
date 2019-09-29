@@ -387,9 +387,6 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
-                        <outlet property="scrollViewOffsetBottom" destination="ted-By-d0n" id="66P-oq-KVI"/>
-                        <outlet property="scrollViewOffsetX" destination="wVs-VK-E79" id="O4f-3y-qx5"/>
-                        <outlet property="scrollViewOffsetY" destination="EZt-P2-dG1" id="KvE-Fa-2qq"/>
                         <outlet property="yearlyButton" destination="fRB-Vb-DGa" id="u6M-Il-6zw"/>
                     </connections>
                 </viewController>

@@ -249,7 +249,12 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
                 let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
                 let vc = sb.instantiateVC(PurchaseViewController.self)!
                 let nav = UINavigationController(rootViewController: vc)
-                nav.modalPresentationStyle = .formSheet
+                nav.modalPresentationStyle = .fullScreen
+                let date = Date(fromString: "2019-10-01", format: "yyyy-MM-dd")!
+                let now = Date()
+                if now > date {
+                    nav.modalPresentationStyle = .formSheet
+                }
                 self.presentVC(nav)
             }
         }
