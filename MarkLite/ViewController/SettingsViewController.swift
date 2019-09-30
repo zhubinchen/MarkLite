@@ -204,6 +204,9 @@ extension SettingsViewController {
         if sender.isOn {
             Configure.shared.markdownStyle.value = "GitHub Dark"
             Configure.shared.highlightStyle.value = "tomorrow-night"
+        } else {
+            Configure.shared.markdownStyle.value = "GitHub"
+            Configure.shared.highlightStyle.value = "tomorrow"
         }
     }
     

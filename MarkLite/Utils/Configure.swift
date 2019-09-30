@@ -87,8 +87,8 @@ class Configure: NSObject, NSCoding {
             try? FileManager.default.copyItem(atPath: samplesPath, toPath: documentPath + "/" + /"Instructions" + ".md")
         }
         
-        if let mathJaxPath = Bundle.main.path(forResource: "LaTeX", ofType: "md") {
-            try? FileManager.default.copyItem(atPath: mathJaxPath, toPath: documentPath + "/" + "LaTeX" + ".md")
+        if let mathJaxPath = Bundle.main.path(forResource: "数学公式", ofType: "md") {
+            try? FileManager.default.copyItem(atPath: mathJaxPath, toPath: documentPath + "/" + "数学公式" + ".md")
         }
         
         try? FileManager.default.createDirectory(atPath: imagePath, withIntermediateDirectories: true, attributes: nil)

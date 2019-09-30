@@ -201,14 +201,13 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let file = childrens[indexPath.row]
-        
+        if file.type == .folder {
+            performSegue(withIdentifier: "next", sender: file)
+        } else {
+            performSegue(withIdentifier: "edit", sender: file)
+        }
         if isPhone {
             tableView.deselectRow(at: indexPath, animated: true)
-            if file.type == .folder {
-                performSegue(withIdentifier: "next", sender: file)
-            } else {
-                performSegue(withIdentifier: "edit", sender: file)
-            }
         } else {
             if let oldIndexPath = selectedIndexPath {
                 childrens[oldIndexPath.row].isSelected = false
@@ -217,11 +216,6 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
             file.isSelected = true
             tableView.reloadRows(at: [indexPath], with: .automatic)
             selectedIndexPath = indexPath
-            if file.type == .folder {
-                performSegue(withIdentifier: "next", sender: file)
-            } else {
-                performSegue(withIdentifier: "edit", sender: file)
-            }
         }
     }
     
@@ -302,7 +296,6 @@ extension FileListViewController: UIDocumentPickerDelegate {
         if urls.count > 0 {
             didPickFile(urls.first!)
         }
-        
     }
 }
 

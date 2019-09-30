@@ -48,7 +48,7 @@
 		760C29702320F3EC002E613E /* document.c in Sources */ = {isa = PBXBuildFile; fileRef = 760C29672320F3EB002E613E /* document.c */; };
 		760C29732320F3FA002E613E /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 760C29712320F3FA002E613E /* hoedown_html_patch.c */; };
 		7613F11F2325F6FE006EE3B9 /* Resources.zip in Resources */ = {isa = PBXBuildFile; fileRef = 7613F11D2325F6FE006EE3B9 /* Resources.zip */; };
-		7613F1242325F8AF006EE3B9 /* LaTeX.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1202325F8AF006EE3B9 /* LaTeX.md */; };
+		7613F1242325F8AF006EE3B9 /* 数学公式.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1202325F8AF006EE3B9 /* 数学公式.md */; };
 		7613F1272325F8AF006EE3B9 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1232325F8AF006EE3B9 /* ReadMe.md */; };
 		7613F12A2325FA02006EE3B9 /* 使用教程.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1282325FA02006EE3B9 /* 使用教程.md */; };
 		7613F12B2325FA02006EE3B9 /* 使用說明.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1292325FA02006EE3B9 /* 使用說明.md */; };
@@ -56,15 +56,6 @@
 		762CF0F92322650A00F2FF90 /* MarkdownRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 762CF0F82322650A00F2FF90 /* MarkdownRender.m */; };
 		768762B922D86CE900A54EB1 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762B822D86CE900A54EB1 /* IAPHelper.swift */; };
 		768762BB22D86D1C00A54EB1 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */; };
-		76C64C4D22DC314100E2851F /* CLDiscoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C1822DC314100E2851F /* CLDiscoverVC.swift */; };
-		76C64C4E22DC314100E2851F /* CLShoppingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C1B22DC314100E2851F /* CLShoppingVC.swift */; };
-		76C64C4F22DC314100E2851F /* CLSportCicleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C1E22DC314100E2851F /* CLSportCicleVC.swift */; };
-		76C64C5D22DC314100E2851F /* CLMineVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C3222DC314100E2851F /* CLMineVC.swift */; };
-		76C64C5E22DC314100E2851F /* CLTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C3422DC314100E2851F /* CLTabBarController.swift */; };
-		76C64C5F22DC314100E2851F /* main.json in Resources */ = {isa = PBXBuildFile; fileRef = 76C64C3522DC314100E2851F /* main.json */; };
-		76C64C6022DC314100E2851F /* CLNavigationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C3622DC314100E2851F /* CLNavigationVC.swift */; };
-		76C64C6122DC314100E2851F /* CLBaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C3922DC314100E2851F /* CLBaseVC.swift */; };
-		76C64C6222DC314100E2851F /* CLBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C3B22DC314100E2851F /* CLBaseView.swift */; };
 		76C64C6322DC314100E2851F /* CLCustomPresentAnnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C3D22DC314100E2851F /* CLCustomPresentAnnimation.swift */; };
 		76C64C6422DC314100E2851F /* CLCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C3E22DC314100E2851F /* CLCommon.swift */; };
 		76C64C6522DC314100E2851F /* CLNewFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C4022DC314100E2851F /* CLNewFeatureView.swift */; };
@@ -141,7 +132,7 @@
 		760C29712320F3FA002E613E /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
 		760C29722320F3FA002E613E /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
 		7613F11D2325F6FE006EE3B9 /* Resources.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Resources.zip; sourceTree = "<group>"; };
-		7613F1202325F8AF006EE3B9 /* LaTeX.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = LaTeX.md; path = Instructions/LaTeX.md; sourceTree = "<group>"; };
+		7613F1202325F8AF006EE3B9 /* 数学公式.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "数学公式.md"; path = "Instructions/数学公式.md"; sourceTree = "<group>"; };
 		7613F1232325F8AF006EE3B9 /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = ReadMe.md; path = Instructions/ReadMe.md; sourceTree = "<group>"; };
 		7613F1282325FA02006EE3B9 /* 使用教程.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "使用教程.md"; path = "Instructions/使用教程.md"; sourceTree = "<group>"; };
 		7613F1292325FA02006EE3B9 /* 使用說明.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "使用說明.md"; path = "Instructions/使用說明.md"; sourceTree = "<group>"; };
@@ -150,15 +141,6 @@
 		762CF0F82322650A00F2FF90 /* MarkdownRender.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownRender.m; sourceTree = "<group>"; };
 		768762B822D86CE900A54EB1 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
 		768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
-		76C64C1822DC314100E2851F /* CLDiscoverVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLDiscoverVC.swift; sourceTree = "<group>"; };
-		76C64C1B22DC314100E2851F /* CLShoppingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLShoppingVC.swift; sourceTree = "<group>"; };
-		76C64C1E22DC314100E2851F /* CLSportCicleVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLSportCicleVC.swift; sourceTree = "<group>"; };
-		76C64C3222DC314100E2851F /* CLMineVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLMineVC.swift; sourceTree = "<group>"; };
-		76C64C3422DC314100E2851F /* CLTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLTabBarController.swift; sourceTree = "<group>"; };
-		76C64C3522DC314100E2851F /* main.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = main.json; sourceTree = "<group>"; };
-		76C64C3622DC314100E2851F /* CLNavigationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLNavigationVC.swift; sourceTree = "<group>"; };
-		76C64C3922DC314100E2851F /* CLBaseVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLBaseVC.swift; sourceTree = "<group>"; };
-		76C64C3B22DC314100E2851F /* CLBaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLBaseView.swift; sourceTree = "<group>"; };
 		76C64C3D22DC314100E2851F /* CLCustomPresentAnnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLCustomPresentAnnimation.swift; sourceTree = "<group>"; };
 		76C64C3E22DC314100E2851F /* CLCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLCommon.swift; sourceTree = "<group>"; };
 		76C64C4022DC314100E2851F /* CLNewFeatureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLNewFeatureView.swift; sourceTree = "<group>"; };
@@ -282,7 +264,7 @@
 				76E7F274233CB5E30051DF6A /* icon_logo.png */,
 				7613F1282325FA02006EE3B9 /* 使用教程.md */,
 				7613F1292325FA02006EE3B9 /* 使用說明.md */,
-				7613F1202325F8AF006EE3B9 /* LaTeX.md */,
+				7613F1202325F8AF006EE3B9 /* 数学公式.md */,
 				7613F1232325F8AF006EE3B9 /* ReadMe.md */,
 				7613F11D2325F6FE006EE3B9 /* Resources.zip */,
 			);
@@ -352,118 +334,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		76C64C1522DC314100E2851F /* Class */ = {
-			isa = PBXGroup;
-			children = (
-				76C64C1622DC314100E2851F /* Discover */,
-				76C64C1922DC314100E2851F /* Shopping */,
-				76C64C1C22DC314100E2851F /* SportCicle */,
-				76C64C3022DC314100E2851F /* Mine */,
-				76C64C3322DC314100E2851F /* Main */,
-				76C64C3722DC314100E2851F /* Base */,
-			);
-			path = Class;
-			sourceTree = "<group>";
-		};
-		76C64C1622DC314100E2851F /* Discover */ = {
-			isa = PBXGroup;
-			children = (
-				76C64C1722DC314100E2851F /* Controller */,
-			);
-			path = Discover;
-			sourceTree = "<group>";
-		};
-		76C64C1722DC314100E2851F /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				76C64C1822DC314100E2851F /* CLDiscoverVC.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		76C64C1922DC314100E2851F /* Shopping */ = {
-			isa = PBXGroup;
-			children = (
-				76C64C1A22DC314100E2851F /* Controller */,
-			);
-			path = Shopping;
-			sourceTree = "<group>";
-		};
-		76C64C1A22DC314100E2851F /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				76C64C1B22DC314100E2851F /* CLShoppingVC.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		76C64C1C22DC314100E2851F /* SportCicle */ = {
-			isa = PBXGroup;
-			children = (
-				76C64C1D22DC314100E2851F /* Controller */,
-			);
-			path = SportCicle;
-			sourceTree = "<group>";
-		};
-		76C64C1D22DC314100E2851F /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				76C64C1E22DC314100E2851F /* CLSportCicleVC.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		76C64C3022DC314100E2851F /* Mine */ = {
-			isa = PBXGroup;
-			children = (
-				76C64C3122DC314100E2851F /* Controller */,
-			);
-			path = Mine;
-			sourceTree = "<group>";
-		};
-		76C64C3122DC314100E2851F /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				76C64C3222DC314100E2851F /* CLMineVC.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		76C64C3322DC314100E2851F /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				76C64C3422DC314100E2851F /* CLTabBarController.swift */,
-				76C64C3522DC314100E2851F /* main.json */,
-				76C64C3622DC314100E2851F /* CLNavigationVC.swift */,
-			);
-			path = Main;
-			sourceTree = "<group>";
-		};
-		76C64C3722DC314100E2851F /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				76C64C3822DC314100E2851F /* Controller */,
-				76C64C3A22DC314100E2851F /* View */,
-			);
-			path = Base;
-			sourceTree = "<group>";
-		};
-		76C64C3822DC314100E2851F /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				76C64C3922DC314100E2851F /* CLBaseVC.swift */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		76C64C3A22DC314100E2851F /* View */ = {
-			isa = PBXGroup;
-			children = (
-				76C64C3B22DC314100E2851F /* CLBaseView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		76C64C3C22DC314100E2851F /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -509,7 +379,6 @@
 		76DFA18922D5D3190025B44B /* Ignore */ = {
 			isa = PBXGroup;
 			children = (
-				76C64C1522DC314100E2851F /* Class */,
 				76C64C3C22DC314100E2851F /* Common */,
 				76C64C3F22DC314100E2851F /* Tool */,
 			);
@@ -601,13 +470,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7613F1242325F8AF006EE3B9 /* LaTeX.md in Resources */,
+				7613F1242325F8AF006EE3B9 /* 数学公式.md in Resources */,
 				7613F12B2325FA02006EE3B9 /* 使用說明.md in Resources */,
 				7613F1272325F8AF006EE3B9 /* ReadMe.md in Resources */,
 				76E7F275233CB5E30051DF6A /* icon_logo.png in Resources */,
 				7613F11F2325F6FE006EE3B9 /* Resources.zip in Resources */,
 				7613F12A2325FA02006EE3B9 /* 使用教程.md in Resources */,
-				76C64C5F22DC314100E2851F /* main.json in Resources */,
 				07E827471F5BF1BA0077A017 /* Settings.storyboard in Resources */,
 				07E827441F5BF1BA0077A017 /* Edit.storyboard in Resources */,
 				07E826A01F5BF0F20077A017 /* LaunchScreen.storyboard in Resources */,
@@ -686,9 +554,7 @@
 				76C64C6C22DC314100E2851F /* CLAfter_Time.swift in Sources */,
 				07E8274A1F5BF1BA0077A017 /* EventBus.swift in Sources */,
 				768762BB22D86D1C00A54EB1 /* PurchaseViewController.swift in Sources */,
-				76C64C4F22DC314100E2851F /* CLSportCicleVC.swift in Sources */,
 				760C29702320F3EC002E613E /* document.c in Sources */,
-				76C64C4E22DC314100E2851F /* CLShoppingVC.swift in Sources */,
 				07E8275A1F5BF1BA0077A017 /* SettingsViewController.swift in Sources */,
 				76E7F271233CAEE10051DF6A /* SettingsCell.swift in Sources */,
 				76C64C6E22DC314100E2851F /* UIImage+Draw.swift in Sources */,
@@ -698,8 +564,6 @@
 				07E8274E1F5BF1BA0077A017 /* AssistKeyboardBar.swift in Sources */,
 				760C296A2320F3EC002E613E /* html.c in Sources */,
 				07E827521F5BF1BA0077A017 /* MenuView.swift in Sources */,
-				76C64C5D22DC314100E2851F /* CLMineVC.swift in Sources */,
-				76C64C4D22DC314100E2851F /* CLDiscoverVC.swift in Sources */,
 				07E827591F5BF1BA0077A017 /* OptionsViewController.swift in Sources */,
 				76C64C6322DC314100E2851F /* CLCustomPresentAnnimation.swift in Sources */,
 				760C29692320F3EC002E613E /* html_smartypants.c in Sources */,
@@ -709,16 +573,13 @@
 				76C64C6822DC314100E2851F /* UIButton+Extensions.swift in Sources */,
 				07E8274F1F5BF1BA0077A017 /* DottedLineView.swift in Sources */,
 				760C296B2320F3EC002E613E /* autolink.c in Sources */,
-				76C64C5E22DC314100E2851F /* CLTabBarController.swift in Sources */,
 				0724281B1F726B0300C02F87 /* ImagePicker.swift in Sources */,
 				76C64C6422DC314100E2851F /* CLCommon.swift in Sources */,
 				761F825022E16D6500C3435C /* InfoViewController.swift in Sources */,
 				76C64C6522DC314100E2851F /* CLNewFeatureView.swift in Sources */,
 				07E8275C1F5BF1BA0077A017 /* WebViewController.swift in Sources */,
 				76C64C6D22DC314100E2851F /* UILable+Extensions.swift in Sources */,
-				76C64C6222DC314100E2851F /* CLBaseView.swift in Sources */,
 				760C29682320F3EC002E613E /* stack.c in Sources */,
-				76C64C6122DC314100E2851F /* CLBaseVC.swift in Sources */,
 				760C296C2320F3EC002E613E /* version.c in Sources */,
 				07E8276C1F5BFD880077A017 /* ImageSaver.swift in Sources */,
 				07E8271B1F5BF1BA0077A017 /* PdfRender.swift in Sources */,
@@ -728,7 +589,6 @@
 				07E827491F5BF1BA0077A017 /* Constant.swift in Sources */,
 				76C64C6B22DC314100E2851F /* Bundle+Extension.swift in Sources */,
 				07E827481F5BF1BA0077A017 /* Configure.swift in Sources */,
-				76C64C6022DC314100E2851F /* CLNavigationVC.swift in Sources */,
 				07E8275D1F5BF1BA0077A017 /* WrapViewController.swift in Sources */,
 				768762B922D86CE900A54EB1 /* IAPHelper.swift in Sources */,
 				07E826961F5BF0F20077A017 /* AppDelegate.swift in Sources */,
