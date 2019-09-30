@@ -105,7 +105,7 @@ extension TextViewController: UITextViewDelegate {
             return
         }
         self.offset = offset
-        offsetChangedHandler?(offset / max(scrollView.size.height,scrollView.contentSize.height))
+        offsetChangedHandler?((offset + scrollView.size.height) / max(scrollView.size.height,scrollView.contentSize.height))
     }
     
     func textViewDidChange(_ textView: UITextView) {

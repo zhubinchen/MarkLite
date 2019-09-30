@@ -17,7 +17,7 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     
     var offset: CGFloat = 0 {
         didSet {
-            let y = offset * contentHeight
+            let y = offset * contentHeight - scrollView.h
             scrollView.contentOffset = CGPoint(x: 0,y: y)
         }
     }
@@ -28,6 +28,8 @@ class WebViewController: UIViewController, UIWebViewDelegate {
             scrollView.contentSize = CGSize(width: 0,height: contentHeight)
         }
     }
+    
+    var keyboardHeight: CGFloat = 0
     
     var timer: Timer?
     
@@ -65,9 +67,7 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        scrollView.frame = self.view.bounds
-        contentHeight = 1000
-        refresh()
+        updateView()
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -78,6 +78,12 @@ class WebViewController: UIViewController, UIWebViewDelegate {
         }
     }
     
+    func updateView() {
+        scrollView.frame = CGRect(x: 0, y: 0, w: view.w, h: view.h - keyboardHeight)
+        contentHeight = 2000
+        refresh()
+    }
+    
     @objc func refresh() {
         if contentChanged {
             webView.reload()
@@ -86,8 +92,9 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     
     @objc func keyboardWillChange(_ noti: NSNotification) {
         guard let frame = (noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        keyboardHeight = max(self.view.h - frame.y + 50,0)
         UIView.animate(withDuration: 0.5, animations: {
-            self.scrollView.h = self.view.size.height - max(self.view.h - frame.y + 50,0);
+            self.scrollView.h = self.view.size.height - self.keyboardHeight;
         })
     }
     
