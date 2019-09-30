@@ -45,6 +45,7 @@ class WebViewController: UIViewController, UIWebViewDelegate {
         webView.scalesPageToFit = true
         webView.backgroundColor = .clear
         webView.isOpaque = false
+        webView.scrollView.isScrollEnabled = false
         
         view.addSubview(scrollView)
         scrollView.addSubview(webView)
@@ -52,7 +53,7 @@ class WebViewController: UIViewController, UIWebViewDelegate {
         webView.scrollView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
                 
         if #available(iOS 11.0, *) {
-            self.webView.scrollView.contentInsetAdjustmentBehavior = .never
+            self.scrollView.contentInsetAdjustmentBehavior = .never
         } else {
             self.automaticallyAdjustsScrollViewInsets = false
         }
@@ -86,7 +87,7 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     @objc func keyboardWillChange(_ noti: NSNotification) {
         guard let frame = (noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         UIView.animate(withDuration: 0.5, animations: {
-            self.webView.h = self.view.size.height - max(self.view.h - frame.y + 50,0);
+            self.scrollView.h = self.view.size.height - max(self.view.h - frame.y + 50,0);
         })
     }
     

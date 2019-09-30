@@ -201,6 +201,10 @@ extension SettingsViewController {
     
     @objc func night(_ sender: UISwitch) {
         Configure.shared.theme.value = sender.isOn ? .black : .white
+        if sender.isOn {
+            Configure.shared.markdownStyle.value = "GitHub Dark"
+            Configure.shared.highlightStyle.value = "tomorrow-night"
+        }
     }
     
     @objc func assistBar(_ sender: UISwitch) {
