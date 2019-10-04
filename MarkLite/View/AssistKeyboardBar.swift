@@ -36,7 +36,7 @@ fileprivate let uploadURL = ""
 class AssistKeyboardBar: UIView {
     let scrollView = UIScrollView()
     var endButton: UIButton!
-    
+
     let items: [(ButtonConvertiable,Selector)] = [
         (#imageLiteral(resourceName: "bar_image"), #selector(tapImage(_:))),
         (#imageLiteral(resourceName: "bar_link"), #selector(tapLink)),
@@ -67,6 +67,7 @@ class AssistKeyboardBar: UIView {
     
     weak var textView: UITextView?
     weak var viewController: UIViewController?
+    weak var menu: MenuView?
     
     let bag = DisposeBag()
     var imagePicker: ImagePicker?
@@ -158,15 +159,17 @@ class AssistKeyboardBar: UIView {
     }
     @objc func tapHeader(_ sender: UIButton) {
         guard let textView = self.textView else { return }
-
+        self.menu?.dismiss(sender: self.menu?.superview as? UIControl)
         let pos = sender.convert(sender.center, to: sender.window)
-        MenuView(items: [/"Header1",/"Header2",/"Header3",/"Header4"],
+        let menu = MenuView(items: [/"Header1",/"Header2",/"Header3",/"Header4"],
                  postion: CGPoint(x: pos.x - 100, y: pos.y - 190)) { (index) in
                     let currentRange = textView.selectedRange
                     let insertText = ("#" * (index+1)) + " " + /"Header"
                     textView.insertText("\n\(insertText)\n")
                     textView.selectedRange = NSMakeRange(currentRange.location + index + 3, (/"Header").length)
-        }.show()
+        }
+        menu.show()
+        self.menu = menu
     }
     @objc func tapDeletion() {
         guard let textView = self.textView else { return }

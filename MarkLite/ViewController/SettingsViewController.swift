@@ -152,7 +152,7 @@ extension SettingsViewController {
             if isPad {
                 let nav = UINavigationController(rootViewController: vc)
                 nav.modalPresentationStyle = .fullScreen
-                let date = Date(fromString: "2019-10-01", format: "yyyy-MM-dd")!
+                let date = Date(fromString: "2019-10-04", format: "yyyy-MM-dd")!
                 let now = Date()
                 if now > date {
                     nav.modalPresentationStyle = .formSheet

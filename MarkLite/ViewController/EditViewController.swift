@@ -218,22 +218,15 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
     @objc func showExportMenu(_ sender: Any) {
         textVC.editView.resignFirstResponder()
         
+        file?.save()
+
         let items = [ExportType.markdown,.pdf,.html,.image]
         var pos = CGPoint(x: windowWidth - 140, y: 65)
-        if let view = sender as? UIView {
-            pos = view.origin
-            if self.landscape {
-                pos.x += 44
-            } else {
-                pos.y += 44
-            }
-        }
         
         func export(_ index: Int) {
             guard let url = self.url(for: items[index]) else { return }
             let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-            vc.popoverPresentationController?.sourceView = sender as? UIView
-            vc.popoverPresentationController?.sourceRect = (sender as? UIView)?.frame ?? CGRect(x: 62, y: 20, w: 44, h: 44)
+            vc.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
             self.presentVC(vc)
         }
         
@@ -260,7 +253,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
                 let vc = sb.instantiateVC(PurchaseViewController.self)!
                 let nav = UINavigationController(rootViewController: vc)
                 nav.modalPresentationStyle = .fullScreen
-                let date = Date(fromString: "2019-10-01", format: "yyyy-MM-dd")!
+                let date = Date(fromString: "2019-10-04", format: "yyyy-MM-dd")!
                 let now = Date()
                 if now > date {
                     nav.modalPresentationStyle = .formSheet
@@ -276,12 +269,9 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
         case .pdf:
             let data = pdfRender.render(formatter: self.webVC.webView.viewPrintFormatter())
             let path = tempPath + "/" + file.name + ".pdf"
+            try? FileManager.default.removeItem(atPath: path)
+            FileManager.default.createFile(atPath: path, contents: data, attributes: nil)
             let url = URL(fileURLWithPath: path)
-            do {
-                try data.write(to: url)
-            } catch {
-                print(error.localizedDescription)
-            }
             return url
         case .image:
             guard let img = self.webVC.webView.scrollView.snap, let _ = UIImagePNGRepresentation(img) else { return nil }

@@ -12,7 +12,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Lo7-j0-H8a">
             <objects>
-                <navigationController id="Z5v-6s-8T8" customClass="NavigationController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="Z5v-6s-8T8" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="TuT-jx-cMt">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

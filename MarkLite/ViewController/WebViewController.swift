@@ -109,6 +109,7 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     deinit {
         timer?.invalidate()
         removeNotificationObserver()
+        webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
         print("deinit web_vc")
     }
 }
