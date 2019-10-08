@@ -1,5 +1,5 @@
 //
-//  SettingsCell.swift
+//  BaseTableViewCell.swift
 //  Markdown
 //
 //  Created by 朱炳程 on 2019/9/26.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingsCell: UITableViewCell {
+class BaseTableViewCell: UITableViewCell {
 
     let selectedBg = UIView(hexString: "e0e0e0")
     

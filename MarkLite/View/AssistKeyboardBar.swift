@@ -76,7 +76,7 @@ class AssistKeyboardBar: UIView {
     init() {
         super.init(frame: CGRect(x: 0, y: 0, w: windowWidth, h: 50))
 
-        self.backgroundColor = rgb("f2f2f2")
+        self.backgroundColor = rgb("F2F2F6")
         
         items.forEachEnumerated { (index, item) in
             let button = item.0.makeButton()

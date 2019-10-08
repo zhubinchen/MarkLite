@@ -47,9 +47,9 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navBar?.setBarTintColor(.navBar)
-        navBar?.setContentColor(.navBarTint)
-        
+        navBar?.setTintColor(.tint)
+        navBar?.setBackgroundColor(.navBar)
+        navBar?.setTitleColor(.primary)
         title = options.title
         items = options.items
         table.rowHeight = 48
@@ -92,7 +92,7 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
         selectedBg.addSubview(selectedMark)
         
         selectedBg.setBackgroundColor(.selectedCell)
-        selectedMark.setBackgroundColor(.primary)
+        selectedMark.setBackgroundColor(.tint)
         
         cell.selectedBackgroundView = selectedBg
         

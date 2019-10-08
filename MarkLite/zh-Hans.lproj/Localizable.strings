@@ -15,6 +15,8 @@
 "Today"="今天";
 "Yesterday"="昨天";
 "Children"="子文件";
+"M-d"="M月d日";
+"yyyy-M-d"="yyyy年M月d日";
 
 "CreateNote"="新建文档";
 "CreateFolder"="新建文件夹";
@@ -63,7 +65,6 @@
 
 "Delete"="删除";
 "Rename"="重命名";
-"LastUpdate"="上次修改: ";
 
 "DeleteMessage"="删除后不可恢复，确定要删除吗？";
 "FileNameError"="请输入正确的文件名";

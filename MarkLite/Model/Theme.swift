@@ -21,7 +21,7 @@ enum Theme: String {
 
 enum ThemeColorType {
     case navBar
-    case navBarTint
+    case tint
     case background
     case tableBackground
     case primary
@@ -33,19 +33,19 @@ extension Theme {
     var colors: [UIColor] {
         switch self {
         case .white:
-            return [rgb("ffffff")!,rgb("202020")!,rgb("ffffff")!,rgb("f2f2f2")!,rgba("202020", 0.8)!,rgba("202020", 0.5)!]
+            return [rgb("ffffff")!,rgb("4b5cc4")!,rgb("ffffff")!,rgb("F2F2F6")!,rgb("181818")!,rgba("181818", 0.5)!]
         case .black:
-            return [rgb("202020")!,rgb("cccccc")!,rgb("202020")!,rgb("202020")!,rgba("cccccc", 0.8)!,rgba("cccccc", 0.5)!]
+            return [rgb("181818")!,rgb("4b5cc4")!,rgb("181818")!,rgb("080808")!,rgb("cccccc")!,rgba("cccccc", 0.5)!]
         case .blue:
-            return [rgb("0291D4")!,rgb("ffffff")!,rgb("ffffff")!,rgb("f2f2f2")!,rgba("0291D4", 0.8)!,rgba("0291D4", 0.5)!]
+            return [rgb("0291D4")!,rgb("ffffff")!,rgb("ffffff")!,rgb("F2F2F6")!,rgb("0291D4")!,rgba("0291D4", 0.5)!]
         case .purple:
-            return [rgb("6c16c7")!,rgb("ffffff")!,rgb("ffffff")!,rgb("f2f2f2")!,rgba("6c16c7", 0.8)!,rgba("6c16c7", 0.5)!]
+            return [rgb("6c16c7")!,rgb("ffffff")!,rgb("ffffff")!,rgb("F2F2F6")!,rgb("6c16c7")!,rgba("6c16c7", 0.5)!]
         case .red:
-            return [rgb("D2373B")!,rgb("ffffff")!,rgb("ffffff")!,rgb("f2f2f2")!,rgba("D2373B", 0.8)!,rgba("D2373B", 0.5)!]
+            return [rgb("D2373B")!,rgb("ffffff")!,rgb("ffffff")!,rgb("F2F2F6")!,rgb("D2373B")!,rgba("D2373B", 0.5)!]
         case .green:
-            return [rgb("01BD70")!,rgb("ffffff")!,rgb("ffffff")!,rgb("f2f2f2")!,rgba("01BD70", 0.8)!,rgba("01BD70", 0.5)!]
+            return [rgb("01BD70")!,rgb("ffffff")!,rgb("ffffff")!,rgb("F2F2F6")!,rgb("01BD70")!,rgba("01BD70", 0.5)!]
         case .pink:
-            return [rgb("E52D7C")!,rgb("ffffff")!,rgb("ffffff")!,rgb("f2f2f2")!,rgba("E52D7C", 0.8)!,rgba("E52D7C", 0.5)!]
+            return [rgb("E52D7C")!,rgb("ffffff")!,rgb("ffffff")!,rgb("F2F2F6")!,rgb("E52D7C")!,rgba("E52D7C", 0.5)!]
         }
     }
     
@@ -73,7 +73,7 @@ class ColorCenter {
     static let shared = ColorCenter()
     
     let navBar = Variable(UIColor.clear)
-    let navBarTint = Variable(UIColor.clear)
+    let tint = Variable(UIColor.clear)
     let primary = Variable(UIColor.clear)
     let secondary = Variable(UIColor.clear)
     let background = Variable(UIColor.clear)
@@ -83,7 +83,7 @@ class ColorCenter {
     var theme: Theme = .white {
         didSet {
             navBar.value = theme.colors[0]
-            navBarTint.value = theme.colors[1]
+            tint.value = theme.colors[1]
             background.value = theme.colors[2]
             tableBackground.value = theme.colors[3]
             primary.value = theme.colors[4]
@@ -96,8 +96,8 @@ class ColorCenter {
         switch type {
         case .navBar:
             return navBar
-        case .navBarTint:
-            return navBarTint
+        case .tint:
+            return tint
         case .primary:
             return primary
         case .secondary:
@@ -113,21 +113,22 @@ class ColorCenter {
 }
 
 extension UINavigationBar {
-    func setBarTintColor(_ color: ThemeColorType) {
-        _ = ColorCenter.shared.colorVariable(with: color).asObservable().takeUntil(rx.deallocated).subscribe(onNext: { [unowned self](color) in
-            self.barTintColor = color
-            self.setBackgroundImage(UIImage(color: color, size: CGSize(width: 1000, height: 64)), for: .default)
-        })
-    }
     
-    func setContentColor(_ color: ThemeColorType) {
+    func setTitleColor(_ color: ThemeColorType) {
         _ = ColorCenter.shared.colorVariable(with: color).asObservable().takeUntil(rx.deallocated).subscribe(onNext: { [unowned self](color) in
-            self.tintColor = color
-            let attr: [NSAttributedStringKey: Any] = [
-                NSAttributedStringKey.font: UIFont.font(ofSize: 18),
+            let attr1: [NSAttributedStringKey: Any] = [
+                NSAttributedStringKey.font: UIFont.systemFont(ofSize: 18, weight: .medium),
                 NSAttributedStringKey.foregroundColor: color
             ]
-            self.titleTextAttributes = attr
+            self.titleTextAttributes = attr1
+            
+            let attr2: [NSAttributedStringKey: Any] = [
+                NSAttributedStringKey.font: UIFont.systemFont(ofSize: 32, weight: .medium),
+                NSAttributedStringKey.foregroundColor: color
+            ]
+            if #available(iOS 11.0, *) {
+                self.largeTitleTextAttributes = attr2
+            }
         })
     }
 }
@@ -135,6 +136,12 @@ extension UINavigationBar {
 extension UIView {
     func setBackgroundColor(_ color: ThemeColorType) {
         _ = ColorCenter.shared.colorVariable(with: color).asObservable().takeUntil(rx.deallocated).subscribe(onNext: { [unowned self] (color) in
+            
+            if let navBar = self as? UINavigationBar {
+                navBar.barTintColor = color
+                navBar.setBackgroundImage(UIImage(color: color, size: CGSize(width: 1000, height: 64)), for: .compact)
+            }
+            
             self.backgroundColor = color
         })
     }
@@ -142,6 +149,14 @@ extension UIView {
     func setTintColor(_ color: ThemeColorType) {
         _ = ColorCenter.shared.colorVariable(with: color).asObservable().takeUntil(rx.deallocated).subscribe(onNext: { [unowned self](color) in
             self.tintColor = color
+            
+            if let navBar = self as? UINavigationBar {
+                navBar.tintColor = color
+            }
+            
+            if let imgView = self as? UIImageView {
+                imgView.image = imgView.image?.recolor(color: color)
+            }
         })
     }
 }

@@ -113,7 +113,7 @@ struct MarkdownHighlightManager {
             $0.textColor = rgb(236,90,103)
         },//OLLists有序列表
         Syntax("- \\[( |x|X)\\] .*",.anchorsMatchLines){
-            $0.textColor = rgb(255,0,0)
+            $0.textColor = rgb(6,82,120)
         },//TodoList
         Syntax("(\\[.+\\]\\([^\\)]+\\))|(<.+>)") {
             $0.textColor = rgb(11,188,214)

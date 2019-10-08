@@ -13,16 +13,17 @@ class FileTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var sizeLabel: UILabel!
+    @IBOutlet weak var iconView: UIImageView!
     @IBOutlet weak var selectedMark: UIView!
     
-    let selectedMarkView = UIView(hexString: "000000")
     let selectedBg = UIView(hexString: "000000")
     var file: File! {
         didSet {
             nameLabel.text = file.name
-            timeLabel.text = /"LastUpdate" + file.modifyDate.readableDate().0 + " " + file.modifyDate.readableDate().1
+            timeLabel.text = file.modifyDate.readableDate()
             sizeLabel.text = file.type == .folder ? file.children.count.toString + " " + /"Children" : file.size.readabelSize
             selectedMark.isHidden = !file.isSelected
+            iconView.image = (file.type == .folder ? #imageLiteral(resourceName: "icon_folder") : #imageLiteral(resourceName: "icon_text")).recolor(color: ColorCenter.shared.primary.value)
         }
     }
     
@@ -32,19 +33,12 @@ class FileTableViewCell: UITableViewCell {
         selectedBackgroundView = selectedBg
         
         selectedBg.setBackgroundColor(.selectedCell)
-        selectedMarkView.setBackgroundColor(.primary)
-        selectedMark.setBackgroundColor(.primary)
+        selectedMark.setBackgroundColor(.tint)
         
         nameLabel.setTextColor(.primary)
         timeLabel.setTextColor(.secondary)
         sizeLabel.setTextColor(.secondary)
         setBackgroundColor(.background)
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        selectedBg.frame = CGRect(x: 0, y: 0, w: windowWidth, h: h)
-        selectedMarkView.frame = CGRect(x: 0, y: 0, w: 5, h: h)
+        iconView.setTintColor(.primary)
     }
 }

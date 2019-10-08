@@ -17,8 +17,9 @@ class CustomCSSViewController: UITableViewController {
         super.viewDidLoad()
 
         self.title = /"CSS"
-        navBar?.setBarTintColor(.navBar)
-        navBar?.setContentColor(.navBarTint)
+        navBar?.setTintColor(.tint)
+        navBar?.setBackgroundColor(.navBar)
+        navBar?.setTitleColor(.primary)
         tableView.setBackgroundColor(.tableBackground)
         
         tableView.rowHeight = 44

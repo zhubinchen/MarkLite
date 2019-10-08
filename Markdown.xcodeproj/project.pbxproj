@@ -16,8 +16,6 @@
 		07E8271D1F5BF1BA0077A017 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826C11F5BF1BA0077A017 /* File.swift */; };
 		07E8271E1F5BF1BA0077A017 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826C21F5BF1BA0077A017 /* Theme.swift */; };
 		07E827441F5BF1BA0077A017 /* Edit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E826F31F5BF1BA0077A017 /* Edit.storyboard */; };
-		07E827451F5BF1BA0077A017 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E826F41F5BF1BA0077A017 /* Main_iPad.storyboard */; };
-		07E827461F5BF1BA0077A017 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E826F51F5BF1BA0077A017 /* Main_iPhone.storyboard */; };
 		07E827471F5BF1BA0077A017 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E826F61F5BF1BA0077A017 /* Settings.storyboard */; };
 		07E827481F5BF1BA0077A017 /* Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826F81F5BF1BA0077A017 /* Configure.swift */; };
 		07E827491F5BF1BA0077A017 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826F91F5BF1BA0077A017 /* Constant.swift */; };
@@ -54,6 +52,9 @@
 		7613F12B2325FA02006EE3B9 /* 使用說明.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1292325FA02006EE3B9 /* 使用說明.md */; };
 		761F825022E16D6500C3435C /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761F824F22E16D6500C3435C /* InfoViewController.swift */; };
 		762CF0F92322650A00F2FF90 /* MarkdownRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 762CF0F82322650A00F2FF90 /* MarkdownRender.m */; };
+		7635E5CA23473212008E1DEF /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7635E5C923473212008E1DEF /* Document.swift */; };
+		7635E5CD234AF377008E1DEF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7635E5CC234AF377008E1DEF /* HomeViewController.swift */; };
+		7635E5CF234AF3B6008E1DEF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7635E5CE234AF3B6008E1DEF /* Main.storyboard */; };
 		768762B922D86CE900A54EB1 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762B822D86CE900A54EB1 /* IAPHelper.swift */; };
 		768762BB22D86D1C00A54EB1 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */; };
 		76C64C6322DC314100E2851F /* CLCustomPresentAnnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C3D22DC314100E2851F /* CLCustomPresentAnnimation.swift */; };
@@ -69,7 +70,7 @@
 		76C64C6D22DC314100E2851F /* UILable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C4A22DC314100E2851F /* UILable+Extensions.swift */; };
 		76C64C6E22DC314100E2851F /* UIImage+Draw.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C4B22DC314100E2851F /* UIImage+Draw.swift */; };
 		76DFD721232926AC00F97D56 /* CustomCSSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DFD720232926AC00F97D56 /* CustomCSSViewController.swift */; };
-		76E7F271233CAEE10051DF6A /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E7F270233CAEE10051DF6A /* SettingsCell.swift */; };
+		76E7F271233CAEE10051DF6A /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E7F270233CAEE10051DF6A /* BaseTableViewCell.swift */; };
 		76E7F275233CB5E30051DF6A /* icon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 76E7F274233CB5E30051DF6A /* icon_logo.png */; };
 		89C305FDB08983CC88E50F5B /* Pods_Markdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CED168CEF9A6EB3A1E2F9CC /* Pods_Markdown.framework */; };
 /* End PBXBuildFile section */
@@ -87,8 +88,6 @@
 		07E826C11F5BF1BA0077A017 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		07E826C21F5BF1BA0077A017 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		07E826F31F5BF1BA0077A017 /* Edit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Edit.storyboard; sourceTree = "<group>"; };
-		07E826F41F5BF1BA0077A017 /* Main_iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPad.storyboard; sourceTree = "<group>"; };
-		07E826F51F5BF1BA0077A017 /* Main_iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main_iPhone.storyboard; sourceTree = "<group>"; };
 		07E826F61F5BF1BA0077A017 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		07E826F81F5BF1BA0077A017 /* Configure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configure.swift; sourceTree = "<group>"; };
 		07E826F91F5BF1BA0077A017 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
@@ -139,6 +138,10 @@
 		761F824F22E16D6500C3435C /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		762CF0F72322650A00F2FF90 /* MarkdownRender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkdownRender.h; sourceTree = "<group>"; };
 		762CF0F82322650A00F2FF90 /* MarkdownRender.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownRender.m; sourceTree = "<group>"; };
+		7635E5C923473212008E1DEF /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		7635E5CB23473335008E1DEF /* Markdown.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Markdown.entitlements; sourceTree = "<group>"; };
+		7635E5CC234AF377008E1DEF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		7635E5CE234AF3B6008E1DEF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		768762B822D86CE900A54EB1 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
 		768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		76C64C3D22DC314100E2851F /* CLCustomPresentAnnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLCustomPresentAnnimation.swift; sourceTree = "<group>"; };
@@ -155,7 +158,7 @@
 		76C64C4B22DC314100E2851F /* UIImage+Draw.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Draw.swift"; sourceTree = "<group>"; };
 		76C94A6A22EAA43D004CE602 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		76DFD720232926AC00F97D56 /* CustomCSSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCSSViewController.swift; sourceTree = "<group>"; };
-		76E7F270233CAEE10051DF6A /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		76E7F270233CAEE10051DF6A /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		76E7F274233CB5E30051DF6A /* icon_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_logo.png; sourceTree = "<group>"; };
 		8E2576E76534F3FE3E3CAA53 /* Pods-Markdown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Markdown.release.xcconfig"; path = "Pods/Target Support Files/Pods-Markdown/Pods-Markdown.release.xcconfig"; sourceTree = "<group>"; };
 		E32330D5B24C5C34EEE58119 /* Pods-Markdown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Markdown.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Markdown/Pods-Markdown.debug.xcconfig"; sourceTree = "<group>"; };
@@ -176,6 +179,7 @@
 		07E826891F5BF0F20077A017 = {
 			isa = PBXGroup;
 			children = (
+				7635E5CB23473335008E1DEF /* Markdown.entitlements */,
 				07E826941F5BF0F20077A017 /* MarkLite */,
 				07E826931F5BF0F20077A017 /* Products */,
 				884442E41EEF6850184F9E8F /* Pods */,
@@ -254,6 +258,7 @@
 			children = (
 				07E826C11F5BF1BA0077A017 /* File.swift */,
 				07E826C21F5BF1BA0077A017 /* Theme.swift */,
+				7635E5C923473212008E1DEF /* Document.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -275,9 +280,8 @@
 			isa = PBXGroup;
 			children = (
 				07E826F31F5BF1BA0077A017 /* Edit.storyboard */,
-				07E826F41F5BF1BA0077A017 /* Main_iPad.storyboard */,
-				07E826F51F5BF1BA0077A017 /* Main_iPhone.storyboard */,
 				07E826F61F5BF1BA0077A017 /* Settings.storyboard */,
+				7635E5CE234AF3B6008E1DEF /* Main.storyboard */,
 			);
 			path = StoryBoard;
 			sourceTree = "<group>";
@@ -303,7 +307,7 @@
 				07E826FF1F5BF1BA0077A017 /* AssistKeyboardBar.swift */,
 				07E827001F5BF1BA0077A017 /* DottedLineView.swift */,
 				07E827011F5BF1BA0077A017 /* FileTableViewCell.swift */,
-				76E7F270233CAEE10051DF6A /* SettingsCell.swift */,
+				76E7F270233CAEE10051DF6A /* BaseTableViewCell.swift */,
 				07E827031F5BF1BA0077A017 /* MenuView.swift */,
 			);
 			path = View;
@@ -322,6 +326,7 @@
 				07E8270F1F5BF1BA0077A017 /* WrapViewController.swift */,
 				768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */,
 				761F824F22E16D6500C3435C /* InfoViewController.swift */,
+				7635E5CC234AF377008E1DEF /* HomeViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -479,9 +484,8 @@
 				07E827471F5BF1BA0077A017 /* Settings.storyboard in Resources */,
 				07E827441F5BF1BA0077A017 /* Edit.storyboard in Resources */,
 				07E826A01F5BF0F20077A017 /* LaunchScreen.storyboard in Resources */,
-				07E827461F5BF1BA0077A017 /* Main_iPhone.storyboard in Resources */,
-				07E827451F5BF1BA0077A017 /* Main_iPad.storyboard in Resources */,
 				07E8269D1F5BF0F20077A017 /* Assets.xcassets in Resources */,
+				7635E5CF234AF3B6008E1DEF /* Main.storyboard in Resources */,
 				07E827651F5BF24B0077A017 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -556,7 +560,7 @@
 				768762BB22D86D1C00A54EB1 /* PurchaseViewController.swift in Sources */,
 				760C29702320F3EC002E613E /* document.c in Sources */,
 				07E8275A1F5BF1BA0077A017 /* SettingsViewController.swift in Sources */,
-				76E7F271233CAEE10051DF6A /* SettingsCell.swift in Sources */,
+				76E7F271233CAEE10051DF6A /* BaseTableViewCell.swift in Sources */,
 				76C64C6E22DC314100E2851F /* UIImage+Draw.swift in Sources */,
 				76C64C6A22DC314100E2851F /* UIColor+Extensions.swift in Sources */,
 				760C296D2320F3EC002E613E /* buffer.c in Sources */,
@@ -564,6 +568,7 @@
 				07E8274E1F5BF1BA0077A017 /* AssistKeyboardBar.swift in Sources */,
 				760C296A2320F3EC002E613E /* html.c in Sources */,
 				07E827521F5BF1BA0077A017 /* MenuView.swift in Sources */,
+				7635E5CD234AF377008E1DEF /* HomeViewController.swift in Sources */,
 				07E827591F5BF1BA0077A017 /* OptionsViewController.swift in Sources */,
 				76C64C6322DC314100E2851F /* CLCustomPresentAnnimation.swift in Sources */,
 				760C29692320F3EC002E613E /* html_smartypants.c in Sources */,
@@ -592,6 +597,7 @@
 				07E8275D1F5BF1BA0077A017 /* WrapViewController.swift in Sources */,
 				768762B922D86CE900A54EB1 /* IAPHelper.swift in Sources */,
 				07E826961F5BF0F20077A017 /* AppDelegate.swift in Sources */,
+				7635E5CA23473212008E1DEF /* Document.swift in Sources */,
 				762CF0F92322650A00F2FF90 /* MarkdownRender.m in Sources */,
 				07E8271E1F5BF1BA0077A017 /* Theme.swift in Sources */,
 				76C64C6622DC314100E2851F /* CLPhotoRecorder.swift in Sources */,
@@ -745,12 +751,13 @@
 			baseConfigurationReference = E32330D5B24C5C34EEE58119 /* Pods-Markdown.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 1;
+				CODE_SIGN_ENTITLEMENTS = Markdown.entitlements;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = TS5H34GM7Q;
 				INFOPLIST_FILE = MarkLite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.6.6;
+				MARKETING_VERSION = 1.6.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.qinxiu.markdown;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ENABLE_BATCH_MODE = NO;
@@ -766,12 +773,13 @@
 			baseConfigurationReference = 8E2576E76534F3FE3E3CAA53 /* Pods-Markdown.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CURRENT_PROJECT_VERSION = 1;
+				CODE_SIGN_ENTITLEMENTS = Markdown.entitlements;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = TS5H34GM7Q;
 				INFOPLIST_FILE = MarkLite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.6.6;
+				MARKETING_VERSION = 1.6.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.qinxiu.markdown;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ENABLE_BATCH_MODE = NO;

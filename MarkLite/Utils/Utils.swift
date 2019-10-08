@@ -131,7 +131,7 @@ extension UIViewController {
         return alert
     }
     
-    func showActionSheet(sender: UIView? = nil,
+    func showActionSheet(sender: Any? = nil,
                          title: String? = nil,
                          message: String? = nil,
                          actionTitles: [String],
@@ -146,8 +146,13 @@ extension UIViewController {
         alert.addAction(UIAlertAction(title: /"Cancel", style: .cancel, handler: nil))
         if alert.popoverPresentationController != nil {
             guard let sender = sender else { return }
-            alert.popoverPresentationController!.sourceView = sender
-            alert.popoverPresentationController!.sourceRect = sender.bounds
+            if let view = sender as? UIView {
+                alert.popoverPresentationController?.sourceView = view
+                alert.popoverPresentationController?.sourceRect = view.bounds
+            }
+            if let barButton = sender as? UIBarButtonItem {
+                alert.popoverPresentationController?.barButtonItem = barButton
+            }
         }
         present(alert, animated: true, completion: nil)
     }
@@ -236,27 +241,27 @@ extension UIView {
 
 
 extension Date {
-    public func readableDate() -> (String,String) {
+    public func readableDate() -> String {
         let calendar = Calendar.current
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         let time = dateFormatter.string(from: self)
 
         if calendar.isDateInToday(self) {
-            return (/"Today",time)
+            return /"Today" + " " + time
         }
         
         if calendar.isDateInYesterday(self) {
-            return (/"Yesterday",time)
+            return /"Yesterday" + " " + time
         }
         
         if calendar.compare(Date(), to: self, toGranularity: .year) == .orderedSame {
-            dateFormatter.dateFormat = "M-d"
-            return (dateFormatter.string(from: self),time)
+            dateFormatter.dateFormat = /"M-d"
+            return dateFormatter.string(from: self)
         }
         
-        dateFormatter.dateFormat = "yyyy-M-d"
-        return (dateFormatter.string(from: self),time)
+        dateFormatter.dateFormat = /"yyyy-M-d"
+        return dateFormatter.string(from: self)
     }
 }
 
@@ -301,6 +306,21 @@ extension UIImage {
         guard let cgImage = image?.cgImage else { return nil }
         
         self.init(cgImage: cgImage)
+    }
+    
+    public func recolor(color: UIColor) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+        guard let context = UIGraphicsGetCurrentContext() else { return self }
+        context.translateBy(x: 0, y: self.size.height)
+        context.scaleBy(x: 1.0, y: -1.0)
+        context.setBlendMode(.normal)
+        let rect = CGRect(x: 0, y: 0, w: self.size.width, h: self.size.height)
+        context.clip(to: rect, mask: self.cgImage!)
+        color.setFill()
+        context.fill(rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext();
+        return newImage ?? self;
     }
 }
 

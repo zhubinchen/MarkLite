@@ -41,7 +41,7 @@ class TextViewController: UIViewController {
         
         editView.textContainer.lineBreakMode = .byCharWrapping
         view.setBackgroundColor(.background)
-        bottomView.setTintColor(.primary)
+        bottomView.setTintColor(.tint)
         countLabel.setTextColor(.secondary)
     }
     

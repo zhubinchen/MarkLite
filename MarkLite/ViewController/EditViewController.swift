@@ -30,7 +30,7 @@ enum ExportType: String {
     }
 }
 
-class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UISplitViewControllerDelegate,UIPopoverPresentationControllerDelegate {
+class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet var textViewWidth: NSLayoutConstraint!
     
@@ -70,6 +70,10 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .never
+        } 
+        
         if let popGestureRecognizer = self.navigationController?.interactivePopGestureRecognizer {
             scrollView.panGestureRecognizer.require(toFail: popGestureRecognizer)
         }
@@ -88,8 +92,10 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
             self.toggleRightBarButton()
         }).disposed(by: bag)
         
-        navBar?.setBarTintColor(.navBar)
-        navBar?.setContentColor(.navBarTint)
+        navBar?.setTintColor(.tint)
+        navBar?.setBackgroundColor(.navBar)
+        navBar?.setTitleColor(.primary)
+        
         addNotificationObserver(NSNotification.Name.UIApplicationWillTerminate.rawValue, selector: #selector(applicationWillTerminate))
         addNotificationObserver(NSNotification.Name.UIApplicationDidEnterBackground.rawValue, selector: #selector(applicationWillTerminate))
         addNotificationObserver(Notification.Name.UIApplicationWillChangeStatusBarOrientation.rawValue, selector: #selector(deviceOrientationWillChange))
@@ -303,10 +309,6 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate, UI
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         toggleRightBarButton()
-    }
-    
-    func splitViewController(_ svc: UISplitViewController, willChangeTo displayMode: UISplitViewControllerDisplayMode) {
-
     }
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {

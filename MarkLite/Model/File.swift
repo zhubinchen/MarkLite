@@ -52,6 +52,8 @@ class File {
         return _children
     }
     
+    var displayName: String?
+    
     fileprivate(set) weak var parent: File?
     
     fileprivate var _text = ""
@@ -85,7 +87,7 @@ class File {
         guard let subPaths = try? fileManager.contentsOfDirectory(atPath: path) else {
             return
         }
-        _children = subPaths.filter{($0.components(separatedBy: ".").first ?? "").length > 0 && !$0.hasPrefix(".")}.map{ File(path:self.path + "/" + $0,parent: self) }
+        _children = subPaths.filter{($0.components(separatedBy: ".").first ?? "").length > 0 && !$0.hasPrefix(".") && !$0.hasPrefix("~")}.map{ File(path:self.path + "/" + $0,parent: self) }
     }
     
     convenience init(path: String, parent: File) {
@@ -186,12 +188,42 @@ class File {
 
 extension File {
     
-    class func loadLocal(_ completion: @escaping (File)->Void) {
+    class func loadInbox(_ completion: @escaping (File?)->Void) {
         DispatchQueue.global().async {
-            let local = File(path: documentPath)
+            let local = File(path: inboxPath)
+            local.displayName = /"Inbox"
             DispatchQueue.main.sync {
                 completion(local)
             }
+        }
+    }
+    
+    class func loadLocal(_ completion: @escaping (File?)->Void) {
+        DispatchQueue.global().async {
+            let local = File(path: documentPath)
+            local.displayName = /"Local"
+            DispatchQueue.main.sync {
+                completion(local)
+            }
+        }
+    }
+    
+    class func loadCloud(_ completion: @escaping (File?)->Void) {
+        if cloudPath.length == 0 {
+            completion(nil)
+            return
+        }
+        DispatchQueue.global().async {
+            var cloud: File? = nil
+            defer {
+                DispatchQueue.main.sync {
+                    completion(cloud)
+                }
+            }
+            let url = URL(fileURLWithPath: cloudPath)
+            try? fileManager.startDownloadingUbiquitousItem(at: url)
+            cloud = File(path: cloudPath)
+            cloud?.displayName = /"Cloud"
         }
     }
 }

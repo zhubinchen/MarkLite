@@ -7,6 +7,13 @@
  */
 
 "Documents"="Documents";
+"Local"="Local";
+"Cloud"="iCloud";
+"Inbox"="Inbox";
+"Favorites"="Favorites";
+"Recents"="Recents";
+"Trash"="Trash";
+
 "EmptyFolder"="There is no file in current folder";
 "SwipeTips"="Swipe left to delete or rename file";
 
@@ -15,6 +22,8 @@
 "Today"="today";
 "Yesterday"="yesterday";
 "Children"="Item(s)";
+"M-d"="MM/dd";
+"yyyy-M-d"="yyyy/MM/dd";
 
 "CreateNote"="New File";
 "CreateFolder"="New Folder";
@@ -63,7 +72,6 @@
 
 "Delete"="Delete";
 "Rename"="Rename";
-"LastUpdate"="Last update: ";
 
 "DeleteMessage"="Sure you want to delete the file? This action cannot be undone!";
 "FileNameError"="Invalid name";

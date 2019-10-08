@@ -11,19 +11,16 @@ import EZSwiftExtensions
 import RxSwift
 
 class FileListViewController: UIViewController {
-    
-    static var root: FileListViewController?
-    
+        
     @IBOutlet weak var tableView: UITableView! {
         didSet {
-            tableView.estimatedRowHeight = 50
-            tableView.rowHeight = UITableViewAutomaticDimension
             let tipsLabel = UILabel(frame: CGRect(x: 0, y: 0, w: windowWidth, h: 30))
             tipsLabel.text = "   ".appending(/"SwipeTips")
             tipsLabel.setTextColor(.secondary)
             tipsLabel.font = UIFont.font(ofSize: 14)
             tableView.tableFooterView = tipsLabel
-            
+            tableView.setSeparatorColor(.primary)
+
             let pulldDownLabel = UILabel()
             pulldDownLabel.text = /"ReleaseToRefresh"
             pulldDownLabel.textAlignment = .center
@@ -50,52 +47,29 @@ class FileListViewController: UIViewController {
     let bag = DisposeBag()
         
     var textField: UITextField?
-    
-    var isHomePage = false
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if root == nil {
-            FileListViewController.root = self
-            isHomePage = true
-            RecievedNewFile.observe(eventBlock: { [weak self] (path) in
-                File.loadLocal{
-                    let name = path.components(separatedBy: "/").last ?? "Untitled"
-                    self?.root = $0
-                    self?.showAlert(title: /"ReceivedNewFile" + name)
-                }
-            })
+        if title == nil {
+            title = root?.name
         }
         
         emptyView.setBackgroundColor(.background)
         
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .never
+        }
+        
         setupUI()
-        loadFiles()
     }
     
-    func loadFiles() {
-        if isHomePage {
-            title = /"Documents"
-            File.loadLocal{ root in
-                self.root = root
-                let file = root.children.first { $0.type == .text }
-                NotificationCenter.default.post(name: NSNotification.Name("FileLoadFinished"), object: file)
-            }
-        } else {
-            title = root?.name
-        }
-    }
-    
-    func setupUI() {
-        if isHomePage {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
-        }
+    func setupUI() {        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showCreateMenu(_:)))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showCreateMenu))
-        
-        navBar?.setBarTintColor(.navBar)
-        navBar?.setContentColor(.navBarTint)
+        navBar?.setTintColor(.tint)
+        navBar?.setBackgroundColor(.navBar)
+        navBar?.setTitleColor(.primary)
         tableView.setBackgroundColor(.tableBackground)
         view.setBackgroundColor(.background)
     }
@@ -122,31 +96,29 @@ class FileListViewController: UIViewController {
         performSegue(withIdentifier: "menu", sender: nil)
     }
     
-    @objc func showCreateMenu() {
-        MenuView(items: [/"CreateNote",/"CreateFolder",/"ImportFromFiles"],
-                 postion: CGPoint(x:view.w - 140,y: isPad ? 44 : 64),
-                 textAlignment: .left) { (index) in
-                    if index == 2 {
-                        self.pickFromFiles()
-                        return
-                    }
-                    guard let file = self.root?.createFile(name: index == 0 ? /"Untitled" : /"UntitledFolder", type: index == 0 ? .text : .folder) else {
-                        return
-                    }
-                    
-                    self.showAlert(title: /(index == 0 ? "CreateNote" : "CreateFolder"), message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
-                        textField.text = file.name
-                        self.textField = textField
-                    }, actionHandler: { (index) in
-                        if index == 0 {
-                            file.trash()
-                            return
-                        }
-                        self.rename(file: file, newName:self.textField?.text ?? "")
-                        self.childrens.insert(file, at: 0)
-                        self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
-                    })
-            }.show(on: self.navigationController?.view)
+    @objc func showCreateMenu(_ sender: Any) {
+        showActionSheet(sender: sender, title: nil, message: nil, actionTitles: [/"CreateNote",/"CreateFolder",/"ImportFromFiles"]) { index in
+                                if index == 2 {
+                self.pickFromFiles()
+                return
+            }
+            guard let file = self.root?.createFile(name: index == 0 ? /"Untitled" : /"UntitledFolder", type: index == 0 ? .text : .folder) else {
+                return
+            }
+            
+            self.showAlert(title: /(index == 0 ? "CreateNote" : "CreateFolder"), message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
+                textField.text = file.name
+                self.textField = textField
+            }, actionHandler: { (index) in
+                if index == 0 {
+                    file.trash()
+                    return
+                }
+                self.rename(file: file, newName:self.textField?.text ?? "")
+                self.childrens.insert(file, at: 0)
+                self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+            })
+        }
     }
     
     func rename(file: File, newName: String) {
@@ -268,8 +240,13 @@ extension FileListViewController: UITextFieldDelegate {
 
 extension FileListViewController: UIDocumentPickerDelegate {
     
+//    func pickFromFiles() {
+//        let browser = UIDocumentBrowserViewController(forOpeningFilesWithContentTypes: <#T##[String]?#>)
+//
+//    }
+    
     func pickFromFiles() {
-        let picker = UIDocumentPickerViewController(documentTypes: ["public.text"], in: .import)
+        let picker = UIDocumentPickerViewController(documentTypes: ["public.text"], in: .open)
         picker.delegate = self
         presentVC(picker)
     }

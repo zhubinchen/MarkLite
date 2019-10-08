@@ -13,6 +13,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBOutlet weak var tableView: UITableView! {
         didSet {
+            tableView.estimatedRowHeight = 48
             tableView.rowHeight = 48
             tableView.setSeparatorColor(.primary)
         }
@@ -58,16 +59,17 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
 
         self.title = /"Settings"
-        navBar?.setBarTintColor(.navBar)
-        navBar?.setContentColor(.navBarTint)
+        navBar?.setTintColor(.tint)
+        navBar?.setBackgroundColor(.navBar)
+        navBar?.setTitleColor(.primary)
         tableView.setBackgroundColor(.tableBackground)
         
         tableView.sectionHeaderHeight = 0.01
         tableView.sectionFooterHeight = 20
 
-        themeSwitch.setTintColor(.navBarTint)
-        assitBarSwitch.setTintColor(.navBarTint)
-        cloudSwitch.setTintColor(.navBarTint)
+        themeSwitch.setTintColor(.tint)
+        assitBarSwitch.setTintColor(.tint)
+        cloudSwitch.setTintColor(.tint)
 
         themeSwitch.isOn = Configure.shared.theme.value == .black
         assitBarSwitch.isOn = Configure.shared.isAssistBarEnabled.value

@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UMConfigure.initWithAppkey(umengKey, channel: "App Store")
         Bugly.start(withAppId: buglyId)
         setup()
+        
+        try? FileManager.default.createDirectory(atPath: inboxPath, withIntermediateDirectories: true, attributes: nil)
     
         return true
     }
@@ -30,13 +32,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if url.startAccessingSecurityScopedResource() && FileManager.default.fileExists(atPath: url.path) {
             let oldPath = url.path
             let fileName = oldPath.components(separatedBy: "/").last ?? /"Untitled"
-            let recievedPath = documentPath + "/" + /"ReceivedFiles"
-            let newPath = recievedPath + "/" + fileName
+            let newPath = inboxPath + "/" + fileName
             if oldPath.contains(documentPath) {
                 return true
             }
             do {
-                try FileManager.default.createDirectory(atPath: recievedPath, withIntermediateDirectories: true, attributes: nil)
                 try FileManager.default.moveItem(atPath: oldPath, toPath: newPath)
                 RecievedNewFile.post(info: newPath)
             } catch {
@@ -56,9 +56,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setup() {
         let navigationBar = UINavigationBar.appearance()
-        
         navigationBar.isTranslucent = false
-        
+        if #available(iOS 11.0, *) {
+            navigationBar.prefersLargeTitles = true
+        }
         Configure.shared.setup()
         
         _ = Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in
