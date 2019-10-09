@@ -166,11 +166,17 @@ class FileListViewController: UIViewController {
     }
     
     @IBAction func moveFiles() {
+        if self.selectFiles.count == 0 {
+            return
+        }
         self.performSegue(withIdentifier: "move", sender: self.selectFiles)
         multipleSelect()
     }
     
     @IBAction func deleteFiles() {
+        if self.selectFiles.count == 0 {
+            return
+        }
         self.showAlert(title: /"DeleteMessage", message: nil, actionTitles: [/"Cancel",/"Delete"], textFieldconfigurationHandler: nil, actionHandler: { (index) in
             if index == 0 {
                 return
@@ -257,6 +263,7 @@ class FileListViewController: UIViewController {
     }
     
     func selectFolder(_ indexPath: IndexPath) {
+        navigationItem.rightBarButtonItem?.isEnabled = true
         if isHomePage && indexPath.section == 0 {
             if indexPath.row == 0 {
                 selectedFolder = File.cloud
@@ -295,6 +302,7 @@ class FileListViewController: UIViewController {
             navigationItem.prompt = /"SelectFolderToMove"
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: /"Move", style: .done, target: self, action: #selector(sureMove))
+            navigationItem.rightBarButtonItem?.isEnabled = false
         } else {
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(showCreateMenu(_:)))
 
@@ -420,7 +428,7 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView.isEditing {
             if isHomePage && indexPath.section == 0 {
-                tableView.deleteRows(at: [indexPath], with: .automatic)
+                tableView.deselectRow(at: indexPath, animated: true)
                 return
             } else {
                 let file = files[indexPath.row]

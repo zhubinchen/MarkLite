@@ -17,37 +17,33 @@ class CustomCSSViewController: UITableViewController {
         super.viewDidLoad()
 
         self.title = /"CSS"
+        
         navBar?.setTintColor(.tint)
         navBar?.setBackgroundColor(.navBar)
         navBar?.setTitleColor(.primary)
+        view.setBackgroundColor(.background)
+        view.setTintColor(.tint)
+        nameTextfield.setTextColor(.primary)
+        urlTextfield.setTextColor(.primary)
+        nameTextfield.setPlaceholderColor(.secondary)
+        urlTextfield.setPlaceholderColor(.secondary)
         tableView.setBackgroundColor(.tableBackground)
-        
-        tableView.rowHeight = 44
-        tableView.estimatedRowHeight = 44
-        tableView.sectionHeaderHeight = 0.01
-        tableView.sectionFooterHeight = 20
-    }
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 1 {
-            downloadCSS()
-        }
     }
     
-    func downloadCSS() {
+    @IBAction func downloadCSS() {
         if (nameTextfield.text?.trimmed().length ?? 0) < 1 {
-            showAlert(title:/"InvalidStyleName")
+            SVProgressHUD.showError(withStatus: /"InvalidStyleName")
             return
         }
         if (urlTextfield.text?.trimmed().length ?? 0) < 1 {
-            showAlert(title:/"InvalidStyleURL")
+            SVProgressHUD.showError(withStatus: /"InvalidStyleURL")
             return
         }
         
         let name = nameTextfield.text?.trimmed() ?? "Custom"
         let destPath = resourcesPath + "/Styles/" + name + ".css"
         if FileManager.default.fileExists(atPath: destPath) {
-            self.showAlert(title:"DumplicatedName")
+            SVProgressHUD.showError(withStatus: /"DumplicatedName")
             return
         }
 
@@ -57,7 +53,7 @@ class CustomCSSViewController: UITableViewController {
         request(url!).responseData { resp in
             print(resp)
             guard resp.error == nil else {
-                self.showAlert(title:resp.error?.localizedDescription ?? "")
+                SVProgressHUD.showError(withStatus: resp.error?.localizedDescription ?? "")
                 return
             }
             guard let data = resp.data else { return }

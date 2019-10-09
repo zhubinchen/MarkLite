@@ -45,19 +45,19 @@ class PurchaseViewController: UIViewController {
 
         IAP.restorePurchases { (identifiers, error) in
             if let err = error {
-                print(err.localizedDescription)
-                self.showAlert(title: /"RestoreFailed")
                 SVProgressHUD.dismiss()
+                print(err.localizedDescription)
+                SVProgressHUD.showError(withStatus: /"RestoreFailed")
                 return
             }
             Configure.shared.checkProAvailable({ (availabel) in
+                SVProgressHUD.dismiss()
                 if availabel {
-                    self.showAlert(title: /"RestoreSuccess")
+                    SVProgressHUD.showSuccess(withStatus: /"RestoreSuccess")
                     self.popVC()
                 } else {
-                    self.showAlert(title: /"RestoreFailed")
+                    SVProgressHUD.showError(withStatus: /"RestoreFailed")
                 }
-                SVProgressHUD.dismiss()
             })
             print(identifiers)
         }
@@ -93,18 +93,18 @@ class PurchaseViewController: UIViewController {
                     return
                 }
                 Configure.shared.checkProAvailable({ (availabel) in
+                    SVProgressHUD.dismiss()
                     if availabel {
                         if identifier == premiumYearlyProductID {
                             MobClick.event("finish_purchase_yearly")
                         } else {
                             MobClick.event("finish_purchase_monthly")
                         }
-                        self.showAlert(title: /"SubscribeSuccess")
+                        SVProgressHUD.showSuccess(withStatus: /"SubscribeSuccess")
                         self.popVC()
                     } else {
-                        self.showAlert(title: /"SubscribeFailed")
+                        SVProgressHUD.showError(withStatus: /"SubscribeFailed")
                     }
-                    SVProgressHUD.dismiss()
                 })
             })
         }

@@ -47,6 +47,16 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupUI()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        table.frame = self.view.bounds
+    }
+    
+    func setupUI() {
         navBar?.setTintColor(.tint)
         navBar?.setBackgroundColor(.navBar)
         navBar?.setTitleColor(.primary)
@@ -60,12 +70,16 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
         view.addSubview(table)
         
         table.setBackgroundColor(.tableBackground)
+        
+        if options.editable {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCustomStyle))
+        }
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        table.frame = self.view.bounds
+    @objc func addCustomStyle() {
+        let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
+        let vc = sb.instantiateVC(CustomCSSViewController.self)!
+        pushVC(vc)
     }
     
     override func viewWillAppear(_ animated: Bool) {

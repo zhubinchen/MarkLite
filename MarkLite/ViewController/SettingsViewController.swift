@@ -43,7 +43,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 ("Theme","",#selector(theme)),
                 ("Style","",#selector(style)),
                 ("CodeStyle","",#selector(codeStyle)),
-                ("CSS","",#selector(downloadCSS))
                 ]),
             ("支持一下",[
                 ("RateIt","",#selector(rate)),
@@ -175,14 +174,6 @@ extension SettingsViewController {
         let vc = OptionsViewController()
         vc.options = wraper
         pushVC(vc)
-    }
-    
-    @objc func downloadCSS() {
-        self.doIfPro {
-            let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
-            let vc = sb.instantiateVC(CustomCSSViewController.self)!
-            pushVC(vc)
-        }
     }
     
     @objc func rate() {

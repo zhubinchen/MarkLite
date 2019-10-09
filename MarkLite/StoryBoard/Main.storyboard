@@ -239,7 +239,7 @@
         <!--Wrap View Controller-->
         <scene sceneID="xyd-dt-Ek0">
             <objects>
-                <splitViewController preferredPrimaryColumnWidthFraction="0.29999999999999999" id="2h1-4W-XsA" customClass="WrapViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
+                <splitViewController minimumPrimaryColumnWidth="400" preferredPrimaryColumnWidthFraction="0.29999999999999999" id="2h1-4W-XsA" customClass="WrapViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
                         <segue destination="a2F-WT-xun" kind="relationship" relationship="masterViewController" id="N6k-iv-bno"/>
                         <segue destination="hAF-LB-VS1" kind="relationship" relationship="detailViewController" id="56L-9f-7UQ"/>
@@ -1127,6 +1127,6 @@ AAAAAgEAAAAAAAAAbQAAAAAAAAAAAAAAAAAAxHs
         </image>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qPs-mA-JXd"/>
+        <segue reference="56L-9f-7UQ"/>
     </inferredMetricsTieBreakers>
 </document>

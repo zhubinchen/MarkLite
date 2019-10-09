@@ -193,6 +193,13 @@ extension UITextField {
             self.textColor = color
         })
     }
+    
+    func setPlaceholderColor(_ color: ThemeColorType) {
+        _ = ColorCenter.shared.colorVariable(with: color).asObservable().takeUntil(rx.deallocated).subscribe(onNext: { [unowned self](color) in
+            let attrString = NSAttributedString(string: self.placeholder ?? "", attributes: [NSAttributedStringKey.foregroundColor:color])
+            self.attributedPlaceholder = attrString
+        })
+    }
 }
 
 extension UIActivityIndicatorView {
