@@ -24,7 +24,6 @@
 		07E8274D1F5BF1BA0077A017 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826FD1F5BF1BA0077A017 /* Utils.swift */; };
 		07E8274E1F5BF1BA0077A017 /* AssistKeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826FF1F5BF1BA0077A017 /* AssistKeyboardBar.swift */; };
 		07E8274F1F5BF1BA0077A017 /* DottedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827001F5BF1BA0077A017 /* DottedLineView.swift */; };
-		07E827501F5BF1BA0077A017 /* FileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827011F5BF1BA0077A017 /* FileTableViewCell.swift */; };
 		07E827521F5BF1BA0077A017 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827031F5BF1BA0077A017 /* MenuView.swift */; };
 		07E827551F5BF1BA0077A017 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827071F5BF1BA0077A017 /* EditViewController.swift */; };
 		07E827561F5BF1BA0077A017 /* FileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827081F5BF1BA0077A017 /* FileListViewController.swift */; };
@@ -53,7 +52,6 @@
 		761F825022E16D6500C3435C /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761F824F22E16D6500C3435C /* InfoViewController.swift */; };
 		762CF0F92322650A00F2FF90 /* MarkdownRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 762CF0F82322650A00F2FF90 /* MarkdownRender.m */; };
 		7635E5CA23473212008E1DEF /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7635E5C923473212008E1DEF /* Document.swift */; };
-		7635E5CD234AF377008E1DEF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7635E5CC234AF377008E1DEF /* HomeViewController.swift */; };
 		7635E5CF234AF3B6008E1DEF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7635E5CE234AF3B6008E1DEF /* Main.storyboard */; };
 		768762B922D86CE900A54EB1 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762B822D86CE900A54EB1 /* IAPHelper.swift */; };
 		768762BB22D86D1C00A54EB1 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */; };
@@ -96,7 +94,6 @@
 		07E826FD1F5BF1BA0077A017 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		07E826FF1F5BF1BA0077A017 /* AssistKeyboardBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssistKeyboardBar.swift; sourceTree = "<group>"; };
 		07E827001F5BF1BA0077A017 /* DottedLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DottedLineView.swift; sourceTree = "<group>"; };
-		07E827011F5BF1BA0077A017 /* FileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileTableViewCell.swift; sourceTree = "<group>"; };
 		07E827031F5BF1BA0077A017 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		07E827071F5BF1BA0077A017 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		07E827081F5BF1BA0077A017 /* FileListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileListViewController.swift; sourceTree = "<group>"; };
@@ -140,7 +137,6 @@
 		762CF0F82322650A00F2FF90 /* MarkdownRender.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownRender.m; sourceTree = "<group>"; };
 		7635E5C923473212008E1DEF /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		7635E5CB23473335008E1DEF /* Markdown.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Markdown.entitlements; sourceTree = "<group>"; };
-		7635E5CC234AF377008E1DEF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		7635E5CE234AF3B6008E1DEF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		768762B822D86CE900A54EB1 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
 		768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
@@ -306,7 +302,6 @@
 			children = (
 				07E826FF1F5BF1BA0077A017 /* AssistKeyboardBar.swift */,
 				07E827001F5BF1BA0077A017 /* DottedLineView.swift */,
-				07E827011F5BF1BA0077A017 /* FileTableViewCell.swift */,
 				76E7F270233CAEE10051DF6A /* BaseTableViewCell.swift */,
 				07E827031F5BF1BA0077A017 /* MenuView.swift */,
 			);
@@ -326,7 +321,6 @@
 				07E8270F1F5BF1BA0077A017 /* WrapViewController.swift */,
 				768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */,
 				761F824F22E16D6500C3435C /* InfoViewController.swift */,
-				7635E5CC234AF377008E1DEF /* HomeViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -568,7 +562,6 @@
 				07E8274E1F5BF1BA0077A017 /* AssistKeyboardBar.swift in Sources */,
 				760C296A2320F3EC002E613E /* html.c in Sources */,
 				07E827521F5BF1BA0077A017 /* MenuView.swift in Sources */,
-				7635E5CD234AF377008E1DEF /* HomeViewController.swift in Sources */,
 				07E827591F5BF1BA0077A017 /* OptionsViewController.swift in Sources */,
 				76C64C6322DC314100E2851F /* CLCustomPresentAnnimation.swift in Sources */,
 				760C29692320F3EC002E613E /* html_smartypants.c in Sources */,
@@ -588,7 +581,6 @@
 				760C296C2320F3EC002E613E /* version.c in Sources */,
 				07E8276C1F5BFD880077A017 /* ImageSaver.swift in Sources */,
 				07E8271B1F5BF1BA0077A017 /* PdfRender.swift in Sources */,
-				07E827501F5BF1BA0077A017 /* FileTableViewCell.swift in Sources */,
 				760C296E2320F3EC002E613E /* html_blocks.c in Sources */,
 				76C64C6922DC314100E2851F /* Date+Extension.swift in Sources */,
 				07E827491F5BF1BA0077A017 /* Constant.swift in Sources */,

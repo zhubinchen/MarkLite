@@ -28,6 +28,34 @@ enum SplitOption: String {
     }
 }
 
+enum SortOption: String {
+    case modifyDate
+    case name
+    case type
+
+    var displayName: String {
+        switch self {
+        case .type:
+            return /"SortByType"
+        case .name:
+            return /"SortByName"
+        case .modifyDate:
+            return /"SortByModifyDate"
+        }
+    }
+    
+    var next: SortOption {
+        switch self {
+        case .type:
+            return .modifyDate
+        case .name:
+            return .type
+        case .modifyDate:
+            return .name
+        }
+    }
+}
+
 class Configure: NSObject, NSCoding {
     
     static let configureFile = configPath + "/Configure.plist"
@@ -40,12 +68,12 @@ class Configure: NSObject, NSCoding {
     var hasRate = false
     var foreverPro = false
     var isPro = false
-    var isCloudEnabled = false
     let isAssistBarEnabled = Variable(true)
     let markdownStyle = Variable("GitHub")
     let highlightStyle = Variable("tomorrow")
     let theme = Variable(Theme.white)
     let splitOption = Variable(SplitOption.automatic)
+    var sortOption = SortOption.modifyDate
 
     override init() {
         super.init()
@@ -79,6 +107,7 @@ class Configure: NSObject, NSCoding {
         highlightStyle.value = "tomorrow"
         theme.value = .white
         splitOption.value = .automatic
+        sortOption = .modifyDate
         
         let destStylePath = URL(fileURLWithPath: supportPath)
         try! Zip.unzipFile(Bundle.main.url(forResource: "Resources", withExtension: "zip")!, destination: destStylePath, overwrite: true, password: nil, progress: nil)
@@ -104,12 +133,12 @@ class Configure: NSObject, NSCoding {
         aCoder.encode(isPro, forKey: "isPro")
         aCoder.encode(foreverPro, forKey: "foreverPro")
         aCoder.encode(hasRate, forKey: "hasRate")
-        aCoder.encode(isCloudEnabled, forKey: "isCloudEnabled")
         aCoder.encode(isAssistBarEnabled.value, forKey: "isAssistBarEnabled")
         aCoder.encode(markdownStyle.value, forKey: "markdownStyle")
         aCoder.encode(highlightStyle.value, forKey: "highlightStyle")
         aCoder.encode(theme.value.rawValue, forKey: "theme")
         aCoder.encode(splitOption.value.rawValue, forKey: "splitOption")
+        aCoder.encode(sortOption.rawValue, forKey: "sortOption")
         aCoder.encode(upgradeDate, forKey: "upgradeDate")
         aCoder.encode(alertDate, forKey: "alertDate")
     }
@@ -122,12 +151,12 @@ class Configure: NSObject, NSCoding {
         isPro = aDecoder.decodeBool(forKey: "isPro")
         foreverPro = aDecoder.decodeBool(forKey: "foreverPro")
         hasRate = aDecoder.decodeBool(forKey: "hasRate")
-        isCloudEnabled = aDecoder.decodeBool(forKey: "isCloudEnabled")
         isAssistBarEnabled.value = aDecoder.decodeBool(forKey: "isAssistBarEnabled")
         markdownStyle.value = aDecoder.decodeObject(forKey: "markdownStyle") as? String ?? "GitHub"
         highlightStyle.value = aDecoder.decodeObject(forKey: "highlightStyle") as? String ?? "tomorrow"
         theme.value = Theme(rawValue:aDecoder.decodeObject(forKey: "theme") as? String ?? "") ?? .white
         splitOption.value = SplitOption(rawValue: aDecoder.decodeObject(forKey: "splitOption") as? String ?? "") ?? .automatic
+        sortOption = SortOption(rawValue: aDecoder.decodeObject(forKey: "sortOption") as? String ?? "") ?? .modifyDate
     }
     
     func checkProAvailable(_ completion:((Bool)->Void)? = nil){

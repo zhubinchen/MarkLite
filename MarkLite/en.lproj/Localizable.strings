@@ -7,17 +7,16 @@
  */
 
 "Documents"="Documents";
-"Local"="Local";
+
 "Cloud"="iCloud";
 "Inbox"="Inbox";
-"Favorites"="Favorites";
-"Recents"="Recents";
-"Trash"="Trash";
+
+"SortByName"="Sort By Name";
+"SortByType"="Sort By Type";
+"SortByModifyDate"="Sort By Modify Date";
 
 "EmptyFolder"="There is no file in current folder";
 "SwipeTips"="Swipe left to delete or rename file";
-
-"Settings"="Settings";
 
 "Today"="today";
 "Yesterday"="yesterday";
@@ -25,18 +24,17 @@
 "M-d"="MM/dd";
 "yyyy-M-d"="yyyy/MM/dd";
 
-"CreateNote"="New File";
-"CreateFolder"="New Folder";
-"ImportFromFiles"="Import File";
-"ReleaseToRefresh"="Release to Refresh";
+"CreateNote"="Create Note";
+"CreateFolder"="Create Folder";
+"ImportFromFiles"="Import From Files";
 
 "Untitled"="Untitled";
-"UntitledFolder"="Untitled folder";
+"UntitledFolder"="Untitled Folder";
 
 "Preview"="Preview";
 "Undo"="Undo";
 "Redo"="Redo";
-"Characters"="characters";
+"Characters"="Characters";
 
 "PDF"="PDF";
 "WebPage"="Web pages";
@@ -45,16 +43,17 @@
 "SaveFailed"="Save to photo failed";
 "SaveSuccessed"="Save to photo successed";
 
+"Settings"="Settings";
 "AssistKeyboard"="Keyboard Assist Bar";
-"EnableCloud"="iCloud Sync";
 "SplitOptions"="Split Options";
-"NightMode"="Night mode";
+"NightMode"="Dark Mode";
 "Theme"="Theme";
 "Contact"="Contact us";
 "RateIt"="Rate it";
 "Style"="Style";
-"CodeStyle"="Code block";
-"CSS"="Custom CSS";
+"CSS"="Custom Style";
+"CodeStyle"="Code Highlight Style";
+
 "InvalidStyleURL"="Invalid Style URL";
 "InvalidStyleName"="Invalid Style Name";
 "DumplicatedName"="Dumplicated Style Name";
@@ -81,7 +80,6 @@
 "Open"="Open it";
 "Ignore"="Ignore";
 "ReceivedNewFile"="Received new file:";
-"ReceivedFiles"="Received";
 
 "Error"="Error";
 

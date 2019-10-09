@@ -47,11 +47,28 @@ class File {
     private(set) var path: String
     private(set) var modifyDate: Date
     private(set) var size: Int
+    
+    static var cloud: File?
+    static var local: File?
+    static var inbox: File?
 
     var children: [File] {
         return _children
     }
     
+    var folders: [File] {
+        return _children.filter{ $0.type == .folder }
+    }
+    
+    var expand = false
+    
+    var deep: Int {
+        if let parent = self.parent {
+            return parent.deep + 1
+        }
+        return 0
+    }
+
     var displayName: String?
     
     fileprivate(set) weak var parent: File?
@@ -64,7 +81,6 @@ class File {
         return name + type.extensionName
     }
     
-    var isSelected = false
     lazy var text: String = {
         _text = (try? String(contentsOfFile: self.path, encoding: String.Encoding.utf8)) ?? ""
         return _text
@@ -190,11 +206,12 @@ extension File {
     
     class func loadInbox(_ completion: @escaping (File?)->Void) {
         DispatchQueue.global().async {
-            let local = File(path: inboxPath)
-            local.displayName = /"Inbox"
+            let inbox = File(path: inboxPath)
+            inbox.displayName = /"Inbox"
             DispatchQueue.main.sync {
-                completion(local)
+                completion(inbox)
             }
+            File.inbox = inbox
         }
     }
     
@@ -205,6 +222,7 @@ extension File {
             DispatchQueue.main.sync {
                 completion(local)
             }
+            File.local = local
         }
     }
     
@@ -224,6 +242,7 @@ extension File {
             try? fileManager.startDownloadingUbiquitousItem(at: url)
             cloud = File(path: cloudPath)
             cloud?.displayName = /"Cloud"
+            File.cloud = cloud
         }
     }
 }

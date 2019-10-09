@@ -20,7 +20,7 @@
 
 "CreateNote"="New File";
 "CreateFolder"="New Folder";
-"ImportFromFiles"="Import File";
+"ImportFromFiles"="Import From Files";
 "ReleaseToRefresh"="Release to Refresh";
 
 "Untitled"="Untitled";
@@ -74,7 +74,6 @@
 "Open"="Open it";
 "Ignore"="Ignore";
 "ReceivedNewFile"="Received new file:";
-"ReceivedFiles"="Received";
 
 "Error"="Error";
 

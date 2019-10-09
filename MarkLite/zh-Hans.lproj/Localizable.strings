@@ -39,7 +39,6 @@
 "SaveSuccessed"="已保存到手机相册";
 
 "AssistKeyboard"="辅助键盘";
-"EnableCloud"="iCloud同步";
 "SplitOptions"="编辑预览分屏";
 "NightMode"="夜间模式";
 "Theme"="主题色";
@@ -74,7 +73,6 @@
 "Open"="打开";
 "Ignore"="忽略";
 "ReceivedNewFile"="收到新文件:";
-"ReceivedFiles"="收到的文件";
 
 "Error"="出错了";
 

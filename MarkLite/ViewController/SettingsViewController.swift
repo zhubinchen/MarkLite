@@ -73,11 +73,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 
         themeSwitch.isOn = Configure.shared.theme.value == .black
         assitBarSwitch.isOn = Configure.shared.isAssistBarEnabled.value
-        cloudSwitch.isOn = Configure.shared.isCloudEnabled
         
         themeSwitch.addTarget(self, action: #selector(night(_:)), for: .valueChanged)
         assitBarSwitch.addTarget(self, action: #selector(assistBar(_:)), for: .valueChanged)
-        cloudSwitch.addTarget(self, action: #selector(enableCloud(_:)), for: .valueChanged)
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
     }
@@ -103,6 +101,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "settings", for: indexPath)
+
         let item = items[indexPath.section].1[indexPath.row]
         cell.textLabel?.text = /(item.0)
         cell.detailTextLabel?.text = /(item.1)
@@ -214,10 +213,6 @@ extension SettingsViewController {
     
     @objc func assistBar(_ sender: UISwitch) {
         Configure.shared.isAssistBarEnabled.value = sender.isOn
-    }
-    
-    @objc func enableCloud(_ sender: UISwitch) {
-        Configure.shared.isCloudEnabled = sender.isOn
     }
     
     @objc func theme() {

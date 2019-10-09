@@ -52,6 +52,7 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
         navBar?.setTitleColor(.primary)
         title = options.title
         items = options.items
+        
         table.rowHeight = 48
         table.delegate = self
         table.dataSource = self
@@ -83,20 +84,8 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+        let cell = BaseTableViewCell(style: .default, reuseIdentifier: nil)
         cell.textLabel?.text = self.items[indexPath.row].toString
-        cell.textLabel?.setTextColor(.primary)
-        cell.textLabel?.font = UIFont.font(ofSize: 16)
-        let selectedBg = UIView(x: 0, y: 0, w: view.w, h: 48)
-        let selectedMark = UIView(x: 0, y: 0, w: 5, h: 48)
-        selectedBg.addSubview(selectedMark)
-        
-        selectedBg.setBackgroundColor(.selectedCell)
-        selectedMark.setBackgroundColor(.tint)
-        
-        cell.selectedBackgroundView = selectedBg
-        
-        cell.setBackgroundColor(.background)
         return cell
     }
     

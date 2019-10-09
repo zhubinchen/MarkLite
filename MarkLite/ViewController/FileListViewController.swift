@@ -12,88 +12,146 @@ import RxSwift
 
 class FileListViewController: UIViewController {
         
-    @IBOutlet weak var tableView: UITableView! {
-        didSet {
-            let tipsLabel = UILabel(frame: CGRect(x: 0, y: 0, w: windowWidth, h: 30))
-            tipsLabel.text = "   ".appending(/"SwipeTips")
-            tipsLabel.setTextColor(.secondary)
-            tipsLabel.font = UIFont.font(ofSize: 14)
-            tableView.tableFooterView = tipsLabel
-            tableView.setSeparatorColor(.primary)
-
-            let pulldDownLabel = UILabel()
-            pulldDownLabel.text = /"ReleaseToRefresh"
-            pulldDownLabel.textAlignment = .center
-            pulldDownLabel.setTextColor(.secondary)
-            pulldDownLabel.font = UIFont.font(ofSize: 14)
-            tableView.addPullDownView(pulldDownLabel, bag: bag) { [unowned self] in
-                self.refresh()
-            }
-        }
-    }
+    @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var emptyView: UIView!
     
-    var selectedIndexPath: IndexPath?
-    
+    let pulldDownLabel = UILabel()
+        
     fileprivate var childrens = [File]()
     
-    var root: File? {
-        didSet {
-            refresh()
-        }
-    }
+    fileprivate var items = [
+        (/"Cloud","",#imageLiteral(resourceName: "icon_cloud"),#selector(goCloud)),
+        (/"Inbox","",#imageLiteral(resourceName: "icon_box"),#selector(goInbox)),
+    ]
+    
+    var root: File?
     
     let bag = DisposeBag()
         
     var textField: UITextField?
-        
+    
+    var isHomePage = false
+    
+    var selectFolderMode = false
+    
+    var selectedFolder: File?
+    
+    var filesToMove: [File]?
+    
+    var moveFrom: FileListViewController?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if title == nil {
-            title = root?.name
+        if root == nil || selectFolderMode {
+            isHomePage = true
         }
         
-        emptyView.setBackgroundColor(.background)
-        
-        if #available(iOS 11.0, *) {
-            navigationItem.largeTitleDisplayMode = .never
+        if isHomePage {
+            title = /"Documents"
+        } else {
+            title = root?.displayName ?? root?.name
+            tableView.tableHeaderView = UIView(x: 0, y: 0, w: 0, h: 0.01)
         }
         
+        if isHomePage && selectFolderMode == false {
+            loadFiles()
+        }
+        
+        refresh()
+
         setupUI()
-    }
-    
-    func setupUI() {        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showCreateMenu(_:)))
-        
-        navBar?.setTintColor(.tint)
-        navBar?.setBackgroundColor(.navBar)
-        navBar?.setTitleColor(.primary)
-        tableView.setBackgroundColor(.tableBackground)
-        view.setBackgroundColor(.background)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        refresh()
+        if !isMovingToParentViewController {
+            refresh()
+        }
+    }
+    
+    func loadFiles() {
+        File.loadInbox { inbox in
+            File.inbox = inbox
+            self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
+        }
+        File.loadCloud { cloud in
+            File.cloud = cloud
+            self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+        }
+        File.loadLocal { local in
+            File.local = local
+            self.root = local
+            self.refresh()
+        }
+    }
+    
+    @objc func goCloud() {
+        if let root = File.cloud {
+            self.performSegue(withIdentifier: "file", sender: root)
+            return
+        }
+        File.loadCloud { cloud in
+            if let root = cloud {
+                File.cloud = root
+                self.performSegue(withIdentifier: "file", sender: root)
+            }
+        }
+    }
+    
+    @objc func goInbox() {
+        if let root = File.inbox {
+            self.performSegue(withIdentifier: "file", sender: root)
+            return
+        }
+        File.loadInbox { inbox in
+            if let root = inbox {
+                File.inbox = root
+                self.performSegue(withIdentifier: "file", sender: root)
+            }
+        }
     }
     
     func refresh() {
         if root == nil {
             childrens = []
+        } else if (selectFolderMode) {
+            childrens = [root!]
         } else {
-            childrens = root!.children.sorted{$0.modifyDate > $1.modifyDate}
+            childrens = root!.children.sorted {
+                switch Configure.shared.sortOption {
+                case .type:
+                    return $0.type == .text && $1.type == .folder
+                case .name:
+                    return $0.name > $1.name
+                case .modifyDate:
+                    return $0.modifyDate > $1.modifyDate
+                }
+            }
         }
         if isViewLoaded {
             tableView.reloadData()
         }
     }
     
+    @objc func cancel() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func move() {
+        guard let newParent = selectedFolder else { return }
+        filesToMove?.forEach {
+            $0.move(to: newParent)
+        }
+        moveFrom?.refresh()
+        dismiss(animated: true) {
+        }
+    }
     
     @objc func showSettings() {
-        performSegue(withIdentifier: "menu", sender: nil)
+        performSegue(withIdentifier: "settings", sender: nil)
     }
     
     @objc func showCreateMenu(_ sender: Any) {
@@ -105,7 +163,7 @@ class FileListViewController: UIViewController {
             guard let file = self.root?.createFile(name: index == 0 ? /"Untitled" : /"UntitledFolder", type: index == 0 ? .text : .folder) else {
                 return
             }
-            
+
             self.showAlert(title: /(index == 0 ? "CreateNote" : "CreateFolder"), message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
                 textField.text = file.name
                 self.textField = textField
@@ -129,11 +187,112 @@ class FileListViewController: UIViewController {
         if predicate.evaluate(with: name) {
             file.rename(to: name)
         } else {
-            showAlert(title: /"FileNameError")
+            SVProgressHUD.showError(withStatus: /"FileNameError")
+        }
+    }
+    
+    func openFile(_ indexPath: IndexPath) {
+        if isHomePage && indexPath.section == 0 {
+            let item = items[indexPath.row]
+            self.perform(item.3)
+        } else {
+            let file = childrens[indexPath.row]
+            if file.type == .folder {
+                performSegue(withIdentifier: "file", sender: file)
+            } else {
+                performSegue(withIdentifier: "edit", sender: file)
+            }
+        }
+    }
+    
+    func selectFolder(_ indexPath: IndexPath) {
+        if isHomePage && indexPath.section == 0 {
+            if indexPath.row == 0 {
+                selectedFolder = File.cloud
+            } else if indexPath.row == 1 {
+                selectedFolder = File.inbox
+            }
+        } else {
+            let file = childrens[indexPath.row]
+            selectedFolder = file
+            let cell = tableView.cellForRow(at: indexPath)
+            if file.folders.count > 0 {
+                var indexPaths = [IndexPath]()
+                for i in 1...file.folders.count {
+                    indexPaths.append(IndexPath(row: indexPath.row + i, section: indexPath.section))
+                }
+                if file.expand {
+                    childrens.removeAll { item -> Bool in
+                        return file.folders.contains{ $0 == item }
+                    }
+                    tableView.deleteRows(at: indexPaths, with: .top)
+                } else {
+                    childrens.insert(contentsOf: file.folders, at: indexPath.row + 1)
+                    tableView.insertRows(at: indexPaths, with: .bottom)
+                }
+                file.expand = !file.expand
+                (cell?.accessoryView as? UIImageView)?.image = (file.expand ?  #imageLiteral(resourceName: "icon_expand") : #imageLiteral(resourceName: "icon_forward")).recolor(color: ColorCenter.shared.secondary.value)
+            }
+        }
+    }
+    
+    func setupUI() {
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .never
+        }
+                
+        if selectFolderMode {
+            navigationItem.prompt = "SelectFolderToMove"
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: /"Move", style: .done, target: self, action: #selector(move))
+        } else {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showCreateMenu(_:)))
+            
+            if isHomePage {
+                navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
+            }
+        }
+                
+        navBar?.setTintColor(.tint)
+        navBar?.setBackgroundColor(.navBar)
+        navBar?.setTitleColor(.primary)
+        view.setBackgroundColor(.background)
+        tableView.setBackgroundColor(.tableBackground)
+        tableView.setSeparatorColor(.primary)
+        emptyView.setBackgroundColor(.background)
+        
+        let tipsLabel = UILabel(frame: CGRect(x: 0, y: 0, w: windowWidth, h: 30))
+        tipsLabel.text = "   ".appending(/"SwipeTips")
+        tipsLabel.setTextColor(.secondary)
+        tipsLabel.font = UIFont.font(ofSize: 14)
+        tableView.tableFooterView = tipsLabel
+        tableView.setSeparatorColor(.primary)
+
+        pulldDownLabel.text = Configure.shared.sortOption.next.displayName
+        pulldDownLabel.textAlignment = .center
+        pulldDownLabel.setTextColor(.secondary)
+        pulldDownLabel.font = UIFont.font(ofSize: 14)
+        tableView.addPullDownView(pulldDownLabel, bag: bag) { [unowned self] in
+            Configure.shared.sortOption = Configure.shared.sortOption.next
+            self.pulldDownLabel.text = Configure.shared.sortOption.next.displayName
+            self.refresh()
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "move" {
+            if let nav = segue.destination as? UINavigationController,
+                let vc = nav.topViewController as? FileListViewController,
+                let file = sender as? File {
+                vc.selectFolderMode = true
+                vc.filesToMove = [file]
+                vc.moveFrom = self
+                vc.root = File.local
+            }
+            return
+        }
+        
         if let vc = segue.destination as? FileListViewController,
             let file = sender as? File {
             vc.root = file
@@ -146,52 +305,80 @@ class FileListViewController: UIViewController {
             vc.file = file
             return
         }
-        
-        if let vc = segue.destination as? EditViewController,
-            let file = sender as? File {
-            vc.file = file
-        }
     }
 }
 
 extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
+        if isHomePage {
+            return 2
+        }
         tableView.isHidden = childrens.count == 0
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isHomePage && section == 0 {
+            return items.count
+        }
         return childrens.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell =  tableView.dequeueReusableCell(withIdentifier: "file", for: indexPath) as! FileTableViewCell
+    func tableView(_ tableView: UITableView, indentationLevelForRowAt indexPath: IndexPath) -> Int {
+        if !selectFolderMode {
+            return 0
+        }
+        if isHomePage && indexPath.section == 0 {
+            return 0
+        }
         let file = childrens[indexPath.row]
-        cell.file = file
+        return file.deep
+    }
+        
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "item", for: indexPath)
+        if isHomePage && indexPath.section == 0 {
+            let item = items[indexPath.row]
+            cell.textLabel?.text = item.0
+            if indexPath.row == 0 {
+                cell.detailTextLabel?.text = "\(File.cloud?.children.count ?? 0) " + /"Children"
+            } else {
+                cell.detailTextLabel?.text = "\(File.inbox?.children.count ?? 0) " + /"Children"
+            }
+            cell.imageView?.image = item.2.recolor(color: ColorCenter.shared.tint.value)
+            return cell
+        } else {
+            let file = childrens[indexPath.row]
+            cell.textLabel?.text = file.displayName ?? file.name
+            if file.type == .folder {
+                cell.detailTextLabel?.text = "\(file.children.count) " + /"Children"
+            } else {
+                cell.detailTextLabel?.text = file.modifyDate.readableDate()
+            }
+            cell.imageView?.image = (file.type == .folder ? #imageLiteral(resourceName: "icon_folder") : #imageLiteral(resourceName: "icon_text")).recolor(color: ColorCenter.shared.tint.value)
+        }
+        if selectFolderMode {
+            cell.indentationWidth = 20
+            cell.detailTextLabel?.text = nil
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let file = childrens[indexPath.row]
-        if file.type == .folder {
-            performSegue(withIdentifier: "next", sender: file)
+        if selectFolderMode {
+            selectFolder(indexPath)
         } else {
-            performSegue(withIdentifier: "edit", sender: file)
-        }
-        if isPhone {
-            tableView.deselectRow(at: indexPath, animated: true)
-        } else {
-            if let oldIndexPath = selectedIndexPath {
-                childrens[oldIndexPath.row].isSelected = false
-                tableView.reloadRows(at: [oldIndexPath], with: .automatic)
-            }
-            file.isSelected = true
-            tableView.reloadRows(at: [indexPath], with: .automatic)
-            selectedIndexPath = indexPath
+            openFile(indexPath)
         }
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if selectFolderMode {
+            return false
+        }
+        if isHomePage && indexPath.section == 0 {
+            return false
+        }
         return true
     }
     
@@ -220,8 +407,14 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
                 tableView.reloadRows(at: [indexPath], with: .automatic)
             })
         }
+        
+        let moveAction = UITableViewRowAction(style: .default, title: /"Move") { [unowned self](_, indexPath) in
+            self.performSegue(withIdentifier: "move", sender: self.childrens[indexPath.row])
+        }
+        
         renameAction.backgroundColor = .lightGray
-        return [deleteAction,renameAction]
+        moveAction.backgroundColor = .orange
+        return [deleteAction,renameAction,moveAction]
     }
 }
 
@@ -239,11 +432,6 @@ extension FileListViewController: UITextFieldDelegate {
 }
 
 extension FileListViewController: UIDocumentPickerDelegate {
-    
-//    func pickFromFiles() {
-//        let browser = UIDocumentBrowserViewController(forOpeningFilesWithContentTypes: <#T##[String]?#>)
-//
-//    }
     
     func pickFromFiles() {
         let picker = UIDocumentPickerViewController(documentTypes: ["public.text"], in: .open)
