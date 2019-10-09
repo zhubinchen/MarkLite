@@ -66,8 +66,10 @@ class BaseTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        let indentPoints = CGFloat(self.indentationLevel) * self.indentationWidth
-        self.contentView.frame = CGRect(x: indentPoints, y: self.contentView.frame.origin.y, w: self.contentView.frame.size.width - indentPoints, h: self.contentView.frame.size.height)
+        if self.indentationLevel > 0 {
+            let indentPoints = CGFloat(self.indentationLevel) * self.indentationWidth
+            self.contentView.frame = CGRect(x: indentPoints, y: self.contentView.frame.origin.y, w: self.contentView.frame.size.width - indentPoints, h: self.contentView.frame.size.height)
+        }
     }
 
 }

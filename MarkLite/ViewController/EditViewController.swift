@@ -338,18 +338,18 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
        }()
        
     lazy var previewButton: UIBarButtonItem = {
-           let button = UIBarButtonItem(title: /"Preview", style: .plain, target: self, action: #selector(preview))
+           let button = UIBarButtonItem(image: #imageLiteral(resourceName: "preview"), style: .plain, target: self, action: #selector(preview))
            return button
        }()
        
     lazy var fullscreenButton: UIBarButtonItem = {
-           let export = UIBarButtonItem(image: #imageLiteral(resourceName: "fullscreen"), style: .plain, target: self, action: #selector(fullscreen))
-           return export
+           let button = UIBarButtonItem(image: #imageLiteral(resourceName: "fullscreen"), style: .plain, target: self, action: #selector(fullscreen))
+           return button
        }()
        
     lazy var exitFullscreenButton: UIBarButtonItem = {
-           let export = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_files"), style: .plain, target: self, action: #selector(fullscreen))
-           return export
+           let button = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_files"), style: .plain, target: self, action: #selector(fullscreen))
+           return button
        }()
        
     lazy var filelistButton: UIBarButtonItem = {

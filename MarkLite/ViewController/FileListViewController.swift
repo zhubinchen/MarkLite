@@ -16,9 +16,11 @@ class FileListViewController: UIViewController {
     
     @IBOutlet weak var emptyView: UIView!
     
+    @IBOutlet weak var oprationViewBottom: NSLayoutConstraint!
+
     let pulldDownLabel = UILabel()
         
-    fileprivate var childrens = [File]()
+    fileprivate var files = [File]()
     
     fileprivate var items = [
         (/"Cloud","",#imageLiteral(resourceName: "icon_cloud"),#selector(goCloud)),
@@ -35,10 +37,12 @@ class FileListViewController: UIViewController {
     
     var selectFolderMode = false
     
+    var selectFiles = [File]()
+    
     var selectedFolder: File?
     
     var filesToMove: [File]?
-    
+
     var moveFrom: FileListViewController?
 
     override func viewDidLoad() {
@@ -50,6 +54,9 @@ class FileListViewController: UIViewController {
         
         if isHomePage {
             title = /"Documents"
+            _ = Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in
+                self.navBar?.barStyle = theme == .black ? .black : .default
+            })
         } else {
             title = root?.displayName ?? root?.name
             tableView.tableHeaderView = UIView(x: 0, y: 0, w: 0, h: 0.01)
@@ -62,6 +69,8 @@ class FileListViewController: UIViewController {
         refresh()
 
         setupUI()
+        
+        setupBarButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,6 +97,26 @@ class FileListViewController: UIViewController {
         }
     }
     
+    @objc func multipleSelect() {
+        tableView.setEditing(tableView.isEditing == false, animated: true)
+        setupBarButton()
+        var inset = CGFloat(0)
+        if #available(iOS 11.0, *) {
+            inset = view.safeAreaInsets.bottom
+        }
+        oprationViewBottom.constant = tableView.isEditing ? 0 : -44 - inset
+        UIView.animate(withDuration: 0.5) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    @objc func selectAllFiles() {
+        for i in 0..<files.count {
+            let indexPath = IndexPath(row: i, section: isHomePage ? 1 : 0)
+            tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
+        }
+    }
+
     @objc func goCloud() {
         if let root = File.cloud {
             self.performSegue(withIdentifier: "file", sender: root)
@@ -116,11 +145,11 @@ class FileListViewController: UIViewController {
     
     func refresh() {
         if root == nil {
-            childrens = []
+            files = []
         } else if (selectFolderMode) {
-            childrens = [root!]
+            files = [root!]
         } else {
-            childrens = root!.children.sorted {
+            files = root!.children.sorted {
                 switch Configure.shared.sortOption {
                 case .type:
                     return $0.type == .text && $1.type == .folder
@@ -136,11 +165,29 @@ class FileListViewController: UIViewController {
         }
     }
     
+    @IBAction func moveFiles() {
+        self.performSegue(withIdentifier: "move", sender: self.selectFiles)
+        multipleSelect()
+    }
+    
+    @IBAction func deleteFiles() {
+        self.showAlert(title: /"DeleteMessage", message: nil, actionTitles: [/"Cancel",/"Delete"], textFieldconfigurationHandler: nil, actionHandler: { (index) in
+            if index == 0 {
+                return
+            }
+            self.selectFiles.forEach { file in
+                file.trash()
+            }
+            self.refresh()
+            self.multipleSelect()
+        })
+    }
+    
     @objc func cancel() {
         dismiss(animated: true, completion: nil)
     }
     
-    @objc func move() {
+    @objc func sureMove() {
         guard let newParent = selectedFolder else { return }
         filesToMove?.forEach {
             $0.move(to: newParent)
@@ -155,9 +202,13 @@ class FileListViewController: UIViewController {
     }
     
     @objc func showCreateMenu(_ sender: Any) {
-        showActionSheet(sender: sender, title: nil, message: nil, actionTitles: [/"CreateNote",/"CreateFolder",/"ImportFromFiles"]) { index in
-                                if index == 2 {
+        showActionSheet(sender: sender, title: nil, message: nil, actionTitles: [/"CreateNote",/"CreateFolder",/"ImportFromFiles",/"MultipleSelect"]) { index in
+            if index == 2 {
                 self.pickFromFiles()
+                return
+            }
+            if index == 3 {
+                self.multipleSelect()
                 return
             }
             guard let file = self.root?.createFile(name: index == 0 ? /"Untitled" : /"UntitledFolder", type: index == 0 ? .text : .folder) else {
@@ -173,8 +224,8 @@ class FileListViewController: UIViewController {
                     return
                 }
                 self.rename(file: file, newName:self.textField?.text ?? "")
-                self.childrens.insert(file, at: 0)
-                self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+                self.files.insert(file, at: 0)
+                self.tableView.insertRows(at: [IndexPath(row: 0, section: self.isHomePage ? 1 : 0)], with: .automatic)
             })
         }
     }
@@ -196,7 +247,7 @@ class FileListViewController: UIViewController {
             let item = items[indexPath.row]
             self.perform(item.3)
         } else {
-            let file = childrens[indexPath.row]
+            let file = files[indexPath.row]
             if file.type == .folder {
                 performSegue(withIdentifier: "file", sender: file)
             } else {
@@ -213,7 +264,7 @@ class FileListViewController: UIViewController {
                 selectedFolder = File.inbox
             }
         } else {
-            let file = childrens[indexPath.row]
+            let file = files[indexPath.row]
             selectedFolder = file
             let cell = tableView.cellForRow(at: indexPath)
             if file.folders.count > 0 {
@@ -222,12 +273,12 @@ class FileListViewController: UIViewController {
                     indexPaths.append(IndexPath(row: indexPath.row + i, section: indexPath.section))
                 }
                 if file.expand {
-                    childrens.removeAll { item -> Bool in
+                    files.removeAll { item -> Bool in
                         return file.folders.contains{ $0 == item }
                     }
                     tableView.deleteRows(at: indexPaths, with: .top)
                 } else {
-                    childrens.insert(contentsOf: file.folders, at: indexPath.row + 1)
+                    files.insert(contentsOf: file.folders, at: indexPath.row + 1)
                     tableView.insertRows(at: indexPaths, with: .bottom)
                 }
                 file.expand = !file.expand
@@ -236,37 +287,39 @@ class FileListViewController: UIViewController {
         }
     }
     
-    func setupUI() {
-        if #available(iOS 11.0, *) {
-            navigationItem.largeTitleDisplayMode = .never
-        }
-                
-        if selectFolderMode {
-            navigationItem.prompt = "SelectFolderToMove"
+    func setupBarButton() {
+        if tableView.isEditing {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(multipleSelect))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: /"SelectAll", style: .plain, target: self, action: #selector(selectAllFiles))
+        } else if selectFolderMode {
+            navigationItem.prompt = /"SelectFolderToMove"
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: /"Move", style: .done, target: self, action: #selector(move))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: /"Move", style: .done, target: self, action: #selector(sureMove))
         } else {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showCreateMenu(_:)))
-            
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(showCreateMenu(_:)))
+
             if isHomePage {
                 navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
             }
         }
-                
+    }
+    
+    func setupUI() {
+        var inset = CGFloat(0)
+        if #available(iOS 11.0, *) {
+            navigationItem.largeTitleDisplayMode = .never
+            inset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+        }
+        oprationViewBottom.constant = -44 - inset
+                                
         navBar?.setTintColor(.tint)
         navBar?.setBackgroundColor(.navBar)
         navBar?.setTitleColor(.primary)
         view.setBackgroundColor(.background)
+        view.setTintColor(.tint)
         tableView.setBackgroundColor(.tableBackground)
         tableView.setSeparatorColor(.primary)
         emptyView.setBackgroundColor(.background)
-        
-        let tipsLabel = UILabel(frame: CGRect(x: 0, y: 0, w: windowWidth, h: 30))
-        tipsLabel.text = "   ".appending(/"SwipeTips")
-        tipsLabel.setTextColor(.secondary)
-        tipsLabel.font = UIFont.font(ofSize: 14)
-        tableView.tableFooterView = tipsLabel
-        tableView.setSeparatorColor(.primary)
 
         pulldDownLabel.text = Configure.shared.sortOption.next.displayName
         pulldDownLabel.textAlignment = .center
@@ -284,9 +337,9 @@ class FileListViewController: UIViewController {
         if segue.identifier == "move" {
             if let nav = segue.destination as? UINavigationController,
                 let vc = nav.topViewController as? FileListViewController,
-                let file = sender as? File {
+                let files = sender as? [File] {
                 vc.selectFolderMode = true
-                vc.filesToMove = [file]
+                vc.filesToMove = files
                 vc.moveFrom = self
                 vc.root = File.local
             }
@@ -313,7 +366,7 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
         if isHomePage {
             return 2
         }
-        tableView.isHidden = childrens.count == 0
+        tableView.isHidden = files.count == 0
         return 1
     }
     
@@ -321,7 +374,7 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
         if isHomePage && section == 0 {
             return items.count
         }
-        return childrens.count
+        return files.count
     }
     
     func tableView(_ tableView: UITableView, indentationLevelForRowAt indexPath: IndexPath) -> Int {
@@ -331,7 +384,7 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
         if isHomePage && indexPath.section == 0 {
             return 0
         }
-        let file = childrens[indexPath.row]
+        let file = files[indexPath.row]
         return file.deep
     }
         
@@ -348,7 +401,7 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
             cell.imageView?.image = item.2.recolor(color: ColorCenter.shared.tint.value)
             return cell
         } else {
-            let file = childrens[indexPath.row]
+            let file = files[indexPath.row]
             cell.textLabel?.text = file.displayName ?? file.name
             if file.type == .folder {
                 cell.detailTextLabel?.text = "\(file.children.count) " + /"Children"
@@ -363,12 +416,30 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
         }
         return cell
     }
-    
+        
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if selectFolderMode {
+        if tableView.isEditing {
+            if isHomePage && indexPath.section == 0 {
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+                return
+            } else {
+                let file = files[indexPath.row]
+                selectFiles.append(file)
+            }
+        } else if selectFolderMode {
             selectFolder(indexPath)
         } else {
             openFile(indexPath)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if tableView.isEditing {
+            if isHomePage && indexPath.section == 0 {
+                return
+            }
+            let file = files[indexPath.row]
+            selectFiles.removeAll { file == $0 }
         }
     }
     
@@ -388,14 +459,14 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
                 if index == 0 {
                     return
                 }
-                let file = self.childrens[indexPath.row]
+                let file = self.files[indexPath.row]
                 file.trash()
-                self.childrens.remove(at: indexPath.row)
+                self.files.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .middle)
             })
         }
         let renameAction = UITableViewRowAction(style: .default, title: /"Rename") { [unowned self](_, indexPath) in
-            let file = self.childrens[indexPath.row]
+            let file = self.files[indexPath.row]
             self.showAlert(title: /"Rename", message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
                 textField.text = file.name
                 self.textField = textField
@@ -409,7 +480,7 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         let moveAction = UITableViewRowAction(style: .default, title: /"Move") { [unowned self](_, indexPath) in
-            self.performSegue(withIdentifier: "move", sender: self.childrens[indexPath.row])
+            self.performSegue(withIdentifier: "move", sender: [self.files[indexPath.row]])
         }
         
         renameAction.backgroundColor = .lightGray

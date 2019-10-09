@@ -7,10 +7,16 @@
  */
 
 "Documents"="文件";
-"EmptyFolder"="当前目录没有任何文件";
-"SwipeTips"="向左滑动可重命名或删除文件";
 
-"Settings"="设置";
+"Cloud"="iCloud";
+"Local"="本地";
+"Inbox"="来自其他应用";
+
+"SortByName"="按文件名称排序";
+"SortByType"="按文件类型排序";
+"SortByModifyDate"="按修改时间排序";
+
+"EmptyFolder"="当前目录没有任何文件";
 
 "Today"="今天";
 "Yesterday"="昨天";
@@ -18,10 +24,16 @@
 "M-d"="M月d日";
 "yyyy-M-d"="yyyy年M月d日";
 
-"CreateNote"="新建文档";
-"CreateFolder"="新建文件夹";
+"CreateNote"="创建文档";
+"CreateFolder"="创建文件夹";
 "ImportFromFiles"="导入文件";
-"ReleaseToRefresh"="松手刷新列表";
+"MultipleSelect"="批量选择";
+"SelectAll"="全选";
+
+"Delete"="删除";
+"Rename"="重命名";
+"Rename"="移动";
+"SelectFolderToMove"="选择目标文件夹";
 
 "Untitled"="未命名";
 "UntitledFolder"="未命名文件夹";
@@ -38,6 +50,7 @@
 "SaveFailed"="保存失败";
 "SaveSuccessed"="已保存到手机相册";
 
+"Settings"="设置";
 "AssistKeyboard"="辅助键盘";
 "SplitOptions"="编辑预览分屏";
 "NightMode"="夜间模式";
@@ -61,9 +74,6 @@
 "OK"="确定";
 "Close"="关闭";
 "Cancel"="取消";
-
-"Delete"="删除";
-"Rename"="重命名";
 
 "DeleteMessage"="删除后不可恢复，确定要删除吗？";
 "FileNameError"="请输入正确的文件名";

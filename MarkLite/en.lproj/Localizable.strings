@@ -9,6 +9,7 @@
 "Documents"="Documents";
 
 "Cloud"="iCloud";
+"Local"="Local";
 "Inbox"="Inbox";
 
 "SortByName"="Sort By Name";
@@ -16,7 +17,6 @@
 "SortByModifyDate"="Sort By Modify Date";
 
 "EmptyFolder"="There is no file in current folder";
-"SwipeTips"="Swipe left to delete or rename file";
 
 "Today"="today";
 "Yesterday"="yesterday";
@@ -27,6 +27,13 @@
 "CreateNote"="Create Note";
 "CreateFolder"="Create Folder";
 "ImportFromFiles"="Import From Files";
+"MultipleSelect"="Multiple Select";
+"SelectAll"="Select All";
+
+"Delete"="Delete";
+"Rename"="Rename";
+"Move"="Move";
+"SelectFolderToMove"="Select a destination folder";
 
 "Untitled"="Untitled";
 "UntitledFolder"="Untitled Folder";
@@ -52,7 +59,7 @@
 "RateIt"="Rate it";
 "Style"="Style";
 "CSS"="Custom Style";
-"CodeStyle"="Code Highlight Style";
+"CodeStyle"="Code Highlight";
 
 "InvalidStyleURL"="Invalid Style URL";
 "InvalidStyleName"="Invalid Style Name";
@@ -69,10 +76,7 @@
 "Close"="Close";
 "Cancel"="Cancel";
 
-"Delete"="Delete";
-"Rename"="Rename";
-
-"DeleteMessage"="Sure you want to delete the file? This action cannot be undone!";
+"DeleteMessage"="Sure you want to delete the selected file(s)? This action cannot be undone!";
 "FileNameError"="Invalid name";
 "RenameTips"="Please input new name";
 "InsertHref"="Insert href";
