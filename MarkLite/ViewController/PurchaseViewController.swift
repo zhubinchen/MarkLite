@@ -15,6 +15,10 @@ class PurchaseViewController: UIViewController {
         super.viewDidLoad()
         self.title = /"Premium"
         
+        navBar?.setTintColor(.tint)
+        navBar?.setBackgroundColor(.navBar)
+        navBar?.setTitleColor(.primary)
+        
         if self.navigationController?.viewControllers.count == 1 {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
         }
@@ -78,7 +82,7 @@ class PurchaseViewController: UIViewController {
         let nav = UINavigationController(rootViewController: vc)
         presentVC(nav)
     }
-    
+
     func purchaseProduct(_ identifier: String) {
         SVProgressHUD.show()
         IAP.requestProducts([identifier]) { (response, error) in

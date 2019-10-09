@@ -126,8 +126,12 @@ extension IAPHelper: SKProductsRequestDelegate {
 // MARK: SKPaymentTransactionObserver
 
 extension IAPHelper: SKPaymentTransactionObserver {
+    
+    public func paymentQueue(_ queue: SKPaymentQueue, shouldAddStorePayment payment: SKPayment, for product: SKProduct) -> Bool {
+        return true
+    }
   
-  public func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+    public func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
     for transaction in transactions {
       switch (transaction.transactionState) {
 
@@ -362,3 +366,4 @@ public enum ReceiptStatus: Int {
   case valid = 0
   case testReceipt = 21007
 }
+

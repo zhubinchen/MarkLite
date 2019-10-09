@@ -149,18 +149,16 @@ extension SettingsViewController {
         let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
         let vc = sb.instantiateVC(PurchaseViewController.self)!
         dismiss(animated: false) {
-            if isPad {
-                let nav = UINavigationController(rootViewController: vc)
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .fullScreen
+            let date = Date(fromString: "2019-10-04", format: "yyyy-MM-dd")!
+            let now = Date()
+            if now > date {
+                nav.modalPresentationStyle = .formSheet
+            } else {
                 nav.modalPresentationStyle = .fullScreen
-                let date = Date(fromString: "2019-10-04", format: "yyyy-MM-dd")!
-                let now = Date()
-                if now > date {
-                    nav.modalPresentationStyle = .formSheet
-                }
-                UIApplication.shared.keyWindow?.rootViewController?.presentVC(nav)
-            } else if let nav = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
-                nav.pushViewController(vc, animated: true)
             }
+            UIApplication.shared.keyWindow?.rootViewController?.presentVC(nav)
         }
     }
     

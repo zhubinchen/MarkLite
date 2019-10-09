@@ -138,7 +138,7 @@
 		7635E5C923473212008E1DEF /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		7635E5CB23473335008E1DEF /* Markdown.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Markdown.entitlements; sourceTree = "<group>"; };
 		7635E5CE234AF3B6008E1DEF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		768762B822D86CE900A54EB1 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
+		768762B822D86CE900A54EB1 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; usesTabs = 0; };
 		768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		76C64C3D22DC314100E2851F /* CLCustomPresentAnnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLCustomPresentAnnimation.swift; sourceTree = "<group>"; };
 		76C64C3E22DC314100E2851F /* CLCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLCommon.swift; sourceTree = "<group>"; };
@@ -313,14 +313,14 @@
 			children = (
 				07E827071F5BF1BA0077A017 /* EditViewController.swift */,
 				07E827081F5BF1BA0077A017 /* FileListViewController.swift */,
-				07E8270B1F5BF1BA0077A017 /* OptionsViewController.swift */,
-				07E8270C1F5BF1BA0077A017 /* SettingsViewController.swift */,
-				76DFD720232926AC00F97D56 /* CustomCSSViewController.swift */,
 				07E8270D1F5BF1BA0077A017 /* TextViewController.swift */,
 				07E8270E1F5BF1BA0077A017 /* WebViewController.swift */,
+				07E8270C1F5BF1BA0077A017 /* SettingsViewController.swift */,
 				07E8270F1F5BF1BA0077A017 /* WrapViewController.swift */,
 				768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */,
 				761F824F22E16D6500C3435C /* InfoViewController.swift */,
+				07E8270B1F5BF1BA0077A017 /* OptionsViewController.swift */,
+				76DFD720232926AC00F97D56 /* CustomCSSViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";

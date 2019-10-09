@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setup()
         
         try? FileManager.default.createDirectory(atPath: inboxPath, withIntermediateDirectories: true, attributes: nil)
-    
+        _ = IAPHelper.sharedInstance
         return true
     }
     
