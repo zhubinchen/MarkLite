@@ -21,11 +21,13 @@ enum Theme: String {
 
 enum ThemeColorType {
     case navBar
-    case tint
+    case navTitle
+    case navTint
     case background
     case tableBackground
     case primary
     case secondary
+    case tint
     case selectedCell
 }
 
@@ -33,19 +35,19 @@ extension Theme {
     var colors: [UIColor] {
         switch self {
         case .white:
-            return [rgb("ffffff")!,rgb("4b5cc4")!,rgb("ffffff")!,rgb("F2F2F6")!,rgb("181818")!,rgba("181818", 0.5)!]
+            return [rgb("ffffff")!,rgb("181818")!,rgb("4b5cc4")!,rgb("ffffff")!,rgb("F2F2F6")!,rgb("181818")!,rgba("181818", 0.5)!,rgb("4b5cc4")!]
         case .black:
-            return [rgb("181818")!,rgb("4b5cc4")!,rgb("181818")!,rgb("080808")!,rgb("cccccc")!,rgba("cccccc", 0.5)!]
+            return [rgb("181818")!,rgb("cccccc")!,rgb("4b5cc4")!,rgb("181818")!,rgb("080808")!,rgb("cccccc")!,rgba("cccccc", 0.5)!,rgb("4b5cc4")!]
         case .blue:
-            return [rgb("0291D4")!,rgb("ffffff")!,rgb("ffffff")!,rgb("F2F2F6")!,rgb("0291D4")!,rgba("0291D4", 0.5)!]
+            return [rgb("0291D4")!,rgb("ffffff")!,rgb("ffffff")!,rgb("ffffff")!,rgb("F2F2F6")!,rgb("0291D4")!,rgba("0291D4", 0.5)!,rgb("0291D4")!]
         case .purple:
-            return [rgb("6c16c7")!,rgb("ffffff")!,rgb("ffffff")!,rgb("F2F2F6")!,rgb("6c16c7")!,rgba("6c16c7", 0.5)!]
+            return [rgb("6c16c7")!,rgb("ffffff")!,rgb("ffffff")!,rgb("ffffff")!,rgb("F2F2F6")!,rgb("6c16c7")!,rgba("6c16c7", 0.5)!,rgb("6c16c7")!]
         case .red:
-            return [rgb("D2373B")!,rgb("ffffff")!,rgb("ffffff")!,rgb("F2F2F6")!,rgb("D2373B")!,rgba("D2373B", 0.5)!]
+            return [rgb("D2373B")!,rgb("ffffff")!,rgb("ffffff")!,rgb("ffffff")!,rgb("F2F2F6")!,rgb("D2373B")!,rgba("D2373B", 0.5)!,rgb("D2373B")!]
         case .green:
-            return [rgb("01BD70")!,rgb("ffffff")!,rgb("ffffff")!,rgb("F2F2F6")!,rgb("01BD70")!,rgba("01BD70", 0.5)!]
+            return [rgb("01BD70")!,rgb("ffffff")!,rgb("ffffff")!,rgb("ffffff")!,rgb("F2F2F6")!,rgb("01BD70")!,rgba("01BD70", 0.5)!,rgb("01BD70")!]
         case .pink:
-            return [rgb("E52D7C")!,rgb("ffffff")!,rgb("ffffff")!,rgb("F2F2F6")!,rgb("E52D7C")!,rgba("E52D7C", 0.5)!]
+            return [rgb("E52D7C")!,rgb("ffffff")!,rgb("ffffff")!,rgb("ffffff")!,rgb("F2F2F6")!,rgb("E52D7C")!,rgba("E52D7C", 0.5)!,rgb("E52D7C")!]
         }
     }
     
@@ -73,21 +75,25 @@ class ColorCenter {
     static let shared = ColorCenter()
     
     let navBar = Variable(UIColor.clear)
-    let tint = Variable(UIColor.clear)
+    let navTitle = Variable(UIColor.clear)
+    let navTint = Variable(UIColor.clear)
     let primary = Variable(UIColor.clear)
     let secondary = Variable(UIColor.clear)
     let background = Variable(UIColor.clear)
     let tableBackground = Variable(UIColor.clear)
+    let tint = Variable(UIColor.clear)
     let selectedCell = Variable(UIColor.clear)
-    
+
     var theme: Theme = .white {
         didSet {
             navBar.value = theme.colors[0]
-            tint.value = theme.colors[1]
-            background.value = theme.colors[2]
-            tableBackground.value = theme.colors[3]
-            primary.value = theme.colors[4]
-            secondary.value = theme.colors[5]
+            navTitle.value = theme.colors[1]
+            navTint.value = theme.colors[2]
+            background.value = theme.colors[3]
+            tableBackground.value = theme.colors[4]
+            primary.value = theme.colors[5]
+            secondary.value = theme.colors[6]
+            tint.value = theme.colors[7]
             selectedCell.value = theme == .black ? rgb("151515")! : rgb("e0e0e0")!
         }
     }
@@ -96,8 +102,10 @@ class ColorCenter {
         switch type {
         case .navBar:
             return navBar
-        case .tint:
-            return tint
+        case .navTitle:
+            return navTitle
+        case .navTint:
+            return navTint
         case .primary:
             return primary
         case .secondary:
@@ -106,6 +114,8 @@ class ColorCenter {
             return background
         case .tableBackground:
             return tableBackground
+        case .tint:
+            return tint
         case .selectedCell:
             return selectedCell
         }

@@ -23,8 +23,8 @@
 
 "EmptyFolder"="There is no file in current folder";
 
-"Today"="today";
-"Yesterday"="yesterday";
+"Today"="Today";
+"Yesterday"="Yesterday";
 "Children"="Item(s)";
 "M-d"="MM/dd";
 "yyyy-M-d"="yyyy/MM/dd";
@@ -51,8 +51,8 @@
 "WebPage"="Web pages";
 "Image"="Picture";
 "Markdown"="Markdown";
-"SaveFailed"="Save to photo failed";
-"SaveSuccessed"="Save to photo successed";
+"SaveFailed"="Save to Photo Failed";
+"SaveSuccessed"="Save to Photo Successed";
 
 "Settings"="Settings";
 "AssistKeyboard"="Keyboard Assist Bar";
@@ -79,6 +79,7 @@
 "OK"="OK";
 "Close"="Close";
 "Cancel"="Cancel";
+"Upgrade"="Upgrade";
 
 "DeleteMessage"="Sure you want to delete the selected file(s)? This action cannot be undone!";
 "CanNotAccesseThisFile"="Can Not Accesse This File";
@@ -88,12 +89,11 @@
 
 "Open"="Open it";
 "Ignore"="Ignore";
-"ReceivedNewFile"="Received new file:";
+"ReceivedNewFile"="Received New File:";
 
 "Error"="Error";
 
 "StartEdit"="Write something here";
-"SelectFileTips"="Select a file to edit";
 "Header"="Header";
 "Header1"="Header 1";
 "Header2"="Header 2";
@@ -110,8 +110,8 @@
 "PickImage"="Pick an image";
 "Photo"="Image Library";
 "Camera"="Camera";
-"CameraError"="Can not access your camera";
-"PhotoError"="Can not access yours photos";
+"CameraError"="Can Not Access Your Camera";
+"PhotoError"="Can Not Access Your Photos";
 "EnableCameraTips"="Tap \"settings\" icon, find and tap \"privacy\", tap \"Camera\", find \"Markdown\" and enable it.";
 "EnablePhotoTips"="Tap \"settings\" icon, find and tap \"privacy\", tap \"Photos\", find \"Markdown\" and enable it.";
 
@@ -144,9 +144,9 @@
 "SubscribeTips"="[Premium Subscription]\n\n• The duration of every period of Monthly Subscription is 1 month, The duration of every period of Yearly Subscription is 1 year\n\n• Payment will be charged to iTunes Account at confirmation of purchase\n\n• Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period\n\n• Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of the renewal\n\n• Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase\n\n• Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable\n\n• Monthly subscription for $0.49 USD, Yearly subscription with 7-days free trial period for $3.99 USD";
 "Restore"="Restore";
 
-"SubscribeFailed"="Subcribe failed";
+"SubscribeFailed"="Subcribe Failed";
 "SubscribeSuccess"="Subscribe Success";
-"RestoreFailed"="No valid purchases found";
-"RestoreSuccess"="Restore purchases Success";
+"RestoreFailed"="No Valid Purchases Found";
+"RestoreSuccess"="Restore Purchases Success";
 
 "Instructions"="ReadMe";

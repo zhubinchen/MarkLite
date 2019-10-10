@@ -322,11 +322,11 @@ class FileListViewController: UIViewController {
         }
         oprationViewBottom.constant = -44 - inset
                                 
-        navBar?.setTintColor(.tint)
+        navBar?.setTintColor(.navTint)
         navBar?.setBackgroundColor(.navBar)
-        navBar?.setTitleColor(.primary)
+        navBar?.setTitleColor(.navTitle)
         view.setBackgroundColor(.background)
-        view.setTintColor(.tint)
+        view.setTintColor(.navTint)
         tableView.setBackgroundColor(.tableBackground)
         tableView.setSeparatorColor(.primary)
         emptyView.setBackgroundColor(.background)

@@ -58,9 +58,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
 
         self.title = /"Settings"
-        navBar?.setTintColor(.tint)
+        navBar?.setTintColor(.navTint)
         navBar?.setBackgroundColor(.navBar)
-        navBar?.setTitleColor(.primary)
+        navBar?.setTitleColor(.navTitle)
         tableView.setBackgroundColor(.tableBackground)
         
         tableView.sectionHeaderHeight = 0.01

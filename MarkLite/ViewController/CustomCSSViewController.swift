@@ -18,9 +18,9 @@ class CustomCSSViewController: UITableViewController {
 
         self.title = /"CSS"
         
-        navBar?.setTintColor(.tint)
+        navBar?.setTintColor(.navTint)
         navBar?.setBackgroundColor(.navBar)
-        navBar?.setTitleColor(.primary)
+        navBar?.setTitleColor(.navTitle)
         view.setBackgroundColor(.background)
         view.setTintColor(.tint)
         nameTextfield.setTextColor(.primary)

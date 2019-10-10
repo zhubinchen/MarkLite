@@ -92,9 +92,9 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
             self.toggleRightBarButton()
         }).disposed(by: bag)
         
-        navBar?.setTintColor(.tint)
+        navBar?.setTintColor(.navTint)
         navBar?.setBackgroundColor(.navBar)
-        navBar?.setTitleColor(.primary)
+        navBar?.setTitleColor(.navTitle)
         
         addNotificationObserver(NSNotification.Name.UIApplicationWillTerminate.rawValue, selector: #selector(applicationWillTerminate))
         addNotificationObserver(NSNotification.Name.UIApplicationDidEnterBackground.rawValue, selector: #selector(applicationWillTerminate))

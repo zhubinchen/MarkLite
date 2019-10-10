@@ -79,6 +79,7 @@
 "OK"="确定";
 "Close"="关闭";
 "Cancel"="取消";
+"Upgrade"="前往更新";
 
 "DeleteMessage"="删除后不可恢复，确定要删除吗？";
 "CanNotAccesseThisFile"="当前无法访问此文件";
@@ -93,7 +94,6 @@
 "Error"="出错了";
 
 "StartEdit"="写点什么吧";
-"SelectFileTips"="选择你要编辑的文件";
 "Header"="标题";
 "Header1"="一级标题";
 "Header2"="二级标题";
@@ -119,7 +119,7 @@
 "ThemeBlack"="高端黑";
 "ThemeBlue"="清新蓝";
 "ThemeRed"="中国红";
-"ThemePurple"="风骚紫";
+"ThemePurple"="风情紫";
 "ThemePink"="脑残粉";
 "ThemeGreen"="原谅绿";
 
@@ -139,7 +139,7 @@
 "Privacy"="隐私策略";
 "SubscriptionPriceMonthly"="订阅后按照3元/月自动续费，您可在任何时候取消订阅";
 "SubscriptionPriceYearly"="现在订阅可免费试用一周，试用期结束后按照28元/年自动续费，您可在任何时候取消订阅";
-"SubscriptionTitle"="订阅高级账户，支持作者后续开发，同时解锁以下实用功能:\n\n•文档导出为任意格式(PDF,HTML,长图)\n\n•添加自定义样式";
+"SubscriptionTitle"="订阅高级账户，支持作者后续开发，同时解锁以下实用功能:\n\n• 文档导出为任意格式(PDF,HTML,长图)\n\n• 添加自定义样式";
 
 "SubscribeTips"="连续包月高级账户说明: \n\n• 订阅周期：按月订阅的周期是一个月；按年订阅的周期是一年。您可根据需要选择\n\n• 订阅价格： 按月订阅的价格是每月3元；按年订阅的价格是每年28元\n\n• 付款：用户确认购买并付款后记入iTunes账户\n\n• 取消续订：如需取消续订，请在当前订阅到期24小时以前，手动在iTunes/Apple ID设置管理中关闭自动续订功能\n\n• 续订：苹果iTunes账户会在到期前24小时内扣款，除非在当前订阅期之前24小时外关闭订阅";
 "Restore"="恢复订阅";

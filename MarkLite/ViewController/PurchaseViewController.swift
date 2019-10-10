@@ -15,10 +15,10 @@ class PurchaseViewController: UIViewController {
         super.viewDidLoad()
         self.title = /"Premium"
         
-        navBar?.setTintColor(.tint)
+        navBar?.setTintColor(.navTint)
         navBar?.setBackgroundColor(.navBar)
-        navBar?.setTitleColor(.primary)
-        
+        navBar?.setTitleColor(.navTitle)
+
         if self.navigationController?.viewControllers.count == 1 {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
         }

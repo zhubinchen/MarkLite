@@ -57,9 +57,9 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func setupUI() {
-        navBar?.setTintColor(.tint)
+        navBar?.setTintColor(.navTint)
         navBar?.setBackgroundColor(.navBar)
-        navBar?.setTitleColor(.primary)
+        navBar?.setTitleColor(.navTitle)
         title = options.title
         items = options.items
         
