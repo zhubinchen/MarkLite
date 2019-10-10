@@ -13,6 +13,7 @@
 "Inbox"="Inbox";
 "External"="External";
 "ExternalDetail"="Open <Files> App";
+"MoveTo"="Move To";
 
 "ImportFile"="Copy File to Local";
 "OpenOriginFile"="Open Origin File";
@@ -55,7 +56,9 @@
 "SaveSuccessed"="Save to Photo Successed";
 
 "Settings"="Settings";
-"AssistKeyboard"="Keyboard Assist Bar";
+"WebDAV"="WebDAV";
+"ArrangeKeyboardBar"="Arrange Keyboard Bar";
+"AssistKeyboard"="Enable Keyboard Bar";
 "SplitOptions"="Split Options";
 "NightMode"="Dark Mode";
 "Theme"="Theme";
@@ -71,6 +74,11 @@
 "StyleName"="Style Name";
 "StyleURL"="CSS URL";
 "Download"="Download";
+
+"ServerLoading"="Starting...";
+"ServerStarted"="Server Started!\nOpen the URL in your computer browser:";
+"ServerNotRunning"="Server Not Running";
+"Log"="Log:";
 
 "ContactMessage"="If you have any suggestions or questions about this app, feel free to tell me please.";
 "Email"="Email";

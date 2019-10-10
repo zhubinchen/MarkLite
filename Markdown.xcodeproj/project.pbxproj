@@ -19,7 +19,6 @@
 		07E827471F5BF1BA0077A017 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E826F61F5BF1BA0077A017 /* Settings.storyboard */; };
 		07E827481F5BF1BA0077A017 /* Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826F81F5BF1BA0077A017 /* Configure.swift */; };
 		07E827491F5BF1BA0077A017 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826F91F5BF1BA0077A017 /* Constant.swift */; };
-		07E8274A1F5BF1BA0077A017 /* EventBus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826FA1F5BF1BA0077A017 /* EventBus.swift */; };
 		07E8274C1F5BF1BA0077A017 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826FC1F5BF1BA0077A017 /* Localization.swift */; };
 		07E8274D1F5BF1BA0077A017 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826FD1F5BF1BA0077A017 /* Utils.swift */; };
 		07E8274E1F5BF1BA0077A017 /* AssistKeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826FF1F5BF1BA0077A017 /* AssistKeyboardBar.swift */; };
@@ -55,8 +54,7 @@
 		7635E5CF234AF3B6008E1DEF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7635E5CE234AF3B6008E1DEF /* Main.storyboard */; };
 		768762B922D86CE900A54EB1 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762B822D86CE900A54EB1 /* IAPHelper.swift */; };
 		768762BB22D86D1C00A54EB1 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */; };
-		76C64C6322DC314100E2851F /* CLCustomPresentAnnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C3D22DC314100E2851F /* CLCustomPresentAnnimation.swift */; };
-		76C64C6422DC314100E2851F /* CLCommon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C3E22DC314100E2851F /* CLCommon.swift */; };
+		76A4D272234EF98200B87A78 /* WebDAVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4D271234EF98200B87A78 /* WebDAVViewController.swift */; };
 		76C64C6522DC314100E2851F /* CLNewFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C4022DC314100E2851F /* CLNewFeatureView.swift */; };
 		76C64C6622DC314100E2851F /* CLPhotoRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C4222DC314100E2851F /* CLPhotoRecorder.swift */; };
 		76C64C6722DC314100E2851F /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C4422DC314100E2851F /* UIImageView+Extensions.swift */; };
@@ -89,7 +87,6 @@
 		07E826F61F5BF1BA0077A017 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		07E826F81F5BF1BA0077A017 /* Configure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configure.swift; sourceTree = "<group>"; };
 		07E826F91F5BF1BA0077A017 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
-		07E826FA1F5BF1BA0077A017 /* EventBus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventBus.swift; sourceTree = "<group>"; };
 		07E826FC1F5BF1BA0077A017 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		07E826FD1F5BF1BA0077A017 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		07E826FF1F5BF1BA0077A017 /* AssistKeyboardBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssistKeyboardBar.swift; sourceTree = "<group>"; };
@@ -140,8 +137,7 @@
 		7635E5CE234AF3B6008E1DEF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		768762B822D86CE900A54EB1 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; usesTabs = 0; };
 		768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
-		76C64C3D22DC314100E2851F /* CLCustomPresentAnnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLCustomPresentAnnimation.swift; sourceTree = "<group>"; };
-		76C64C3E22DC314100E2851F /* CLCommon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLCommon.swift; sourceTree = "<group>"; };
+		76A4D271234EF98200B87A78 /* WebDAVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVViewController.swift; sourceTree = "<group>"; };
 		76C64C4022DC314100E2851F /* CLNewFeatureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLNewFeatureView.swift; sourceTree = "<group>"; };
 		76C64C4222DC314100E2851F /* CLPhotoRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLPhotoRecorder.swift; sourceTree = "<group>"; };
 		76C64C4422DC314100E2851F /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
@@ -288,7 +284,6 @@
 				768762B822D86CE900A54EB1 /* IAPHelper.swift */,
 				07E826F81F5BF1BA0077A017 /* Configure.swift */,
 				07E826F91F5BF1BA0077A017 /* Constant.swift */,
-				07E826FA1F5BF1BA0077A017 /* EventBus.swift */,
 				07E826FC1F5BF1BA0077A017 /* Localization.swift */,
 				07E826FD1F5BF1BA0077A017 /* Utils.swift */,
 				07E8276B1F5BFD880077A017 /* ImageSaver.swift */,
@@ -321,6 +316,7 @@
 				761F824F22E16D6500C3435C /* InfoViewController.swift */,
 				07E8270B1F5BF1BA0077A017 /* OptionsViewController.swift */,
 				76DFD720232926AC00F97D56 /* CustomCSSViewController.swift */,
+				76A4D271234EF98200B87A78 /* WebDAVViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -331,15 +327,6 @@
 				0CED168CEF9A6EB3A1E2F9CC /* Pods_Markdown.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		76C64C3C22DC314100E2851F /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				76C64C3D22DC314100E2851F /* CLCustomPresentAnnimation.swift */,
-				76C64C3E22DC314100E2851F /* CLCommon.swift */,
-			);
-			path = Common;
 			sourceTree = "<group>";
 		};
 		76C64C3F22DC314100E2851F /* Tool */ = {
@@ -378,7 +365,6 @@
 		76DFA18922D5D3190025B44B /* Ignore */ = {
 			isa = PBXGroup;
 			children = (
-				76C64C3C22DC314100E2851F /* Common */,
 				76C64C3F22DC314100E2851F /* Tool */,
 			);
 			path = Ignore;
@@ -514,6 +500,7 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Markdown/Pods-Markdown-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/EZSwiftExtensions/EZSwiftExtensions.framework",
+				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
@@ -524,6 +511,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/EZSwiftExtensions.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
@@ -550,11 +538,11 @@
 				07E827101F5BF1BA0077A017 /* HighlightManager.swift in Sources */,
 				07E8275B1F5BF1BA0077A017 /* TextViewController.swift in Sources */,
 				76C64C6C22DC314100E2851F /* CLAfter_Time.swift in Sources */,
-				07E8274A1F5BF1BA0077A017 /* EventBus.swift in Sources */,
 				768762BB22D86D1C00A54EB1 /* PurchaseViewController.swift in Sources */,
 				760C29702320F3EC002E613E /* document.c in Sources */,
 				07E8275A1F5BF1BA0077A017 /* SettingsViewController.swift in Sources */,
 				76E7F271233CAEE10051DF6A /* BaseTableViewCell.swift in Sources */,
+				76A4D272234EF98200B87A78 /* WebDAVViewController.swift in Sources */,
 				76C64C6E22DC314100E2851F /* UIImage+Draw.swift in Sources */,
 				76C64C6A22DC314100E2851F /* UIColor+Extensions.swift in Sources */,
 				760C296D2320F3EC002E613E /* buffer.c in Sources */,
@@ -563,7 +551,6 @@
 				760C296A2320F3EC002E613E /* html.c in Sources */,
 				07E827521F5BF1BA0077A017 /* MenuView.swift in Sources */,
 				07E827591F5BF1BA0077A017 /* OptionsViewController.swift in Sources */,
-				76C64C6322DC314100E2851F /* CLCustomPresentAnnimation.swift in Sources */,
 				760C29692320F3EC002E613E /* html_smartypants.c in Sources */,
 				07E827551F5BF1BA0077A017 /* EditViewController.swift in Sources */,
 				07E8274D1F5BF1BA0077A017 /* Utils.swift in Sources */,
@@ -572,7 +559,6 @@
 				07E8274F1F5BF1BA0077A017 /* DottedLineView.swift in Sources */,
 				760C296B2320F3EC002E613E /* autolink.c in Sources */,
 				0724281B1F726B0300C02F87 /* ImagePicker.swift in Sources */,
-				76C64C6422DC314100E2851F /* CLCommon.swift in Sources */,
 				761F825022E16D6500C3435C /* InfoViewController.swift in Sources */,
 				76C64C6522DC314100E2851F /* CLNewFeatureView.swift in Sources */,
 				07E8275C1F5BF1BA0077A017 /* WebViewController.swift in Sources */,

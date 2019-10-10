@@ -49,22 +49,22 @@ class FileListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if root == nil || selectFolderMode {
+        if root == nil {
             isHomePage = true
         }
         
         if isHomePage {
             title = /"Documents"
+            loadFiles()
+            observeFileChange()
+        }  else if selectFolderMode {
+            title = /"MoveTo"
             _ = Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in
                 self.navBar?.barStyle = theme == .black ? .black : .default
             })
         } else {
             title = root?.displayName ?? root?.name
             tableView.tableHeaderView = UIView(x: 0, y: 0, w: 0, h: 0.01)
-        }
-        
-        if isHomePage && selectFolderMode == false {
-            loadFiles()
         }
         
         refresh()
@@ -82,6 +82,11 @@ class FileListViewController: UIViewController {
         }
     }
     
+    func observeFileChange() {
+        NotificationCenter.default.addObserver(self, selector: #selector(localChanged(_:)), name: Notification.Name("LocalChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(inboxChanged(_:)), name: Notification.Name("InboxChanged"), object: nil)
+    }
+    
     func loadFiles() {
         File.loadInbox { inbox in
             File.inbox = inbox
@@ -95,6 +100,24 @@ class FileListViewController: UIViewController {
             File.local = local
             self.root = local
             self.refresh()
+        }
+    }
+    
+    @objc func localChanged(_ noti: Notification) {
+        navigationController?.popToRootViewController(animated: true)
+        File.loadLocal { local in
+            File.local = local
+            self.root = local
+            self.refresh()
+        }
+    }
+    
+    @objc func inboxChanged(_ noti: Notification) {
+        navigationController?.popToRootViewController(animated: true)
+        File.loadInbox { inbox in
+            File.inbox = inbox
+            self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
+            self.goInbox()
         }
     }
     
@@ -152,7 +175,11 @@ class FileListViewController: UIViewController {
         if root == nil {
             files = []
         } else if (selectFolderMode) {
-            files = [root!]
+            if let cloud = File.cloud {
+                files = [cloud,root!]
+            } else {
+                files = [root!]
+            }
         } else {
             files = root!.children.sorted {
                 switch Configure.shared.sortOption {
@@ -266,39 +293,31 @@ class FileListViewController: UIViewController {
     
     func selectFolder(_ indexPath: IndexPath) {
         navigationItem.rightBarButtonItem?.isEnabled = true
-        if isHomePage && indexPath.section == 0 {
-            if indexPath.row == 0 {
-                selectedFolder = File.cloud
-            } else if indexPath.row == 1 {
-                selectedFolder = File.inbox
+        let file = files[indexPath.row]
+        selectedFolder = file
+        let cell = tableView.cellForRow(at: indexPath)
+        if file.folders.count > 0 {
+            var indexPaths = [IndexPath]()
+            for i in 1...file.folders.count {
+                indexPaths.append(IndexPath(row: indexPath.row + i, section: indexPath.section))
             }
-        } else {
-            let file = files[indexPath.row]
-            selectedFolder = file
-            let cell = tableView.cellForRow(at: indexPath)
-            if file.folders.count > 0 {
-                var indexPaths = [IndexPath]()
-                for i in 1...file.folders.count {
-                    indexPaths.append(IndexPath(row: indexPath.row + i, section: indexPath.section))
+            if file.expand {
+                files.removeAll { item -> Bool in
+                    return file.folders.contains{ $0 == item }
                 }
-                if file.expand {
-                    files.removeAll { item -> Bool in
-                        return file.folders.contains{ $0 == item }
-                    }
-                    tableView.deleteRows(at: indexPaths, with: .top)
-                } else {
-                    files.insert(contentsOf: file.folders, at: indexPath.row + 1)
-                    tableView.insertRows(at: indexPaths, with: .bottom)
-                }
-                file.expand = !file.expand
-                (cell?.accessoryView as? UIImageView)?.image = (file.expand ?  #imageLiteral(resourceName: "icon_expand") : #imageLiteral(resourceName: "icon_forward")).recolor(color: ColorCenter.shared.secondary.value)
+                tableView.deleteRows(at: indexPaths, with: .top)
+            } else {
+                files.insert(contentsOf: file.folders, at: indexPath.row + 1)
+                tableView.insertRows(at: indexPaths, with: .bottom)
             }
+            file.expand = !file.expand
+            (cell?.accessoryView as? UIImageView)?.image = (file.expand ?  #imageLiteral(resourceName: "icon_expand") : #imageLiteral(resourceName: "icon_forward")).recolor(color: ColorCenter.shared.secondary.value)
         }
     }
     
     func setupBarButton() {
         if tableView.isEditing {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(multipleSelect))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(multipleSelect))
             navigationItem.leftBarButtonItem = UIBarButtonItem(title: /"SelectAll", style: .plain, target: self, action: #selector(selectAllFiles))
         } else if selectFolderMode {
             navigationItem.prompt = /"SelectFolderToMove"

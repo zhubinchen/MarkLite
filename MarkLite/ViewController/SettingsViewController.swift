@@ -11,32 +11,23 @@ import RxSwift
 
 class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var tableView: UITableView! {
-        didSet {
-            tableView.estimatedRowHeight = 48
-            tableView.rowHeight = 48
-            tableView.setSeparatorColor(.primary)
-        }
-    }
+    @IBOutlet weak var tableView: UITableView!
     
     var textField: UITextField?
     
     let themeSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
     let assitBarSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
-    let cloudSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
     
     var items: [(String,[(String,String,Selector)])] {
         var section = [
+            ("WebDAV","",#selector(webdav)),
             ("AssistKeyboard","",#selector(assistBar)),
-//            ("EnableCloud","",#selector(enableCloud)),
+            ("ArrangeKeyboardBar","",#selector(arrange)),
             ]
-        if !Configure.shared.isPro {
-            section.insert(("Premium","",#selector(premium)), at: 0)
-        }
         if isPad {
             section.append(("SplitOptions","",#selector(splitOption)))
         }
-        let items = [
+        var items = [
             ("功能",section),
             ("外观",[
                 ("NightMode","",#selector(night)),
@@ -49,6 +40,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 ("Contact","",#selector(feedback))
                 ])
         ]
+        if !Configure.shared.isPro {
+            items.insert(("高级帐户",[("Premium","",#selector(premium))]), at: 0)
+        }
         return items;
     }
     
@@ -62,13 +56,10 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         navBar?.setBackgroundColor(.navBar)
         navBar?.setTitleColor(.navTitle)
         tableView.setBackgroundColor(.tableBackground)
-        
-        tableView.sectionHeaderHeight = 0.01
-        tableView.sectionFooterHeight = 20
+        tableView.setSeparatorColor(.primary)
 
         themeSwitch.setTintColor(.tint)
         assitBarSwitch.setTintColor(.tint)
-        cloudSwitch.setTintColor(.tint)
 
         themeSwitch.isOn = Configure.shared.theme.value == .black
         assitBarSwitch.isOn = Configure.shared.isAssistBarEnabled.value
@@ -83,7 +74,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLayoutSubviews()
         themeSwitch.x = view.w - 64
         assitBarSwitch.x = view.w - 64
-        cloudSwitch.x = view.w - 64
     }
     
     @objc func close() {
@@ -113,10 +103,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             cell.addSubview(themeSwitch)
             cell.accessoryType = .none
         }
-        if item.0 == "EnableCloud" {
-            cell.addSubview(cloudSwitch)
-            cell.accessoryType = .none
-        }
         return cell
     }
 
@@ -124,7 +110,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.deselectRow(at: indexPath, animated: true)
 
         let item = items[indexPath.section].1[indexPath.row]
-        if item.0 == "AssistKeyboard" || item.0 == "NightMode" || item.0 == "AutoClear" {
+        if item.0 == "AssistKeyboard" || item.0 == "NightMode" {
             return
         }
         perform(item.2)
@@ -202,6 +188,14 @@ extension SettingsViewController {
     
     @objc func assistBar(_ sender: UISwitch) {
         Configure.shared.isAssistBarEnabled.value = sender.isOn
+    }
+    
+    @objc func arrange() {
+
+    }
+    
+    @objc func webdav() {
+        performSegue(withIdentifier: "webdav", sender: nil)
     }
     
     @objc func theme() {

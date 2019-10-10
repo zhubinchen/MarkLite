@@ -39,7 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             do {
                 try FileManager.default.moveItem(atPath: oldPath, toPath: newPath)
-                RecievedNewFile.post(info: newPath)
             } catch {
                 print(error.localizedDescription)
             }

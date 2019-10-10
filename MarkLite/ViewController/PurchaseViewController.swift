@@ -104,9 +104,10 @@ class PurchaseViewController: UIViewController {
                         } else {
                             MobClick.event("finish_purchase_monthly")
                         }
+                        self.dismiss(animated: false, completion: nil)
                         SVProgressHUD.showSuccess(withStatus: /"SubscribeSuccess")
-                        self.popVC()
                     } else {
+                        MobClick.event("failed_purchase")
                         SVProgressHUD.showError(withStatus: /"SubscribeFailed")
                     }
                 })

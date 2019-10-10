@@ -13,6 +13,7 @@
 "Inbox"="来自其他应用";
 "External"="外部文件";
 "ExternalDetail"="打开「文件」App";
+"MoveTo"="移动到";
 
 "ImportFile"="拷贝文件到本地";
 "OpenOriginFile"="打开原文件";
@@ -55,7 +56,9 @@
 "SaveSuccessed"="已保存到手机相册";
 
 "Settings"="设置";
-"AssistKeyboard"="辅助键盘";
+"WebDAV"="WebDAV共享服务";
+"ArrangeKeyboardBar"="调整辅助键盘顺序";
+"AssistKeyboard"="启用辅助键盘";
 "SplitOptions"="编辑预览分屏";
 "NightMode"="夜间模式";
 "Theme"="主题色";
@@ -63,7 +66,7 @@
 "RateIt"="去App Store评价";
 "Style"="渲染样式";
 "CodeStyle"="代码块高亮";
-"CSS"="添加自定义样式";
+"CSS"="自定义样式";
 
 "InvalidStyleURL"="链接格式有误";
 "InvalidStyleName"="样式名无效";
@@ -71,6 +74,11 @@
 "StyleName"="样式名";
 "StyleURL"="CSS链接";
 "Download"="添加到本地";
+
+"ServerLoading"="正在启动...";
+"ServerStarted"="已启动共享服务，离开此界面后将自动关闭服务。\n\n在电脑浏览器打开以下地址即可访问，点击可拷贝地址";
+"ServerNotRunning"="无法启动WebDAV服务";
+"Log"="日志：";
 
 "ContactMessage"="如果你有任何好的建议或者使用遇到问题，你可以关注作者微博，或直接给作者发邮件";
 "Email"="写邮件";

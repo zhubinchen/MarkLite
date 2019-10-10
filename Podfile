@@ -13,4 +13,6 @@ target 'Markdown' do
   pod 'SnapKit'
   pod 'Bugly'
   pod 'SVProgressHUD'
+  pod 'GCDWebServer/WebUploader', '~> 3.0'
+
 end

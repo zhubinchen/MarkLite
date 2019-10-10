@@ -63,13 +63,14 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
         title = options.title
         items = options.items
         
-        table.rowHeight = 48
         table.delegate = self
         table.dataSource = self
+        table.rowHeight = 48
+        table.estimatedRowHeight = 48
         table.setSeparatorColor(.primary)
+        table.setBackgroundColor(.tableBackground)
         view.addSubview(table)
         
-        table.setBackgroundColor(.tableBackground)
         
         if options.editable {
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCustomStyle))
@@ -135,14 +136,6 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.options.didSelect(self.items[indexPath.row])
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.01
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 20
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
