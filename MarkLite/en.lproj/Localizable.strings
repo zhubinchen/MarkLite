@@ -11,6 +11,11 @@
 "Cloud"="iCloud";
 "Local"="Local";
 "Inbox"="Inbox";
+"External"="External";
+"ExternalDetail"="Open <Files> App";
+
+"ImportFile"="Copy File to Local";
+"OpenOriginFile"="Open Origin File";
 
 "SortByName"="Sort By Name";
 "SortByType"="Sort By Type";
@@ -26,7 +31,6 @@
 
 "CreateNote"="Create Note";
 "CreateFolder"="Create Folder";
-"ImportFromFiles"="Import From Files";
 "MultipleSelect"="Multiple Select";
 "SelectAll"="Select All";
 
@@ -77,6 +81,7 @@
 "Cancel"="Cancel";
 
 "DeleteMessage"="Sure you want to delete the selected file(s)? This action cannot be undone!";
+"CanNotAccesseThisFile"="Can Not Accesse This File";
 "FileNameError"="Invalid name";
 "RenameTips"="Please input new name";
 "InsertHref"="Insert href";

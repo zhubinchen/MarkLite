@@ -38,6 +38,9 @@ class BaseTableViewCell: UITableViewCell {
  
     func setup() {
         
+        textLabel?.font = UIFont.systemFont(ofSize: 16)
+        detailTextLabel?.font = UIFont.systemFont(ofSize: 14)
+        
         let selectedBg = UIView(hexString: "e0e0e0")
         let selectedMark = UIView(hexString: "000000")
         

@@ -25,6 +25,7 @@ class FileListViewController: UIViewController {
     fileprivate var items = [
         (/"Cloud","",#imageLiteral(resourceName: "icon_cloud"),#selector(goCloud)),
         (/"Inbox","",#imageLiteral(resourceName: "icon_box"),#selector(goInbox)),
+        (/"External","",#imageLiteral(resourceName: "icon_box"),#selector(goExternal)),
     ]
     
     var root: File?
@@ -117,6 +118,10 @@ class FileListViewController: UIViewController {
         }
     }
 
+    @objc func goExternal() {
+        self.pickFromFiles()
+    }
+    
     @objc func goCloud() {
         if let root = File.cloud {
             self.performSegue(withIdentifier: "file", sender: root)
@@ -208,12 +213,8 @@ class FileListViewController: UIViewController {
     }
     
     @objc func showCreateMenu(_ sender: Any) {
-        showActionSheet(sender: sender, title: nil, message: nil, actionTitles: [/"CreateNote",/"CreateFolder",/"ImportFromFiles",/"MultipleSelect"]) { index in
+        showActionSheet(sender: sender, title: nil, message: nil, actionTitles: [/"CreateNote",/"CreateFolder",/"MultipleSelect"]) { index in
             if index == 2 {
-                self.pickFromFiles()
-                return
-            }
-            if index == 3 {
                 self.multipleSelect()
                 return
             }
@@ -251,7 +252,8 @@ class FileListViewController: UIViewController {
     func openFile(_ indexPath: IndexPath) {
         if isHomePage && indexPath.section == 0 {
             let item = items[indexPath.row]
-            self.perform(item.3)
+            perform(item.3)
+            tableView.deselectRow(at: indexPath, animated: true)
         } else {
             let file = files[indexPath.row]
             if file.type == .folder {
@@ -403,8 +405,10 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
             cell.textLabel?.text = item.0
             if indexPath.row == 0 {
                 cell.detailTextLabel?.text = "\(File.cloud?.children.count ?? 0) " + /"Children"
-            } else {
+            } else if indexPath.row == 1 {
                 cell.detailTextLabel?.text = "\(File.inbox?.children.count ?? 0) " + /"Children"
+            } else {
+                cell.detailTextLabel?.text = /"ExternalDetail"
             }
             cell.imageView?.image = item.2.recolor(color: ColorCenter.shared.tint.value)
             return cell
@@ -515,16 +519,27 @@ extension FileListViewController: UIDocumentPickerDelegate {
     func pickFromFiles() {
         let picker = UIDocumentPickerViewController(documentTypes: ["public.text"], in: .open)
         picker.delegate = self
+        picker.modalPresentationStyle = .formSheet
         presentVC(picker)
     }
     
     func didPickFile(_ url: URL) {
-        
-        let str = (try? String(contentsOf: url)) ?? ""
-        if let file = root?.createFile(name: url.deletingPathExtension().lastPathComponent, type: .text) {
-            file.text = str
-            file.save()
-            self.performSegue(withIdentifier: "edit", sender: file)
+        let accessed = url.startAccessingSecurityScopedResource()
+        if !accessed {
+            SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
+        } else {
+            showActionSheet(actionTitles: [/"ImportFile",/"OpenOriginFile"]) { index in
+                let file = File(path: url.path)
+                if index == 1 {
+                    if let newFile = self.root?.createFile(name: url.deletingPathExtension().lastPathComponent, type: .text) {
+                        newFile.text = file.text
+                        newFile.save()
+                        self.performSegue(withIdentifier: "edit", sender: newFile)
+                    }
+                } else {
+                    self.performSegue(withIdentifier: "edit", sender: file)
+                }
+            }
         }
     }
     

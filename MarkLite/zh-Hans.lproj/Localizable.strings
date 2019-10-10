@@ -11,6 +11,11 @@
 "Cloud"="iCloud";
 "Local"="本地";
 "Inbox"="来自其他应用";
+"External"="外部文件";
+"ExternalDetail"="打开「文件」App";
+
+"ImportFile"="拷贝文件到本地";
+"OpenOriginFile"="打开原文件";
 
 "SortByName"="按文件名称排序";
 "SortByType"="按文件类型排序";
@@ -26,7 +31,6 @@
 
 "CreateNote"="创建文档";
 "CreateFolder"="创建文件夹";
-"ImportFromFiles"="导入文件";
 "MultipleSelect"="批量选择";
 "SelectAll"="全选";
 
@@ -60,6 +64,7 @@
 "Style"="渲染样式";
 "CodeStyle"="代码块高亮";
 "CSS"="添加自定义样式";
+
 "InvalidStyleURL"="链接格式有误";
 "InvalidStyleName"="样式名无效";
 "DumplicatedName"="已经存在同名的样式，请换个名字";
@@ -76,6 +81,7 @@
 "Cancel"="取消";
 
 "DeleteMessage"="删除后不可恢复，确定要删除吗？";
+"CanNotAccesseThisFile"="当前无法访问此文件";
 "FileNameError"="请输入正确的文件名";
 "RenameTips"="请输入新的文件名";
 "InsertHref"="添加链接";
