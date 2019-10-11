@@ -1,5 +1,5 @@
 //
-//  CustomCSSViewController.swift
+//  AddStyleViewController.swift
 //  Markdown
 //
 //  Created by 朱炳程 on 2019/9/11.
@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class CustomCSSViewController: UITableViewController {
+class AddStyleViewController: UITableViewController {
     @IBOutlet weak var nameTextfield: UITextField!
     @IBOutlet weak var urlTextfield: UITextField!
 

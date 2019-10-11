@@ -9,25 +9,42 @@
 import UIKit
 
 class PurchaseViewController: UIViewController {
+    
     @IBOutlet weak var yearlyButton: UIButton!
+    @IBOutlet weak var monthlyButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var priceYearlyLabel: UILabel!
+    @IBOutlet weak var priceMonthlyLabel: UILabel!
+    @IBOutlet weak var tipsLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = /"Premium"
-        
+
+        setupUI()
+        MobClick.event("enter_purchase")
+    }
+    
+    func setupUI() {
         navBar?.setTintColor(.navTint)
         navBar?.setBackgroundColor(.navBar)
         navBar?.setTitleColor(.navTitle)
-
-        if self.navigationController?.viewControllers.count == 1 {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
-        }
+        yearlyButton.setBackgroundColor(.tint)
+        monthlyButton.setBackgroundColor(.tint)
+        titleLabel.setTextColor(.primary)
+        priceYearlyLabel.setTextColor(.secondary)
+        priceMonthlyLabel.setTextColor(.secondary)
+        tipsLabel.setTextColor(.secondary)
+        view.setBackgroundColor(.background)
+        view.setTintColor(.tint)
+        
         let date = Date(fromString: "2019-10-04", format: "yyyy-MM-dd")!
         let now = Date()
         if now > date {
             yearlyButton.setTitle(/"SubscribeL", for: .normal)
         }
-        MobClick.event("enter_purchase")
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
     }
     
     @objc func close() {
@@ -58,7 +75,7 @@ class PurchaseViewController: UIViewController {
                 SVProgressHUD.dismiss()
                 if availabel {
                     SVProgressHUD.showSuccess(withStatus: /"RestoreSuccess")
-                    self.popVC()
+                    self.dismiss(animated: true, completion: nil)
                 } else {
                     SVProgressHUD.showError(withStatus: /"RestoreFailed")
                 }
@@ -68,7 +85,7 @@ class PurchaseViewController: UIViewController {
     }
 
     @IBAction func privacy(_ sender: UIButton!) {
-        let vc = InfoViewController()
+        let vc = WebViewController()
         vc.urlString = "https://zhubinchen.github.io/Page/Markdown/privacy.html"
         vc.title = /"Privacy"
         let nav = UINavigationController(rootViewController: vc)
@@ -76,7 +93,7 @@ class PurchaseViewController: UIViewController {
     }
 
     @IBAction func terms(_ sender: UIButton!) {
-        let vc = InfoViewController()
+        let vc = WebViewController()
         vc.urlString = "https://zhubinchen.github.io/Page/Markdown/terms.html"
         vc.title = /"Terms"
         let nav = UINavigationController(rootViewController: vc)

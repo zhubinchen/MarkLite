@@ -1,33 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2h1-4W-XsA">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--File List View Controller-->
+        <!--Files View Controller-->
         <scene sceneID="qTr-dP-Ix7">
             <objects>
-                <viewController storyboardIdentifier="FilesViewController" automaticallyAdjustsScrollViewInsets="NO" id="70P-jv-iHb" customClass="FileListViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FilesViewController" automaticallyAdjustsScrollViewInsets="NO" id="70P-jv-iHb" customClass="FilesViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pP4-ub-6S5"/>
                         <viewControllerLayoutGuide type="bottom" id="1qt-IO-A67"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="RzT-9O-UxE">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lwZ-LC-JWr">
-                                <rect key="frame" x="0.0" y="88" width="414" height="730"/>
+                                <rect key="frame" x="0.0" y="44" width="600" height="512"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty_file" translatesAutoresizingMaskIntoConstraints="NO" id="lMG-4q-84d">
-                                        <rect key="frame" x="173.5" y="231.5" width="67" height="67"/>
+                                        <rect key="frame" x="233.5" y="89.5" width="133" height="133"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EmptyFolder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8j-da-2hF">
-                                        <rect key="frame" x="166" y="318.5" width="82" height="17"/>
+                                        <rect key="frame" x="259" y="242.5" width="82" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -42,32 +40,32 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="58" estimatedRowHeight="58" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Trp-Pg-73x">
-                                <rect key="frame" x="0.0" y="88" width="414" height="730"/>
+                                <rect key="frame" x="0.0" y="44" width="600" height="512"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <color key="separatorColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="QJK-yo-4wb">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="0.0"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="item" textLabel="QRW-sm-USK" detailTextLabel="rno-gk-1Td" style="IBUITableViewCellStyleValue1" id="hWW-JP-Zsu" customClass="BaseTableViewCell" customModule="Markdown" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="90.5" width="414" height="58"/>
+                                        <rect key="frame" x="0.0" y="90.5" width="600" height="58"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hWW-JP-Zsu" id="Kq6-ac-Xcg">
-                                            <rect key="frame" x="0.0" y="0.0" width="382.5" height="58"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="573.5" height="58"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QRW-sm-USK">
-                                                    <rect key="frame" x="20" y="19" width="33.5" height="20.5"/>
+                                                    <rect key="frame" x="15" y="19" width="33.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rno-gk-1Td">
-                                                    <rect key="frame" x="330.5" y="19" width="44" height="20.5"/>
+                                                    <rect key="frame" x="521.5" y="19" width="44" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -83,7 +81,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QsW-z4-ufw">
-                                <rect key="frame" x="0.0" y="818" width="414" height="44"/>
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tog-Qn-K2m">
                                         <rect key="frame" x="16" y="0.0" width="80" height="44"/>
@@ -97,7 +95,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njr-Si-XeC">
-                                        <rect key="frame" x="318" y="0.0" width="80" height="44"/>
+                                        <rect key="frame" x="504" y="0.0" width="80" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="80" id="LlT-al-Ba8"/>
                                         </constraints>
@@ -232,10 +230,10 @@
             </objects>
             <point key="canvasLocation" x="-5310" y="-4163"/>
         </scene>
-        <!--Wrap View Controller-->
+        <!--Home View Controller-->
         <scene sceneID="xyd-dt-Ek0">
             <objects>
-                <splitViewController minimumPrimaryColumnWidth="400" preferredPrimaryColumnWidthFraction="0.29999999999999999" id="2h1-4W-XsA" customClass="WrapViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
+                <splitViewController minimumPrimaryColumnWidth="400" preferredPrimaryColumnWidthFraction="0.29999999999999999" id="2h1-4W-XsA" customClass="HomeViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
                         <segue destination="a2F-WT-xun" kind="relationship" relationship="masterViewController" id="N6k-iv-bno"/>
                         <segue destination="hAF-LB-VS1" kind="relationship" relationship="detailViewController" id="56L-9f-7UQ"/>

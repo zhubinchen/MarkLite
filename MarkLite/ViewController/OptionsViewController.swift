@@ -114,7 +114,7 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
     @objc func addCustomStyle() {
         doIfPro {
             let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
-            let vc = sb.instantiateVC(CustomCSSViewController.self)!
+            let vc = sb.instantiateVC(AddStyleViewController.self)!
             pushVC(vc)
         }
     }

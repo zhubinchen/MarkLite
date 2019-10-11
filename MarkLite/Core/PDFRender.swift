@@ -1,5 +1,5 @@
 //
-//  PdfRender.swift
+//  PDFRender.swift
 //  Markdown
 //
 //  Created by zhubch on 2017/7/31.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PdfRender: UIPrintPageRenderer {
+class PDFRender: UIPrintPageRenderer {
     
     let pageSize: CGSize
     

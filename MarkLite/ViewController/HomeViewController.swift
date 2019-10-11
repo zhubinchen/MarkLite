@@ -1,5 +1,5 @@
 //
-//  WrapViewController.swift
+//  HomeViewController.swift
 //  Markdown
 //
 //  Created by zhubch on 2017/8/2.
@@ -9,7 +9,7 @@
 import UIKit
 import RxSwift
 
-class WrapViewController: UISplitViewController, UISplitViewControllerDelegate {
+class HomeViewController: UISplitViewController, UISplitViewControllerDelegate {
 
     let bag = DisposeBag()
             

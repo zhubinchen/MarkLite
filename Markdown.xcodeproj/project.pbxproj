@@ -12,7 +12,7 @@
 		07E8269D1F5BF0F20077A017 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07E8269C1F5BF0F20077A017 /* Assets.xcassets */; };
 		07E826A01F5BF0F20077A017 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E8269E1F5BF0F20077A017 /* LaunchScreen.storyboard */; };
 		07E827101F5BF1BA0077A017 /* HighlightManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826A81F5BF1BA0077A017 /* HighlightManager.swift */; };
-		07E8271B1F5BF1BA0077A017 /* PdfRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826BE1F5BF1BA0077A017 /* PdfRender.swift */; };
+		07E8271B1F5BF1BA0077A017 /* PDFRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826BE1F5BF1BA0077A017 /* PDFRender.swift */; };
 		07E8271D1F5BF1BA0077A017 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826C11F5BF1BA0077A017 /* File.swift */; };
 		07E8271E1F5BF1BA0077A017 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826C21F5BF1BA0077A017 /* Theme.swift */; };
 		07E827441F5BF1BA0077A017 /* Edit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E826F31F5BF1BA0077A017 /* Edit.storyboard */; };
@@ -21,16 +21,15 @@
 		07E827491F5BF1BA0077A017 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826F91F5BF1BA0077A017 /* Constant.swift */; };
 		07E8274C1F5BF1BA0077A017 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826FC1F5BF1BA0077A017 /* Localization.swift */; };
 		07E8274D1F5BF1BA0077A017 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826FD1F5BF1BA0077A017 /* Utils.swift */; };
-		07E8274E1F5BF1BA0077A017 /* AssistKeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826FF1F5BF1BA0077A017 /* AssistKeyboardBar.swift */; };
 		07E8274F1F5BF1BA0077A017 /* DottedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827001F5BF1BA0077A017 /* DottedLineView.swift */; };
 		07E827521F5BF1BA0077A017 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827031F5BF1BA0077A017 /* MenuView.swift */; };
 		07E827551F5BF1BA0077A017 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827071F5BF1BA0077A017 /* EditViewController.swift */; };
-		07E827561F5BF1BA0077A017 /* FileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827081F5BF1BA0077A017 /* FileListViewController.swift */; };
+		07E827561F5BF1BA0077A017 /* FilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827081F5BF1BA0077A017 /* FilesViewController.swift */; };
 		07E827591F5BF1BA0077A017 /* OptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8270B1F5BF1BA0077A017 /* OptionsViewController.swift */; };
 		07E8275A1F5BF1BA0077A017 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8270C1F5BF1BA0077A017 /* SettingsViewController.swift */; };
 		07E8275B1F5BF1BA0077A017 /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8270D1F5BF1BA0077A017 /* TextViewController.swift */; };
-		07E8275C1F5BF1BA0077A017 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8270E1F5BF1BA0077A017 /* WebViewController.swift */; };
-		07E8275D1F5BF1BA0077A017 /* WrapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8270F1F5BF1BA0077A017 /* WrapViewController.swift */; };
+		07E8275C1F5BF1BA0077A017 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8270E1F5BF1BA0077A017 /* PreviewViewController.swift */; };
+		07E8275D1F5BF1BA0077A017 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8270F1F5BF1BA0077A017 /* HomeViewController.swift */; };
 		07E827651F5BF24B0077A017 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 07E827671F5BF24B0077A017 /* Localizable.strings */; };
 		07E8276C1F5BFD880077A017 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E8276B1F5BFD880077A017 /* ImageSaver.swift */; };
 		760C29682320F3EC002E613E /* stack.c in Sources */ = {isa = PBXBuildFile; fileRef = 760C29592320F3EA002E613E /* stack.c */; };
@@ -48,14 +47,15 @@
 		7613F1272325F8AF006EE3B9 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1232325F8AF006EE3B9 /* ReadMe.md */; };
 		7613F12A2325FA02006EE3B9 /* 使用教程.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1282325FA02006EE3B9 /* 使用教程.md */; };
 		7613F12B2325FA02006EE3B9 /* 使用說明.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1292325FA02006EE3B9 /* 使用說明.md */; };
-		761F825022E16D6500C3435C /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761F824F22E16D6500C3435C /* InfoViewController.swift */; };
+		761F825022E16D6500C3435C /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761F824F22E16D6500C3435C /* WebViewController.swift */; };
 		762CF0F92322650A00F2FF90 /* MarkdownRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 762CF0F82322650A00F2FF90 /* MarkdownRender.m */; };
 		7635E5CA23473212008E1DEF /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7635E5C923473212008E1DEF /* Document.swift */; };
 		7635E5CF234AF3B6008E1DEF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7635E5CE234AF3B6008E1DEF /* Main.storyboard */; };
+		766F117C2350803A00E6395E /* KeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766F117B2350803A00E6395E /* KeyboardBar.swift */; };
 		768762B922D86CE900A54EB1 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762B822D86CE900A54EB1 /* IAPHelper.swift */; };
 		768762BB22D86D1C00A54EB1 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */; };
 		76A4D272234EF98200B87A78 /* WebDAVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4D271234EF98200B87A78 /* WebDAVViewController.swift */; };
-		76DFD721232926AC00F97D56 /* CustomCSSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DFD720232926AC00F97D56 /* CustomCSSViewController.swift */; };
+		76DFD721232926AC00F97D56 /* AddStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DFD720232926AC00F97D56 /* AddStyleViewController.swift */; };
 		76E7F271233CAEE10051DF6A /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E7F270233CAEE10051DF6A /* BaseTableViewCell.swift */; };
 		76E7F275233CB5E30051DF6A /* icon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 76E7F274233CB5E30051DF6A /* icon_logo.png */; };
 		89C305FDB08983CC88E50F5B /* Pods_Markdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CED168CEF9A6EB3A1E2F9CC /* Pods_Markdown.framework */; };
@@ -70,7 +70,7 @@
 		07E826A11F5BF0F20077A017 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		07E826A81F5BF1BA0077A017 /* HighlightManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HighlightManager.swift; sourceTree = "<group>"; };
 		07E826BD1F5BF1BA0077A017 /* MarkLite-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MarkLite-Bridging-Header.h"; sourceTree = "<group>"; };
-		07E826BE1F5BF1BA0077A017 /* PdfRender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PdfRender.swift; sourceTree = "<group>"; };
+		07E826BE1F5BF1BA0077A017 /* PDFRender.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFRender.swift; sourceTree = "<group>"; };
 		07E826C11F5BF1BA0077A017 /* File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		07E826C21F5BF1BA0077A017 /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		07E826F31F5BF1BA0077A017 /* Edit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Edit.storyboard; sourceTree = "<group>"; };
@@ -79,16 +79,15 @@
 		07E826F91F5BF1BA0077A017 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		07E826FC1F5BF1BA0077A017 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		07E826FD1F5BF1BA0077A017 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		07E826FF1F5BF1BA0077A017 /* AssistKeyboardBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssistKeyboardBar.swift; sourceTree = "<group>"; };
 		07E827001F5BF1BA0077A017 /* DottedLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DottedLineView.swift; sourceTree = "<group>"; };
 		07E827031F5BF1BA0077A017 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		07E827071F5BF1BA0077A017 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
-		07E827081F5BF1BA0077A017 /* FileListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileListViewController.swift; sourceTree = "<group>"; };
+		07E827081F5BF1BA0077A017 /* FilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesViewController.swift; sourceTree = "<group>"; };
 		07E8270B1F5BF1BA0077A017 /* OptionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsViewController.swift; sourceTree = "<group>"; };
 		07E8270C1F5BF1BA0077A017 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		07E8270D1F5BF1BA0077A017 /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
-		07E8270E1F5BF1BA0077A017 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		07E8270F1F5BF1BA0077A017 /* WrapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WrapViewController.swift; sourceTree = "<group>"; };
+		07E8270E1F5BF1BA0077A017 /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		07E8270F1F5BF1BA0077A017 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		07E827611F5BF1FC0077A017 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		07E827621F5BF2020077A017 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		07E827661F5BF24B0077A017 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -119,17 +118,18 @@
 		7613F1232325F8AF006EE3B9 /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = ReadMe.md; path = Instructions/ReadMe.md; sourceTree = "<group>"; };
 		7613F1282325FA02006EE3B9 /* 使用教程.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "使用教程.md"; path = "Instructions/使用教程.md"; sourceTree = "<group>"; };
 		7613F1292325FA02006EE3B9 /* 使用說明.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "使用說明.md"; path = "Instructions/使用說明.md"; sourceTree = "<group>"; };
-		761F824F22E16D6500C3435C /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		761F824F22E16D6500C3435C /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		762CF0F72322650A00F2FF90 /* MarkdownRender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkdownRender.h; sourceTree = "<group>"; };
 		762CF0F82322650A00F2FF90 /* MarkdownRender.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownRender.m; sourceTree = "<group>"; };
 		7635E5C923473212008E1DEF /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		7635E5CB23473335008E1DEF /* Markdown.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Markdown.entitlements; sourceTree = "<group>"; };
 		7635E5CE234AF3B6008E1DEF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		766F117B2350803A00E6395E /* KeyboardBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardBar.swift; sourceTree = "<group>"; };
 		768762B822D86CE900A54EB1 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; usesTabs = 0; };
 		768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		76A4D271234EF98200B87A78 /* WebDAVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVViewController.swift; sourceTree = "<group>"; };
 		76C94A6A22EAA43D004CE602 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		76DFD720232926AC00F97D56 /* CustomCSSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCSSViewController.swift; sourceTree = "<group>"; };
+		76DFD720232926AC00F97D56 /* AddStyleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStyleViewController.swift; sourceTree = "<group>"; };
 		76E7F270233CAEE10051DF6A /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		76E7F274233CB5E30051DF6A /* icon_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_logo.png; sourceTree = "<group>"; };
 		8E2576E76534F3FE3E3CAA53 /* Pods-Markdown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Markdown.release.xcconfig"; path = "Pods/Target Support Files/Pods-Markdown/Pods-Markdown.release.xcconfig"; sourceTree = "<group>"; };
@@ -194,7 +194,7 @@
 				07E826BD1F5BF1BA0077A017 /* MarkLite-Bridging-Header.h */,
 				762CF0F72322650A00F2FF90 /* MarkdownRender.h */,
 				762CF0F82322650A00F2FF90 /* MarkdownRender.m */,
-				07E826BE1F5BF1BA0077A017 /* PdfRender.swift */,
+				07E826BE1F5BF1BA0077A017 /* PDFRender.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -274,7 +274,7 @@
 		07E826FE1F5BF1BA0077A017 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				07E826FF1F5BF1BA0077A017 /* AssistKeyboardBar.swift */,
+				766F117B2350803A00E6395E /* KeyboardBar.swift */,
 				07E827001F5BF1BA0077A017 /* DottedLineView.swift */,
 				76E7F270233CAEE10051DF6A /* BaseTableViewCell.swift */,
 				07E827031F5BF1BA0077A017 /* MenuView.swift */,
@@ -285,16 +285,16 @@
 		07E827061F5BF1BA0077A017 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				07E827081F5BF1BA0077A017 /* FilesViewController.swift */,
 				07E827071F5BF1BA0077A017 /* EditViewController.swift */,
-				07E827081F5BF1BA0077A017 /* FileListViewController.swift */,
 				07E8270D1F5BF1BA0077A017 /* TextViewController.swift */,
-				07E8270E1F5BF1BA0077A017 /* WebViewController.swift */,
+				07E8270E1F5BF1BA0077A017 /* PreviewViewController.swift */,
 				07E8270C1F5BF1BA0077A017 /* SettingsViewController.swift */,
-				07E8270F1F5BF1BA0077A017 /* WrapViewController.swift */,
+				07E8270F1F5BF1BA0077A017 /* HomeViewController.swift */,
 				768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */,
-				761F824F22E16D6500C3435C /* InfoViewController.swift */,
+				761F824F22E16D6500C3435C /* WebViewController.swift */,
 				07E8270B1F5BF1BA0077A017 /* OptionsViewController.swift */,
-				76DFD720232926AC00F97D56 /* CustomCSSViewController.swift */,
+				76DFD720232926AC00F97D56 /* AddStyleViewController.swift */,
 				76A4D271234EF98200B87A78 /* WebDAVViewController.swift */,
 			);
 			path = ViewController;
@@ -468,10 +468,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76DFD721232926AC00F97D56 /* CustomCSSViewController.swift in Sources */,
+				76DFD721232926AC00F97D56 /* AddStyleViewController.swift in Sources */,
 				07E8274C1F5BF1BA0077A017 /* Localization.swift in Sources */,
 				760C296F2320F3EC002E613E /* escape.c in Sources */,
-				07E827561F5BF1BA0077A017 /* FileListViewController.swift in Sources */,
+				07E827561F5BF1BA0077A017 /* FilesViewController.swift in Sources */,
 				07E827101F5BF1BA0077A017 /* HighlightManager.swift in Sources */,
 				07E8275B1F5BF1BA0077A017 /* TextViewController.swift in Sources */,
 				768762BB22D86D1C00A54EB1 /* PurchaseViewController.swift in Sources */,
@@ -481,7 +481,6 @@
 				76A4D272234EF98200B87A78 /* WebDAVViewController.swift in Sources */,
 				760C296D2320F3EC002E613E /* buffer.c in Sources */,
 				760C29732320F3FA002E613E /* hoedown_html_patch.c in Sources */,
-				07E8274E1F5BF1BA0077A017 /* AssistKeyboardBar.swift in Sources */,
 				760C296A2320F3EC002E613E /* html.c in Sources */,
 				07E827521F5BF1BA0077A017 /* MenuView.swift in Sources */,
 				07E827591F5BF1BA0077A017 /* OptionsViewController.swift in Sources */,
@@ -492,16 +491,17 @@
 				07E8274F1F5BF1BA0077A017 /* DottedLineView.swift in Sources */,
 				760C296B2320F3EC002E613E /* autolink.c in Sources */,
 				0724281B1F726B0300C02F87 /* ImagePicker.swift in Sources */,
-				761F825022E16D6500C3435C /* InfoViewController.swift in Sources */,
-				07E8275C1F5BF1BA0077A017 /* WebViewController.swift in Sources */,
+				761F825022E16D6500C3435C /* WebViewController.swift in Sources */,
+				07E8275C1F5BF1BA0077A017 /* PreviewViewController.swift in Sources */,
 				760C29682320F3EC002E613E /* stack.c in Sources */,
 				760C296C2320F3EC002E613E /* version.c in Sources */,
 				07E8276C1F5BFD880077A017 /* ImageSaver.swift in Sources */,
-				07E8271B1F5BF1BA0077A017 /* PdfRender.swift in Sources */,
+				07E8271B1F5BF1BA0077A017 /* PDFRender.swift in Sources */,
+				766F117C2350803A00E6395E /* KeyboardBar.swift in Sources */,
 				760C296E2320F3EC002E613E /* html_blocks.c in Sources */,
 				07E827491F5BF1BA0077A017 /* Constant.swift in Sources */,
 				07E827481F5BF1BA0077A017 /* Configure.swift in Sources */,
-				07E8275D1F5BF1BA0077A017 /* WrapViewController.swift in Sources */,
+				07E8275D1F5BF1BA0077A017 /* HomeViewController.swift in Sources */,
 				768762B922D86CE900A54EB1 /* IAPHelper.swift in Sources */,
 				07E826961F5BF0F20077A017 /* AppDelegate.swift in Sources */,
 				7635E5CA23473212008E1DEF /* Document.swift in Sources */,

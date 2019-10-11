@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="kJS-Hc-QJ3">
-    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,7 +15,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lId-Dt-n2r">
-                                <rect key="frame" x="8" y="44" width="179.66666666666666" height="630"/>
+                                <rect key="frame" x="8" y="0.0" width="179.5" height="674"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Thonburi" family="Thonburi" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -26,7 +24,7 @@
                                 </connections>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A59-fe-PiA">
-                                <rect key="frame" x="0.0" y="674" width="187.66666666666666" height="50"/>
+                                <rect key="frame" x="0.0" y="674" width="187.5" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.85000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000 字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Als-NQ-ZQc">
                                         <rect key="frame" x="10" y="16" width="54" height="18"/>
@@ -35,7 +33,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aui-tE-OMW">
-                                        <rect key="frame" x="89.666666666666671" y="10" width="40.000000000000014" height="30"/>
+                                        <rect key="frame" x="89.5" y="10" width="40" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="bqg-pk-jlT"/>
                                         </constraints>
@@ -45,7 +43,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vV5-i3-4Pf">
-                                        <rect key="frame" x="137.66666666666666" y="10" width="40" height="30"/>
+                                        <rect key="frame" x="137.5" y="10" width="40" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="PqV-wq-ylT"/>
                                         </constraints>
@@ -67,13 +65,13 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="StartEdit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5L-1x-TTM">
-                                <rect key="frame" x="13" y="50" width="67" height="20.666666666666671"/>
+                                <rect key="frame" x="13" y="6" width="67" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wg0-wg-03a" customClass="DottedLineView" customModule="Markdown" customModuleProvider="target">
-                                <rect key="frame" x="186.66666666666666" y="44" width="1" height="680"/>
+                                <rect key="frame" x="186.5" y="0.0" width="1" height="724"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="1" id="5fQ-Z5-5yd"/>
@@ -125,20 +123,20 @@
             <objects>
                 <viewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="kJS-Hc-QJ3" customClass="EditViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="edu-ao-q9D">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJa-dk-TN5">
-                                <rect key="frame" x="0.0" y="88" width="375" height="724"/>
+                                <rect key="frame" x="0.0" y="44" width="600" height="556"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XJt-c3-kNb">
-                                        <rect key="frame" x="0.0" y="0.0" width="187.66666666666666" height="724"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="556"/>
                                         <connections>
                                             <segue destination="CPR-Rc-22a" kind="embed" id="szb-kD-ibo"/>
                                         </connections>
                                     </containerView>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zns-Dc-Cfg">
-                                        <rect key="frame" x="187.66666666666663" y="0.0" width="187.33333333333337" height="724"/>
+                                        <rect key="frame" x="300" y="0.0" width="300" height="556"/>
                                         <connections>
                                             <segue destination="7Y8-9G-Orv" kind="embed" id="bT1-xP-Sju"/>
                                         </connections>
@@ -184,10 +182,10 @@
             </objects>
             <point key="canvasLocation" x="-3082.4000000000001" y="-3851.9704433497541"/>
         </scene>
-        <!--Web View Controller-->
+        <!--Preview View Controller-->
         <scene sceneID="HRL-iS-JQR">
             <objects>
-                <viewController id="7Y8-9G-Orv" customClass="WebViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="7Y8-9G-Orv" customClass="PreviewViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="99B-NM-Faa">
                         <rect key="frame" x="0.0" y="0.0" width="187.33333333333337" height="724"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

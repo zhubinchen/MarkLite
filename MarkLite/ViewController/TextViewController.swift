@@ -49,7 +49,7 @@ class TextViewController: UIViewController {
         
         Configure.shared.isAssistBarEnabled.asObservable().subscribe(onNext: { [unowned self](enable) in
             if enable {
-                let assistBar = AssistKeyboardBar()
+                let assistBar = KeyboardBar()
                 assistBar.textView = self.editView
                 assistBar.viewController = self
                 self.editView.inputAccessoryView = assistBar

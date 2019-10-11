@@ -1,5 +1,5 @@
 //
-//  FileListViewController.swift
+//  FilesViewController.swift
 //  Markdown
 //
 //  Created by zhubch on 2017/6/22.
@@ -10,7 +10,7 @@ import UIKit
 import EZSwiftExtensions
 import RxSwift
 
-class FileListViewController: UIViewController {
+class FilesViewController: UIViewController {
         
     @IBOutlet weak var tableView: UITableView!
     
@@ -38,9 +38,7 @@ class FileListViewController: UIViewController {
     var root: File!
     
     let bag = DisposeBag()
-    
-    let query = NSMetadataQuery()
-        
+            
     var textField: UITextField?
     
     var isHomePage = false
@@ -53,7 +51,7 @@ class FileListViewController: UIViewController {
     
     var filesToMove: [File]?
 
-    var moveFrom: FileListViewController?
+    var moveFrom: FilesViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,7 +65,7 @@ class FileListViewController: UIViewController {
             title = /"Documents"
             loadFiles()
             observeFileChange()
-        }  else if selectFolderMode {
+        } else if selectFolderMode {
             title = /"MoveTo"
             _ = Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in
                 self.navBar?.barStyle = theme == .white ? .default : .black
@@ -219,8 +217,7 @@ class FileListViewController: UIViewController {
             $0.move(to: newParent)
         }
         moveFrom?.refresh()
-        dismiss(animated: true) {
-        }
+        dismiss(animated: true) { }
     }
     
     @objc func showSettings() {
@@ -325,6 +322,27 @@ class FileListViewController: UIViewController {
         }
     }
     
+    func doIfPro(_ task: (() -> Void)) {
+        if Configure.shared.isPro {
+            task()
+            return
+        }
+        showAlert(title: /"PremiumOnly", message: /"PremiumTips", actionTitles: [/"SubscribeNow",/"Cancel"], textFieldconfigurationHandler: nil) { [unowned self](index) in
+            if index == 0 {
+                let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
+                let vc = sb.instantiateVC(PurchaseViewController.self)!
+                let nav = UINavigationController(rootViewController: vc)
+                nav.modalPresentationStyle = .fullScreen
+                let date = Date(fromString: "2019-10-04", format: "yyyy-MM-dd")!
+                let now = Date()
+                if now > date {
+                    nav.modalPresentationStyle = .formSheet
+                }
+                self.presentVC(nav)
+            }
+        }
+    }
+    
     func setupUI() {
         var inset = CGFloat(0)
         if #available(iOS 11.0, *) {
@@ -357,7 +375,7 @@ class FileListViewController: UIViewController {
         
         if segue.identifier == "move" {
             if let nav = segue.destination as? UINavigationController,
-                let vc = nav.topViewController as? FileListViewController,
+                let vc = nav.topViewController as? FilesViewController,
                 let files = sender as? [File] {
                 vc.selectFolderMode = true
                 vc.filesToMove = files
@@ -366,7 +384,7 @@ class FileListViewController: UIViewController {
             return
         }
         
-        if let vc = segue.destination as? FileListViewController,
+        if let vc = segue.destination as? FilesViewController,
             let file = sender as? File {
             vc.root = file
             return
@@ -381,7 +399,7 @@ class FileListViewController: UIViewController {
     }
 }
 
-extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
+extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         tableView.isHidden = files.count == 0 && isHomePage == false
         return sections.count
@@ -431,11 +449,16 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
     }
         
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView.isEditing && isHomePage && indexPath.section == 0 {
-            tableView.deselectRow(at: indexPath, animated: true)
-            return
-        }
-        if tableView.isEditing {
+        if isHomePage && indexPath.section == 0 {
+            if tableView.isEditing {
+                tableView.deselectRow(at: indexPath, animated: true)
+            } else {
+                doIfPro {
+                    self.openFile(indexPath)
+                }
+                tableView.deselectRow(at: indexPath, animated: true)
+            }
+        } else if tableView.isEditing {
             let file = files[indexPath.row]
             selectFiles.append(file)
         } else if selectFolderMode {
@@ -446,7 +469,7 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        if tableView.isEditing && isHomePage && indexPath.section == 0 {
+        if isHomePage && indexPath.section == 0 {
             return
         }
         
@@ -524,7 +547,7 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension FileListViewController: UITextFieldDelegate {
+extension FilesViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -537,7 +560,7 @@ extension FileListViewController: UITextFieldDelegate {
     }
 }
 
-extension FileListViewController: UIDocumentPickerDelegate {
+extension FilesViewController: UIDocumentPickerDelegate {
     
     @objc func pickFromFiles() {
         let picker = UIDocumentPickerViewController(documentTypes: ["public.text"], in: .open)
@@ -553,27 +576,40 @@ extension FileListViewController: UIDocumentPickerDelegate {
         presentVC(picker)
     }
     
-    func didPickFile(_ url: URL) {
+    func finishPick(_ url: URL) {
         let accessed = url.startAccessingSecurityScopedResource()
         if !accessed {
             SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
+            return
+        }
+        guard let values = try? url.resourceValues(forKeys: [URLResourceKey.isDirectoryKey]) else {
+            url.stopAccessingSecurityScopedResource()
+            SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
+            return
+        }
+        if values.isDirectory ?? false {
+            didPickFolder(url)
         } else {
-            showActionSheet(actionTitles: [/"ImportFile",/"OpenOriginFile"]) { index in
-                let name = url.deletingPathExtension().lastPathComponent
-                if index == 0 {
-                    guard let data = try? Data(contentsOf: url) else { return }
-                    url.stopAccessingSecurityScopedResource()
-                    if let newFile = File.local.createFile(name: name, contents: data, type: .text) {
-                        newFile.save()
-                        self.performSegue(withIdentifier: "edit", sender: newFile)
-                    }
-                } else {
-                    guard let data = try? url.bookmarkData(options: .minimalBookmark, includingResourceValuesForKeys: nil, relativeTo: nil) else { return }
-                    url.stopAccessingSecurityScopedResource()
-                    if let newFile = File.inbox.createFile(name: name, contents: data, type: .text) {
-                        newFile.save()
-                        self.performSegue(withIdentifier: "edit", sender: newFile)
-                    }
+            didPickFile(url)
+        }
+    }
+    
+    func didPickFile(_ url: URL) {
+        showActionSheet(actionTitles: [/"ImportFile",/"OpenOriginFile"]) { index in
+            let name = url.deletingPathExtension().lastPathComponent
+            if index == 0 {
+                guard let data = try? Data(contentsOf: url) else { return }
+                url.stopAccessingSecurityScopedResource()
+                if let newFile = File.local.createFile(name: name, contents: data, type: .text) {
+                    newFile.save()
+                    self.performSegue(withIdentifier: "edit", sender: newFile)
+                }
+            } else {
+                guard let data = try? url.bookmarkData(options: .minimalBookmark, includingResourceValuesForKeys: nil, relativeTo: nil) else { return }
+                url.stopAccessingSecurityScopedResource()
+                if let newFile = File.inbox.createFile(name: name, contents: data, type: .text) {
+                    newFile.save()
+                    self.performSegue(withIdentifier: "edit", sender: newFile)
                 }
             }
         }
@@ -581,17 +617,12 @@ extension FileListViewController: UIDocumentPickerDelegate {
     
     func didPickFolder(_ url: URL) {
         let name = url.deletingPathExtension().lastPathComponent
-        let accessed = url.startAccessingSecurityScopedResource()
-        if !accessed {
-            SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
-        } else {
-            guard let data = try? url.bookmarkData(options: .minimalBookmark, includingResourceValuesForKeys: nil, relativeTo: nil) else { return }
-            url.stopAccessingSecurityScopedResource()
-            if let newFile = File.location.createFile(name: name, contents: data, type: .location) {
-                newFile.save()
-                items.insert(newFile, at: 2)
-                tableView.insertRows(at: [IndexPath(row: 2, section: 0)], with: .middle)
-            }
+        guard let data = try? url.bookmarkData(options: .minimalBookmark, includingResourceValuesForKeys: nil, relativeTo: nil) else { return }
+        url.stopAccessingSecurityScopedResource()
+        if let newFile = File.location.createFile(name: name, contents: data, type: .location) {
+            newFile.save()
+            items.insert(newFile, at: 2)
+            tableView.insertRows(at: [IndexPath(row: 2, section: 0)], with: .middle)
         }
     }
     
@@ -600,12 +631,12 @@ extension FileListViewController: UIDocumentPickerDelegate {
     }
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
-        didPickFolder(url)
+        finishPick(url)
     }
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         if urls.count > 0 {
-            didPickFolder(urls.first!)
+            finishPick(urls.first!)
         }
     }
 }

@@ -346,7 +346,6 @@
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="lessThanOrEqual" constant="600" id="08w-8v-v2b"/>
                                     <constraint firstItem="onG-De-hCE" firstAttribute="width" secondItem="a99-s4-oU9" secondAttribute="width" id="KVj-za-bJ9"/>
@@ -383,6 +382,11 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="monthlyButton" destination="zCZ-as-pOL" id="wxj-j7-XRf"/>
+                        <outlet property="priceMonthlyLabel" destination="Rjl-oc-87L" id="5mh-zu-m00"/>
+                        <outlet property="priceYearlyLabel" destination="0sJ-OG-b0d" id="fJX-Ys-L7t"/>
+                        <outlet property="tipsLabel" destination="H2x-mK-LUV" id="qN3-Tz-eYW"/>
+                        <outlet property="titleLabel" destination="SY0-UN-Rps" id="EOb-ig-nrB"/>
                         <outlet property="yearlyButton" destination="fRB-Vb-DGa" id="u6M-Il-6zw"/>
                     </connections>
                 </viewController>
@@ -390,10 +394,10 @@
             </objects>
             <point key="canvasLocation" x="-3899" y="-3966"/>
         </scene>
-        <!--CustomCSS View Controller-->
+        <!--Add Style View Controller-->
         <scene sceneID="4sh-PZ-35l">
             <objects>
-                <tableViewController storyboardIdentifier="CustomCSSViewController" id="ihQ-UI-zHd" customClass="CustomCSSViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="CustomCSSViewController" id="ihQ-UI-zHd" customClass="AddStyleViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="48" estimatedRowHeight="48" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Py1-S7-1kE">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

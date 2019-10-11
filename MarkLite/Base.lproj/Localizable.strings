@@ -10,12 +10,13 @@
 
 "Cloud"="iCloud";
 "Local"="Local";
-"Inbox"="Inbox";
 "External"="External";
-"ExternalDetail"="Open <Files> App";
+"AddLocation"="Add Locations";
+"AddLocationDetail"="From [Files]";
+"MoveTo"="Move To";
 
-"ImportFile"="Copy File to Local";
-"OpenOriginFile"="Open Origin File";
+"ImportFile"="Copy to Local";
+"OpenOriginFile"="Open In Place";
 
 "SortByName"="Sort By Name";
 "SortByType"="Sort By Type";
@@ -25,7 +26,8 @@
 
 "Today"="Today";
 "Yesterday"="Yesterday";
-"Children"="Item(s)";
+"Children"="Items";
+"Empty"="Empty";
 "M-d"="MM/dd";
 "yyyy-M-d"="yyyy/MM/dd";
 
@@ -53,9 +55,12 @@
 "Markdown"="Markdown";
 "SaveFailed"="Save to Photo Failed";
 "SaveSuccessed"="Save to Photo Successed";
+"CopiedAddress"="Copied Address";
 
 "Settings"="Settings";
-"AssistKeyboard"="Keyboard Assist Bar";
+"WebDAV"="WebDAV";
+"ArrangeKeyboardBar"="Arrange Keyboard Bar";
+"AssistKeyboard"="Enable Keyboard Bar";
 "SplitOptions"="Split Options";
 "NightMode"="Dark Mode";
 "Theme"="Theme";
@@ -65,12 +70,21 @@
 "CSS"="Custom Style";
 "CodeStyle"="Code Highlight";
 
+"KeepDarkMode"="Keep Dark Mode";
+"DisableDarkMode"="Disable Dark Mode";
+"FollowSystem"="Matches System";
+
 "InvalidStyleURL"="Invalid Style URL";
 "InvalidStyleName"="Invalid Style Name";
 "DumplicatedName"="Dumplicated Style Name";
 "StyleName"="Style Name";
 "StyleURL"="CSS URL";
 "Download"="Download";
+
+"ServerLoading"="Starting...";
+"ServerStarted"="Server Started!\nOpen the URL in your computer browser:";
+"ServerNotRunning"="Server Not Running";
+"Log"="Log:";
 
 "ContactMessage"="If you have any suggestions or questions about this app, feel free to tell me please.";
 "Email"="Email";

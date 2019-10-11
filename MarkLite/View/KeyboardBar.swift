@@ -1,5 +1,5 @@
 //
-//  AssistKeyboardBar.swift
+//  KeyboardBar.swift
 //  Markdown
 //
 //  Created by zhubch on 2017/7/11.
@@ -33,7 +33,7 @@ extension String: ButtonConvertiable {
 }
 
 fileprivate let uploadURL = ""
-class AssistKeyboardBar: UIView {
+class KeyboardBar: UIView {
     let scrollView = UIScrollView()
     var endButton: UIButton!
 

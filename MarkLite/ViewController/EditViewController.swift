@@ -58,14 +58,14 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
     var timer: Timer?
     var markdownToRender: String?
 
-    var webVC: WebViewController!
+    var previewVC: PreviewViewController!
     var textVC: TextViewController!
 
     var webVisible = true
     var htmlURL: URL?
     let bag = DisposeBag()
     let markdownRenderer = MarkdownRender.shared()
-    let pdfRender = PdfRender()
+    let pdfRender = PDFRender()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,7 +128,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         
         let path = tempPath + "/" + file.name + ".html"
         htmlURL = URL(fileURLWithPath: path)
-        webVC.webView.loadRequest(URLRequest(url:htmlURL!))
+        previewVC.webView.loadRequest(URLRequest(url:htmlURL!))
         
         textVC.textChangedHandler = { [weak self] text in
             file.text = text
@@ -136,7 +136,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         }
         
         textVC.offsetChangedHandler = { [weak self] offset in
-            self?.webVC.offset = offset
+            self?.previewVC.offset = offset
         }
 
         Configure.shared.markdownStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
@@ -156,7 +156,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
                 this.markdownToRender = nil
                 guard let url = this.htmlURL, let data = html.data(using: String.Encoding.utf8) else { return }
                 try? data.write(to: url)
-                this.webVC.contentChanged = true
+                this.previewVC.contentChanged = true
             }
         }
         
@@ -273,14 +273,14 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         guard let file = self.file else { return nil }
         switch type {
         case .pdf:
-            let data = pdfRender.render(formatter: self.webVC.webView.viewPrintFormatter())
+            let data = pdfRender.render(formatter: self.previewVC.webView.viewPrintFormatter())
             let path = tempPath + "/" + file.name + ".pdf"
             try? FileManager.default.removeItem(atPath: path)
             FileManager.default.createFile(atPath: path, contents: data, attributes: nil)
             let url = URL(fileURLWithPath: path)
             return url
         case .image:
-            guard let img = self.webVC.webView.scrollView.snap, let _ = UIImagePNGRepresentation(img) else { return nil }
+            guard let img = self.previewVC.webView.scrollView.snap, let _ = UIImagePNGRepresentation(img) else { return nil }
             saveImage(img)
             return nil
         case .markdown:
@@ -293,8 +293,8 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? TextViewController {
             textVC = vc
-        } else if let vc = segue.destination as? WebViewController {
-            webVC = vc
+        } else if let vc = segue.destination as? PreviewViewController {
+            previewVC = vc
         }
     }
     
