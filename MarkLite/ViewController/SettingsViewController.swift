@@ -15,25 +15,23 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     var textField: UITextField?
     
-    let themeSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
     let assitBarSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
     
     var items: [(String,[(String,String,Selector)])] {
         var section = [
-            ("AssistKeyboard","",#selector(assistBar)),
-            ("ArrangeKeyboardBar","",#selector(arrange)),
+            ("NightMode","",#selector(darkMode)),
+            ("Theme","",#selector(theme))
             ]
         if isPad {
             section.append(("SplitOptions","",#selector(splitOption)))
         }
         var items = [
             ("共享",[("WebDAV","",#selector(webdav))]),
-            ("功能",section),
-            ("外观",[
-                ("NightMode","",#selector(night)),
-                ("Theme","",#selector(theme)),
+            ("外观",section),
+            ("功能",[
                 ("Style","",#selector(style)),
                 ("CodeStyle","",#selector(codeStyle)),
+                ("AssistKeyboard","",#selector(assistBar)),
                 ]),
             ("支持一下",[
                 ("RateIt","",#selector(rate)),
@@ -58,13 +56,10 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.setBackgroundColor(.tableBackground)
         tableView.setSeparatorColor(.primary)
 
-        themeSwitch.setTintColor(.tint)
         assitBarSwitch.setTintColor(.tint)
 
-        themeSwitch.isOn = Configure.shared.theme.value == .black
         assitBarSwitch.isOn = Configure.shared.isAssistBarEnabled.value
         
-        themeSwitch.addTarget(self, action: #selector(night(_:)), for: .valueChanged)
         assitBarSwitch.addTarget(self, action: #selector(assistBar(_:)), for: .valueChanged)
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
@@ -72,7 +67,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        themeSwitch.x = view.w - 64
+
         assitBarSwitch.x = view.w - 64
     }
     
@@ -99,10 +94,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             cell.addSubview(assitBarSwitch)
             cell.accessoryType = .none
         }
-        if item.0 == "NightMode" {
-            cell.addSubview(themeSwitch)
-            cell.accessoryType = .none
-        }
         return cell
     }
 
@@ -110,7 +101,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.deselectRow(at: indexPath, animated: true)
 
         let item = items[indexPath.section].1[indexPath.row]
-        if item.0 == "AssistKeyboard" || item.0 == "NightMode" {
+        if item.0 == "AssistKeyboard" {
             return
         }
         perform(item.2)
@@ -175,23 +166,20 @@ extension SettingsViewController {
         }
     }
     
-    @objc func night(_ sender: UISwitch) {
-        Configure.shared.theme.value = sender.isOn ? .black : .white
-        if sender.isOn {
-            Configure.shared.markdownStyle.value = "GitHub Dark"
-            Configure.shared.highlightStyle.value = "tomorrow-night"
-        } else {
-            Configure.shared.markdownStyle.value = "GitHub"
-            Configure.shared.highlightStyle.value = "tomorrow"
+    @objc func darkMode() {
+        let items = [DarkModeOption.dark,.light,.system]
+        let index = items.index{ Configure.shared.darkOption.value == $0 }
+
+        let wraper = OptionsWraper(selectedIndex: index, editable: false, title: /"NightMode", items: items) {
+            Configure.shared.darkOption.value = $0 as! DarkModeOption
         }
+        let vc = OptionsViewController()
+        vc.options = wraper
+        pushVC(vc)
     }
     
     @objc func assistBar(_ sender: UISwitch) {
         Configure.shared.isAssistBarEnabled.value = sender.isOn
-    }
-    
-    @objc func arrange() {
-
     }
     
     @objc func webdav() {

@@ -92,7 +92,17 @@ class FileListViewController: UIViewController {
         }
         
         tableView.allowsMultipleSelectionDuringEditing = false
-
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        if Configure.shared.darkOption.value != .system || isHomePage == false {
+            return
+        }
+        if #available(iOS 13.0, *) {
+            if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+                ColorCenter.shared.theme = UITraitCollection.current.userInterfaceStyle == .dark ? .black : .white
+            }
+        }
     }
     
     func observeFileChange() {

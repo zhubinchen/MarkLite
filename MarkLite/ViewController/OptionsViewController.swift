@@ -32,6 +32,12 @@ extension SplitOption: StringConvertible {
     }
 }
 
+extension DarkModeOption: StringConvertible {
+    var toString: String {
+        return displayName
+    }
+}
+
 extension String: StringConvertible {
     var toString: String {
         return self

@@ -56,6 +56,23 @@ enum SortOption: String {
     }
 }
 
+enum DarkModeOption: String {
+    case dark
+    case light
+    case system
+
+    var displayName: String {
+        switch self {
+        case .dark:
+            return /"KeepDarkMode"
+        case .light:
+            return /"DisableDarkMode"
+        case .system:
+            return /"FollowSystem"
+        }
+    }
+}
+
 class Configure: NSObject, NSCoding {
     
     static let configureFile = configPath + "/Configure.plist"
@@ -74,6 +91,7 @@ class Configure: NSObject, NSCoding {
     let theme = Variable(Theme.white)
     let splitOption = Variable(SplitOption.automatic)
     var sortOption = SortOption.modifyDate
+    let darkOption = Variable(DarkModeOption.light)
 
     override init() {
         super.init()
@@ -108,6 +126,7 @@ class Configure: NSObject, NSCoding {
         theme.value = .white
         splitOption.value = .automatic
         sortOption = .modifyDate
+        darkOption.value = .light
         
         let destStylePath = URL(fileURLWithPath: supportPath)
         try! Zip.unzipFile(Bundle.main.url(forResource: "Resources", withExtension: "zip")!, destination: destStylePath, overwrite: true, password: nil, progress: nil)
@@ -138,6 +157,7 @@ class Configure: NSObject, NSCoding {
         aCoder.encode(highlightStyle.value, forKey: "highlightStyle")
         aCoder.encode(theme.value.rawValue, forKey: "theme")
         aCoder.encode(splitOption.value.rawValue, forKey: "splitOption")
+        aCoder.encode(darkOption.value.rawValue, forKey: "darkOption")
         aCoder.encode(sortOption.rawValue, forKey: "sortOption")
         aCoder.encode(upgradeDate, forKey: "upgradeDate")
         aCoder.encode(alertDate, forKey: "alertDate")
@@ -156,6 +176,7 @@ class Configure: NSObject, NSCoding {
         highlightStyle.value = aDecoder.decodeObject(forKey: "highlightStyle") as? String ?? "tomorrow"
         theme.value = Theme(rawValue:aDecoder.decodeObject(forKey: "theme") as? String ?? "") ?? .white
         splitOption.value = SplitOption(rawValue: aDecoder.decodeObject(forKey: "splitOption") as? String ?? "") ?? .automatic
+        darkOption.value = DarkModeOption(rawValue: aDecoder.decodeObject(forKey: "darkOption") as? String ?? "") ?? .light
         sortOption = SortOption(rawValue: aDecoder.decodeObject(forKey: "sortOption") as? String ?? "") ?? .modifyDate
     }
     

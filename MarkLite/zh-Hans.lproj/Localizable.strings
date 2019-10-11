@@ -70,6 +70,10 @@
 "CodeStyle"="代码块高亮";
 "CSS"="自定义样式";
 
+"KeepDarkMode"="始终夜间模式";
+"DisableDarkMode"="禁用夜间模式";
+"FollowSystem"="跟随系统变化（iOS13以上有效）";
+
 "InvalidStyleURL"="链接格式有误";
 "InvalidStyleName"="样式名无效";
 "DumplicatedName"="已经存在同名的样式，请换个名字";
