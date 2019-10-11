@@ -24,23 +24,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         setup()
         
         try? FileManager.default.createDirectory(atPath: inboxPath, withIntermediateDirectories: true, attributes: nil)
+        try? FileManager.default.createDirectory(atPath: locationPath, withIntermediateDirectories: true, attributes: nil)
         _ = IAPHelper.sharedInstance
         return true
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-
-        if url.startAccessingSecurityScopedResource() && FileManager.default.fileExists(atPath: url.path) {
-            let oldPath = url.path
-            let fileName = oldPath.components(separatedBy: "/").last ?? /"Untitled"
-            let newPath = inboxPath + "/" + fileName
-            if oldPath.contains(documentPath) {
-                return true
-            }
-            do {
-                try FileManager.default.moveItem(atPath: oldPath, toPath: newPath)
-            } catch {
-                print(error.localizedDescription)
+        if window?.rootViewController?.isViewLoaded ?? false {
+            NotificationCenter.default.post(name: Notification.Name("InboxChanged"), object: url)
+        } else {
+            Timer.runThisAfterDelay(seconds: 0.5) {
+                NotificationCenter.default.post(name: Notification.Name("InboxChanged"), object: url)
             }
         }
         return true

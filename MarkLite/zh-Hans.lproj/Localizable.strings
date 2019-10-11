@@ -10,12 +10,12 @@
 
 "Cloud"="iCloud";
 "Local"="本地";
-"Inbox"="来自其他应用";
 "External"="外部文件";
-"ExternalDetail"="打开「文件」App";
+"AddLocation"="添加其他位置";
+"AddLocationDetail"="「文件」应用";
 "MoveTo"="移动到";
 
-"ImportFile"="拷贝文件到本地";
+"ImportFile"="拷贝到App内";
 "OpenOriginFile"="打开原文件";
 
 "SortByName"="按文件名称排序";
@@ -26,7 +26,8 @@
 
 "Today"="今天";
 "Yesterday"="昨天";
-"Children"="子文件";
+"Children"="项";
+"Empty"="空";
 "M-d"="M月d日";
 "yyyy-M-d"="yyyy年M月d日";
 
@@ -54,9 +55,10 @@
 "Markdown"="Markdown";
 "SaveFailed"="保存失败";
 "SaveSuccessed"="已保存到手机相册";
+"CopiedAddress"="地址已拷贝到剪切板";
 
 "Settings"="设置";
-"WebDAV"="WebDAV共享服务";
+"WebDAV"="WebDAV文件共享";
 "ArrangeKeyboardBar"="调整辅助键盘顺序";
 "AssistKeyboard"="启用辅助键盘";
 "SplitOptions"="编辑预览分屏";

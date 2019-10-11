@@ -20,7 +20,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     var items: [(String,[(String,String,Selector)])] {
         var section = [
-            ("WebDAV","",#selector(webdav)),
             ("AssistKeyboard","",#selector(assistBar)),
             ("ArrangeKeyboardBar","",#selector(arrange)),
             ]
@@ -28,6 +27,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             section.append(("SplitOptions","",#selector(splitOption)))
         }
         var items = [
+            ("共享",[("WebDAV","",#selector(webdav))]),
             ("功能",section),
             ("外观",[
                 ("NightMode","",#selector(night)),

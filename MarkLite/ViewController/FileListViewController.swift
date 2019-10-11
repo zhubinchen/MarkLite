@@ -23,14 +23,23 @@ class FileListViewController: UIViewController {
     fileprivate var files = [File]()
     
     fileprivate var items = [
-        (/"Cloud","",#imageLiteral(resourceName: "icon_cloud"),#selector(goCloud)),
-        (/"Inbox","",#imageLiteral(resourceName: "icon_box"),#selector(goInbox)),
-        (/"External","",#imageLiteral(resourceName: "icon_box"),#selector(goExternal)),
+        File.cloud,
+        File.inbox,
+        File.location
     ]
     
-    var root: File?
+    var sections: [[File]] {
+        if isHomePage {
+            return [items,files]
+        }
+        return [files]
+    }
+    
+    var root: File!
     
     let bag = DisposeBag()
+    
+    let query = NSMetadataQuery()
         
     var textField: UITextField?
     
@@ -49,7 +58,8 @@ class FileListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if root == nil {
+        if root == nil && selectFolderMode == false {
+            root = File.local
             isHomePage = true
         }
         
@@ -60,7 +70,7 @@ class FileListViewController: UIViewController {
         }  else if selectFolderMode {
             title = /"MoveTo"
             _ = Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in
-                self.navBar?.barStyle = theme == .black ? .black : .default
+                self.navBar?.barStyle = theme == .white ? .default : .black
             })
         } else {
             title = root?.displayName ?? root?.name
@@ -80,6 +90,9 @@ class FileListViewController: UIViewController {
         if !isMovingToParentViewController {
             refresh()
         }
+        
+        tableView.allowsMultipleSelectionDuringEditing = false
+
     }
     
     func observeFileChange() {
@@ -88,25 +101,28 @@ class FileListViewController: UIViewController {
     }
     
     func loadFiles() {
-        File.loadInbox { inbox in
-            File.inbox = inbox
-            self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
-        }
-        File.loadCloud { cloud in
-            File.cloud = cloud
-            self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
-        }
         File.loadLocal { local in
-            File.local = local
             self.root = local
             self.refresh()
+        }
+        File.loadCloud { cloud in
+            self.items[0] = cloud
+            self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+        }
+        File.loadInbox { inbox in
+            self.items[1] = inbox
+            self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
+        }
+        File.loadLocation { location in
+            self.items.insert(contentsOf: location.children, at: 2)
+            self.items[self.items.count - 1] = location
+            self.tableView.reloadData()
         }
     }
     
     @objc func localChanged(_ noti: Notification) {
         navigationController?.popToRootViewController(animated: true)
         File.loadLocal { local in
-            File.local = local
             self.root = local
             self.refresh()
         }
@@ -114,11 +130,8 @@ class FileListViewController: UIViewController {
     
     @objc func inboxChanged(_ noti: Notification) {
         navigationController?.popToRootViewController(animated: true)
-        File.loadInbox { inbox in
-            File.inbox = inbox
-            self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
-            self.goInbox()
-        }
+        guard let url = noti.object as? URL else { return }
+        didPickFile(url)
     }
     
     @objc func multipleSelect() {
@@ -136,52 +149,17 @@ class FileListViewController: UIViewController {
     
     @objc func selectAllFiles() {
         for i in 0..<files.count {
+            selectFiles.append(files[i])
             let indexPath = IndexPath(row: i, section: isHomePage ? 1 : 0)
             tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
         }
     }
-
-    @objc func goExternal() {
-        self.pickFromFiles()
-    }
-    
-    @objc func goCloud() {
-        if let root = File.cloud {
-            self.performSegue(withIdentifier: "file", sender: root)
-            return
-        }
-        File.loadCloud { cloud in
-            if let root = cloud {
-                File.cloud = root
-                self.performSegue(withIdentifier: "file", sender: root)
-            }
-        }
-    }
-    
-    @objc func goInbox() {
-        if let root = File.inbox {
-            self.performSegue(withIdentifier: "file", sender: root)
-            return
-        }
-        File.loadInbox { inbox in
-            if let root = inbox {
-                File.inbox = root
-                self.performSegue(withIdentifier: "file", sender: root)
-            }
-        }
-    }
     
     func refresh() {
-        if root == nil {
-            files = []
-        } else if (selectFolderMode) {
-            if let cloud = File.cloud {
-                files = [cloud,root!]
-            } else {
-                files = [root!]
-            }
+        if (selectFolderMode) {
+            files = [File.cloud,File.local]
         } else {
-            files = root!.children.sorted {
+            files = root.children.sorted {
                 switch Configure.shared.sortOption {
                 case .type:
                     return $0.type == .text && $1.type == .folder
@@ -277,41 +255,43 @@ class FileListViewController: UIViewController {
     }
     
     func openFile(_ indexPath: IndexPath) {
-        if isHomePage && indexPath.section == 0 {
-            let item = items[indexPath.row]
-            perform(item.3)
+        let file = sections[indexPath.section][indexPath.row]
+        if file == File.location {
+            addLocation()
             tableView.deselectRow(at: indexPath, animated: true)
+            return
+        }
+        if file.disable {
+            SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
+            return
+        }
+        if file.type == .folder || file.type == .location {
+            performSegue(withIdentifier: "file", sender: file)
         } else {
-            let file = files[indexPath.row]
-            if file.type == .folder {
-                performSegue(withIdentifier: "file", sender: file)
-            } else {
-                performSegue(withIdentifier: "edit", sender: file)
-            }
+            performSegue(withIdentifier: "edit", sender: file)
         }
     }
     
     func selectFolder(_ indexPath: IndexPath) {
         navigationItem.rightBarButtonItem?.isEnabled = true
-        let file = files[indexPath.row]
-        selectedFolder = file
+        selectedFolder = sections[indexPath.section][indexPath.row]
         let cell = tableView.cellForRow(at: indexPath)
-        if file.folders.count > 0 {
+        if selectedFolder!.folders.count > 0 {
             var indexPaths = [IndexPath]()
-            for i in 1...file.folders.count {
+            for i in 1...selectedFolder!.folders.count {
                 indexPaths.append(IndexPath(row: indexPath.row + i, section: indexPath.section))
             }
-            if file.expand {
+            if selectedFolder!.expand {
                 files.removeAll { item -> Bool in
-                    return file.folders.contains{ $0 == item }
+                    return selectedFolder!.folders.contains{ $0 == item }
                 }
                 tableView.deleteRows(at: indexPaths, with: .top)
             } else {
-                files.insert(contentsOf: file.folders, at: indexPath.row + 1)
+                files.insert(contentsOf: selectedFolder!.folders, at: indexPath.row + 1)
                 tableView.insertRows(at: indexPaths, with: .bottom)
             }
-            file.expand = !file.expand
-            (cell?.accessoryView as? UIImageView)?.image = (file.expand ?  #imageLiteral(resourceName: "icon_expand") : #imageLiteral(resourceName: "icon_forward")).recolor(color: ColorCenter.shared.secondary.value)
+            selectedFolder!.expand = !selectedFolder!.expand
+            (cell?.accessoryView as? UIImageView)?.image = (selectedFolder!.expand ?  #imageLiteral(resourceName: "icon_expand") : #imageLiteral(resourceName: "icon_forward")).recolor(color: ColorCenter.shared.secondary.value)
         }
     }
     
@@ -329,6 +309,8 @@ class FileListViewController: UIViewController {
 
             if isHomePage {
                 navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
+            } else {
+                navigationItem.leftBarButtonItem = nil
             }
         }
     }
@@ -370,7 +352,6 @@ class FileListViewController: UIViewController {
                 vc.selectFolderMode = true
                 vc.filesToMove = files
                 vc.moveFrom = self
-                vc.root = File.local
             }
             return
         }
@@ -392,55 +373,46 @@ class FileListViewController: UIViewController {
 
 extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        if isHomePage {
-            return 2
-        }
-        tableView.isHidden = files.count == 0
-        return 1
+        tableView.isHidden = files.count == 0 && isHomePage == false
+        return sections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isHomePage && section == 0 {
-            return items.count
-        }
-        return files.count
+        return sections[section].count
     }
     
     func tableView(_ tableView: UITableView, indentationLevelForRowAt indexPath: IndexPath) -> Int {
         if !selectFolderMode {
             return 0
         }
-        if isHomePage && indexPath.section == 0 {
-            return 0
-        }
-        let file = files[indexPath.row]
+        let file = sections[indexPath.section][indexPath.row]
         return file.deep
     }
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "item", for: indexPath)
-        if isHomePage && indexPath.section == 0 {
-            let item = items[indexPath.row]
-            cell.textLabel?.text = item.0
-            if indexPath.row == 0 {
-                cell.detailTextLabel?.text = "\(File.cloud?.children.count ?? 0) " + /"Children"
-            } else if indexPath.row == 1 {
-                cell.detailTextLabel?.text = "\(File.inbox?.children.count ?? 0) " + /"Children"
+        let file = sections[indexPath.section][indexPath.row]
+        cell.textLabel?.text = file.displayName ?? file.name
+        if file.type == .folder || file.type == .location {
+            let count = file.children.count
+            cell.detailTextLabel?.text = count == 0 ? /"Empty" : "\(file.children.count) " + /"Children"
+            if file == File.cloud {
+                cell.imageView?.image = #imageLiteral(resourceName: "icon_cloud").recolor(color: ColorCenter.shared.tint.value)
+            } else if file == File.inbox {
+                cell.imageView?.image = #imageLiteral(resourceName: "icon_box").recolor(color: ColorCenter.shared.tint.value)
+            } else if file == File.location {
+                cell.imageView?.image = #imageLiteral(resourceName: "icon_location").recolor(color: ColorCenter.shared.tint.value)
+                cell.detailTextLabel?.text = /"AddLocationDetail"
+            } else if file == File.local {
+                cell.imageView?.image = #imageLiteral(resourceName: "icon_local").recolor(color: ColorCenter.shared.tint.value)
             } else {
-                cell.detailTextLabel?.text = /"ExternalDetail"
+                cell.imageView?.image = #imageLiteral(resourceName: "icon_folder").recolor(color: ColorCenter.shared.tint.value)
             }
-            cell.imageView?.image = item.2.recolor(color: ColorCenter.shared.tint.value)
-            return cell
         } else {
-            let file = files[indexPath.row]
-            cell.textLabel?.text = file.displayName ?? file.name
-            if file.type == .folder {
-                cell.detailTextLabel?.text = "\(file.children.count) " + /"Children"
-            } else {
-                cell.detailTextLabel?.text = file.modifyDate.readableDate()
-            }
-            cell.imageView?.image = (file.type == .folder ? #imageLiteral(resourceName: "icon_folder") : #imageLiteral(resourceName: "icon_text")).recolor(color: ColorCenter.shared.tint.value)
+            cell.detailTextLabel?.text = file.modifyDate.readableDate()
+            cell.imageView?.image = #imageLiteral(resourceName: "icon_text").recolor(color: ColorCenter.shared.tint.value)
         }
+                
         if selectFolderMode {
             cell.indentationWidth = 20
             cell.detailTextLabel?.text = nil
@@ -449,14 +421,13 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
     }
         
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView.isEditing && isHomePage && indexPath.section == 0 {
+            tableView.deselectRow(at: indexPath, animated: true)
+            return
+        }
         if tableView.isEditing {
-            if isHomePage && indexPath.section == 0 {
-                tableView.deselectRow(at: indexPath, animated: true)
-                return
-            } else {
-                let file = files[indexPath.row]
-                selectFiles.append(file)
-            }
+            let file = files[indexPath.row]
+            selectFiles.append(file)
         } else if selectFolderMode {
             selectFolder(indexPath)
         } else {
@@ -465,10 +436,11 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        if tableView.isEditing && isHomePage && indexPath.section == 0 {
+            return
+        }
+        
         if tableView.isEditing {
-            if isHomePage && indexPath.section == 0 {
-                return
-            }
             let file = files[indexPath.row]
             selectFiles.removeAll { file == $0 }
         }
@@ -479,23 +451,45 @@ extension FileListViewController: UITableViewDelegate, UITableViewDataSource {
             return false
         }
         if isHomePage && indexPath.section == 0 {
-            return false
+            let file = self.sections[indexPath.section][indexPath.row]
+            return file.isExternalFile
         }
         return true
     }
     
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        
+        let file = self.sections[indexPath.section][indexPath.row]
+        if file.isExternalFile {
+            return .delete
+        }
+        return UITableViewCellEditingStyle(rawValue: UITableViewCellEditingStyle.delete.rawValue | UITableViewCellEditingStyle.insert.rawValue)!
+    }
+    
+    
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let file = self.sections[indexPath.section][indexPath.row]
+        
+        if file.isExternalFile {
+            let deleteAction = UITableViewRowAction(style: .destructive, title: /"Delete") { [unowned self](_, indexPath) in
+                file.trash()
+                self.items.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .middle)
+            }
+            return [deleteAction]
+        }
+        
         let deleteAction = UITableViewRowAction(style: .destructive, title: /"Delete") { [unowned self](_, indexPath) in
             self.showAlert(title: /"DeleteMessage", message: nil, actionTitles: [/"Cancel",/"Delete"], textFieldconfigurationHandler: nil, actionHandler: { (index) in
                 if index == 0 {
                     return
                 }
-                let file = self.files[indexPath.row]
                 file.trash()
                 self.files.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .middle)
             })
         }
+        
         let renameAction = UITableViewRowAction(style: .default, title: /"Rename") { [unowned self](_, indexPath) in
             let file = self.files[indexPath.row]
             self.showAlert(title: /"Rename", message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
@@ -535,8 +529,15 @@ extension FileListViewController: UITextFieldDelegate {
 
 extension FileListViewController: UIDocumentPickerDelegate {
     
-    func pickFromFiles() {
+    @objc func pickFromFiles() {
         let picker = UIDocumentPickerViewController(documentTypes: ["public.text"], in: .open)
+        picker.delegate = self
+        picker.modalPresentationStyle = .formSheet
+        presentVC(picker)
+    }
+    
+    @objc func addLocation() {
+        let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
         picker.delegate = self
         picker.modalPresentationStyle = .formSheet
         presentVC(picker)
@@ -548,16 +549,38 @@ extension FileListViewController: UIDocumentPickerDelegate {
             SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
         } else {
             showActionSheet(actionTitles: [/"ImportFile",/"OpenOriginFile"]) { index in
-                let file = File(path: url.path)
-                if index == 1 {
-                    if let newFile = self.root?.createFile(name: url.deletingPathExtension().lastPathComponent, type: .text) {
-                        newFile.text = file.text
+                let name = url.deletingPathExtension().lastPathComponent
+                if index == 0 {
+                    guard let data = try? Data(contentsOf: url) else { return }
+                    url.stopAccessingSecurityScopedResource()
+                    if let newFile = File.local.createFile(name: name, contents: data, type: .text) {
                         newFile.save()
                         self.performSegue(withIdentifier: "edit", sender: newFile)
                     }
                 } else {
-                    self.performSegue(withIdentifier: "edit", sender: file)
+                    guard let data = try? url.bookmarkData(options: .minimalBookmark, includingResourceValuesForKeys: nil, relativeTo: nil) else { return }
+                    url.stopAccessingSecurityScopedResource()
+                    if let newFile = File.inbox.createFile(name: name, contents: data, type: .text) {
+                        newFile.save()
+                        self.performSegue(withIdentifier: "edit", sender: newFile)
+                    }
                 }
+            }
+        }
+    }
+    
+    func didPickFolder(_ url: URL) {
+        let name = url.deletingPathExtension().lastPathComponent
+        let accessed = url.startAccessingSecurityScopedResource()
+        if !accessed {
+            SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
+        } else {
+            guard let data = try? url.bookmarkData(options: .minimalBookmark, includingResourceValuesForKeys: nil, relativeTo: nil) else { return }
+            url.stopAccessingSecurityScopedResource()
+            if let newFile = File.location.createFile(name: name, contents: data, type: .location) {
+                newFile.save()
+                items.insert(newFile, at: 2)
+                tableView.insertRows(at: [IndexPath(row: 2, section: 0)], with: .middle)
             }
         }
     }
@@ -567,12 +590,12 @@ extension FileListViewController: UIDocumentPickerDelegate {
     }
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
-        didPickFile(url)
+        didPickFolder(url)
     }
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         if urls.count > 0 {
-            didPickFile(urls.first!)
+            didPickFolder(urls.first!)
         }
     }
 }

@@ -40,7 +40,8 @@ let resourcesPath = supportPath + "/Resources"
 let tempPath = supportPath + "/Temp"
 let imagePath = supportPath + "/Image"
 let trashPath = supportPath + "/Trash"
-let inboxPath = documentPath + "/.Inbox"
+let inboxPath = supportPath + "/Inbox"
+let locationPath = supportPath + "/Location"
 
 let cloudPath: String = {
     guard let ubiquityURL = FileManager.default.url(forUbiquityContainerIdentifier: nil)?.appendingPathComponent("Documents") else {

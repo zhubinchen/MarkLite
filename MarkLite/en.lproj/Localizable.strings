@@ -10,13 +10,13 @@
 
 "Cloud"="iCloud";
 "Local"="Local";
-"Inbox"="Inbox";
 "External"="External";
-"ExternalDetail"="Open <Files> App";
+"AddLocation"="Add Locations";
+"AddLocationDetail"="From「Files」";
 "MoveTo"="Move To";
 
-"ImportFile"="Copy File to Local";
-"OpenOriginFile"="Open Origin File";
+"ImportFile"="Copy to Local";
+"OpenOriginFile"="Open In Place";
 
 "SortByName"="Sort By Name";
 "SortByType"="Sort By Type";
@@ -26,7 +26,8 @@
 
 "Today"="Today";
 "Yesterday"="Yesterday";
-"Children"="Item(s)";
+"Children"="Items";
+"Empty"="Empty";
 "M-d"="MM/dd";
 "yyyy-M-d"="yyyy/MM/dd";
 
@@ -54,6 +55,7 @@
 "Markdown"="Markdown";
 "SaveFailed"="Save to Photo Failed";
 "SaveSuccessed"="Save to Photo Successed";
+"CopiedAddress"="Copied Address";
 
 "Settings"="Settings";
 "WebDAV"="WebDAV";

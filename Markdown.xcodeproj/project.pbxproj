@@ -55,7 +55,6 @@
 		768762B922D86CE900A54EB1 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762B822D86CE900A54EB1 /* IAPHelper.swift */; };
 		768762BB22D86D1C00A54EB1 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */; };
 		76A4D272234EF98200B87A78 /* WebDAVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4D271234EF98200B87A78 /* WebDAVViewController.swift */; };
-		76C64C6522DC314100E2851F /* CLNewFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C4022DC314100E2851F /* CLNewFeatureView.swift */; };
 		76C64C6622DC314100E2851F /* CLPhotoRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C4222DC314100E2851F /* CLPhotoRecorder.swift */; };
 		76C64C6722DC314100E2851F /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C4422DC314100E2851F /* UIImageView+Extensions.swift */; };
 		76C64C6822DC314100E2851F /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C64C4522DC314100E2851F /* UIButton+Extensions.swift */; };
@@ -138,7 +137,6 @@
 		768762B822D86CE900A54EB1 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; usesTabs = 0; };
 		768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		76A4D271234EF98200B87A78 /* WebDAVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVViewController.swift; sourceTree = "<group>"; };
-		76C64C4022DC314100E2851F /* CLNewFeatureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLNewFeatureView.swift; sourceTree = "<group>"; };
 		76C64C4222DC314100E2851F /* CLPhotoRecorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLPhotoRecorder.swift; sourceTree = "<group>"; };
 		76C64C4422DC314100E2851F /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		76C64C4522DC314100E2851F /* UIButton+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
@@ -332,7 +330,6 @@
 		76C64C3F22DC314100E2851F /* Tool */ = {
 			isa = PBXGroup;
 			children = (
-				76C64C4022DC314100E2851F /* CLNewFeatureView.swift */,
 				76C64C4122DC314100E2851F /* CameraTool */,
 				76C64C4322DC314100E2851F /* Extensions */,
 			);
@@ -560,7 +557,6 @@
 				760C296B2320F3EC002E613E /* autolink.c in Sources */,
 				0724281B1F726B0300C02F87 /* ImagePicker.swift in Sources */,
 				761F825022E16D6500C3435C /* InfoViewController.swift in Sources */,
-				76C64C6522DC314100E2851F /* CLNewFeatureView.swift in Sources */,
 				07E8275C1F5BF1BA0077A017 /* WebViewController.swift in Sources */,
 				76C64C6D22DC314100E2851F /* UILable+Extensions.swift in Sources */,
 				760C29682320F3EC002E613E /* stack.c in Sources */,

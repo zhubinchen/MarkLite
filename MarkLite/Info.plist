@@ -16,12 +16,13 @@
 			<key>CFBundleTypeName</key>
 			<string>Markdown File</string>
 			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
+			<string>Editor</string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.qinxiu.markdown.md</string>
+				<string>public.text</string>
 			</array>
 		</dict>
 	</array>
@@ -43,7 +44,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLIconFile</key>
-			<string>icon</string>
+			<string>icon_logo</string>
 			<key>CFBundleURLName</key>
 			<string>com.qinxiu.markdown.markdown</string>
 			<key>CFBundleURLSchemes</key>
@@ -57,8 +58,6 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>sinaweibo</string>
-		<string>dbapi-8-emm</string>
-		<string>dbapi-2</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -115,6 +114,35 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.plain-text</string>
+				<string>public.text</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Markdown File</string>
+			<key>UTTypeIconFiles</key>
+			<array>
+				<string>icon_logo.png</string>
+			</array>
+			<key>UTTypeIdentifier</key>
+			<string>com.qinxiu.markdown.md</string>
+			<key>UTTypeSize320IconFile</key>
+			<string>icon</string>
+			<key>UTTypeSize64IconFile</key>
+			<string>icon</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<string>md</string>
+				<key>public.mime-type</key>
+				<string>text/plain</string>
+			</dict>
+		</dict>
+	</array>
+	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
 			<key>UTTypeConformsTo</key>

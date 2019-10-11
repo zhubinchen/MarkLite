@@ -38,9 +38,15 @@ class WebDAVViewController: UIViewController, GCDWebUploaderDelegate {
         statusLabel.text = /"ServerLoading"
         if server.start(withPort: 80, bonjourName: "markdown") {
             statusLabel.text = /"ServerStarted"
+            urlButton.setTitle(server.serverURL?.absoluteString, for: .normal)
         } else {
             statusLabel.text = /"ServerNotRunning"
         }
+    }
+    
+    @IBAction func copyAddress(_ sender: UIButton!) {
+        UIPasteboard.general.string = sender.currentTitle
+        SVProgressHUD.showSuccess(withStatus: /"CopiedAddress")
     }
     
     deinit {
