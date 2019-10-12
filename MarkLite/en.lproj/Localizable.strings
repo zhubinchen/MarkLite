@@ -10,7 +10,8 @@
 
 "Cloud"="iCloud";
 "Local"="Local";
-"External"="External";
+"External"="Files From Other App";
+"ExternalEmpty"="Pick Files From Other App";
 "AddLocation"="Add Locations";
 "AddLocationDetail"="From [Files]";
 "MoveTo"="Move To";
@@ -23,6 +24,7 @@
 "SortByModifyDate"="Sort By Modify Date";
 
 "EmptyFolder"="There is no file in current folder";
+"EmptyInbox"="Files from other app will show here\n you can import files by click the top-right button";
 
 "Today"="Today";
 "Yesterday"="Yesterday";

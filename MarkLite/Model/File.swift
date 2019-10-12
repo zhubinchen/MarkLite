@@ -170,6 +170,9 @@ class File {
     }
     
     public static func ==(lhs: File, rhs: File) -> Bool {
+        if lhs.path.count + rhs.path.count == 0 {
+            return lhs.displayName == rhs.displayName
+        }
         return lhs.path == rhs.path
     }
     

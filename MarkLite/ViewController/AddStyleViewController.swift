@@ -31,6 +31,12 @@ class AddStyleViewController: UITableViewController {
     }
     
     @IBAction func downloadCSS() {
+        doIfPro {
+            self._downloadCSS()
+        }
+    }
+    
+    func _downloadCSS() {
         if (nameTextfield.text?.trimmed().length ?? 0) < 1 {
             SVProgressHUD.showError(withStatus: /"InvalidStyleName")
             return
@@ -59,6 +65,34 @@ class AddStyleViewController: UITableViewController {
             guard let data = resp.data else { return }
             FileManager.default.createFile(atPath: destPath, contents: data, attributes: nil)
             SVProgressHUD.dismiss()
+        }
+    }
+    
+    func doIfPro(_ task: (() -> Void)) {
+        if Configure.shared.isPro {
+            task()
+            return
+        }
+        showAlert(title: /"PremiumOnly", message: /"PremiumTips", actionTitles: [/"SubscribeNow",/"Cancel"], textFieldconfigurationHandler: nil) { [unowned self](index) in
+            if index == 0 {
+                self.premium()
+            }
+        }
+    }
+    
+    func premium() {
+        let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
+        let vc = sb.instantiateVC(PurchaseViewController.self)!
+        dismiss(animated: false) {
+            let nav = UINavigationController(rootViewController: vc)
+            let date = Date(fromString: "2019-10-04", format: "yyyy-MM-dd")!
+            let now = Date()
+            if now > date {
+                nav.modalPresentationStyle = .formSheet
+            } else {
+                nav.modalPresentationStyle = .fullScreen
+            }
+            UIApplication.shared.keyWindow?.rootViewController?.presentVC(nav)
         }
     }
 }

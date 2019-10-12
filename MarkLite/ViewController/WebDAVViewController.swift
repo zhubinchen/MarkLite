@@ -36,7 +36,7 @@ class WebDAVViewController: UIViewController, GCDWebUploaderDelegate {
         logLabel.setTextColor(.primary)
         
         statusLabel.text = /"ServerLoading"
-        if server.start(withPort: 80, bonjourName: "markdown") {
+        if server.start(withPort: 80, bonjourName: "markdown.local") {
             statusLabel.text = /"ServerStarted"
             urlButton.setTitle(server.serverURL?.absoluteString, for: .normal)
         } else {

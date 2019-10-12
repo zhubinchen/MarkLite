@@ -18,9 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        #if DEBUG
+            UMConfigure.initWithAppkey(umengKey, channel: "Debug")
+        #else
+            UMConfigure.initWithAppkey(umengKey, channel: "App Store")
+            Bugly.start(withAppId: buglyId)
+        #endif
+        
         UIView.initializeOnceMethod()
-        UMConfigure.initWithAppkey(umengKey, channel: "App Store")
-        Bugly.start(withAppId: buglyId)
         setup()
         
         try? FileManager.default.createDirectory(atPath: inboxPath, withIntermediateDirectories: true, attributes: nil)
@@ -51,9 +56,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func setup() {
         let navigationBar = UINavigationBar.appearance()
         navigationBar.isTranslucent = false
-        if #available(iOS 11.0, *) {
-            navigationBar.prefersLargeTitles = true
-        }
+//        if #available(iOS 11.0, *) {
+//            navigationBar.prefersLargeTitles = true
+//            UINavigationBar.appearance(whenContainedInInstancesOf: [UIDocumentPickerViewController.self]).prefersLargeTitles = false
+//        }
         Configure.shared.setup()
         
         _ = Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in

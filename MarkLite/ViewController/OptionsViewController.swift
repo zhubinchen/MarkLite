@@ -83,40 +83,10 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
     
-    func doIfPro(_ task: (() -> Void)) {
-        if Configure.shared.isPro {
-            task()
-            return
-        }
-        showAlert(title: /"PremiumOnly", message: /"PremiumTips", actionTitles: [/"SubscribeNow",/"Cancel"], textFieldconfigurationHandler: nil) { [unowned self](index) in
-            if index == 0 {
-                self.premium()
-            }
-        }
-    }
-    
-    func premium() {
-        let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
-        let vc = sb.instantiateVC(PurchaseViewController.self)!
-        dismiss(animated: false) {
-            let nav = UINavigationController(rootViewController: vc)
-            let date = Date(fromString: "2019-10-04", format: "yyyy-MM-dd")!
-            let now = Date()
-            if now > date {
-                nav.modalPresentationStyle = .formSheet
-            } else {
-                nav.modalPresentationStyle = .fullScreen
-            }
-            UIApplication.shared.keyWindow?.rootViewController?.presentVC(nav)
-        }
-    }
-    
     @objc func addCustomStyle() {
-        doIfPro {
-            let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
-            let vc = sb.instantiateVC(AddStyleViewController.self)!
-            pushVC(vc)
-        }
+        let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
+        let vc = sb.instantiateVC(AddStyleViewController.self)!
+        pushVC(vc)
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -11,6 +11,7 @@
 "Cloud"="iCloud";
 "Local"="本地";
 "External"="外部文件";
+"ExternalEmpty"="导入外部文件";
 "AddLocation"="添加其他位置";
 "AddLocationDetail"="「文件」应用";
 "MoveTo"="移动到";
@@ -23,6 +24,7 @@
 "SortByModifyDate"="按修改时间排序";
 
 "EmptyFolder"="当前目录没有任何文件";
+"EmptyInbox"="从其他应用打开的文件将会显示在这里\n你也可以点击右上方按钮添加其他应用的文件到这里";
 
 "Today"="今天";
 "Yesterday"="昨天";
@@ -58,7 +60,7 @@
 "CopiedAddress"="地址已拷贝到剪切板";
 
 "Settings"="设置";
-"WebDAV"="WebDAV文件共享";
+"WebDAV"="与电脑共享文件";
 "ArrangeKeyboardBar"="调整辅助键盘顺序";
 "AssistKeyboard"="启用辅助键盘";
 "SplitOptions"="编辑预览分屏";

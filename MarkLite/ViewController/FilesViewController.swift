@@ -16,6 +16,8 @@ class FilesViewController: UIViewController {
     
     @IBOutlet weak var emptyView: UIView!
     
+    @IBOutlet weak var emptyLabel: UILabel!
+
     @IBOutlet weak var oprationViewBottom: NSLayoutConstraint!
 
     let pulldDownLabel = UILabel()
@@ -145,6 +147,9 @@ class FilesViewController: UIViewController {
     @objc func multipleSelect() {
         tableView.setEditing(tableView.isEditing == false, animated: true)
         setupBarButton()
+        if root == File.inbox {
+            return
+        }
         var inset = CGFloat(0)
         if #available(iOS 11.0, *) {
             inset = view.safeAreaInsets.bottom
@@ -180,6 +185,22 @@ class FilesViewController: UIViewController {
         }
         if isViewLoaded {
             tableView.reloadData()
+        }
+    }
+    
+    @IBAction func longPressedTableView(_ ges: UILongPressGestureRecognizer!) {
+        if ges.state != .began {
+            return
+        }
+        if root.isExternalFile {
+            return
+        }
+        if tableView.isEditing || selectFolderMode {
+            return
+        }
+        let pos = ges.location(in: ges.view)
+        if let _ = tableView.indexPathForRow(at: pos) {
+            multipleSelect()
         }
     }
     
@@ -225,24 +246,20 @@ class FilesViewController: UIViewController {
     }
     
     @objc func showCreateMenu(_ sender: Any) {
-        showActionSheet(sender: sender, title: nil, message: nil, actionTitles: [/"CreateNote",/"CreateFolder",/"MultipleSelect"]) { index in
-            if index == 2 {
-                self.multipleSelect()
-                return
-            }
+        showActionSheet(sender: sender, title: nil, message: nil, actionTitles: [/"CreateNote",/"CreateFolder"]) { index in
             guard let file = self.root?.createFile(name: index == 0 ? /"Untitled" : /"UntitledFolder", type: index == 0 ? .text : .folder) else {
                 return
             }
-
             self.showAlert(title: /(index == 0 ? "CreateNote" : "CreateFolder"), message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
                 textField.text = file.name
+                textField.clearButtonMode = .whileEditing
                 self.textField = textField
             }, actionHandler: { (index) in
-                if index == 0 {
+                if index == 0 || (self.textField?.text?.count ?? 0) == 0 {
                     file.trash()
                     return
                 }
-                self.rename(file: file, newName:self.textField?.text ?? "")
+                self.rename(file: file, newName:self.textField!.text!)
                 self.files.insert(file, at: 0)
                 self.tableView.insertRows(at: [IndexPath(row: 0, section: self.isHomePage ? 1 : 0)], with: .automatic)
             })
@@ -266,6 +283,10 @@ class FilesViewController: UIViewController {
         if file == File.location {
             addLocation()
             tableView.deselectRow(at: indexPath, animated: true)
+            return
+        }
+        if file == File.inbox && file.children.count == 0 {
+            pickFromFiles()
             return
         }
         if file.disable {
@@ -303,21 +324,30 @@ class FilesViewController: UIViewController {
     }
     
     func setupBarButton() {
-        if tableView.isEditing {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(multipleSelect))
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: /"SelectAll", style: .plain, target: self, action: #selector(selectAllFiles))
-        } else if selectFolderMode {
-            navigationItem.prompt = /"SelectFolderToMove"
-            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: /"Move", style: .done, target: self, action: #selector(sureMove))
-            navigationItem.rightBarButtonItem?.isEnabled = false
+        if root.isExternalFile {
+            return
+        }
+        if root == File.inbox {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pickFromFiles))
+            if tableView.isEditing {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(multipleSelect))
+            }
         } else {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(showCreateMenu(_:)))
-
-            if isHomePage {
-                navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
+            if tableView.isEditing {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(multipleSelect))
+                navigationItem.leftBarButtonItem = UIBarButtonItem(title: /"SelectAll", style: .plain, target: self, action: #selector(selectAllFiles))
+            } else if selectFolderMode {
+                navigationItem.prompt = /"SelectFolderToMove"
+                navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
+                navigationItem.rightBarButtonItem = UIBarButtonItem(title: /"Move", style: .done, target: self, action: #selector(sureMove))
+                navigationItem.rightBarButtonItem?.isEnabled = false
             } else {
-                navigationItem.leftBarButtonItem = nil
+                navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showCreateMenu(_:)))
+                if isHomePage {
+                    navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
+                } else {
+                    navigationItem.leftBarButtonItem = nil
+                }
             }
         }
     }
@@ -368,6 +398,10 @@ class FilesViewController: UIViewController {
             Configure.shared.sortOption = Configure.shared.sortOption.next
             self.pulldDownLabel.text = Configure.shared.sortOption.next.displayName
             self.refresh()
+        }
+        
+        if root == File.inbox {
+            emptyLabel.text = /"EmptyInbox"
         }
     }
     
@@ -428,9 +462,12 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.imageView?.image = #imageLiteral(resourceName: "icon_cloud").recolor(color: ColorCenter.shared.tint.value)
             } else if file == File.inbox {
                 cell.imageView?.image = #imageLiteral(resourceName: "icon_box").recolor(color: ColorCenter.shared.tint.value)
+                if count == 0 {
+                    cell.detailTextLabel?.text = ""
+                }
             } else if file == File.location {
                 cell.imageView?.image = #imageLiteral(resourceName: "icon_location").recolor(color: ColorCenter.shared.tint.value)
-                cell.detailTextLabel?.text = /"AddLocationDetail"
+                cell.detailTextLabel?.text = ""
             } else if file == File.local {
                 cell.imageView?.image = #imageLiteral(resourceName: "icon_local").recolor(color: ColorCenter.shared.tint.value)
             } else {
@@ -450,17 +487,21 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
         
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isHomePage && indexPath.section == 0 {
+            tableView.deselectRow(at: indexPath, animated: true)
             if tableView.isEditing {
-                tableView.deselectRow(at: indexPath, animated: true)
+
             } else {
                 doIfPro {
                     self.openFile(indexPath)
                 }
-                tableView.deselectRow(at: indexPath, animated: true)
             }
         } else if tableView.isEditing {
             let file = files[indexPath.row]
-            selectFiles.append(file)
+            if file.isExternalFile {
+                tableView.deselectRow(at: indexPath, animated: true)
+            } else {
+                selectFiles.append(file)
+            }
         } else if selectFolderMode {
             selectFolder(indexPath)
         } else {
@@ -469,10 +510,6 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        if isHomePage && indexPath.section == 0 {
-            return
-        }
-        
         if tableView.isEditing {
             let file = files[indexPath.row]
             selectFiles.removeAll { file == $0 }
@@ -487,7 +524,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
             let file = self.sections[indexPath.section][indexPath.row]
             return file.isExternalFile
         }
-        return true
+        return self.root.isExternalFile == false
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
@@ -499,14 +536,17 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
         return UITableViewCellEditingStyle(rawValue: UITableViewCellEditingStyle.delete.rawValue | UITableViewCellEditingStyle.insert.rawValue)!
     }
     
-    
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let file = self.sections[indexPath.section][indexPath.row]
         
         if file.isExternalFile {
             let deleteAction = UITableViewRowAction(style: .destructive, title: /"Delete") { [unowned self](_, indexPath) in
                 file.trash()
-                self.items.remove(at: indexPath.row)
+                if self.isHomePage {
+                    self.items.remove(at: indexPath.row)
+                } else {
+                    self.files.remove(at: indexPath.row)
+                }
                 tableView.deleteRows(at: [indexPath], with: .middle)
             }
             return [deleteAction]
@@ -527,6 +567,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
             let file = self.files[indexPath.row]
             self.showAlert(title: /"Rename", message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
                 textField.text = file.name
+                textField.clearButtonMode = .whileEditing
                 self.textField = textField
             }, actionHandler: { (index) in
                 if index == 0 {
@@ -544,19 +585,6 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
         renameAction.backgroundColor = .lightGray
         moveAction.backgroundColor = .orange
         return [deleteAction,renameAction,moveAction]
-    }
-}
-
-extension FilesViewController: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        rename(file:root!, newName:textField.text ?? "")
-        textField.text = root?.name
     }
 }
 
