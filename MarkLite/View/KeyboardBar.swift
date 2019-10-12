@@ -200,9 +200,9 @@ class KeyboardBar: UIView {
         let text = textView.text.substring(with: currentRange)
         let isEmpty = text.length == 0
         let insertText = isEmpty ? /"StrongText": text
-        textView.insertText(" **\(insertText)**")
+        textView.insertText("**\(insertText)**")
         if isEmpty {
-            textView.selectedRange = NSMakeRange(currentRange.location + 3, insertText.length)
+            textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
         }
     }
     @objc func tapItalic() {
@@ -212,9 +212,9 @@ class KeyboardBar: UIView {
         let text = textView.text.substring(with: currentRange)
         let isEmpty = text.length == 0
         let insertText = isEmpty ? /"EmphasizedText": text
-        textView.insertText(" *\(insertText)*")
+        textView.insertText("*\(insertText)*")
         if isEmpty {
-            textView.selectedRange = NSMakeRange(currentRange.location + 3, insertText.length)
+            textView.selectedRange = NSMakeRange(currentRange.location + 1, insertText.length)
         }
     }
     

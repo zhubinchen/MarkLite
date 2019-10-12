@@ -17,15 +17,7 @@
 NS_INLINE hoedown_renderer *MPCreateHTMLRenderer(int flags)
 {
     hoedown_renderer *htmlRenderer = hoedown_html_renderer_new(flags, 6);
-//    htmlRenderer->blockcode = hoedown_patch_render_blockcode;
     htmlRenderer->listitem = hoedown_patch_render_listitem;
-    
-//    hoedown_html_renderer_state_extra *extra =
-//    hoedown_malloc(sizeof(hoedown_html_renderer_state_extra));
-    //    extra->language_addition = language_addition;
-//    extra->owner = (__bridge void *)renderer;
-    
-//    ((hoedown_html_renderer_state *)htmlRenderer->opaque)->opaque = extra;
     return htmlRenderer;
 }
 
@@ -154,7 +146,7 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
     flags |= HOEDOWN_EXT_FENCED_CODE;
     flags |= HOEDOWN_EXT_FOOTNOTES;
     flags |= HOEDOWN_EXT_HIGHLIGHT;
-    flags |= HOEDOWN_EXT_NO_INTRA_EMPHASIS;
+//    flags |= HOEDOWN_EXT_NO_INTRA_EMPHASIS;
     flags |= HOEDOWN_EXT_QUOTE;
     flags |= HOEDOWN_EXT_STRIKETHROUGH;
     flags |= HOEDOWN_EXT_SUPERSCRIPT;

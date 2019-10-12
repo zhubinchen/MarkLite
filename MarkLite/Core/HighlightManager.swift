@@ -121,15 +121,15 @@ struct MarkdownHighlightManager {
         Syntax("!\\[[^\\]]+\\]\\([^\\)]+\\)") {
             $0.textColor = rgb(50,90,160)
         },//Images
-        Syntax("(\\*|_)(\\S+?)\\1") {
+        Syntax("(\\*|_)([^*\\n]+?)(\\*|_)") {
             $0.textColor = Configure.shared.theme.value == .black ? rgb(210,200,190) : rgb(23,27,33)
             $0.italic = true
         },//Emphasis
-        Syntax("(\\*\\*|__)(\\S+?)\\1") {
+        Syntax("(\\*\\*|__)([^*\\n]+?)(\\*\\*|__)") {
             $0.textColor = Configure.shared.theme.value == .black ? rgb(210,200,190) : rgb(23,27,33)
             $0.bold = true
         },//Bold
-        Syntax("~~(.+?)~~") {
+        Syntax("~~\\S([^~\\n]+?)~~") {
             $0.textColor = rgb(129,140,140)
             $0.deletionLine = true
         },//Deletions

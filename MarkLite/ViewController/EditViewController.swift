@@ -72,10 +72,6 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
-        } 
-        
-        if let popGestureRecognizer = self.navigationController?.interactivePopGestureRecognizer {
-            scrollView.panGestureRecognizer.require(toFail: popGestureRecognizer)
         }
                 
         if file == nil {
@@ -210,8 +206,10 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         
         if webVisible && split == false {
             navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+            navigationController?.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
         } else {
             navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+            navigationController?.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         }
         
         if webVisible || split {

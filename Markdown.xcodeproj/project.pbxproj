@@ -45,7 +45,6 @@
 		7613F1242325F8AF006EE3B9 /* 数学公式.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1202325F8AF006EE3B9 /* 数学公式.md */; };
 		7613F1272325F8AF006EE3B9 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1232325F8AF006EE3B9 /* ReadMe.md */; };
 		7613F12A2325FA02006EE3B9 /* 使用教程.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1282325FA02006EE3B9 /* 使用教程.md */; };
-		7613F12B2325FA02006EE3B9 /* 使用說明.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1292325FA02006EE3B9 /* 使用說明.md */; };
 		761F825022E16D6500C3435C /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761F824F22E16D6500C3435C /* WebViewController.swift */; };
 		762CF0F92322650A00F2FF90 /* MarkdownRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 762CF0F82322650A00F2FF90 /* MarkdownRender.m */; };
 		7635E5CA23473212008E1DEF /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7635E5C923473212008E1DEF /* Document.swift */; };
@@ -113,7 +112,6 @@
 		7613F1202325F8AF006EE3B9 /* 数学公式.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "数学公式.md"; path = "Instructions/数学公式.md"; sourceTree = "<group>"; };
 		7613F1232325F8AF006EE3B9 /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = ReadMe.md; path = Instructions/ReadMe.md; sourceTree = "<group>"; };
 		7613F1282325FA02006EE3B9 /* 使用教程.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "使用教程.md"; path = "Instructions/使用教程.md"; sourceTree = "<group>"; };
-		7613F1292325FA02006EE3B9 /* 使用說明.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "使用說明.md"; path = "Instructions/使用說明.md"; sourceTree = "<group>"; };
 		761F824F22E16D6500C3435C /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		762CF0F72322650A00F2FF90 /* MarkdownRender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkdownRender.h; sourceTree = "<group>"; };
 		762CF0F82322650A00F2FF90 /* MarkdownRender.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownRender.m; sourceTree = "<group>"; };
@@ -236,7 +234,6 @@
 			children = (
 				76E7F274233CB5E30051DF6A /* icon_logo.png */,
 				7613F1282325FA02006EE3B9 /* 使用教程.md */,
-				7613F1292325FA02006EE3B9 /* 使用說明.md */,
 				7613F1202325F8AF006EE3B9 /* 数学公式.md */,
 				7613F1232325F8AF006EE3B9 /* ReadMe.md */,
 				7613F11D2325F6FE006EE3B9 /* Resources.zip */,
@@ -390,7 +387,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7613F1242325F8AF006EE3B9 /* 数学公式.md in Resources */,
-				7613F12B2325FA02006EE3B9 /* 使用說明.md in Resources */,
 				7613F1272325F8AF006EE3B9 /* ReadMe.md in Resources */,
 				76E7F275233CB5E30051DF6A /* icon_logo.png in Resources */,
 				7613F11F2325F6FE006EE3B9 /* Resources.zip in Resources */,
