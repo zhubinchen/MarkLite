@@ -144,17 +144,16 @@
 "Always"="Always";
 
 "PremiumOnly"="Subscribe to Premium to Unlock This Feature";
-"PremiumTips"="Every new user has 7-days free trial";
+"PremiumTips"="Every new user has 3-days free trial";
 "SubscribeNow"="Subscribe";
 
 "Premium"="Premium";
 "SubscribeMonthly"="Monthly Subscription $0.49";
 "SubscribeYearly"="Yearly Subscription $3.99";
-"SubscribeL"="Free Trial 7-Days";
 "Terms"="Terms";
 "Privacy"="Privacy Policy";
 "SubscriptionPriceMonthly"="$0.49 per month, subscription can be cancelled at any time";
-"SubscriptionPriceYearly"="Including 1 week free trial, $3.99 per year, subscription can be cancelled at any time";
+"SubscriptionPriceYearly"="Including 3-days trial, $3.99 per year, subscription can be cancelled at any time";
 "SubscriptionTitle"="Subscribe to Markdown Premium to support further development and gain access to more features:\n\n• Export as PDF,HTML,JPG\n\n• Add custom CSS styles";
 
 "SubscribeTips"="[Premium Subscription]\n\n• The duration of every period of Monthly Subscription is 1 month, The duration of every period of Yearly Subscription is 1 year\n\n• Payment will be charged to iTunes Account at confirmation of purchase\n\n• Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period\n\n• Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of the renewal\n\n• Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase\n\n• Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable\n\n• Monthly subscription for $0.49 USD, Yearly subscription with 7-days free trial period for $3.99 USD";

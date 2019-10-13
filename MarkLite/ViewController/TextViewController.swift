@@ -31,6 +31,8 @@ class TextViewController: UIViewController {
     let bag = DisposeBag()
     var offset: CGFloat = 0.0
     
+    let highlightmanager = MarkdownHighlightManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -90,6 +92,7 @@ class TextViewController: UIViewController {
 }
 
 extension TextViewController: UITextViewDelegate {
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y
         if offset == 0 || offset == self.offset {
@@ -102,15 +105,16 @@ extension TextViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         let text = editView.text ?? ""
         placeholderLabel.isHidden = text.length > 0
-
-        redoButton.isEnabled = self.editView.undoManager?.canRedo ?? false
-        undoButton.isEnabled = self.editView.undoManager?.canUndo ?? false
-
         countLabel.text = text.length.toString + " " + /"Characters"
         if editView.markedTextRange != nil {
             return
         }
         textChangedHandler?(editView.text,nil)
+        let attrText = self.highlightmanager.highlight(text)
+        didHighlight(attrText: attrText)
+        redoButton.isEnabled = self.editView.undoManager?.canRedo ?? false
+        undoButton.isEnabled = self.editView.undoManager?.canUndo ?? false
+        
 //        if let range = textView.selectedTextRange {
 //            let location = editView.offset(from: textView.beginningOfDocument, to: range.start)
 //            textChangedHandler?(editView.text,location)

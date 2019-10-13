@@ -85,13 +85,7 @@ class AddStyleViewController: UITableViewController {
         let vc = sb.instantiateVC(PurchaseViewController.self)!
         dismiss(animated: false) {
             let nav = UINavigationController(rootViewController: vc)
-            let date = Date(fromString: "2019-10-04", format: "yyyy-MM-dd")!
-            let now = Date()
-            if now > date {
-                nav.modalPresentationStyle = .formSheet
-            } else {
-                nav.modalPresentationStyle = .fullScreen
-            }
+            nav.modalPresentationStyle = .formSheet
             UIApplication.shared.keyWindow?.rootViewController?.presentVC(nav)
         }
     }

@@ -185,11 +185,11 @@ class Configure: NSObject, NSCoding {
     }
     
     func checkProAvailable(_ completion:((Bool)->Void)? = nil){
-        #if DEBUG
-            self.isPro = true
-            completion?(self.isPro)
-            return
-        #endif
+//        #if DEBUG
+//            self.isPro = true
+//            completion?(self.isPro)
+//            return
+//        #endif
         IAP.validateReceipt(itunesSecret) { (statusCode, products, json) in
             defer {
                 DispatchQueue.main.async {

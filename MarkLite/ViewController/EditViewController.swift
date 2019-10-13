@@ -66,7 +66,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
     let bag = DisposeBag()
     
     let markdownRenderer = MarkdownRender.shared()
-    var highlightmanager = MarkdownHighlightManager()
+    let highlightmanager = MarkdownHighlightManager()
     let pdfRender = PDFRender()
     
     var task: Operation?
@@ -130,7 +130,6 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
             file.text = text
             self.location = location
             self.markdown = text
-//            self.createTask(text: text)
         }
         
         textVC.offsetChangedHandler = { [unowned self] offset in
@@ -140,13 +139,11 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         Configure.shared.markdownStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
             self.markdownRenderer?.styleName = style
             self.markdown = file.text
-//            self.createTask(text: file.text)
         }).disposed(by: bag)
         
         Configure.shared.highlightStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
             self.markdownRenderer?.highlightName = style
             self.markdown = file.text
-//            self.createTask(text: file.text)
         }).disposed(by: bag)
         
         Configure.shared.theme.asObservable().subscribe(onNext: { [unowned self] _ in
@@ -158,11 +155,11 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
             guard let text = self.markdown else { return }
             self.markdown = nil
             NSLog("1")
-            let attrText = self.highlightmanager.highlight(text)
+//            let attrText = self.highlightmanager.highlight(text)
             NSLog("2")
             let html = self.markdownRenderer?.renderMarkdown(text) ?? ""
             NSLog("3")
-            self.textVC.didHighlight(attrText: attrText)
+//            self.textVC.didHighlight(attrText: attrText)
             NSLog("4")
             self.previewVC.html = html
             NSLog("5")
@@ -292,12 +289,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
                 let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
                 let vc = sb.instantiateVC(PurchaseViewController.self)!
                 let nav = UINavigationController(rootViewController: vc)
-                nav.modalPresentationStyle = .fullScreen
-                let date = Date(fromString: "2019-10-04", format: "yyyy-MM-dd")!
-                let now = Date()
-                if now > date {
-                    nav.modalPresentationStyle = .formSheet
-                }
+                nav.modalPresentationStyle = .formSheet
                 self.presentVC(nav)
             }
         }

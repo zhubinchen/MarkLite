@@ -38,12 +38,6 @@ class PurchaseViewController: UIViewController {
         view.setBackgroundColor(.background)
         view.setTintColor(.tint)
         
-        let date = Date(fromString: "2019-10-04", format: "yyyy-MM-dd")!
-        let now = Date()
-        if now > date {
-            yearlyButton.setTitle(/"SubscribeL", for: .normal)
-        }
-        
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
     }
     
