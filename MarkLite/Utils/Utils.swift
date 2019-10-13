@@ -135,8 +135,9 @@ extension UIViewController {
                          title: String? = nil,
                          message: String? = nil,
                          actionTitles: [String],
-                         actionHandler: ((Int) -> Void)?){
-        let alert = UIAlertController(title: title, message: nil, preferredStyle: sender == nil ? .alert : .actionSheet)
+                         actionHandler: ((Int) -> Void)?) {
+        
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: (sender == nil && isPad) ? .alert : .actionSheet)
         alert.message = message
         for (index, actionTitle) in actionTitles.enumerated() {
             alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: { action in

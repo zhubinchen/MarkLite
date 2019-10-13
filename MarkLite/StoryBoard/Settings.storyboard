@@ -20,6 +20,13 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <color key="separatorColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Markdown v.1.6.7" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1bU-Io-E1s">
+                                    <rect key="frame" x="0.0" y="121" width="414" height="40"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="italicSystem" pointSize="14"/>
+                                    <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="settings" textLabel="uX0-Z0-Ptk" detailTextLabel="U2V-ni-hvA" style="IBUITableViewCellStyleValue1" id="XbE-6q-RXd" customClass="BaseTableViewCell" customModule="Markdown" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="55.5" width="414" height="48"/>
@@ -52,17 +59,9 @@
                                     <outlet property="delegate" destination="vGY-hr-mhh" id="YKc-Kv-4kU"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Markdown v.1.6.5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PTn-c3-YLw">
-                                <rect key="frame" x="158.5" y="837.5" width="97" height="14.5"/>
-                                <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
-                                <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="PTn-c3-YLw" firstAttribute="centerX" secondItem="jee-OF-6Ye" secondAttribute="centerX" id="1vI-yz-xld"/>
-                            <constraint firstItem="jee-OF-6Ye" firstAttribute="bottom" secondItem="PTn-c3-YLw" secondAttribute="bottom" constant="10" id="FNB-9W-9NO"/>
                             <constraint firstItem="IEC-f4-3bg" firstAttribute="top" secondItem="jee-OF-6Ye" secondAttribute="top" id="NaU-hw-k4z"/>
                             <constraint firstItem="jee-OF-6Ye" firstAttribute="trailing" secondItem="IEC-f4-3bg" secondAttribute="trailing" id="c8y-W9-JeV"/>
                             <constraint firstAttribute="bottom" secondItem="IEC-f4-3bg" secondAttribute="bottom" id="rZV-bL-clp"/>

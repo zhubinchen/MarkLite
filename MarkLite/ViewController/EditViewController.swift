@@ -56,20 +56,21 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
     }
     
     var timer: Timer?
-    var markdownToRender: String?
     var location: Int?
-
+    var markdown: String?
+    
     var previewVC: PreviewViewController!
     var textVC: TextViewController!
 
     var webVisible = true
-    var htmlURL: URL?
     let bag = DisposeBag()
     
     let markdownRenderer = MarkdownRender.shared()
     var highlightmanager = MarkdownHighlightManager()
     let pdfRender = PDFRender()
     
+    var task: Operation?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,7 +85,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         } else {
             setup()
         }
-        
+                
         Configure.shared.splitOption.asObservable().subscribe(onNext: { [unowned self] _ in
             self.textViewWidth.isActive = self.split
             self.textVC.seperator.isHidden = self.split == false
@@ -125,39 +126,48 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
             return
         }
          
-        textVC.textChangedHandler = { [weak self] (text,location) in
+        textVC.textChangedHandler = { [unowned self] (text,location) in
             file.text = text
-            self?.markdownToRender = text
-            self?.location = location
+            self.location = location
+            self.markdown = text
+//            self.createTask(text: text)
         }
         
-        textVC.offsetChangedHandler = { [weak self] offset in
-            self?.previewVC.offset = offset
+        textVC.offsetChangedHandler = { [unowned self] offset in
+            self.previewVC.offset = offset
         }
 
         Configure.shared.markdownStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
             self.markdownRenderer?.styleName = style
-            self.markdownToRender = file.text
+            self.markdown = file.text
+//            self.createTask(text: file.text)
         }).disposed(by: bag)
         
         Configure.shared.highlightStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
             self.markdownRenderer?.highlightName = style
-            self.markdownToRender = file.text
+            self.markdown = file.text
+//            self.createTask(text: file.text)
         }).disposed(by: bag)
         
-        timer = Timer.runThisEvery(seconds: 0.05) { [weak self] _ in
-            guard let this = self else { return }
-            if let markdown = this.markdownToRender {
-                NSLog("1")
-                let attrText = this.highlightmanager.highlight(markdown)
-                this.textVC.didHighlight(attrText: attrText)
-                let html = this.markdownRenderer?.renderMarkdown(markdown) ?? ""
-                NSLog("6")
-                this.previewVC.html = html
-                this.markdownToRender = nil
-            }
-        }
+        Configure.shared.theme.asObservable().subscribe(onNext: { [unowned self] _ in
+            self.markdown = file.text
+        }).disposed(by: bag)
+
         
+        timer = Timer.runThisEvery(seconds: 0.4) { [unowned self] _ in
+            guard let text = self.markdown else { return }
+            self.markdown = nil
+            NSLog("1")
+            let attrText = self.highlightmanager.highlight(text)
+            NSLog("2")
+            let html = self.markdownRenderer?.renderMarkdown(text) ?? ""
+            NSLog("3")
+            self.textVC.didHighlight(attrText: attrText)
+            NSLog("4")
+            self.previewVC.html = html
+            NSLog("5")
+        }
+             
         textVC.editView.text = file.text
         textVC.textViewDidChange(textVC.editView)
     }
@@ -183,6 +193,30 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         popoverVC.delegate = self
         popoverVC.barButtonItem = sender
         present(styleVC, animated: true, completion: nil)
+    }
+    
+    func createTask(text: String) {
+        task = BlockOperation {
+            NSLog("1")
+            let attrText = self.highlightmanager.highlight(text)
+            NSLog("2")
+            let html = self.markdownRenderer?.renderMarkdown(text) ?? ""
+            NSLog("3")
+            let sem = DispatchSemaphore(value: 1)
+            sem.wait()
+            DispatchQueue.main.async {
+                NSLog("4")
+                   self.textVC.didHighlight(attrText: attrText)
+                NSLog("5")
+                   self.previewVC.html = html
+                   sem.signal()
+            }
+            sem.wait()
+            sem.signal()
+            self.task = nil
+            NSLog("6")
+        }
+        task?.queuePriority = .veryLow
     }
     
     @objc func preview() {
@@ -287,10 +321,10 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
             return URL(fileURLWithPath: file.path)
         case .html:
             let path = tempPath + "/" + file.name + ".html"
-            htmlURL = URL(fileURLWithPath: path)
-            guard let url = htmlURL, let data = previewVC.html.data(using: String.Encoding.utf8) else { return nil }
+            let url = URL(fileURLWithPath: path)
+            guard let data = previewVC.html.data(using: String.Encoding.utf8) else { return nil }
             try? data.write(to: url)
-            return htmlURL
+            return url
         }
     }
     

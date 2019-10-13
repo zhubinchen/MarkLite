@@ -194,6 +194,15 @@ class File {
         _children.append(file)
     }
     
+    func reloadChildren() {
+        let url = URL(fileURLWithPath: cloudPath)
+        try? fileManager.startDownloadingUbiquitousItem(at: url)
+        guard let subPaths = try? fileManager.contentsOfDirectory(atPath: path) else {
+            return
+        }
+        _children = subPaths.filter{($0.components(separatedBy: ".").first ?? "").count > 0 && !$0.hasPrefix(".") && !$0.hasPrefix("~")}.map{ File(path:path + "/" + $0,parent: self) }
+    }
+    
     @discardableResult
     func createFile(name: String, contents: Any? = nil, type: FileType) -> File?{
         let path = (self.path + "/" + name + type.extensionName).validPath

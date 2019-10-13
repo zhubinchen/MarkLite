@@ -35,7 +35,6 @@ class TextViewController: UIViewController {
         super.viewDidLoad()
         
         setupRx()
-
         addNotificationObserver(Notification.Name.UIKeyboardWillChangeFrame.rawValue, selector: #selector(keyboardWillChange(_:)))
         
         editView.textContainer.lineBreakMode = .byCharWrapping
@@ -111,11 +110,12 @@ extension TextViewController: UITextViewDelegate {
         if editView.markedTextRange != nil {
             return
         }
-        if let range = textView.selectedTextRange {
-            let location = editView.offset(from: textView.beginningOfDocument, to: range.start)
-            textChangedHandler?(editView.text,location)
-        } else {
-            textChangedHandler?(editView.text,nil)
-        }
-    }
+        textChangedHandler?(editView.text,nil)
+//        if let range = textView.selectedTextRange {
+//            let location = editView.offset(from: textView.beginningOfDocument, to: range.start)
+//            textChangedHandler?(editView.text,location)
+//        } else {
+//            textChangedHandler?(editView.text,nil)
+//        }
+    }    
 }

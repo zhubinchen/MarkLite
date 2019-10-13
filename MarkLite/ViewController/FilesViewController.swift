@@ -61,6 +61,10 @@ class FilesViewController: UIViewController {
             isHomePage = true
         }
         
+        if root != nil && root == File.cloud {
+            root.reloadChildren()
+        }
+        
         if isHomePage {
             title = /"Documents"
             loadFiles()
@@ -143,6 +147,7 @@ class FilesViewController: UIViewController {
     }
     
     @objc func multipleSelect() {
+        selectFiles = []
         tableView.setEditing(tableView.isEditing == false, animated: true)
         setupBarButton()
         if root == File.inbox {
@@ -454,6 +459,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
             } else if file == File.inbox {
                 cell.imageView?.image = #imageLiteral(resourceName: "icon_box").recolor(color: ColorCenter.shared.tint.value)
                 if count == 0 {
+                    cell.textLabel?.text = /"ExternalEmpty"
                     cell.detailTextLabel?.text = ""
                 }
             } else if file == File.location {
@@ -591,6 +597,9 @@ extension FilesViewController: UIDocumentPickerDelegate {
     @objc func addLocation() {
         let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
         picker.delegate = self
+        if #available(iOS 11.0, *) {
+            picker.allowsMultipleSelection = true
+        }
         picker.modalPresentationStyle = .formSheet
         presentVC(picker)
     }
@@ -620,14 +629,12 @@ extension FilesViewController: UIDocumentPickerDelegate {
                 guard let data = try? Data(contentsOf: url) else { return }
                 url.stopAccessingSecurityScopedResource()
                 if let newFile = File.local.createFile(name: name, contents: data, type: .text) {
-                    newFile.save()
                     self.performSegue(withIdentifier: "edit", sender: newFile)
                 }
             } else {
                 guard let data = try? url.bookmarkData(options: .minimalBookmark, includingResourceValuesForKeys: nil, relativeTo: nil) else { return }
                 url.stopAccessingSecurityScopedResource()
                 if let newFile = File.inbox.createFile(name: name, contents: data, type: .text) {
-                    newFile.save()
                     self.performSegue(withIdentifier: "edit", sender: newFile)
                 }
             }
@@ -639,7 +646,6 @@ extension FilesViewController: UIDocumentPickerDelegate {
         guard let data = try? url.bookmarkData(options: .minimalBookmark, includingResourceValuesForKeys: nil, relativeTo: nil) else { return }
         url.stopAccessingSecurityScopedResource()
         if let newFile = File.location.createFile(name: name, contents: data, type: .location) {
-            newFile.save()
             items.insert(newFile, at: 2)
             tableView.insertRows(at: [IndexPath(row: 2, section: 0)], with: .middle)
         }

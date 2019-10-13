@@ -14,5 +14,4 @@ target 'Markdown' do
   pod 'Bugly'
   pod 'SVProgressHUD'
   pod 'GCDWebServer/WebUploader', '~> 3.0'
-  pod 'YYText'
 end

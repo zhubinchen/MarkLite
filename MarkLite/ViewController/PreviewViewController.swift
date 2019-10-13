@@ -31,8 +31,8 @@ class PreviewViewController: UIViewController, UIWebViewDelegate {
     
     var keyboardHeight: CGFloat = 0
     
-    var timer: Timer?
     
+        
     var html: String = "" {
         didSet {
             refresh()
@@ -104,7 +104,6 @@ class PreviewViewController: UIViewController, UIWebViewDelegate {
     }
     
     deinit {
-        timer?.invalidate()
         removeNotificationObserver()
         webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
         print("deinit web_vc")

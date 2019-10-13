@@ -13,7 +13,6 @@ PODS:
   - UMCAnalytics (6.0.5):
     - UMCCommon
   - UMCCommon (2.1.0)
-  - YYText (1.0.7)
   - Zip (1.1.0)
 
 DEPENDENCIES:
@@ -26,7 +25,6 @@ DEPENDENCIES:
   - SnapKit
   - SVProgressHUD
   - UMCAnalytics
-  - YYText
   - Zip
 
 SPEC REPOS:
@@ -41,7 +39,6 @@ SPEC REPOS:
     - SVProgressHUD
     - UMCAnalytics
     - UMCCommon
-    - YYText
     - Zip
 
 SPEC CHECKSUMS:
@@ -55,9 +52,8 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   UMCAnalytics: 045be2cd1ec05aa95ad62405a850757f932e2d59
   UMCCommon: c9637200488c482b30cdebebb0bd595b9adf0847
-  YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: a9f5a8b0f63630301004301bb00f1eaaa3bf45df
+PODFILE CHECKSUM: 0810183bf43ca26c6c8f96b802921426d0c41c70
 
 COCOAPODS: 1.5.3
