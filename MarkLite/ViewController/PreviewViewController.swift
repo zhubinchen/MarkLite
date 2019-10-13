@@ -33,10 +33,9 @@ class PreviewViewController: UIViewController, UIWebViewDelegate {
     
     var timer: Timer?
     
-    var contentChanged = false {
+    var html: String = "" {
         didSet {
-            timer?.invalidate()
-            timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(refresh), userInfo: nil, repeats: false)
+            refresh()
         }
     }
             
@@ -84,10 +83,8 @@ class PreviewViewController: UIViewController, UIWebViewDelegate {
         refresh()
     }
     
-    @objc func refresh() {
-        if contentChanged {
-            webView.reload()
-        }
+    func refresh() {
+        webView.loadHTMLString(html, baseURL: nil)
     }
     
     @objc func keyboardWillChange(_ noti: NSNotification) {

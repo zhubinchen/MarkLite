@@ -57,6 +57,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
     
     var timer: Timer?
     var markdownToRender: String?
+    var location: Int?
 
     var previewVC: PreviewViewController!
     var textVC: TextViewController!
@@ -64,7 +65,9 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
     var webVisible = true
     var htmlURL: URL?
     let bag = DisposeBag()
+    
     let markdownRenderer = MarkdownRender.shared()
+    var highlightmanager = MarkdownHighlightManager()
     let pdfRender = PDFRender()
     
     override func viewDidLoad() {
@@ -121,14 +124,11 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         if isViewLoaded == false {
             return
         }
-        
-        let path = tempPath + "/" + file.name + ".html"
-        htmlURL = URL(fileURLWithPath: path)
-        previewVC.webView.loadRequest(URLRequest(url:htmlURL!))
-        
-        textVC.textChangedHandler = { [weak self] text in
+         
+        textVC.textChangedHandler = { [weak self] (text,location) in
             file.text = text
             self?.markdownToRender = text
+            self?.location = location
         }
         
         textVC.offsetChangedHandler = { [weak self] offset in
@@ -148,11 +148,13 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         timer = Timer.runThisEvery(seconds: 0.05) { [weak self] _ in
             guard let this = self else { return }
             if let markdown = this.markdownToRender {
+                NSLog("1")
+                let attrText = this.highlightmanager.highlight(markdown)
+                this.textVC.didHighlight(attrText: attrText)
                 let html = this.markdownRenderer?.renderMarkdown(markdown) ?? ""
+                NSLog("6")
+                this.previewVC.html = html
                 this.markdownToRender = nil
-                guard let url = this.htmlURL, let data = html.data(using: String.Encoding.utf8) else { return }
-                try? data.write(to: url)
-                this.previewVC.contentChanged = true
             }
         }
         
@@ -284,7 +286,11 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         case .markdown:
             return URL(fileURLWithPath: file.path)
         case .html:
-            return self.htmlURL
+            let path = tempPath + "/" + file.name + ".html"
+            htmlURL = URL(fileURLWithPath: path)
+            guard let url = htmlURL, let data = previewVC.html.data(using: String.Encoding.utf8) else { return nil }
+            try? data.write(to: url)
+            return htmlURL
         }
     }
     

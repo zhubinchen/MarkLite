@@ -16,8 +16,6 @@ class FilesViewController: UIViewController {
     
     @IBOutlet weak var emptyView: UIView!
     
-    @IBOutlet weak var emptyLabel: UILabel!
-
     @IBOutlet weak var oprationViewBottom: NSLayoutConstraint!
 
     let pulldDownLabel = UILabel()
@@ -324,23 +322,20 @@ class FilesViewController: UIViewController {
     }
     
     func setupBarButton() {
-        if root.isExternalFile {
-            return
-        }
-        if root == File.inbox {
+        if selectFolderMode {
+            navigationItem.prompt = /"SelectFolderToMove"
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: /"Move", style: .done, target: self, action: #selector(sureMove))
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        } else if root == File.inbox {
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(pickFromFiles))
             if tableView.isEditing {
                 navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(multipleSelect))
             }
-        } else {
+        } else if root.isExternalFile == false {
             if tableView.isEditing {
                 navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(multipleSelect))
                 navigationItem.leftBarButtonItem = UIBarButtonItem(title: /"SelectAll", style: .plain, target: self, action: #selector(selectAllFiles))
-            } else if selectFolderMode {
-                navigationItem.prompt = /"SelectFolderToMove"
-                navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
-                navigationItem.rightBarButtonItem = UIBarButtonItem(title: /"Move", style: .done, target: self, action: #selector(sureMove))
-                navigationItem.rightBarButtonItem?.isEnabled = false
             } else {
                 navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showCreateMenu(_:)))
                 if isHomePage {
@@ -398,10 +393,6 @@ class FilesViewController: UIViewController {
             Configure.shared.sortOption = Configure.shared.sortOption.next
             self.pulldDownLabel.text = Configure.shared.sortOption.next.displayName
             self.refresh()
-        }
-        
-        if root == File.inbox {
-            emptyLabel.text = /"EmptyInbox"
         }
     }
     

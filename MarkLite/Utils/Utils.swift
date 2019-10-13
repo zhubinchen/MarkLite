@@ -136,7 +136,7 @@ extension UIViewController {
                          message: String? = nil,
                          actionTitles: [String],
                          actionHandler: ((Int) -> Void)?){
-        let alert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: sender == nil ? .alert : .actionSheet)
         alert.message = message
         for (index, actionTitle) in actionTitles.enumerated() {
             alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: { action in
@@ -365,12 +365,17 @@ extension UIScrollView {
 
 extension UITableView {
     func addPullDownView(_ view: UIView, bag: DisposeBag, comletion:@escaping ()->Void) {
-        view.frame = CGRect(x: (windowWidth - 200) * 0.5, y: -40, w: 200, h: 20)
         addSubview(view)
         rx.didEndDragging.subscribe(onNext: { [unowned self] (end) in
             if self.contentOffset.y < -60 {
                 comletion()
             }
         }).disposed(by: bag)
+        
+        view.snp_makeConstraints { make in
+            make.top.equalTo(-40)
+            make.left.right.equalTo(0)
+            make.height.equalTo(20)
+        }
     }
 }

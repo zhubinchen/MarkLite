@@ -164,12 +164,12 @@ struct MarkdownHighlightManager {
     ]
 
     
-    func highlight(_ text: String, completion:@escaping (NSAttributedString)->Void) {
+    func highlight(_ text: String) -> NSAttributedString {
         let nomarlColor = Configure.shared.theme.value == .black ? rgb(180,180,170) : rgb(53,57,63)
         let result = NSMutableAttributedString(string: text)
         result.addAttributes([NSAttributedStringKey.font : UIFont.font(ofSize:17),
                               NSAttributedStringKey.foregroundColor : nomarlColor], range: range(0,text.length))
-
+        NSLog("2")
         syntaxArray.forEach { (syntax) in
             syntax.expression.enumerateMatches(in: text, options: .reportCompletion, range: range(0, text.length), using: { (match, _, _) in
                 if let range = match?.range {
@@ -177,6 +177,7 @@ struct MarkdownHighlightManager {
                 }
             })
         }
-        completion(result)
+        NSLog("3")
+        return result
     }
 }

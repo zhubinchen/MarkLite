@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         _ = Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in
             ColorCenter.shared.theme = theme
-            UIApplication.shared.statusBarStyle = theme == .black ? .lightContent : .default
+            UIApplication.shared.statusBarStyle = theme == .white ? .default : .lightContent
             if theme == .black {
                 Configure.shared.markdownStyle.value = "GitHub Dark"
                 Configure.shared.highlightStyle.value = "tomorrow-night"
@@ -84,7 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     if #available(iOS 13.0, *) {
                         Configure.shared.theme.value = UITraitCollection.current.userInterfaceStyle == .dark ? .black : .white
                     } else {
-                        SVProgressHUD.showError(withStatus: "Only Work on iOS 13")
+                        SVProgressHUD.showError(withStatus: "Only Work on iPad OS / iOS 13")
                     }
             }
         })

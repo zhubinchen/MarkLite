@@ -62,6 +62,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QRW-sm-USK">
                                                     <rect key="frame" x="20" y="19" width="33.5" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -69,6 +70,7 @@
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rno-gk-1Td">
                                                     <rect key="frame" x="330.5" y="19" width="44" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -145,14 +147,13 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="emptyLabel" destination="c8j-da-2hF" id="q9a-kF-aQx"/>
                         <outlet property="emptyView" destination="lwZ-LC-JWr" id="qmw-yV-aTu"/>
                         <outlet property="oprationViewBottom" destination="OKl-oj-WCq" id="s0r-C5-pcq"/>
                         <outlet property="tableView" destination="Trp-Pg-73x" id="i2J-oh-Uma"/>
                         <segue destination="e0v-YT-nJP" kind="show" identifier="file" id="bck-6G-L6N"/>
                         <segue destination="hAF-LB-VS1" kind="showDetail" identifier="edit" id="qPs-mA-JXd"/>
-                        <segue destination="793-dA-9nf" kind="presentation" identifier="settings" id="9tF-wi-Rz6"/>
-                        <segue destination="7hP-zx-FeY" kind="presentation" identifier="move" id="V3c-jO-k8l"/>
+                        <segue destination="793-dA-9nf" kind="presentation" identifier="settings" modalPresentationStyle="formSheet" id="9tF-wi-Rz6"/>
+                        <segue destination="7hP-zx-FeY" kind="presentation" identifier="move" modalPresentationStyle="formSheet" id="V3c-jO-k8l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bgH-Xl-QkN" userLabel="First Responder" sceneMemberID="firstResponder"/>

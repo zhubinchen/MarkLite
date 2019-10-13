@@ -25,11 +25,10 @@ class TextViewController: UIViewController {
 
     @IBOutlet weak var bottomSpace: NSLayoutConstraint!
 
-    var textChangedHandler: ((String)->Void)?
+    var textChangedHandler: ((String,Int?)->Void)?
     var offsetChangedHandler: ((CGFloat)->Void)?
 
     let bag = DisposeBag()
-    var manager = MarkdownHighlightManager()
     var offset: CGFloat = 0.0
     
     override func viewDidLoad() {
@@ -55,13 +54,6 @@ class TextViewController: UIViewController {
                 self.editView.inputAccessoryView = assistBar
             } else {
                 self.editView.inputAccessoryView = nil
-            }
-        }).disposed(by: bag)
-                
-        Configure.shared.theme.asObservable().subscribe(onNext: { [weak self] _ in
-            self?.manager = MarkdownHighlightManager()
-            self?.manager.highlight(self?.editView.text ?? "") { [weak self] (attrText) in
-                self?.didHighlight(attrText: attrText)
             }
         }).disposed(by: bag)
     }
@@ -112,18 +104,18 @@ extension TextViewController: UITextViewDelegate {
         let text = editView.text ?? ""
         placeholderLabel.isHidden = text.length > 0
 
-        DispatchQueue.main.async {
-            self.redoButton.isEnabled = self.editView.undoManager?.canRedo ?? false
-            self.undoButton.isEnabled = self.editView.undoManager?.canUndo ?? false
-        }
+        redoButton.isEnabled = self.editView.undoManager?.canRedo ?? false
+        undoButton.isEnabled = self.editView.undoManager?.canUndo ?? false
 
-        textChangedHandler?(editView.text)
         countLabel.text = text.length.toString + " " + /"Characters"
         if editView.markedTextRange != nil {
             return
         }
-        manager.highlight(editView.text) { [weak self] (attrText) in
-            self?.didHighlight(attrText: attrText)
+        if let range = textView.selectedTextRange {
+            let location = editView.offset(from: textView.beginningOfDocument, to: range.start)
+            textChangedHandler?(editView.text,location)
+        } else {
+            textChangedHandler?(editView.text,nil)
         }
     }
 }
