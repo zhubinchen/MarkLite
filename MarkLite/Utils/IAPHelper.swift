@@ -324,7 +324,7 @@ extension IAPHelper {
       return requestData
       
     } catch let error {
-      NSLog("\(error)")
+      print("\(error)")
     }
     
     return nil

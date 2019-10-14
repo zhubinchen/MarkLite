@@ -19,6 +19,14 @@ func *(string: String, repeatCount: Int) -> String {
     return ret
 }
 
+func synchoronized(token: Any, block: ()->Void) {
+    objc_sync_enter(token)
+    defer {
+        objc_sync_exit(token)
+    }
+    block()
+}
+
 extension String {
     
     func md5() ->String!{
@@ -115,8 +123,9 @@ extension UIViewController {
                    textFieldconfigurationHandler: ((UITextField) -> Void)?  = nil,
                    actionHandler: ((Int) -> Void)?  = nil) -> UIAlertController{
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let last = actionTitles.count - 1
         for (index, actionTitle) in actionTitles.enumerated() {
-            alert.addAction(UIAlertAction(title: actionTitle, style: index == 0 ? .cancel : .default, handler: { action in
+            alert.addAction(UIAlertAction(title: actionTitle, style: index == last ? .cancel : .default, handler: { action in
                 actionHandler?(index)
             }))
         }
@@ -179,6 +188,7 @@ extension UIView {
             layer.borderColor = newValue.cgColor
         }
     }
+    
     @IBInspectable var borderWidth: CGFloat {
         get {
             return 0.0
@@ -186,29 +196,6 @@ extension UIView {
         set(newValue) {
             layer.borderWidth = newValue
             
-        }
-    }
-    
-    func startLoadingAnimation() {
-        stopLoadingAnimation()
-        let bg = UIView(frame: bounds)
-        bg.tag = 4654
-        if self is UIButton {
-            bg.backgroundColor = backgroundColor
-        } else {
-            bg.backgroundColor = UIColor.clear
-        }
-        let v = UIActivityIndicatorView(activityIndicatorStyle: Configure.shared.theme.value == .black ? .whiteLarge : .gray)
-        v.setColor(.primary)
-        bg.addSubview(v)
-        v.center = bg.center
-        v.startAnimating()
-        addSubview(bg)
-    }
-    
-    func stopLoadingAnimation() {
-        if let v = viewWithTag(4654) {
-            v.removeFromSuperview()
         }
     }
     
@@ -223,23 +210,7 @@ extension UIView {
         border.lineDashPattern = [4,2]
         layer.addSublayer(border)
     }
-    
-    convenience init(hexString: String) {
-        self.init(frame: CGRect.zero)
-        backgroundColor = UIColor(hexString: hexString)
-    }
-    
-    func makeCorner(_ radius: CGFloat, corners: UIRectCorner = UIRectCorner.allCorners) {
-        self.layer.mask = nil
-        let maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = self.bounds
-        maskLayer.path = maskPath.cgPath
-        self.layer.mask = maskLayer
-    }
-
 }
-
 
 extension Date {
     public func readableDate() -> String {
@@ -325,21 +296,6 @@ extension UIImage {
     }
 }
 
-extension UITextField {
-    var selectedRange: NSRange? {
-        get {
-            return nil
-        }
-        
-        set {
-            guard let range = newValue else { return }
-            let start = position(from: beginningOfDocument, offset: range.location)
-            let end = position(from: start!, offset: range.length)
-            selectedTextRange = textRange(from: start!, to: end!)
-        }
-    }
-}
-
 extension UIScrollView {
     
     var snap: UIImage? {
@@ -375,7 +331,7 @@ extension UITableView {
         
         view.snp_makeConstraints { make in
             make.top.equalTo(-40)
-            make.left.right.equalTo(0)
+            make.centerX.equalTo(self)
             make.height.equalTo(20)
         }
     }

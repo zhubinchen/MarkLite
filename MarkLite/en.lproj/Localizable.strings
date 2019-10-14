@@ -33,6 +33,7 @@
 "M-d"="MM/dd";
 "yyyy-M-d"="yyyy/MM/dd";
 
+"CreateTips"="Create note or folder";
 "CreateNote"="Create Note";
 "CreateFolder"="Create Folder";
 "MultipleSelect"="Multiple Select";
@@ -98,6 +99,8 @@
 "Upgrade"="Upgrade";
 
 "DeleteMessage"="Sure you want to delete the selected file(s)? This action cannot be undone!";
+"DeleteExternalMessage"="Remove the reference of external file, will not delete the origin file";
+"FileIsEditing"="Can not perform the opration on this file, the file is opened in editor";
 "CanNotAccesseThisFile"="Can Not Accesse This File";
 "FileNameError"="Invalid name";
 "RenameTips"="Please input new name";

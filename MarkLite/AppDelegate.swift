@@ -17,7 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
         #if DEBUG
             UMConfigure.initWithAppkey(umengKey, channel: "Debug")
         #else
@@ -26,10 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
         
         UIView.initializeOnceMethod()
+        createFoldersIfNeed()
+        checkAppStore()
         setup()
-        
-        try? FileManager.default.createDirectory(atPath: inboxPath, withIntermediateDirectories: true, attributes: nil)
-        try? FileManager.default.createDirectory(atPath: locationPath, withIntermediateDirectories: true, attributes: nil)
         _ = IAPHelper.sharedInstance
         return true
     }
@@ -53,13 +51,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Configure.shared.save()
     }
     
+    func createFoldersIfNeed() {
+        try? FileManager.default.createDirectory(atPath: inboxPath, withIntermediateDirectories: true, attributes: nil)
+        try? FileManager.default.createDirectory(atPath: locationPath, withIntermediateDirectories: true, attributes: nil)
+        try? FileManager.default.removeItem(atPath: tempPath)
+        try? FileManager.default.createDirectory(atPath: tempPath, withIntermediateDirectories: true, attributes: nil)
+    }
+    
     func setup() {
         let navigationBar = UINavigationBar.appearance()
         navigationBar.isTranslucent = false
-//        if #available(iOS 11.0, *) {
-//            navigationBar.prefersLargeTitles = true
-//            UINavigationBar.appearance(whenContainedInInstancesOf: [UIDocumentPickerViewController.self]).prefersLargeTitles = false
-//        }
+        SVProgressHUD.setMinimumDismissTimeInterval(2)
+        SVProgressHUD.setMaximumDismissTimeInterval(3)
         Configure.shared.setup()
         
         _ = Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in
@@ -88,12 +91,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
             }
         })
-                
-        loadData()
     }
     
-    private func loadData() {
-        guard let url = try? "http://itunes.apple.com/cn/lookup?id=\(appID)".asURL() else {
+    private func checkAppStore() {
+        guard let url = try? "https://itunes.apple.com/cn/lookup?id=\(appID)".asURL() else {
             return
         }
         request(url).responseJSON { response in
@@ -126,7 +127,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
         }
         let ation1 = UIAlertAction(title: /"Upgrade", style: UIAlertActionStyle.default) { (at) in
-            UIApplication.shared.openURL(NSURL(fileURLWithPath: trackViewUrl) as URL)
+            let url = URL(string: trackViewUrl)!
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
         alert.addAction(ation)
         alert.addAction(ation1)

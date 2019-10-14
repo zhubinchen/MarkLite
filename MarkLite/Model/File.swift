@@ -52,12 +52,15 @@ class File {
     private(set) var type = FileType.text
     private(set) var isExternalFile = false
     private(set) var opened = false
+    private(set) var changed = false
+    private(set) weak var parent: File?
 
     fileprivate(set) static var cloud = File.placeholder(name: /"Cloud")
     fileprivate(set) static var local = File.placeholder(name: /"Local")
     fileprivate(set) static var inbox = File.placeholder(name: /"External")
     fileprivate(set) static var location = File.placeholder(name: /"AddLocation")
     fileprivate(set) static var empty = File.placeholder(name: /"Empty")
+    fileprivate(set) static var current: File?
 
     var children: [File] {
         return _children
@@ -75,12 +78,13 @@ class File {
             if newValue != nil && newValue != document?.text {
                 document?.text = newValue!
                 document?.updateChangeCount(.done)
+                changed = true
             }
         }
     }
     
     var expand = false
-    
+        
     var deep: Int {
         if let parent = self.parent {
             return parent.deep + 1
@@ -89,9 +93,7 @@ class File {
     }
 
     var displayName: String?
-        
-    fileprivate(set) weak var parent: File?
-    
+                
     fileprivate var _children = [File]()
     
     fileprivate var fullName: String {
@@ -264,6 +266,7 @@ class File {
             try fileManager.moveItem(atPath: path, toPath: newPath)
             parent?._children.removeAll { $0 == self }
             newParent._children.append(self)
+            parent = newParent
             path = newPath
         } catch {
             return false
@@ -288,37 +291,54 @@ class File {
     }
     
     func close(_ completion:((Bool)->Void)?) {
-        guard let data = text?.data(using: String.Encoding.utf8) else {
-            completion?(false)
-            return
-        }
-        if !opened {
-            completion?(false)
-            return
-        }
-        modifyDate = Date()
-        size = data.count
-        document?.close{ successed in
-            if successed {
-                self.opened = false
+        synchoronized(token: self) {
+
+            if changed {
+                modifyDate = Date()
+                if let data = text?.data(using: .utf8) {
+                    size = data.count
+                }
+                changed = false
             }
-            completion?(successed)
+            if !opened {
+                completion?(false)
+                if File.current != nil && File.current! == self {
+                    File.current = nil
+                }
+                return
+            }
+            document?.close{ successed in
+                if successed {
+                    print("open successed")
+                    self.opened = false
+                    if File.current != nil && File.current! == self {
+                        File.current = nil
+                    }
+                } else {
+                    print("open successed")
+                }
+                completion?(successed)
+            }
         }
     }
     
     func open(_ completion:((String?)->Void)?) {
-        if opened {
-            completion?(self.text)
-            return
-        }
-        document?.open { successed in
-            if successed {
-                print("open successed")
-                self.opened = true
+        synchoronized(token: self) {
+            if opened {
                 completion?(self.text)
-            } else {
-                print("open failed")
-                completion?(nil)
+                File.current = self
+                return
+            }
+            document?.open { successed in
+                if successed {
+                    print("open successed")
+                    self.opened = true
+                    File.current = self
+                    completion?(self.text)
+                } else {
+                    print("open failed")
+                    completion?(nil)
+                }
             }
         }
     }

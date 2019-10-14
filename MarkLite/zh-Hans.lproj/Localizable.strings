@@ -11,7 +11,7 @@
 "Cloud"="iCloud";
 "Local"="本地";
 "External"="外部文件";
-"ExternalEmpty"="导入/打开外部文件";
+"ExternalEmpty"="打开外部文件";
 "AddLocation"="添加其他位置";
 "AddLocationDetail"="「文件」应用";
 "MoveTo"="移动到";
@@ -33,6 +33,7 @@
 "M-d"="M月d日";
 "yyyy-M-d"="yyyy年M月d日";
 
+"CreateTips"="创建文档或文件夹，请不要输入特殊字符";
 "CreateNote"="创建文档";
 "CreateFolder"="创建文件夹";
 "MultipleSelect"="批量选择";
@@ -98,6 +99,8 @@
 "Upgrade"="前往更新";
 
 "DeleteMessage"="删除后不可恢复，确定要删除吗？";
+"DeleteExternalMessage"="移除外部文件的引用，并不会删除原始文件";
+"FileIsEditing"="无法进行此操作，文件正在编辑中";
 "CanNotAccesseThisFile"="当前无法访问此文件";
 "FileNameError"="请输入正确的文件名";
 "RenameTips"="请输入新的文件名";

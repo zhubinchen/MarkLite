@@ -38,8 +38,6 @@ let supportPath =  NSSearchPathForDirectoriesInDomains(.applicationSupportDirect
 let configPath = supportPath
 let resourcesPath = supportPath + "/Resources"
 let tempPath = supportPath + "/Temp"
-let imagePath = supportPath + "/Image"
-let trashPath = supportPath + "/Trash"
 let inboxPath = supportPath + "/Inbox"
 let locationPath = supportPath + "/Location"
 

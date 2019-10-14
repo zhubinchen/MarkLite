@@ -169,7 +169,6 @@ struct MarkdownHighlightManager {
         let result = NSMutableAttributedString(string: text)
         result.addAttributes([NSAttributedStringKey.font : UIFont.font(ofSize:17),
                               NSAttributedStringKey.foregroundColor : nomarlColor], range: range(0,text.length))
-        NSLog("2")
         syntaxArray.forEach { (syntax) in
             syntax.expression.enumerateMatches(in: text, options: .reportCompletion, range: range(0, text.length), using: { (match, _, _) in
                 if let range = match?.range {
@@ -177,7 +176,6 @@ struct MarkdownHighlightManager {
                 }
             })
         }
-        NSLog("3")
         return result
     }
 }

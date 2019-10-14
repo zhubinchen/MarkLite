@@ -112,8 +112,8 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        file?.close { success in
-            print(success)
+        file?.close { _ in
+
         }
     }
     
@@ -154,15 +154,8 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         renderTimer = Timer.runThisEvery(seconds: 0.4) { [unowned self] _ in
             guard let text = self.markdown else { return }
             self.markdown = nil
-            NSLog("1")
-//            let attrText = self.highlightmanager.highlight(text)
-            NSLog("2")
             let html = self.markdownRenderer?.renderMarkdown(text) ?? ""
-            NSLog("3")
-//            self.textVC.didHighlight(attrText: attrText)
-            NSLog("4")
             self.previewVC.html = html
-            NSLog("5")
         }
              
         textVC.editView.text = file.text

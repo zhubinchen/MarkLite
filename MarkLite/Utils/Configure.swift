@@ -83,7 +83,6 @@ class Configure: NSObject, NSCoding {
     var upgradeDate = Date()
     var alertDate = Date()
     var hasRate = false
-    var foreverPro = false
     var isPro = false
     let isAssistBarEnabled = Variable(true)
     let markdownStyle = Variable("GitHub")
@@ -98,29 +97,28 @@ class Configure: NSObject, NSCoding {
     }
     
     static let shared: Configure = {
-        var configure = Configure()
 
         if let old = NSKeyedUnarchiver.unarchiveObject(withFile: configureFile) as? Configure {
-            configure = old
-        } else {
-            configure.reset()
+            old.setup()
+            return old
         }
-
+        
+        let configure = Configure()
+        configure.reset()
         return configure
     }()
     
     func setup() {
         checkProAvailable()
-        try? FileManager.default.removeItem(atPath: tempPath)
-        try? FileManager.default.createDirectory(atPath: tempPath, withIntermediateDirectories: true, attributes: nil)
         if appVersion != currentVerion {
-            reset()
+            upgrade()
         }
+        currentVerion = appVersion
     }
     
     func reset() {
         upgradeDate = Date()
-        currentVerion = appVersion
+        currentVerion = nil
         markdownStyle.value = "GitHub"
         highlightStyle.value = "tomorrow"
         theme.value = .white
@@ -130,7 +128,12 @@ class Configure: NSObject, NSCoding {
         
         let destStylePath = URL(fileURLWithPath: supportPath)
         try! Zip.unzipFile(Bundle.main.url(forResource: "Resources", withExtension: "zip")!, destination: destStylePath, overwrite: true, password: nil, progress: nil)
-        
+        setup()
+    }
+    
+    func upgrade() {
+        upgradeDate = Date()
+
         if let path = Bundle.main.path(forResource: /"Instructions", ofType: "md") {
             let newPath = documentPath + "/" + /"Instructions" + ".md"
             try? FileManager.default.removeItem(atPath: newPath)
@@ -141,10 +144,7 @@ class Configure: NSObject, NSCoding {
             let newPath = documentPath + "/" + /"Syntax" + ".md"
             try? FileManager.default.removeItem(atPath: newPath)
             try? FileManager.default.copyItem(atPath: path, toPath: newPath)
-        }
-        
-        try? FileManager.default.createDirectory(atPath: imagePath, withIntermediateDirectories: true, attributes: nil)
-        save()
+        }        
     }
     
     func save() {
@@ -154,7 +154,6 @@ class Configure: NSObject, NSCoding {
     func encode(with aCoder: NSCoder) {
         aCoder.encode(currentVerion, forKey: "currentVersion")
         aCoder.encode(isPro, forKey: "isPro")
-        aCoder.encode(foreverPro, forKey: "foreverPro")
         aCoder.encode(hasRate, forKey: "hasRate")
         aCoder.encode(isAssistBarEnabled.value, forKey: "isAssistBarEnabled")
         aCoder.encode(markdownStyle.value, forKey: "markdownStyle")
@@ -173,7 +172,6 @@ class Configure: NSObject, NSCoding {
         upgradeDate = aDecoder.decodeObject(forKey: "upgradeDate") as? Date ?? Date()
         alertDate = aDecoder.decodeObject(forKey: "alertDate") as? Date ?? Date()
         isPro = aDecoder.decodeBool(forKey: "isPro")
-        foreverPro = aDecoder.decodeBool(forKey: "foreverPro")
         hasRate = aDecoder.decodeBool(forKey: "hasRate")
         isAssistBarEnabled.value = aDecoder.decodeBool(forKey: "isAssistBarEnabled")
         markdownStyle.value = aDecoder.decodeObject(forKey: "markdownStyle") as? String ?? "GitHub"

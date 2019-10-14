@@ -233,14 +233,6 @@ class KeyboardBar: UIView {
             }
         }
         
-//        let fileURL = URL(fileURLWithPath: imagePath + "/" + "\(Date().timeIntervalSince1970)")
-//        try? data.write(to: fileURL, options: .atomic)
-
-//        let insertText = /"EnterPlaceholder"
-//        let currentRange = textView.selectedRange
-//        textView.insertText("![\(insertText)](\(fileURL))")
-//        textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
-        
         SVProgressHUD.show()
         upload(multipartFormData: { (formData) in
             formData.append(data, withName: "smfile", fileName: "temp", mimeType: "image/jpg")

@@ -51,17 +51,13 @@ class FilesViewController: UIViewController {
     var filesToMove: [File]?
 
     var moveFrom: FilesViewController?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if selectFolderMode == false {
+        if root == File.empty && selectFolderMode == false {
             root = File.local
             isHomePage = true
-        }
-        
-        if root == File.cloud {
-            root.reloadChildren()
         }
         
         if isHomePage {
@@ -91,6 +87,11 @@ class FilesViewController: UIViewController {
         super.viewWillAppear(animated)
         
         if !isMovingToParentViewController {
+            refresh()
+        }
+        
+        if root == File.cloud {
+            root.reloadChildren()
             refresh()
         }
         
@@ -184,6 +185,13 @@ class FilesViewController: UIViewController {
         }
         if isViewLoaded {
             tableView.reloadData()
+            if selectFolderMode || tableView.isEditing || File.current == nil {
+                return
+            }
+            if let index = files.firstIndex(where: { $0 == File.current! }) {
+                let indexPath = IndexPath(row: index, section: isHomePage ? 1 : 0)
+                tableView.selectRow(at: indexPath, animated: false, scrollPosition: .middle)
+            }
         }
     }
     
@@ -207,12 +215,22 @@ class FilesViewController: UIViewController {
         if self.selectFiles.count == 0 {
             return
         }
+        self.selectFiles = self.selectFiles.filter { !$0.opened }
+        if self.selectFiles.count == 0 {
+            SVProgressHUD.showError(withStatus: /"FileIsEditing")
+            return
+        }
         self.performSegue(withIdentifier: "move", sender: self.selectFiles)
         multipleSelect()
     }
     
     @IBAction func deleteFiles() {
         if self.selectFiles.count == 0 {
+            return
+        }
+        self.selectFiles = self.selectFiles.filter { !$0.opened }
+        if self.selectFiles.count == 0 {
+            SVProgressHUD.showError(withStatus: /"FileIsEditing")
             return
         }
         self.showAlert(title: /"DeleteMessage", message: nil, actionTitles: [/"Cancel",/"Delete"], textFieldconfigurationHandler: nil, actionHandler: { (index) in
@@ -245,26 +263,19 @@ class FilesViewController: UIViewController {
     }
     
     @objc func createFile(_ sender: Any) {
-        showActionSheet(sender: sender, title: nil, message: nil, actionTitles: [/"CreateNote",/"CreateFolder"]) { index in
-            guard let file = self.root.createFile(name: index == 0 ? /"Untitled" : /"UntitledFolder", type: index == 0 ? .text : .folder) else {
+        showAlert(title: nil, message: /"CreateTips", actionTitles: [/"CreateNote",/"CreateFolder",/"Cancel"], textFieldconfigurationHandler: { textField in
+            textField.clearButtonMode = .whileEditing
+            textField.placeholder = /"RenameTips"
+            self.textField = textField
+        }) { index in
+            let name = self.textField?.text ?? ""
+            if name.count == 0 || index == 2 {
                 return
             }
-            self.showAlert(title: /(index == 0 ? "CreateNote" : "CreateFolder"), message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
-                textField.text = file.name
-                textField.clearButtonMode = .whileEditing
-                self.textField = textField
-            }, actionHandler: { (index) in
-                if index == 0 || (self.textField?.text?.count ?? 0) == 0 {
-                    file.trash()
-                    return
-                }
-                self.rename(file: file, newName:self.textField!.text!)
-                self.files.insert(file, at: 0)
-                self.tableView.insertRows(at: [IndexPath(row: 0, section: self.isHomePage ? 1 : 0)], with: .automatic)
-                if file.type == .text {
-                    self.editFile(file)
-                }
-            })
+            guard let file = self.root.createFile(name: name, type: index == 0 ? .text : .folder) else {
+                return
+            }
+            self.openFile(file)
         }
     }
     
@@ -280,7 +291,51 @@ class FilesViewController: UIViewController {
         }
     }
     
-    func openFile(_ indexPath: IndexPath) {
+    func openFile(_ file: File) {
+        if file.type == .folder || file.type == .location {
+            performSegue(withIdentifier: "file", sender: file)
+            return
+        }
+        if file.opened {
+            return
+        }
+        SVProgressHUD.show()
+        file.open { text in
+            SVProgressHUD.dismiss()
+            if text == nil {
+                SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
+                return
+            }
+            guard let parent = file.parent else {
+                self.performSegue(withIdentifier: "edit", sender: file)
+                return
+            }
+            self.goToRoot(parent)
+            self.performSegue(withIdentifier: "edit", sender: file)
+        }
+    }
+    
+    func goToRoot(_ root: File) {
+        if root.type == .text {
+            return
+        }
+        if root == self.root {
+            refresh()
+            return
+        }
+        if let vc = self.navigationController?.viewControllers.first(where: { vc -> Bool in
+            if let filesVC = vc as? FilesViewController {
+                return filesVC.root == root
+            }
+            return false
+        }) {
+            self.navigationController?.popToViewController(vc, animated: true)
+            return
+        }
+        performSegue(withIdentifier: "file", sender: root)
+    }
+    
+    func didSelectFile(_ indexPath: IndexPath) {
         let file = sections[indexPath.section][indexPath.row]
         if file == File.location {
             addLocation()
@@ -295,26 +350,11 @@ class FilesViewController: UIViewController {
             SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
             return
         }
-        if file.type == .folder || file.type == .location {
-            performSegue(withIdentifier: "file", sender: file)
-        } else {
-            editFile(file)
-        }
+        
+        openFile(file)
     }
     
-    func editFile(_ file: File) {
-        SVProgressHUD.show()
-        file.open { text in
-            SVProgressHUD.dismiss()
-            if text == nil {
-                SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
-            } else {
-                self.performSegue(withIdentifier: "edit", sender: file)
-            }
-        }
-    }
-    
-    func selectFolder(_ indexPath: IndexPath) {
+    func didSelectDestFolder(_ indexPath: IndexPath) {
         navigationItem.rightBarButtonItem?.isEnabled = true
         selectedFolder = sections[indexPath.section][indexPath.row]
         let cell = tableView.cellForRow(at: indexPath)
@@ -401,9 +441,8 @@ class FilesViewController: UIViewController {
         tableView.setBackgroundColor(.tableBackground)
         tableView.setSeparatorColor(.primary)
         emptyView.setBackgroundColor(.background)
-
+        
         pulldDownLabel.text = Configure.shared.sortOption.next.displayName
-        pulldDownLabel.textAlignment = .center
         pulldDownLabel.setTextColor(.secondary)
         pulldDownLabel.font = UIFont.font(ofSize: 14)
         tableView.addPullDownView(pulldDownLabel, bag: bag) { [unowned self] in
@@ -501,7 +540,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
 
             } else {
                 doIfPro {
-                    self.openFile(indexPath)
+                    self.didSelectFile(indexPath)
                 }
             }
         } else if tableView.isEditing {
@@ -512,9 +551,9 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
                 selectFiles.append(file)
             }
         } else if selectFolderMode {
-            selectFolder(indexPath)
+            didSelectDestFolder(indexPath)
         } else {
-            openFile(indexPath)
+            didSelectFile(indexPath)
         }
     }
     
@@ -550,6 +589,10 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
         
         if file.isExternalFile {
             let deleteAction = UITableViewRowAction(style: .destructive, title: /"Delete") { [unowned self](_, indexPath) in
+                if file.opened {
+                    SVProgressHUD.showError(withStatus: /"FileIsEditing")
+                    return
+                }
                 file.trash()
                 if self.isHomePage {
                     self.items.remove(at: indexPath.row)
@@ -562,6 +605,10 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: /"Delete") { [unowned self](_, indexPath) in
+            if file.opened {
+                SVProgressHUD.showError(withStatus: /"FileIsEditing")
+                return
+            }
             self.showAlert(title: /"DeleteMessage", message: nil, actionTitles: [/"Cancel",/"Delete"], textFieldconfigurationHandler: nil, actionHandler: { (index) in
                 if index == 0 {
                     return
@@ -573,7 +620,10 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         let renameAction = UITableViewRowAction(style: .default, title: /"Rename") { [unowned self](_, indexPath) in
-            let file = self.files[indexPath.row]
+            if file.opened {
+                SVProgressHUD.showError(withStatus: /"FileIsEditing")
+                return
+            }
             self.showAlert(title: /"Rename", message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
                 textField.text = file.name
                 textField.clearButtonMode = .whileEditing
@@ -588,7 +638,11 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         let moveAction = UITableViewRowAction(style: .default, title: /"Move") { [unowned self](_, indexPath) in
-            self.performSegue(withIdentifier: "move", sender: [self.files[indexPath.row]])
+            if file.opened {
+                SVProgressHUD.showError(withStatus: /"FileIsEditing")
+                return
+            }
+            self.performSegue(withIdentifier: "move", sender: [file])
         }
         
         renameAction.backgroundColor = .lightGray
@@ -641,13 +695,13 @@ extension FilesViewController: UIDocumentPickerDelegate {
                 guard let data = try? Data(contentsOf: url) else { return }
                 url.stopAccessingSecurityScopedResource()
                 if let newFile = File.local.createFile(name: name, contents: data, type: .text) {
-                    self.editFile(newFile)
+                    self.openFile(newFile)
                 }
             } else {
                 guard let data = try? url.bookmarkData(options: .minimalBookmark, includingResourceValuesForKeys: nil, relativeTo: nil) else { return }
                 url.stopAccessingSecurityScopedResource()
                 if let newFile = File.inbox.createFile(name: name, contents: data, type: .text) {
-                    self.editFile(newFile)
+                    self.openFile(newFile)
                 }
             }
         }

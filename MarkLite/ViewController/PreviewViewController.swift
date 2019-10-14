@@ -18,7 +18,8 @@ class PreviewViewController: UIViewController, UIWebViewDelegate {
     var offset: CGFloat = 0 {
         didSet {
             let y = offset * contentHeight - scrollView.h
-            scrollView.contentOffset = CGPoint(x: 0,y: y)
+            let canScroll = max(contentHeight - scrollView.h,0)
+            scrollView.contentOffset = CGPoint(x: 0,y: min(y, canScroll))
         }
     }
     
@@ -30,8 +31,6 @@ class PreviewViewController: UIViewController, UIWebViewDelegate {
     }
     
     var keyboardHeight: CGFloat = 0
-    
-    
         
     var html: String = "" {
         didSet {
@@ -79,7 +78,7 @@ class PreviewViewController: UIViewController, UIWebViewDelegate {
     
     func updateView() {
         scrollView.frame = CGRect(x: 0, y: 0, w: view.w, h: view.h - keyboardHeight)
-        contentHeight = 2000
+        contentHeight = scrollView.h
         refresh()
     }
     
