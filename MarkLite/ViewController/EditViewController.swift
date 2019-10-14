@@ -55,7 +55,8 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         return landscape
     }
     
-    var timer: Timer?
+    var renderTimer: Timer?
+    
     var location: Int?
     var markdown: String?
     
@@ -95,9 +96,6 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         navBar?.setTintColor(.navTint)
         navBar?.setBackgroundColor(.navBar)
         navBar?.setTitleColor(.navTitle)
-        
-        addNotificationObserver(NSNotification.Name.UIApplicationWillTerminate.rawValue, selector: #selector(applicationWillTerminate))
-        addNotificationObserver(NSNotification.Name.UIApplicationDidEnterBackground.rawValue, selector: #selector(applicationWillTerminate))
         addNotificationObserver(Notification.Name.UIApplicationWillChangeStatusBarOrientation.rawValue, selector: #selector(deviceOrientationWillChange))
         addNotificationObserver("FileLoadFinished", selector: #selector(fileLoadFinished(_:)))
     }
@@ -114,7 +112,9 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        file?.save()
+        file?.close { success in
+            print(success)
+        }
     }
     
     func setup() {
@@ -151,7 +151,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         }).disposed(by: bag)
 
         
-        timer = Timer.runThisEvery(seconds: 0.4) { [unowned self] _ in
+        renderTimer = Timer.runThisEvery(seconds: 0.4) { [unowned self] _ in
             guard let text = self.markdown else { return }
             self.markdown = nil
             NSLog("1")
@@ -167,10 +167,6 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
              
         textVC.editView.text = file.text
         textVC.textViewDidChange(textVC.editView)
-    }
-    
-    @objc func applicationWillTerminate() {
-        file?.save()
     }
     
     @objc func deviceOrientationWillChange() {
@@ -255,8 +251,6 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
     @objc func showExportMenu(_ sender: Any) {
         textVC.editView.resignFirstResponder()
         
-        file?.save()
-
         let items = [ExportType.markdown,.pdf,.html,.image]
         var pos = CGPoint(x: windowWidth - 140, y: 65)
         
@@ -328,11 +322,6 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        file?.save()
-    }
-    
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         toggleRightBarButton()
     }
@@ -346,7 +335,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
     }
         
     deinit {
-        timer?.invalidate()
+        renderTimer?.invalidate()
         removeNotificationObserver()
         print("deinit edit_vc")
     }

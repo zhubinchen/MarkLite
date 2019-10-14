@@ -146,15 +146,15 @@ extension SettingsViewController {
     
     @objc func rate() {
         Configure.shared.hasRate = true
-        UIApplication.shared.openURL(URL(string: rateUrl)!)
+        UIApplication.shared.open(URL(string: rateUrl)!, options: [:], completionHandler: nil)            
     }
     
     @objc func feedback() {
         showAlert(title: /"Contact", message: /"ContactMessage", actionTitles: [/"Cancel",/"Email",/"Weibo"]) { index in
             if index == 1 {
-                UIApplication.shared.openURL(URL(string: emailUrl)!)
+                UIApplication.shared.open(URL(string: emailUrl)!, options: [:], completionHandler: nil)
             } else if index == 2 {
-                UIApplication.shared.openURL(URL(string: weiboURL)!)
+                UIApplication.shared.open(URL(string: weiboURL)!, options: [:], completionHandler: nil)
             }
         }
     }
@@ -176,7 +176,9 @@ extension SettingsViewController {
     }
     
     @objc func webdav() {
-        performSegue(withIdentifier: "webdav", sender: nil)
+        doIfPro {
+            self.performSegue(withIdentifier: "webdav", sender: nil)
+        }
     }
     
     @objc func theme() {

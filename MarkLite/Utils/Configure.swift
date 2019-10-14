@@ -131,16 +131,16 @@ class Configure: NSObject, NSCoding {
         let destStylePath = URL(fileURLWithPath: supportPath)
         try! Zip.unzipFile(Bundle.main.url(forResource: "Resources", withExtension: "zip")!, destination: destStylePath, overwrite: true, password: nil, progress: nil)
         
-        if let samplesPath = Bundle.main.path(forResource: /"Instructions", ofType: "md") {
+        if let path = Bundle.main.path(forResource: /"Instructions", ofType: "md") {
             let newPath = documentPath + "/" + /"Instructions" + ".md"
             try? FileManager.default.removeItem(atPath: newPath)
-            try? FileManager.default.copyItem(atPath: samplesPath, toPath: newPath)
+            try? FileManager.default.copyItem(atPath: path, toPath: newPath)
         }
         
-        if let mathJaxPath = Bundle.main.path(forResource: "数学公式", ofType: "md") {
-            let newPath = documentPath + "/" + "数学公式" + ".md"
+        if let path = Bundle.main.path(forResource: /"Syntax", ofType: "md") {
+            let newPath = documentPath + "/" + /"Syntax" + ".md"
             try? FileManager.default.removeItem(atPath: newPath)
-            try? FileManager.default.copyItem(atPath: mathJaxPath, toPath: newPath)
+            try? FileManager.default.copyItem(atPath: path, toPath: newPath)
         }
         
         try? FileManager.default.createDirectory(atPath: imagePath, withIntermediateDirectories: true, attributes: nil)

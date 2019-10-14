@@ -9,6 +9,7 @@
 import UIKit
 
 class Document: UIDocument {
+    
     var text = ""
 
     override func contents(forType typeName: String) throws -> Any {

@@ -42,9 +42,8 @@
 		760C29702320F3EC002E613E /* document.c in Sources */ = {isa = PBXBuildFile; fileRef = 760C29672320F3EB002E613E /* document.c */; };
 		760C29732320F3FA002E613E /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 760C29712320F3FA002E613E /* hoedown_html_patch.c */; };
 		7613F11F2325F6FE006EE3B9 /* Resources.zip in Resources */ = {isa = PBXBuildFile; fileRef = 7613F11D2325F6FE006EE3B9 /* Resources.zip */; };
-		7613F1242325F8AF006EE3B9 /* 数学公式.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1202325F8AF006EE3B9 /* 数学公式.md */; };
 		7613F1272325F8AF006EE3B9 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1232325F8AF006EE3B9 /* ReadMe.md */; };
-		7613F12A2325FA02006EE3B9 /* 使用教程.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1282325FA02006EE3B9 /* 使用教程.md */; };
+		7613F12A2325FA02006EE3B9 /* 示例文档.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1282325FA02006EE3B9 /* 示例文档.md */; };
 		761F825022E16D6500C3435C /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761F824F22E16D6500C3435C /* WebViewController.swift */; };
 		762CF0F92322650A00F2FF90 /* MarkdownRender.m in Sources */ = {isa = PBXBuildFile; fileRef = 762CF0F82322650A00F2FF90 /* MarkdownRender.m */; };
 		7635E5CA23473212008E1DEF /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7635E5C923473212008E1DEF /* Document.swift */; };
@@ -54,6 +53,8 @@
 		768762B922D86CE900A54EB1 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762B822D86CE900A54EB1 /* IAPHelper.swift */; };
 		768762BB22D86D1C00A54EB1 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */; };
 		76A4D272234EF98200B87A78 /* WebDAVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4D271234EF98200B87A78 /* WebDAVViewController.swift */; };
+		76CF5B0823541DC100E87A99 /* 使用教程.md in Resources */ = {isa = PBXBuildFile; fileRef = 76CF5B0723541DC000E87A99 /* 使用教程.md */; };
+		76CF5B0A235425EA00E87A99 /* Syntax.md in Resources */ = {isa = PBXBuildFile; fileRef = 76CF5B09235425EA00E87A99 /* Syntax.md */; };
 		76DFD721232926AC00F97D56 /* AddStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DFD720232926AC00F97D56 /* AddStyleViewController.swift */; };
 		76E7F271233CAEE10051DF6A /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E7F270233CAEE10051DF6A /* BaseTableViewCell.swift */; };
 		76E7F275233CB5E30051DF6A /* icon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 76E7F274233CB5E30051DF6A /* icon_logo.png */; };
@@ -109,9 +110,8 @@
 		760C29712320F3FA002E613E /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
 		760C29722320F3FA002E613E /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
 		7613F11D2325F6FE006EE3B9 /* Resources.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Resources.zip; sourceTree = "<group>"; };
-		7613F1202325F8AF006EE3B9 /* 数学公式.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "数学公式.md"; path = "Instructions/数学公式.md"; sourceTree = "<group>"; };
 		7613F1232325F8AF006EE3B9 /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = ReadMe.md; path = Instructions/ReadMe.md; sourceTree = "<group>"; };
-		7613F1282325FA02006EE3B9 /* 使用教程.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "使用教程.md"; path = "Instructions/使用教程.md"; sourceTree = "<group>"; };
+		7613F1282325FA02006EE3B9 /* 示例文档.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "示例文档.md"; path = "Instructions/示例文档.md"; sourceTree = "<group>"; };
 		761F824F22E16D6500C3435C /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		762CF0F72322650A00F2FF90 /* MarkdownRender.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarkdownRender.h; sourceTree = "<group>"; };
 		762CF0F82322650A00F2FF90 /* MarkdownRender.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarkdownRender.m; sourceTree = "<group>"; };
@@ -124,6 +124,8 @@
 		768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		76A4D271234EF98200B87A78 /* WebDAVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVViewController.swift; sourceTree = "<group>"; };
 		76C94A6A22EAA43D004CE602 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		76CF5B0723541DC000E87A99 /* 使用教程.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "使用教程.md"; path = "Instructions/使用教程.md"; sourceTree = "<group>"; };
+		76CF5B09235425EA00E87A99 /* Syntax.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = Syntax.md; path = Instructions/Syntax.md; sourceTree = "<group>"; };
 		76DFD720232926AC00F97D56 /* AddStyleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStyleViewController.swift; sourceTree = "<group>"; };
 		76E7F270233CAEE10051DF6A /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		76E7F274233CB5E30051DF6A /* icon_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_logo.png; sourceTree = "<group>"; };
@@ -233,9 +235,10 @@
 			isa = PBXGroup;
 			children = (
 				76E7F274233CB5E30051DF6A /* icon_logo.png */,
-				7613F1282325FA02006EE3B9 /* 使用教程.md */,
-				7613F1202325F8AF006EE3B9 /* 数学公式.md */,
+				76CF5B0723541DC000E87A99 /* 使用教程.md */,
+				7613F1282325FA02006EE3B9 /* 示例文档.md */,
 				7613F1232325F8AF006EE3B9 /* ReadMe.md */,
+				76CF5B09235425EA00E87A99 /* Syntax.md */,
 				7613F11D2325F6FE006EE3B9 /* Resources.zip */,
 			);
 			path = Resource;
@@ -386,17 +389,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7613F1242325F8AF006EE3B9 /* 数学公式.md in Resources */,
 				7613F1272325F8AF006EE3B9 /* ReadMe.md in Resources */,
 				76E7F275233CB5E30051DF6A /* icon_logo.png in Resources */,
+				76CF5B0823541DC100E87A99 /* 使用教程.md in Resources */,
 				7613F11F2325F6FE006EE3B9 /* Resources.zip in Resources */,
-				7613F12A2325FA02006EE3B9 /* 使用教程.md in Resources */,
+				7613F12A2325FA02006EE3B9 /* 示例文档.md in Resources */,
 				07E827471F5BF1BA0077A017 /* Settings.storyboard in Resources */,
 				07E827441F5BF1BA0077A017 /* Edit.storyboard in Resources */,
 				07E8269D1F5BF0F20077A017 /* Assets.xcassets in Resources */,
 				766F118B2351AB0600E6395E /* LaunchScreen.storyboard in Resources */,
 				7635E5CF234AF3B6008E1DEF /* Main.storyboard in Resources */,
 				07E827651F5BF24B0077A017 /* Localizable.strings in Resources */,
+				76CF5B0A235425EA00E87A99 /* Syntax.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

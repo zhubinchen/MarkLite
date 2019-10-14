@@ -46,15 +46,15 @@ extension String {
             return self + "(1)"
         }
         
-        guard let range = try? NSRegularExpression(pattern: "\\([0-9]+\\)", options: .caseInsensitive).rangeOfFirstMatch(in: self, options: .reportCompletion, range: NSMakeRange(0, self.length)),
-            range.location != NSNotFound,
-            let num = self[range.location..<range.location+range.length].toInt() else {
+        guard let range = try? NSRegularExpression(pattern: "\\([0-9]+\\)", options: .caseInsensitive).rangeOfFirstMatch(in: self, options: .reportCompletion, range: NSMakeRange(0, self.length)) else {
                 return self + "(1)"
         }
-        
+                
         if range.location == NSNotFound {
             return self + "(1)"
         }
+        
+        let num = self[range.location+1..<range.location+range.length-1].toInt() ?? 0
         
         return self.replacingCharacters(in: range, with: "(\(num+1))")
     }

@@ -51,11 +51,13 @@ class File {
     private(set) var disable = false
     private(set) var type = FileType.text
     private(set) var isExternalFile = false
+    private(set) var opened = false
 
     fileprivate(set) static var cloud = File.placeholder(name: /"Cloud")
     fileprivate(set) static var local = File.placeholder(name: /"Local")
     fileprivate(set) static var inbox = File.placeholder(name: /"External")
     fileprivate(set) static var location = File.placeholder(name: /"AddLocation")
+    fileprivate(set) static var empty = File.placeholder(name: /"Empty")
 
     var children: [File] {
         return _children
@@ -65,7 +67,17 @@ class File {
         return _children.filter{ $0.type == .folder }
     }
     
-    lazy var text: String = read() ?? ""
+    var text: String? {
+        get {
+            return document?.text
+        }
+        set {
+            if newValue != nil && newValue != document?.text {
+                document?.text = newValue!
+                document?.updateChangeCount(.done)
+            }
+        }
+    }
     
     var expand = false
     
@@ -77,10 +89,8 @@ class File {
     }
 
     var displayName: String?
-    
+        
     fileprivate(set) weak var parent: File?
-    
-    fileprivate var _text: String?
     
     fileprivate var _children = [File]()
     
@@ -103,6 +113,13 @@ class File {
         }
         return URL(fileURLWithPath: path)
     }
+    
+    lazy var document: Document? = {
+        if let url = self.url {
+            return Document(fileURL: url)
+        }
+        return nil
+    }()
     
     init(path:String) {
         self.path = path
@@ -225,87 +242,85 @@ class File {
 
     @discardableResult
     func trash() -> Bool {
-        try? fileManager.removeItem(atPath: self.path)
-        
-        guard let i = parent?._children.index(where: { (file) -> Bool in
-            return file == self
-        }) else { return false }
-        parent?._children.remove(at: i)
+        do {
+            try fileManager.removeItem(atPath: self.path)
+            parent?._children.removeAll { $0 == self }
+        } catch {
+            return false
+        }
         return true
     }
     
     @discardableResult
     func move(to newParent: File) -> Bool {
+        if newParent == self {
+            return false
+        }
+        if parent != nil && newParent == parent! {
+            return false
+        }
         let newPath = (newParent.path + "/" + fullName).validPath
-        try? fileManager.moveItem(atPath: path, toPath: newPath)
-        guard let i = parent?._children.index(where: { (file) -> Bool in
-            return file == self
-        }) else { return false }
-        parent?._children.remove(at: i)
-        newParent._children.append(self)
-        path = newPath
+        do {
+            try fileManager.moveItem(atPath: path, toPath: newPath)
+            parent?._children.removeAll { $0 == self }
+            newParent._children.append(self)
+            path = newPath
+        } catch {
+            return false
+        }
         return true
     }
     
     @discardableResult
     func rename(to newName: String) -> Bool {
-        guard let parent = parent else { return false   }
+        if newName == name {
+            return false
+        }
+        guard let parent = parent else { return false }
         let newPath = parent.path + "/" + newName + type.extensionName
+        if fileManager.fileExists(atPath: newPath) {
+            return false
+        }
         try? fileManager.moveItem(atPath: path, toPath: newPath)
         name = newName
         path = newPath
         return true
     }
     
-    @discardableResult
-    func save() -> Bool {
-        if text == _text {
-            return true
+    func close(_ completion:((Bool)->Void)?) {
+        guard let data = text?.data(using: String.Encoding.utf8) else {
+            completion?(false)
+            return
         }
-        
-        guard let data = text.data(using: String.Encoding.utf8) else { return false }
-        
-        var url = URL(fileURLWithPath: self.path)
-
-        if isExternalFile {
-            let accessed = externalURL?.startAccessingSecurityScopedResource() ?? false
-            if accessed {
-                url = externalURL!
-            } else {
-                return false
-            }
-        }
-        
-        defer {
-            if isExternalFile {
-                externalURL?.stopAccessingSecurityScopedResource()
-            }
-        }
-
-        do {
-            try data.write(to: url)
-            _text = text
-        } catch {
-            print("error to save file at:\(path)")
-            return false
+        if !opened {
+            completion?(false)
+            return
         }
         modifyDate = Date()
         size = data.count
-        return true
+        document?.close{ successed in
+            if successed {
+                self.opened = false
+            }
+            completion?(successed)
+        }
     }
     
-    func read() -> String? {
-        if isExternalFile {
-            let path = externalURL?.path ?? ""
-            let accessed = externalURL?.startAccessingSecurityScopedResource() ?? false
-            if accessed {
-                _text = (try? String(contentsOfFile: path, encoding: String.Encoding.utf8))
-                externalURL?.stopAccessingSecurityScopedResource()
-            }
-        } else {
-            _text = (try? String(contentsOfFile: self.path, encoding: String.Encoding.utf8))
+    func open(_ completion:((String?)->Void)?) {
+        if opened {
+            completion?(self.text)
+            return
         }
-        return _text
+        document?.open { successed in
+            if successed {
+                print("open successed")
+                self.opened = true
+                completion?(self.text)
+            } else {
+                print("open failed")
+                completion?(nil)
+            }
+        }
     }
 }
 

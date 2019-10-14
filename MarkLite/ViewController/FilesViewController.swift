@@ -25,7 +25,6 @@ class FilesViewController: UIViewController {
     fileprivate var items = [
         File.cloud,
         File.inbox,
-        File.location
     ]
     
     var sections: [[File]] {
@@ -35,7 +34,7 @@ class FilesViewController: UIViewController {
         return [files]
     }
     
-    var root: File!
+    var root = File.empty
     
     let bag = DisposeBag()
             
@@ -56,12 +55,12 @@ class FilesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if root == nil && selectFolderMode == false {
+        if selectFolderMode == false {
             root = File.local
             isHomePage = true
         }
         
-        if root != nil && root == File.cloud {
+        if root == File.cloud {
             root.reloadChildren()
         }
         
@@ -71,11 +70,13 @@ class FilesViewController: UIViewController {
             observeFileChange()
         } else if selectFolderMode {
             title = /"MoveTo"
+            File.local.expand = false
+            File.cloud.expand = false
             _ = Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in
                 self.navBar?.barStyle = theme == .white ? .default : .black
             })
         } else {
-            title = root?.displayName ?? root?.name
+            title = root.displayName ?? root.name
             tableView.tableHeaderView = UIView(x: 0, y: 0, w: 0, h: 0.01)
         }
         
@@ -124,11 +125,6 @@ class FilesViewController: UIViewController {
         File.loadInbox { inbox in
             self.items[1] = inbox
             self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
-        }
-        File.loadLocation { location in
-            self.items.insert(contentsOf: location.children, at: 2)
-            self.items[self.items.count - 1] = location
-            self.tableView.reloadData()
         }
     }
     
@@ -195,10 +191,10 @@ class FilesViewController: UIViewController {
         if ges.state != .began {
             return
         }
-        if root.isExternalFile {
+        if tableView.isEditing || selectFolderMode {
             return
         }
-        if tableView.isEditing || selectFolderMode {
+        if root.isExternalFile {
             return
         }
         let pos = ges.location(in: ges.view)
@@ -248,9 +244,9 @@ class FilesViewController: UIViewController {
         performSegue(withIdentifier: "settings", sender: nil)
     }
     
-    @objc func showCreateMenu(_ sender: Any) {
+    @objc func createFile(_ sender: Any) {
         showActionSheet(sender: sender, title: nil, message: nil, actionTitles: [/"CreateNote",/"CreateFolder"]) { index in
-            guard let file = self.root?.createFile(name: index == 0 ? /"Untitled" : /"UntitledFolder", type: index == 0 ? .text : .folder) else {
+            guard let file = self.root.createFile(name: index == 0 ? /"Untitled" : /"UntitledFolder", type: index == 0 ? .text : .folder) else {
                 return
             }
             self.showAlert(title: /(index == 0 ? "CreateNote" : "CreateFolder"), message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
@@ -265,6 +261,9 @@ class FilesViewController: UIViewController {
                 self.rename(file: file, newName:self.textField!.text!)
                 self.files.insert(file, at: 0)
                 self.tableView.insertRows(at: [IndexPath(row: 0, section: self.isHomePage ? 1 : 0)], with: .automatic)
+                if file.type == .text {
+                    self.editFile(file)
+                }
             })
         }
     }
@@ -299,7 +298,19 @@ class FilesViewController: UIViewController {
         if file.type == .folder || file.type == .location {
             performSegue(withIdentifier: "file", sender: file)
         } else {
-            performSegue(withIdentifier: "edit", sender: file)
+            editFile(file)
+        }
+    }
+    
+    func editFile(_ file: File) {
+        SVProgressHUD.show()
+        file.open { text in
+            SVProgressHUD.dismiss()
+            if text == nil {
+                SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
+            } else {
+                self.performSegue(withIdentifier: "edit", sender: file)
+            }
         }
     }
     
@@ -342,7 +353,7 @@ class FilesViewController: UIViewController {
                 navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(multipleSelect))
                 navigationItem.leftBarButtonItem = UIBarButtonItem(title: /"SelectAll", style: .plain, target: self, action: #selector(selectAllFiles))
             } else {
-                navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showCreateMenu(_:)))
+                navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createFile(_:)))
                 if isHomePage {
                     navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_settings"), style: .plain, target: self, action: #selector(showSettings))
                 } else {
@@ -355,7 +366,7 @@ class FilesViewController: UIViewController {
     func doIfPro(_ task: (() -> Void)) {
         let date = Date(fromString: "2019-10-15", format: "yyyy-MM-dd")!
         let now = Date()
-        if now > date {
+        if now <= date {
             task()
             return
         }
@@ -630,13 +641,13 @@ extension FilesViewController: UIDocumentPickerDelegate {
                 guard let data = try? Data(contentsOf: url) else { return }
                 url.stopAccessingSecurityScopedResource()
                 if let newFile = File.local.createFile(name: name, contents: data, type: .text) {
-                    self.performSegue(withIdentifier: "edit", sender: newFile)
+                    self.editFile(newFile)
                 }
             } else {
                 guard let data = try? url.bookmarkData(options: .minimalBookmark, includingResourceValuesForKeys: nil, relativeTo: nil) else { return }
                 url.stopAccessingSecurityScopedResource()
                 if let newFile = File.inbox.createFile(name: name, contents: data, type: .text) {
-                    self.performSegue(withIdentifier: "edit", sender: newFile)
+                    self.editFile(newFile)
                 }
             }
         }
