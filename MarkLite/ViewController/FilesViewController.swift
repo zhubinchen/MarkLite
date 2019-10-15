@@ -185,7 +185,7 @@ class FilesViewController: UIViewController {
         }
         if isViewLoaded {
             tableView.reloadData()
-            if selectFolderMode || tableView.isEditing || File.current == nil {
+            if isPhone || selectFolderMode || tableView.isEditing || File.current == nil {
                 return
             }
             if let index = files.firstIndex(where: { $0 == File.current! }) {
@@ -404,7 +404,7 @@ class FilesViewController: UIViewController {
     }
     
     func doIfPro(_ task: (() -> Void)) {
-        let date = Date(fromString: "2019-10-15", format: "yyyy-MM-dd")!
+        let date = Date(fromString: "2019-10-16", format: "yyyy-MM-dd")!
         let now = Date()
         if now <= date {
             task()

@@ -128,6 +128,11 @@ extension SettingsViewController {
         dismiss(animated: false) {
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .formSheet
+            let date = Date(fromString: "2019-10-16", format: "yyyy-MM-dd")!
+            let now = Date()
+            if now <= date {
+                nav.modalPresentationStyle = .fullScreen
+            }
             UIApplication.shared.keyWindow?.rootViewController?.presentVC(nav)
         }
     }
