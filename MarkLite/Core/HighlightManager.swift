@@ -130,6 +130,9 @@ struct MarkdownHighlightManager {
             $0.textColor = rgb(129,140,140)
             $0.deletionLine = true
         },//Deletions
+        Syntax("==\\S([^=\\n]+?)==") {
+            $0.backgroundColor = rgb(240,240,10)
+        },//Highlight
         Syntax("\\$.*\\$") {
             $0.textColor = rgb(139,69,19)
         },//数学公式

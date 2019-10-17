@@ -117,9 +117,10 @@ extension TextViewController: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
-            let loc = max(range.location - 100, 0)
-            let len = range.location - loc
-            let nearText = textView.text.substring(with: NSMakeRange(loc, len))
+            let begin = max(range.location - 100, 0)
+            let len = range.location - begin
+            let nsString = textView.text! as NSString
+            let nearText = nsString.substring(with: NSMakeRange(begin, len))
             let texts = nearText.components(separatedBy: "\n")
             if texts.count < 2 {
                 return true

@@ -38,11 +38,13 @@ class KeyboardBar: UIView {
     var endButton: UIButton!
 
     let items: [(ButtonConvertiable,Selector)] = [
+        (#imageLiteral(resourceName: "tab"), #selector(tapTab(_:))),
         (#imageLiteral(resourceName: "bar_image"), #selector(tapImage(_:))),
         (#imageLiteral(resourceName: "bar_link"), #selector(tapLink)),
         (#imageLiteral(resourceName: "bar_header"), #selector(tapHeader)),
         (#imageLiteral(resourceName: "bar_bold"), #selector(tapBold)),
         (#imageLiteral(resourceName: "bar_italic"), #selector(tapItalic)),
+        (#imageLiteral(resourceName: "highlight"), #selector(tapHighliht)),
         (#imageLiteral(resourceName: "bar_deleteLine"), #selector(tapDeletion)),
         (#imageLiteral(resourceName: "bar_quote"), #selector(tapQuote)),
         (#imageLiteral(resourceName: "bar_code"), #selector(tapCode)),
@@ -112,6 +114,10 @@ class KeyboardBar: UIView {
     @objc func tapChar(_ sender: UIButton) {
         let char = sender.currentTitle ?? ""
         textView?.insertText(char)
+    }
+    
+    @objc func tapTab(_ sender: UIButton) {
+        textView?.insertText("\t")
     }
 
     @objc func tapImage(_ sender: UIButton) {
@@ -191,6 +197,19 @@ class KeyboardBar: UIView {
         let insertText = /"Blockquote"
         textView.insertText("\n> \(insertText)\n")
         textView.selectedRange = NSMakeRange(currentRange.location + 3, insertText.length)
+    }
+    
+    @objc func tapHighliht() {
+        guard let textView = self.textView else { return }
+
+        let currentRange = textView.selectedRange
+        let text = textView.text.substring(with: currentRange)
+        let isEmpty = text.length == 0
+        let insertText = isEmpty ? /"Highlight": text
+        textView.insertText("==\(insertText)==")
+        if isEmpty {
+            textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
+        }
     }
     
     @objc func tapBold() {
