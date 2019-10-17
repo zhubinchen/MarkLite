@@ -106,17 +106,14 @@ struct MarkdownHighlightManager {
             $0.bold = true
             $0.textColor = rgb(89,89,184)
         },//Title2
-        Syntax("^[\\s]*[-\\*\\+] +", .anchorsMatchLines){
-            $0.textColor = rgb(66,110,169)
-        },//ULLists://无序列表
-        Syntax("^[\\s]*[0-9]+\\.", .anchorsMatchLines){
+        Syntax("^[\\s]*(-|\\*|\\+|([0-9]+\\.)) ", .anchorsMatchLines){
             $0.textColor = rgb(236,90,103)
-        },//OLLists有序列表
-        Syntax("- \\[( |x|X)\\] .*",.anchorsMatchLines){
+        },//Lists
+        Syntax("- \\[( |x)\\] .*",.anchorsMatchLines){
             $0.textColor = rgb(6,82,120)
         },//TodoList
         Syntax("(\\[.+\\]\\([^\\)]+\\))|(<.+>)") {
-            $0.textColor = rgb(11,188,214)
+            $0.textColor = rgb(66,110,169)
         },//Links
         Syntax("!\\[[^\\]]+\\]\\([^\\)]+\\)") {
             $0.textColor = rgb(50,90,160)

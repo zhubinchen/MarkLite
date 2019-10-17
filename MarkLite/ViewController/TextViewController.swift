@@ -85,6 +85,19 @@ class TextViewController: UIViewController {
         }
     }
     
+    func newLine(_ last: String) -> String {
+        if last.hasPrefix("- [x] ") {
+            return "- [x] "
+        }
+        if last.hasPrefix("- [] ") {
+            return "- [] "
+        }
+        guard let str = last.firstMatch("^[\\s]*(-|\\*|\\+|([0-9]+\\.)) ") else { return "" }
+        guard let range = str.firstMatchRange("[0-9]+") else { return str }
+        let num = str.substring(with: range).toInt() ?? 0
+        return str.replacingCharacters(in: range, with: "\(num+1)")
+    }
+    
     deinit {
         removeNotificationObserver()
         print("deinit text_vc")
@@ -100,6 +113,21 @@ extension TextViewController: UITextViewDelegate {
         }
         self.offset = offset
         offsetChangedHandler?((offset + scrollView.size.height) / max(scrollView.size.height,scrollView.contentSize.height))
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            let loc = max(range.location - 100, 0)
+            let len = range.location - loc
+            let nearText = textView.text.substring(with: NSMakeRange(loc, len))
+            let texts = nearText.components(separatedBy: "\n")
+            if texts.count < 2 {
+                return true
+            }
+            textView.insertText("\n"+newLine(texts.last!))
+            return false
+        }
+        return true
     }
     
     func textViewDidChange(_ textView: UITextView) {

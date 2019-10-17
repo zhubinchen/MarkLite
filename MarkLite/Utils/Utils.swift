@@ -94,8 +94,23 @@ extension String {
         return time.toString
     }
     
+    func firstMatch(_ exp: String) -> String? {
+        guard let range = firstMatchRange(exp) else { return nil }
+        return substring(with: range)
+    }
+    
+    func firstMatchRange(_ exp: String) -> NSRange? {
+        guard let exp = try? NSRegularExpression(pattern: exp, options: .anchorsMatchLines) else { return nil }
+        guard let range = exp.firstMatch(in: self, options: .anchored, range: NSMakeRange(0, min(20, self.count)))?.range else { return nil }
+        if range.location == NSNotFound {
+            return nil
+        }
+        return range
+    }
+    
     func substring(with nsRange: NSRange) -> String {
-        return self.substring(with: rangeFromNSRange(nsRange)!)
+        let str = self[nsRange.location..<nsRange.location + nsRange.length]
+        return str
     }
     
     func replacingCharacters(in nsRange: NSRange, with newString: String) -> String {

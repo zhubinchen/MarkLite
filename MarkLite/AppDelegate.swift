@@ -72,8 +72,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 Configure.shared.markdownStyle.value = "GitHub Dark"
                 Configure.shared.highlightStyle.value = "tomorrow-night"
             } else {
-                Configure.shared.markdownStyle.value = "GitHub"
-                Configure.shared.highlightStyle.value = "tomorrow"
+                if Configure.shared.markdownStyle.value == "GitHub Dark" {
+                    Configure.shared.markdownStyle.value = "GitHub"
+                }
+                if Configure.shared.markdownStyle.value == "tomorrow-night" {
+                    Configure.shared.markdownStyle.value = "tomorrow"
+                }
             }
         })
         
@@ -82,10 +86,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 case .dark:
                     Configure.shared.theme.value = .black
                 case .light:
-                    Configure.shared.theme.value = .white
+                    if Configure.shared.theme.value == .black {
+                        Configure.shared.theme.value = .white
+                    }
                 case .system:
                     if #available(iOS 13.0, *) {
-                        Configure.shared.theme.value = UITraitCollection.current.userInterfaceStyle == .dark ? .black : .white
+                        if UITraitCollection.current.userInterfaceStyle == .dark {
+                            Configure.shared.theme.value = .black
+                        } else if Configure.shared.theme.value == .black {
+                            Configure.shared.theme.value = .white
+                        }
                     } else {
                         SVProgressHUD.showError(withStatus: "Only Work on iPad OS / iOS 13")
                     }
