@@ -70,6 +70,7 @@ class KeyboardBar: UIView {
     weak var textView: UITextView?
     weak var viewController: UIViewController?
     weak var menu: MenuView?
+    weak var parent: File?
     
     let bag = DisposeBag()
     var imagePicker: ImagePicker?
@@ -224,6 +225,7 @@ class KeyboardBar: UIView {
             textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
         }
     }
+    
     @objc func tapItalic() {
         guard let textView = self.textView else { return }
 
@@ -239,7 +241,45 @@ class KeyboardBar: UIView {
     
     func didPickImage(_ image: UIImage) {
         imagePicker = nil
-        guard let textView = self.textView, var data = UIImageJPEGRepresentation(image, 0.8) else { return }
+        if self.parent == nil {
+            self.uploadImage(image)
+            return
+        }
+        viewController?.showActionSheet(sender: nil, title: /"ImageUploadTips", actionTitles: [/"UploadImage",/"LocalReference"]) { [unowned self] (index) in
+            if index == 0 {
+                self.uploadImage(image)
+            } else if index == 1 {
+                self.copyImageToLocal(image)
+            }
+        }
+    }
+    
+    func copyImageToLocal(_ image: UIImage) {
+        guard let textView = self.textView else { return }
+        guard let data = UIImageJPEGRepresentation(image, 0.8) else { return }
+        viewController?.showAlert(title: nil, message: /"CreateImageTips", actionTitles: [/"CreateImage",/"Cancel"], textFieldconfigurationHandler: { textField in
+            textField.clearButtonMode = .whileEditing
+            textField.placeholder = /"FileNamePlaceHolder"
+            self.textField = textField
+        }) { index in
+            let name = self.textField?.text ?? Date().toString(format: "MM-dd HH-mm")
+            if index == 2 {
+                return
+            }
+            guard let file = self.parent?.createFile(name: name, contents: data, type: .image) else {
+                return
+            }
+            let currentRange = textView.selectedRange
+            let insertText = /"EnterPlaceholder"
+            textView.insertText("![\(insertText)](\(file.name))")
+            textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
+        }
+    }
+    
+    func uploadImage(_ image: UIImage) {
+        guard let textView = self.textView else { return }
+        guard var data = UIImageJPEGRepresentation(image, 0.8) else { return }
+        
         if data.count > 1 * 1024 * 1024 {
             if let newData = UIImageJPEGRepresentation(image, 0.6) {
                 data = newData

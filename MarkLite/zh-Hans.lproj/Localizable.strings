@@ -33,7 +33,10 @@
 "M-d"="M月d日";
 "yyyy-M-d"="yyyy年M月d日";
 
-"CreateTips"="创建文档或文件夹，请不要输入特殊字符";
+"CreateTips"="创建文档或文件夹";
+"RenameTips"="修改文件名";
+"CreateImageTips"="添加图片到本地，请命名此图片";
+"CreateImage"="添加图片";
 "CreateNote"="创建文档";
 "CreateFolder"="创建文件夹";
 "MultipleSelect"="批量选择";
@@ -51,6 +54,10 @@
 "Undo"="撤销";
 "Redo"="重做";
 "Characters"="字符";
+
+"LocalReference"="本地引用";
+"UploadImage"="上传图片";
+"ImageUploadTips"="本地引用不需要网络即可完成，但是相对路径改变时会无法加载图片";
 
 "PDF"="PDF 文档";
 "WebPage"="Web 页面";
@@ -102,8 +109,11 @@
 "DeleteExternalMessage"="移除外部文件的引用，并不会删除原始文件";
 "FileIsEditing"="无法进行此操作，文件正在编辑中";
 "CanNotAccesseThisFile"="当前无法访问此文件";
-"FileNameError"="请输入正确的文件名";
-"RenameTips"="请输入新的文件名";
+"CanNotPreviewThisFile"="不支持预览此文件";
+"FileNameError"="请输入正确的文件名(不要包含特殊符号)";
+"FileNamePlaceHolder"="文件名不允许包含特殊符号";
+"UnzipFailed"="解压失败";
+
 "InsertHref"="添加链接";
 
 "Open"="打开";

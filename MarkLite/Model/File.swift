@@ -14,10 +14,12 @@ import RxCocoa
 let locationExtName = ["link"]
 let textExtName = ["txt","md"]
 let archiveExtName = ["zip"]
+let imageExtName = ["png","jpg","jpeg","bmp","tif","pic","gif","heif","heic"]
 
 enum FileType {
     case text
     case archive
+    case image
     case folder
     case location
     case other
@@ -88,7 +90,8 @@ class File {
     }
 
     var displayName: String?
-                
+    var extensionName = ""
+
     fileprivate var _children = [File]()
         
     fileprivate lazy var externalURL: URL? = {
@@ -143,21 +146,20 @@ class File {
             disable = true
             return
         }
-                
+        displayName = url.deletingPathExtension().lastPathComponent
+        extensionName = url.pathExtension
         if (values.isDirectory ?? false) {
             type = .folder
         }
         
-        if locationExtName.contains(url.pathExtension) {
+        if locationExtName.contains(extensionName) {
             type = .location
-        }
-        
-        if textExtName.contains(url.pathExtension) {
+        } else if textExtName.contains(extensionName) {
             type = .text
-        }
-        
-        if archiveExtName.contains(url.pathExtension) {
+        } else if archiveExtName.contains(extensionName) {
             type = .archive
+        } else if imageExtName.contains(extensionName) {
+            type = .image
         }
         
         if type == .text || type == .other || type == .archive {
@@ -226,7 +228,7 @@ class File {
     
     @discardableResult
     func createFile(name: String, contents: Any? = nil, type: FileType) -> File?{
-        let path = (self.path + "/" + name).validPath
+        let path = (self.path + "/" + name + (type == .text ? ".md" : "")).validPath
         if type == .folder {
             try? fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
         } else {
@@ -282,12 +284,13 @@ class File {
             return false
         }
         guard let parent = parent else { return false }
-        let newPath = parent.path + "/" + newName
+        let newPath = parent.path + "/" + newName + extensionName
         if fileManager.fileExists(atPath: newPath) {
             return false
         }
         try? fileManager.moveItem(atPath: path, toPath: newPath)
-        name = newName
+        displayName = newName
+        name = newName + extensionName
         path = newPath
         return true
     }

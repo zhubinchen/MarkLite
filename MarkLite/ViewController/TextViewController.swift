@@ -29,6 +29,7 @@ class TextViewController: UIViewController {
     var offsetChangedHandler: ((CGFloat)->Void)?
 
     let bag = DisposeBag()
+    let assistBar = KeyboardBar()
     var offset: CGFloat = 0.0
     
     let highlightmanager = MarkdownHighlightManager()
@@ -49,10 +50,9 @@ class TextViewController: UIViewController {
         
         Configure.shared.isAssistBarEnabled.asObservable().subscribe(onNext: { [unowned self](enable) in
             if enable {
-                let assistBar = KeyboardBar()
-                assistBar.textView = self.editView
-                assistBar.viewController = self
-                self.editView.inputAccessoryView = assistBar
+                self.assistBar.textView = self.editView
+                self.assistBar.viewController = self
+                self.editView.inputAccessoryView = self.assistBar
             } else {
                 self.editView.inputAccessoryView = nil
             }

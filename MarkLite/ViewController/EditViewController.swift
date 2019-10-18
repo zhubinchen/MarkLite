@@ -127,7 +127,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         }
          
         previewVC.url = file.url
-        
+        textVC.assistBar.parent = file.parent
         textVC.textChangedHandler = { [unowned self] (text,location) in
             file.text = text
             self.location = location

@@ -33,6 +33,10 @@
 "M-d"="MM/dd";
 "yyyy-M-d"="yyyy/MM/dd";
 
+"CreateTips"="Create note or folder";
+"RenameTips"="Rename file";
+"CreateImageTips"="Copy image to local, name the image please";
+"CreateImage"="Create Image";
 "CreateNote"="Create Note";
 "CreateFolder"="Create Folder";
 "MultipleSelect"="Multiple Select";
@@ -50,6 +54,10 @@
 "Undo"="Undo";
 "Redo"="Redo";
 "Characters"="Characters";
+
+"LocalReference"="Local Reference";
+"UploadImage"="Upload Image";
+"ImageUploadTips"="";
 
 "PDF"="PDF";
 "WebPage"="Web pages";
@@ -101,8 +109,11 @@
 "DeleteExternalMessage"="Remove the reference of external file, will not delete the origin file";
 "FileIsEditing"="Can not perform the opration on this file, the file is opened in editor";
 "CanNotAccesseThisFile"="Can Not Accesse This File";
-"FileNameError"="Invalid name";
-"RenameTips"="Please input new name";
+"CanNotPreviewThisFile"="Can Not Preview This File";
+"FileNameError"="Invalid file name";
+"FileNamePlaceHolder"="File name should not contains (./*~)";
+"UnzipFailed"="Unzip Failed";
+
 "InsertHref"="Insert href";
 
 "Open"="Open it";

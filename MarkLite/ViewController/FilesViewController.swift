@@ -235,7 +235,7 @@ class FilesViewController: UIViewController {
             SVProgressHUD.showError(withStatus: /"FileIsEditing")
             return
         }
-        self.showAlert(title: /"DeleteMessage", message: nil, actionTitles: [/"Cancel",/"Delete"], textFieldconfigurationHandler: nil, actionHandler: { (index) in
+        self.showAlert(title:nil , message: /"DeleteMessage", actionTitles: [/"Cancel",/"Delete"], textFieldconfigurationHandler: nil, actionHandler: { (index) in
             if index == 0 {
                 return
             }
@@ -267,7 +267,7 @@ class FilesViewController: UIViewController {
     @objc func createFile(_ sender: Any) {
         showAlert(title: nil, message: /"CreateTips", actionTitles: [/"CreateNote",/"CreateFolder",/"Cancel"], textFieldconfigurationHandler: { textField in
             textField.clearButtonMode = .whileEditing
-            textField.placeholder = /"RenameTips"
+            textField.placeholder = /"FileNamePlaceHolder"
             self.textField = textField
         }) { index in
             let name = self.textField?.text ?? ""
@@ -278,18 +278,6 @@ class FilesViewController: UIViewController {
                 return
             }
             self.openFile(file)
-        }
-    }
-    
-    func rename(file: File, newName: String) {
-        let name = newName.trimmed()
-        let pattern = "^[^\\.\\*\\:/]+$"
-        let predicate = NSPredicate(format: "SELF MATCHES %@", pattern)
-        
-        if predicate.evaluate(with: name) {
-            file.rename(to: name)
-        } else {
-            SVProgressHUD.showError(withStatus: /"FileNameError")
         }
     }
     
@@ -570,7 +558,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
             }
         } else {
             cell.detailTextLabel?.text = file.modifyDate.readableDate()
-            let icon = file.type == .archive ? #imageLiteral(resourceName: "icon_archive") : #imageLiteral(resourceName: "icon_text")
+            let icon = file.type == .archive ? #imageLiteral(resourceName: "icon_archive") : (file.type == .image ? #imageLiteral(resourceName: "icon_image"): #imageLiteral(resourceName: "icon_text"))
             cell.imageView?.image = icon.recolor(color: ColorCenter.shared.tint.value)
         }
                 
@@ -657,7 +645,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
                 SVProgressHUD.showError(withStatus: /"FileIsEditing")
                 return
             }
-            self.showAlert(title: /"DeleteMessage", message: nil, actionTitles: [/"Cancel",/"Delete"], textFieldconfigurationHandler: nil, actionHandler: { (index) in
+            self.showAlert(title: nil, message: /"DeleteMessage", actionTitles: [/"Cancel",/"Delete"], textFieldconfigurationHandler: nil, actionHandler: { (index) in
                 if index == 0 {
                     return
                 }
@@ -667,20 +655,33 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
             })
         }
         
-        let renameAction = UITableViewRowAction(style: .default, title: /"Rename") { [unowned self](_, indexPath) in
+        let renameAction = UITableViewRowAction(style: .default, title: /"RenameTips") { [unowned self](_, indexPath) in
+            if file.disable {
+                SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
+                return
+            }
             if file.opened {
                 SVProgressHUD.showError(withStatus: /"FileIsEditing")
                 return
             }
-            self.showAlert(title: /"Rename", message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
-                textField.text = file.name
+            self.showAlert(title: nil, message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
+                textField.text = file.displayName ?? file.name
                 textField.clearButtonMode = .whileEditing
+                textField.placeholder = /"FileNamePlaceHolder"
                 self.textField = textField
             }, actionHandler: { (index) in
-                if index == 0 {
+                let name = (self.textField?.text ?? "").trimmed()
+                if index == 0 || name.count == 0 {
                     return
                 }
-                self.rename(file: file, newName:self.textField?.text ?? "")
+                let pattern = "^[^\\.\\*\\:/]+$"
+                let predicate = NSPredicate(format: "SELF MATCHES %@", pattern)
+                
+                if predicate.evaluate(with: name) {
+                    file.rename(to: name)
+                } else {
+                    SVProgressHUD.showError(withStatus: /"FileNameError")
+                }
                 tableView.reloadRows(at: [indexPath], with: .automatic)
             })
         }
