@@ -25,7 +25,7 @@ DEPENDENCIES:
   - SnapKit
   - SVProgressHUD
   - UMCAnalytics
-  - Zip
+  - Zip (~> 1.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -54,6 +54,6 @@ SPEC CHECKSUMS:
   UMCCommon: c9637200488c482b30cdebebb0bd595b9adf0847
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 0810183bf43ca26c6c8f96b802921426d0c41c70
+PODFILE CHECKSUM: c26dcf0a615a538e61233a8cee88d44e46218018
 
 COCOAPODS: 1.5.3

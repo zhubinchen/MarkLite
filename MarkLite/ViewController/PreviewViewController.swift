@@ -37,6 +37,8 @@ class PreviewViewController: UIViewController, UIWebViewDelegate {
             refresh()
         }
     }
+    
+    var url: URL?
             
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,7 +85,7 @@ class PreviewViewController: UIViewController, UIWebViewDelegate {
     }
     
     func refresh() {
-        webView.loadHTMLString(html, baseURL: nil)
+        webView.loadHTMLString(html, baseURL: url)
     }
     
     @objc func keyboardWillChange(_ noti: NSNotification) {

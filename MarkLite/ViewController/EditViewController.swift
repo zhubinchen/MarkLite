@@ -126,6 +126,8 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
             return
         }
          
+        previewVC.url = file.url
+        
         textVC.textChangedHandler = { [unowned self] (text,location) in
             file.text = text
             self.location = location

@@ -19,8 +19,6 @@ let imageUploadUrl = "https://sm.ms/api/upload"
 let umengKey = "5d2594e20cafb28ba1000dbe"
 let buglyId = "57bc8a7c74"
 
-let defaultFont = UIFont.font(ofSize: 16)
-
 var windowWidth: CGFloat { return UIApplication.shared.keyWindow?.w ?? 0}
 var windowHeight: CGFloat { return UIApplication.shared.keyWindow?.h ?? 0 }
 

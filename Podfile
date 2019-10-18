@@ -8,7 +8,7 @@ target 'Markdown' do
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'EZSwiftExtensions'
-  pod 'Zip'
+  pod 'Zip', '~> 1.1'
   pod 'UMCAnalytics'
   pod 'SnapKit'
   pod 'Bugly'

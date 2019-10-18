@@ -11,21 +11,16 @@ import EZSwiftExtensions
 import RxSwift
 import RxCocoa
 
+let locationExtName = ["link"]
+let textExtName = ["txt","md"]
+let archiveExtName = ["zip"]
+
 enum FileType {
     case text
+    case archive
     case folder
     case location
-
-    var extensionName: String {
-        switch self {
-        case .text:
-            return ".md"
-        case .location:
-            return ".link"
-        default:
-            return ""
-        }
-    }
+    case other
 }
 
 extension Int {
@@ -49,7 +44,7 @@ class File {
     private(set) var modifyDate = Date()
     private(set) var size = 0
     private(set) var disable = false
-    private(set) var type = FileType.text
+    private(set) var type = FileType.other
     private(set) var isExternalFile = false
     private(set) var opened = false
     private(set) var changed = false
@@ -95,10 +90,6 @@ class File {
     var displayName: String?
                 
     fileprivate var _children = [File]()
-    
-    fileprivate var fullName: String {
-        return name + type.extensionName
-    }
         
     fileprivate lazy var externalURL: URL? = {
         guard let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else {
@@ -125,7 +116,7 @@ class File {
     
     init(path:String) {
         self.path = path
-        self.name = path.components(separatedBy: "/").last?.components(separatedBy: ".").first ?? ""
+        self.name = path.components(separatedBy: "/").last ?? ""
         
         if (path.hasPrefix(inboxPath) && path != inboxPath) || (path.hasPrefix(locationPath) && path != locationPath) {
             isExternalFile = true
@@ -157,11 +148,19 @@ class File {
             type = .folder
         }
         
-        if path.hasSuffix(FileType.location.extensionName) {
+        if locationExtName.contains(url.pathExtension) {
             type = .location
         }
         
-        if type == .text {
+        if textExtName.contains(url.pathExtension) {
+            type = .text
+        }
+        
+        if archiveExtName.contains(url.pathExtension) {
+            type = .archive
+        }
+        
+        if type == .text || type == .other || type == .archive {
             modifyDate = values.contentModificationDate ?? Date()
             size = values.fileSize ?? 0
             return
@@ -214,8 +213,11 @@ class File {
     }
     
     func reloadChildren() {
-        let url = URL(fileURLWithPath: cloudPath)
-        try? fileManager.startDownloadingUbiquitousItem(at: url)
+        if self == File.cloud {
+            let url = URL(fileURLWithPath: path)
+            try? fileManager.startDownloadingUbiquitousItem(at: url)
+        }
+
         guard let subPaths = try? fileManager.contentsOfDirectory(atPath: path) else {
             return
         }
@@ -224,7 +226,7 @@ class File {
     
     @discardableResult
     func createFile(name: String, contents: Any? = nil, type: FileType) -> File?{
-        let path = (self.path + "/" + name + type.extensionName).validPath
+        let path = (self.path + "/" + name).validPath
         if type == .folder {
             try? fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
         } else {
@@ -261,7 +263,7 @@ class File {
         if parent != nil && newParent == parent! {
             return false
         }
-        let newPath = (newParent.path + "/" + fullName).validPath
+        let newPath = (newParent.path + "/" + name).validPath
         do {
             try fileManager.moveItem(atPath: path, toPath: newPath)
             parent?._children.removeAll { $0 == self }
@@ -280,7 +282,7 @@ class File {
             return false
         }
         guard let parent = parent else { return false }
-        let newPath = parent.path + "/" + newName + type.extensionName
+        let newPath = parent.path + "/" + newName
         if fileManager.fileExists(atPath: newPath) {
             return false
         }

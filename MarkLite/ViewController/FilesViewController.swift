@@ -9,6 +9,8 @@
 import UIKit
 import EZSwiftExtensions
 import RxSwift
+import QuickLook
+import Zip
 
 class FilesViewController: UIViewController {
         
@@ -296,6 +298,14 @@ class FilesViewController: UIViewController {
             performSegue(withIdentifier: "file", sender: file)
             return
         }
+        if file.type == .other {
+            preview(file)
+            return
+        }
+        if file.type == .archive {
+            unzip(file)
+            return
+        }
         if file.opened {
             return
         }
@@ -315,8 +325,43 @@ class FilesViewController: UIViewController {
         }
     }
     
+    func preview(_ file: File) {
+        guard let url = file.url as NSURL?, QLPreviewController.canPreview(url) else {
+            SVProgressHUD.showError(withStatus: /"CanNotPreviewThisFile")
+            return
+        }
+        let vc = QLPreviewController()
+        vc.dataSource = self
+        vc.delegate = self
+        vc.currentPreviewItemIndex = files.firstIndex{ $0 == file } ?? 0
+        presentVC(vc)
+    }
+    
+    func unzip(_ file: File) {
+        guard let url = file.url, let destURL = root.url else { return }
+        SVProgressHUD.show()
+        DispatchQueue.global().async {
+            do {
+                try Zip.unzipFile(url, destination: destURL, overwrite: false, password: nil, progress: { progress in
+
+                })
+                DispatchQueue.main.async {
+                    self.root.reloadChildren()
+                    self.refresh()
+                    SVProgressHUD.dismiss()
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    SVProgressHUD.dismiss()
+                    SVProgressHUD.showError(withStatus: "UnzipFailed")
+                }
+            }
+        }
+
+    }
+    
     func goToRoot(_ root: File) {
-        if root.type == .text {
+        if root.type == .text || root.type == .other {
             return
         }
         if root == self.root {
@@ -426,12 +471,14 @@ class FilesViewController: UIViewController {
     }
     
     func setupUI() {
-        var inset = CGFloat(0)
-        if #available(iOS 11.0, *) {
-            navigationItem.largeTitleDisplayMode = .never
-            inset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+        DispatchQueue.main.async {
+            var inset = CGFloat(0)
+            if #available(iOS 11.0, *) {
+                self.navigationItem.largeTitleDisplayMode = .never
+                inset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+            }
+            self.oprationViewBottom.constant = -44 - inset
         }
-        oprationViewBottom.constant = -44 - inset
                                 
         navBar?.setTintColor(.navTint)
         navBar?.setBackgroundColor(.navBar)
@@ -523,7 +570,8 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
             }
         } else {
             cell.detailTextLabel?.text = file.modifyDate.readableDate()
-            cell.imageView?.image = #imageLiteral(resourceName: "icon_text").recolor(color: ColorCenter.shared.tint.value)
+            let icon = file.type == .archive ? #imageLiteral(resourceName: "icon_archive") : #imageLiteral(resourceName: "icon_text")
+            cell.imageView?.image = icon.recolor(color: ColorCenter.shared.tint.value)
         }
                 
         if selectFolderMode {
@@ -730,5 +778,18 @@ extension FilesViewController: UIDocumentPickerDelegate {
             finishPick(urls.first!)
         }
     }
+}
+
+extension FilesViewController: QLPreviewControllerDelegate, QLPreviewControllerDataSource {
+    func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
+        return self.files.count
+    }
+    
+    func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
+        let file = files[index]
+        if let url = file.url as NSURL? { return url}
+        return NSURL()
+    }
+    
 }
 

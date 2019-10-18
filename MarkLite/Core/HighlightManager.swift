@@ -8,49 +8,6 @@
 
 import UIKit
 
-class HighlightOperation: Operation {
-    
-    let text: String
-    let syntaxArray: [Syntax]
-    var result: NSAttributedString?
-    
-    init(text:String, syntaxArray: [Syntax]) {
-        self.text = text
-        self.syntaxArray = syntaxArray
-    }
-    
-    override func cancel() {
-        super.cancel()
-    }
-    
-    override func main() {
-        let nomarlColor = Configure.shared.theme.value == .black ? rgb(180,180,170) : rgb(53,57,63)
-        let result = NSMutableAttributedString(string: text)
-        result.addAttributes([NSAttributedStringKey.font : UIFont.font(ofSize:17),
-                              NSAttributedStringKey.foregroundColor : nomarlColor], range: range(0,text.length))
-        if isCancelled {
-            return
-        }
-        syntaxArray.forEach { (syntax) in
-            if isCancelled {
-                return
-            }
-            syntax.expression.enumerateMatches(in: text, options: .reportCompletion, range: range(0, text.length), using: { (match, _, stop) in
-                if let range = match?.range {
-                    result.addAttributes(syntax.style.attrs, range: range)
-                }
-                if isCancelled {
-                    stop.pointee = true
-                }
-            })
-        }
-        if isCancelled {
-            return
-        }
-        self.result = result
-    }
-}
-
 class HighlightStyle {
     
     var textColor: UIColor = Configure.shared.theme.value == .black ? rgb(200,200,190) : rgb(53,57,63)
@@ -59,7 +16,7 @@ class HighlightStyle {
     var bold: Bool = false
     var deletionLine: Bool = false
     var size: CGFloat = 17
-    
+
     var attrs: [NSAttributedStringKey : Any] {
         
         var font: UIFont = UIFont.font(ofSize: size, bold: bold)
@@ -90,9 +47,7 @@ struct Syntax {
 }
 
 struct MarkdownHighlightManager {
-    
-    let queue = OperationQueue()
-    
+            
     let syntaxArray: [Syntax] = [
         Syntax("^#{1,6} .*", .anchorsMatchLines) {
             $0.bold = true
@@ -113,10 +68,10 @@ struct MarkdownHighlightManager {
             $0.textColor = rgb(6,82,120)
         },//TodoList
         Syntax("(\\[.+\\]\\([^\\)]+\\))|(<.+>)") {
-            $0.textColor = rgb(66,110,169)
+            $0.textColor = rgb(66,110,179)
         },//Links
         Syntax("!\\[[^\\]]+\\]\\([^\\)]+\\)") {
-            $0.textColor = rgb(50,90,160)
+            $0.textColor = rgb(50,90,170)
         },//Images
         Syntax("(\\*|_)([^*\\n]+?)(\\*|_)") {
             $0.textColor = Configure.shared.theme.value == .black ? rgb(210,200,190) : rgb(23,27,33)
@@ -133,17 +88,19 @@ struct MarkdownHighlightManager {
         Syntax("==\\S([^=\\n]+?)==") {
             $0.backgroundColor = rgb(240,240,10)
         },//Highlight
-        Syntax("\\$.*\\$") {
+        Syntax("\\$([^`\\n\\$]+?)\\$") {
             $0.textColor = rgb(139,69,19)
+            $0.backgroundColor = Configure.shared.theme.value == .black ? rgb(50,50,50) : rgb(246,246,246)
         },//数学公式
-        Syntax("\\$\\$([\\s\\S]*?)\\$\\$",.anchorsMatchLines) {
+        Syntax("\\$\\$([^`\\$]+?)[\\s\\S]*?\\$\\$",.anchorsMatchLines) {
             $0.textColor = rgb(139,69,19)
+            $0.backgroundColor = Configure.shared.theme.value == .black ? rgb(50,50,50) : rgb(246,246,246)
         },//多行数学公式
         Syntax("\\:\\\"(.*?)\\\"\\:"),//Quotes
         Syntax("`{1,2}[^`](.*?)`{1,2}") {
             $0.textColor = rgb(71,91,98)
             $0.backgroundColor = Configure.shared.theme.value == .black ? rgb(50,50,50) : rgb(246,246,246)
-            $0.size = 16
+            $0.size = 17
         },//InlineCode
         Syntax("^(\\>)(.*)\n",.anchorsMatchLines) {
             $0.textColor = rgb(129,140,140)
@@ -154,16 +111,15 @@ struct MarkdownHighlightManager {
         Syntax("```([\\s\\S]*?)```[\\s]?") {
             $0.textColor = rgb(71,91,98)
             $0.backgroundColor = Configure.shared.theme.value == .black ? rgb(50,50,50) : rgb(246,246,246)
-            $0.size = 16
+            $0.size = 17
         },//CodeBlock```包围的代码块
         Syntax("^\n[\\f\\r\\t\\v]*(( {4}|\\t).*(\\n|\\z))+", .anchorsMatchLines) {
             $0.textColor = rgb(71,91,98)
             $0.backgroundColor = Configure.shared.theme.value == .black ? rgb(50,50,50) : rgb(246,246,246)
-            $0.size = 16
+            $0.size = 17
         },//ImplicitCodeBlock4个缩进也算代码块
     ]
 
-    
     func highlight(_ text: String) -> NSAttributedString {
         let nomarlColor = Configure.shared.theme.value == .black ? rgb(180,180,170) : rgb(53,57,63)
         let result = NSMutableAttributedString(string: text)
