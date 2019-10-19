@@ -92,10 +92,15 @@ class TextViewController: UIViewController {
         if last.hasPrefix("- [] ") {
             return "- [] "
         }
-        guard let str = last.firstMatch("^[\\s]*(-|\\*|\\+|([0-9]+\\.)) ") else { return "" }
-        guard let range = str.firstMatchRange("[0-9]+") else { return str }
-        let num = str.substring(with: range).toInt() ?? 0
-        return str.replacingCharacters(in: range, with: "\(num+1)")
+        if let str = last.firstMatch("^[\\s]*(-|\\*|\\+|([0-9]+\\.)) ") {
+            guard let range = str.firstMatchRange("[0-9]+") else { return str }
+            let num = str.substring(with: range).toInt() ?? 0
+            return str.replacingCharacters(in: range, with: "\(num+1)")
+        }
+        if let str = last.firstMatch("^( {4}|\\t)+") {
+            return str
+        }
+        return ""
     }
     
     deinit {

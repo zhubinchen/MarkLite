@@ -57,7 +57,7 @@
 
 "LocalReference"="Local Reference";
 "UploadImage"="Upload Image";
-"ImageUploadTips"="";
+"ImageUploadTips"="Choose the reference type of image";
 
 "PDF"="PDF";
 "WebPage"="Web pages";
@@ -71,8 +71,9 @@
 "WebDAV"="WebDAV";
 "ArrangeKeyboardBar"="Arrange Keyboard Bar";
 "AssistKeyboard"="Enable Keyboard Bar";
+"ShowExtensionName"="Show File's Extension";
 "SplitOptions"="Split Options";
-"NightMode"="Dark Mode";
+"NightMode"="Dark Mode Options";
 "Theme"="Theme";
 "Contact"="Contact us";
 "RateIt"="Rate it";
@@ -80,9 +81,9 @@
 "CSS"="Custom Style";
 "CodeStyle"="Code Highlight";
 
-"KeepDarkMode"="Keep Dark Mode";
-"DisableDarkMode"="Disable Dark Mode";
-"FollowSystem"="Matches System";
+"FollowSystem"="Follow System";
+"KeepDarkMode"="Always Dark";
+"DisableDarkMode"="Always Light";
 
 "InvalidStyleURL"="Invalid Style URL";
 "InvalidStyleName"="Invalid Style Name";
@@ -111,7 +112,7 @@
 "CanNotAccesseThisFile"="Can Not Accesse This File";
 "CanNotPreviewThisFile"="Can Not Preview This File";
 "FileNameError"="Invalid file name";
-"FileNamePlaceHolder"="File name should not contains (./*~)";
+"FileNamePlaceHolder"="Name may NOT contains (./*~)";
 "UnzipFailed"="Unzip Failed";
 
 "InsertHref"="Insert href";
@@ -137,7 +138,7 @@
 "EnterPlaceholder"="Alt";
 
 "PickImage"="Pick an image";
-"Photo"="Image Library";
+"Photo"="Photos";
 "Camera"="Camera";
 "CameraError"="Can Not Access Your Camera";
 "PhotoError"="Can Not Access Your Photos";
@@ -156,24 +157,26 @@
 "Never"="Never";
 "Always"="Always";
 
-"PremiumOnly"="Subscribe to Premium to Unlock This Feature";
+"PremiumOnly"="Subscribe to Pro to Unlock This Feature";
 "PremiumTips"="Every new user has 3-days free trial";
-"SubscribeNow"="Subscribe";
+"SubscribeNow"="Purchase";
 
 "Premium"="Premium";
 "SubscribeMonthly"="Monthly Subscription $0.49";
 "SubscribeYearly"="Yearly Subscription $3.99";
+"LifetimePremium"="Lifetime Pro $6.99";
 "Terms"="Terms";
 "Privacy"="Privacy Policy";
-"SubscriptionPriceMonthly"="$0.49 per month, subscription can be cancelled at any time";
-"SubscriptionPriceYearly"="Including 3-days trial, $3.99 per year, subscription can be cancelled at any time";
-"SubscriptionTitle"="Subscribe to Markdown Premium to support further development and gain access to more features:\n\n• Export as PDF,HTML,JPG\n\n• Share files with PC via WebDAV\n\n• Add custom CSS styles";
+"SubscriptionPriceMonthly"="Including 3-days trial, $0.49 USD per month, subscription can be cancelled at any time";
+"SubscriptionPriceYearly"="Including 7-days trial, $3.99 USD per year, subscription can be cancelled at any time";
+"PremiumPriceLifetime"="You can unlock all the features forever with a single In-App purchase of $6.99 USD";
+"SubscriptionTitle"="Purchase Markdown Pro to support further development and gain access to more features:\n\n• Export markdown as PDF,HTML,JPG\n\n• Share files with PC via WebDAV\n\n• Add custom CSS styles";
 
-"SubscribeTips"="[Premium Subscription]\n\n• The duration of every period of Monthly Subscription is 1 month, The duration of every period of Yearly Subscription is 1 year\n\n• Payment will be charged to iTunes Account at confirmation of purchase\n\n• Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period\n\n• Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of the renewal\n\n• Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase\n\n• Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable\n\n• Monthly subscription for $0.49 USD, Yearly subscription with 7-days free trial period for $3.99 USD";
+"SubscribeTips"="[Pro Subscription]\n\n• The duration of every period of Monthly Subscription is 1 month\n\n• Payment will be charged to iTunes Account at confirmation of purchase\n\n• Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period\n\n• Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of the renewal\n\n• Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase\n\n• Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable\n\n• The Price of monthly subscription of every period is $0.49 USD";
 "Restore"="Restore";
 
-"SubscribeFailed"="Subcribe Failed";
-"SubscribeSuccess"="Subscribe Success";
+"SubscribeFailed"="Purchase Failed";
+"SubscribeSuccess"="Purchase Success";
 "RestoreFailed"="No Valid Purchases Found";
 "RestoreSuccess"="Restore Purchases Success";
 

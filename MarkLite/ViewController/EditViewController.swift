@@ -36,7 +36,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
     
     var file: File? {
         didSet {
-            self.title = file?.name
+            self.title = file?.displayName ?? file?.name
             self.setup()
         }
     }

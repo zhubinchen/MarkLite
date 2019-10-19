@@ -13,13 +13,13 @@ class BaseTableViewCell: UITableViewCell {
     
     override var accessoryType: UITableViewCellAccessoryType {
         didSet {
-            if accessoryType == .disclosureIndicator {
-                let iconView = UIImageView(image: #imageLiteral(resourceName: "icon_forward"))
-                iconView.setTintColor(.secondary)
-                accessoryView = iconView
-            } else {
-                accessoryView = nil
-            }
+            updateAccessoryView()
+        }
+    }
+    
+    var needUnlock: Bool = false {
+        didSet {
+            updateAccessoryView()
         }
     }
 
@@ -60,11 +60,7 @@ class BaseTableViewCell: UITableViewCell {
             make.width.equalTo(4)
         }
         
-        if accessoryType == .disclosureIndicator {
-            let iconView = UIImageView(image: #imageLiteral(resourceName: "icon_forward"))
-            iconView.setTintColor(.secondary)
-            accessoryView = iconView
-        }
+        updateAccessoryView()
     }
     
     override func layoutSubviews() {
@@ -76,4 +72,15 @@ class BaseTableViewCell: UITableViewCell {
         }
     }
 
+    func updateAccessoryView() {
+        if accessoryType == .disclosureIndicator {
+            let icon = needUnlock ? #imageLiteral(resourceName: "icon_lock") : #imageLiteral(resourceName: "icon_forward")
+            let iconView = UIImageView(image: icon)
+            iconView.setTintColor(.secondary)
+            iconView.tintImage = icon
+            accessoryView = iconView
+        } else {
+            accessoryView = nil
+        }
+    }
 }

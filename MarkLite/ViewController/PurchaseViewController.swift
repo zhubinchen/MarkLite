@@ -51,8 +51,8 @@ class PurchaseViewController: UIViewController {
     }
     
     @IBAction func subscribeYearly(_ sender: UIButton!) {
-        MobClick.event("begin_purchase_yearly")
-        purchaseProduct(premiumYearlyProductID)
+        MobClick.event("finish_purchase_forever")
+        purchaseProduct(premiumForeverProductID)
     }
     
     @IBAction func restore(_ sender: UIButton!) {
@@ -111,10 +111,11 @@ class PurchaseViewController: UIViewController {
                     SVProgressHUD.dismiss()
                     if availabel {
                         if identifier == premiumYearlyProductID {
-                            MobClick.event("finish_purchase_yearly")
+                            MobClick.event("finish_purchase_forever")
                         } else {
                             MobClick.event("finish_purchase_monthly")
                         }
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "PremiumStatusChanged"), object: nil)
                         self.dismiss(animated: false, completion: nil)
                         SVProgressHUD.showSuccess(withStatus: /"SubscribeSuccess")
                     } else {

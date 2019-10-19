@@ -160,12 +160,8 @@ extension UIView {
         _ = ColorCenter.shared.colorVariable(with: color).asObservable().takeUntil(rx.deallocated).subscribe(onNext: { [unowned self](color) in
             self.tintColor = color
             
-            if let navBar = self as? UINavigationBar {
-                navBar.tintColor = color
-            }
-            
-            if let imgView = self as? UIImageView {
-                imgView.image = imgView.image?.recolor(color: color)
+            if let imgView = self as? UIImageView, let tintImage = imgView.tintImage {
+                imgView.image = tintImage.recolor(color: color)
             }
         })
     }
@@ -217,5 +213,18 @@ extension UIActivityIndicatorView {
         _ = ColorCenter.shared.colorVariable(with: color).asObservable().takeUntil(rx.deallocated).subscribe(onNext: { [unowned self](color) in
             self.color = color
         })
+    }
+}
+
+extension UIImageView {
+    static let tintImageKey : UnsafeRawPointer! = UnsafeRawPointer.init(bitPattern: "tintImage:".hashValue)
+    var tintImage: UIImage? {
+        get {
+            return objc_getAssociatedObject(self, UIImageView.tintImageKey) as? UIImage
+        }
+        set {
+            objc_setAssociatedObject(self, UIImageView.tintImageKey, newValue, .OBJC_ASSOCIATION_RETAIN)
+            image = newValue?.recolor(color: tintColor)
+        }
     }
 }

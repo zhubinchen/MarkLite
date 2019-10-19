@@ -108,12 +108,12 @@ struct MarkdownHighlightManager {
         Syntax("^-+$", .anchorsMatchLines){
             $0.textColor = rgb(129,140,140)
         },//Separate://分割线
-        Syntax("```([\\s\\S]*?)```[\\s]?") {
+        Syntax("^[ \\t]*\\n```([\\s\\S]*?)```[\\s]?",.anchorsMatchLines) {
             $0.textColor = rgb(71,91,98)
             $0.backgroundColor = Configure.shared.theme.value == .black ? rgb(50,50,50) : rgb(246,246,246)
             $0.size = 17
         },//CodeBlock```包围的代码块
-        Syntax("^\n[\\f\\r\\t\\v]*(( {4}|\\t).*(\\n|\\z))+", .anchorsMatchLines) {
+        Syntax("^[ \\t]*(\\n( {4}|\\t).+)+[\\s]?",.anchorsMatchLines) {
             $0.textColor = rgb(71,91,98)
             $0.backgroundColor = Configure.shared.theme.value == .black ? rgb(50,50,50) : rgb(246,246,246)
             $0.size = 17

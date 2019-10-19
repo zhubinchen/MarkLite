@@ -65,7 +65,7 @@ class FilesViewController: UIViewController {
         if isHomePage {
             title = /"Documents"
             loadFiles()
-            observeFileChange()
+            observeChanges()
         } else if selectFolderMode {
             title = /"MoveTo"
             File.local.expand = false
@@ -77,6 +77,8 @@ class FilesViewController: UIViewController {
             title = root.displayName ?? root.name
             tableView.tableHeaderView = UIView(x: 0, y: 0, w: 0, h: 0.01)
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(proStatusChanged(_:)), name: Notification.Name("DisplayOptionChanged"), object: nil)
         
         refresh()
 
@@ -101,19 +103,31 @@ class FilesViewController: UIViewController {
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        if Configure.shared.darkOption.value != .system || isHomePage == false {
-            return
-        }
+        super.traitCollectionDidChange(previousTraitCollection)
         if #available(iOS 13.0, *) {
-            if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
-                ColorCenter.shared.theme = UITraitCollection.current.userInterfaceStyle == .dark ? .black : .white
+            if previousTraitCollection == nil
+                || traitCollection.userInterfaceStyle == previousTraitCollection!.userInterfaceStyle
+                || Configure.shared.darkOption.value != .system
+                || isHomePage == false {
+                return
+            }
+            if traitCollection.userInterfaceStyle == .dark && Configure.shared.theme.value != .black {
+                Configure.shared.theme.value = .black
+            } else if traitCollection.userInterfaceStyle == .light && Configure.shared.theme.value == .black {
+                Configure.shared.theme.value = .white
             }
         }
     }
     
-    func observeFileChange() {
+    deinit {
+        print(self)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func observeChanges() {
         NotificationCenter.default.addObserver(self, selector: #selector(localChanged(_:)), name: Notification.Name("LocalChanged"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(inboxChanged(_:)), name: Notification.Name("InboxChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(proStatusChanged(_:)), name: Notification.Name("PremiumStatusChanged"), object: nil)
     }
     
     func loadFiles() {
@@ -129,6 +143,14 @@ class FilesViewController: UIViewController {
             self.items[1] = inbox
             self.tableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .none)
         }
+    }
+    
+    @objc func proStatusChanged(_ noti: Notification) {
+        tableView.reloadData()
+    }
+    
+    @objc func displayOptionChanged(_ noti: Notification) {
+        tableView.reloadData()
     }
     
     @objc func localChanged(_ noti: Notification) {
@@ -286,7 +308,7 @@ class FilesViewController: UIViewController {
             performSegue(withIdentifier: "file", sender: file)
             return
         }
-        if file.type == .other {
+        if file.type == .other || file.type == .image {
             preview(file)
             return
         }
@@ -321,6 +343,7 @@ class FilesViewController: UIViewController {
         let vc = QLPreviewController()
         vc.dataSource = self
         vc.delegate = self
+        vc.modalPresentationStyle = .formSheet
         vc.currentPreviewItemIndex = files.firstIndex{ $0 == file } ?? 0
         presentVC(vc)
     }
@@ -406,7 +429,7 @@ class FilesViewController: UIViewController {
                 tableView.insertRows(at: indexPaths, with: .bottom)
             }
             selectedFolder!.expand = !selectedFolder!.expand
-            (cell?.accessoryView as? UIImageView)?.image = (selectedFolder!.expand ?  #imageLiteral(resourceName: "icon_expand") : #imageLiteral(resourceName: "icon_forward")).recolor(color: ColorCenter.shared.secondary.value)
+            (cell?.accessoryView as? UIImageView)?.tintImage = selectedFolder!.expand ?  #imageLiteral(resourceName: "icon_expand") : #imageLiteral(resourceName: "icon_forward")
         }
     }
     
@@ -437,9 +460,7 @@ class FilesViewController: UIViewController {
     }
     
     func doIfPro(_ task: (() -> Void)) {
-        let date = Date(fromString: "2019-10-16", format: "yyyy-MM-dd")!
-        let now = Date()
-        if now <= date {
+        if !security {
             task()
             return
         }
@@ -534,33 +555,39 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
     }
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "item", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "item", for: indexPath) as! BaseTableViewCell
         let file = sections[indexPath.section][indexPath.row]
-        cell.textLabel?.text = file.displayName ?? file.name
+        if file.type == .location || Configure.shared.showExtensionName == false {
+            cell.textLabel?.text = file.displayName ?? file.name
+        } else {
+            cell.textLabel?.text = file.name
+        }
         if file.type == .folder || file.type == .location {
             let count = file.children.count
             cell.detailTextLabel?.text = count == 0 ? /"Empty" : "\(file.children.count) " + /"Children"
             if file == File.cloud {
-                cell.imageView?.image = #imageLiteral(resourceName: "icon_cloud").recolor(color: ColorCenter.shared.tint.value)
+                cell.imageView?.tintImage = #imageLiteral(resourceName: "icon_cloud")
             } else if file == File.inbox {
-                cell.imageView?.image = #imageLiteral(resourceName: "icon_box").recolor(color: ColorCenter.shared.tint.value)
+                cell.imageView?.tintImage = #imageLiteral(resourceName: "icon_box")
                 if count == 0 {
                     cell.textLabel?.text = /"ExternalEmpty"
                     cell.detailTextLabel?.text = ""
                 }
             } else if file == File.location {
-                cell.imageView?.image = #imageLiteral(resourceName: "icon_location").recolor(color: ColorCenter.shared.tint.value)
+                cell.imageView?.tintImage = #imageLiteral(resourceName: "icon_location")
                 cell.detailTextLabel?.text = ""
             } else if file == File.local {
-                cell.imageView?.image = #imageLiteral(resourceName: "icon_local").recolor(color: ColorCenter.shared.tint.value)
+                cell.imageView?.tintImage = #imageLiteral(resourceName: "icon_local")
             } else {
-                cell.imageView?.image = #imageLiteral(resourceName: "icon_folder").recolor(color: ColorCenter.shared.tint.value)
+                cell.imageView?.tintImage = #imageLiteral(resourceName: "icon_folder")
             }
         } else {
             cell.detailTextLabel?.text = file.modifyDate.readableDate()
             let icon = file.type == .archive ? #imageLiteral(resourceName: "icon_archive") : (file.type == .image ? #imageLiteral(resourceName: "icon_image"): #imageLiteral(resourceName: "icon_text"))
-            cell.imageView?.image = icon.recolor(color: ColorCenter.shared.tint.value)
+            cell.imageView?.tintImage = icon
         }
+        
+        cell.needUnlock = isHomePage && indexPath.section == 0 && Configure.shared.isPro == false && security
                 
         if selectFolderMode {
             cell.indentationWidth = 20

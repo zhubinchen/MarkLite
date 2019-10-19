@@ -82,7 +82,7 @@ class Configure: NSObject, NSCoding {
     var currentVerion: String?
     var upgradeDate = Date()
     var alertDate = Date()
-    var hasRate = false
+    var showExtensionName = false
     var isPro = false
     let isAssistBarEnabled = Variable(true)
     let markdownStyle = Variable("GitHub")
@@ -125,7 +125,7 @@ class Configure: NSObject, NSCoding {
         splitOption.value = .automatic
         sortOption = .modifyDate
         darkOption.value = .light
-        
+        showExtensionName = false
         let destStylePath = URL(fileURLWithPath: supportPath)
         try! Zip.unzipFile(Bundle.main.url(forResource: "Resources", withExtension: "zip")!, destination: destStylePath, overwrite: true, password: nil, progress: nil)
         setup()
@@ -154,7 +154,7 @@ class Configure: NSObject, NSCoding {
     func encode(with aCoder: NSCoder) {
         aCoder.encode(currentVerion, forKey: "currentVersion")
         aCoder.encode(isPro, forKey: "isPro")
-        aCoder.encode(hasRate, forKey: "hasRate")
+        aCoder.encode(showExtensionName, forKey: "showExtensionName")
         aCoder.encode(isAssistBarEnabled.value, forKey: "isAssistBarEnabled")
         aCoder.encode(markdownStyle.value, forKey: "markdownStyle")
         aCoder.encode(highlightStyle.value, forKey: "highlightStyle")
@@ -172,7 +172,7 @@ class Configure: NSObject, NSCoding {
         upgradeDate = aDecoder.decodeObject(forKey: "upgradeDate") as? Date ?? Date()
         alertDate = aDecoder.decodeObject(forKey: "alertDate") as? Date ?? Date()
         isPro = aDecoder.decodeBool(forKey: "isPro")
-        hasRate = aDecoder.decodeBool(forKey: "hasRate")
+        showExtensionName = aDecoder.decodeBool(forKey: "showExtensionName")
         isAssistBarEnabled.value = aDecoder.decodeBool(forKey: "isAssistBarEnabled")
         markdownStyle.value = aDecoder.decodeObject(forKey: "markdownStyle") as? String ?? "GitHub"
         highlightStyle.value = aDecoder.decodeObject(forKey: "highlightStyle") as? String ?? "tomorrow"
@@ -199,7 +199,7 @@ class Configure: NSObject, NSCoding {
                 return
             }
             print("products: \(products)")
-            let ProIdentifier = [premiumYearlyProductID,premiumMonthlyProductID]
+            let ProIdentifier = [premiumForeverProductID,premiumYearlyProductID,premiumMonthlyProductID]
             let expiredDate = ProIdentifier.map{ products[$0] ?? Date(timeIntervalSince1970: 0) }.max() ?? Date(timeIntervalSince1970: 0)
             
             self.isPro = expiredDate.isFuture

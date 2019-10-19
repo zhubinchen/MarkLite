@@ -23,6 +23,21 @@ enum FileType {
     case folder
     case location
     case other
+    
+    var defaultExtName: String {
+        switch self {
+        case .text:
+            return ".md"
+        case .image:
+            return ".png"
+        case .archive:
+            return ".zip"
+        case .location:
+            return ".link"
+        default:
+            return ""
+        }
+    }
 }
 
 extension Int {
@@ -228,7 +243,7 @@ class File {
     
     @discardableResult
     func createFile(name: String, contents: Any? = nil, type: FileType) -> File?{
-        let path = (self.path + "/" + name + (type == .text ? ".md" : "")).validPath
+        let path = (self.path + "/" + name + type.defaultExtName).validPath
         if type == .folder {
             try? fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
         } else {

@@ -15,8 +15,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     var textField: UITextField?
     
-    let assitBarSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
-    
+    let assitBarSwitch = UISwitch()
+    let displayOptionSwitch = UISwitch()
+
     var items: [(String,[(String,String,Selector)])] {
         var section = [
             ("NightMode","",#selector(darkMode)),
@@ -32,6 +33,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 ("Style","",#selector(style)),
                 ("CodeStyle","",#selector(codeStyle)),
                 ("AssistKeyboard","",#selector(assistBar)),
+                ("ShowExtensionName","",#selector(displayOption)),
                 ]),
             ("支持一下",[
                 ("RateIt","",#selector(rate)),
@@ -57,18 +59,15 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.setSeparatorColor(.primary)
 
         assitBarSwitch.setTintColor(.tint)
+        displayOptionSwitch.setTintColor(.tint)
 
         assitBarSwitch.isOn = Configure.shared.isAssistBarEnabled.value
-        
-        assitBarSwitch.addTarget(self, action: #selector(assistBar(_:)), for: .valueChanged)
-        
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+        displayOptionSwitch.isOn = Configure.shared.showExtensionName
 
-        assitBarSwitch.x = view.w - 64
+        assitBarSwitch.addTarget(self, action: #selector(assistBar(_:)), for: .valueChanged)
+        displayOptionSwitch.addTarget(self, action: #selector(displayOption(_:)), for: .valueChanged)
+
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
     }
     
     @objc func close() {
@@ -84,15 +83,29 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "settings", for: indexPath)
+        let cell = BaseTableViewCell(style: .default, reuseIdentifier: nil)
 
         let item = items[indexPath.section].1[indexPath.row]
         cell.textLabel?.text = /(item.0)
         cell.detailTextLabel?.text = /(item.1)
-        
+        cell.needUnlock = item.0 == "WebDAV" && Configure.shared.isPro == false
+
         if item.0 == "AssistKeyboard" {
             cell.addSubview(assitBarSwitch)
             cell.accessoryType = .none
+            assitBarSwitch.snp.makeConstraints { maker in
+                maker.centerY.equalToSuperview()
+                maker.right.equalToSuperview().offset(-20)
+            }
+        } else if item.0 == "ShowExtensionName" {
+            cell.addSubview(displayOptionSwitch)
+            cell.accessoryType = .none
+            displayOptionSwitch.snp.makeConstraints { maker in
+                maker.centerY.equalToSuperview()
+                maker.right.equalToSuperview().offset(-20)
+            }
+        } else {
+            cell.accessoryType = .disclosureIndicator
         }
         return cell
     }
@@ -101,7 +114,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.deselectRow(at: indexPath, animated: true)
 
         let item = items[indexPath.section].1[indexPath.row]
-        if item.0 == "AssistKeyboard" {
+        if item.0 == "AssistKeyboard" || item.0 == "ShowExtensionName" {
             return
         }
         perform(item.2)
@@ -128,9 +141,7 @@ extension SettingsViewController {
         dismiss(animated: false) {
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .formSheet
-            let date = Date(fromString: "2019-10-16", format: "yyyy-MM-dd")!
-            let now = Date()
-            if now <= date {
+            if !security {
                 nav.modalPresentationStyle = .fullScreen
             }
             UIApplication.shared.keyWindow?.rootViewController?.presentVC(nav)
@@ -150,10 +161,9 @@ extension SettingsViewController {
     }
     
     @objc func rate() {
-        Configure.shared.hasRate = true
         UIApplication.shared.open(URL(string: rateUrl)!, options: [:], completionHandler: nil)            
     }
-    
+        
     @objc func feedback() {
         showAlert(title: /"Contact", message: /"ContactMessage", actionTitles: [/"Cancel",/"Email",/"Weibo"]) { index in
             if index == 1 {
@@ -178,6 +188,11 @@ extension SettingsViewController {
     
     @objc func assistBar(_ sender: UISwitch) {
         Configure.shared.isAssistBarEnabled.value = sender.isOn
+    }
+    
+    @objc func displayOption(_ sender: UISwitch) {
+        Configure.shared.showExtensionName = sender.isOn
+        NotificationCenter.default.post(name: NSNotification.Name("DisplayOptionChanged"), object: nil)
     }
     
     @objc func webdav() {
