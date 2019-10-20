@@ -82,7 +82,7 @@ class TextViewController: UIViewController {
     
     @objc func keyboardWillChange(_ noti: NSNotification) {
         guard let frame = (noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
-        bottomSpace.constant = max(self.view.h - frame.y,0)
+        bottomSpace.constant = max(windowHeight - frame.y - 50,0)
         UIView.animate(withDuration: 0.5, animations: {
             self.view.layoutIfNeeded()
         }) { _ in

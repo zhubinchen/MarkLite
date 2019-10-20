@@ -167,9 +167,9 @@ class KeyboardBar: UIView {
     @objc func tapHeader(_ sender: UIButton) {
         guard let textView = self.textView else { return }
         self.menu?.dismiss(sender: self.menu?.superview as? UIControl)
-        let pos = sender.convert(sender.center, to: sender.window)
+        let pos = sender.superview!.convert(sender.center, to: sender.window)
         let menu = MenuView(items: [/"Header1",/"Header2",/"Header3",/"Header4"],
-                 postion: CGPoint(x: pos.x - 100, y: pos.y - 190)) { (index) in
+                 postion: CGPoint(x: pos.x - 20, y: pos.y - 190)) { (index) in
                     let currentRange = textView.selectedRange
                     let insertText = ("#" * (index+1)) + " " + /"Header"
                     textView.insertText("\n\(insertText)\n")

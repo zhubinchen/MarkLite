@@ -16,8 +16,12 @@ class FilesViewController: UIViewController {
         
     @IBOutlet weak var tableView: UITableView!
     
-    @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var deleteButton: UIButton!
     
+    @IBOutlet weak var moveButton: UIButton!
+
+    @IBOutlet weak var emptyView: UIView!
+
     @IBOutlet weak var oprationViewBottom: NSLayoutConstraint!
 
     let pulldDownLabel = UILabel()
@@ -171,6 +175,9 @@ class FilesViewController: UIViewController {
     
     @objc func multipleSelect() {
         selectFiles = []
+        let selected = selectFiles.count > 0
+        moveButton.isEnabled = selected
+        deleteButton.isEnabled = selected
         tableView.setEditing(tableView.isEditing == false, animated: true)
         setupBarButton()
         if root == File.inbox {
@@ -192,6 +199,9 @@ class FilesViewController: UIViewController {
             let indexPath = IndexPath(row: i, section: isHomePage ? 1 : 0)
             tableView.selectRow(at: indexPath, animated: true, scrollPosition: .none)
         }
+        let selected = selectFiles.count > 0
+        moveButton.isEnabled = selected
+        deleteButton.isEnabled = selected
     }
     
     func refresh() {
@@ -621,6 +631,9 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
                 tableView.deselectRow(at: indexPath, animated: true)
             } else {
                 selectFiles.append(file)
+                let selected = selectFiles.count > 0
+                moveButton.isEnabled = selected
+                deleteButton.isEnabled = selected
             }
         } else if selectFolderMode {
             didSelectDestFolder(indexPath)
@@ -633,6 +646,9 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
         if tableView.isEditing {
             let file = files[indexPath.row]
             selectFiles.removeAll { file == $0 }
+            let selected = selectFiles.count > 0
+            moveButton.isEnabled = selected
+            deleteButton.isEnabled = selected
         }
     }
     
@@ -691,7 +707,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
             })
         }
         
-        let renameAction = UITableViewRowAction(style: .default, title: /"RenameTips") { [unowned self](_, indexPath) in
+        let renameAction = UITableViewRowAction(style: .default, title: /"Rename") { [unowned self](_, indexPath) in
             if file.disable {
                 SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
                 return

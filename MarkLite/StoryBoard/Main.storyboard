@@ -147,7 +147,9 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="deleteButton" destination="njr-Si-XeC" id="QZS-SJ-ej5"/>
                         <outlet property="emptyView" destination="lwZ-LC-JWr" id="qmw-yV-aTu"/>
+                        <outlet property="moveButton" destination="Tog-Qn-K2m" id="B3w-Nn-ybC"/>
                         <outlet property="oprationViewBottom" destination="OKl-oj-WCq" id="s0r-C5-pcq"/>
                         <outlet property="tableView" destination="Trp-Pg-73x" id="i2J-oh-Uma"/>
                         <segue destination="e0v-YT-nJP" kind="show" identifier="file" id="bck-6G-L6N"/>
