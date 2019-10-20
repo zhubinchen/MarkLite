@@ -102,11 +102,12 @@ struct MarkdownHighlightManager {
             $0.backgroundColor = Configure.shared.theme.value == .black ? rgb(50,50,50) : rgb(246,246,246)
             $0.size = 17
         },//InlineCode
-        Syntax("^(\\>)(.*)\n",.anchorsMatchLines) {
+        Syntax("^[ \\t]*(\\>)(.*)\n",.anchorsMatchLines) {
             $0.textColor = rgb(129,140,140)
         },//Blockquotes://引用块
-        Syntax("^-+$", .anchorsMatchLines){
-            $0.textColor = rgb(129,140,140)
+        Syntax("^[-\\+\\*]{3,}\n", .anchorsMatchLines){
+            $0.bold = true
+            $0.textColor = rgb(89,89,184)
         },//Separate://分割线
         Syntax("^[ \\t]*\\n```([\\s\\S]*?)```[\\s]?",.anchorsMatchLines) {
             $0.textColor = rgb(71,91,98)

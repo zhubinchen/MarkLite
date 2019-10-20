@@ -32,7 +32,7 @@ class TextViewController: UIViewController {
     let assistBar = KeyboardBar()
     var offset: CGFloat = 0.0
     
-    let highlightmanager = MarkdownHighlightManager()
+    var highlightmanager = MarkdownHighlightManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +57,11 @@ class TextViewController: UIViewController {
                 self.editView.inputAccessoryView = nil
             }
         }).disposed(by: bag)
+        
+        Configure.shared.theme.asObservable().subscribe(onNext: { [unowned self] _ in
+            self.highlightmanager = MarkdownHighlightManager()
+            self.textViewDidChange(self.editView)
+        }).disposed(by: bag)
     }
     
     func didHighlight(attrText: NSAttributedString) {
@@ -77,7 +82,7 @@ class TextViewController: UIViewController {
     
     @objc func keyboardWillChange(_ noti: NSNotification) {
         guard let frame = (noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
-        bottomSpace.constant = max(self.view.h - frame.y + 10,0)
+        bottomSpace.constant = max(self.view.h - frame.y,0)
         UIView.animate(withDuration: 0.5, animations: {
             self.view.layoutIfNeeded()
         }) { _ in

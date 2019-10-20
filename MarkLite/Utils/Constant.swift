@@ -23,7 +23,7 @@ var windowWidth: CGFloat { return UIApplication.shared.keyWindow?.w ?? 0}
 var windowHeight: CGFloat { return UIApplication.shared.keyWindow?.h ?? 0 }
 
 var security: Bool {
-    let date = Date(fromString: "2019-10-21", format: "yyyy-MM-dd")!
+    let date = Date(fromString: "2019-10-22", format: "yyyy-MM-dd")!
     let now = Date()
     return now > date
 }

@@ -93,12 +93,11 @@ class ImagePicker: NSObject {
     }
     
     func showImagePickerFor(sourceType: UIImagePickerControllerSourceType) {
-        let imagePickerVc = UIImagePickerController()
-        imagePickerVc.modalPresentationStyle = .formSheet
-        imagePickerVc.sourceType = sourceType
-        imagePickerVc.delegate = self
-
         DispatchQueue.main.async {
+            let imagePickerVc = UIImagePickerController()
+            imagePickerVc.modalPresentationStyle = .formSheet
+            imagePickerVc.sourceType = sourceType
+            imagePickerVc.delegate = self
             self.vc?.presentVC(imagePickerVc)
         }
     }

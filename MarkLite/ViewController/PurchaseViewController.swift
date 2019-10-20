@@ -12,10 +12,13 @@ class PurchaseViewController: UIViewController {
     
     @IBOutlet weak var yearlyButton: UIButton!
     @IBOutlet weak var monthlyButton: UIButton!
+    @IBOutlet weak var foreverButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var priceYearlyLabel: UILabel!
     @IBOutlet weak var priceMonthlyLabel: UILabel!
+    @IBOutlet weak var priceForeverLabel: UILabel!
     @IBOutlet weak var tipsLabel: UILabel!
+    @IBOutlet weak var topSpace: NSLayoutConstraint!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +26,8 @@ class PurchaseViewController: UIViewController {
 
         setupUI()
         MobClick.event("enter_purchase")
+        
+        topSpace.constant = security ? 20 : 60
     }
     
     func setupUI() {
@@ -31,9 +36,11 @@ class PurchaseViewController: UIViewController {
         navBar?.setTitleColor(.navTitle)
         yearlyButton.setBackgroundColor(.tint)
         monthlyButton.setBackgroundColor(.tint)
+        foreverButton.setBackgroundColor(.tint)
         titleLabel.setTextColor(.primary)
         priceYearlyLabel.setTextColor(.secondary)
         priceMonthlyLabel.setTextColor(.secondary)
+        priceForeverLabel.setTextColor(.secondary)
         tipsLabel.setTextColor(.secondary)
         view.setBackgroundColor(.background)
         view.setTintColor(.tint)
@@ -51,7 +58,12 @@ class PurchaseViewController: UIViewController {
     }
     
     @IBAction func subscribeYearly(_ sender: UIButton!) {
-        MobClick.event("finish_purchase_forever")
+        MobClick.event("begin_purchase_yearly")
+        purchaseProduct(premiumYearlyProductID)
+    }
+    
+    @IBAction func subscribeLifetime(_ sender: UIButton!) {
+        MobClick.event("begin_purchase_forever")
         purchaseProduct(premiumForeverProductID)
     }
     
@@ -111,9 +123,11 @@ class PurchaseViewController: UIViewController {
                     SVProgressHUD.dismiss()
                     if availabel {
                         if identifier == premiumYearlyProductID {
-                            MobClick.event("finish_purchase_forever")
-                        } else {
+                            MobClick.event("finish_purchase_yearly")
+                        } else if identifier == premiumMonthlyProductID {
                             MobClick.event("finish_purchase_monthly")
+                        }else {
+                            MobClick.event("finish_purchase_forever")
                         }
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "PremiumStatusChanged"), object: nil)
                         self.dismiss(animated: false, completion: nil)

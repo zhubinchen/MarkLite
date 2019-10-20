@@ -54,6 +54,8 @@ class FilesViewController: UIViewController {
 
     var moveFrom: FilesViewController?
     
+    var previewingFile: File?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -209,6 +211,11 @@ class FilesViewController: UIViewController {
         }
         if isViewLoaded {
             tableView.reloadData()
+            if isPad && File.current == nil {
+                if let file = self.files.first(where: { $0.type == .text }) {
+                    self.openFile(file)
+                }
+            }
             if isPhone || selectFolderMode || tableView.isEditing || File.current == nil {
                 return
             }
@@ -340,11 +347,11 @@ class FilesViewController: UIViewController {
             SVProgressHUD.showError(withStatus: /"CanNotPreviewThisFile")
             return
         }
+        previewingFile = file
         let vc = QLPreviewController()
         vc.dataSource = self
-        vc.delegate = self
         vc.modalPresentationStyle = .formSheet
-        vc.currentPreviewItemIndex = files.firstIndex{ $0 == file } ?? 0
+        vc.currentPreviewItemIndex = 0
         presentVC(vc)
     }
     
@@ -557,7 +564,9 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "item", for: indexPath) as! BaseTableViewCell
         let file = sections[indexPath.section][indexPath.row]
-        if file.type == .location || Configure.shared.showExtensionName == false {
+        let isSystemSection = isHomePage && indexPath.section == 0
+        
+        if file.type == .location || isSystemSection || Configure.shared.showExtensionName == false {
             cell.textLabel?.text = file.displayName ?? file.name
         } else {
             cell.textLabel?.text = file.name
@@ -587,7 +596,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
             cell.imageView?.tintImage = icon
         }
         
-        cell.needUnlock = isHomePage && indexPath.section == 0 && Configure.shared.isPro == false && security
+        cell.needUnlock = isSystemSection && Configure.shared.isPro == false && security
                 
         if selectFolderMode {
             cell.indentationWidth = 20
@@ -808,14 +817,13 @@ extension FilesViewController: UIDocumentPickerDelegate {
     }
 }
 
-extension FilesViewController: QLPreviewControllerDelegate, QLPreviewControllerDataSource {
+extension FilesViewController: QLPreviewControllerDataSource {
     func numberOfPreviewItems(in controller: QLPreviewController) -> Int {
-        return self.files.count
+        return 1
     }
     
     func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
-        let file = files[index]
-        if let url = file.url as NSURL? { return url}
+        if let url = previewingFile?.url as NSURL? { return url }
         return NSURL()
     }
     

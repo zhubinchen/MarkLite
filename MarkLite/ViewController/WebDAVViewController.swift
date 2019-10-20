@@ -29,19 +29,17 @@ class WebDAVViewController: UIViewController, GCDWebUploaderDelegate {
         server.allowHiddenItems = false
         server.prologue = /"欢迎使用Markdown文件管理平台"
         server.delegate = self
-
+        
         view.setBackgroundColor(.background)
         view.setTintColor(.tint)
         statusLabel.setTextColor(.primary)
         logLabel.setTextColor(.primary)
         
-        let options: [String : Any] = [GCDWebServerOption_AutomaticallySuspendInBackground:false,GCDWebServerOption_Port:80,GCDWebServerOption_BonjourName:"markdown.local"]
+        let options: [String : Any] = [GCDWebServerOption_AutomaticallySuspendInBackground:false,GCDWebServerOption_Port:80]
         statusLabel.text = /"ServerLoading"
         
         do {
             try server.start(options: options)
-            statusLabel.text = /"ServerStarted"
-            urlButton.setTitle(server.serverURL?.absoluteString, for: .normal)
         } catch {
             statusLabel.text = /"ServerNotRunning"
         }
@@ -60,6 +58,8 @@ class WebDAVViewController: UIViewController, GCDWebUploaderDelegate {
     }
     
     func webServerDidStart(_ server: GCDWebServer) {
+        statusLabel.text = /"ServerStarted"
+        urlButton.setTitle(server.serverURL?.absoluteString, for: .normal)
         logLabel.text = logLabel.text! + "\n\n[Started,Waiting for connecting]"
     }
     

@@ -72,8 +72,8 @@ class PreviewViewController: UIViewController, UIWebViewDelegate {
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let size = change?[NSKeyValueChangeKey.newKey] as? CGSize {
-            if fabs(self.contentHeight - size.height) > 60 {
-                self.contentHeight = size.height
+            if fabs(self.contentHeight - size.height) > 30 {
+                self.contentHeight = size.height + 10
             }
         }
     }
@@ -90,7 +90,7 @@ class PreviewViewController: UIViewController, UIWebViewDelegate {
     
     @objc func keyboardWillChange(_ noti: NSNotification) {
         guard let frame = (noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
-        keyboardHeight = max(self.view.h - frame.y + 50,0)
+        keyboardHeight = max(windowHeight - frame.y,0)
         UIView.animate(withDuration: 0.5, animations: {
             self.scrollView.h = self.view.size.height - self.keyboardHeight;
         })
