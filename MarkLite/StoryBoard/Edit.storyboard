@@ -13,11 +13,11 @@
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="CPR-Rc-22a" customClass="TextViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eCS-3y-9qx">
-                        <rect key="frame" x="0.0" y="0.0" width="187.5" height="724"/>
+                        <rect key="frame" x="0.0" y="0.0" width="187.66666666666666" height="690"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lId-Dt-n2r">
-                                <rect key="frame" x="8" y="44" width="292" height="462"/>
+                                <rect key="frame" x="8" y="44" width="179.66666666666666" height="602"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Thonburi" family="Thonburi" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -26,18 +26,22 @@
                                 </connections>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A59-fe-PiA">
-                                <rect key="frame" x="0.0" y="506" width="300" height="50"/>
+                                <rect key="frame" x="0.0" y="646" width="187.66666666666666" height="44"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.85000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000 字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Als-NQ-ZQc">
-                                        <rect key="frame" x="10" y="16" width="54" height="18"/>
+                                        <rect key="frame" x="10" y="0.0" width="54" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="XDP-mT-bdQ"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aui-tE-OMW">
-                                        <rect key="frame" x="202" y="10" width="40" height="30"/>
+                                        <rect key="frame" x="89.666666666666671" y="0.0" width="40.000000000000014" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="bqg-pk-jlT"/>
+                                            <constraint firstAttribute="height" constant="40" id="eC6-fQ-Vum"/>
                                         </constraints>
                                         <state key="normal" title="Undo"/>
                                         <connections>
@@ -45,8 +49,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vV5-i3-4Pf">
-                                        <rect key="frame" x="250" y="10" width="40" height="30"/>
+                                        <rect key="frame" x="137.66666666666666" y="0.0" width="40" height="40"/>
                                         <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="JJ5-pc-dmL"/>
                                             <constraint firstAttribute="width" constant="40" id="PqV-wq-ylT"/>
                                         </constraints>
                                         <state key="normal" title="Redo"/>
@@ -57,13 +62,13 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="Als-NQ-ZQc" firstAttribute="centerY" secondItem="A59-fe-PiA" secondAttribute="centerY" id="5fu-I7-cgU"/>
                                     <constraint firstItem="vV5-i3-4Pf" firstAttribute="leading" secondItem="aui-tE-OMW" secondAttribute="trailing" constant="8" id="BXl-u6-rP6"/>
+                                    <constraint firstItem="vV5-i3-4Pf" firstAttribute="top" secondItem="Als-NQ-ZQc" secondAttribute="top" id="FIv-bs-2Ia"/>
+                                    <constraint firstItem="aui-tE-OMW" firstAttribute="top" secondItem="Als-NQ-ZQc" secondAttribute="top" id="Fv9-hF-6iE"/>
+                                    <constraint firstItem="Als-NQ-ZQc" firstAttribute="top" secondItem="A59-fe-PiA" secondAttribute="top" id="OIX-cz-dTg"/>
                                     <constraint firstAttribute="trailing" secondItem="vV5-i3-4Pf" secondAttribute="trailing" constant="10" id="OqI-Fo-ryC"/>
-                                    <constraint firstItem="vV5-i3-4Pf" firstAttribute="centerY" secondItem="A59-fe-PiA" secondAttribute="centerY" id="X8m-Cn-UlJ"/>
                                     <constraint firstItem="Als-NQ-ZQc" firstAttribute="leading" secondItem="A59-fe-PiA" secondAttribute="leading" constant="10" id="bHK-vG-PYE"/>
-                                    <constraint firstItem="aui-tE-OMW" firstAttribute="centerY" secondItem="A59-fe-PiA" secondAttribute="centerY" id="dTM-L3-l2h"/>
-                                    <constraint firstAttribute="height" constant="50" id="ekm-Wy-87Q"/>
+                                    <constraint firstAttribute="height" constant="44" id="ekm-Wy-87Q"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="StartEdit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5L-1x-TTM">
@@ -73,7 +78,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wg0-wg-03a" customClass="DottedLineView" customModule="Markdown" customModuleProvider="target">
-                                <rect key="frame" x="299" y="44" width="1" height="512"/>
+                                <rect key="frame" x="186.66666666666666" y="44" width="1" height="646"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="1" id="5fQ-Z5-5yd"/>
@@ -125,20 +130,20 @@
             <objects>
                 <viewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="kJS-Hc-QJ3" customClass="EditViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="edu-ao-q9D">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJa-dk-TN5">
-                                <rect key="frame" x="0.0" y="88" width="375" height="724"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XJt-c3-kNb">
-                                        <rect key="frame" x="0.0" y="0.0" width="187.66666666666666" height="724"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="187.66666666666666" height="690"/>
                                         <connections>
                                             <segue destination="CPR-Rc-22a" kind="embed" id="szb-kD-ibo"/>
                                         </connections>
                                     </containerView>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zns-Dc-Cfg">
-                                        <rect key="frame" x="187.66666666666663" y="0.0" width="187.33333333333337" height="724"/>
+                                        <rect key="frame" x="187.66666666666663" y="0.0" width="187.33333333333337" height="690"/>
                                         <connections>
                                             <segue destination="7Y8-9G-Orv" kind="embed" id="bT1-xP-Sju"/>
                                         </connections>
@@ -167,7 +172,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="DJa-dk-TN5" firstAttribute="leading" secondItem="AFK-fF-QmQ" secondAttribute="leading" id="3pm-Gm-AMk"/>
-                            <constraint firstAttribute="bottom" secondItem="DJa-dk-TN5" secondAttribute="bottom" id="LMr-Ge-Iyp"/>
+                            <constraint firstItem="AFK-fF-QmQ" firstAttribute="bottom" secondItem="DJa-dk-TN5" secondAttribute="bottom" id="LMr-Ge-Iyp"/>
                             <constraint firstItem="AFK-fF-QmQ" firstAttribute="trailing" secondItem="DJa-dk-TN5" secondAttribute="trailing" id="fE9-Vx-6Fx"/>
                             <constraint firstItem="DJa-dk-TN5" firstAttribute="top" secondItem="AFK-fF-QmQ" secondAttribute="top" id="yH1-xI-agZ"/>
                         </constraints>
@@ -189,7 +194,7 @@
             <objects>
                 <viewController id="7Y8-9G-Orv" customClass="PreviewViewController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="99B-NM-Faa">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="556"/>
+                        <rect key="frame" x="0.0" y="0.0" width="187.33333333333337" height="690"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="kBm-KN-iDv"/>

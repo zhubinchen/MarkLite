@@ -183,11 +183,7 @@ class FilesViewController: UIViewController {
         if root == File.inbox {
             return
         }
-        var inset = CGFloat(0)
-        if #available(iOS 11.0, *) {
-            inset = view.safeAreaInsets.bottom
-        }
-        oprationViewBottom.constant = tableView.isEditing ? 0 : -44 - inset
+        oprationViewBottom.constant = tableView.isEditing ? 0 : -44 - bottomInset
         UIView.animate(withDuration: 0.5) {
             self.view.layoutIfNeeded()
         }
@@ -498,12 +494,7 @@ class FilesViewController: UIViewController {
     
     func setupUI() {
         DispatchQueue.main.async {
-            var inset = CGFloat(0)
-            if #available(iOS 11.0, *) {
-                self.navigationItem.largeTitleDisplayMode = .never
-                inset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
-            }
-            self.oprationViewBottom.constant = -44 - inset
+            self.oprationViewBottom.constant = -44 - bottomInset
         }
                                 
         navBar?.setTintColor(.navTint)

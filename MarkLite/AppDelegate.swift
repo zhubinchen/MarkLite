@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         #if DEBUG
-            UMConfigure.initWithAppkey(umengKey, channel: "Debug")
+
         #else
             UMConfigure.initWithAppkey(umengKey, channel: "App Store")
             Bugly.start(withAppId: buglyId)
@@ -131,6 +131,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let trackName = resultsDic["trackName"] as! String
         let trackViewUrl = resultsDic["trackViewUrl"] as! String
         let releaseNotes = resultsDic["releaseNotes"] as! String
+        
+        if !releaseNotes.hasPrefix("#") {
+            return
+        }
         
         let alert = UIAlertController(title: trackName, message: releaseNotes, preferredStyle: UIAlertControllerStyle.alert)
         let ation = UIAlertAction(title: /"Cancel", style: UIAlertActionStyle.default) { (at) in

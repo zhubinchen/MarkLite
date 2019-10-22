@@ -21,6 +21,13 @@ let buglyId = "57bc8a7c74"
 
 var windowWidth: CGFloat { return UIApplication.shared.keyWindow?.w ?? 0}
 var windowHeight: CGFloat { return UIApplication.shared.keyWindow?.h ?? 0 }
+var bottomInset: CGFloat {
+    if #available(iOS 11.0, *) {
+        return UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+    } else {
+        return 0
+    }
+}
 
 var security: Bool {
     let date = Date(fromString: "2019-10-22", format: "yyyy-MM-dd")!

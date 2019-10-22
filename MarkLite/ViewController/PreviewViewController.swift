@@ -9,8 +9,9 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SnapKit
 
-class PreviewViewController: UIViewController, UIWebViewDelegate {
+class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDelegate {
     
     let webView = UIWebView(frame: CGRect())
     let scrollView = UIScrollView(frame: CGRect())
@@ -34,7 +35,7 @@ class PreviewViewController: UIViewController, UIWebViewDelegate {
         
     var html: String = "" {
         didSet {
-            refresh()
+            webView.loadHTMLString(html, baseURL: url)
         }
     }
     
@@ -48,12 +49,12 @@ class PreviewViewController: UIViewController, UIWebViewDelegate {
         webView.backgroundColor = .clear
         webView.isOpaque = false
         webView.scrollView.isScrollEnabled = false
-        
+        webView.scrollView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
+
+        scrollView.delegate = self
         view.addSubview(scrollView)
         scrollView.addSubview(webView)
         
-        webView.scrollView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
-                
         if #available(iOS 11.0, *) {
             self.scrollView.contentInsetAdjustmentBehavior = .never
         } else {
@@ -72,25 +73,23 @@ class PreviewViewController: UIViewController, UIWebViewDelegate {
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let size = change?[NSKeyValueChangeKey.newKey] as? CGSize {
-            if fabs(self.contentHeight - size.height) > 30 {
-                self.contentHeight = size.height + 10
+            if fabs(self.contentHeight - size.height) > 10 {
+                self.contentHeight = size.height
             }
         }
     }
     
     func updateView() {
+        if fabs(view.w - scrollView.w) > 100 {
+            webView.loadHTMLString(html, baseURL: url)
+        }
         scrollView.frame = CGRect(x: 0, y: 0, w: view.w, h: view.h - keyboardHeight)
         contentHeight = scrollView.h
-        refresh()
-    }
-    
-    func refresh() {
-        webView.loadHTMLString(html, baseURL: url)
     }
     
     @objc func keyboardWillChange(_ noti: NSNotification) {
         guard let frame = (noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
-        keyboardHeight = max(windowHeight - frame.y,0)
+        keyboardHeight = max(windowHeight - frame.y - bottomInset, 0)
         UIView.animate(withDuration: 0.5, animations: {
             self.scrollView.h = self.view.size.height - self.keyboardHeight;
         })
@@ -102,6 +101,15 @@ class PreviewViewController: UIViewController, UIWebViewDelegate {
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
         print("webViewDidFinishLoad")
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let pan = scrollView.panGestureRecognizer
+        let velocity = pan.velocity(in: scrollView).y
+        if velocity < -10 {
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        } else if velocity > 10 { self.navigationController?.setNavigationBarHidden(false, animated: true)
+        }
     }
     
     deinit {
