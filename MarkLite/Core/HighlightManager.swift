@@ -8,6 +8,9 @@
 
 import UIKit
 
+let boldFont = UIFont.font(ofSize: 17, bold: true)
+let normalFont = UIFont.font(ofSize: 17)
+
 class HighlightStyle {
     
     var textColor: UIColor = Configure.shared.theme.value == .black ? rgb(200,200,190) : rgb(53,57,63)
@@ -15,22 +18,14 @@ class HighlightStyle {
     var italic: Bool = false
     var bold: Bool = false
     var deletionLine: Bool = false
-    var size: CGFloat = 17
 
     var attrs: [NSAttributedStringKey : Any] {
         
-        var font: UIFont = UIFont.font(ofSize: size, bold: bold)
-        if (italic) {
-            let fontName = "Helvetica-Nenu"
-            let x = tanh(CGFloat.pi / 180 * 15)
-            let matrix = CGAffineTransform(a: 1, b: 0, c: x, d: 1, tx: 0, ty: 0)
-            let desc = UIFontDescriptor(name: fontName, matrix: matrix)
-            font = UIFont(descriptor: desc, size: size)
-        }
-        return [NSAttributedStringKey.font : font,
+        return [NSAttributedStringKey.font : bold ? boldFont : normalFont,
+                NSAttributedStringKey.obliqueness : italic ? 0.3 : 0,
                 NSAttributedStringKey.foregroundColor : textColor,
                 NSAttributedStringKey.backgroundColor : backgroundColor,
-                NSAttributedStringKey.strikethroughStyle : NSNumber(value: deletionLine ? NSUnderlineStyle.styleSingle.rawValue :  NSUnderlineStyle.styleNone.rawValue),
+                NSAttributedStringKey.strikethroughStyle : deletionLine ? NSUnderlineStyle.styleSingle.rawValue :  NSUnderlineStyle.styleNone.rawValue,
                 NSAttributedStringKey.strikethroughColor : textColor
         ]
     }
@@ -100,7 +95,6 @@ struct MarkdownHighlightManager {
         Syntax("`{1,2}[^`](.*?)`{1,2}") {
             $0.textColor = rgb(71,91,98)
             $0.backgroundColor = Configure.shared.theme.value == .black ? rgb(50,50,50) : rgb(246,246,246)
-            $0.size = 17
         },//InlineCode
         Syntax("^[ \\t]*(\\>)(.*)\n",.anchorsMatchLines) {
             $0.textColor = rgb(129,140,140)
@@ -112,12 +106,10 @@ struct MarkdownHighlightManager {
         Syntax("^[ \\t]*\\n```([\\s\\S]*?)```[\\s]?",.anchorsMatchLines) {
             $0.textColor = rgb(71,91,98)
             $0.backgroundColor = Configure.shared.theme.value == .black ? rgb(50,50,50) : rgb(246,246,246)
-            $0.size = 17
         },//CodeBlock```包围的代码块
         Syntax("^[ \\t]*(\\n( {4}|\\t).+)+[\\s]?",.anchorsMatchLines) {
             $0.textColor = rgb(71,91,98)
             $0.backgroundColor = Configure.shared.theme.value == .black ? rgb(50,50,50) : rgb(246,246,246)
-            $0.size = 17
         },//ImplicitCodeBlock4个缩进也算代码块
     ]
 
@@ -125,7 +117,7 @@ struct MarkdownHighlightManager {
         let len = (text as NSString).length
         let nomarlColor = Configure.shared.theme.value == .black ? rgb(180,180,170) : rgb(53,57,63)
         let result = NSMutableAttributedString(string: text)
-        result.addAttributes([NSAttributedStringKey.font : UIFont.font(ofSize:17),
+        result.addAttributes([NSAttributedStringKey.font : normalFont,
                               NSAttributedStringKey.foregroundColor : nomarlColor], range: range(0,len))
         syntaxArray.forEach { (syntax) in
             syntax.expression.enumerateMatches(in: text, options: .reportCompletion, range: range(0, len), using: { (match, _, _) in

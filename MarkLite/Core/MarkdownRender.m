@@ -14,6 +14,22 @@
 
 #define kStylePath [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"Resources"]
 
+#define kTemplate @"<!DOCTYPE html>\
+<html>\
+<head>\
+  <meta charset=UTF-8>\
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=yes'>\
+  <title>%@</title>\
+  %@\
+  %@\
+  <script>hljs.initHighlightingOnLoad();</script>\
+  <script type='text/x-mathjax-config'>MathJax.Hub.Config({'showProcessingMessages': false, 'messageStyle': 'none'});</script>\
+</head>\
+<body>\
+  %@\
+</body>\
+</html>"
+
 NS_INLINE hoedown_renderer *MPCreateHTMLRenderer(int flags)
 {
     hoedown_renderer *htmlRenderer = hoedown_html_renderer_new(flags, 6);
@@ -130,13 +146,7 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
             [scriptsString appendFormat:@"\n<script src=\"%@\"></script>",[NSURL fileURLWithPath:[kStylePath stringByAppendingPathComponent:script]]];
         }
     }
-    static NSString *template = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString *path = [kStylePath stringByAppendingPathComponent:@"Templates/default.html"];
-        template = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
-    });
-    return [NSString stringWithFormat:template,title,styleSheets,scriptsString,body];
+    return [NSString stringWithFormat:kTemplate,title,styleSheets,scriptsString,body];
 }
 
 - (int)extensionFlags

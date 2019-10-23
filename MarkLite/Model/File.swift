@@ -343,22 +343,25 @@ class File {
     }
     
     func open(_ completion:((String?)->Void)?) {
-        synchoronized(token: self) {
-            if opened {
-                completion?(self.text)
+        if opened {
+            completion?(self.text)
+            File.current = self
+            return
+        }
+        if document == nil {
+            completion?(nil)
+            File.current = self
+            return
+        }
+        document?.open { successed in
+            if successed {
+                print("open successed")
+                self.opened = true
                 File.current = self
-                return
-            }
-            document?.open { successed in
-                if successed {
-                    print("open successed")
-                    self.opened = true
-                    File.current = self
-                    completion?(self.text)
-                } else {
-                    print("open failed")
-                    completion?(nil)
-                }
+                completion?(self.text)
+            } else {
+                print("open failed")
+                completion?(nil)
             }
         }
     }

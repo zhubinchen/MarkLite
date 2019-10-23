@@ -162,14 +162,14 @@
 "SubscribeNow"="免费试用";
 
 "Premium"="高级帐户";
-"SubscribeMonthly"="每月3元 免费试用3天";
-"SubscribeYearly"="每年24元 免费试用7天";
-"LifetimePremium"="永久高级帐户 45元";
+"SubscribeMonthly"="按月订阅";
+"SubscribeYearly"="按年订阅";
+"LifetimePremium"="永久买断";
 "Terms"="使用条款";
 "Privacy"="隐私策略";
-"SubscriptionPriceMonthly"="现在订阅可免费试用3天，试用期结束后自动续费，您可在任何时候取消订阅";
-"SubscriptionPriceYearly"="现在订阅可免费试用7天，试用期结束后自动续费，您可在任何时候取消订阅";
-"PremiumPriceLifetime"="买断制，一次性收费，终身有效";
+"SubscriptionPriceMonthly"="免费试用3天，试用期结束后每月3元，您可在任何时候取消订阅";
+"SubscriptionPriceYearly"="免费试用7天，试用期结束后每年24元，您可在任何时候取消订阅";
+"PremiumPriceLifetime"="一次性收费45元，终身有效，不限设备";
 "SubscriptionTitle"="订阅高级账户，支持作者后续开发，同时解锁以下实用功能:\n\n• 文档导出为任意格式(PDF,HTML,长图)\n\n• 使用Wi-Fi与电脑传输文件\n\n• 访问iCloud以及外部文件\n\n• 添加自定义样式";
 
 "SubscribeTips"="连续按月或按年订阅说明: \n\n• 订阅周期：按月订阅的周期是一个月；按年订阅的周期是一年。您可根据需要选择\n\n• 订阅价格： 按月订阅的价格是每月3元；按年订阅的价格是每年24元\n\n• 付款：用户确认购买并付款后记入iTunes账户\n\n• 取消续订：如需取消续订，请在当前订阅到期24小时以前，手动在iTunes/Apple ID设置管理中关闭自动续订功能\n\n• 续订：苹果iTunes账户会在到期前24小时内扣款，除非在当前订阅期之前24小时外关闭订阅";

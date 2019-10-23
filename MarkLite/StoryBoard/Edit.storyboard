@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lId-Dt-n2r">
-                                <rect key="frame" x="8" y="44" width="179.66666666666666" height="602"/>
+                                <rect key="frame" x="8" y="44" width="179.66666666666666" height="606"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Thonburi" family="Thonburi" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
@@ -26,13 +26,10 @@
                                 </connections>
                             </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A59-fe-PiA">
-                                <rect key="frame" x="0.0" y="646" width="187.66666666666666" height="44"/>
+                                <rect key="frame" x="0.0" y="650" width="187.66666666666666" height="40"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.85000002384185791" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000 字" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Als-NQ-ZQc">
                                         <rect key="frame" x="10" y="0.0" width="54" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="XDP-mT-bdQ"/>
-                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -41,7 +38,6 @@
                                         <rect key="frame" x="89.666666666666671" y="0.0" width="40.000000000000014" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="bqg-pk-jlT"/>
-                                            <constraint firstAttribute="height" constant="40" id="eC6-fQ-Vum"/>
                                         </constraints>
                                         <state key="normal" title="Undo"/>
                                         <connections>
@@ -51,7 +47,6 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vV5-i3-4Pf">
                                         <rect key="frame" x="137.66666666666666" y="0.0" width="40" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="JJ5-pc-dmL"/>
                                             <constraint firstAttribute="width" constant="40" id="PqV-wq-ylT"/>
                                         </constraints>
                                         <state key="normal" title="Redo"/>
@@ -62,13 +57,16 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Als-NQ-ZQc" secondAttribute="bottom" id="3ID-3p-2zm"/>
                                     <constraint firstItem="vV5-i3-4Pf" firstAttribute="leading" secondItem="aui-tE-OMW" secondAttribute="trailing" constant="8" id="BXl-u6-rP6"/>
                                     <constraint firstItem="vV5-i3-4Pf" firstAttribute="top" secondItem="Als-NQ-ZQc" secondAttribute="top" id="FIv-bs-2Ia"/>
                                     <constraint firstItem="aui-tE-OMW" firstAttribute="top" secondItem="Als-NQ-ZQc" secondAttribute="top" id="Fv9-hF-6iE"/>
+                                    <constraint firstAttribute="bottom" secondItem="aui-tE-OMW" secondAttribute="bottom" id="IqW-GK-aca"/>
                                     <constraint firstItem="Als-NQ-ZQc" firstAttribute="top" secondItem="A59-fe-PiA" secondAttribute="top" id="OIX-cz-dTg"/>
                                     <constraint firstAttribute="trailing" secondItem="vV5-i3-4Pf" secondAttribute="trailing" constant="10" id="OqI-Fo-ryC"/>
                                     <constraint firstItem="Als-NQ-ZQc" firstAttribute="leading" secondItem="A59-fe-PiA" secondAttribute="leading" constant="10" id="bHK-vG-PYE"/>
-                                    <constraint firstAttribute="height" constant="44" id="ekm-Wy-87Q"/>
+                                    <constraint firstAttribute="bottom" secondItem="vV5-i3-4Pf" secondAttribute="bottom" id="c3v-Bh-2Va"/>
+                                    <constraint firstAttribute="height" constant="40" id="ekm-Wy-87Q"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="StartEdit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5L-1x-TTM">

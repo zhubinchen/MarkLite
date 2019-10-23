@@ -128,36 +128,36 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
          
         previewVC.url = file.url
         textVC.assistBar.parent = file.parent
-        textVC.textChangedHandler = { [unowned self] (text,location) in
+        textVC.textChangedHandler = { [weak self] (text,location) in
             file.text = text
-            self.location = location
-            self.markdown = text
+            self?.location = location
+            self?.markdown = text
         }
         
-        textVC.offsetChangedHandler = { [unowned self] offset in
-            self.previewVC.offset = offset
+        textVC.offsetChangedHandler = { [weak self] offset in
+            self?.previewVC.offset = offset
         }
 
-        Configure.shared.markdownStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
-            self.markdownRenderer?.styleName = style
-            self.markdown = file.text
+        Configure.shared.markdownStyle.asObservable().subscribe(onNext: { [weak self] (style) in
+            self?.markdownRenderer?.styleName = style
+            self?.markdown = file.text
         }).disposed(by: bag)
         
-        Configure.shared.highlightStyle.asObservable().subscribe(onNext: { [unowned self] (style) in
-            self.markdownRenderer?.highlightName = style
-            self.markdown = file.text
+        Configure.shared.highlightStyle.asObservable().subscribe(onNext: { [weak self] (style) in
+            self?.markdownRenderer?.highlightName = style
+            self?.markdown = file.text
         }).disposed(by: bag)
         
-        Configure.shared.theme.asObservable().subscribe(onNext: { [unowned self] _ in
-            self.markdown = file.text
+        Configure.shared.theme.asObservable().subscribe(onNext: { [weak self] _ in
+            self?.markdown = file.text
         }).disposed(by: bag)
 
         
-        renderTimer = Timer.runThisEvery(seconds: 0.4) { [unowned self] _ in
-            guard let text = self.markdown else { return }
-            self.markdown = nil
-            let html = self.markdownRenderer?.renderMarkdown(text) ?? ""
-            self.previewVC.html = html
+        renderTimer = Timer.runThisEvery(seconds: 0.4) { [weak self] _ in
+            guard let text = self?.markdown else { return }
+            self?.markdown = nil
+            let html = self?.markdownRenderer?.renderMarkdown(text) ?? ""
+            self?.previewVC.html = html
         }
              
         textVC.editView.text = file.text

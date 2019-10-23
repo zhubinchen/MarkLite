@@ -95,7 +95,7 @@
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                         <state key="normal" title="Move"/>
                                         <connections>
-                                            <action selector="moveFiles" destination="70P-jv-iHb" eventType="touchUpInside" id="7Ze-QG-gq5"/>
+                                            <action selector="moveFiles:" destination="70P-jv-iHb" eventType="touchUpInside" id="iBl-up-Ktk"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njr-Si-XeC">
@@ -106,19 +106,33 @@
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                         <state key="normal" title="Delete"/>
                                         <connections>
-                                            <action selector="deleteFiles" destination="70P-jv-iHb" eventType="touchUpInside" id="I0i-Lt-opf"/>
+                                            <action selector="deleteFiles:" destination="70P-jv-iHb" eventType="touchUpInside" id="phK-Ot-SFg"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DpM-Tu-6zP">
+                                        <rect key="frame" x="167" y="0.0" width="80" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="ZTp-Ow-RhZ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                        <state key="normal" title="Send"/>
+                                        <connections>
+                                            <action selector="sendFiles:" destination="70P-jv-iHb" eventType="touchUpInside" id="AzP-AN-4mX"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="njr-Si-XeC" secondAttribute="trailing" constant="16" id="5ps-cb-Fg9"/>
+                                    <constraint firstAttribute="bottom" secondItem="DpM-Tu-6zP" secondAttribute="bottom" id="E1z-A7-w0K"/>
                                     <constraint firstItem="Tog-Qn-K2m" firstAttribute="top" secondItem="QsW-z4-ufw" secondAttribute="top" id="FpM-dE-V23"/>
+                                    <constraint firstItem="DpM-Tu-6zP" firstAttribute="top" secondItem="QsW-z4-ufw" secondAttribute="top" id="Juq-ay-2jx"/>
                                     <constraint firstItem="Tog-Qn-K2m" firstAttribute="leading" secondItem="QsW-z4-ufw" secondAttribute="leading" constant="16" id="K9B-5I-gYy"/>
                                     <constraint firstAttribute="height" constant="44" id="LUw-K2-gUd"/>
                                     <constraint firstAttribute="bottom" secondItem="Tog-Qn-K2m" secondAttribute="bottom" id="bCe-0D-d3U"/>
                                     <constraint firstAttribute="bottom" secondItem="njr-Si-XeC" secondAttribute="bottom" id="eOu-uZ-i8W"/>
                                     <constraint firstItem="njr-Si-XeC" firstAttribute="top" secondItem="QsW-z4-ufw" secondAttribute="top" id="ge8-zn-zE1"/>
+                                    <constraint firstItem="DpM-Tu-6zP" firstAttribute="centerX" secondItem="QsW-z4-ufw" secondAttribute="centerX" id="yjr-fq-VMo"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -151,6 +165,7 @@
                         <outlet property="emptyView" destination="lwZ-LC-JWr" id="qmw-yV-aTu"/>
                         <outlet property="moveButton" destination="Tog-Qn-K2m" id="B3w-Nn-ybC"/>
                         <outlet property="oprationViewBottom" destination="OKl-oj-WCq" id="s0r-C5-pcq"/>
+                        <outlet property="sendButton" destination="DpM-Tu-6zP" id="kIk-jp-Jnp"/>
                         <outlet property="tableView" destination="Trp-Pg-73x" id="i2J-oh-Uma"/>
                         <segue destination="e0v-YT-nJP" kind="show" identifier="file" id="bck-6G-L6N"/>
                         <segue destination="hAF-LB-VS1" kind="showDetail" identifier="edit" id="qPs-mA-JXd"/>

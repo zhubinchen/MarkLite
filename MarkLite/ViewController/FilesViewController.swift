@@ -19,6 +19,8 @@ class FilesViewController: UIViewController {
     @IBOutlet weak var deleteButton: UIButton!
     
     @IBOutlet weak var moveButton: UIButton!
+    
+    @IBOutlet weak var sendButton: UIButton!
 
     @IBOutlet weak var emptyView: UIView!
 
@@ -177,6 +179,7 @@ class FilesViewController: UIViewController {
         selectFiles = []
         let selected = selectFiles.count > 0
         moveButton.isEnabled = selected
+        sendButton.isEnabled = selected
         deleteButton.isEnabled = selected
         tableView.setEditing(tableView.isEditing == false, animated: true)
         setupBarButton()
@@ -197,6 +200,7 @@ class FilesViewController: UIViewController {
         }
         let selected = selectFiles.count > 0
         moveButton.isEnabled = selected
+        sendButton.isEnabled = selected
         deleteButton.isEnabled = selected
     }
     
@@ -248,7 +252,7 @@ class FilesViewController: UIViewController {
         }
     }
     
-    @IBAction func moveFiles() {
+    @IBAction func moveFiles(_ sender: UIButton) {
         if self.selectFiles.count == 0 {
             return
         }
@@ -261,7 +265,18 @@ class FilesViewController: UIViewController {
         multipleSelect()
     }
     
-    @IBAction func deleteFiles() {
+    @IBAction func sendFiles(_ sender: UIButton) {
+        if self.selectFiles.count == 0 {
+            return
+        }
+        let urls = self.selectFiles.mapFilter { return $0.url }
+        let vc = UIActivityViewController(activityItems: urls, applicationActivities: nil)
+        vc.popoverPresentationController?.sourceView = sender
+        vc.popoverPresentationController?.sourceRect = sender.superview!.convert(sender.frame, to: self.view)
+        self.presentVC(vc)
+    }
+    
+    @IBAction func deleteFiles(_ sender: UIButton) {
         if self.selectFiles.count == 0 {
             return
         }
@@ -624,6 +639,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
                 selectFiles.append(file)
                 let selected = selectFiles.count > 0
                 moveButton.isEnabled = selected
+                sendButton.isEnabled = selected
                 deleteButton.isEnabled = selected
             }
         } else if selectFolderMode {
@@ -639,6 +655,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
             selectFiles.removeAll { file == $0 }
             let selected = selectFiles.count > 0
             moveButton.isEnabled = selected
+            sendButton.isEnabled = selected
             deleteButton.isEnabled = selected
         }
     }

@@ -63,6 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBar.isTranslucent = false
         SVProgressHUD.setMinimumDismissTimeInterval(2)
         SVProgressHUD.setMaximumDismissTimeInterval(3)
+        SVProgressHUD.setDefaultMaskType(.clear)
         Configure.shared.setup()
         
         _ = Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in
@@ -104,7 +105,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func checkAppStore() {
-        guard let url = try? "https://itunes.apple.com/cn/lookup?id=\(appID)".asURL() else {
+        var localizations = ""
+        if Bundle.main.preferredLocalizations.first == "zh-Hans" {
+            localizations = "cn/"
+        }
+        guard let url = try? "https://itunes.apple.com/\(localizations)lookup?id=\(appID)".asURL() else {
             return
         }
         request(url).responseJSON { response in
