@@ -24,7 +24,7 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
         }
     }
     
-    var contentHeight: CGFloat = 1000 {
+    var contentHeight: CGFloat = 0 {
         didSet {
             webView.frame = CGRect(x: 0, y: 0, w: scrollView.w, h: contentHeight)
             scrollView.contentSize = CGSize(width: 0,height: contentHeight)
@@ -32,10 +32,16 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
     }
     
     var keyboardHeight: CGFloat = 0
-        
+    
+    var shouldRefresh = false
+    
+    var timer: Timer?
+
     var html: String = "" {
         didSet {
-            webView.loadHTMLString(html, baseURL: url)
+            if html != oldValue {
+                shouldRefresh = true
+            }
         }
     }
     
@@ -52,6 +58,8 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
         webView.scrollView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
 
         scrollView.delegate = self
+        scrollView.minimumZoomScale = 1
+        scrollView.maximumZoomScale = 1.5
         view.addSubview(scrollView)
         scrollView.addSubview(webView)
         
@@ -64,11 +72,22 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
         view.setBackgroundColor(.background)
         
         addNotificationObserver(Notification.Name.UIKeyboardWillChangeFrame.rawValue, selector: #selector(keyboardWillChange(_:)))
+        
+        timer = Timer.runThisEvery(seconds: 0.5, handler: { [weak self] _ in
+            if self?.shouldRefresh ?? false {
+                self?.refresh()
+            }
+        })
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        updateView()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        shouldRefresh = fabs(view.w - scrollView.w) > 20
+        scrollView.frame = CGRect(x: 0, y: 0, w: view.w, h: view.h - keyboardHeight)
+        if contentHeight == 0 {
+            contentHeight = scrollView.h
+        }
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -79,12 +98,10 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
         }
     }
     
-    func updateView() {
-        if fabs(view.w - scrollView.w) > 100 {
-            webView.loadHTMLString(html, baseURL: url)
-        }
-        scrollView.frame = CGRect(x: 0, y: 0, w: view.w, h: view.h - keyboardHeight)
-        contentHeight = scrollView.h
+    func refresh() {
+        webView.stopLoading()
+        webView.loadHTMLString(self.html, baseURL: url)
+        shouldRefresh = false
     }
     
     @objc func keyboardWillChange(_ noti: NSNotification) {
@@ -112,7 +129,13 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
         }
     }
     
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return webView
+    }
+    
     deinit {
+        webView.loadHTMLString("", baseURL: nil)
+        timer?.invalidate()
         removeNotificationObserver()
         webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
         print("deinit web_vc")

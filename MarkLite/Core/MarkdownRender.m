@@ -18,7 +18,7 @@
 <html>\
 <head>\
   <meta charset=UTF-8>\
-  <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=yes'>\
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=no'>\
   <title>%@</title>\
   %@\
   %@\
@@ -121,7 +121,7 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
     hoedown_renderer *htmlRenderer = MPCreateHTMLRenderer([self rendererFlags]);
     hoedown_renderer *tocRenderer = MPCreateHTMLTOCRenderer();
     int extensions = [self extensionFlags];
-    NSString *html = MPHTMLFromMarkdown(markdown, extensions, YES, htmlRenderer, tocRenderer);
+    NSString *html = MPHTMLFromMarkdown(markdown, extensions, NO, htmlRenderer, tocRenderer);
     hoedown_html_renderer_free(tocRenderer);
     MPFreeHTMLRenderer(htmlRenderer);
     

@@ -289,7 +289,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         switch type {
         case .pdf:
             let data = pdfRender.render(formatter: self.previewVC.webView.viewPrintFormatter())
-            let path = tempPath + "/" + file.name + ".pdf"
+            let path = tempPath + "/" + (file.displayName ?? file.name) + ".pdf"
             try? FileManager.default.removeItem(atPath: path)
             FileManager.default.createFile(atPath: path, contents: data, attributes: nil)
             let url = URL(fileURLWithPath: path)
@@ -301,7 +301,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         case .markdown:
             return URL(fileURLWithPath: file.path)
         case .html:
-            let path = tempPath + "/" + file.name + ".html"
+            let path = tempPath + "/" + (file.displayName ?? file.name) + ".html"
             let url = URL(fileURLWithPath: path)
             guard let data = previewVC.html.data(using: String.Encoding.utf8) else { return nil }
             try? data.write(to: url)
