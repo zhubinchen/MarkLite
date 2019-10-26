@@ -82,6 +82,8 @@ class TextViewController: UIViewController {
     
     @objc func keyboardWillChange(_ noti: NSNotification) {
         guard let frame = (noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        
+        assert(Thread.current == Thread.main, "zzzzzyyy")
         bottomSpace.constant = max(windowHeight - frame.y - 40 - bottomInset,0)
         UIView.animate(withDuration: 0.5, animations: {
             self.view.layoutIfNeeded()
@@ -117,12 +119,12 @@ class TextViewController: UIViewController {
 extension TextViewController: UITextViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let pan = scrollView.panGestureRecognizer
-        let velocity = pan.velocity(in: scrollView).y
-        if velocity < -10 {
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
-        } else if velocity > 10 { self.navigationController?.setNavigationBarHidden(false, animated: true)
-        }
+//        let pan = scrollView.panGestureRecognizer
+//        let velocity = pan.velocity(in: scrollView).y
+//        if velocity < -10 {
+//            self.navigationController?.setNavigationBarHidden(true, animated: true)
+//        } else if velocity > 10 { self.navigationController?.setNavigationBarHidden(false, animated: true)
+//        }
         
         let offset = scrollView.contentOffset.y
         if offset == 0 || offset == self.offset {

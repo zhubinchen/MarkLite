@@ -186,6 +186,7 @@ class FilesViewController: UIViewController {
         if root == File.inbox {
             return
         }
+        assert(Thread.current == Thread.main, "zzzzz")
         oprationViewBottom.constant = tableView.isEditing ? 0 : -44 - bottomInset
         UIView.animate(withDuration: 0.5) {
             self.view.layoutIfNeeded()
