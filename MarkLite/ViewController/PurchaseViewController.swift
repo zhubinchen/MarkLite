@@ -26,21 +26,19 @@ class PurchaseViewController: UIViewController {
 
         setupUI()
         MobClick.event("enter_purchase")
-        
-        topSpace.constant = security ? 20 : 60
     }
     
     func setupUI() {
         navBar?.setTintColor(.navTint)
         navBar?.setBackgroundColor(.navBar)
         navBar?.setTitleColor(.navTitle)
-        yearlyButton.setBackgroundColor(.tint)
+//        yearlyButton.setBackgroundColor(.tint)
         monthlyButton.setBackgroundColor(.tint)
         foreverButton.setBackgroundColor(.tint)
         titleLabel.setTextColor(.primary)
-        priceYearlyLabel.setTextColor(.secondary)
-        priceMonthlyLabel.setTextColor(.secondary)
-        priceForeverLabel.setTextColor(.secondary)
+//        priceYearlyLabel.setTextColor(.primary)
+        priceMonthlyLabel.setTextColor(.primary)
+        priceForeverLabel.setTextColor(.primary)
         tipsLabel.setTextColor(.secondary)
         view.setBackgroundColor(.background)
         view.setTintColor(.tint)

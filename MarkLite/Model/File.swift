@@ -82,6 +82,18 @@ class File {
         return _children.filter{ $0.type == .folder }
     }
     
+    var visibleFolders: [File] {
+        if !expand {
+            return []
+        }
+        var visibleFolders = [File]()
+        folders.forEach { folder in
+            visibleFolders.append(folder)
+            visibleFolders.append(contentsOf: folder.visibleFolders)
+        }
+        return visibleFolders
+    }
+    
     var text: String? {
         get {
             return document?.text
@@ -95,7 +107,13 @@ class File {
         }
     }
     
-    var expand = false
+    var expand = false {
+        didSet {
+            if expand == false {
+                self.folders.forEach { $0.expand = false }
+            }
+        }
+    }
         
     var deep: Int {
         if let parent = self.parent {
@@ -201,6 +219,7 @@ class File {
         let file = File(path: "")
         file.disable = true
         file.displayName = name
+        file.name = name
         return file
     }
     
@@ -373,6 +392,7 @@ extension File {
         DispatchQueue.global().async {
             let location = File(path: locationPath)
             location.displayName = /"AddLocation"
+            location.name = /"AddLocation"
             File.location = location
             DispatchQueue.main.sync {
                 completion(location)
@@ -384,6 +404,7 @@ extension File {
         DispatchQueue.global().async {
             let inbox = File(path: inboxPath)
             inbox.displayName = /"External"
+            inbox.name = /"External"
             File.inbox = inbox
             DispatchQueue.main.sync {
                 completion(inbox)
@@ -395,6 +416,7 @@ extension File {
         DispatchQueue.global().async {
             let local = File(path: documentPath)
             local.displayName = /"Local"
+            local.name = /"Local"
             File.local = local
             DispatchQueue.main.sync {
                 completion(local)
@@ -411,6 +433,7 @@ extension File {
                 cloud.disable = true
             }
             cloud.displayName = /"Cloud"
+            cloud.name = /"Cloud"
             File.cloud = cloud
             DispatchQueue.main.sync {
                  completion(cloud)

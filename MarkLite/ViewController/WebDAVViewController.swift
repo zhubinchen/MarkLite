@@ -46,7 +46,7 @@ class WebDAVViewController: UIViewController, GCDWebUploaderDelegate {
     }
     
     @IBAction func copyAddress(_ sender: UIButton!) {
-        UIPasteboard.general.string = sender.currentTitle
+        UIPasteboard.general.string = sender.currentTitle ?? ""
         SVProgressHUD.showSuccess(withStatus: /"CopiedAddress")
     }
     

@@ -98,7 +98,7 @@ class FilesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if !isMovingToParentViewController {
+        if !isMovingToParentViewController && !selectFolderMode {
             refresh()
         }
         
@@ -444,19 +444,23 @@ class FilesViewController: UIViewController {
         let cell = tableView.cellForRow(at: indexPath)
         if selectedFolder!.folders.count > 0 {
             var indexPaths = [IndexPath]()
-            for i in 1...selectedFolder!.folders.count {
-                indexPaths.append(IndexPath(row: indexPath.row + i, section: indexPath.section))
-            }
             if selectedFolder!.expand {
                 files.removeAll { item -> Bool in
-                    return selectedFolder!.folders.contains{ $0 == item }
+                    return selectedFolder!.visibleFolders.contains{ $0 == item }
+                }
+                for i in 1...selectedFolder!.visibleFolders.count {
+                    indexPaths.append(IndexPath(row: indexPath.row + i, section: indexPath.section))
                 }
                 tableView.deleteRows(at: indexPaths, with: .top)
+                selectedFolder!.expand = false
             } else {
-                files.insert(contentsOf: selectedFolder!.folders, at: indexPath.row + 1)
+                selectedFolder!.expand = true
+                files.insert(contentsOf: selectedFolder!.visibleFolders, at: indexPath.row + 1)
+                for i in 1...selectedFolder!.visibleFolders.count {
+                    indexPaths.append(IndexPath(row: indexPath.row + i, section: indexPath.section))
+                }
                 tableView.insertRows(at: indexPaths, with: .bottom)
             }
-            selectedFolder!.expand = !selectedFolder!.expand
             (cell?.accessoryView as? UIImageView)?.tintImage = selectedFolder!.expand ?  #imageLiteral(resourceName: "icon_expand") : #imageLiteral(resourceName: "icon_forward")
         }
     }
@@ -521,13 +525,15 @@ class FilesViewController: UIViewController {
         tableView.setSeparatorColor(.primary)
         emptyView.setBackgroundColor(.background)
         
-        pulldDownLabel.text = Configure.shared.sortOption.next.displayName
-        pulldDownLabel.setTextColor(.secondary)
-        pulldDownLabel.font = UIFont.font(ofSize: 14)
-        tableView.addPullDownView(pulldDownLabel, bag: bag) { [unowned self] in
-            Configure.shared.sortOption = Configure.shared.sortOption.next
-            self.pulldDownLabel.text = Configure.shared.sortOption.next.displayName
-            self.refresh()
+        if !selectFolderMode {
+            pulldDownLabel.text = Configure.shared.sortOption.next.displayName
+            pulldDownLabel.setTextColor(.secondary)
+            pulldDownLabel.font = UIFont.font(ofSize: 14)
+            tableView.addPullDownView(pulldDownLabel, bag: bag) { [unowned self] in
+                Configure.shared.sortOption = Configure.shared.sortOption.next
+                self.pulldDownLabel.text = Configure.shared.sortOption.next.displayName
+                self.refresh()
+            }
         }
     }
     
@@ -580,9 +586,8 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "item", for: indexPath) as! BaseTableViewCell
         let file = sections[indexPath.section][indexPath.row]
-        let isSystemSection = isHomePage && indexPath.section == 0
         
-        if file.type == .location || isSystemSection || Configure.shared.showExtensionName == false {
+        if file.type == .location || Configure.shared.showExtensionName == false {
             cell.textLabel?.text = file.displayName ?? file.name
         } else {
             cell.textLabel?.text = file.name
@@ -612,10 +617,10 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
             cell.imageView?.tintImage = icon
         }
         
-        cell.needUnlock = isSystemSection && Configure.shared.isPro == false && security
+        cell.needUnlock = isHomePage && indexPath.section == 0 && Configure.shared.isPro == false && security
                 
         if selectFolderMode {
-            cell.indentationWidth = 20
+            cell.indentationWidth = 10
             cell.detailTextLabel?.text = nil
         }
         return cell

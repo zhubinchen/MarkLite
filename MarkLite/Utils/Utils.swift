@@ -109,8 +109,7 @@ extension String {
     }
     
     func substring(with nsRange: NSRange) -> String {
-        let str = self[nsRange.location..<nsRange.location + nsRange.length]
-        return str
+        return self.substring(with: rangeFromNSRange(nsRange)!)
     }
     
     func replacingCharacters(in nsRange: NSRange, with newString: String) -> String {
