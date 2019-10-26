@@ -30,7 +30,7 @@ var bottomInset: CGFloat {
 }
 
 var security: Bool {
-    let date = Date(fromString: "2019-10-22", format: "yyyy-MM-dd")!
+    let date = Date(fromString: "2019-10-28", format: "yyyy-MM-dd")!
     let now = Date()
     return now > date
 }

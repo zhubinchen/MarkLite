@@ -65,7 +65,7 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
         hoedown_html_smartypants(ob, ib->data, ib->size);
         hoedown_buffer_free(ib);
     }
-    NSString *result = [NSString stringWithUTF8String:hoedown_buffer_cstr(ob)];
+    NSString *result = [NSString stringWithUTF8String:hoedown_buffer_cstr(ob)] ?: @"";
     hoedown_document_free(document);
     hoedown_buffer_free(ob);
     
