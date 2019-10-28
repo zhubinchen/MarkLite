@@ -59,7 +59,7 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
 
         scrollView.delegate = self
         scrollView.minimumZoomScale = 1
-        scrollView.maximumZoomScale = 1.5
+        scrollView.maximumZoomScale = 2
         view.addSubview(scrollView)
         scrollView.addSubview(webView)
         
@@ -80,14 +80,11 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
         })
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        shouldRefresh = fabs(view.w - scrollView.w) > 20
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        shouldRefresh = true
         scrollView.frame = CGRect(x: 0, y: 0, w: view.w, h: view.h - keyboardHeight)
-        if contentHeight == 0 {
-            contentHeight = scrollView.h
-        }
+        contentHeight = scrollView.h
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

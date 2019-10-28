@@ -48,6 +48,7 @@ class KeyboardBar: UIView {
         (#imageLiteral(resourceName: "bar_deleteLine"), #selector(tapDeletion)),
         (#imageLiteral(resourceName: "bar_quote"), #selector(tapQuote)),
         (#imageLiteral(resourceName: "bar_code"), #selector(tapCode)),
+        ("-", #selector(tapChar(_:))),
         ("\"", #selector(tapChar(_:))),
         ("`", #selector(tapChar(_:))),
         ("@", #selector(tapChar(_:))),
@@ -60,7 +61,6 @@ class KeyboardBar: UIView {
         ("*", #selector(tapChar(_:))),
         ("=", #selector(tapChar(_:))),
         ("+", #selector(tapChar(_:))),
-        ("-", #selector(tapChar(_:))),
         ("/", #selector(tapChar(_:))),
         ("?", #selector(tapChar(_:))),
         ("<", #selector(tapChar(_:))),
@@ -79,7 +79,7 @@ class KeyboardBar: UIView {
     init() {
         super.init(frame: CGRect(x: 0, y: 0, w: windowWidth, h: 50))
 
-        self.backgroundColor = rgb("F2F2F6")
+        setBackgroundColor(.tableBackground)
         
         items.forEachEnumerated { (index, item) in
             let button = item.0.makeButton()

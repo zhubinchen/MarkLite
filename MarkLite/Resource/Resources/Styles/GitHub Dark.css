@@ -4,7 +4,7 @@ body {
   line-height: 1.6;
   padding-top: 10px;
   padding-bottom: 10px;
-  background-color: #202020;
+  background-color: #161616;
   color: #888888;
   padding: 5px; }
 
@@ -153,7 +153,7 @@ table {
   padding: 0;border-collapse: collapse; }
   table tr {
     border-top: 1px solid #303030;
-    background-color: #202020;
+    background-color: #161616;
     margin: 0;
     padding: 0; }
     table tr:nth-child(2n) {

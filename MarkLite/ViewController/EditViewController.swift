@@ -42,7 +42,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
     }
     
     var landscape: Bool {
-        return windowWidth > windowHeight
+        return windowWidth > windowHeight * 0.8
     }
     
     var split: Bool {
@@ -75,6 +75,8 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.setBackgroundColor(.background)
+
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
         }
@@ -104,9 +106,15 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         super.viewWillLayoutSubviews()
         textViewWidth.isActive = split
         textVC.seperator.isHidden = split == false
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         toggleRightBarButton()
-        if isPad {
+        if isPad && (splitViewController?.isCollapsed ?? false) == false {
             navigationItem.leftBarButtonItem = landscape ? fullscreenButton : filelistButton
+        } else {
+            navigationItem.leftBarButtonItem = nil
         }
     }
     
@@ -211,6 +219,10 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         textVC.editView.resignFirstResponder()
         scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)
         toggleRightBarButton()
+    }
+    
+    @objc func showFileList() {
+        splitViewController?.preferredDisplayMode = .primaryOverlay
     }
     
     @objc func fullscreen() {
@@ -370,8 +382,8 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
            let export = UIBarButtonItem(image: #imageLiteral(resourceName: "nav_files"),
                        landscapeImagePhone: #imageLiteral(resourceName: "nav_files"),
                        style: .plain,
-                       target: splitViewController?.displayModeButtonItem.target,
-                       action: splitViewController?.displayModeButtonItem.action)
+                       target: self,
+                       action: #selector(showFileList))
            return export
        }()
        

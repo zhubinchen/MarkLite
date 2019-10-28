@@ -118,7 +118,7 @@ class Configure: NSObject, NSCoding {
     
     func reset() {
         upgradeDate = Date()
-        currentVerion = nil
+        currentVerion = appVersion
         markdownStyle.value = "GitHub"
         highlightStyle.value = "tomorrow"
         theme.value = .white
@@ -126,24 +126,49 @@ class Configure: NSObject, NSCoding {
         sortOption = .modifyDate
         darkOption.value = .light
         showExtensionName = false
+        
         let destStylePath = URL(fileURLWithPath: supportPath)
         try! Zip.unzipFile(Bundle.main.url(forResource: "Resources", withExtension: "zip")!, destination: destStylePath, overwrite: true, password: nil, progress: nil)
+        
+        if let path = Bundle.main.path(forResource: /"Instructions", ofType: "md") {
+            let newPath = documentPath + "/" + /"Instructions" + ".md"
+            try? FileManager.default.copyItem(atPath: path, toPath: newPath)
+        }
+        if let path = Bundle.main.path(forResource: /"Syntax", ofType: "md") {
+            let newPath = documentPath + "/" + /"Syntax" + ".md"
+            try? FileManager.default.copyItem(atPath: path, toPath: newPath)
+        }
+        
         setup()
     }
     
     func upgrade() {
         upgradeDate = Date()
 
-        if let path = Bundle.main.path(forResource: /"Instructions", ofType: "md") {
-            let newPath = documentPath + "/" + /"Instructions" + ".md"
+        let tempPathURL = URL(fileURLWithPath: tempPath)
+        try! Zip.unzipFile(Bundle.main.url(forResource: "Resources", withExtension: "zip")!, destination: tempPathURL, overwrite: true, password: nil, progress: nil)
+        let tempStylePath = tempPath + "/Resources/Styles"
+        let destStylePath = supportPath + "/Resources/Styles"
+        FileManager.default.subpaths(atPath: tempStylePath)?.filter{ $0.hasSuffix(".css") }.forEach{ subpath in
+            let fullPath = tempStylePath + "/" + subpath
+            let newPath = destStylePath + "/" + subpath
             try? FileManager.default.removeItem(atPath: newPath)
-            try? FileManager.default.copyItem(atPath: path, toPath: newPath)
+            try? FileManager.default.moveItem(atPath: fullPath, toPath: newPath)
         }
         
+        if let path = Bundle.main.path(forResource: /"Instructions", ofType: "md") {
+            let newPath = documentPath + "/" + /"Instructions" + ".md"
+            if FileManager.default.fileExists(atPath: newPath) {
+                try? FileManager.default.removeItem(atPath: newPath)
+                try? FileManager.default.copyItem(atPath: path, toPath: newPath)
+            }
+        }
         if let path = Bundle.main.path(forResource: /"Syntax", ofType: "md") {
             let newPath = documentPath + "/" + /"Syntax" + ".md"
-            try? FileManager.default.removeItem(atPath: newPath)
-            try? FileManager.default.copyItem(atPath: path, toPath: newPath)
+            if FileManager.default.fileExists(atPath: newPath) {
+                try? FileManager.default.removeItem(atPath: newPath)
+                try? FileManager.default.copyItem(atPath: path, toPath: newPath)
+            }
         }        
     }
     

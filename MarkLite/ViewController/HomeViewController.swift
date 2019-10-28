@@ -20,6 +20,6 @@ class HomeViewController: UISplitViewController, UISplitViewControllerDelegate {
     }
     
     public func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
-        return isPhone
+        return true
     }
 }
