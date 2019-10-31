@@ -30,7 +30,7 @@ enum ExportType: String {
     }
 }
 
-class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIPopoverPresentationControllerDelegate {
+class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet var textViewWidth: NSLayoutConstraint!
     
@@ -259,7 +259,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
         textVC.editView.resignFirstResponder()
         
         let items = [ExportType.markdown,.pdf,.html,.image]
-        var pos = CGPoint(x: windowWidth - 140, y: 65)
+        var pos = CGPoint(x: windowWidth - 150, y: 45 + topInset)
         
         func export(_ index: Int) {
             guard let url = self.url(for: items[index]) else { return }
@@ -268,7 +268,7 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
             self.presentVC(vc)
         }
         
-        MenuView(items: items.map{$0.displayName},
+        MenuView(items: items.map{($0.displayName,!($0 == .markdown || Configure.shared.isPro))},
                  postion: pos) { (index) in
                     if index > 0 {
                         self.doIfPro {
@@ -307,9 +307,11 @@ class EditViewController: UIViewController, ImageSaver, UIScrollViewDelegate,UIP
             let url = URL(fileURLWithPath: path)
             return url
         case .image:
-            guard let img = self.previewVC.webView.scrollView.snap, let _ = UIImagePNGRepresentation(img) else { return nil }
-            saveImage(img)
-            return nil
+            guard let img = self.previewVC.webView.scrollView.snap, let data = UIImagePNGRepresentation(img) else { return nil }
+            let path = tempPath + "/" + (file.displayName ?? file.name) + ".png"
+            let url = URL(fileURLWithPath: path)
+            try? data.write(to: url)
+            return url
         case .markdown:
             return URL(fileURLWithPath: file.path)
         case .html:

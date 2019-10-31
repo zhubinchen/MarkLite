@@ -8,12 +8,25 @@
 
 import UIKit
 
-let boldFont = UIFont.font(ofSize: 17, bold: true)
-let normalFont = UIFont.font(ofSize: 17)
+let boldFont = { () -> UIFont in
+    return UIFont.monospacedDigitSystemFont(ofSize: 17, weight: UIFont.Weight.medium)
+}()
+
+let normalFont = { () -> UIFont in
+    return UIFont.monospacedDigitSystemFont(ofSize: 17, weight: UIFont.Weight.regular)
+}()
+
+let paragraphStyle = { () -> NSMutableParagraphStyle in
+    let paraStyle = NSMutableParagraphStyle()
+    paraStyle.maximumLineHeight = 23
+    paraStyle.minimumLineHeight = 23
+    paraStyle.lineSpacing = 3
+    return paraStyle
+}()
 
 class HighlightStyle {
     
-    var textColor: UIColor = Configure.shared.theme.value == .black ? rgb(200,200,190) : rgb(53,57,63)
+    var textColor: UIColor = Configure.shared.theme.value == .black ? rgb(200,200,190) : rgb(54,54,64)
     var backgroundColor: UIColor = .clear
     var italic: Bool = false
     var bold: Bool = false
@@ -26,7 +39,8 @@ class HighlightStyle {
                 NSAttributedStringKey.foregroundColor : textColor,
                 NSAttributedStringKey.backgroundColor : backgroundColor,
                 NSAttributedStringKey.strikethroughStyle : deletionLine ? NSUnderlineStyle.styleSingle.rawValue :  NSUnderlineStyle.styleNone.rawValue,
-                NSAttributedStringKey.strikethroughColor : textColor
+                NSAttributedStringKey.strikethroughColor : textColor,
+                NSAttributedStringKey.paragraphStyle : paragraphStyle
         ]
     }
 }
@@ -81,7 +95,8 @@ struct MarkdownHighlightManager {
             $0.deletionLine = true
         },//Deletions
         Syntax("==\\S([^=\\n]+?)==") {
-            $0.backgroundColor = rgb(240,240,10)
+            $0.textColor = rgb(54,54,64)
+            $0.backgroundColor = rgb(240,240,20)
         },//Highlight
         Syntax("\\$([^`\\n\\$]+?)\\$") {
             $0.textColor = rgb(139,69,19)
@@ -115,9 +130,11 @@ struct MarkdownHighlightManager {
 
     func highlight(_ text: String) -> NSAttributedString {
         let len = (text as NSString).length
-        let nomarlColor = Configure.shared.theme.value == .black ? rgb(180,180,170) : rgb(53,57,63)
+        let nomarlColor = Configure.shared.theme.value == .black ? rgb(200,200,190) : rgb(54,54,64)
         let result = NSMutableAttributedString(string: text)
+
         result.addAttributes([NSAttributedStringKey.font : normalFont,
+                              NSAttributedStringKey.paragraphStyle : paragraphStyle,
                               NSAttributedStringKey.foregroundColor : nomarlColor], range: range(0,len))
         syntaxArray.forEach { (syntax) in
             syntax.expression.enumerateMatches(in: text, options: .reportCompletion, range: range(0, len), using: { (match, _, _) in

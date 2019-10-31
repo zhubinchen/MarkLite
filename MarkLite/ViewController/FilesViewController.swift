@@ -382,7 +382,7 @@ class FilesViewController: UIViewController {
         SVProgressHUD.show()
         DispatchQueue.global().async {
             do {
-                try Zip.unzipFile(url, destination: destURL, overwrite: false, password: nil, progress: { progress in
+                try Zip.unzipFile(url, destination: destURL, overwrite: true, password: nil, progress: { progress in
 
                 })
                 DispatchQueue.main.async {
@@ -393,11 +393,10 @@ class FilesViewController: UIViewController {
             } catch {
                 DispatchQueue.main.async {
                     SVProgressHUD.dismiss()
-                    SVProgressHUD.showError(withStatus: "UnzipFailed")
+                    SVProgressHUD.showError(withStatus: /"UnzipFailed")
                 }
             }
         }
-
     }
     
     func goToRoot(_ root: File) {

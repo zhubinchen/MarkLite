@@ -37,8 +37,9 @@ class KeyboardBar: UIView {
     let scrollView = UIScrollView()
     var endButton: UIButton!
 
-    let items: [(ButtonConvertiable,Selector)] = [
-        (#imageLiteral(resourceName: "tab"), #selector(tapTab(_:))),
+    let items: [(ButtonConvertiable,Selector)] = {
+        var items: [(ButtonConvertiable,Selector)] = [
+        (#imageLiteral(resourceName: "tab"), #selector(tapTab)),
         (#imageLiteral(resourceName: "bar_image"), #selector(tapImage(_:))),
         (#imageLiteral(resourceName: "bar_link"), #selector(tapLink)),
         (#imageLiteral(resourceName: "bar_header"), #selector(tapHeader)),
@@ -47,25 +48,13 @@ class KeyboardBar: UIView {
         (#imageLiteral(resourceName: "highlight"), #selector(tapHighliht)),
         (#imageLiteral(resourceName: "bar_deleteLine"), #selector(tapDeletion)),
         (#imageLiteral(resourceName: "bar_quote"), #selector(tapQuote)),
-        (#imageLiteral(resourceName: "bar_code"), #selector(tapCode)),
-        ("-", #selector(tapChar(_:))),
-        ("\"", #selector(tapChar(_:))),
-        ("`", #selector(tapChar(_:))),
-        ("@", #selector(tapChar(_:))),
-        ("(", #selector(tapChar(_:))),
-        (")", #selector(tapChar(_:))),
-        ("[", #selector(tapChar(_:))),
-        ("]", #selector(tapChar(_:))),
-        ("|", #selector(tapChar(_:))),
-        ("#", #selector(tapChar(_:))),
-        ("*", #selector(tapChar(_:))),
-        ("=", #selector(tapChar(_:))),
-        ("+", #selector(tapChar(_:))),
-        ("/", #selector(tapChar(_:))),
-        ("?", #selector(tapChar(_:))),
-        ("<", #selector(tapChar(_:))),
-        (">", #selector(tapChar(_:))),
+        (#imageLiteral(resourceName: "bar_code"), #selector(tapCode))
         ]
+        items.append(contentsOf: Configure.shared.keyboardBarItems.mapFilter(mapFunction: { item -> (ButtonConvertiable,Selector) in
+            return (item, #selector(tapChar(_:)))
+        }))
+        return items
+    }()
     
     weak var textView: UITextView?
     weak var viewController: UIViewController?
@@ -117,16 +106,28 @@ class KeyboardBar: UIView {
         textView?.insertText(char)
     }
     
-    @objc func tapTab(_ sender: UIButton) {
+    @objc func tapTab() {
         textView?.insertText("\t")
     }
 
     @objc func tapImage(_ sender: UIButton) {
+        self.menu?.dismiss(sender: self.menu?.superview as? UIControl)
         guard let vc = viewController else { return }
-        imagePicker = ImagePicker(viewController: vc, completionHanlder: { (image) in
-            self.didPickImage(image)
-        })
-        imagePicker?.pickImage(sender)
+        let pos = sender.superview!.convert(sender.center, to: sender.window)
+        let menu = MenuView(items: [/"PickFromPhotos",/"PickFromCamera",/"Scrawl"].map{($0,false)},
+                 postion: CGPoint(x: pos.x - 20, y: pos.y - 150)) { [weak self] (index) in
+                    if index == 0 {
+                        self?.imagePicker = ImagePicker(viewController: vc){ self?.didPickImage($0) }
+                        self?.imagePicker?.pickFromLibray()
+                    } else if index == 1 {
+                        self?.imagePicker = ImagePicker(viewController: vc){ self?.didPickImage($0) }
+                        self?.imagePicker?.pickFromCamera()
+                    } else {
+                        
+                    }
+        }
+        menu.show()
+        self.menu = menu
     }
     
     @objc func tapLink() {
@@ -164,11 +165,12 @@ class KeyboardBar: UIView {
             textView.selectedRange = NSMakeRange(currentRange.location + 1, insertText.length)
         }
     }
+    
     @objc func tapHeader(_ sender: UIButton) {
         guard let textView = self.textView else { return }
         self.menu?.dismiss(sender: self.menu?.superview as? UIControl)
         let pos = sender.superview!.convert(sender.center, to: sender.window)
-        let menu = MenuView(items: [/"Header1",/"Header2",/"Header3",/"Header4"],
+        let menu = MenuView(items: [/"Header1",/"Header2",/"Header3",/"Header4"].map{($0,false)},
                  postion: CGPoint(x: pos.x - 20, y: pos.y - 190)) { (index) in
                     let currentRange = textView.selectedRange
                     let insertText = ("#" * (index+1)) + " " + /"Header"
@@ -178,6 +180,7 @@ class KeyboardBar: UIView {
         menu.show()
         self.menu = menu
     }
+    
     @objc func tapDeletion() {
         guard let textView = self.textView else { return }
 

@@ -91,6 +91,7 @@ class Configure: NSObject, NSCoding {
     let splitOption = Variable(SplitOption.automatic)
     var sortOption = SortOption.modifyDate
     let darkOption = Variable(DarkModeOption.light)
+    var keyboardBarItems = ["-","`","$","/","\"","?","@","(",")","[","]","|","#","*","=","+","<",">"]
 
     override init() {
         super.init()

@@ -60,12 +60,10 @@
 "UploadImage"="上传图片";
 "ImageUploadTips"="本地引用不需要网络即可完成，但是相对路径改变时会无法加载图片";
 
-"PDF"="PDF 文档";
-"WebPage"="Web 页面";
-"Image"="长屏截图";
-"Markdown"="Markdown";
-"SaveFailed"="保存失败";
-"SaveSuccessed"="已保存到手机相册";
+"PDF"="PDF文档";
+"WebPage"="HTML";
+"Image"="PNG图片";
+"Markdown"="原始文本";
 "CopiedAddress"="地址已拷贝到剪切板";
 
 "Settings"="设置";
@@ -138,9 +136,9 @@
 "EnterLink"="在这输入链接描述";
 "EnterPlaceholder"="Alt";
 
-"PickImage"="选取图片";
-"Photo"="相册";
-"Camera"="相机";
+"PickFromPhotos"="从相册选取";
+"PickFromCamera"="打开相机";
+"Scrawl"="创作涂鸦";
 "CameraError"="没有访问相机的权限";
 "PhotoError"="没有访问照片的权限";
 "EnableCameraTips"="去iPhone的【设置】图标，打开【隐私】，打开【相机】，找到【Markdown】开启即可";

@@ -29,8 +29,16 @@ var bottomInset: CGFloat {
     }
 }
 
+var topInset: CGFloat {
+    if #available(iOS 11.0, *) {
+        return UIApplication.shared.keyWindow?.safeAreaInsets.top ?? 20
+    } else {
+        return 20
+    }
+}
+
 var security: Bool {
-    let date = Date(fromString: "2019-10-28", format: "yyyy-MM-dd")!
+    let date = Date(fromString: "2019-10-30", format: "yyyy-MM-dd")!
     let now = Date()
     return now > date
 }

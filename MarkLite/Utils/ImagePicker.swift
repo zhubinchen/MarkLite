@@ -22,16 +22,6 @@ class ImagePicker: NSObject {
         super.init()
     }
     
-    func pickImage(_ sender: UIView? = nil) {
-        vc?.showActionSheet(sender: sender, title: /"PickImage", actionTitles: [/"Photo",/"Camera"]) { [unowned self] (index) in
-            if index == 0 {
-                self.pickFromLibray()
-            } else if index == 1 {
-                self.pickFromCamera()
-            }
-        }
-    }
-    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         picker.dismissVC(completion: nil)
 

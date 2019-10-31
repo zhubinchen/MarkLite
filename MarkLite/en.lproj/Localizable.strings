@@ -61,11 +61,9 @@
 "ImageUploadTips"="Choose the reference type of image";
 
 "PDF"="PDF";
-"WebPage"="Web pages";
-"Image"="Picture";
-"Markdown"="Markdown";
-"SaveFailed"="Save to Photo Failed";
-"SaveSuccessed"="Save to Photo Successed";
+"WebPage"="HTML";
+"Image"="PNG";
+"Markdown"="Text";
 "CopiedAddress"="Copied Address";
 
 "Settings"="Settings";
@@ -138,9 +136,9 @@
 "EnterLink"="Link description";
 "EnterPlaceholder"="Alt";
 
-"PickImage"="Pick an image";
-"Photo"="Photos";
-"Camera"="Camera";
+"PickFromPhotos"="From Photos";
+"PickFromCamera"="Open Camera";
+"Scrawl"="Scrawl";
 "CameraError"="Can Not Access Your Camera";
 "PhotoError"="Can Not Access Your Photos";
 "EnableCameraTips"="Tap \"settings\" icon, find and tap \"privacy\", tap \"Camera\", find \"Markdown\" and enable it.";

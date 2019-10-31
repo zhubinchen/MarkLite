@@ -196,9 +196,11 @@ extension SettingsViewController {
     }
     
     @objc func webdav() {
-        doIfPro {
-            self.performSegue(withIdentifier: "webdav", sender: nil)
-        }
+        let vc = KeyboardBarViewController()
+        pushVC(vc)
+//        doIfPro {
+//            self.performSegue(withIdentifier: "webdav", sender: nil)
+//        }
     }
     
     @objc func theme() {
