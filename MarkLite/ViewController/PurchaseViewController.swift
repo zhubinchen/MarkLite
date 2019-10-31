@@ -43,29 +43,36 @@ class PurchaseViewController: UIViewController {
         view.setBackgroundColor(.background)
         view.setTintColor(.tint)
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
+        if (navigationController?.viewControllers.count ?? 0) == 1 {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
+        }
     }
     
     @objc func close() {
+        impactIfAllow()
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func subscribeMonthly(_ sender: UIButton!) {
+        impactIfAllow()
         MobClick.event("begin_purchase_monthly")
         purchaseProduct(premiumMonthlyProductID)
     }
     
     @IBAction func subscribeYearly(_ sender: UIButton!) {
+        impactIfAllow()
         MobClick.event("begin_purchase_yearly")
         purchaseProduct(premiumYearlyProductID)
     }
     
     @IBAction func subscribeLifetime(_ sender: UIButton!) {
+        impactIfAllow()
         MobClick.event("begin_purchase_forever")
         purchaseProduct(premiumForeverProductID)
     }
     
     @IBAction func restore(_ sender: UIButton!) {
+        impactIfAllow()
         SVProgressHUD.show()
 
         IAP.restorePurchases { (identifiers, error) in

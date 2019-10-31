@@ -16,12 +16,14 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     var textField: UITextField?
     
     let assitBarSwitch = UISwitch()
+    let impactFeedbackSwitch = UISwitch()
     let displayOptionSwitch = UISwitch()
 
     var items: [(String,[(String,String,Selector)])] {
         var section = [
             ("NightMode","",#selector(darkMode)),
-            ("Theme","",#selector(theme))
+            ("Theme","",#selector(theme)),
+            ("ImpactFeedback","",#selector(impactFeedback))
             ]
         if isPad {
             section.append(("SplitOptions","",#selector(splitOption)))
@@ -60,17 +62,21 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 
         assitBarSwitch.setTintColor(.tint)
         displayOptionSwitch.setTintColor(.tint)
+        impactFeedbackSwitch.setTintColor(.tint)
 
         assitBarSwitch.isOn = Configure.shared.isAssistBarEnabled.value
         displayOptionSwitch.isOn = Configure.shared.showExtensionName
+        impactFeedbackSwitch.isOn = Configure.shared.impactFeedback
 
         assitBarSwitch.addTarget(self, action: #selector(assistBar(_:)), for: .valueChanged)
         displayOptionSwitch.addTarget(self, action: #selector(displayOption(_:)), for: .valueChanged)
+        impactFeedbackSwitch.addTarget(self, action: #selector(impactFeedback), for: .valueChanged)
 
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
     }
     
     @objc func close() {
+        impactIfAllow()
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
@@ -104,6 +110,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 maker.centerY.equalToSuperview()
                 maker.right.equalToSuperview().offset(-20)
             }
+        } else if item.0 == "ImpactFeedback" {
+            cell.addSubview(impactFeedbackSwitch)
+            cell.accessoryType = .none
+            impactFeedbackSwitch.snp.makeConstraints { maker in
+                maker.centerY.equalToSuperview()
+                maker.right.equalToSuperview().offset(-20)
+            }
         } else {
             cell.accessoryType = .disclosureIndicator
         }
@@ -118,6 +131,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             return
         }
         perform(item.2)
+        impactIfAllow()
     }
 }
 
@@ -138,14 +152,7 @@ extension SettingsViewController {
     @objc func premium() {
         let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
         let vc = sb.instantiateVC(PurchaseViewController.self)!
-        dismiss(animated: false) {
-            let nav = UINavigationController(rootViewController: vc)
-            nav.modalPresentationStyle = .formSheet
-            if !security {
-                nav.modalPresentationStyle = .fullScreen
-            }
-            UIApplication.shared.keyWindow?.rootViewController?.presentVC(nav)
-        }
+        pushVC(vc)
     }
     
     @objc func splitOption() {
@@ -161,15 +168,14 @@ extension SettingsViewController {
     }
     
     @objc func rate() {
-        UIApplication.shared.open(URL(string: rateUrl)!, options: [:], completionHandler: nil)            
+        UIApplication.shared.open(URL(string: rateUrl)!, options: [:], completionHandler: nil)
+        
     }
         
     @objc func feedback() {
-        showAlert(title: /"Contact", message: /"ContactMessage", actionTitles: [/"Cancel",/"Email",/"Weibo"]) { index in
+        showAlert(title: /"Contact", message: /"ContactMessage", actionTitles: [/"Cancel",/"Email"]) { index in
             if index == 1 {
                 UIApplication.shared.open(URL(string: emailUrl)!, options: [:], completionHandler: nil)
-            } else if index == 2 {
-                UIApplication.shared.open(URL(string: weiboURL)!, options: [:], completionHandler: nil)
             }
         }
     }
@@ -195,12 +201,16 @@ extension SettingsViewController {
         NotificationCenter.default.post(name: NSNotification.Name("DisplayOptionChanged"), object: nil)
     }
     
+    @objc func impactFeedback(_ sender: UISwitch) {
+        Configure.shared.impactFeedback = sender.isOn
+    }
+    
     @objc func webdav() {
-        let vc = KeyboardBarViewController()
-        pushVC(vc)
-//        doIfPro {
-//            self.performSegue(withIdentifier: "webdav", sender: nil)
-//        }
+//        let vc = KeyboardBarViewController()
+//        pushVC(vc)
+        doIfPro {
+            self.performSegue(withIdentifier: "webdav", sender: nil)
+        }
     }
     
     @objc func theme() {

@@ -39,7 +39,7 @@ class KeyboardBar: UIView {
 
     let items: [(ButtonConvertiable,Selector)] = {
         var items: [(ButtonConvertiable,Selector)] = [
-        (#imageLiteral(resourceName: "tab"), #selector(tapTab)),
+        (#imageLiteral(resourceName: "bar_tab"), #selector(tapTab)),
         (#imageLiteral(resourceName: "bar_image"), #selector(tapImage(_:))),
         (#imageLiteral(resourceName: "bar_link"), #selector(tapLink)),
         (#imageLiteral(resourceName: "bar_header"), #selector(tapHeader)),
@@ -98,6 +98,7 @@ class KeyboardBar: UIView {
     }
     
     @objc func hideKeyboard() {
+        impactIfAllow()
         textView?.resignFirstResponder()
     }
     

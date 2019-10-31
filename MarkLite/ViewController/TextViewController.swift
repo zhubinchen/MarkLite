@@ -74,16 +74,17 @@ class TextViewController: UIViewController {
     
     @IBAction func undo(_ sender: UIButton) {
         editView.undoManager?.undo()
+        impactIfAllow()
     }
     
     @IBAction func redo(_ sender: UIButton) {
         editView.undoManager?.redo()
+        impactIfAllow()
     }
     
     @objc func keyboardWillChange(_ noti: NSNotification) {
         guard let frame = (noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         
-        assert(Thread.current == Thread.main, "zzzzzyyy")
         bottomSpace.constant = max(windowHeight - frame.y - 40 - bottomInset,0)
         UIView.animate(withDuration: 0.5, animations: {
             self.view.layoutIfNeeded()

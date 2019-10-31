@@ -70,6 +70,7 @@
 "WebDAV"="与电脑共享文件";
 "ArrangeKeyboardBar"="调整辅助键盘顺序";
 "AssistKeyboard"="启用辅助键盘";
+"ImpactFeedback"="点击震动效果";
 "SplitOptions"="编辑预览分屏";
 "ShowExtensionName"="显示文件扩展名";
 "NightMode"="深色模式选项";
@@ -98,7 +99,6 @@
 
 "ContactMessage"="如果你有任何好的建议或者使用遇到问题，你可以关注作者微博，或直接给作者发邮件";
 "Email"="写邮件";
-"Weibo"="去微博";
 
 "OK"="确定";
 "Close"="关闭";

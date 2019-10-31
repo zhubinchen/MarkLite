@@ -83,6 +83,7 @@ class Configure: NSObject, NSCoding {
     var upgradeDate = Date()
     var alertDate = Date()
     var showExtensionName = false
+    var impactFeedback = true
     var isPro = false
     let isAssistBarEnabled = Variable(true)
     let markdownStyle = Variable("GitHub")
@@ -127,6 +128,7 @@ class Configure: NSObject, NSCoding {
         sortOption = .modifyDate
         darkOption.value = .light
         showExtensionName = false
+        impactFeedback = true
         
         let destStylePath = URL(fileURLWithPath: supportPath)
         try! Zip.unzipFile(Bundle.main.url(forResource: "Resources", withExtension: "zip")!, destination: destStylePath, overwrite: true, password: nil, progress: nil)
@@ -180,6 +182,7 @@ class Configure: NSObject, NSCoding {
     func encode(with aCoder: NSCoder) {
         aCoder.encode(currentVerion, forKey: "currentVersion")
         aCoder.encode(isPro, forKey: "isPro")
+        aCoder.encode(impactFeedback, forKey: "impactFeedback")
         aCoder.encode(showExtensionName, forKey: "showExtensionName")
         aCoder.encode(isAssistBarEnabled.value, forKey: "isAssistBarEnabled")
         aCoder.encode(markdownStyle.value, forKey: "markdownStyle")
@@ -198,6 +201,7 @@ class Configure: NSObject, NSCoding {
         upgradeDate = aDecoder.decodeObject(forKey: "upgradeDate") as? Date ?? Date()
         alertDate = aDecoder.decodeObject(forKey: "alertDate") as? Date ?? Date()
         isPro = aDecoder.decodeBool(forKey: "isPro")
+        impactFeedback = aDecoder.decodeBool(forKey: "impactFeedback")
         showExtensionName = aDecoder.decodeBool(forKey: "showExtensionName")
         isAssistBarEnabled.value = aDecoder.decodeBool(forKey: "isAssistBarEnabled")
         markdownStyle.value = aDecoder.decodeObject(forKey: "markdownStyle") as? String ?? "GitHub"

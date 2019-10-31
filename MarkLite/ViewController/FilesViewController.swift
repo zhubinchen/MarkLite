@@ -250,10 +250,12 @@ class FilesViewController: UIViewController {
         let pos = ges.location(in: ges.view)
         if let _ = tableView.indexPathForRow(at: pos) {
             multipleSelect()
+            impactIfAllow()
         }
     }
     
     @IBAction func moveFiles(_ sender: UIButton) {
+        impactIfAllow()
         if self.selectFiles.count == 0 {
             return
         }
@@ -267,6 +269,7 @@ class FilesViewController: UIViewController {
     }
     
     @IBAction func sendFiles(_ sender: UIButton) {
+        impactIfAllow()
         if self.selectFiles.count == 0 {
             return
         }
@@ -278,6 +281,7 @@ class FilesViewController: UIViewController {
     }
     
     @IBAction func deleteFiles(_ sender: UIButton) {
+        impactIfAllow()
         if self.selectFiles.count == 0 {
             return
         }
@@ -299,10 +303,12 @@ class FilesViewController: UIViewController {
     }
     
     @objc func cancel() {
+        impactIfAllow()
         dismiss(animated: true, completion: nil)
     }
     
     @objc func sureMove() {
+        impactIfAllow()
         guard let newParent = selectedFolder else { return }
         filesToMove?.forEach {
             $0.move(to: newParent)
@@ -312,10 +318,12 @@ class FilesViewController: UIViewController {
     }
     
     @objc func showSettings() {
+        impactIfAllow()
         performSegue(withIdentifier: "settings", sender: nil)
     }
     
     @objc func createFile(_ sender: Any) {
+        impactIfAllow()
         showAlert(title: nil, message: /"CreateTips", actionTitles: [/"CreateNote",/"CreateFolder",/"Cancel"], textFieldconfigurationHandler: { textField in
             textField.clearButtonMode = .whileEditing
             textField.placeholder = /"FileNamePlaceHolder"
@@ -533,6 +541,7 @@ class FilesViewController: UIViewController {
                 Configure.shared.sortOption = Configure.shared.sortOption.next
                 self.pulldDownLabel.text = Configure.shared.sortOption.next.displayName
                 self.refresh()
+                impactIfAllow()
             }
         }
     }
@@ -627,6 +636,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
     }
         
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        impactIfAllow()
         if isHomePage && indexPath.section == 0 {
             tableView.deselectRow(at: indexPath, animated: true)
             if tableView.isEditing {

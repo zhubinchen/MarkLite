@@ -27,6 +27,19 @@ func synchoronized(token: Any, block: ()->Void) {
     block()
 }
 
+func impactIfAllow() {
+    if !Configure.shared.impactFeedback {
+        return
+    }
+    let impactGenerator: UIImpactFeedbackGenerator = {
+        if #available(iOS 13.0, *) {
+            return UIImpactFeedbackGenerator(style: .rigid)
+        }
+        return UIImpactFeedbackGenerator(style: .medium)
+    }()
+    impactGenerator.impactOccurred()
+}
+
 extension String {
     
     func md5() ->String!{

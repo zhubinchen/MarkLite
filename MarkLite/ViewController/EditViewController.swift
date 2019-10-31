@@ -181,16 +181,6 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         self.file = file
     }
     
-    @objc func showStylesView(_ sender: UIBarButtonItem) {
-        guard let styleVC = self.styleVC, let popoverVC = styleVC.popoverPresentationController else {
-            return
-        }
-        popoverVC.backgroundColor = UIColor.white
-        popoverVC.delegate = self
-        popoverVC.barButtonItem = sender
-        present(styleVC, animated: true, completion: nil)
-    }
-    
     func createTask(text: String) {
         task = BlockOperation {
             NSLog("1")
@@ -215,17 +205,31 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         task?.queuePriority = .veryLow
     }
     
+    @objc func showStylesView(_ sender: UIBarButtonItem) {
+        impactIfAllow()
+        guard let styleVC = self.styleVC, let popoverVC = styleVC.popoverPresentationController else {
+            return
+        }
+        popoverVC.backgroundColor = UIColor.white
+        popoverVC.delegate = self
+        popoverVC.barButtonItem = sender
+        present(styleVC, animated: true, completion: nil)
+    }
+    
     @objc func preview() {
+        impactIfAllow()
         textVC.editView.resignFirstResponder()
         scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)
         toggleRightBarButton()
     }
     
     @objc func showFileList() {
+        impactIfAllow()
         splitViewController?.preferredDisplayMode = .primaryOverlay
     }
     
     @objc func fullscreen() {
+        impactIfAllow()
         UIView.animate(withDuration: 0.5) {
             if self.splitViewController?.preferredDisplayMode != .primaryHidden {
                 self.splitViewController?.preferredDisplayMode = .primaryHidden
@@ -256,6 +260,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     }
     
     @objc func showExportMenu(_ sender: Any) {
+        impactIfAllow()
         textVC.editView.resignFirstResponder()
         
         let items = [ExportType.markdown,.pdf,.html,.image]
@@ -336,6 +341,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        impactIfAllow()
         toggleRightBarButton()
     }
     

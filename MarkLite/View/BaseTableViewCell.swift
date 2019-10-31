@@ -51,7 +51,7 @@ class BaseTableViewCell: UITableViewCell {
         textLabel?.setTextColor(.primary)
         detailTextLabel?.setTextColor(.secondary)
         setBackgroundColor(.background)
-        imageView?.setTintColor(.tint)
+        imageView?.setTintColor(.primary)
 
         selectedMark.setBackgroundColor(.tint)
         selectedBg.addSubview(selectedMark)

@@ -70,6 +70,7 @@
 "WebDAV"="WebDAV";
 "ArrangeKeyboardBar"="Arrange Keyboard Bar";
 "AssistKeyboard"="Enable Keyboard Bar";
+"ImpactFeedback"="Impact Feedback";
 "ShowExtensionName"="Show File's Extension";
 "SplitOptions"="Split Options";
 "NightMode"="Dark Mode Options";
@@ -98,7 +99,6 @@
 
 "ContactMessage"="If you have any suggestions or questions about this app, feel free to tell me please.";
 "Email"="Email";
-"Weibo"="Find me on Weibo";
 
 "OK"="OK";
 "Close"="Close";

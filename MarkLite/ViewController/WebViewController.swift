@@ -29,6 +29,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     }
     
     @objc func close() {
+        impactIfAllow()
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
