@@ -54,11 +54,8 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         }
         return landscape
     }
-    
-    var renderTimer: Timer?
-    
+        
     var location: Int?
-    var markdown: String?
     
     var previewVC: PreviewViewController!
     var textVC: TextViewController!
@@ -139,7 +136,8 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         textVC.textChangedHandler = { [weak self] (text,location) in
             file.text = text
             self?.location = location
-            self?.markdown = text
+            let html = self?.markdownRenderer?.renderMarkdown(text) ?? ""
+            self?.previewVC.html = html
         }
         
         textVC.offsetChangedHandler = { [weak self] offset in
@@ -148,27 +146,20 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
 
         Configure.shared.markdownStyle.asObservable().subscribe(onNext: { [weak self] (style) in
             self?.markdownRenderer?.styleName = style
-            self?.markdown = file.text
+            let html = self?.markdownRenderer?.renderMarkdown(file.text) ?? ""
+            self?.previewVC.html = html
         }).disposed(by: bag)
         
         Configure.shared.highlightStyle.asObservable().subscribe(onNext: { [weak self] (style) in
             self?.markdownRenderer?.highlightName = style
-            self?.markdown = file.text
-        }).disposed(by: bag)
-        
-        Configure.shared.theme.asObservable().subscribe(onNext: { [weak self] _ in
-            self?.markdown = file.text
-        }).disposed(by: bag)
-
-        
-        renderTimer = Timer.runThisEvery(seconds: 0.4) { [weak self] _ in
-            guard let text = self?.markdown else { return }
-            self?.markdown = nil
-            let html = self?.markdownRenderer?.renderMarkdown(text) ?? ""
+            let html = self?.markdownRenderer?.renderMarkdown(file.text) ?? ""
             self?.previewVC.html = html
-        }
+        }).disposed(by: bag)
              
         textVC.editView.text = file.text
+        if (file.text?.count ?? 0) == 0 {
+            textVC.editView.becomeFirstResponder()
+        }
         textVC.textViewDidChange(textVC.editView)
     }
     
@@ -350,7 +341,6 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     }
         
     deinit {
-        renderTimer?.invalidate()
         removeNotificationObserver()
         print("deinit edit_vc")
     }

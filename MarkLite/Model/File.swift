@@ -57,7 +57,11 @@ fileprivate let fileManager = FileManager.default
 
 class File {
     private(set) var name: String
-    private(set) var path: String
+    private(set) var path: String {
+        didSet {
+            _document = nil
+        }
+    }
     private(set) var modifyDate = Date()
     private(set) var size = 0
     private(set) var disable = false
@@ -66,6 +70,8 @@ class File {
     private(set) var opened = false
     private(set) var changed = false
     private(set) weak var parent: File?
+    private(set) var displayName: String?
+    private(set) var extensionName = ""
 
     fileprivate(set) static var cloud = File.placeholder(name: /"Cloud")
     fileprivate(set) static var local = File.placeholder(name: /"Local")
@@ -121,20 +127,6 @@ class File {
         }
         return 0
     }
-
-    var displayName: String?
-    var extensionName = ""
-
-    fileprivate var _children = [File]()
-        
-    fileprivate lazy var externalURL: URL? = {
-        guard let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else {
-            return nil
-        }
-        var stale = false
-        let url = try? URL(resolvingBookmarkData: data, options: .withoutUI, relativeTo: nil, bookmarkDataIsStale: &stale)
-        return url ?? nil
-    }()
     
     var url: URL? {
         if isExternalFile {
@@ -143,11 +135,24 @@ class File {
         return URL(fileURLWithPath: path)
     }
     
-    lazy var document: Document? = {
-        if let url = self.url {
-            return Document(fileURL: url)
+    var document: Document? {
+        if _document == nil && url != nil {
+            _document = Document(fileURL: url!)
         }
-        return nil
+        return _document
+    }
+    
+    fileprivate var _children = [File]()
+    
+    fileprivate var _document: Document?
+
+    fileprivate lazy var externalURL: URL? = {
+        guard let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else {
+            return nil
+        }
+        var stale = false
+        let url = try? URL(resolvingBookmarkData: data, options: .withoutUI, relativeTo: nil, bookmarkDataIsStale: &stale)
+        return url ?? nil
     }()
     
     init(path:String) {
