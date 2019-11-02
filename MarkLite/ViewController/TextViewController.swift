@@ -14,7 +14,6 @@ import EZSwiftExtensions
 class TextViewController: UIViewController {
 
     @IBOutlet weak var editView: UITextView!
-    @IBOutlet weak var placeholderLabel: UILabel!
     
     @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var undoButton: UIButton!
@@ -25,12 +24,13 @@ class TextViewController: UIViewController {
 
     @IBOutlet weak var bottomSpace: NSLayoutConstraint!
 
-    var textChangedHandler: ((String,Int?)->Void)?
+    var textChangedHandler: ((String)->Void)?
     var offsetChangedHandler: ((CGFloat)->Void)?
 
     let bag = DisposeBag()
     let assistBar = KeyboardBar()
     var offset: CGFloat = 0.0
+    var timer: Timer?
     
     var highlightmanager = MarkdownHighlightManager()
 
@@ -64,10 +64,10 @@ class TextViewController: UIViewController {
         }).disposed(by: bag)
     }
     
-    func didHighlight(attrText: NSAttributedString) {
+    @objc func highlight() {
         editView.isScrollEnabled = false
         let selectedRange = editView.selectedRange
-        editView.attributedText = attrText
+        editView.attributedText = highlightmanager.highlight(editView.text)
         editView.selectedRange = selectedRange
         editView.isScrollEnabled = true
     }
@@ -112,6 +112,7 @@ class TextViewController: UIViewController {
     }
     
     deinit {
+        timer?.invalidate()
         removeNotificationObserver()
         print("deinit text_vc")
     }
@@ -120,12 +121,13 @@ class TextViewController: UIViewController {
 extension TextViewController: UITextViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let pan = scrollView.panGestureRecognizer
-//        let velocity = pan.velocity(in: scrollView).y
-//        if velocity < -10 {
-//            self.navigationController?.setNavigationBarHidden(true, animated: true)
-//        } else if velocity > 10 { self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        }
+        let pan = scrollView.panGestureRecognizer
+        let velocity = pan.velocity(in: scrollView).y
+        if velocity < -10 {
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        } else if velocity > 10 {
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+        }
         
         let offset = scrollView.contentOffset.y
         if offset == 0 || offset == self.offset {
@@ -133,6 +135,11 @@ extension TextViewController: UITextViewDelegate {
         }
         self.offset = offset
         offsetChangedHandler?((offset + scrollView.size.height) / max(scrollView.size.height,scrollView.contentSize.height))
+    }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        return true
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -153,22 +160,17 @@ extension TextViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         let text = editView.text ?? ""
-        placeholderLabel.isHidden = text.length > 0
+
         countLabel.text = text.length.toString + " " + /"Characters"
         if editView.markedTextRange != nil {
             return
         }
-        textChangedHandler?(editView.text,nil)
-        let attrText = self.highlightmanager.highlight(text)
-        didHighlight(attrText: attrText)
+        textChangedHandler?(editView.text)
         redoButton.isEnabled = self.editView.undoManager?.canRedo ?? false
         undoButton.isEnabled = self.editView.undoManager?.canUndo ?? false
         
-//        if let range = textView.selectedTextRange {
-//            let location = editView.offset(from: textView.beginningOfDocument, to: range.start)
-//            textChangedHandler?(editView.text,location)
-//        } else {
-//            textChangedHandler?(editView.text,nil)
-//        }
+        NSLog("4")
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(highlight), userInfo: nil, repeats: false)
     }    
 }

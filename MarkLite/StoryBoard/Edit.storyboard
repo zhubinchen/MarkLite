@@ -69,12 +69,6 @@
                                     <constraint firstAttribute="height" constant="40" id="ekm-Wy-87Q"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="StartEdit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5L-1x-TTM">
-                                <rect key="frame" x="13" y="50" width="67" height="20.666666666666671"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wg0-wg-03a" customClass="DottedLineView" customModule="Markdown" customModuleProvider="target">
                                 <rect key="frame" x="186.66666666666666" y="44" width="1" height="646"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -87,7 +81,6 @@
                         <constraints>
                             <constraint firstItem="fDk-Ec-RBG" firstAttribute="trailing" secondItem="wg0-wg-03a" secondAttribute="trailing" id="5Ml-5w-Fdz"/>
                             <constraint firstItem="lId-Dt-n2r" firstAttribute="leading" secondItem="fDk-Ec-RBG" secondAttribute="leading" constant="8" id="EzB-oc-JMH"/>
-                            <constraint firstItem="d5L-1x-TTM" firstAttribute="leading" secondItem="fDk-Ec-RBG" secondAttribute="leading" constant="13" id="Jx8-50-U0f"/>
                             <constraint firstItem="A59-fe-PiA" firstAttribute="top" secondItem="lId-Dt-n2r" secondAttribute="bottom" id="P3Y-cM-WEY"/>
                             <constraint firstItem="lId-Dt-n2r" firstAttribute="top" secondItem="fDk-Ec-RBG" secondAttribute="top" id="XMb-9U-Tbo"/>
                             <constraint firstItem="A59-fe-PiA" firstAttribute="leading" secondItem="fDk-Ec-RBG" secondAttribute="leading" id="g29-4E-a7C"/>
@@ -95,7 +88,6 @@
                             <constraint firstItem="fDk-Ec-RBG" firstAttribute="trailing" secondItem="lId-Dt-n2r" secondAttribute="trailing" id="mEU-zT-PTk"/>
                             <constraint firstAttribute="bottom" secondItem="wg0-wg-03a" secondAttribute="bottom" id="mp5-tE-6z8"/>
                             <constraint firstItem="fDk-Ec-RBG" firstAttribute="trailing" secondItem="A59-fe-PiA" secondAttribute="trailing" id="vYT-6u-Mdt"/>
-                            <constraint firstItem="d5L-1x-TTM" firstAttribute="top" secondItem="fDk-Ec-RBG" secondAttribute="top" constant="6" id="y7r-2P-Xjx"/>
                             <constraint firstItem="wg0-wg-03a" firstAttribute="top" secondItem="fDk-Ec-RBG" secondAttribute="top" id="yoo-p8-ax9"/>
                             <constraint firstItem="fDk-Ec-RBG" firstAttribute="trailing" secondItem="lId-Dt-n2r" secondAttribute="trailing" id="zwF-44-Fn4"/>
                         </constraints>
@@ -112,7 +104,6 @@
                         <outlet property="bottomView" destination="A59-fe-PiA" id="uwH-DN-1MD"/>
                         <outlet property="countLabel" destination="Als-NQ-ZQc" id="yxs-VP-EVY"/>
                         <outlet property="editView" destination="lId-Dt-n2r" id="Dkb-tE-FtC"/>
-                        <outlet property="placeholderLabel" destination="d5L-1x-TTM" id="hHW-dg-KOn"/>
                         <outlet property="redoButton" destination="vV5-i3-4Pf" id="On1-Jh-DDU"/>
                         <outlet property="seperator" destination="wg0-wg-03a" id="IE9-f3-1sa"/>
                         <outlet property="undoButton" destination="aui-tE-OMW" id="Tsh-qo-o1z"/>

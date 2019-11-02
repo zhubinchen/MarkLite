@@ -43,6 +43,14 @@ class PurchaseViewController: UIViewController {
         view.setBackgroundColor(.background)
         view.setTintColor(.tint)
         
+        let paragraphStyle = { () -> NSMutableParagraphStyle in
+            let paraStyle = NSMutableParagraphStyle()
+            paraStyle.lineSpacing = 10
+            return paraStyle
+        }()
+        
+        titleLabel.attributedText = NSAttributedString(string: titleLabel.text ?? "", attributes: [NSAttributedStringKey.paragraphStyle : paragraphStyle])
+        
         if (navigationController?.viewControllers.count ?? 0) == 1 {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
         }

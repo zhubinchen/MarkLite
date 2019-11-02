@@ -63,7 +63,7 @@
 "PDF"="PDF";
 "WebPage"="HTML";
 "Image"="PNG";
-"Markdown"="Text";
+"Markdown"="Export as Text";
 "CopiedAddress"="Copied Address";
 
 "Settings"="Settings";
@@ -122,7 +122,6 @@
 
 "Error"="Error";
 
-"StartEdit"="Write something here";
 "Header"="Header";
 "Header1"="Header 1";
 "Header2"="Header 2";
@@ -158,7 +157,7 @@
 
 "PremiumOnly"="Subscribe to Pro to Unlock This Feature";
 "PremiumTips"="Every new user has 3-days free trial";
-"SubscribeNow"="Purchase";
+"SubscribeNow"="Free trial";
 
 "Premium"="Premium";
 "SubscribeMonthly"="Monthly Subscription";
@@ -169,7 +168,7 @@
 "SubscriptionPriceMonthly"="Try 3-days for free, then $0.49 USD per month, subscription can be cancelled at any time";
 "SubscriptionPriceYearly"="Try 1 week for free, then $3.99 USD per year, subscription can be cancelled at any time";
 "PremiumPriceLifetime"="Unlock all the features forever with a single In-App purchase of $6.99 USD";
-"SubscriptionTitle"="Purchase Markdown Pro to support further development and gain access to more features:\n\n• Export markdown as PDF,HTML,JPG\n\n• Share files with PC via WebDAV\n\n• Add custom CSS styles";
+"SubscriptionTitle"="Upgrade to Markdown Pro to support further development and gain access to all features in current version and future versions:\n• Export markdown as PDF,HTML,JPG\n• Share files with PC via Wi-Fi\n• Add custom CSS styles";
 
 "SubscribeTips"="[Pro Subscription]\n\n• The duration of every period of Monthly Subscription is 1 month, The duration of every period of Yearly Subscription is 1 year\n\n• Payment will be charged to iTunes Account at confirmation of purchase\n\n• Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period\n\n• Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of the renewal\n\n• Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase\n\n• Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable\n\n• The Price of monthly subscription of every period is $0.49 USD, The Price of yearly subscription of every period is $3.99 USD";
 "Restore"="Restore";

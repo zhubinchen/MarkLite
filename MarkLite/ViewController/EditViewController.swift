@@ -54,9 +54,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         }
         return landscape
     }
-        
-    var location: Int?
-    
+            
     var previewVC: PreviewViewController!
     var textVC: TextViewController!
 
@@ -67,8 +65,6 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     let highlightmanager = MarkdownHighlightManager()
     let pdfRender = PDFRender()
     
-    var task: Operation?
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -130,12 +126,11 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         if isViewLoaded == false {
             return
         }
-         
+        NSLog("3")
         previewVC.url = file.url
         textVC.assistBar.parent = file.parent
-        textVC.textChangedHandler = { [weak self] (text,location) in
+        textVC.textChangedHandler = { [weak self] (text) in
             file.text = text
-            self?.location = location
             let html = self?.markdownRenderer?.renderMarkdown(text) ?? ""
             self?.previewVC.html = html
         }
@@ -170,30 +165,6 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     @objc func fileLoadFinished(_ noti: Notification) {
         guard let file = noti.object as? File else { return }
         self.file = file
-    }
-    
-    func createTask(text: String) {
-        task = BlockOperation {
-            NSLog("1")
-            let attrText = self.highlightmanager.highlight(text)
-            NSLog("2")
-            let html = self.markdownRenderer?.renderMarkdown(text) ?? ""
-            NSLog("3")
-            let sem = DispatchSemaphore(value: 1)
-            sem.wait()
-            DispatchQueue.main.async {
-                NSLog("4")
-                   self.textVC.didHighlight(attrText: attrText)
-                NSLog("5")
-                   self.previewVC.html = html
-                   sem.signal()
-            }
-            sem.wait()
-            sem.signal()
-            self.task = nil
-            NSLog("6")
-        }
-        task?.queuePriority = .veryLow
     }
     
     @objc func showStylesView(_ sender: UIBarButtonItem) {

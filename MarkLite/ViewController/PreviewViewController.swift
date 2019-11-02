@@ -118,12 +118,13 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let pan = scrollView.panGestureRecognizer
-//        let velocity = pan.velocity(in: scrollView).y
-//        if velocity < -10 {
-//            self.navigationController?.setNavigationBarHidden(true, animated: true)
-//        } else if velocity > 10 { self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        }
+        let pan = scrollView.panGestureRecognizer
+        let velocity = pan.velocity(in: scrollView).y
+        if velocity < -10 {
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        } else if velocity > 10 {
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+        }
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {

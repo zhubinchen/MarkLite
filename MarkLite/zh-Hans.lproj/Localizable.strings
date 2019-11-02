@@ -122,7 +122,6 @@
 
 "Error"="出错了";
 
-"StartEdit"="写点什么吧";
 "Header"="标题";
 "Header1"="一级标题";
 "Header2"="二级标题";
@@ -161,17 +160,17 @@
 "SubscribeNow"="免费试用";
 
 "Premium"="高级帐户";
-"SubscribeMonthly"="按月订阅";
-"SubscribeYearly"="按年订阅";
-"LifetimePremium"="永久买断";
+"SubscribeMonthly"="按月订阅(试用3天)";
+"SubscribeYearly"="按年订阅(试用7天)";
+"LifetimePremium"="永久买断(一次性付费)";
 "Terms"="使用条款";
 "Privacy"="隐私策略";
-"SubscriptionPriceMonthly"="免费试用3天，试用期结束后按3元每月续费，您可在任何时候取消订阅";
-"SubscriptionPriceYearly"="免费试用3天，试用期结束后按24元每年续费，您可在任何时候取消订阅";
+"SubscriptionPriceMonthly"="新用户可免费试用3天，试用期结束后按3元每月续费，您可在任何时候取消订阅";
+"SubscriptionPriceYearly"="新用户可免费试用7天，试用期结束后按24元每年续费，您可在任何时候取消订阅";
 "PremiumPriceLifetime"="一次性买断制，付费45元后永久有效，不限设备";
-"SubscriptionTitle"="升级到高级账户，支持作者后续开发，同时解锁以下实用功能:\n\n• 文档导出为任意格式(PDF,HTML,长图)\n\n• 使用Wi-Fi与电脑传输文件\n\n• 访问iCloud以及外部文件\n\n• 添加自定义样式";
+"SubscriptionTitle"="升级到高级账户，支持作者后续开发，同时解锁当前版本以及后续版本中的所有功能:\n• 文档导出为任意格式(PDF,HTML,PNG)\n• 使用Wi-Fi与电脑传输文件\n• 访问iCloud以及外部文件\n• 添加自定义样式";
 
-"SubscribeTips"="连续按月或按年订阅说明: \n\n• 订阅周期：按月订阅的周期是一个月；按年订阅的周期是一年。您可根据需要选择\n\n• 订阅价格： 按月订阅的价格是每月3元；按年订阅的价格是每年24元\n\n• 付款：用户确认购买并付款后记入iTunes账户\n\n• 取消续订：如需取消续订，请在当前订阅到期24小时以前，手动在iTunes/Apple ID设置管理中关闭自动续订功能\n\n• 续订：苹果iTunes账户会在到期前24小时内扣款，除非在当前订阅期之前24小时外关闭订阅";
+"SubscribeTips"="按月或按年连续订阅说明: \n\n• 订阅周期：按月订阅的周期是一个月；按年订阅的周期是一年。您可根据需要选择\n\n• 订阅价格： 按月订阅的价格是每月3元；按年订阅的价格是每年24元\n\n• 付款：用户确认购买并付款后记入iTunes账户\n\n• 取消续订：如需取消续订，请在当前订阅到期24小时以前，手动在iTunes/Apple ID设置管理中关闭自动续订功能\n\n• 续订：苹果iTunes账户会在到期前24小时内扣款，除非在当前订阅期之前24小时外关闭订阅";
 "Restore"="恢复购买";
 
 "SubscribeFailed"="没有完成订阅";

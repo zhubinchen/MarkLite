@@ -228,11 +228,14 @@ class File {
         return file
     }
     
-    public static func ==(lhs: File, rhs: File) -> Bool {
-        if lhs.path.count + rhs.path.count == 0 {
-            return lhs.displayName == rhs.displayName
+    public static func ==(lhs: File, rhs: File?) -> Bool {
+        if rhs == nil {
+            return false
         }
-        return lhs.path == rhs.path
+        if lhs.path.count + rhs!.path.count == 0 {
+            return lhs.displayName == rhs!.displayName
+        }
+        return lhs.path == rhs!.path
     }
     
     func childAtPath(_ path: String) -> File? {
@@ -335,35 +338,32 @@ class File {
     }
     
     func close(_ completion:((Bool)->Void)?) {
-        synchoronized(token: self) {
-
-            if changed {
-                modifyDate = Date()
-                if let data = text?.data(using: .utf8) {
-                    size = data.count
-                }
-                changed = false
-            }
-            if !opened {
-                completion?(false)
-                if File.current != nil && File.current! == self {
-                    File.current = nil
-                }
-                return
-            }
-            document?.close{ successed in
-                if successed {
-                    print("open successed")
-                    self.opened = false
-                    if File.current != nil && File.current! == self {
-                        File.current = nil
-                    }
-                } else {
-                    print("open successed")
-                }
-                completion?(successed)
-            }
-        }
+         if changed {
+             modifyDate = Date()
+             if let data = text?.data(using: .utf8) {
+                 size = data.count
+             }
+             changed = false
+         }
+         if !opened {
+             completion?(false)
+             if self == File.current {
+                 File.current = nil
+             }
+             return
+         }
+         document?.close{ successed in
+             if successed {
+                 print("close successed")
+                 self.opened = false
+                 if self == File.current {
+                     File.current = nil
+                 }
+             } else {
+                 print("close failed")
+             }
+             completion?(successed)
+         }
     }
     
     func open(_ completion:((String?)->Void)?) {

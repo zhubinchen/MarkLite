@@ -186,7 +186,6 @@ class FilesViewController: UIViewController {
         if root == File.inbox {
             return
         }
-        assert(Thread.current == Thread.main, "zzzzz")
         oprationViewBottom.constant = tableView.isEditing ? 0 : -44 - bottomInset
         UIView.animate(withDuration: 0.5) {
             self.view.layoutIfNeeded()
@@ -194,6 +193,7 @@ class FilesViewController: UIViewController {
     }
     
     @objc func selectAllFiles() {
+        impactIfAllow()
         for i in 0..<files.count {
             selectFiles.append(files[i])
             let indexPath = IndexPath(row: i, section: isHomePage ? 1 : 0)
