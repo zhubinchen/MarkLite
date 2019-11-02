@@ -8,73 +8,39 @@
 
 import UIKit
 
-class HighlightOperation: Operation {
-    
-    let text: String
-    let syntaxArray: [Syntax]
-    var result: NSAttributedString?
-    
-    init(text:String, syntaxArray: [Syntax]) {
-        self.text = text
-        self.syntaxArray = syntaxArray
-    }
-    
-    override func cancel() {
-        super.cancel()
-    }
-    
-    override func main() {
-        let nomarlColor = Configure.shared.theme.value == .black ? rgb(180,180,170) : rgb(53,57,63)
-        let result = NSMutableAttributedString(string: text)
-        result.addAttributes([NSAttributedStringKey.font : UIFont.font(ofSize:17),
-                              NSAttributedStringKey.foregroundColor : nomarlColor], range: range(0,text.length))
-        if isCancelled {
-            return
-        }
-        syntaxArray.forEach { (syntax) in
-            if isCancelled {
-                return
-            }
-            syntax.expression.enumerateMatches(in: text, options: .reportCompletion, range: range(0, text.length), using: { (match, _, stop) in
-                if let range = match?.range {
-                    result.addAttributes(syntax.style.attrs, range: range)
-                }
-                if isCancelled {
-                    stop.pointee = true
-                }
-            })
-        }
-        if isCancelled {
-            return
-        }
-        self.result = result
-    }
-}
+let boldFont = { () -> UIFont in
+    return UIFont.monospacedDigitSystemFont(ofSize: 17, weight: UIFont.Weight.medium)
+}()
+
+let normalFont = { () -> UIFont in
+    return UIFont.monospacedDigitSystemFont(ofSize: 17, weight: UIFont.Weight.regular)
+}()
+
+let paragraphStyle = { () -> NSMutableParagraphStyle in
+    let paraStyle = NSMutableParagraphStyle()
+    paraStyle.maximumLineHeight = 23
+    paraStyle.minimumLineHeight = 23
+    paraStyle.lineSpacing = 3
+    return paraStyle
+}()
 
 class HighlightStyle {
     
-    var textColor: UIColor = Configure.shared.theme.value == .black ? rgb(200,200,190) : rgb(53,57,63)
+    var textColor: UIColor = Configure.shared.theme.value == .black ? rgb(200,200,190) : rgb(54,54,64)
     var backgroundColor: UIColor = .clear
     var italic: Bool = false
     var bold: Bool = false
     var deletionLine: Bool = false
-    var size: CGFloat = 17
 
     var attrs: [NSAttributedStringKey : Any] {
         
-        var font: UIFont = UIFont.font(ofSize: size, bold: bold)
-        if (italic) {
-            let fontName = "Helvetica-Nenu"
-            let x = tanh(CGFloat.pi / 180 * 15)
-            let matrix = CGAffineTransform(a: 1, b: 0, c: x, d: 1, tx: 0, ty: 0)
-            let desc = UIFontDescriptor(name: fontName, matrix: matrix)
-            font = UIFont(descriptor: desc, size: size)
-        }
-        return [NSAttributedStringKey.font : font,
+        return [NSAttributedStringKey.font : bold ? boldFont : normalFont,
+                NSAttributedStringKey.obliqueness : italic ? 0.3 : 0,
                 NSAttributedStringKey.foregroundColor : textColor,
                 NSAttributedStringKey.backgroundColor : backgroundColor,
-                NSAttributedStringKey.strikethroughStyle : NSNumber(value: deletionLine ? NSUnderlineStyle.styleSingle.rawValue :  NSUnderlineStyle.styleNone.rawValue),
-                NSAttributedStringKey.strikethroughColor : textColor
+                NSAttributedStringKey.strikethroughStyle : deletionLine ? NSUnderlineStyle.styleSingle.rawValue :  NSUnderlineStyle.styleNone.rawValue,
+                NSAttributedStringKey.strikethroughColor : textColor,
+                NSAttributedStringKey.paragraphStyle : paragraphStyle
         ]
     }
 }
@@ -90,84 +56,93 @@ struct Syntax {
 }
 
 struct MarkdownHighlightManager {
-    
-    let queue = OperationQueue()
-    
+            
     let syntaxArray: [Syntax] = [
         Syntax("^#{1,6} .*", .anchorsMatchLines) {
             $0.bold = true
             $0.textColor = rgb(89,89,184)
         },//header
-        Syntax(".*\\n=+[(\\s)|=]+") {
+        Syntax(".*\\n==+[(\\s)|=]+") {
             $0.bold = true
             $0.textColor = rgb(89,89,184)
         },//Title1
-        Syntax(".*\\n-+[(\\s)|-]+") {
+        Syntax(".*\\n--+[(\\s)|-]+") {
             $0.bold = true
             $0.textColor = rgb(89,89,184)
         },//Title2
-        Syntax("^[\\s]*[-\\*\\+] +", .anchorsMatchLines){
-            $0.textColor = rgb(66,110,169)
-        },//ULLists://无序列表
-        Syntax("^[\\s]*[0-9]+\\.", .anchorsMatchLines){
+        Syntax("^[\\s]*(-|\\*|\\+|([0-9]+\\.)) ", .anchorsMatchLines){
             $0.textColor = rgb(236,90,103)
-        },//OLLists有序列表
+        },//Lists
+        Syntax("- \\[( |x)\\] .*",.anchorsMatchLines){
+            $0.textColor = rgb(6,82,120)
+        },//TodoList
         Syntax("(\\[.+\\]\\([^\\)]+\\))|(<.+>)") {
-            $0.textColor = rgb(50,90,160)
+            $0.textColor = rgb(66,110,179)
         },//Links
         Syntax("!\\[[^\\]]+\\]\\([^\\)]+\\)") {
-            $0.textColor = rgb(50,90,160)
+            $0.textColor = rgb(50,90,170)
         },//Images
-        Syntax("(\\*|_)(.+?)\\1") {
+        Syntax("(\\*|_)([^*\\n]+?)(\\*|_)") {
             $0.textColor = Configure.shared.theme.value == .black ? rgb(210,200,190) : rgb(23,27,33)
             $0.italic = true
         },//Emphasis
-        Syntax("(\\*\\*|__)(.+?)\\1") {
+        Syntax("(\\*\\*|__)([^*\\n]+?)(\\*\\*|__)") {
             $0.textColor = Configure.shared.theme.value == .black ? rgb(210,200,190) : rgb(23,27,33)
             $0.bold = true
         },//Bold
-        Syntax("~~(.+?)~~") {
+        Syntax("~~\\S([^~\\n]+?)~~") {
             $0.textColor = rgb(129,140,140)
             $0.deletionLine = true
         },//Deletions
+        Syntax("==\\S([^=\\n]+?)==") {
+            $0.textColor = rgb(54,54,64)
+            $0.backgroundColor = rgb(240,240,20)
+        },//Highlight
+        Syntax("\\$([^`\\n\\$]+?)\\$") {
+            $0.textColor = rgb(139,69,19)
+            $0.backgroundColor = Configure.shared.theme.value == .black ? rgb(50,50,50) : rgb(246,246,246)
+        },//数学公式
+        Syntax("\\$\\$([^`\\$]+?)[\\s\\S]*?\\$\\$",.anchorsMatchLines) {
+            $0.textColor = rgb(139,69,19)
+            $0.backgroundColor = Configure.shared.theme.value == .black ? rgb(50,50,50) : rgb(246,246,246)
+        },//多行数学公式
         Syntax("\\:\\\"(.*?)\\\"\\:"),//Quotes
         Syntax("`{1,2}[^`](.*?)`{1,2}") {
             $0.textColor = rgb(71,91,98)
             $0.backgroundColor = Configure.shared.theme.value == .black ? rgb(50,50,50) : rgb(246,246,246)
-            $0.size = 16
         },//InlineCode
-        Syntax("^(\\>)(.*)\n",.anchorsMatchLines) {
+        Syntax("^[ \\t]*(\\>)(.*)\n",.anchorsMatchLines) {
             $0.textColor = rgb(129,140,140)
         },//Blockquotes://引用块
-        Syntax("^-+$", .anchorsMatchLines){
-            $0.textColor = rgb(129,140,140)
+        Syntax("^[-\\+\\*]{3,}\n", .anchorsMatchLines){
+            $0.bold = true
+            $0.textColor = rgb(89,89,184)
         },//Separate://分割线
-        Syntax("```([\\s\\S]*?)```[\\s]?") {
+        Syntax("^[ \\t]*\\n```([\\s\\S]*?)```[\\s]?",.anchorsMatchLines) {
             $0.textColor = rgb(71,91,98)
             $0.backgroundColor = Configure.shared.theme.value == .black ? rgb(50,50,50) : rgb(246,246,246)
-            $0.size = 16
         },//CodeBlock```包围的代码块
-        Syntax("^\n[\\f\\r\\t\\v]*(( {4}|\\t).*(\\n|\\z))+", .anchorsMatchLines) {
+        Syntax("^[ \\t]*(\\n( {4}|\\t).+)+[\\s]?",.anchorsMatchLines) {
             $0.textColor = rgb(71,91,98)
             $0.backgroundColor = Configure.shared.theme.value == .black ? rgb(50,50,50) : rgb(246,246,246)
-            $0.size = 16
         },//ImplicitCodeBlock4个缩进也算代码块
     ]
 
-    
-    func highlight(_ text: String, completion:@escaping (NSAttributedString)->Void) {
-        let nomarlColor = Configure.shared.theme.value == .black ? rgb(180,180,170) : rgb(53,57,63)
+    func highlight(_ text: String) -> NSAttributedString {
+        let len = (text as NSString).length
+        let nomarlColor = Configure.shared.theme.value == .black ? rgb(200,200,190) : rgb(54,54,64)
         let result = NSMutableAttributedString(string: text)
-        result.addAttributes([NSAttributedStringKey.font : UIFont.font(ofSize:17),
-                              NSAttributedStringKey.foregroundColor : nomarlColor], range: range(0,text.length))
 
+        result.addAttributes([NSAttributedStringKey.font : normalFont,
+                              NSAttributedStringKey.paragraphStyle : paragraphStyle,
+                              NSAttributedStringKey.foregroundColor : nomarlColor], range: range(0,len))
         syntaxArray.forEach { (syntax) in
-            syntax.expression.enumerateMatches(in: text, options: .reportCompletion, range: range(0, text.length), using: { (match, _, _) in
+            syntax.expression.enumerateMatches(in: text, options: .reportCompletion, range: range(0, len), using: { (match, _, _) in
                 if let range = match?.range {
                     result.addAttributes(syntax.style.attrs, range: range)
                 }
             })
         }
-        completion(result)
+        return result
     }
 }

@@ -8,10 +8,10 @@ target 'Markdown' do
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'EZSwiftExtensions'
-  pod 'SideMenu'
-  pod 'Zip'
+  pod 'Zip', '~> 1.1'
   pod 'UMCAnalytics'
   pod 'SnapKit'
-  # Pods for MarkLite
-
+  pod 'Bugly'
+  pod 'SVProgressHUD'
+  pod 'GCDWebServer/WebUploader', '~> 3.0'
 end

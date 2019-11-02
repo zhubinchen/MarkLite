@@ -12,7 +12,7 @@ private let cellHeight: CGFloat = 40
 
 class MenuView: UIView {
     
-    fileprivate var items: [String] = []
+    fileprivate var items: [(String,Bool)] = []
     
     fileprivate lazy var tableView: UITableView = {
         let table = UITableView(frame: self.bounds, style: .plain)
@@ -29,14 +29,14 @@ class MenuView: UIView {
     
     var textAlignment: NSTextAlignment
     
-    init(items: [String],
+    init(items: [(String,Bool)],
          postion: CGPoint,
          textAlignment: NSTextAlignment = .left,
          selectedChanged: @escaping (Int) -> Void) {
         self.items = items
         self.textAlignment = textAlignment
         self.selectedChanged = selectedChanged
-        super.init(frame: CGRect(x: postion.x, y: postion.y, width: 130, height: CGFloat(items.count) * cellHeight - 1))
+        super.init(frame: CGRect(x: postion.x, y: postion.y, width: 140, height: CGFloat(items.count) * cellHeight - 1))
         self.tableView.setBackgroundColor(.tableBackground)
         self.tableView.setSeparatorColor(.primary)
         self.cornerRadius = 1.5
@@ -80,17 +80,14 @@ extension MenuView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "")
-        cell.separatorInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
-        let label = UILabel(x: 10, y: 0, w: 110, h: cellHeight)
-        cell.addSubview(label)
-        cell.setBackgroundColor(.background)
-        
-        label.textAlignment = textAlignment
-        label.text = items[indexPath.row]
-        label.font = UIFont.font(ofSize: 15)
-        label.setTextColor(.primary)
-
+        let cell = BaseTableViewCell(style: .default, reuseIdentifier: nil)
+        cell.textLabel?.text = items[indexPath.row].0
+        cell.textLabel?.textAlignment = textAlignment
+        cell.accessoryType = .none
+        if items[indexPath.row].1 {
+            cell.accessoryType = .disclosureIndicator
+            cell.needUnlock = true
+        }
         return cell
     }
     

@@ -9,7 +9,6 @@
 import UIKit
 import EZSwiftExtensions
 import RxSwift
-import Alamofire
 import CommonCrypto
 
 func *(string: String, repeatCount: Int) -> String {
@@ -18,6 +17,27 @@ func *(string: String, repeatCount: Int) -> String {
         ret += string
     }
     return ret
+}
+
+func synchoronized(token: Any, block: ()->Void) {
+    objc_sync_enter(token)
+    defer {
+        objc_sync_exit(token)
+    }
+    block()
+}
+
+func impactIfAllow() {
+    if !Configure.shared.impactFeedback {
+        return
+    }
+    let impactGenerator: UIImpactFeedbackGenerator = {
+        if #available(iOS 13.0, *) {
+            return UIImpactFeedbackGenerator(style: .rigid)
+        }
+        return UIImpactFeedbackGenerator(style: .medium)
+    }()
+    impactGenerator.impactOccurred()
 }
 
 extension String {
@@ -47,15 +67,15 @@ extension String {
             return self + "(1)"
         }
         
-        guard let range = try? NSRegularExpression(pattern: "\\([0-9]+\\)", options: .caseInsensitive).rangeOfFirstMatch(in: self, options: .reportCompletion, range: NSMakeRange(0, self.length)),
-            range.location != NSNotFound,
-            let num = self[range.location..<range.location+range.length].toInt() else {
+        guard let range = try? NSRegularExpression(pattern: "\\([0-9]+\\)", options: .caseInsensitive).rangeOfFirstMatch(in: self, options: .reportCompletion, range: NSMakeRange(0, self.length)) else {
                 return self + "(1)"
         }
-        
+                
         if range.location == NSNotFound {
             return self + "(1)"
         }
+        
+        let num = self[range.location+1..<range.location+range.length-1].toInt() ?? 0
         
         return self.replacingCharacters(in: range, with: "(\(num+1))")
     }
@@ -87,6 +107,20 @@ extension String {
         return time.toString
     }
     
+    func firstMatch(_ exp: String) -> String? {
+        guard let range = firstMatchRange(exp) else { return nil }
+        return substring(with: range)
+    }
+    
+    func firstMatchRange(_ exp: String) -> NSRange? {
+        guard let exp = try? NSRegularExpression(pattern: exp, options: .anchorsMatchLines) else { return nil }
+        guard let range = exp.firstMatch(in: self, options: .anchored, range: NSMakeRange(0, min(20, self.count)))?.range else { return nil }
+        if range.location == NSNotFound {
+            return nil
+        }
+        return range
+    }
+    
     func substring(with nsRange: NSRange) -> String {
         return self.substring(with: rangeFromNSRange(nsRange)!)
     }
@@ -116,8 +150,9 @@ extension UIViewController {
                    textFieldconfigurationHandler: ((UITextField) -> Void)?  = nil,
                    actionHandler: ((Int) -> Void)?  = nil) -> UIAlertController{
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let last = actionTitles.count - 1
         for (index, actionTitle) in actionTitles.enumerated() {
-            alert.addAction(UIAlertAction(title: actionTitle, style: index == 0 ? .cancel : .default, handler: { action in
+            alert.addAction(UIAlertAction(title: actionTitle, style: index == last ? .cancel : .default, handler: { action in
                 actionHandler?(index)
             }))
         }
@@ -132,12 +167,13 @@ extension UIViewController {
         return alert
     }
     
-    func showActionSheet(sender: UIView? = nil,
+    func showActionSheet(sender: Any? = nil,
                          title: String? = nil,
                          message: String? = nil,
                          actionTitles: [String],
-                         actionHandler: ((Int) -> Void)?){
-        let alert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
+                         actionHandler: ((Int) -> Void)?) {
+        
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: (sender == nil && isPad) ? .alert : .actionSheet)
         alert.message = message
         for (index, actionTitle) in actionTitles.enumerated() {
             alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: { action in
@@ -147,8 +183,13 @@ extension UIViewController {
         alert.addAction(UIAlertAction(title: /"Cancel", style: .cancel, handler: nil))
         if alert.popoverPresentationController != nil {
             guard let sender = sender else { return }
-            alert.popoverPresentationController!.sourceView = sender
-            alert.popoverPresentationController!.sourceRect = sender.bounds
+            if let view = sender as? UIView {
+                alert.popoverPresentationController?.sourceView = view
+                alert.popoverPresentationController?.sourceRect = view.bounds
+            }
+            if let barButton = sender as? UIBarButtonItem {
+                alert.popoverPresentationController?.barButtonItem = barButton
+            }
         }
         present(alert, animated: true, completion: nil)
     }
@@ -174,6 +215,7 @@ extension UIView {
             layer.borderColor = newValue.cgColor
         }
     }
+    
     @IBInspectable var borderWidth: CGFloat {
         get {
             return 0.0
@@ -181,29 +223,6 @@ extension UIView {
         set(newValue) {
             layer.borderWidth = newValue
             
-        }
-    }
-    
-    func startLoadingAnimation() {
-        stopLoadingAnimation()
-        let bg = UIView(frame: bounds)
-        bg.tag = 4654
-        if self is UIButton {
-            bg.backgroundColor = backgroundColor
-        } else {
-            bg.backgroundColor = UIColor.clear
-        }
-        let v = UIActivityIndicatorView(activityIndicatorStyle: Configure.shared.theme.value == .black ? .whiteLarge : .gray)
-        v.setColor(.primary)
-        bg.addSubview(v)
-        v.center = bg.center
-        v.startAnimating()
-        addSubview(bg)
-    }
-    
-    func stopLoadingAnimation() {
-        if let v = viewWithTag(4654) {
-            v.removeFromSuperview()
         }
     }
     
@@ -218,46 +237,30 @@ extension UIView {
         border.lineDashPattern = [4,2]
         layer.addSublayer(border)
     }
-    
-    convenience init(hexString: String) {
-        self.init(frame: CGRect.zero)
-        backgroundColor = UIColor(hexString: hexString)
-    }
-    
-    func makeCorner(_ radius: CGFloat, corners: UIRectCorner = UIRectCorner.allCorners) {
-        self.layer.mask = nil
-        let maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = self.bounds
-        maskLayer.path = maskPath.cgPath
-        self.layer.mask = maskLayer
-    }
-
 }
 
-
 extension Date {
-    public func readableDate() -> (String,String) {
+    public func readableDate() -> String {
         let calendar = Calendar.current
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         let time = dateFormatter.string(from: self)
 
         if calendar.isDateInToday(self) {
-            return (/"Today",time)
+            return /"Today" + " " + time
         }
         
         if calendar.isDateInYesterday(self) {
-            return (/"Yesterday",time)
+            return /"Yesterday" + " " + time
         }
         
         if calendar.compare(Date(), to: self, toGranularity: .year) == .orderedSame {
-            dateFormatter.dateFormat = "M-d"
-            return (dateFormatter.string(from: self),time)
+            dateFormatter.dateFormat = /"M-d"
+            return dateFormatter.string(from: self)
         }
         
-        dateFormatter.dateFormat = "yyyy-M-d"
-        return (dateFormatter.string(from: self),time)
+        dateFormatter.dateFormat = /"yyyy-M-d"
+        return dateFormatter.string(from: self)
     }
 }
 
@@ -303,20 +306,20 @@ extension UIImage {
         
         self.init(cgImage: cgImage)
     }
-}
-
-extension UITextField {
-    var selectedRange: NSRange? {
-        get {
-            return nil
-        }
-        
-        set {
-            guard let range = newValue else { return }
-            let start = position(from: beginningOfDocument, offset: range.location)
-            let end = position(from: start!, offset: range.length)
-            selectedTextRange = textRange(from: start!, to: end!)
-        }
+    
+    public func recolor(color: UIColor) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(self.size, false, self.scale)
+        guard let context = UIGraphicsGetCurrentContext() else { return self }
+        context.translateBy(x: 0, y: self.size.height)
+        context.scaleBy(x: 1.0, y: -1.0)
+        context.setBlendMode(.normal)
+        let rect = CGRect(x: 0, y: 0, w: self.size.width, h: self.size.height)
+        context.clip(to: rect, mask: self.cgImage!)
+        color.setFill()
+        context.fill(rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext();
+        return newImage ?? self;
     }
 }
 
@@ -346,12 +349,17 @@ extension UIScrollView {
 
 extension UITableView {
     func addPullDownView(_ view: UIView, bag: DisposeBag, comletion:@escaping ()->Void) {
-        view.frame = CGRect(x: (windowWidth - 200) * 0.5, y: -40, w: 200, h: 20)
         addSubview(view)
         rx.didEndDragging.subscribe(onNext: { [unowned self] (end) in
             if self.contentOffset.y < -60 {
                 comletion()
             }
         }).disposed(by: bag)
+        
+        view.snp_makeConstraints { make in
+            make.top.equalTo(-40)
+            make.centerX.equalTo(self)
+            make.height.equalTo(20)
+        }
     }
 }

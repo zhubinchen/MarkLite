@@ -6,21 +6,47 @@
  Copyright © 2017年 zhubch. All rights reserved.
  */
 
-"LocalFile"="文件";
-"CloudFile"="iCloud";
-"Dropbox"="Dropbox";
-"EmptyFolder"="当前目录没有任何文件";
+"Documents"="文件";
 
-"Settings"="设置";
+"Cloud"="iCloud";
+"Local"="本地";
+"External"="外部文件";
+"ExternalEmpty"="打开外部文件";
+"AddLocation"="添加其他位置";
+"AddLocationDetail"="「文件」应用";
+"MoveTo"="移动到";
+
+"ImportFile"="创建拷贝";
+"OpenOriginFile"="打开原文件";
+
+"SortByName"="按文件名称排序";
+"SortByType"="按文件类型排序";
+"SortByModifyDate"="按修改时间排序";
+
+"EmptyFolder"="当前目录没有任何文件";
+"EmptyInbox"="从其他应用打开的文件将会显示在这里\n你也可以点击右上方按钮添加其他应用的文件到这里";
 
 "Today"="今天";
 "Yesterday"="昨天";
-"Children"="子文件";
+"Children"="项";
+"Empty"="空";
+"M-d"="M月d日";
+"yyyy-M-d"="yyyy年M月d日";
 
-"CreateNote"="新建文档";
-"CreateFolder"="新建文件夹";
-"ImportFromFiles"="导入文件";
-"ReleaseToCreate"="松手创建文档";
+"CreateTips"="创建文档或文件夹";
+"RenameTips"="修改文件名";
+"CreateImageTips"="添加图片到本地，请命名此图片";
+"CreateImage"="添加图片";
+"CreateNote"="创建文档";
+"CreateFolder"="创建文件夹";
+"MultipleSelect"="批量选择";
+"SelectAll"="全选";
+
+"Delete"="删除";
+"Rename"="重命名";
+"Move"="移动";
+"Send"="分享";
+"SelectFolderToMove"="选择目标文件夹";
 
 "Untitled"="未命名";
 "UntitledFolder"="未命名文件夹";
@@ -30,68 +56,72 @@
 "Redo"="重做";
 "Characters"="字符";
 
-"PDF"="PDF 文档";
-"WebPage"="Web 页面";
-"Image"="长屏截图";
-"Markdown"="Markdown";
-"SaveFailed"="保存失败";
-"SaveSuccessed"="已保存到手机相册";
+"LocalReference"="本地引用";
+"UploadImage"="上传图片";
+"ImageUploadTips"="本地引用不需要网络即可完成，但是相对路径改变时会无法加载图片";
 
-"PremiumAccount"="升级到高级帐户";
-"AssistKeyboard"="辅助键盘";
-"AutoClear"="自动清理空白文件";
-"NightMode"="夜间模式";
+"PDF"="PDF文档";
+"WebPage"="HTML";
+"Image"="PNG图片";
+"Markdown"="原始文本";
+"CopiedAddress"="地址已拷贝到剪切板";
+
+"Settings"="设置";
+"WebDAV"="与电脑共享文件";
+"ArrangeKeyboardBar"="调整辅助键盘顺序";
+"AssistKeyboard"="启用辅助键盘";
+"ImpactFeedback"="点击震动效果";
+"SplitOptions"="编辑预览分屏";
+"ShowExtensionName"="显示文件扩展名";
+"NightMode"="深色模式选项";
 "Theme"="主题色";
-"Feedback"="问题与意见";
-"RateIt"="五星好评";
+"Contact"="联系开发者";
+"RateIt"="去App Store评价";
 "Style"="渲染样式";
-"CodeStyle"="代码块样式";
+"CodeStyle"="代码块高亮";
+"CSS"="自定义样式";
 
-"PremiumOnly"="该功能需开通高级帐户";
-"SubscribeNow"="立即开通";
-"Subscribed"="已开通";
+"KeepDarkMode"="深色模式";
+"DisableDarkMode"="浅色模式";
+"FollowSystem"="跟随系统变化（iOS13以上有效）";
 
-"Premium"="高级帐户";
-"SubscriptionInfo"="查看订阅详情";
-"Subscribe"="立即订阅(6元/月，一周内免费)";
-"Price"="限时优惠：$0.99／月";
-"Terms"="使用条款";
-"PrivacyPolicy"="隐私策略";
-"PremiumPrice"="现在订阅可免费试用一周";
-"PremiumTitle"="订阅高级账户后，你将获得Markdown的全部功能";
-"PremiumDesc"="1. 可将文档导出为任意格式(PDF,HTML,长图)\n2. 可使用更多渲染样式\n3. 可选择更多好看的主题颜色\n4. 后续版本中添加的更多特性";
-"SubscribeTips"="【连续包月高级账户说明】\n1.订阅周期：一个月\n2.订阅价格： 每月6元\n3.付款：用户确认购买并付款后记入iTunes账户\n4.取消续订：如需取消续订，请在当前订阅到期24小时以前，手动在iTunes/Apple ID设置管理中关闭自动续订功能\n5.续订：苹果iTunes账户会在到期前24小时内扣款，扣款成功后订阅周期顺延一个月";
-"Restore"="恢复订阅";
-"NotNow"="暂不订阅";
-"RestoreTips"="在其他设备上购买过？可在此恢复";
-"SubscribeFailed"="没有完成订阅";
-"SubscribeSuccess"="已成功订阅高级帐户";
-"RestoreFailed"="没有有效的订阅记录，请重新订阅";
-"RestoreSuccess"="已恢复订阅";
+"InvalidStyleURL"="链接格式有误";
+"InvalidStyleName"="样式名无效";
+"DumplicatedName"="已经存在同名的样式，请换个名字";
+"StyleName"="样式名";
+"StyleURL"="CSS链接";
+"Download"="添加到本地";
+
+"ServerLoading"="正在启动...";
+"ServerStarted"="已启动共享服务，离开此界面后将自动关闭服务。\n\n在电脑浏览器打开以下地址即可访问，点击可拷贝地址";
+"ServerNotRunning"="无法启动WebDAV服务";
+"Log"="日志：";
+
+"ContactMessage"="如果你有任何好的建议或者使用遇到问题，你可以关注作者微博，或直接给作者发邮件";
+"Email"="写邮件";
 
 "OK"="确定";
 "Close"="关闭";
 "Cancel"="取消";
-
-"Delete"="删除";
-"Rename"="重命名";
-"LastUpdate"="上次修改: ";
+"Upgrade"="前往更新";
 
 "DeleteMessage"="删除后不可恢复，确定要删除吗？";
-"FileNameError"="请输入正确的文件名";
-"RenameTips"="请输入新的文件名";
-"InvalidCloud"="无法访问iCloud目录，请检查您当前的设备是否登录iCloud";
+"DeleteExternalMessage"="移除外部文件的引用，并不会删除原始文件";
+"FileIsEditing"="无法进行此操作，文件正在编辑中";
+"CanNotAccesseThisFile"="当前无法访问此文件";
+"CanNotPreviewThisFile"="不支持预览此文件";
+"FileNameError"="请输入正确的文件名(不要包含特殊符号)";
+"FileNamePlaceHolder"="文件名不允许包含特殊符号";
+"UnzipFailed"="解压失败";
+
 "InsertHref"="添加链接";
 
 "Open"="打开";
 "Ignore"="忽略";
 "ReceivedNewFile"="收到新文件:";
-"ReceivedFiles" = "收到的文件";
 
 "Error"="出错了";
 
-"StartEdit"="写点什么吧";
-"SelectFileTips"="請選擇要編輯的文件";
 "Header"="标题";
 "Header1"="一级标题";
 "Header2"="二级标题";
@@ -102,23 +132,51 @@
 "Blockquote"="引用";
 "Delection"="要删除的文本";
 "EnterCode"="代码";
-"EnterLink"="在这输入连接描述";
-"EnterPlaceholder"="在这输入图片占位文本";
+"EnterLink"="在这输入链接描述";
+"EnterPlaceholder"="Alt";
 
-"PickImage"="选取图片";
-"Photo"="相册";
-"Camera"="相机";
+"PickFromPhotos"="从相册选取";
+"PickFromCamera"="打开相机";
+"Scrawl"="创作涂鸦";
 "CameraError"="没有访问相机的权限";
 "PhotoError"="没有访问照片的权限";
 "EnableCameraTips"="去iPhone的【设置】图标，打开【隐私】，打开【相机】，找到【Markdown】开启即可";
 "EnablePhotoTips"="去iPhone的【设置】图标，打开【隐私】，打开【照片】，找到【Markdown】开启即可";
 
-"Instructions"="使用教程";
-
 "ThemeWhite"="简洁白";
 "ThemeBlack"="高端黑";
 "ThemeBlue"="清新蓝";
 "ThemeRed"="中国红";
-"ThemePurple"="风骚紫";
+"ThemePurple"="风情紫";
 "ThemePink"="脑残粉";
 "ThemeGreen"="原谅绿";
+
+"Automatic"="横屏时分屏";
+"Never"="永不分屏";
+"Always"="始终分屏";
+
+"PremiumOnly"="该功能需开通高级帐户";
+"PremiumTips"="现在订阅可免费试用3天";
+"SubscribeNow"="免费试用";
+
+"Premium"="高级帐户";
+"SubscribeMonthly"="按月订阅(试用3天)";
+"SubscribeYearly"="按年订阅(试用7天)";
+"LifetimePremium"="永久买断(一次性付费)";
+"Terms"="使用条款";
+"Privacy"="隐私策略";
+"SubscriptionPriceMonthly"="新用户可免费试用3天，试用期结束后按3元每月续费，您可在任何时候取消订阅";
+"SubscriptionPriceYearly"="新用户可免费试用7天，试用期结束后按24元每年续费，您可在任何时候取消订阅";
+"PremiumPriceLifetime"="一次性买断制，付费45元后永久有效，不限设备";
+"SubscriptionTitle"="升级到高级账户，支持作者后续开发，同时解锁当前版本以及后续版本中的所有功能:\n• 文档导出为任意格式(PDF,HTML,PNG)\n• 使用Wi-Fi与电脑传输文件\n• 访问iCloud以及外部文件\n• 添加自定义样式";
+
+"SubscribeTips"="按月或按年连续订阅说明: \n\n• 订阅周期：按月订阅的周期是一个月；按年订阅的周期是一年。您可根据需要选择\n\n• 订阅价格： 按月订阅的价格是每月3元；按年订阅的价格是每年24元\n\n• 付款：用户确认购买并付款后记入iTunes账户\n\n• 取消续订：如需取消续订，请在当前订阅到期24小时以前，手动在iTunes/Apple ID设置管理中关闭自动续订功能\n\n• 续订：苹果iTunes账户会在到期前24小时内扣款，除非在当前订阅期之前24小时外关闭订阅";
+"Restore"="恢复购买";
+
+"SubscribeFailed"="没有完成订阅";
+"SubscribeSuccess"="已成功解锁高级帐户";
+"RestoreFailed"="没有有效的购买记录";
+"RestoreSuccess"="已恢复购买";
+
+"Instructions"="使用教程";
+"Syntax"="示例文档";

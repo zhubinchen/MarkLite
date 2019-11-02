@@ -14,7 +14,6 @@ import EZSwiftExtensions
 class TextViewController: UIViewController {
 
     @IBOutlet weak var editView: UITextView!
-    @IBOutlet weak var placeholderLabel: UILabel!
     
     @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var undoButton: UIButton!
@@ -29,20 +28,21 @@ class TextViewController: UIViewController {
     var offsetChangedHandler: ((CGFloat)->Void)?
 
     let bag = DisposeBag()
-    var manager = MarkdownHighlightManager()
-    var currentFile: File?
-    var orignText = ""
+    let assistBar = KeyboardBar()
+    var offset: CGFloat = 0.0
+    var timer: Timer?
+    
+    var highlightmanager = MarkdownHighlightManager()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupRx()
-
         addNotificationObserver(Notification.Name.UIKeyboardWillChangeFrame.rawValue, selector: #selector(keyboardWillChange(_:)))
-        addNotificationObserver(Notification.Name.UIApplicationWillTerminate.rawValue, selector: #selector(applicationWillTerminate))
         
         editView.textContainer.lineBreakMode = .byCharWrapping
         view.setBackgroundColor(.background)
-        bottomView.setTintColor(.primary)
+        bottomView.setTintColor(.tint)
         countLabel.setTextColor(.secondary)
     }
     
@@ -50,84 +50,42 @@ class TextViewController: UIViewController {
         
         Configure.shared.isAssistBarEnabled.asObservable().subscribe(onNext: { [unowned self](enable) in
             if enable {
-                let assistBar = AssistKeyboardBar()
-                assistBar.textView = self.editView
-                assistBar.viewController = self
-                self.editView.inputAccessoryView = assistBar
+                self.assistBar.textView = self.editView
+                self.assistBar.viewController = self
+                self.editView.inputAccessoryView = self.assistBar
             } else {
                 self.editView.inputAccessoryView = nil
             }
         }).disposed(by: bag)
         
-        Configure.shared.isLandscape.asObservable().map{!$0}.bind(to: seperator.rx.isHidden).disposed(by: bag)
-        
-        Configure.shared.theme.asObservable().subscribe(onNext: { [weak self] _ in
-            self?.manager = MarkdownHighlightManager()
-            self?.textChanged()
-        }).disposed(by: bag)
-        
-        Configure.shared.editingFile.asObservable().subscribe(onNext: { [weak self] (file) in
-            self?.saveFile()
-            guard let file = file else { return }
-            file.readText{
-                self?.editView.text = $0
-                self?.orignText = $0
-                self?.textChanged()
-            }
-            self?.currentFile = file
-        }).disposed(by: bag)
-        
-        editView.rx.didChange.subscribe { [weak self] _ in
-            self?.textChanged()
-            }.disposed(by: bag)
-        
-        editView.rx.text.map{($0?.length ?? 0) > 0}
-            .bind(to: placeholderLabel.rx.isHidden)
-            .disposed(by: bag)
-        
-        editView.rx.contentOffset.map{$0.y}.subscribe(onNext: { [weak self] (offset) in
-            guard let this = self else { return }
-            this.offsetChangedHandler?(offset / this.editView.contentSize.height)
+        Configure.shared.theme.asObservable().subscribe(onNext: { [unowned self] _ in
+            self.highlightmanager = MarkdownHighlightManager()
+            self.textViewDidChange(self.editView)
         }).disposed(by: bag)
     }
     
-    func textChanged() {
-        DispatchQueue.main.async {
-            self.redoButton.isEnabled = self.editView.undoManager?.canRedo ?? false
-            self.undoButton.isEnabled = self.editView.undoManager?.canUndo ?? false
-        }
-        
-        currentFile?.isBlank = editView.text.trimmed().length == 0
-
-        textChangedHandler?(editView.text)
-        countLabel.text = editView.text.length.toString + " " + /"Characters"
-        if editView.markedTextRange != nil {
-            return
-        }
-        manager.highlight(editView.text) { [weak self] (attrText) in
-            self?.didHighlight(attrText: attrText)  
-        }
-    }
-    
-    func didHighlight(attrText: NSAttributedString) {
+    @objc func highlight() {
         editView.isScrollEnabled = false
         let selectedRange = editView.selectedRange
-        editView.attributedText = attrText
+        editView.attributedText = highlightmanager.highlight(editView.text)
         editView.selectedRange = selectedRange
         editView.isScrollEnabled = true
     }
     
     @IBAction func undo(_ sender: UIButton) {
         editView.undoManager?.undo()
+        impactIfAllow()
     }
     
     @IBAction func redo(_ sender: UIButton) {
         editView.undoManager?.redo()
+        impactIfAllow()
     }
     
     @objc func keyboardWillChange(_ noti: NSNotification) {
         guard let frame = (noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
-        bottomSpace.constant = max(self.view.h - frame.y + 10,0)
+        
+        bottomSpace.constant = max(windowHeight - frame.y - 40 - bottomInset,0)
         UIView.animate(withDuration: 0.5, animations: {
             self.view.layoutIfNeeded()
         }) { _ in
@@ -135,26 +93,84 @@ class TextViewController: UIViewController {
         }
     }
     
-    @objc func applicationWillTerminate() {
-        saveFile()
-    }
-    
-    func saveFile() {
-        if let text = editView.text {
-            if text != orignText {
-                currentFile?.write(text: text)
-            }
+    func newLine(_ last: String) -> String {
+        if last.hasPrefix("- [x] ") {
+            return "- [x] "
         }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        saveFile()
+        if last.hasPrefix("- [] ") {
+            return "- [] "
+        }
+        if let str = last.firstMatch("^[\\s]*(-|\\*|\\+|([0-9]+\\.)) ") {
+            guard let range = str.firstMatchRange("[0-9]+") else { return str }
+            let num = str.substring(with: range).toInt() ?? 0
+            return str.replacingCharacters(in: range, with: "\(num+1)")
+        }
+        if let str = last.firstMatch("^( {4}|\\t)+") {
+            return str
+        }
+        return ""
     }
     
     deinit {
+        timer?.invalidate()
         removeNotificationObserver()
         print("deinit text_vc")
     }
+}
+
+extension TextViewController: UITextViewDelegate {
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let pan = scrollView.panGestureRecognizer
+        let velocity = pan.velocity(in: scrollView).y
+        if velocity < -10 {
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        } else if velocity > 10 {
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+        }
+        
+        let offset = scrollView.contentOffset.y
+        if offset == 0 || offset == self.offset {
+            return
+        }
+        self.offset = offset
+        offsetChangedHandler?((offset + scrollView.size.height) / max(scrollView.size.height,scrollView.contentSize.height))
+    }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        return true
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            let begin = max(range.location - 100, 0)
+            let len = range.location - begin
+            let nsString = textView.text! as NSString
+            let nearText = nsString.substring(with: NSMakeRange(begin, len))
+            let texts = nearText.components(separatedBy: "\n")
+            if texts.count < 2 {
+                return true
+            }
+            textView.insertText("\n"+newLine(texts.last!))
+            return false
+        }
+        return true
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        let text = editView.text ?? ""
+
+        countLabel.text = text.length.toString + " " + /"Characters"
+        if editView.markedTextRange != nil {
+            return
+        }
+        textChangedHandler?(editView.text)
+        redoButton.isEnabled = self.editView.undoManager?.canRedo ?? false
+        undoButton.isEnabled = self.editView.undoManager?.canUndo ?? false
+        
+        NSLog("4")
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(highlight), userInfo: nil, repeats: false)
+    }    
 }

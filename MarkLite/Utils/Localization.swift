@@ -33,6 +33,13 @@ extension UIButton: Localizable {
     }
 }
 
+extension UITextField: Localizable {
+    func localize() {
+        text = /(text ?? "")
+        placeholder = /(placeholder ?? "")
+    }
+}
+
 extension UILabel: Localizable {
     func localize() {
         text = /(text ?? "")
@@ -73,5 +80,4 @@ extension UIView {
             }
         }
     }
-    
 }

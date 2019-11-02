@@ -6,88 +6,122 @@
  Copyright © 2017年 zhubch. All rights reserved.
  */
 
-"LocalFile"="Documents";
-"CloudFile"="iCloud";
-"Dropbox" = "Dropbox";
-"Settings"="Settings";
+"Documents"="Documents";
+
+"Cloud"="iCloud";
+"Local"="Local";
+"External"="Files From Other App";
+"ExternalEmpty"="Pick Files From Other App";
+"AddLocation"="Add Locations";
+"AddLocationDetail"="From [Files]";
+"MoveTo"="Move To";
+
+"ImportFile"="Copy to Local";
+"OpenOriginFile"="Open In Place";
+
+"SortByName"="Sort By Name";
+"SortByType"="Sort By Type";
+"SortByModifyDate"="Sort By Modify Date";
+
 "EmptyFolder"="There is no file in current folder";
+"EmptyInbox"="Files from other app will show here\n you can import files by click the top-right button";
 
-"CreateNote"="New note";
-"CreateFolder"="New folder";
-"ImportFromFiles"="Import file";
-"ReleaseToCreate"="Release to create note";
+"Today"="Today";
+"Yesterday"="Yesterday";
+"Children"="Items";
+"Empty"="Empty";
+"M-d"="MM/dd";
+"yyyy-M-d"="yyyy/MM/dd";
 
-"Today"="today";
-"Yesterday"="yesterday";
-"Children"="Children";
+"CreateTips"="Create note or folder";
+"RenameTips"="Rename file";
+"CreateImageTips"="Copy image to local, name the image please";
+"CreateImage"="Create Image";
+"CreateNote"="Create Note";
+"CreateFolder"="Create Folder";
+"MultipleSelect"="Multiple Select";
+"SelectAll"="Select All";
+
+"Delete"="Delete";
+"Rename"="Rename";
+"Move"="Move";
+"Send"="Send To";
+"SelectFolderToMove"="Select a destination folder";
 
 "Untitled"="Untitled";
-"UntitledFolder"="UntitledFolder";
+"UntitledFolder"="Untitled Folder";
 
 "Preview"="Preview";
 "Undo"="Undo";
 "Redo"="Redo";
-"Characters"="characters";
+"Characters"="Characters";
+
+"LocalReference"="Local Reference";
+"UploadImage"="Upload Image";
+"ImageUploadTips"="Choose the reference type of image";
 
 "PDF"="PDF";
-"WebPage"="Web pages";
-"Image"="Picture";
-"Markdown"="Markdown";
-"SaveFailed"="Save to photo failed";
-"SaveSuccessed"="Save to photo successed";
+"WebPage"="HTML";
+"Image"="PNG";
+"Markdown"="Export as Text";
+"CopiedAddress"="Copied Address";
 
-"PremiumOnly"="This feature is only for premium user";
-"SubscribeNow"="Subscribe";
-"Subscribed"="Subscribed";
-
-"PremiumAccount"="Premium account";
-"AssistKeyboard"="Keyboard assist bar";
-"AutoClear"="Delete blank files";
-"NightMode"="Night mode";
+"Settings"="Settings";
+"WebDAV"="WebDAV";
+"ArrangeKeyboardBar"="Arrange Keyboard Bar";
+"AssistKeyboard"="Enable Keyboard Bar";
+"ImpactFeedback"="Impact Feedback";
+"ShowExtensionName"="Show File's Extension";
+"SplitOptions"="Split Options";
+"NightMode"="Dark Mode Options";
 "Theme"="Theme";
-"Feedback"="Feedback";
+"Contact"="Contact us";
 "RateIt"="Rate it";
 "Style"="Style";
-"CodeStyle"="Code block";
-"Premium"="Premium";
-"SubscriptionInfo"="Subscription infomation";
-"Subscribe"="Subscribe now";
-"Price"="$0.99/month";
-"Terms"="Terms";
-"PrivacyPolicy"="Privacy Policy";
-"PremiumPrice"="1 week free trial, $0.99/month";
-"PremiumTitle"="Subscribe to Markdown to support further development and gain access to some great extra features";
-"PremiumDesc"="1. Application themes\n2. Advanced exports to PDF,HTML,JPG\n3. Markdown styles & code block styles";
-"SubscribeTips"="【Premium SubScription】\n–The duration of every period of the subscription is 1 month\n– Payment will be charged to iTunes Account at confirmation of purchase\n– Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period\n– Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of the renewal\n– Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase\n– Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable\n- Monthly subscription with 7-day free trial period for $0.99 USD";
-"Restore"="Restore";
-"NotNow"="Close";
-"RestoreTips"="Subscribed on other devices?";
-"SubscribeFailed"="Subcribe failed";
-"SubscribeSuccess"="Subscribe Success";
-"RestoreFailed"="No valid purchases found";
-"RestoreSuccess"="Restore purchases Success";
+"CSS"="Custom Style";
+"CodeStyle"="Code Highlight";
+
+"FollowSystem"="Follow System";
+"KeepDarkMode"="Always Dark";
+"DisableDarkMode"="Always Light";
+
+"InvalidStyleURL"="Invalid Style URL";
+"InvalidStyleName"="Invalid Style Name";
+"DumplicatedName"="Dumplicated Style Name";
+"StyleName"="Style Name";
+"StyleURL"="CSS URL";
+"Download"="Download";
+
+"ServerLoading"="Starting...";
+"ServerStarted"="Server Started!\nOpen the URL in your computer browser:";
+"ServerNotRunning"="Server Not Running";
+"Log"="Log:";
+
+"ContactMessage"="If you have any suggestions or questions about this app, feel free to tell me please.";
+"Email"="Email";
 
 "OK"="OK";
 "Close"="Close";
 "Cancel"="Cancel";
+"Upgrade"="Upgrade";
 
-"Delete"="Delete";
-"Rename"="Rename";
-"LastUpdate"="Last update: ";
+"DeleteMessage"="Sure you want to delete the selected file(s)? This action cannot be undone!";
+"DeleteExternalMessage"="Remove the reference of external file, will not delete the origin file";
+"FileIsEditing"="Can not perform the opration on this file, the file is opened in editor";
+"CanNotAccesseThisFile"="Can Not Accesse This File";
+"CanNotPreviewThisFile"="Can Not Preview This File";
+"FileNameError"="Invalid file name";
+"FileNamePlaceHolder"="Name may NOT contains (./*~)";
+"UnzipFailed"="Unzip Failed";
 
-"DeleteMessage"="Sure you want to delete the file? This action cannot be undone!";
-"FileNameError"="Invalid name";
-"RenameTips"="Please input new name";
-"InvalidCloud"="Can not access iCloud,whether your iCloud account was loginnd on this device?";
 "InsertHref"="Insert href";
 
 "Open"="Open it";
 "Ignore"="Ignore";
-"ReceivedNewFile"="Received new file:";
-"ReceivedFiles" = "Received files";
+"ReceivedNewFile"="Received New File:";
 
-"StartEdit"="Write something here";
-"SelectFileTips"="Select a file to edit";
+"Error"="Error";
+
 "Header"="Header";
 "Header1"="Header 1";
 "Header2"="Header 2";
@@ -98,18 +132,16 @@
 "Blockquote"="Blockquote";
 "Delection"="Delection";
 "EnterCode"="Enter code here";
-"EnterLink"="Enter link description here";
-"EnterPlaceholder"="Enter placeholder here";
+"EnterLink"="Link description";
+"EnterPlaceholder"="Alt";
 
-"PickImage"="Pick an image";
-"Photo"="Image Library";
-"Camera"="Camera";
-"CameraError"="Can not access your camera";
-"PhotoError"="Can not access yours photos";
+"PickFromPhotos"="From Photos";
+"PickFromCamera"="Open Camera";
+"Scrawl"="Scrawl";
+"CameraError"="Can Not Access Your Camera";
+"PhotoError"="Can Not Access Your Photos";
 "EnableCameraTips"="Tap \"settings\" icon, find and tap \"privacy\", tap \"Camera\", find \"Markdown\" and enable it.";
 "EnablePhotoTips"="Tap \"settings\" icon, find and tap \"privacy\", tap \"Photos\", find \"Markdown\" and enable it.";
-
-"Instructions"="Instructions";
 
 "ThemeWhite"="White";
 "ThemeBlack"="Dark";
@@ -119,3 +151,32 @@
 "ThemePink"="Pink";
 "ThemeGreen"="Green";
 
+"Automatic"="Automatic";
+"Never"="Never";
+"Always"="Always";
+
+"PremiumOnly"="Subscribe to Pro to Unlock This Feature";
+"PremiumTips"="Every new user has 3-days free trial";
+"SubscribeNow"="Free trial";
+
+"Premium"="Premium";
+"SubscribeMonthly"="Monthly Subscription";
+"SubscribeYearly"="Yearly Subscription";
+"LifetimePremium"="Lifetime Pro";
+"Terms"="Terms";
+"Privacy"="Privacy Policy";
+"SubscriptionPriceMonthly"="Try 3-days for free, then $0.49 USD per month, subscription can be cancelled at any time";
+"SubscriptionPriceYearly"="Try 1 week for free, then $3.99 USD per year, subscription can be cancelled at any time";
+"PremiumPriceLifetime"="Unlock all the features forever with a single In-App purchase of $6.99 USD";
+"SubscriptionTitle"="Upgrade to Markdown Pro to support further development and gain access to all features in current version and future versions:\n• Export markdown as PDF,HTML,JPG\n• Share files with PC via Wi-Fi\n• Add custom CSS styles";
+
+"SubscribeTips"="[Pro Subscription]\n\n• The duration of every period of Monthly Subscription is 1 month, The duration of every period of Yearly Subscription is 1 year\n\n• Payment will be charged to iTunes Account at confirmation of purchase\n\n• Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period\n\n• Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of the renewal\n\n• Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase\n\n• Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable\n\n• The Price of monthly subscription of every period is $0.49 USD, The Price of yearly subscription of every period is $3.99 USD";
+"Restore"="Restore";
+
+"SubscribeFailed"="Purchase Failed";
+"SubscribeSuccess"="Purchase Success";
+"RestoreFailed"="No Valid Purchases Found";
+"RestoreSuccess"="Restore Purchases Success";
+
+"Instructions"="ReadMe";
+"Syntax"="Syntax";

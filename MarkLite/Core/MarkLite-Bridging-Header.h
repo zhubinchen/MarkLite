@@ -12,5 +12,7 @@
 #import <Foundation/Foundation.h>
 #import <UMCommon/UMCommon.h>
 #import <UMAnalytics/MobClick.h>
-#import "hoedown_helper.h"
+#import <SVProgressHUD/SVProgressHUD.h>
+#import <GCDWebServer/GCDWebUploader.h>
+#import "MarkdownRender.h"
 #endif /* Markdown_Bridging_Header_h */

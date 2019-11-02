@@ -1,11 +1,15 @@
 PODS:
   - Alamofire (4.7.3)
+  - Bugly (2.5.0)
   - EZSwiftExtensions (2.0)
+  - GCDWebServer/Core (3.5.2)
+  - GCDWebServer/WebUploader (3.5.2):
+    - GCDWebServer/Core
   - RxCocoa (4.3.0):
     - RxSwift (~> 4.0)
   - RxSwift (4.3.0)
-  - SideMenu (4.0.0)
   - SnapKit (4.2.0)
+  - SVProgressHUD (2.2.5)
   - UMCAnalytics (6.0.5):
     - UMCCommon
   - UMCCommon (2.1.0)
@@ -13,37 +17,43 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - Bugly
   - EZSwiftExtensions
+  - GCDWebServer/WebUploader (~> 3.0)
   - RxCocoa
   - RxSwift
-  - SideMenu
   - SnapKit
+  - SVProgressHUD
   - UMCAnalytics
-  - Zip
+  - Zip (~> 1.1)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - Bugly
     - EZSwiftExtensions
+    - GCDWebServer
     - RxCocoa
     - RxSwift
-    - SideMenu
     - SnapKit
+    - SVProgressHUD
     - UMCAnalytics
     - UMCCommon
     - Zip
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  Bugly: 3ca9f255c01025582df26f9222893b383c7e4b4e
   EZSwiftExtensions: f73648a591e529a1dbd83c22b19fd3e57df6fb7d
+  GCDWebServer: ead88cd14596dd4eae4f5830b8877c87c8728990
   RxCocoa: 71b9cce833fbcb89a8eec11816dd225830c2bd3c
   RxSwift: a9717a34df3179fe63563f76e046ad345078dd3a
-  SideMenu: 70ee5657df63ec3382660ec4ef470bf1cf5db07d
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   UMCAnalytics: 045be2cd1ec05aa95ad62405a850757f932e2d59
   UMCCommon: c9637200488c482b30cdebebb0bd595b9adf0847
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 142851f1abb91ec7746a62113a73bae58d43b895
+PODFILE CHECKSUM: c26dcf0a615a538e61233a8cee88d44e46218018
 
 COCOAPODS: 1.5.3

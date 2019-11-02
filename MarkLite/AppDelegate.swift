@@ -7,8 +7,9 @@
 //
 
 import UIKit
-import SideMenu
 import RxSwift
+import Bugly
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,69 +17,141 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        #if DEBUG
+
+        #else
+            UMConfigure.initWithAppkey(umengKey, channel: "App Store")
+            Bugly.start(withAppId: buglyId)
+        #endif
         
         UIView.initializeOnceMethod()
-        UMConfigure.initWithAppkey(umengKey, channel: "App Store")
+        createFoldersIfNeed()
+        checkAppStore()
         setup()
-
+        _ = IAPHelper.sharedInstance
         return true
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
-        if FileManager.default.fileExists(atPath: url.path) {
-            let oldPath = url.path
-            let fileName = oldPath.components(separatedBy: "/").last ?? /"Untitled"
-            let recievedPath = documentPath + "/" + /"ReceivedFiles"
-            let newPath = recievedPath + "/" + fileName
-            if oldPath.contains(documentPath) {
-                return true
-            }
-            do {
-                try FileManager.default.createDirectory(atPath: recievedPath, withIntermediateDirectories: true, attributes: nil)
-                try FileManager.default.moveItem(atPath: oldPath, toPath: newPath)
-                RecievedNewFile.post(info: newPath)
-            } catch {
-                print(error.localizedDescription)
+        if window?.rootViewController?.isViewLoaded ?? false {
+            NotificationCenter.default.post(name: Notification.Name("InboxChanged"), object: url)
+        } else {
+            Timer.runThisAfterDelay(seconds: 0.5) {
+                NotificationCenter.default.post(name: Notification.Name("InboxChanged"), object: url)
             }
         }
         return true
     }
-    
 
     func applicationDidEnterBackground(_ application: UIApplication) {
-        ApplicationWillTerminate.post(info: nil)
         Configure.shared.save()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        ApplicationWillTerminate.post(info: nil)
         Configure.shared.save()
+    }
+    
+    func createFoldersIfNeed() {
+        try? FileManager.default.createDirectory(atPath: inboxPath, withIntermediateDirectories: true, attributes: nil)
+        try? FileManager.default.createDirectory(atPath: locationPath, withIntermediateDirectories: true, attributes: nil)
+        try? FileManager.default.removeItem(atPath: tempPath)
+        try? FileManager.default.createDirectory(atPath: tempPath, withIntermediateDirectories: true, attributes: nil)
     }
     
     func setup() {
         let navigationBar = UINavigationBar.appearance()
-        
         navigationBar.isTranslucent = false
-        navigationBar.shadowImage = UIImage(color: .clear, size: CGSize(width: 1000, height: 64))
-        let backImage = #imageLiteral(resourceName: "nav_back")
-        
-        navigationBar.backIndicatorImage = backImage
-        navigationBar.backIndicatorTransitionMaskImage = backImage
-        
-        SideMenuManager.default.menuFadeStatusBar = false
-        SideMenuManager.default.menuWidth = isPad ? 400 : 300
-        SideMenuManager.default.menuPushStyle = .subMenu
-        SideMenuManager.default.menuPresentMode = isPhone ? .viewSlideOut : .menuSlideIn
-
+        SVProgressHUD.setMinimumDismissTimeInterval(2)
+        SVProgressHUD.setMaximumDismissTimeInterval(3)
+        SVProgressHUD.setDefaultMaskType(.clear)
         Configure.shared.setup()
         
         _ = Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in
             ColorCenter.shared.theme = theme
+            UIApplication.shared.statusBarStyle = theme == .white ? .default : .lightContent
+            if theme == .black {
+                Configure.shared.markdownStyle.value = "GitHub Dark"
+                Configure.shared.highlightStyle.value = "tomorrow-night"
+            } else {
+                if Configure.shared.markdownStyle.value == "GitHub Dark" {
+                    Configure.shared.markdownStyle.value = "GitHub"
+                }
+                if Configure.shared.markdownStyle.value == "tomorrow-night" {
+                    Configure.shared.markdownStyle.value = "tomorrow"
+                }
+            }
         })
         
-        _ = Observable.combineLatest(Configure.shared.theme.asObservable(), Configure.shared.isLandscape.asObservable()){ $0 == .black || ($0 != .white && !$1) }.subscribe(onNext: { (light) in
-            UIApplication.shared.statusBarStyle = light ? .lightContent : .default
+        _ = Configure.shared.darkOption.asObservable().subscribe(onNext: { (darkOption) in
+            switch darkOption {
+                case .dark:
+                    Configure.shared.theme.value = .black
+                case .light:
+                    if Configure.shared.theme.value == .black {
+                        Configure.shared.theme.value = .white
+                    }
+                case .system:
+                    if #available(iOS 13.0, *) {
+                        if UITraitCollection.current.userInterfaceStyle == .dark {
+                            Configure.shared.theme.value = .black
+                        } else if Configure.shared.theme.value == .black {
+                            Configure.shared.theme.value = .white
+                        }
+                    } else {
+                        SVProgressHUD.showError(withStatus: "Only Work on iPad OS / iOS 13")
+                    }
+            }
         })
+    }
+    
+    private func checkAppStore() {
+        var localizations = ""
+        if Bundle.main.preferredLocalizations.first == "zh-Hans" {
+            localizations = "cn/"
+        }
+        guard let url = try? "https://itunes.apple.com/\(localizations)lookup?id=\(appID)".asURL() else {
+            return
+        }
+        request(url).responseJSON { response in
+            print(response.result.value ?? "")
+            if let dic = response.result.value as? [String:Any] {
+                self.showNewVersionAlert(requestData: dic)
+            }
+        }
+    }
+    
+    private func showNewVersionAlert(requestData : [String:Any]) {
+        guard let resultsDic = (requestData["results"] as? [Any])?.first as? [String:Any] else { return }
+        let version = resultsDic["version"] as! NSString
+        let oldVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! NSString
+        
+        guard let versionInt = Int(version.replacingOccurrences(of: ".", with: "")), let oldVersionInt = Int(oldVersion.replacingOccurrences(of: ".", with: "")) else {
+            return
+        }
+        
+        if oldVersionInt >= versionInt {
+            return
+        }
+        
+        let trackName = resultsDic["trackName"] as! String
+        let trackViewUrl = resultsDic["trackViewUrl"] as! String
+        let releaseNotes = resultsDic["releaseNotes"] as! String
+        
+        if !releaseNotes.hasPrefix("#") {
+            return
+        }
+        
+        let alert = UIAlertController(title: trackName, message: releaseNotes, preferredStyle: UIAlertControllerStyle.alert)
+        let ation = UIAlertAction(title: /"Cancel", style: UIAlertActionStyle.default) { (at) in
+            
+        }
+        let ation1 = UIAlertAction(title: /"Upgrade", style: UIAlertActionStyle.default) { (at) in
+            let url = URL(string: trackViewUrl)!
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+        alert.addAction(ation)
+        alert.addAction(ation1)
+        self.window?.rootViewController?.present(alert, animated: true, completion: nil)
     }
 }
 

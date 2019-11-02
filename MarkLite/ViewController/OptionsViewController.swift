@@ -14,12 +14,25 @@ protocol StringConvertible {
 
 struct OptionsWraper {
     var selectedIndex: Int? = nil
+    let editable: Bool
     let title: String
     let items: [StringConvertible]
-    let didSelect: (Int)->Void
+    let didSelect: (StringConvertible)->Void
 }
 
 extension Theme: StringConvertible {
+    var toString: String {
+        return displayName
+    }
+}
+
+extension SplitOption: StringConvertible {
+    var toString: String {
+        return displayName
+    }
+}
+
+extension DarkModeOption: StringConvertible {
     var toString: String {
         return displayName
     }
@@ -34,26 +47,46 @@ extension String: StringConvertible {
 class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var options: OptionsWraper!
+    var items: [StringConvertible]!
     let table = UITableView(frame: CGRect(), style: .grouped)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = options.title
-        
-        table.rowHeight = 48
-        table.delegate = self
-        table.dataSource = self
-        table.setSeparatorColor(.primary)
-        view.addSubview(table)
-        
-        table.setBackgroundColor(.tableBackground)
+        setupUI()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         table.frame = self.view.bounds
+    }
+    
+    func setupUI() {
+        navBar?.setTintColor(.navTint)
+        navBar?.setBackgroundColor(.navBar)
+        navBar?.setTitleColor(.navTitle)
+        title = options.title
+        items = options.items
+        
+        table.delegate = self
+        table.dataSource = self
+        table.rowHeight = 48
+        table.estimatedRowHeight = 48
+        table.setSeparatorColor(.primary)
+        table.setBackgroundColor(.tableBackground)
+        view.addSubview(table)
+        
+        
+        if options.editable {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCustomStyle))
+        }
+    }
+    
+    @objc func addCustomStyle() {
+        let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
+        let vc = sb.instantiateVC(AddStyleViewController.self)!
+        pushVC(vc)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,37 +101,37 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return options.items.count
+        return self.items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.textLabel?.text = options.items[indexPath.row].toString
-        cell.textLabel?.setTextColor(.primary)
-        cell.textLabel?.font = UIFont.font(ofSize: 16)
-        let selectedBg = UIView(x: 0, y: 0, w: view.w, h: 48)
-        let selectedMark = UIView(x: 0, y: 0, w: 5, h: 48)
-        selectedBg.addSubview(selectedMark)
-        
-        selectedBg.setBackgroundColor(.selectedCell)
-        selectedMark.setBackgroundColor(.primary)
-        
-        cell.selectedBackgroundView = selectedBg
-        
-        cell.setBackgroundColor(.background)
+        let cell = BaseTableViewCell(style: .default, reuseIdentifier: nil)
+        cell.textLabel?.text = self.items[indexPath.row].toString
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.options.didSelect(indexPath.row)
+        self.options.didSelect(self.items[indexPath.row])
+        impactIfAllow()
     }
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.01
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return self.options.editable
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 20
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .destructive, title: /"Delete") { [unowned self](_, indexPath) in
+            self.showAlert(title: /"DeleteMessage", message: nil, actionTitles: [/"Cancel",/"Delete"], textFieldconfigurationHandler: nil, actionHandler: { (index) in
+                if index == 0 {
+                    return
+                }
+                let name = self.items[indexPath.row].toString
+                let path = resourcesPath + "/Styles/" + name + ".css"
+                try? FileManager.default.removeItem(atPath: path)
+                self.items.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .middle)
+            })
+        }
+        return [deleteAction]
     }
-    
 }

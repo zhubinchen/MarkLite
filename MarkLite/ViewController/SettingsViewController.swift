@@ -7,41 +7,45 @@
 //
 
 import UIKit
-import SideMenu
 import RxSwift
 
 class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var tableView: UITableView! {
-        didSet {
-            tableView.rowHeight = 48
-            tableView.setSeparatorColor(.primary)
-        }
-    }
+    @IBOutlet weak var tableView: UITableView!
     
-    let themeSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
-    let assitBarSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
-    let autoClearSwitch = UISwitch(x: 0, y: 9, w: 60, h: 60)
+    var textField: UITextField?
     
+    let assitBarSwitch = UISwitch()
+    let impactFeedbackSwitch = UISwitch()
+    let displayOptionSwitch = UISwitch()
+
     var items: [(String,[(String,String,Selector)])] {
-        let section = [
-            ("AssistKeyboard","",#selector(assistBar)),
-            ("AutoClear","",#selector(autoClear)),
+        var section = [
+            ("NightMode","",#selector(darkMode)),
+            ("Theme","",#selector(theme)),
+            ("ImpactFeedback","",#selector(impactFeedback))
             ]
-        
-        return [
-            ("功能",section),
-            ("外观",[
-                ("NightMode","",#selector(night)),
-                ("Theme","",#selector(theme)),
+        if isPad {
+            section.append(("SplitOptions","",#selector(splitOption)))
+        }
+        var items = [
+            ("共享",[("WebDAV","",#selector(webdav))]),
+            ("外观",section),
+            ("功能",[
                 ("Style","",#selector(style)),
-                ("CodeStyle","",#selector(codeStyle))
+                ("CodeStyle","",#selector(codeStyle)),
+                ("AssistKeyboard","",#selector(assistBar)),
+                ("ShowExtensionName","",#selector(displayOption)),
                 ]),
             ("支持一下",[
                 ("RateIt","",#selector(rate)),
-                ("Feedback","",#selector(feedback))
+                ("Contact","",#selector(feedback))
                 ])
         ]
+        if !Configure.shared.isPro {
+            items.insert(("高级帐户",[("Premium","",#selector(premium))]), at: 0)
+        }
+        return items;
     }
     
     let bag = DisposeBag()
@@ -49,34 +53,31 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        preferredContentSize = CGSize(width: 320, height: 500)
         self.title = /"Settings"
-        navBar?.setBarTintColor(.navBar)
-        navBar?.setContentColor(.navBarTint)
+        navBar?.setTintColor(.navTint)
+        navBar?.setBackgroundColor(.navBar)
+        navBar?.setTitleColor(.navTitle)
         tableView.setBackgroundColor(.tableBackground)
+        tableView.setSeparatorColor(.primary)
 
-        themeSwitch.setTintColor(.navBarTint)
-        assitBarSwitch.setTintColor(.navBarTint)
-        autoClearSwitch.setTintColor(.navBarTint)
+        assitBarSwitch.setTintColor(.tint)
+        displayOptionSwitch.setTintColor(.tint)
+        impactFeedbackSwitch.setTintColor(.tint)
 
-        themeSwitch.isOn = Configure.shared.theme.value == .black
         assitBarSwitch.isOn = Configure.shared.isAssistBarEnabled.value
-        autoClearSwitch.isOn = Configure.shared.isAutoClearEnabled
-        
-        themeSwitch.addTarget(self, action: #selector(night(_:)), for: .valueChanged)
+        displayOptionSwitch.isOn = Configure.shared.showExtensionName
+        impactFeedbackSwitch.isOn = Configure.shared.impactFeedback
+
         assitBarSwitch.addTarget(self, action: #selector(assistBar(_:)), for: .valueChanged)
-        autoClearSwitch.addTarget(self, action: #selector(autoClear(_:)), for: .valueChanged)
-        
-        navigationController?.delegate = navigationController
-        navigationController?.delegate = navigationController
-        navigationController?.interactivePopGestureRecognizer?.delegate = navigationController
+        displayOptionSwitch.addTarget(self, action: #selector(displayOption(_:)), for: .valueChanged)
+        impactFeedbackSwitch.addTarget(self, action: #selector(impactFeedback), for: .valueChanged)
+
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        themeSwitch.x = view.w - 60
-        assitBarSwitch.x = view.w - 60
-        autoClearSwitch.x = view.w - 60
+    @objc func close() {
+        impactIfAllow()
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -88,25 +89,36 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "settings", for: indexPath)
+        let cell = BaseTableViewCell(style: .default, reuseIdentifier: nil)
+
         let item = items[indexPath.section].1[indexPath.row]
         cell.textLabel?.text = /(item.0)
         cell.detailTextLabel?.text = /(item.1)
-        cell.textLabel?.setTextColor(.primary)
-        cell.detailTextLabel?.setTextColor(.secondary)
-        cell.setBackgroundColor(.background)
-        
+        cell.needUnlock = item.0 == "WebDAV" && Configure.shared.isPro == false
+
         if item.0 == "AssistKeyboard" {
             cell.addSubview(assitBarSwitch)
             cell.accessoryType = .none
-        }
-        if item.0 == "NightMode" {
-            cell.addSubview(themeSwitch)
+            assitBarSwitch.snp.makeConstraints { maker in
+                maker.centerY.equalToSuperview()
+                maker.right.equalToSuperview().offset(-20)
+            }
+        } else if item.0 == "ShowExtensionName" {
+            cell.addSubview(displayOptionSwitch)
             cell.accessoryType = .none
-        }
-        if item.0 == "AutoClear" {
-            cell.addSubview(autoClearSwitch)
+            displayOptionSwitch.snp.makeConstraints { maker in
+                maker.centerY.equalToSuperview()
+                maker.right.equalToSuperview().offset(-20)
+            }
+        } else if item.0 == "ImpactFeedback" {
+            cell.addSubview(impactFeedbackSwitch)
             cell.accessoryType = .none
+            impactFeedbackSwitch.snp.makeConstraints { maker in
+                maker.centerY.equalToSuperview()
+                maker.right.equalToSuperview().offset(-20)
+            }
+        } else {
+            cell.accessoryType = .disclosureIndicator
         }
         return cell
     }
@@ -115,51 +127,98 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.deselectRow(at: indexPath, animated: true)
 
         let item = items[indexPath.section].1[indexPath.row]
-        if item.0 == "AssistKeyboard" || item.0 == "NightMode" || item.0 == "AutoClear" {
+        if item.0 == "AssistKeyboard" || item.0 == "ShowExtensionName" {
             return
         }
         perform(item.2)
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.01
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 20
+        impactIfAllow()
     }
 }
 
 extension SettingsViewController {
     
+    func doIfPro(_ task: (() -> Void)) {
+        if Configure.shared.isPro {
+            task()
+            return
+        }
+        showAlert(title: /"PremiumOnly", message: /"PremiumTips", actionTitles: [/"SubscribeNow",/"Cancel"], textFieldconfigurationHandler: nil) { [unowned self](index) in
+            if index == 0 {
+                self.premium()
+            }
+        }
+    }
+    
+    @objc func premium() {
+        let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
+        let vc = sb.instantiateVC(PurchaseViewController.self)!
+        pushVC(vc)
+    }
+    
+    @objc func splitOption() {
+        let items = [SplitOption.automatic,.never,.always]
+        let index = items.index{ Configure.shared.splitOption.value == $0 }
+
+        let wraper = OptionsWraper(selectedIndex: index, editable: false, title: /"SplitOptions", items: items) {
+            Configure.shared.splitOption.value = $0 as! SplitOption
+        }
+        let vc = OptionsViewController()
+        vc.options = wraper
+        pushVC(vc)
+    }
     
     @objc func rate() {
-        Configure.shared.hasRate = true
-        UIApplication.shared.openURL(URL(string: rateUrl)!)
+        UIApplication.shared.open(URL(string: rateUrl)!, options: [:], completionHandler: nil)
+        
     }
-    
+        
     @objc func feedback() {
-        UIApplication.shared.openURL(URL(string: emailUrl)!)
+        showAlert(title: /"Contact", message: /"ContactMessage", actionTitles: [/"Cancel",/"Email"]) { index in
+            if index == 1 {
+                UIApplication.shared.open(URL(string: emailUrl)!, options: [:], completionHandler: nil)
+            }
+        }
     }
     
-    @objc func night(_ sender: UISwitch) {
-        Configure.shared.theme.value = sender.isOn ? .black : .white
+    @objc func darkMode() {
+        let items = [DarkModeOption.dark,.light,.system]
+        let index = items.index{ Configure.shared.darkOption.value == $0 }
+
+        let wraper = OptionsWraper(selectedIndex: index, editable: false, title: /"NightMode", items: items) {
+            Configure.shared.darkOption.value = $0 as! DarkModeOption
+        }
+        let vc = OptionsViewController()
+        vc.options = wraper
+        pushVC(vc)
     }
     
     @objc func assistBar(_ sender: UISwitch) {
         Configure.shared.isAssistBarEnabled.value = sender.isOn
     }
     
-    @objc func autoClear(_ sender: UISwitch) {
-        Configure.shared.isAutoClearEnabled = sender.isOn
+    @objc func displayOption(_ sender: UISwitch) {
+        Configure.shared.showExtensionName = sender.isOn
+        NotificationCenter.default.post(name: NSNotification.Name("DisplayOptionChanged"), object: nil)
+    }
+    
+    @objc func impactFeedback(_ sender: UISwitch) {
+        Configure.shared.impactFeedback = sender.isOn
+    }
+    
+    @objc func webdav() {
+//        let vc = KeyboardBarViewController()
+//        pushVC(vc)
+        doIfPro {
+            self.performSegue(withIdentifier: "webdav", sender: nil)
+        }
     }
     
     @objc func theme() {
         let items = [Theme.white,.black,.pink,.green,.blue,.purple,.red]
         let index = items.index{ Configure.shared.theme.value == $0 }
 
-        let wraper = OptionsWraper(selectedIndex: index, title: /"Theme", items: items) { (index) in
-            Configure.shared.theme.value = items[index]
+        let wraper = OptionsWraper(selectedIndex: index, editable: false, title: /"Theme", items: items) {
+            Configure.shared.theme.value = $0 as! Theme
         }
         let vc = OptionsViewController()
         vc.options = wraper
@@ -167,30 +226,30 @@ extension SettingsViewController {
     }
     
     @objc func style() {
-        let path = stylePath + "/markdown-style/"
+        let path = resourcesPath + "/Styles/"
         
         guard let subPaths = FileManager.default.subpaths(atPath: path) else { return }
         
-        let items = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}
+        let items = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}.sorted(by: >)
         let index = items.index{ Configure.shared.markdownStyle.value == $0 }
-        let wraper = OptionsWraper(selectedIndex: index, title: /"Style", items: items) { (index) in
-            Configure.shared.markdownStyle.value = items[index]
+        let wraper = OptionsWraper(selectedIndex: index, editable: true, title: /"Style", items: items) {
+            Configure.shared.markdownStyle.value = $0.toString
         }
+
         let vc = OptionsViewController()
         vc.options = wraper
         pushVC(vc)
     }
     
     @objc func codeStyle() {
-        let path = stylePath + "/highlight-style/"
+        let path = resourcesPath + "/Highlight/highlight-style/"
         
         guard let subPaths = FileManager.default.subpaths(atPath: path) else { return }
         
         let items = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}
         let index = items.index{ Configure.shared.highlightStyle.value == $0 }
-
-        let wraper = OptionsWraper(selectedIndex: index, title: /"CodeStyle", items: items) { (index) in
-            Configure.shared.highlightStyle.value = items[index]
+        let wraper = OptionsWraper(selectedIndex: index, editable: false, title: /"CodeStyle", items: items) {
+            Configure.shared.highlightStyle.value = $0.toString
         }
         let vc = OptionsViewController()
         vc.options = wraper
