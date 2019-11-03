@@ -82,7 +82,7 @@ class FilesViewController: UIViewController {
                 self.navBar?.barStyle = theme == .white ? .default : .black
             })
         } else {
-            title = root.displayName ?? root.name
+            title = root.displayName
             tableView.tableHeaderView = UIView(x: 0, y: 0, w: 0, h: 0.01)
         }
         
@@ -345,12 +345,12 @@ class FilesViewController: UIViewController {
             performSegue(withIdentifier: "file", sender: file)
             return
         }
-        if file.type == .other || file.type == .image {
-            preview(file)
-            return
-        }
         if file.type == .archive {
             unzip(file)
+            return
+        }
+        if file.type == .image {
+            preview(file)
             return
         }
         if file.opened {
@@ -408,7 +408,7 @@ class FilesViewController: UIViewController {
     }
     
     func goToRoot(_ root: File) {
-        if root.type == .text || root.type == .other {
+        guard root.type == .folder || root.type == .location else {
             return
         }
         if root == self.root {
@@ -597,7 +597,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
         let file = sections[indexPath.section][indexPath.row]
         
         if file.type == .location || Configure.shared.showExtensionName == false {
-            cell.textLabel?.text = file.displayName ?? file.name
+            cell.textLabel?.text = file.displayName
         } else {
             cell.textLabel?.text = file.name
         }
@@ -700,6 +700,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
         
         if file.isExternalFile {
             let deleteAction = UITableViewRowAction(style: .destructive, title: /"Delete") { [unowned self](_, indexPath) in
+                impactIfAllow()
                 if file.opened {
                     SVProgressHUD.showError(withStatus: /"FileIsEditing")
                     return
@@ -716,6 +717,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: /"Delete") { [unowned self](_, indexPath) in
+            impactIfAllow()
             if file.opened {
                 SVProgressHUD.showError(withStatus: /"FileIsEditing")
                 return
@@ -731,6 +733,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         let renameAction = UITableViewRowAction(style: .default, title: /"Rename") { [unowned self](_, indexPath) in
+            impactIfAllow()
             if file.disable {
                 SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
                 return
@@ -740,7 +743,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
                 return
             }
             self.showAlert(title: nil, message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
-                textField.text = file.displayName ?? file.name
+                textField.text = file.displayName
                 textField.clearButtonMode = .whileEditing
                 textField.placeholder = /"FileNamePlaceHolder"
                 self.textField = textField

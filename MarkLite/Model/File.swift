@@ -22,19 +22,18 @@ enum FileType {
     case image
     case folder
     case location
-    case other
     
     var defaultExtName: String {
         switch self {
         case .text:
-            return ".md"
+            return "md"
         case .image:
-            return ".png"
+            return "png"
         case .archive:
-            return ".zip"
+            return "zip"
         case .location:
-            return ".link"
-        default:
+            return "link"
+        case .folder:
             return ""
         }
     }
@@ -65,13 +64,11 @@ class File {
     private(set) var modifyDate = Date()
     private(set) var size = 0
     private(set) var disable = false
-    private(set) var type = FileType.other
+    private(set) var type = FileType.text
     private(set) var isExternalFile = false
     private(set) var opened = false
     private(set) var changed = false
     private(set) weak var parent: File?
-    private(set) var displayName: String?
-    private(set) var extensionName = ""
 
     fileprivate(set) static var cloud = File.placeholder(name: /"Cloud")
     fileprivate(set) static var local = File.placeholder(name: /"Local")
@@ -79,6 +76,14 @@ class File {
     fileprivate(set) static var location = File.placeholder(name: /"AddLocation")
     fileprivate(set) static var empty = File.placeholder(name: /"Empty")
     fileprivate(set) static var current: File?
+    
+    var displayName: String {
+        return _displayName ?? name.components(separatedBy: ".").first ?? name
+    }
+    
+    var extensionName: String {
+        return name.components(separatedBy: ".").last ?? ""
+    }
 
     var children: [File] {
         return _children
@@ -145,6 +150,8 @@ class File {
     fileprivate var _children = [File]()
     
     fileprivate var _document: Document?
+    
+    fileprivate var _displayName: String?
 
     fileprivate lazy var externalURL: URL? = {
         guard let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else {
@@ -184,8 +191,7 @@ class File {
             disable = true
             return
         }
-        displayName = url.deletingPathExtension().lastPathComponent
-        extensionName = url.pathExtension
+
         if (values.isDirectory ?? false) {
             type = .folder
         }
@@ -200,7 +206,7 @@ class File {
             type = .image
         }
         
-        if type == .text || type == .other || type == .archive {
+        guard type == .location || type == .folder else {
             modifyDate = values.contentModificationDate ?? Date()
             size = values.fileSize ?? 0
             return
@@ -223,8 +229,8 @@ class File {
     class func placeholder(name: String) -> File {
         let file = File(path: "")
         file.disable = true
-        file.displayName = name
         file.name = name
+        file._displayName = name
         return file
     }
     
@@ -270,7 +276,8 @@ class File {
     
     @discardableResult
     func createFile(name: String, contents: Any? = nil, type: FileType) -> File?{
-        let path = (self.path + "/" + name + type.defaultExtName).validPath
+        let ext = type.defaultExtName.count == 0 ? "" : ".\(type.defaultExtName)"
+        let path = (self.path + "/" + name + ext).validPath
         if type == .folder {
             try? fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
         } else {
@@ -322,18 +329,18 @@ class File {
     
     @discardableResult
     func rename(to newName: String) -> Bool {
-        if newName == name {
+        if newName == displayName {
             return false
         }
         guard let parent = parent else { return false }
-        let newPath = parent.path + "/" + newName + extensionName
+        let ext = extensionName.count == 0 ? (type.defaultExtName.count == 0 ? "" : ".\(type.defaultExtName)") : ".\(extensionName)"
+        let newPath = parent.path + "/" + newName + ext
         if fileManager.fileExists(atPath: newPath) {
             return false
         }
         try? fileManager.moveItem(atPath: path, toPath: newPath)
-        displayName = newName
-        name = newName + extensionName
         path = newPath
+        name = newName + ext
         return true
     }
     
@@ -396,7 +403,7 @@ extension File {
     class func loadLocation(_ completion: @escaping (File)->Void) {
         DispatchQueue.global().async {
             let location = File(path: locationPath)
-            location.displayName = /"AddLocation"
+            location._displayName = /"AddLocation"
             location.name = /"AddLocation"
             File.location = location
             DispatchQueue.main.sync {
@@ -408,7 +415,7 @@ extension File {
     class func loadInbox(_ completion: @escaping (File)->Void) {
         DispatchQueue.global().async {
             let inbox = File(path: inboxPath)
-            inbox.displayName = /"External"
+            inbox._displayName = /"External"
             inbox.name = /"External"
             File.inbox = inbox
             DispatchQueue.main.sync {
@@ -420,7 +427,7 @@ extension File {
     class func loadLocal(_ completion: @escaping (File)->Void) {
         DispatchQueue.global().async {
             let local = File(path: documentPath)
-            local.displayName = /"Local"
+            local._displayName = /"Local"
             local.name = /"Local"
             File.local = local
             DispatchQueue.main.sync {
@@ -437,7 +444,7 @@ extension File {
             if cloudPath.count == 0 {
                 cloud.disable = true
             }
-            cloud.displayName = /"Cloud"
+            cloud._displayName = /"Cloud"
             cloud.name = /"Cloud"
             File.cloud = cloud
             DispatchQueue.main.sync {

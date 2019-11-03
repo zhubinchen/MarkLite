@@ -53,6 +53,10 @@
 		768762BB22D86D1C00A54EB1 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */; };
 		7699B210236ADC3C005F394D /* ExportActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7699B20F236ADC3C005F394D /* ExportActivity.swift */; };
 		76A4D272234EF98200B87A78 /* WebDAVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4D271234EF98200B87A78 /* WebDAVViewController.swift */; };
+		76C0E008236DABD0002F4266 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C0E007236DABD0002F4266 /* NavigationController.swift */; };
+		76C0E00C236DB155002F4266 /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C0E00A236DB155002F4266 /* DrawView.swift */; };
+		76C0E00D236DB155002F4266 /* DrawPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C0E00B236DB155002F4266 /* DrawPath.swift */; };
+		76C0E00F236DB318002F4266 /* ScrawlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C0E00E236DB318002F4266 /* ScrawlViewController.swift */; };
 		76CF5B0823541DC100E87A99 /* 使用教程.md in Resources */ = {isa = PBXBuildFile; fileRef = 76CF5B0723541DC000E87A99 /* 使用教程.md */; };
 		76CF5B0A235425EA00E87A99 /* Syntax.md in Resources */ = {isa = PBXBuildFile; fileRef = 76CF5B09235425EA00E87A99 /* Syntax.md */; };
 		76DFD721232926AC00F97D56 /* AddStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DFD720232926AC00F97D56 /* AddStyleViewController.swift */; };
@@ -124,6 +128,10 @@
 		768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		7699B20F236ADC3C005F394D /* ExportActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportActivity.swift; sourceTree = "<group>"; };
 		76A4D271234EF98200B87A78 /* WebDAVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVViewController.swift; sourceTree = "<group>"; };
+		76C0E007236DABD0002F4266 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		76C0E00A236DB155002F4266 /* DrawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
+		76C0E00B236DB155002F4266 /* DrawPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawPath.swift; sourceTree = "<group>"; };
+		76C0E00E236DB318002F4266 /* ScrawlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrawlViewController.swift; sourceTree = "<group>"; };
 		76C94A6A22EAA43D004CE602 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		76CF5B0723541DC000E87A99 /* 使用教程.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "使用教程.md"; path = "Instructions/使用教程.md"; sourceTree = "<group>"; };
 		76CF5B09235425EA00E87A99 /* Syntax.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = Syntax.md; path = Instructions/Syntax.md; sourceTree = "<group>"; };
@@ -277,6 +285,7 @@
 				07E827001F5BF1BA0077A017 /* DottedLineView.swift */,
 				76E7F270233CAEE10051DF6A /* BaseTableViewCell.swift */,
 				07E827031F5BF1BA0077A017 /* MenuView.swift */,
+				76C0E009236DB155002F4266 /* ScrawlView */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -285,6 +294,7 @@
 			isa = PBXGroup;
 			children = (
 				07E827081F5BF1BA0077A017 /* FilesViewController.swift */,
+				76C0E007236DABD0002F4266 /* NavigationController.swift */,
 				07E827071F5BF1BA0077A017 /* EditViewController.swift */,
 				07E8270E1F5BF1BA0077A017 /* PreviewViewController.swift */,
 				07E8270D1F5BF1BA0077A017 /* TextViewController.swift */,
@@ -296,6 +306,7 @@
 				76DFD720232926AC00F97D56 /* AddStyleViewController.swift */,
 				76A4D271234EF98200B87A78 /* WebDAVViewController.swift */,
 				76F7391D2369977400FCF57E /* KeyboardBarViewController.swift */,
+				76C0E00E236DB318002F4266 /* ScrawlViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -306,6 +317,15 @@
 				0CED168CEF9A6EB3A1E2F9CC /* Pods_Markdown.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		76C0E009236DB155002F4266 /* ScrawlView */ = {
+			isa = PBXGroup;
+			children = (
+				76C0E00A236DB155002F4266 /* DrawView.swift */,
+				76C0E00B236DB155002F4266 /* DrawPath.swift */,
+			);
+			path = ScrawlView;
 			sourceTree = "<group>";
 		};
 		884442E41EEF6850184F9E8F /* Pods */ = {
@@ -469,6 +489,8 @@
 			files = (
 				76DFD721232926AC00F97D56 /* AddStyleViewController.swift in Sources */,
 				07E8274C1F5BF1BA0077A017 /* Localization.swift in Sources */,
+				76C0E00C236DB155002F4266 /* DrawView.swift in Sources */,
+				76C0E008236DABD0002F4266 /* NavigationController.swift in Sources */,
 				760C296F2320F3EC002E613E /* escape.c in Sources */,
 				07E827561F5BF1BA0077A017 /* FilesViewController.swift in Sources */,
 				07E827101F5BF1BA0077A017 /* HighlightManager.swift in Sources */,
@@ -489,12 +511,14 @@
 				07E8271D1F5BF1BA0077A017 /* File.swift in Sources */,
 				07E8274F1F5BF1BA0077A017 /* DottedLineView.swift in Sources */,
 				760C296B2320F3EC002E613E /* autolink.c in Sources */,
+				76C0E00F236DB318002F4266 /* ScrawlViewController.swift in Sources */,
 				0724281B1F726B0300C02F87 /* ImagePicker.swift in Sources */,
 				761F825022E16D6500C3435C /* WebViewController.swift in Sources */,
 				07E8275C1F5BF1BA0077A017 /* PreviewViewController.swift in Sources */,
 				760C29682320F3EC002E613E /* stack.c in Sources */,
 				760C296C2320F3EC002E613E /* version.c in Sources */,
 				07E8271B1F5BF1BA0077A017 /* PDFRender.swift in Sources */,
+				76C0E00D236DB155002F4266 /* DrawPath.swift in Sources */,
 				766F117C2350803A00E6395E /* KeyboardBar.swift in Sources */,
 				760C296E2320F3EC002E613E /* html_blocks.c in Sources */,
 				07E827491F5BF1BA0077A017 /* Constant.swift in Sources */,

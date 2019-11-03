@@ -205,7 +205,7 @@
         <!--Navigation Controller-->
         <scene sceneID="bx4-8D-fuX">
             <objects>
-                <navigationController id="793-dA-9nf" sceneMemberID="viewController">
+                <navigationController id="793-dA-9nf" customClass="NavigationController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7vK-BR-q20">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -221,7 +221,7 @@
         <!--Navigation Controller-->
         <scene sceneID="miN-n0-oyE">
             <objects>
-                <navigationController id="hAF-LB-VS1" sceneMemberID="viewController">
+                <navigationController id="hAF-LB-VS1" customClass="NavigationController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VoN-ld-XP7">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -247,7 +247,7 @@
         <!--Navigation Controller-->
         <scene sceneID="DEh-Ka-g9l">
             <objects>
-                <navigationController id="a2F-WT-xun" sceneMemberID="viewController">
+                <navigationController id="a2F-WT-xun" customClass="NavigationController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xqJ-NF-3oi">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -276,7 +276,7 @@
         <!--Navigation Controller-->
         <scene sceneID="bYP-C2-xSj">
             <objects>
-                <navigationController id="7hP-zx-FeY" sceneMemberID="viewController">
+                <navigationController id="7hP-zx-FeY" customClass="NavigationController" customModule="Markdown" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="V88-sG-HCL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -304,6 +304,6 @@
         <image name="empty_file" width="88" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="56L-9f-7UQ"/>
+        <segue reference="qPs-mA-JXd"/>
     </inferredMetricsTieBreakers>
 </document>
