@@ -52,7 +52,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         if Configure.shared.splitOption.value == .never {
             return false
         }
-        return landscape
+        return self.view.w > self.view.h * 0.6
     }
             
     var previewVC: PreviewViewController!
@@ -92,6 +92,8 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         navBar?.setBackgroundColor(.navBar)
         navBar?.setTitleColor(.navTitle)
         addNotificationObserver(Notification.Name.UIApplicationWillChangeStatusBarOrientation.rawValue, selector: #selector(deviceOrientationWillChange))
+        addNotificationObserver(Notification.Name.UIKeyboardWillChangeFrame.rawValue, selector: #selector(keyboardHeightWillChange(_:)))
+
         addNotificationObserver("FileLoadFinished", selector: #selector(fileLoadFinished(_:)))
     }
     
@@ -113,6 +115,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
         file?.close { _ in
 
         }
@@ -126,9 +129,8 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         if isViewLoaded == false {
             return
         }
-        NSLog("3")
         previewVC.url = file.url
-        textVC.assistBar.parent = file.parent
+        textVC.assistBar.file = file
         textVC.textChangedHandler = { [weak self] (text) in
             file.text = text
             let html = self?.markdownRenderer?.renderMarkdown(text) ?? ""
@@ -158,6 +160,16 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         textVC.textViewDidChange(textVC.editView)
     }
     
+    @objc func keyboardHeightWillChange(_ noti: NSNotification) {
+        if !self.textVC.editView.isFirstResponder {
+            return
+        }
+        guard let frame = (noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        let h =  frame.y
+        textVC.keyboardHeight = h
+        previewVC.keyboardHeight = h
+    }
+    
     @objc func deviceOrientationWillChange() {
         splitViewController?.preferredDisplayMode = .automatic
     }
@@ -181,7 +193,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     @objc func preview() {
         impactIfAllow()
         textVC.editView.resignFirstResponder()
-        scrollView.setContentOffset(CGPoint(x:windowWidth , y:0), animated: true)
+        scrollView.setContentOffset(CGPoint(x:self.view.w , y:0), animated: true)
         toggleRightBarButton()
     }
     
@@ -204,7 +216,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     }
     
     func toggleRightBarButton() {
-        webVisible = scrollView.contentOffset.x > windowWidth - 10
+        webVisible = scrollView.contentOffset.x > view.w - 10
         
         if webVisible && split == false {
             navigationController?.interactivePopGestureRecognizer?.isEnabled = false
@@ -323,7 +335,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
        }
        
     lazy var exportButton: UIBarButtonItem = {
-           let export = UIBarButtonItem(image: #imageLiteral(resourceName: "export"), style: .plain, target: self, action: #selector(showExportMenu(_:)))
+        let export = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.action, target: self, action:  #selector(showExportMenu(_:)))            
            return export
        }()
        

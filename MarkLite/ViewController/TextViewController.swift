@@ -32,13 +32,23 @@ class TextViewController: UIViewController {
     var offset: CGFloat = 0.0
     var timer: Timer?
     
+    var keyboardHeight: CGFloat = windowHeight {
+        didSet {
+            bottomSpace.constant = max(windowHeight - keyboardHeight - 40 - bottomInset,0)
+            UIView.animate(withDuration: 0.5, animations: {
+                self.view.layoutIfNeeded()
+            }) { _ in
+                self.editView.scrollRangeToVisible(self.editView.selectedRange)
+            }
+        }
+    }
+    
     var highlightmanager = MarkdownHighlightManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupRx()
-        addNotificationObserver(Notification.Name.UIKeyboardWillChangeFrame.rawValue, selector: #selector(keyboardWillChange(_:)))
         
         editView.textContainer.lineBreakMode = .byCharWrapping
         view.setBackgroundColor(.background)
@@ -82,17 +92,6 @@ class TextViewController: UIViewController {
         impactIfAllow()
     }
     
-    @objc func keyboardWillChange(_ noti: NSNotification) {
-        guard let frame = (noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
-        
-        bottomSpace.constant = max(windowHeight - frame.y - 40 - bottomInset,0)
-        UIView.animate(withDuration: 0.5, animations: {
-            self.view.layoutIfNeeded()
-        }) { _ in
-            self.editView.scrollRangeToVisible(self.editView.selectedRange)
-        }
-    }
-    
     func newLine(_ last: String) -> String {
         if last.hasPrefix("- [x] ") {
             return "- [x] "
@@ -121,13 +120,13 @@ class TextViewController: UIViewController {
 extension TextViewController: UITextViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let pan = scrollView.panGestureRecognizer
-        let velocity = pan.velocity(in: scrollView).y
-        if velocity < -10 {
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
-        } else if velocity > 10 {
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-        }
+//        let pan = scrollView.panGestureRecognizer
+//        let velocity = pan.velocity(in: scrollView).y
+//        if velocity < -500 {
+//            self.navigationController?.setNavigationBarHidden(true, animated: true)
+//        } else if velocity > 500 {
+//            self.navigationController?.setNavigationBarHidden(false, animated: true)
+//        }
         
         let offset = scrollView.contentOffset.y
         if offset == 0 || offset == self.offset {
@@ -169,7 +168,6 @@ extension TextViewController: UITextViewDelegate {
         redoButton.isEnabled = self.editView.undoManager?.canRedo ?? false
         undoButton.isEnabled = self.editView.undoManager?.canUndo ?? false
         
-        NSLog("4")
         timer?.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(highlight), userInfo: nil, repeats: false)
     }    

@@ -18,7 +18,7 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
     
     var offset: CGFloat = 0 {
         didSet {
-            let y = offset * contentHeight - scrollView.h
+            let y = max(offset * contentHeight - scrollView.h,0)
             let canScroll = max(contentHeight - scrollView.h,0)
             scrollView.contentOffset = CGPoint(x: 0,y: min(y, canScroll))
         }
@@ -31,7 +31,14 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
         }
     }
     
-    var keyboardHeight: CGFloat = 0
+    var keyboardHeight: CGFloat = windowHeight {
+        didSet {
+            let h = max(windowHeight - keyboardHeight - bottomInset, 0)
+            UIView.animate(withDuration: 0.5, animations: {
+                self.scrollView.h = self.view.size.height - h
+            })
+        }
+    }
     
     var shouldRefresh = false
     
@@ -70,9 +77,7 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
         }
 
         view.setBackgroundColor(.background)
-        
-        addNotificationObserver(Notification.Name.UIKeyboardWillChangeFrame.rawValue, selector: #selector(keyboardWillChange(_:)))
-        
+                
         timer = Timer.runThisEvery(seconds: 0.5, handler: { [weak self] _ in
             if self?.shouldRefresh ?? false {
                 self?.refresh()
@@ -83,7 +88,8 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         shouldRefresh = true
-        scrollView.frame = CGRect(x: 0, y: 0, w: view.w, h: view.h - keyboardHeight)
+        let h = max(windowHeight - keyboardHeight - bottomInset, 0)
+        scrollView.frame = CGRect(x: 0, y: 0, w: view.w, h: view.h - h)
         contentHeight = scrollView.h
     }
     
@@ -101,14 +107,6 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
         shouldRefresh = false
     }
     
-    @objc func keyboardWillChange(_ noti: NSNotification) {
-        guard let frame = (noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
-        keyboardHeight = max(windowHeight - frame.y - bottomInset, 0)
-        UIView.animate(withDuration: 0.5, animations: {
-            self.scrollView.h = self.view.size.height - self.keyboardHeight;
-        })
-    }
-    
     func webViewDidStartLoad(_ webView: UIWebView) {
         print("webViewDidStartLoad")
     }
@@ -118,13 +116,13 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let pan = scrollView.panGestureRecognizer
-        let velocity = pan.velocity(in: scrollView).y
-        if velocity < -10 {
-            self.navigationController?.setNavigationBarHidden(true, animated: true)
-        } else if velocity > 10 {
-            self.navigationController?.setNavigationBarHidden(false, animated: true)
-        }
+//        let pan = scrollView.panGestureRecognizer
+//        let velocity = pan.velocity(in: scrollView).y
+//        if velocity < -10 {
+//            self.navigationController?.setNavigationBarHidden(true, animated: true)
+//        } else if velocity > 10 {
+//            self.navigationController?.setNavigationBarHidden(false, animated: true)
+//        }
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
