@@ -172,7 +172,7 @@ class FilesViewController: UIViewController {
     @objc func inboxChanged(_ noti: Notification) {
         navigationController?.popToRootViewController(animated: true)
         guard let url = noti.object as? URL else { return }
-        didPickFile(url)
+        finishPick(url)
     }
     
     @objc func multipleSelect() {
@@ -796,22 +796,29 @@ extension FilesViewController: UIDocumentPickerDelegate {
         picker.modalPresentationStyle = .formSheet
         presentVC(picker)
     }
-    
+
     func finishPick(_ url: URL) {
+        SVProgressHUD.show()
         let accessed = url.startAccessingSecurityScopedResource()
         if !accessed {
+            SVProgressHUD.dismiss()
             SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
             return
         }
-        guard let values = try? url.resourceValues(forKeys: [URLResourceKey.isDirectoryKey]) else {
-            url.stopAccessingSecurityScopedResource()
-            SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
-            return
-        }
-        if values.isDirectory ?? false {
-            didPickFolder(url)
-        } else {
-            didPickFile(url)
+        var error: NSError? = nil
+        NSFileCoordinator().coordinate(readingItemAt: url, options: .forUploading, error: &error) { newURL in
+            print(newURL)
+            SVProgressHUD.dismiss()
+            guard let values = try? url.resourceValues(forKeys: [URLResourceKey.isDirectoryKey]) else {
+                url.stopAccessingSecurityScopedResource()
+                SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
+                return
+            }
+            if values.isDirectory ?? false {
+                didPickFolder(url)
+            } else {
+                didPickFile(url)
+            }
         }
     }
     

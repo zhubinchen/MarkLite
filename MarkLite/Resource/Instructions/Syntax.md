@@ -2,8 +2,6 @@
 
 ### Heading
 
-----------
-
 Put 1-6 `#` characters in the begining of line to make this line as *heading* line. The 1-6 number of `#` characters represent the level of heading respectively:
 
 # Heading 1
@@ -16,11 +14,7 @@ Put 1-6 `#` characters in the begining of line to make this line as *heading* li
 
 ##### Heading 5
 
-###### Heading 6
-
-### Emphasize
-
-----------
+### Text Format
 
 Bold：
 
@@ -30,23 +24,19 @@ Italic：
 
 *Italic Text*
 
+Highlight：
+
+==Highlight Text==
 
 ### Link
 
-----------
-
 [Markdown](https://appsto.re/cn/jK8Cbb.i) is a powerful editor.
 
-
 ### Image
-
-----------
 
 ![Markdown](https://i.loli.net/2017/08/23/599c5c1dc7226.jpg)
 
 ### List
-
-----------
 
 Ordered List:
 
@@ -62,13 +52,9 @@ Unordered List:
 
 ### Quote
 
-----------
-
 > Stay hungry, stay foolish.
 
 ### Code
-
-----------
 
 Inline Code ：`foo.go()` .
 
@@ -80,8 +66,6 @@ print("Good")
 
 ### Indented Code
 
-----------
-
 4 spaces or 1 tab represent Indented code
 
 This is a normal paragraph.
@@ -91,13 +75,9 @@ of code.
 
 ### Deleteing
 
-----------
-
 ~~Strikethrough~~
 
 ### Separator
-
-----------
 
 Three types of separator:
 
@@ -110,16 +90,12 @@ Three types of separator:
 
 ### Line break
 
-----------
-
 一 add two space or the enter key at the end of line represent a line break:
 
 this line, have two space at the end  
 this is a new line.    
 
 ### Table
-
-----------
 
 A Simple Table:
 
