@@ -48,7 +48,10 @@ class KeyboardBar: UIView {
         (#imageLiteral(resourceName: "highlight"), #selector(tapHighliht)),
         (#imageLiteral(resourceName: "bar_deleteLine"), #selector(tapDeletion)),
         (#imageLiteral(resourceName: "bar_quote"), #selector(tapQuote)),
-        (#imageLiteral(resourceName: "bar_code"), #selector(tapCode))
+        (#imageLiteral(resourceName: "bar_code"), #selector(tapCode)),
+        (#imageLiteral(resourceName: "bar_olist"), #selector(tapOList)),
+        (#imageLiteral(resourceName: "bar_ulist"), #selector(tapUList)),
+        (#imageLiteral(resourceName: "bar_todolist"), #selector(tapTodoList))
         ]
         items.append(contentsOf: Configure.shared.keyboardBarItems.mapFilter(mapFunction: { item -> (ButtonConvertiable,Selector) in
             return (item, #selector(tapChar(_:)))
@@ -59,7 +62,7 @@ class KeyboardBar: UIView {
     weak var textView: UITextView?
     weak var viewController: UIViewController?
     weak var menu: MenuView?
-    weak var parent: File?
+    weak var file: File?
     
     let bag = DisposeBag()
     var imagePicker: ImagePicker?
@@ -115,8 +118,8 @@ class KeyboardBar: UIView {
         self.menu?.dismiss(sender: self.menu?.superview as? UIControl)
         guard let vc = viewController else { return }
         let pos = sender.superview!.convert(sender.center, to: sender.window)
-        let menu = MenuView(items: [/"PickFromPhotos",/"PickFromCamera",/"Scrawl"].map{($0,false)},
-                 postion: CGPoint(x: pos.x - 20, y: pos.y - 150)) { [weak self] (index) in
+        let menu = MenuView(items: [/"PickFromPhotos",/"PickFromCamera"].map{($0,false)},
+                 postion: CGPoint(x: pos.x - 20, y: pos.y - 110)) { [weak self] (index) in
                     if index == 0 {
                         self?.imagePicker = ImagePicker(viewController: vc){ self?.didPickImage($0) }
                         self?.imagePicker?.pickFromLibray()
@@ -124,7 +127,10 @@ class KeyboardBar: UIView {
                         self?.imagePicker = ImagePicker(viewController: vc){ self?.didPickImage($0) }
                         self?.imagePicker?.pickFromCamera()
                     } else {
-                        
+                        let vc = ScrawlViewController()
+                        let nav = UINavigationController(rootViewController: vc)
+                        nav.modalPresentationStyle = .formSheet
+                        self?.viewController?.presentVC(nav)
                     }
         }
         menu.show()
@@ -167,6 +173,33 @@ class KeyboardBar: UIView {
         }
     }
     
+    @objc func tapTodoList(_ sender: UIButton) {
+        guard let textView = self.textView else { return }
+
+        let currentRange = textView.selectedRange
+        let insertText = "- [x] item"
+        textView.insertText("\n\(insertText)")
+        textView.selectedRange = NSMakeRange(currentRange.location + 7, (/"item").length)
+    }
+    
+    @objc func tapUList() {
+        guard let textView = self.textView else { return }
+
+        let currentRange = textView.selectedRange
+        let insertText = "* item"
+        textView.insertText("\n\(insertText)")
+        textView.selectedRange = NSMakeRange(currentRange.location + 3, (/"item").length)
+    }
+    
+    @objc func tapOList() {
+        guard let textView = self.textView else { return }
+
+        let currentRange = textView.selectedRange
+        let insertText = "1. item"
+        textView.insertText("\n\(insertText)")
+        textView.selectedRange = NSMakeRange(currentRange.location + 4, (/"item").length)
+    }
+    
     @objc func tapHeader(_ sender: UIButton) {
         guard let textView = self.textView else { return }
         self.menu?.dismiss(sender: self.menu?.superview as? UIControl)
@@ -175,7 +208,7 @@ class KeyboardBar: UIView {
                  postion: CGPoint(x: pos.x - 20, y: pos.y - 190)) { (index) in
                     let currentRange = textView.selectedRange
                     let insertText = ("#" * (index+1)) + " " + /"Header"
-                    textView.insertText("\n\(insertText)\n")
+                    textView.insertText("\n\(insertText)")
                     textView.selectedRange = NSMakeRange(currentRange.location + index + 3, (/"Header").length)
         }
         menu.show()
@@ -245,7 +278,7 @@ class KeyboardBar: UIView {
     
     func didPickImage(_ image: UIImage) {
         imagePicker = nil
-        if self.parent == nil {
+        guard (self.file?.parent) != nil else {
             self.uploadImage(image)
             return
         }
@@ -263,6 +296,7 @@ class KeyboardBar: UIView {
         guard let data = UIImageJPEGRepresentation(image, 0.8) else { return }
         viewController?.showAlert(title: nil, message: /"CreateImageTips", actionTitles: [/"CreateImage",/"Cancel"], textFieldconfigurationHandler: { textField in
             textField.clearButtonMode = .whileEditing
+            textField.text = (self.file?.displayName ?? "") + " " + Date().toString(format: "MM-dd HH-mm")
             textField.placeholder = /"FileNamePlaceHolder"
             self.textField = textField
         }) { index in
@@ -270,7 +304,7 @@ class KeyboardBar: UIView {
             if index == 2 {
                 return
             }
-            guard let file = self.parent?.createFile(name: name, contents: data, type: .image) else {
+            guard let parent = self.file?.parent, let file = parent.createFile(name: name, contents: data, type: .image) else {
                 return
             }
             let currentRange = textView.selectedRange

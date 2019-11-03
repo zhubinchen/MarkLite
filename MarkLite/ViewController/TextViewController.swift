@@ -96,8 +96,8 @@ class TextViewController: UIViewController {
         if last.hasPrefix("- [x] ") {
             return "- [x] "
         }
-        if last.hasPrefix("- [] ") {
-            return "- [] "
+        if last.hasPrefix("- [ ] ") {
+            return "- [ ] "
         }
         if let str = last.firstMatch("^[\\s]*(-|\\*|\\+|([0-9]+\\.)) ") {
             guard let range = str.firstMatchRange("[0-9]+") else { return str }
