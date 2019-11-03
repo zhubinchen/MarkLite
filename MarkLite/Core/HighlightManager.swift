@@ -62,11 +62,11 @@ struct MarkdownHighlightManager {
             $0.bold = true
             $0.textColor = rgb(89,89,184)
         },//header
-        Syntax(".*\\n==+[(\\s)|=]+") {
+        Syntax("^.*\\n={2,}$", .anchorsMatchLines) {
             $0.bold = true
             $0.textColor = rgb(89,89,184)
         },//Title1
-        Syntax(".*\\n--+[(\\s)|-]+") {
+        Syntax("^.*\\n-{2,}$", .anchorsMatchLines) {
             $0.bold = true
             $0.textColor = rgb(89,89,184)
         },//Title2
@@ -82,19 +82,19 @@ struct MarkdownHighlightManager {
         Syntax("!\\[[^\\]]+\\]\\([^\\)]+\\)") {
             $0.textColor = rgb(50,90,170)
         },//Images
-        Syntax("(\\*|_)([^*\\n]+?)(\\*|_)") {
+        Syntax("(\\*|_)([^`^*\\n]+?)(\\*|_)") {
             $0.textColor = Configure.shared.theme.value == .black ? rgb(210,200,190) : rgb(23,27,33)
             $0.italic = true
         },//Emphasis
-        Syntax("(\\*\\*|__)([^*\\n]+?)(\\*\\*|__)") {
+        Syntax("(\\*\\*|__)([^`^*\\n]+?)(\\*\\*|__)") {
             $0.textColor = Configure.shared.theme.value == .black ? rgb(210,200,190) : rgb(23,27,33)
             $0.bold = true
         },//Bold
-        Syntax("~~\\S([^~\\n]+?)~~") {
+        Syntax("~~\\S([^`^~\\n]+?)~~") {
             $0.textColor = rgb(129,140,140)
             $0.deletionLine = true
         },//Deletions
-        Syntax("==\\S([^=\\n]+?)==") {
+        Syntax("==\\S([^`^=\\n]+?)==") {
             $0.textColor = rgb(54,54,64)
             $0.backgroundColor = rgb(240,240,20)
         },//Highlight
