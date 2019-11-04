@@ -161,11 +161,8 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     }
     
     @objc func keyboardHeightWillChange(_ noti: NSNotification) {
-        if !self.textVC.editView.isFirstResponder {
-            return
-        }
         guard let frame = (noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
-        let h =  frame.y
+        let h = textVC.editView.isFirstResponder ? frame.y : windowHeight
         textVC.keyboardHeight = h
         previewVC.keyboardHeight = h
     }
@@ -280,21 +277,21 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         switch type {
         case .pdf:
             let data = pdfRender.render(formatter: self.previewVC.webView.viewPrintFormatter())
-            let path = tempPath + "/" + (file.displayName ?? file.name) + ".pdf"
+            let path = tempPath + "/" + file.displayName + ".pdf"
             try? FileManager.default.removeItem(atPath: path)
             FileManager.default.createFile(atPath: path, contents: data, attributes: nil)
             let url = URL(fileURLWithPath: path)
             return url
         case .image:
             guard let img = self.previewVC.webView.scrollView.snap, let data = UIImagePNGRepresentation(img) else { return nil }
-            let path = tempPath + "/" + (file.displayName ?? file.name) + ".png"
+            let path = tempPath + "/" + file.displayName + ".png"
             let url = URL(fileURLWithPath: path)
             try? data.write(to: url)
             return url
         case .markdown:
             return URL(fileURLWithPath: file.path)
         case .html:
-            let path = tempPath + "/" + (file.displayName ?? file.name) + ".html"
+            let path = tempPath + "/" + file.displayName + ".html"
             let url = URL(fileURLWithPath: path)
             guard let data = previewVC.html.data(using: String.Encoding.utf8) else { return nil }
             try? data.write(to: url)
@@ -335,9 +332,9 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
        }
        
     lazy var exportButton: UIBarButtonItem = {
-        let export = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.action, target: self, action:  #selector(showExportMenu(_:)))            
-           return export
-       }()
+            let export = UIBarButtonItem(image: #imageLiteral(resourceName: "export"), style: .plain, target: self, action: #selector(showExportMenu(_:)))
+            return export
+        }()
        
     lazy var styleButton: UIBarButtonItem = {
            let export = UIBarButtonItem(image: #imageLiteral(resourceName: "style"), style: .plain, target: self, action: #selector(showStylesView(_:)))

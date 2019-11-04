@@ -138,6 +138,9 @@
 "PickFromPhotos"="From Photos";
 "PickFromCamera"="Open Camera";
 "Scrawl"="Scrawl";
+"Completed"="Completed";
+"Uncompleted"="Uncompleted";
+
 "CameraError"="Can Not Access Your Camera";
 "PhotoError"="Can Not Access Your Photos";
 "EnableCameraTips"="Tap \"settings\" icon, find and tap \"privacy\", tap \"Camera\", find \"Markdown\" and enable it.";

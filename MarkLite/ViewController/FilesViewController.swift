@@ -808,9 +808,9 @@ extension FilesViewController: UIDocumentPickerDelegate {
         var error: NSError? = nil
         NSFileCoordinator().coordinate(readingItemAt: url, options: .forUploading, error: &error) { newURL in
             print(newURL)
-            SVProgressHUD.dismiss()
             guard let values = try? url.resourceValues(forKeys: [URLResourceKey.isDirectoryKey]) else {
                 url.stopAccessingSecurityScopedResource()
+                SVProgressHUD.dismiss()
                 SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
                 return
             }
@@ -826,19 +826,26 @@ extension FilesViewController: UIDocumentPickerDelegate {
         showActionSheet(actionTitles: [/"ImportFile",/"OpenOriginFile"]) { index in
             let name = url.deletingPathExtension().lastPathComponent
             if index == 0 {
-                guard let data = try? Data(contentsOf: url) else { return }
+                guard let data = try? Data(contentsOf: url) else {
+                    SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
+                    return
+                }
                 url.stopAccessingSecurityScopedResource()
                 if let newFile = File.local.createFile(name: name, contents: data, type: .text) {
                     self.openFile(newFile)
                 }
             } else {
-                guard let data = try? url.bookmarkData(options: .minimalBookmark, includingResourceValuesForKeys: nil, relativeTo: nil) else { return }
+                guard let data = try? url.bookmarkData(options: .minimalBookmark, includingResourceValuesForKeys: nil, relativeTo: nil) else {
+                    SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
+                    return
+                }
                 url.stopAccessingSecurityScopedResource()
                 if let newFile = File.inbox.createFile(name: name, contents: data, type: .text) {
                     self.openFile(newFile)
                 }
             }
         }
+        SVProgressHUD.dismiss()
     }
     
     func didPickFolder(_ url: URL) {
@@ -849,6 +856,7 @@ extension FilesViewController: UIDocumentPickerDelegate {
             items.insert(newFile, at: 2)
             tableView.insertRows(at: [IndexPath(row: 2, section: 0)], with: .middle)
         }
+        SVProgressHUD.dismiss()
     }
     
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {

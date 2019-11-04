@@ -138,6 +138,9 @@
 "PickFromPhotos"="从相册选取";
 "PickFromCamera"="打开相机";
 "Scrawl"="创作涂鸦";
+"Completed"="已完成";
+"Uncompleted"="未完成";
+
 "CameraError"="没有访问相机的权限";
 "PhotoError"="没有访问照片的权限";
 "EnableCameraTips"="去iPhone的【设置】图标，打开【隐私】，打开【相机】，找到【Markdown】开启即可";

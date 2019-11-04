@@ -341,6 +341,7 @@ class File {
         try? fileManager.moveItem(atPath: path, toPath: newPath)
         path = newPath
         name = newName + ext
+        reloadChildren()
         return true
     }
     

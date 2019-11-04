@@ -175,11 +175,18 @@ class KeyboardBar: UIView {
     
     @objc func tapTodoList(_ sender: UIButton) {
         guard let textView = self.textView else { return }
-
-        let currentRange = textView.selectedRange
-        let insertText = "- [x] item"
-        textView.insertText("\n\(insertText)")
-        textView.selectedRange = NSMakeRange(currentRange.location + 7, (/"item").length)
+        
+        self.menu?.dismiss(sender: self.menu?.superview as? UIControl)
+        let pos = sender.superview!.convert(sender.center, to: sender.window)
+        let menu = MenuView(items: [/"Completed",/"Uncompleted"].map{($0,false)},
+                 postion: CGPoint(x: pos.x - 20, y: pos.y - 110)) { (index) in
+                    let currentRange = textView.selectedRange
+                    let insertText = "- [\(index == 0 ? "x" : " ")] item"
+                    textView.insertText("\n\(insertText)")
+                    textView.selectedRange = NSMakeRange(currentRange.location + 7, (/"item").length)
+        }
+        menu.show()
+        self.menu = menu
     }
     
     @objc func tapUList() {
