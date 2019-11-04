@@ -82,23 +82,23 @@ struct MarkdownHighlightManager {
         Syntax("!\\[[^\\]]+\\]\\([^\\)]+\\)") {
             $0.textColor = rgb(50,90,170)
         },//Images
-        Syntax("(\\*|_)([^`^*\\n]+?)(\\*|_)") {
+        Syntax("(\\*|_)([^*`\\n\\s]*)(\\*|_)") {
             $0.textColor = Configure.shared.theme.value == .black ? rgb(210,200,190) : rgb(23,27,33)
             $0.italic = true
         },//Emphasis
-        Syntax("(\\*\\*|__)([^`^*\\n]+?)(\\*\\*|__)") {
+        Syntax("(\\*\\*|__)([^*`\\n\\s]*)(\\*\\*|__)") {
             $0.textColor = Configure.shared.theme.value == .black ? rgb(210,200,190) : rgb(23,27,33)
             $0.bold = true
         },//Bold
-        Syntax("~~\\S([^`^~\\n]+?)~~") {
+        Syntax("~~([^~`\\n\\s]*)~~") {
             $0.textColor = rgb(129,140,140)
             $0.deletionLine = true
         },//Deletions
-        Syntax("==\\S([^`^=\\n]+?)==") {
+        Syntax("==([^=`\\n\\s]*)==") {
             $0.textColor = rgb(54,54,64)
             $0.backgroundColor = rgb(240,240,20)
         },//Highlight
-        Syntax("\\$([^`\\n\\$]+?)\\$") {
+        Syntax("\\$([^`\\n\\$]+)\\$") {
             $0.textColor = rgb(139,69,19)
             $0.backgroundColor = Configure.shared.theme.value == .black ? rgb(50,50,50) : rgb(246,246,246)
         },//数学公式

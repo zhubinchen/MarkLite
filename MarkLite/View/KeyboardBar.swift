@@ -303,11 +303,11 @@ class KeyboardBar: UIView {
         guard let data = UIImageJPEGRepresentation(image, 0.8) else { return }
         viewController?.showAlert(title: nil, message: /"CreateImageTips", actionTitles: [/"CreateImage",/"Cancel"], textFieldconfigurationHandler: { textField in
             textField.clearButtonMode = .whileEditing
-            textField.text = (self.file?.displayName ?? "") + " " + Date().toString(format: "MM-dd HH-mm")
+            textField.text = (self.file?.displayName ?? "") + " " + Date().toString(format: "HH-mm-ss")
             textField.placeholder = /"FileNamePlaceHolder"
             self.textField = textField
         }) { index in
-            let name = self.textField?.text ?? Date().toString(format: "MM-dd HH-mm")
+            let name = self.textField?.text ?? Date().toString(format: "HH-mm-ss")
             if index == 2 {
                 return
             }

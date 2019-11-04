@@ -82,7 +82,10 @@ class File {
     }
     
     var extensionName: String {
-        return name.components(separatedBy: ".").last ?? ""
+        if name.contains(".") {
+            return name.components(separatedBy: ".").last ?? ""
+        }
+        return ""
     }
 
     var children: [File] {

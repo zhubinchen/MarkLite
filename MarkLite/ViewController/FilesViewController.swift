@@ -765,6 +765,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
         }
         
         let moveAction = UITableViewRowAction(style: .default, title: /"Move") { [unowned self](_, indexPath) in
+            impactIfAllow()
             if file.opened {
                 SVProgressHUD.showError(withStatus: /"FileIsEditing")
                 return
