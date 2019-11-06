@@ -12,7 +12,8 @@ import RxSwift
 class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet weak var versionLabel: UILabel!
+
     var textField: UITextField?
     
     let assitBarSwitch = UISwitch()
@@ -53,6 +54,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        versionLabel.text = "Markdown v\(Configure.shared.currentVerion ?? "1.7.0")"
+        
         self.title = /"Settings"
         navBar?.setTintColor(.navTint)
         navBar?.setBackgroundColor(.navBar)
@@ -72,7 +75,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         displayOptionSwitch.addTarget(self, action: #selector(displayOption(_:)), for: .valueChanged)
         impactFeedbackSwitch.addTarget(self, action: #selector(impactFeedback), for: .valueChanged)
 
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
     }
     
     @objc func close() {
@@ -152,7 +155,15 @@ extension SettingsViewController {
     @objc func premium() {
         let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
         let vc = sb.instantiateVC(PurchaseViewController.self)!
-        pushVC(vc)
+        if security {
+            pushVC(vc)
+            return
+        }
+        dismiss(animated: false) {
+            let nav = UINavigationController(rootViewController: vc)
+            nav.modalPresentationStyle = .fullScreen
+            UIApplication.shared.keyWindow?.rootViewController?.presentVC(nav)
+        }
     }
     
     @objc func splitOption() {

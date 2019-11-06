@@ -19,6 +19,8 @@ class PurchaseViewController: UIViewController {
     @IBOutlet weak var priceForeverLabel: UILabel!
     @IBOutlet weak var tipsLabel: UILabel!
     @IBOutlet weak var topSpace: NSLayoutConstraint!
+    
+    var productId: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +28,11 @@ class PurchaseViewController: UIViewController {
 
         setupUI()
         MobClick.event("enter_purchase")
+        
+        if let id = productId {
+            MobClick.event("enter_purchase_promote")
+            purchaseProduct(id)
+        }
     }
     
     func setupUI() {

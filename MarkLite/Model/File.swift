@@ -169,7 +169,7 @@ class File {
         self.path = path
         self.name = path.components(separatedBy: "/").last ?? ""
         
-        if (path.hasPrefix(inboxPath) && path != inboxPath) || (path.hasPrefix(locationPath) && path != locationPath) {
+        if (path.hasPrefix(externalPath) && path != externalPath) || (path.hasPrefix(locationPath) && path != locationPath) {
             isExternalFile = true
         }
         
@@ -302,10 +302,10 @@ class File {
     func trash() -> Bool {
         do {
             try fileManager.removeItem(atPath: self.path)
-            parent?._children.removeAll { $0 == self }
         } catch {
             return false
         }
+        parent?._children.removeAll { $0 == self }
         return true
     }
     
@@ -418,7 +418,7 @@ extension File {
     
     class func loadInbox(_ completion: @escaping (File)->Void) {
         DispatchQueue.global().async {
-            let inbox = File(path: inboxPath)
+            let inbox = File(path: externalPath)
             inbox._displayName = /"External"
             inbox.name = /"External"
             File.inbox = inbox

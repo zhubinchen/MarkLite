@@ -172,7 +172,12 @@ class FilesViewController: UIViewController {
     @objc func inboxChanged(_ noti: Notification) {
         navigationController?.popToRootViewController(animated: true)
         guard let url = noti.object as? URL else { return }
-        finishPick(url)
+        if url.path.contains(documentPath) {
+            File.local.reloadChildren()
+            refresh()
+        } else {
+            finishPick(url)
+        }
     }
     
     @objc func multipleSelect() {

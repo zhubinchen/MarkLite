@@ -52,7 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func createFoldersIfNeed() {
-        try? FileManager.default.createDirectory(atPath: inboxPath, withIntermediateDirectories: true, attributes: nil)
+        try? FileManager.default.createDirectory(atPath: externalPath, withIntermediateDirectories: true, attributes: nil)
         try? FileManager.default.createDirectory(atPath: locationPath, withIntermediateDirectories: true, attributes: nil)
         try? FileManager.default.removeItem(atPath: tempPath)
         try? FileManager.default.createDirectory(atPath: tempPath, withIntermediateDirectories: true, attributes: nil)

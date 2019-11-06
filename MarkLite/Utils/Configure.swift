@@ -147,7 +147,8 @@ class Configure: NSObject, NSCoding {
     
     func upgrade() {
         upgradeDate = Date()
-
+        impactFeedback = true
+        
         let tempPathURL = URL(fileURLWithPath: tempPath)
         try! Zip.unzipFile(Bundle.main.url(forResource: "Resources", withExtension: "zip")!, destination: tempPathURL, overwrite: true, password: nil, progress: nil)
         let tempStylePath = tempPath + "/Resources/Styles"

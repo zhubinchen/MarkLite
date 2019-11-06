@@ -128,7 +128,13 @@ extension IAPHelper: SKProductsRequestDelegate {
 extension IAPHelper: SKPaymentTransactionObserver {
     
     public func paymentQueue(_ queue: SKPaymentQueue, shouldAddStorePayment payment: SKPayment, for product: SKProduct) -> Bool {
-        return true
+        let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
+        let vc = sb.instantiateVC(PurchaseViewController.self)!
+        vc.productId = product.productIdentifier
+        let nav = UINavigationController(rootViewController: vc)
+        nav.modalPresentationStyle = .fullScreen
+        UIApplication.shared.keyWindow?.rootViewController?.presentVC(nav)
+        return false
     }
   
     public func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {

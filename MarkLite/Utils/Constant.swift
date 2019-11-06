@@ -32,7 +32,7 @@ var topInset: CGFloat {
 }
 
 var security: Bool {
-    let date = Date(fromString: "2019-11-05", format: "yyyy-MM-dd")!
+    let date = Date(fromString: "2019-11-07", format: "yyyy-MM-dd")!
     let now = Date()
     return now > date
 }
@@ -58,7 +58,7 @@ let supportPath =  NSSearchPathForDirectoriesInDomains(.applicationSupportDirect
 let configPath = supportPath
 let resourcesPath = supportPath + "/Resources"
 let tempPath = supportPath + "/Temp"
-let inboxPath = supportPath + "/Inbox"
+let externalPath = supportPath + "/Inbox"
 let locationPath = supportPath + "/Location"
 
 let cloudPath: String = {

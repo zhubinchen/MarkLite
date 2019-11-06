@@ -18,11 +18,11 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        webView.navigationDelegate = self
         self.view.addSubview(webView)
         
         guard let url = URL(string: urlString) else { return }
         self.webView.load(URLRequest(url: url))
-        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action:#selector(close))
         
         SVProgressHUD.show()
@@ -39,6 +39,10 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        SVProgressHUD.dismiss()
+    }
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         SVProgressHUD.dismiss()
     }
 }

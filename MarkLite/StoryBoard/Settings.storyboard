@@ -46,6 +46,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="tableView" destination="IEC-f4-3bg" id="QEU-id-T2w"/>
+                        <outlet property="versionLabel" destination="1bU-Io-E1s" id="WkC-Qw-1Pb"/>
                         <segue destination="iOH-u2-sDi" kind="show" identifier="webdav" id="WXh-bG-Rsr"/>
                     </connections>
                 </viewController>
