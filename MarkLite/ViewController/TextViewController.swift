@@ -31,7 +31,7 @@ class TextViewController: UIViewController {
     let assistBar = KeyboardBar()
     var offset: CGFloat = 0.0
     var timer: Timer?
-    
+        
     var keyboardHeight: CGFloat = windowHeight {
         didSet {
             bottomSpace.constant = max(windowHeight - keyboardHeight - 40 - bottomInset,0)
@@ -74,12 +74,8 @@ class TextViewController: UIViewController {
         }).disposed(by: bag)
     }
     
-    @objc func highlight() {
-        editView.isScrollEnabled = false
-        let selectedRange = editView.selectedRange
-        editView.attributedText = highlightmanager.highlight(editView.text)
-        editView.selectedRange = selectedRange
-        editView.isScrollEnabled = true
+    @objc func highlight() {        
+        highlightmanager.highlight(editView.textStorage)
     }
     
     @IBAction func undo(_ sender: UIButton) {

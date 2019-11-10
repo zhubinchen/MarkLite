@@ -82,19 +82,19 @@ struct MarkdownHighlightManager {
         Syntax("!\\[[^\\]]+\\]\\([^\\)]+\\)") {
             $0.textColor = rgb(50,90,170)
         },//Images
-        Syntax("(\\*|_)([^*`\\n\\s]*)(\\*|_)") {
+        Syntax("(\\*|_)[^*`\\n\\s]([^*`\\n]*)(\\*|_)") {
             $0.textColor = Configure.shared.theme.value == .black ? rgb(210,200,190) : rgb(23,27,33)
             $0.italic = true
         },//Emphasis
-        Syntax("(\\*\\*|__)([^*`\\n\\s]*)(\\*\\*|__)") {
+        Syntax("(\\*\\*|__)[^*`\\n\\s]([^*`\\n]*)(\\*\\*|__)") {
             $0.textColor = Configure.shared.theme.value == .black ? rgb(210,200,190) : rgb(23,27,33)
             $0.bold = true
         },//Bold
-        Syntax("~~([^~`\\n\\s]*)~~") {
+        Syntax("~~[^~`\\n\\s]([^~`\\n]*)~~") {
             $0.textColor = rgb(129,140,140)
             $0.deletionLine = true
         },//Deletions
-        Syntax("==([^=`\\n\\s]*)==") {
+        Syntax("==[^=`\\n\\s]([^=`\\n]*)==") {
             $0.textColor = rgb(54,54,64)
             $0.backgroundColor = rgb(240,240,20)
         },//Highlight
@@ -128,21 +128,19 @@ struct MarkdownHighlightManager {
         },//ImplicitCodeBlock4个缩进也算代码块
     ]
 
-    func highlight(_ text: String) -> NSAttributedString {
-        let len = (text as NSString).length
+    func highlight(_ text: NSTextStorage) {
+        let len = (text.string as NSString).length
         let nomarlColor = Configure.shared.theme.value == .black ? rgb(200,200,190) : rgb(54,54,64)
-        let result = NSMutableAttributedString(string: text)
 
-        result.addAttributes([NSAttributedStringKey.font : normalFont,
+        text.setAttributes([NSAttributedStringKey.font : normalFont,
                               NSAttributedStringKey.paragraphStyle : paragraphStyle,
                               NSAttributedStringKey.foregroundColor : nomarlColor], range: range(0,len))
         syntaxArray.forEach { (syntax) in
-            syntax.expression.enumerateMatches(in: text, options: .reportCompletion, range: range(0, len), using: { (match, _, _) in
+            syntax.expression.enumerateMatches(in: text.string, options: .reportCompletion, range: range(0, len), using: { (match, _, _) in
                 if let range = match?.range {
-                    result.addAttributes(syntax.style.attrs, range: range)
+                    text.addAttributes(syntax.style.attrs, range: range)
                 }
             })
         }
-        return result
     }
 }
