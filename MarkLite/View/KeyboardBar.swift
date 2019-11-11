@@ -116,10 +116,11 @@ class KeyboardBar: UIView {
 
     @objc func tapImage(_ sender: UIButton) {
         self.menu?.dismiss(sender: self.menu?.superview as? UIControl)
-        guard let vc = viewController else { return }
+        guard let textView = self.textView, let vc = viewController else { return }
+
         let pos = sender.superview!.convert(sender.center, to: sender.window)
-        let menu = MenuView(items: [/"PickFromPhotos",/"PickFromCamera"].map{($0,false)},
-                 postion: CGPoint(x: pos.x - 20, y: pos.y - 110)) { [weak self] (index) in
+        let menu = MenuView(items: [/"PickFromPhotos",/"PickFromCamera",/"RecentUpload"].map{($0,false)},
+                 postion: CGPoint(x: pos.x - 20, y: pos.y - 150)) { [weak self] (index) in
                     if index == 0 {
                         self?.imagePicker = ImagePicker(viewController: vc){ self?.didPickImage($0) }
                         self?.imagePicker?.pickFromLibray()
@@ -127,9 +128,17 @@ class KeyboardBar: UIView {
                         self?.imagePicker = ImagePicker(viewController: vc){ self?.didPickImage($0) }
                         self?.imagePicker?.pickFromCamera()
                     } else {
-                        let vc = ScrawlViewController()
+                        let vc = RecentImagesViewController()
                         let nav = UINavigationController(rootViewController: vc)
                         nav.modalPresentationStyle = .formSheet
+                        vc.didPickRecentImage = { url in
+                            Configure.shared.imageHistories.removeAll { $0 == url }
+                            Configure.shared.imageHistories.insert(url, at: 0)
+                            let currentRange = textView.selectedRange
+                            let insertText = /"Alt"
+                            textView.insertText("![\(insertText)](\(url))")
+                            textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
+                        }
                         self?.viewController?.presentVC(nav)
                     }
         }
@@ -140,7 +149,7 @@ class KeyboardBar: UIView {
     @objc func tapLink() {
         guard let vc = viewController else { return }
         vc.showAlert(title: /"InsertHref", message: "", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
-            textField.text = "http://example.com"
+            textField.placeholder = "http://example.com"
             textField.font = UIFont.font(ofSize: 13)
             textField.setTextColor(.primary)
             self.textField = textField
@@ -315,7 +324,7 @@ class KeyboardBar: UIView {
                 return
             }
             let currentRange = textView.selectedRange
-            let insertText = /"EnterPlaceholder"
+            let insertText = /"Alt"
             textView.insertText("![\(insertText)](\(file.name))")
             textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
         }
@@ -338,19 +347,24 @@ class KeyboardBar: UIView {
         }
         
         SVProgressHUD.show()
-        upload(multipartFormData: { (formData) in
+
+        Alamofire.upload(multipartFormData: { (formData) in
             formData.append(data, withName: "smfile", fileName: "temp", mimeType: "image/jpg")
         }, to: imageUploadUrl) { (result) in
             switch result {
             case .success(let upload,_, _):
-                upload.responseJSON(completionHandler: { (response) in
+                upload.responseJSON{ (response) in
                     if case .success(let json) = response.result {
                         if let dict = json as? [String:Any],
                             let data = dict["data"] as? [String:Any],
                             let url = data["url"] as? String {
                             
+                            Configure.shared.imageHistories.insert(URL(string: url)!, at: 0)
+                            if Configure.shared.imageHistories.count > 20 {
+                                Configure.shared.imageHistories.removeLast(Configure.shared.imageHistories.count - 20)
+                            }
                             let currentRange = textView.selectedRange
-                            let insertText = /"EnterPlaceholder"
+                            let insertText = /"Alt"
                             textView.insertText("![\(insertText)](\(url))")
                             textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
                             SVProgressHUD.dismiss()
@@ -359,7 +373,7 @@ class KeyboardBar: UIView {
                         SVProgressHUD.dismiss()
                         SVProgressHUD.showError(withStatus: error.localizedDescription)
                     }
-                })
+                }
             case .failure(let error):
                 SVProgressHUD.dismiss()
                 SVProgressHUD.showError(withStatus: error.localizedDescription)

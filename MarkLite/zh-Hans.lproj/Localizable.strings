@@ -133,11 +133,11 @@
 "Delection"="要删除的文本";
 "EnterCode"="代码";
 "EnterLink"="在这输入链接描述";
-"EnterPlaceholder"="Alt";
+"Alt"="Alt";
 
+"RecentUpload"="最近上传";
 "PickFromPhotos"="从相册选取";
 "PickFromCamera"="打开相机";
-"Scrawl"="创作涂鸦";
 "Completed"="已完成";
 "Uncompleted"="未完成";
 

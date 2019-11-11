@@ -133,11 +133,11 @@
 "Delection"="Delection";
 "EnterCode"="Enter code here";
 "EnterLink"="Link description";
-"EnterPlaceholder"="Alt";
+"Alt"="Alt";
 
-"PickFromPhotos"="From Photos";
+"RecentUpload"="Recent Upload";
+"PickFromPhotos"="Open Photos";
 "PickFromCamera"="Open Camera";
-"Scrawl"="Scrawl";
 "Completed"="Completed";
 "Uncompleted"="Uncompleted";
 
