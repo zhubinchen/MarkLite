@@ -13,7 +13,7 @@ private let reuseIdentifier = "Cell"
 
 class RecentImagesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    let items = Configure.shared.imageHistories
+    var items = Configure.shared.recentImages
     
     var collectionView: UICollectionView!
     
@@ -37,19 +37,30 @@ class RecentImagesViewController: UIViewController, UICollectionViewDataSource, 
         }
         collectionView.register(RecentImageCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.setBackgroundColor(.tableBackground)
+        view.setBackgroundColor(.tableBackground)
         navBar?.setTintColor(.navTint)
         navBar?.setBackgroundColor(.navBar)
         navBar?.setTitleColor(.navTitle)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: /"Clear", style: .plain, target: self, action: #selector(clear))
     }
     
     @objc func close() {
         impactIfAllow()
         dismiss(animated: true, completion: nil)
     }
-
-    // MARK: UICollectionViewDataSource
+    
+    @objc func clear() {
+        impactIfAllow()
+        showDestructiveAlert(title: nil, message: /"ClearMessage", actionTitle: /"Clear") {
+            Configure.shared.recentImages.removeAll()
+            self.items = []
+            self.collectionView.reloadData()
+            KingfisherManager.shared.cache.clearDiskCache()
+            KingfisherManager.shared.cache.clearMemoryCache()
+        }
+    }
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -83,5 +94,6 @@ class RecentImagesViewController: UIViewController, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         didPickRecentImage?(items[indexPath.item])
         dismiss(animated: true, completion: nil)
+        impactIfAllow()
     }
 }

@@ -106,7 +106,7 @@
 "Upgrade"="Upgrade";
 
 "DeleteMessage"="Sure you want to delete the selected file(s)? This action cannot be undone!";
-"DeleteExternalMessage"="Remove the reference of external file, will not delete the origin file";
+"ClearMessage"="Sure you want to clear all images? This action cannot be undone!";
 "FileIsEditing"="Can not perform the opration on this file, the file is opened in editor";
 "CanNotAccesseThisFile"="Can Not Accesse This File";
 "CanNotPreviewThisFile"="Can Not Preview This File";
@@ -135,6 +135,7 @@
 "EnterLink"="Link description";
 "Alt"="Alt";
 
+"Clear"="Clear";
 "RecentUpload"="Recent Upload";
 "PickFromPhotos"="Open Photos";
 "PickFromCamera"="Open Camera";

@@ -93,7 +93,7 @@ class Configure: NSObject, NSCoding {
     var sortOption = SortOption.modifyDate
     let darkOption = Variable(DarkModeOption.light)
     var keyboardBarItems = ["-","`","$","/","\"","?","@","(",")","[","]","|","#","*","=","+","<",">"]
-    var imageHistories = [URL]()
+    var recentImages = [URL]()
     
     override init() {
         super.init()
@@ -195,7 +195,7 @@ class Configure: NSObject, NSCoding {
         aCoder.encode(sortOption.rawValue, forKey: "sortOption")
         aCoder.encode(upgradeDate, forKey: "upgradeDate")
         aCoder.encode(alertDate, forKey: "alertDate")
-        aCoder.encode(imageHistories, forKey: "imageHistories")
+        aCoder.encode(recentImages, forKey: "recentImages")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -203,7 +203,7 @@ class Configure: NSObject, NSCoding {
         currentVerion = aDecoder.decodeObject(forKey: "currentVersion") as? String
         upgradeDate = aDecoder.decodeObject(forKey: "upgradeDate") as? Date ?? Date()
         alertDate = aDecoder.decodeObject(forKey: "alertDate") as? Date ?? Date()
-        imageHistories = aDecoder.decodeObject(forKey: "imageHistories") as? [URL] ?? []
+        recentImages = aDecoder.decodeObject(forKey: "recentImages") as? [URL] ?? []
         isPro = aDecoder.decodeBool(forKey: "isPro")
         impactFeedback = aDecoder.decodeBool(forKey: "impactFeedback")
         showExtensionName = aDecoder.decodeBool(forKey: "showExtensionName")

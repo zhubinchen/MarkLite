@@ -113,7 +113,7 @@ extension String {
     }
     
     func firstMatchRange(_ exp: String) -> NSRange? {
-        guard let exp = try? NSRegularExpression(pattern: exp, options: .anchorsMatchLines) else { return nil }
+        guard let exp = try? NSRegularExpression(pattern: exp, options: .caseInsensitive) else { return nil }
         guard let range = exp.firstMatch(in: self, options: .anchored, range: NSMakeRange(0, min(20, self.count)))?.range else { return nil }
         if range.location == NSNotFound {
             return nil
@@ -142,6 +142,22 @@ extension String {
 
 
 extension UIViewController {
+    
+    @discardableResult
+    func showDestructiveAlert(title: String? = nil,
+                   message: String? = nil,
+                   actionTitle: String? = nil,
+                   actionHandler: (() -> Void)?  = nil) -> UIAlertController{
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: actionTitle, style: .destructive, handler: { action in
+            actionHandler?()
+        }))
+        
+        alert.addAction(UIAlertAction(title: /"Cancel", style: .cancel, handler: nil))
+
+        present(alert, animated: true, completion: nil)
+        return alert
+    }
     
     @discardableResult
     func showAlert(title: String? = nil,
@@ -173,7 +189,7 @@ extension UIViewController {
                          actionTitles: [String],
                          actionHandler: ((Int) -> Void)?) {
         
-        let alert = UIAlertController(title: title, message: nil, preferredStyle: (sender == nil && isPad) ? .alert : .actionSheet)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: (sender == nil && isPad) ? .alert : .actionSheet)
         alert.message = message
         for (index, actionTitle) in actionTitles.enumerated() {
             alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: { action in

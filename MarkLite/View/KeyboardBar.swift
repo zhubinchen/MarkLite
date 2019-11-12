@@ -132,8 +132,8 @@ class KeyboardBar: UIView {
                         let nav = UINavigationController(rootViewController: vc)
                         nav.modalPresentationStyle = .formSheet
                         vc.didPickRecentImage = { url in
-                            Configure.shared.imageHistories.removeAll { $0 == url }
-                            Configure.shared.imageHistories.insert(url, at: 0)
+                            Configure.shared.recentImages.removeAll { $0 == url }
+                            Configure.shared.recentImages.insert(url, at: 0)
                             let currentRange = textView.selectedRange
                             let insertText = /"Alt"
                             textView.insertText("![\(insertText)](\(url))")
@@ -332,6 +332,7 @@ class KeyboardBar: UIView {
     
     func uploadImage(_ image: UIImage) {
         guard let textView = self.textView else { return }
+        
         guard var data = UIImageJPEGRepresentation(image, 0.8) else { return }
         
         if data.count > 1 * 1024 * 1024 {
@@ -355,19 +356,26 @@ class KeyboardBar: UIView {
             case .success(let upload,_, _):
                 upload.responseJSON{ (response) in
                     if case .success(let json) = response.result {
-                        if let dict = json as? [String:Any],
-                            let data = dict["data"] as? [String:Any],
-                            let url = data["url"] as? String {
-                            
-                            Configure.shared.imageHistories.insert(URL(string: url)!, at: 0)
-                            if Configure.shared.imageHistories.count > 20 {
-                                Configure.shared.imageHistories.removeLast(Configure.shared.imageHistories.count - 20)
+                        SVProgressHUD.dismiss()
+                        let dict = json as? [String:Any] ?? [:]
+                        var url: String? = nil
+                        if let data = dict["data"] as? [String:Any] {
+                            url = data["url"] as? String
+                        }
+                        if let message = dict["message"] as? String {
+                            url = message.firstMatch("https.*jpg")
+                        }
+                        if let url = url {
+                            Configure.shared.recentImages.insert(URL(string: url)!, at: 0)
+                            if Configure.shared.recentImages.count > 20 {
+                                Configure.shared.recentImages.removeLast(Configure.shared.recentImages.count - 20)
                             }
                             let currentRange = textView.selectedRange
                             let insertText = /"Alt"
                             textView.insertText("![\(insertText)](\(url))")
                             textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
-                            SVProgressHUD.dismiss()
+                        } else if let message = dict["message"] as? String {
+                            SVProgressHUD.showError(withStatus: message)
                         }
                     } else if case .failure(let error) = response.result {
                         SVProgressHUD.dismiss()

@@ -106,7 +106,7 @@
 "Upgrade"="前往更新";
 
 "DeleteMessage"="删除后不可恢复，确定要删除吗？";
-"DeleteExternalMessage"="移除外部文件的引用，并不会删除原始文件";
+"ClearMessage"="确定要清空这些图片吗？";
 "FileIsEditing"="无法进行此操作，文件正在编辑中";
 "CanNotAccesseThisFile"="当前无法访问此文件";
 "CanNotPreviewThisFile"="不支持预览此文件";
@@ -135,6 +135,7 @@
 "EnterLink"="在这输入链接描述";
 "Alt"="Alt";
 
+"Clear"="清空";
 "RecentUpload"="最近上传";
 "PickFromPhotos"="从相册选取";
 "PickFromCamera"="打开相机";

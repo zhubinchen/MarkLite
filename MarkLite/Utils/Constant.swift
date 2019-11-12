@@ -49,7 +49,7 @@ let isPhone = UIDevice.current.userInterfaceIdiom == .phone
 let rateUrl = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1472328263&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"
 
 var emailUrl: String = {
-    return "mailto:zhubingcheng.dev@gmail.com?subject=MarkDown%20\(Configure.shared.currentVerion ?? "")%20\(isPad ? "iPad" : "iPhone")%20\(UIDevice.current.systemName)\(UIDevice.current.systemVersion)&body="
+    return "mailto:zhubingcheng.dev@gmail.com?subject=Markdown%20\(Configure.shared.currentVerion ?? "")%20\(isPad ? "iPad" : "iPhone")%20\(UIDevice.current.systemName)\(UIDevice.current.systemVersion)&body="
 }()
 
 let documentPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first ?? ""

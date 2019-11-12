@@ -295,16 +295,13 @@ class FilesViewController: UIViewController {
             SVProgressHUD.showError(withStatus: /"FileIsEditing")
             return
         }
-        self.showAlert(title:nil , message: /"DeleteMessage", actionTitles: [/"Cancel",/"Delete"], textFieldconfigurationHandler: nil, actionHandler: { (index) in
-            if index == 0 {
-                return
-            }
+        self.showDestructiveAlert(title: nil, message: /"DeleteMessage", actionTitle: /"Delete") {
             self.selectFiles.forEach { file in
                 file.trash()
             }
             self.refresh()
             self.multipleSelect()
-        })
+        }
     }
     
     @objc func cancel() {
@@ -727,14 +724,11 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
                 SVProgressHUD.showError(withStatus: /"FileIsEditing")
                 return
             }
-            self.showAlert(title: nil, message: /"DeleteMessage", actionTitles: [/"Cancel",/"Delete"], textFieldconfigurationHandler: nil, actionHandler: { (index) in
-                if index == 0 {
-                    return
-                }
+            self.showDestructiveAlert(title: nil, message: /"DeleteMessage", actionTitle: /"Delete") {
                 file.trash()
                 self.files.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .middle)
-            })
+            }
         }
         
         let renameAction = UITableViewRowAction(style: .default, title: /"Rename") { [unowned self](_, indexPath) in

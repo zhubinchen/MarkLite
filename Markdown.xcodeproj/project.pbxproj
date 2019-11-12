@@ -58,7 +58,7 @@
 		76CF5B0823541DC100E87A99 /* 使用教程.md in Resources */ = {isa = PBXBuildFile; fileRef = 76CF5B0723541DC000E87A99 /* 使用教程.md */; };
 		76CF5B0A235425EA00E87A99 /* Syntax.md in Resources */ = {isa = PBXBuildFile; fileRef = 76CF5B09235425EA00E87A99 /* Syntax.md */; };
 		76D7D5F7237930E40007556F /* RecentImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D7D5F6237930E40007556F /* RecentImagesViewController.swift */; };
-		76DFD721232926AC00F97D56 /* AddStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DFD720232926AC00F97D56 /* AddStyleViewController.swift */; };
+		76DFD721232926AC00F97D56 /* CustomStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DFD720232926AC00F97D56 /* CustomStyleViewController.swift */; };
 		76E7F271233CAEE10051DF6A /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E7F270233CAEE10051DF6A /* BaseTableViewCell.swift */; };
 		76E7F275233CB5E30051DF6A /* icon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 76E7F274233CB5E30051DF6A /* icon_logo.png */; };
 		76F7391E2369977400FCF57E /* KeyboardBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F7391D2369977400FCF57E /* KeyboardBarViewController.swift */; };
@@ -133,7 +133,7 @@
 		76CF5B0723541DC000E87A99 /* 使用教程.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "使用教程.md"; path = "Instructions/使用教程.md"; sourceTree = "<group>"; };
 		76CF5B09235425EA00E87A99 /* Syntax.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = Syntax.md; path = Instructions/Syntax.md; sourceTree = "<group>"; };
 		76D7D5F6237930E40007556F /* RecentImagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentImagesViewController.swift; sourceTree = "<group>"; };
-		76DFD720232926AC00F97D56 /* AddStyleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStyleViewController.swift; sourceTree = "<group>"; };
+		76DFD720232926AC00F97D56 /* CustomStyleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStyleViewController.swift; sourceTree = "<group>"; };
 		76E7F270233CAEE10051DF6A /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		76E7F274233CB5E30051DF6A /* icon_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_logo.png; sourceTree = "<group>"; };
 		76F7391D2369977400FCF57E /* KeyboardBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardBarViewController.swift; sourceTree = "<group>"; };
@@ -291,7 +291,6 @@
 		07E827061F5BF1BA0077A017 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				76D7D5F6237930E40007556F /* RecentImagesViewController.swift */,
 				07E827081F5BF1BA0077A017 /* FilesViewController.swift */,
 				76C0E007236DABD0002F4266 /* NavigationController.swift */,
 				07E827071F5BF1BA0077A017 /* EditViewController.swift */,
@@ -302,8 +301,9 @@
 				768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */,
 				761F824F22E16D6500C3435C /* WebViewController.swift */,
 				07E8270B1F5BF1BA0077A017 /* OptionsViewController.swift */,
-				76DFD720232926AC00F97D56 /* AddStyleViewController.swift */,
+				76DFD720232926AC00F97D56 /* CustomStyleViewController.swift */,
 				76A4D271234EF98200B87A78 /* WebDAVViewController.swift */,
+				76D7D5F6237930E40007556F /* RecentImagesViewController.swift */,
 				76F7391D2369977400FCF57E /* KeyboardBarViewController.swift */,
 			);
 			path = ViewController;
@@ -478,7 +478,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76DFD721232926AC00F97D56 /* AddStyleViewController.swift in Sources */,
+				76DFD721232926AC00F97D56 /* CustomStyleViewController.swift in Sources */,
 				07E8274C1F5BF1BA0077A017 /* Localization.swift in Sources */,
 				76C0E008236DABD0002F4266 /* NavigationController.swift in Sources */,
 				76D7D5F7237930E40007556F /* RecentImagesViewController.swift in Sources */,
