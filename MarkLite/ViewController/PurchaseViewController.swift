@@ -112,7 +112,7 @@ class PurchaseViewController: UIViewController {
 
     @IBAction func privacy(_ sender: UIButton!) {
         let vc = WebViewController()
-        vc.urlString = "https://zhubinchen.github.io/Page/Markdown/privacy.html"
+        vc.urlString = "http://ivod.site/markdown/privacy.html"
         vc.title = /"Privacy"
         let nav = UINavigationController(rootViewController: vc)
         presentVC(nav)
@@ -120,7 +120,7 @@ class PurchaseViewController: UIViewController {
 
     @IBAction func terms(_ sender: UIButton!) {
         let vc = WebViewController()
-        vc.urlString = "https://zhubinchen.github.io/Page/Markdown/terms.html"
+        vc.urlString = "http://ivod.site/markdown/terms.html"
         vc.title = /"Terms"
         let nav = UINavigationController(rootViewController: vc)
         presentVC(nav)

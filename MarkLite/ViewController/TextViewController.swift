@@ -23,13 +23,25 @@ class TextViewController: UIViewController {
     @IBOutlet weak var seperator: UIView!
 
     @IBOutlet weak var bottomSpace: NSLayoutConstraint!
+    
+    var offset: CGFloat = 0.0 {
+        didSet {
+            var y = offset * (editView.contentSize.height - editView.h)
+            if y > editView.contentSize.height - editView.h  {
+                y = editView.contentSize.height - editView.h
+            }
+            if y < 0 {
+                y = 0
+            }
+            editView.contentOffset = CGPoint(x: 0,y: y)
+        }
+    }
 
     var textChangedHandler: ((String)->Void)?
-    var offsetChangedHandler: ((CGFloat)->Void)?
+    var didScrollHandler: ((CGFloat)->Void)?
 
     let bag = DisposeBag()
     let assistBar = KeyboardBar()
-    var offset: CGFloat = 0.0
     var timer: Timer?
         
     var keyboardHeight: CGFloat = windowHeight {
@@ -125,11 +137,11 @@ extension TextViewController: UITextViewDelegate {
 //        }
         
         let offset = scrollView.contentOffset.y
-        if offset == 0 || offset == self.offset {
-            return
+        if scrollView.contentSize.height - scrollView.h <= 0 {
+            didScrollHandler?(0)
+        } else {
+            didScrollHandler?(offset / (scrollView.contentSize.height - scrollView.h))
         }
-        self.offset = offset
-        offsetChangedHandler?((offset + scrollView.size.height) / max(scrollView.size.height,scrollView.contentSize.height))
     }
     
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {

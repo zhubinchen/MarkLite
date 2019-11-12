@@ -113,7 +113,7 @@ extension String {
     }
     
     func firstMatchRange(_ exp: String) -> NSRange? {
-        guard let exp = try? NSRegularExpression(pattern: exp, options: .caseInsensitive) else { return nil }
+        guard let exp = try? NSRegularExpression(pattern: exp, options: .anchorsMatchLines) else { return nil }
         guard let range = exp.firstMatch(in: self, options: .anchored, range: NSMakeRange(0, min(20, self.count)))?.range else { return nil }
         if range.location == NSNotFound {
             return nil

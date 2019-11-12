@@ -18,16 +18,21 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
     
     var offset: CGFloat = 0 {
         didSet {
-            let y = max(offset * contentHeight - scrollView.h,0)
-            let canScroll = max(contentHeight - scrollView.h,0)
-            scrollView.contentOffset = CGPoint(x: 0,y: min(y, canScroll))
+            var y = offset * (scrollView.contentSize.height - scrollView.h)
+            if y > contentHeight - scrollView.h  {
+                y = contentHeight - scrollView.h
+            }
+            if y < 0 {
+                y = 0
+            }
+            scrollView.contentOffset = CGPoint(x: 0,y: y)
         }
     }
     
     var contentHeight: CGFloat = 0 {
         didSet {
-            webView.frame = CGRect(x: 0, y: 0, w: scrollView.w, h: contentHeight)
             scrollView.contentSize = CGSize(width: 0,height: contentHeight)
+            webView.frame = CGRect(x: 0, y: 0, w: scrollView.w, h: contentHeight)
         }
     }
     
@@ -53,6 +58,8 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
     }
     
     var url: URL?
+    
+    var didScrollHandler: ((CGFloat)->Void)?
             
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,6 +130,13 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
 //        } else if velocity > 10 {
 //            self.navigationController?.setNavigationBarHidden(false, animated: true)
 //        }
+        
+        let offset = scrollView.contentOffset.y
+        if scrollView.contentSize.height - scrollView.h <= 0 {
+            didScrollHandler?(0)
+        } else {
+            didScrollHandler?(offset / (scrollView.contentSize.height - scrollView.h))
+        }
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
@@ -130,10 +144,10 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
     }
     
     deinit {
-        webView.loadHTMLString("", baseURL: nil)
         timer?.invalidate()
-        removeNotificationObserver()
+        webView.loadHTMLString("", baseURL: nil)
         webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
+        removeNotificationObserver()
         print("deinit web_vc")
     }
 }

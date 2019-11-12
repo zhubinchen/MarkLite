@@ -137,8 +137,12 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             self?.previewVC.html = html
         }
         
-        textVC.offsetChangedHandler = { [weak self] offset in
+        textVC.didScrollHandler = { [weak self] offset in
             self?.previewVC.offset = offset
+        }
+        
+        previewVC.didScrollHandler = { [weak self] offset in
+            self?.textVC.offset = offset
         }
 
         Configure.shared.markdownStyle.asObservable().subscribe(onNext: { [weak self] (style) in
