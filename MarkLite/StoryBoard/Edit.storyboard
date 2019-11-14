@@ -157,12 +157,37 @@
                                     <outlet property="delegate" destination="kJS-Hc-QJ3" id="F8A-Cp-qDm"/>
                                 </connections>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bcx-xE-ue3">
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty_edit" translatesAutoresizingMaskIntoConstraints="NO" id="HQn-XE-2Qt">
+                                        <rect key="frame" x="147.66666666666666" y="313" width="79.666666666666657" height="64"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NoEditingFile " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wc5-GP-fvZ">
+                                        <rect key="frame" x="137.66666666666666" y="387" width="100" height="20"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="HQn-XE-2Qt" firstAttribute="centerY" secondItem="bcx-xE-ue3" secondAttribute="centerY" id="4St-zX-iui"/>
+                                    <constraint firstItem="wc5-GP-fvZ" firstAttribute="centerX" secondItem="bcx-xE-ue3" secondAttribute="centerX" id="F3a-Xf-kxz"/>
+                                    <constraint firstItem="wc5-GP-fvZ" firstAttribute="top" secondItem="HQn-XE-2Qt" secondAttribute="bottom" constant="10" id="PNh-mj-do2"/>
+                                    <constraint firstItem="HQn-XE-2Qt" firstAttribute="centerX" secondItem="bcx-xE-ue3" secondAttribute="centerX" id="W7m-Jm-jIA"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="DJa-dk-TN5" firstAttribute="leading" secondItem="AFK-fF-QmQ" secondAttribute="leading" id="3pm-Gm-AMk"/>
                             <constraint firstItem="AFK-fF-QmQ" firstAttribute="bottom" secondItem="DJa-dk-TN5" secondAttribute="bottom" id="LMr-Ge-Iyp"/>
+                            <constraint firstItem="AFK-fF-QmQ" firstAttribute="bottom" secondItem="bcx-xE-ue3" secondAttribute="bottom" id="MdS-Pv-J5R"/>
+                            <constraint firstItem="bcx-xE-ue3" firstAttribute="leading" secondItem="AFK-fF-QmQ" secondAttribute="leading" id="S6P-vy-yt2"/>
+                            <constraint firstItem="AFK-fF-QmQ" firstAttribute="trailing" secondItem="bcx-xE-ue3" secondAttribute="trailing" id="UCA-FF-G08"/>
                             <constraint firstItem="AFK-fF-QmQ" firstAttribute="trailing" secondItem="DJa-dk-TN5" secondAttribute="trailing" id="fE9-Vx-6Fx"/>
+                            <constraint firstItem="bcx-xE-ue3" firstAttribute="top" secondItem="AFK-fF-QmQ" secondAttribute="top" id="fz9-5P-gow"/>
                             <constraint firstItem="DJa-dk-TN5" firstAttribute="top" secondItem="AFK-fF-QmQ" secondAttribute="top" id="yH1-xI-agZ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="AFK-fF-QmQ"/>
@@ -170,6 +195,9 @@
                     <navigationItem key="navigationItem" id="tA2-yd-E6o"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="emptyImageView" destination="HQn-XE-2Qt" id="Vuv-rX-3T3"/>
+                        <outlet property="emptyLabel" destination="wc5-GP-fvZ" id="b0G-hB-b5h"/>
+                        <outlet property="emptyView" destination="bcx-xE-ue3" id="rxa-TK-rpY"/>
                         <outlet property="scrollView" destination="DJa-dk-TN5" id="R3r-3r-vlH"/>
                         <outlet property="textViewWidth" destination="lIN-qE-sRS" id="Dwq-bG-lP3"/>
                     </connections>
@@ -194,4 +222,7 @@
             <point key="canvasLocation" x="-2042" y="-3476"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="empty_edit" width="79.5" height="64"/>
+    </resources>
 </document>

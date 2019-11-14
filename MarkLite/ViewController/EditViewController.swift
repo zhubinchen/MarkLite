@@ -32,12 +32,16 @@ enum ExportType: String {
 
 class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresentationControllerDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var emptyImageView: UIImageView!
+    @IBOutlet weak var emptyLabel: UILabel!
+    
     @IBOutlet var textViewWidth: NSLayoutConstraint!
     
     var file: File? {
         didSet {
-            self.title = file?.displayName ?? file?.name
-            self.setup()
+            title = file?.displayName ?? file?.name
+            setup()
         }
     }
     
@@ -67,8 +71,6 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.setBackgroundColor(.background)
 
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .never
@@ -91,9 +93,13 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         navBar?.setTintColor(.navTint)
         navBar?.setBackgroundColor(.navBar)
         navBar?.setTitleColor(.navTitle)
+        emptyImageView.tintImage = emptyImageView.image
+        emptyImageView.setTintColor(.secondary)
+        emptyLabel.setTextColor(.secondary)
+        view.setBackgroundColor(.background)
+        
         addNotificationObserver(Notification.Name.UIApplicationWillChangeStatusBarOrientation.rawValue, selector: #selector(deviceOrientationWillChange))
         addNotificationObserver(Notification.Name.UIKeyboardWillChangeFrame.rawValue, selector: #selector(keyboardHeightWillChange(_:)))
-
         addNotificationObserver("FileLoadFinished", selector: #selector(fileLoadFinished(_:)))
     }
     
@@ -113,23 +119,19 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        file?.close { _ in
-
-        }
-    }
-    
     func setup() {
         guard let file = self.file else {
             return
         }
-        
+            
         if isViewLoaded == false {
             return
         }
+        
+        emptyView.isHidden = true
+
         previewVC.url = file.url
+
         textVC.assistBar.file = file
         textVC.textChangedHandler = { [weak self] (text) in
             file.text = text

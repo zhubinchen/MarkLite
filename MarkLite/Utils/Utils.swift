@@ -97,9 +97,10 @@ extension String {
 
 extension String {
     
-    var vertical: String {
-        let chars = map{String($0).uppercased()}
-        return chars.joined(separator: "\n")
+    var isValidFileName: Bool {
+        let pattern = "^[^\\.\\*\\:/]+$"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", pattern)
+        return predicate.evaluate(with: self)
     }
     
     static var unique: String {

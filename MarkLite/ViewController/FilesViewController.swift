@@ -142,6 +142,13 @@ class FilesViewController: UIViewController {
         File.loadLocal { local in
             self.root = local
             self.refresh()
+            if self.isHomePage && isPad && File.current == nil {
+                if let index = self.files.firstIndex(where: { $0.type == .text }) {
+                    let indexPath = IndexPath(row: index, section: self.isHomePage ? 1 : 0)
+                    self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .middle)
+                    self.openFile(self.files[index])
+                }
+            }
         }
         File.loadCloud { cloud in
             self.items[0] = cloud
@@ -227,15 +234,10 @@ class FilesViewController: UIViewController {
         }
         if isViewLoaded {
             tableView.reloadData()
-            if isPad && File.current == nil {
-                if let file = self.files.first(where: { $0.type == .text }) {
-                    self.openFile(file)
-                }
-            }
-            if isPhone || selectFolderMode || tableView.isEditing || File.current == nil {
+            if isPhone || selectFolderMode || tableView.isEditing {
                 return
             }
-            if let index = files.firstIndex(where: { $0 == File.current! }) {
+            if let current = File.current, let index = files.firstIndex(where: { $0 == current }) {
                 let indexPath = IndexPath(row: index, section: isHomePage ? 1 : 0)
                 tableView.selectRow(at: indexPath, animated: false, scrollPosition: .middle)
             }
@@ -264,11 +266,6 @@ class FilesViewController: UIViewController {
         if self.selectFiles.count == 0 {
             return
         }
-        self.selectFiles = self.selectFiles.filter { !$0.opened }
-        if self.selectFiles.count == 0 {
-            SVProgressHUD.showError(withStatus: /"FileIsEditing")
-            return
-        }
         self.performSegue(withIdentifier: "move", sender: self.selectFiles)
         multipleSelect()
     }
@@ -290,14 +287,14 @@ class FilesViewController: UIViewController {
         if self.selectFiles.count == 0 {
             return
         }
-        self.selectFiles = self.selectFiles.filter { !$0.opened }
-        if self.selectFiles.count == 0 {
-            SVProgressHUD.showError(withStatus: /"FileIsEditing")
-            return
-        }
+        
         self.showDestructiveAlert(title: nil, message: /"DeleteMessage", actionTitle: /"Delete") {
             self.selectFiles.forEach { file in
                 file.trash()
+                if file == File.current  {
+                    file.close(nil)
+                    self.editFile(nil)
+                }
             }
             self.refresh()
             self.multipleSelect()
@@ -312,8 +309,12 @@ class FilesViewController: UIViewController {
     @objc func sureMove() {
         impactIfAllow()
         guard let newParent = selectedFolder else { return }
-        filesToMove?.forEach {
-            $0.move(to: newParent)
+        selectFiles.forEach { file in
+            file.move(to: newParent)
+            if file == File.current  {
+                file.close(nil)
+                self.editFile(nil)
+            }
         }
         moveFrom?.refresh()
         dismiss(animated: true) { }
@@ -333,6 +334,10 @@ class FilesViewController: UIViewController {
         }) { index in
             let name = self.textField?.text ?? ""
             if name.count == 0 || index == 2 {
+                return
+            }
+            if !name.isValidFileName {
+                SVProgressHUD.showError(withStatus: /"FileNameError")
                 return
             }
             guard let file = self.root.createFile(name: name, type: index == 0 ? .text : .folder) else {
@@ -355,23 +360,31 @@ class FilesViewController: UIViewController {
             preview(file)
             return
         }
-        if file.opened {
+        if file == File.current {
             return
         }
         SVProgressHUD.show()
-        file.open { text in
+        file.open { success in
             SVProgressHUD.dismiss()
-            if text == nil {
+            if success {
+                self.editFile(file)
+            } else {
+                self.editFile(nil)
                 SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
-                return
             }
-            guard let parent = file.parent else {
-                self.performSegue(withIdentifier: "edit", sender: file)
-                return
-            }
-            self.goToRoot(parent)
-            self.performSegue(withIdentifier: "edit", sender: file)
         }
+    }
+    
+    func editFile(_ file: File?) {
+        if file == nil && File.current == nil {
+            return
+        }
+        guard let parent = file?.parent else {
+            self.performSegue(withIdentifier: "edit", sender: file)
+            return
+        }
+        self.goToRoot(parent)
+        self.performSegue(withIdentifier: "edit", sender: file)
     }
     
     func preview(_ file: File) {
@@ -703,9 +716,9 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
         if file.isExternalFile {
             let deleteAction = UITableViewRowAction(style: .destructive, title: /"Delete") { [unowned self](_, indexPath) in
                 impactIfAllow()
-                if file.opened {
-                    SVProgressHUD.showError(withStatus: /"FileIsEditing")
-                    return
+                if file == File.current {
+                    file.close(nil)
+                    self.editFile(nil)
                 }
                 file.trash()
                 if self.isHomePage {
@@ -720,12 +733,12 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
         
         let deleteAction = UITableViewRowAction(style: .destructive, title: /"Delete") { [unowned self](_, indexPath) in
             impactIfAllow()
-            if file.opened {
-                SVProgressHUD.showError(withStatus: /"FileIsEditing")
-                return
-            }
             self.showDestructiveAlert(title: nil, message: /"DeleteMessage", actionTitle: /"Delete") {
                 file.trash()
+                if file == File.current  {
+                    file.close(nil)
+                    self.editFile(nil)
+                }
                 self.files.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .middle)
             }
@@ -735,10 +748,6 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
             impactIfAllow()
             if file.disable {
                 SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
-                return
-            }
-            if file.opened {
-                SVProgressHUD.showError(withStatus: /"FileIsEditing")
                 return
             }
             self.showAlert(title: nil, message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
@@ -751,24 +760,33 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
                 if index == 0 || name.count == 0 {
                     return
                 }
-                let pattern = "^[^\\.\\*\\:/]+$"
-                let predicate = NSPredicate(format: "SELF MATCHES %@", pattern)
-                
-                if predicate.evaluate(with: name) {
-                    file.rename(to: name)
+                if name.isValidFileName {
+                    SVProgressHUD.show()
+                    if file == File.current {
+                        file.close { success in
+                            SVProgressHUD.dismiss()
+                            if success && file.rename(to: name) {
+                                tableView.reloadRows(at: [indexPath], with: .automatic)
+                                self.openFile(file)
+                            } else {
+                                SVProgressHUD.showError(withStatus: /"CanNotOperateThisFile")
+                            }
+                        }
+                    } else {
+                        if file.rename(to: name) {
+                            tableView.reloadRows(at: [indexPath], with: .automatic)
+                        } else {
+                            SVProgressHUD.showError(withStatus: /"CanNotOperateThisFile")
+                        }
+                    }
                 } else {
                     SVProgressHUD.showError(withStatus: /"FileNameError")
                 }
-                tableView.reloadRows(at: [indexPath], with: .automatic)
             })
         }
         
         let moveAction = UITableViewRowAction(style: .default, title: /"Move") { [unowned self](_, indexPath) in
             impactIfAllow()
-            if file.opened {
-                SVProgressHUD.showError(withStatus: /"FileIsEditing")
-                return
-            }
             self.performSegue(withIdentifier: "move", sender: [file])
         }
         

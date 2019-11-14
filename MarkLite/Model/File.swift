@@ -66,7 +66,6 @@ class File {
     private(set) var disable = false
     private(set) var type = FileType.text
     private(set) var isExternalFile = false
-    private(set) var opened = false
     private(set) var changed = false
     private(set) weak var parent: File?
 
@@ -349,54 +348,49 @@ class File {
     }
     
     func close(_ completion:((Bool)->Void)?) {
-         if changed {
-             modifyDate = Date()
-             if let data = text?.data(using: .utf8) {
-                 size = data.count
-             }
-             changed = false
-         }
-         if !opened {
-             completion?(false)
-             if self == File.current {
-                 File.current = nil
-             }
-             return
-         }
-         document?.close{ successed in
-             if successed {
-                 print("close successed")
-                 self.opened = false
-                 if self == File.current {
-                     File.current = nil
-                 }
-             } else {
-                 print("close failed")
-             }
-             completion?(successed)
-         }
+        if changed {
+            modifyDate = Date()
+            if let data = text?.data(using: .utf8) {
+                size = data.count
+            }
+            changed = false
+        }
+        if self == File.current {
+            document?.close{ successed in
+                if successed {
+                    print("close successed")
+                    File.current = nil
+                } else {
+                    print("close failed")
+                }
+                completion?(successed)
+            }
+        } else {
+            completion?(true)
+        }
     }
     
-    func open(_ completion:((String?)->Void)?) {
-        if opened {
-            completion?(self.text)
-            File.current = self
+    func open(_ completion:((Bool)->Void)?) {
+        if self == File.current {
+            completion?(true)
             return
         }
+        File.current?.close(nil)
+        
         if document == nil {
-            completion?(nil)
-            File.current = self
+            File.current = nil
+            completion?(false)
             return
         }
         document?.open { successed in
             if successed {
                 print("open successed")
-                self.opened = true
                 File.current = self
-                completion?(self.text)
+                completion?(true)
             } else {
                 print("open failed")
-                completion?(nil)
+                File.current = nil
+                completion?(false)
             }
         }
     }

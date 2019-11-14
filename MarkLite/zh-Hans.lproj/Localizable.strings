@@ -107,9 +107,10 @@
 
 "DeleteMessage"="删除后不可恢复，确定要删除吗？";
 "ClearMessage"="确定要清空这些图片吗？";
-"FileIsEditing"="无法进行此操作，文件正在编辑中";
 "CanNotAccesseThisFile"="当前无法访问此文件";
 "CanNotPreviewThisFile"="不支持预览此文件";
+"CanNotOperateThisFile"="未能完成此操作";
+"NoEditingFile"="没有正在编辑的文档";
 "FileNameError"="请输入正确的文件名(不要包含特殊符号)";
 "FileNamePlaceHolder"="文件名不允许包含特殊符号";
 "UnzipFailed"="解压失败";

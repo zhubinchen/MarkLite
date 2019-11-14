@@ -107,9 +107,10 @@
 
 "DeleteMessage"="Sure you want to delete the selected file(s)? This action cannot be undone!";
 "ClearMessage"="Sure you want to clear all images? This action cannot be undone!";
-"FileIsEditing"="Can not perform the opration on this file, the file is opened in editor";
 "CanNotAccesseThisFile"="Can Not Accesse This File";
 "CanNotPreviewThisFile"="Can Not Preview This File";
+"CanNotOperateThisFile"="Can Not Operate This File";
+"NoEditingFile"="No document being edited";
 "FileNameError"="Invalid file name";
 "FileNamePlaceHolder"="Name may NOT contains (./*~)";
 "UnzipFailed"="Unzip Failed";
