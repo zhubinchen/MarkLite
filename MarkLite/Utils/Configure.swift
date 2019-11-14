@@ -81,10 +81,9 @@ class Configure: NSObject, NSCoding {
         
     var currentVerion: String?
     var upgradeDate = Date()
-    var alertDate = Date()
+    var expireDate = Date(timeIntervalSince1970: 0)
     var showExtensionName = false
     var impactFeedback = true
-    var isPro = false
     let isAssistBarEnabled = Variable(true)
     let markdownStyle = Variable("GitHub")
     let highlightStyle = Variable("tomorrow")
@@ -94,6 +93,10 @@ class Configure: NSObject, NSCoding {
     let darkOption = Variable(DarkModeOption.light)
     var keyboardBarItems = ["-","`","$","/","\"","?","@","(",")","[","]","|","#","*","=","+","<",">"]
     var recentImages = [URL]()
+
+    var isPro: Bool {
+        return expireDate.isFuture
+    }
     
     override init() {
         super.init()
@@ -121,6 +124,7 @@ class Configure: NSObject, NSCoding {
     
     func reset() {
         upgradeDate = Date()
+        expireDate = Date(timeIntervalSince1970: 0)
         currentVerion = appVersion
         markdownStyle.value = "GitHub"
         highlightStyle.value = "tomorrow"
@@ -149,7 +153,7 @@ class Configure: NSObject, NSCoding {
     func upgrade() {
         upgradeDate = Date()
         impactFeedback = true
-        
+
         let tempPathURL = URL(fileURLWithPath: tempPath)
         try! Zip.unzipFile(Bundle.main.url(forResource: "Resources", withExtension: "zip")!, destination: tempPathURL, overwrite: true, password: nil, progress: nil)
         let tempStylePath = tempPath + "/Resources/Styles"
@@ -183,7 +187,6 @@ class Configure: NSObject, NSCoding {
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(currentVerion, forKey: "currentVersion")
-        aCoder.encode(isPro, forKey: "isPro")
         aCoder.encode(impactFeedback, forKey: "impactFeedback")
         aCoder.encode(showExtensionName, forKey: "showExtensionName")
         aCoder.encode(isAssistBarEnabled.value, forKey: "isAssistBarEnabled")
@@ -194,17 +197,17 @@ class Configure: NSObject, NSCoding {
         aCoder.encode(darkOption.value.rawValue, forKey: "darkOption")
         aCoder.encode(sortOption.rawValue, forKey: "sortOption")
         aCoder.encode(upgradeDate, forKey: "upgradeDate")
-        aCoder.encode(alertDate, forKey: "alertDate")
+        aCoder.encode(expireDate, forKey: "expireDate")
         aCoder.encode(recentImages, forKey: "recentImages")
+        aCoder.encode(false, forKey: "isPro")
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init()
         currentVerion = aDecoder.decodeObject(forKey: "currentVersion") as? String
         upgradeDate = aDecoder.decodeObject(forKey: "upgradeDate") as? Date ?? Date()
-        alertDate = aDecoder.decodeObject(forKey: "alertDate") as? Date ?? Date()
+        expireDate = aDecoder.decodeObject(forKey: "expireDate") as? Date ?? Date(timeIntervalSince1970: 0)
         recentImages = aDecoder.decodeObject(forKey: "recentImages") as? [URL] ?? []
-        isPro = aDecoder.decodeBool(forKey: "isPro")
         impactFeedback = aDecoder.decodeBool(forKey: "impactFeedback")
         showExtensionName = aDecoder.decodeBool(forKey: "showExtensionName")
         isAssistBarEnabled.value = aDecoder.decodeBool(forKey: "isAssistBarEnabled")
@@ -214,32 +217,33 @@ class Configure: NSObject, NSCoding {
         splitOption.value = SplitOption(rawValue: aDecoder.decodeObject(forKey: "splitOption") as? String ?? "") ?? .automatic
         darkOption.value = DarkModeOption(rawValue: aDecoder.decodeObject(forKey: "darkOption") as? String ?? "") ?? .light
         sortOption = SortOption(rawValue: aDecoder.decodeObject(forKey: "sortOption") as? String ?? "") ?? .modifyDate
+        let isPro = aDecoder.decodeBool(forKey: "isPro")
+        if isPro {
+            expireDate = Date.distantFuture
+        }
     }
     
     func checkProAvailable(_ completion:((Bool)->Void)? = nil){
 //        #if DEBUG
-//            self.isPro = true
+//            self.expireDate = Date.distantFuture
 //            completion?(self.isPro)
 //            return
 //        #endif
+
         IAP.validateReceipt(itunesSecret) { (statusCode, products, json) in
             defer {
                 DispatchQueue.main.async {
+                    print("会员到期\(self.expireDate.readableDate())")
+                    print("会员状态\(self.isPro)")
                     completion?(self.isPro)
                 }
             }
             guard let products = products else {
-                self.isPro = false
                 return
             }
             print("products: \(products)")
             let proIdentifier = [premiumForeverProductID,premiumYearlyProductID,premiumMonthlyProductID]
-            let expiredDate = proIdentifier.map{ products[$0] ?? Date(timeIntervalSince1970: 0) }.max() ?? Date(timeIntervalSince1970: 0)
-            
-            self.isPro = expiredDate.isFuture
-            
-            print("会员到期\(expiredDate.readableDate())")
-            print("会员状态\(self.isPro)")
+            self.expireDate = proIdentifier.map{ products[$0] ?? Date(timeIntervalSince1970: 0) }.max() ?? Date(timeIntervalSince1970: 0)
         }
     }
 }
