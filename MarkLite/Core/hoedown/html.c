@@ -389,6 +389,19 @@ rndr_image(hoedown_buffer *ob, const hoedown_buffer *link, const hoedown_buffer 
 }
 
 static int
+rndr_media(hoedown_buffer *ob, const hoedown_buffer *link, const hoedown_buffer *title, const hoedown_buffer *alt, const hoedown_renderer_data *data)
+{
+    if (!link || !link->size) return 0;
+
+    HOEDOWN_BUFPUTSL(ob, "<video src=\"");
+    escape_href(ob, link->data, link->size);
+    HOEDOWN_BUFPUTSL(ob, "\" controls=\"controls\"");
+
+    hoedown_buffer_puts(ob, "> </video>");
+    return 1;
+}
+
+static int
 rndr_raw_html(hoedown_buffer *ob, const hoedown_buffer *text, const hoedown_renderer_data *data)
 {
 	hoedown_html_renderer_state *state = data->opaque;
@@ -646,7 +659,8 @@ hoedown_html_toc_renderer_new(int nesting_level)
 		rndr_highlight,
 		rndr_quote,
 		NULL,
-		NULL,
+        NULL,
+        NULL,
 		toc_link,
 		rndr_triple_emphasis,
 		rndr_strikethrough,
@@ -708,7 +722,8 @@ hoedown_html_renderer_new(hoedown_html_flags render_flags, int nesting_level)
 		rndr_underline,
 		rndr_highlight,
 		rndr_quote,
-		rndr_image,
+        rndr_image,
+        rndr_media,
 		rndr_linebreak,
 		rndr_link,
 		rndr_triple_emphasis,

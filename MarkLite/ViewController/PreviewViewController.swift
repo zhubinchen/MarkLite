@@ -64,7 +64,6 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        webView.delegate = self
         webView.scalesPageToFit = true
         webView.backgroundColor = .clear
         webView.isOpaque = false
@@ -112,14 +111,6 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
         webView.stopLoading()
         webView.loadHTMLString(self.html, baseURL: url)
         shouldRefresh = false
-    }
-    
-    func webViewDidStartLoad(_ webView: UIWebView) {
-        print("webViewDidStartLoad")
-    }
-    
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        print("webViewDidFinishLoad")
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

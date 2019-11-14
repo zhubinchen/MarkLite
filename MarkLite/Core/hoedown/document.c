@@ -78,6 +78,7 @@ static size_t char_autolink_email(hoedown_buffer *ob, hoedown_document *doc, uin
 static size_t char_autolink_www(hoedown_buffer *ob, hoedown_document *doc, uint8_t *data, size_t offset, size_t size);
 static size_t char_link(hoedown_buffer *ob, hoedown_document *doc, uint8_t *data, size_t offset, size_t size);
 static size_t char_image(hoedown_buffer *ob, hoedown_document *doc, uint8_t *data, size_t offset, size_t size);
+static size_t char_media(hoedown_buffer *ob, hoedown_document *doc, uint8_t *data, size_t offset, size_t size);
 static size_t char_superscript(hoedown_buffer *ob, hoedown_document *doc, uint8_t *data, size_t offset, size_t size);
 static size_t char_math(hoedown_buffer *ob, hoedown_document *doc, uint8_t *data, size_t offset, size_t size);
 
@@ -87,7 +88,8 @@ enum markdown_char_t {
 	MD_CHAR_CODESPAN,
 	MD_CHAR_LINEBREAK,
 	MD_CHAR_LINK,
-	MD_CHAR_IMAGE,
+    MD_CHAR_IMAGE,
+    MD_CHAR_MEDIA,
 	MD_CHAR_LANGLE,
 	MD_CHAR_ESCAPE,
 	MD_CHAR_ENTITY,
@@ -105,7 +107,8 @@ static char_trigger markdown_char_ptrs[] = {
 	&char_codespan,
 	&char_linebreak,
 	&char_link,
-	&char_image,
+    &char_image,
+    &char_media,
 	&char_langle_tag,
 	&char_escape,
 	&char_entity,
@@ -1109,11 +1112,23 @@ char_image(hoedown_buffer *ob, hoedown_document *doc, uint8_t *data, size_t offs
 	return ret + 1;
 }
 
+static size_t
+char_media(hoedown_buffer *ob, hoedown_document *doc, uint8_t *data, size_t offset, size_t size) {
+    size_t ret;
+
+    if (size < 2 || data[1] != '[') return 0;
+
+    ret = char_link(ob, doc, data + 1, offset + 1, size - 1);
+    if (!ret) return 0;
+    return ret + 1;
+}
+
 /* char_link • '[': parsing a link, a footnote or an image */
 static size_t
 char_link(hoedown_buffer *ob, hoedown_document *doc, uint8_t *data, size_t offset, size_t size)
 {
-	int is_img = (offset && data[-1] == '!' && !is_escaped(data - offset, offset - 1));
+    int is_img = (offset && data[-1] == '!' && !is_escaped(data - offset, offset - 1));
+    int is_media = (offset && data[-1] == '@' && !is_escaped(data - offset, offset - 1));
 	int is_footnote = (doc->ext_flags & HOEDOWN_EXT_FOOTNOTES && data[1] == '^');
 	size_t i = 1, txt_e, link_b = 0, link_e = 0, title_b = 0, title_e = 0;
 	hoedown_buffer *content = NULL;
@@ -1124,7 +1139,9 @@ char_link(hoedown_buffer *ob, hoedown_document *doc, uint8_t *data, size_t offse
 	int ret = 0, in_title = 0, qtype = 0;
 
 	/* checking whether the correct renderer exists */
-	if ((is_footnote && !doc->md.footnote_ref) || (is_img && !doc->md.image)
+	if ((is_footnote && !doc->md.footnote_ref)
+        || (is_img && !doc->md.image)
+        || (is_media && !doc->md.media)
 		|| (!is_img && !is_footnote && !doc->md.link))
 		goto cleanup;
 
@@ -1322,7 +1339,9 @@ char_link(hoedown_buffer *ob, hoedown_document *doc, uint8_t *data, size_t offse
 	/* calling the relevant rendering function */
 	if (is_img) {
 		ret = doc->md.image(ob, u_link, title, content, &doc->data);
-	} else {
+	} else if (is_media) {
+        ret = doc->md.media(ob, u_link, title, content, &doc->data);
+    } else {
 		ret = doc->md.link(ob, content, u_link, title, &doc->data);
 	}
 
@@ -2823,9 +2842,10 @@ hoedown_document_new(
 	if (doc->md.linebreak)
 		doc->active_char['\n'] = MD_CHAR_LINEBREAK;
 
-	if (doc->md.image || doc->md.link || doc->md.footnotes || doc->md.footnote_ref) {
+	if (doc->md.image || doc->md.media || doc->md.link || doc->md.footnotes || doc->md.footnote_ref) {
 		doc->active_char['['] = MD_CHAR_LINK;
-		doc->active_char['!'] = MD_CHAR_IMAGE;
+        doc->active_char['!'] = MD_CHAR_IMAGE;
+        doc->active_char['@'] = MD_CHAR_MEDIA;
 	}
 
 	doc->active_char['<'] = MD_CHAR_LANGLE;
