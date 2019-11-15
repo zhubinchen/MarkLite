@@ -360,7 +360,7 @@ class FilesViewController: UIViewController {
             preview(file)
             return
         }
-        if file == File.current {
+        if file == File.current && isPad {
             return
         }
         SVProgressHUD.show()

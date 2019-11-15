@@ -80,8 +80,8 @@ class Configure: NSObject, NSCoding {
     var newVersionAvaliable = false
         
     var currentVerion: String?
-    var upgradeDate = Date()
-    var expireDate = Date(timeIntervalSince1970: 0)
+    var rateAlertDate = Date().daysAgo(19)
+    var expireDate = Date.longlongAgo()
     var showExtensionName = false
     var impactFeedback = true
     let isAssistBarEnabled = Variable(true)
@@ -123,8 +123,8 @@ class Configure: NSObject, NSCoding {
     }
     
     func reset() {
-        upgradeDate = Date()
-        expireDate = Date(timeIntervalSince1970: 0)
+        rateAlertDate = Date().daysAgo(19)
+        expireDate = Date.longlongAgo()
         currentVerion = appVersion
         markdownStyle.value = "GitHub"
         highlightStyle.value = "tomorrow"
@@ -151,7 +151,7 @@ class Configure: NSObject, NSCoding {
     }
     
     func upgrade() {
-        upgradeDate = Date()
+        rateAlertDate = Date()
         impactFeedback = true
 
         let tempPathURL = URL(fileURLWithPath: tempPath)
@@ -196,7 +196,7 @@ class Configure: NSObject, NSCoding {
         aCoder.encode(splitOption.value.rawValue, forKey: "splitOption")
         aCoder.encode(darkOption.value.rawValue, forKey: "darkOption")
         aCoder.encode(sortOption.rawValue, forKey: "sortOption")
-        aCoder.encode(upgradeDate, forKey: "upgradeDate")
+        aCoder.encode(rateAlertDate, forKey: "rateAlertDate")
         aCoder.encode(expireDate, forKey: "expireDate")
         aCoder.encode(recentImages, forKey: "recentImages")
         aCoder.encode(false, forKey: "isPro")
@@ -205,8 +205,8 @@ class Configure: NSObject, NSCoding {
     required init?(coder aDecoder: NSCoder) {
         super.init()
         currentVerion = aDecoder.decodeObject(forKey: "currentVersion") as? String
-        upgradeDate = aDecoder.decodeObject(forKey: "upgradeDate") as? Date ?? Date()
-        expireDate = aDecoder.decodeObject(forKey: "expireDate") as? Date ?? Date(timeIntervalSince1970: 0)
+        rateAlertDate = aDecoder.decodeObject(forKey: "rateAlertDate") as? Date ?? Date().daysAgo(19)
+        expireDate = aDecoder.decodeObject(forKey: "expireDate") as? Date ?? Date.longlongAgo()
         recentImages = aDecoder.decodeObject(forKey: "recentImages") as? [URL] ?? []
         impactFeedback = aDecoder.decodeBool(forKey: "impactFeedback")
         showExtensionName = aDecoder.decodeBool(forKey: "showExtensionName")

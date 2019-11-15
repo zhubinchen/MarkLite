@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import Bugly
 import Alamofire
+import StoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -102,6 +103,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     }
             }
         })
+        
+        if #available(iOS 10.3, *) {
+            let interval = Date().timeIntervalSince(Configure.shared.rateAlertDate)
+            if interval > 3600 * 24 * 20 {
+                Configure.shared.rateAlertDate = Date()
+                Timer.runThisAfterDelay(seconds: 10) {
+                    SKStoreReviewController.requestReview()
+                }
+            }
+        }
     }
     
     private func checkAppStore() {

@@ -39,7 +39,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 ("ShowExtensionName","",#selector(displayOption)),
                 ]),
             ("支持一下",[
-                ("RateIt","",#selector(rate)),
                 ("Contact","",#selector(feedback))
                 ])
         ]
@@ -176,11 +175,6 @@ extension SettingsViewController {
         let vc = OptionsViewController()
         vc.options = wraper
         pushVC(vc)
-    }
-    
-    @objc func rate() {
-        UIApplication.shared.open(URL(string: rateUrl)!, options: [:], completionHandler: nil)
-        
     }
         
     @objc func feedback() {

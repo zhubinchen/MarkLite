@@ -13,11 +13,19 @@ class NavigationController: UINavigationController, UINavigationBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationBar.delegate = self
+//        self.navigationBar.delegate = self
     }
     
-//    func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
-//        impactIfAllow()
-//        return true
-//    }
+    func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
+        DispatchQueue.main.async {
+            self.popViewController(animated: true)
+        }
+        impactIfAllow()
+        return true
+    }
+
+    func navigationBar(_ navigationBar: UINavigationBar, didPop item: UINavigationItem) {
+
+    }
+    
 }

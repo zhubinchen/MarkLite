@@ -257,6 +257,19 @@ extension UIView {
 }
 
 extension Date {
+    
+    public static func longlongAgo() -> Date {
+        return Date(timeIntervalSince1970: 0)
+    }
+    
+    public func daysAgo(_ days: NSInteger) -> Date {
+        return addingTimeInterval(TimeInterval(-3600*24*days))
+    }
+    
+    public func daysAfter(_ days: NSInteger) -> Date {
+        return addingTimeInterval(TimeInterval(3600*24*days))
+    }
+    
     public func readableDate() -> String {
         let calendar = Calendar.current
         let dateFormatter = DateFormatter()
