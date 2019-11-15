@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import WebKit
 import RxSwift
 import RxCocoa
 import SnapKit
 
-class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDelegate {
+class PreviewViewController: UIViewController, UIScrollViewDelegate {
     
-    let webView = UIWebView(frame: CGRect())
+    let webView = WKWebView(frame: CGRect())
     let scrollView = UIScrollView(frame: CGRect())
     
     var offset: CGFloat = 0 {
@@ -57,14 +58,18 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
         }
     }
     
-    var url: URL?
+    var resURL: URL!
+    
+    var htmlURL: URL!
     
     var didScrollHandler: ((CGFloat)->Void)?
-            
+    
+    var isLoading = false
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        webView.scalesPageToFit = true
+        
         webView.backgroundColor = .clear
         webView.isOpaque = false
         webView.scrollView.isScrollEnabled = false
@@ -108,9 +113,28 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
     }
     
     func refresh() {
-        webView.stopLoading()
-        webView.loadHTMLString(self.html, baseURL: url)
+        guard let data = html.data(using: .utf8) else {
+            return
+        }
+        if isLoading {
+            return
+        }
         shouldRefresh = false
+        isLoading = true
+        webView.stopLoading()
+        DispatchQueue.global().async {
+            try? data.write(to: self.htmlURL)
+            DispatchQueue.main.async {
+                self.webView.loadFileURL(self.htmlURL, allowingReadAccessTo: self.htmlURL.deletingLastPathComponent())
+                self.isLoading = false
+            }
+        }
+    }
+    
+    func prepare(_ parentURL: URL) {
+        htmlURL = parentURL.appendingPathComponent("~temp.html")
+        resURL = parentURL.appendingPathComponent("~resource")
+        try? FileManager.default.copyItem(at: URL(fileURLWithPath: resourcesPath), to: resURL)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -136,9 +160,11 @@ class PreviewViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
     
     deinit {
         timer?.invalidate()
-        webView.loadHTMLString("", baseURL: nil)
+        webView.stopLoading()
         webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
         removeNotificationObserver()
+        try? FileManager.default.removeItem(at: htmlURL)
+        try? FileManager.default.removeItem(at: resURL)
         print("deinit web_vc")
     }
 }

@@ -12,8 +12,6 @@
 #import "html.h"
 #import "hoedown_html_patch.h"
 
-#define kStylePath [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"Resources"]
-
 #define kTemplate @"<!DOCTYPE html>\
 <html>\
 <head>\
@@ -125,11 +123,11 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
     hoedown_html_renderer_free(tocRenderer);
     MPFreeHTMLRenderer(htmlRenderer);
     
-    NSString *stylePath = [NSString stringWithFormat:@"Styles/%@.css",self.styleName];
-    NSString *highlightPath = [NSString stringWithFormat:@"Highlight/highlight-style/%@.css",self.highlightName];
-    NSString *highlightJS1 = @"Highlight/highlightjs/highlight.min.js";
-    NSString *highlightJS2 = @"Highlight/highlightjs/swift.min.js";
-    NSString *MathJaxJS = @"MathJax/tex-mml-chtml.js";
+    NSString *stylePath = [NSString stringWithFormat:@"~resource/Styles/%@.css",self.styleName];
+    NSString *highlightPath = [NSString stringWithFormat:@"~resource/Highlight/highlight-style/%@.css",self.highlightName];
+    NSString *highlightJS1 = @"~resource/Highlight/highlightjs/highlight.min.js";
+    NSString *highlightJS2 = @"~resource/Highlight/highlightjs/swift.min.js";
+    NSString *MathJaxJS = @"~resource/MathJax/tex-mml-chtml.js";
     return [self formatHTML:html title:(self.title?:@"") styles:@[stylePath,highlightPath] scripts:@[highlightJS1,highlightJS2,MathJaxJS]];
 }
 
@@ -137,14 +135,10 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
     NSMutableString *styleSheets = @"".mutableCopy;
     NSMutableString *scriptsString = @"".mutableCopy;
     for (NSString *style in styles) {
-        [styleSheets appendFormat:@"\n<link rel=\"stylesheet\" href=\"%@\"/>",[NSURL fileURLWithPath:[kStylePath stringByAppendingPathComponent:style]]];
+        [styleSheets appendFormat:@"\n<link rel=\"stylesheet\" href=\"%@\"/>",style];
     }
     for (NSString *script in scripts) {
-        if ([script hasPrefix:@"http"]) {
-            [scriptsString appendFormat:@"\n<script src=\"%@\"></script>",script];
-        } else {
-            [scriptsString appendFormat:@"\n<script src=\"%@\"></script>",[NSURL fileURLWithPath:[kStylePath stringByAppendingPathComponent:script]]];
-        }
+        [scriptsString appendFormat:@"\n<script src=\"%@\"></script>",script];
     }
     return [NSString stringWithFormat:kTemplate,title,styleSheets,scriptsString,body];
 }

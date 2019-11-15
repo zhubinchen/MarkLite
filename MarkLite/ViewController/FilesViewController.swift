@@ -761,8 +761,8 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
                     return
                 }
                 if name.isValidFileName {
-                    SVProgressHUD.show()
                     if file == File.current {
+                        SVProgressHUD.show()
                         file.close { success in
                             SVProgressHUD.dismiss()
                             if success && file.rename(to: name) {

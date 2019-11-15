@@ -36,6 +36,8 @@ class TextViewController: UIViewController {
             editView.contentOffset = CGPoint(x: 0,y: y)
         }
     }
+    
+    var lastOffsetY: CGFloat = 0.0
 
     var textChangedHandler: ((String)->Void)?
     var didScrollHandler: ((CGFloat)->Void)?
@@ -53,6 +55,18 @@ class TextViewController: UIViewController {
                 self.editView.scrollRangeToVisible(self.editView.selectedRange)
             }
         }
+    }
+    
+    var visibleRange: NSRange? {
+        let topLeft = CGPoint(x: editView.bounds.minX, y: editView.bounds.minY)
+        let bottomRight = CGPoint(x: editView.bounds.maxX, y: editView.bounds.maxY)
+        guard let topLeftTextPosition = editView.closestPosition(to: topLeft),
+            let bottomRightTextPosition = editView.closestPosition(to: bottomRight) else {
+                return nil
+        }
+        let location = editView.offset(from: editView.beginningOfDocument, to: topLeftTextPosition)
+        let length = editView.offset(from: topLeftTextPosition, to: bottomRightTextPosition)
+        return NSRange(location: location, length: length)
     }
     
     var highlightmanager = MarkdownHighlightManager()
@@ -86,8 +100,12 @@ class TextViewController: UIViewController {
         }).disposed(by: bag)
     }
     
-    @objc func highlight() {        
-        highlightmanager.highlight(editView.textStorage)
+    @objc func highlight() {
+        if editView.text.count < 5000 {
+            highlightmanager.highlight(editView.textStorage,visibleRange: nil)
+        } else if let range = self.visibleRange {
+            highlightmanager.highlight(editView.textStorage,visibleRange: range)
+        }
     }
     
     @IBAction func undo(_ sender: UIButton) {
@@ -135,13 +153,20 @@ extension TextViewController: UITextViewDelegate {
 //        } else if velocity > 500 {
 //            self.navigationController?.setNavigationBarHidden(false, animated: true)
 //        }
-        
         let offset = scrollView.contentOffset.y
         if scrollView.contentSize.height - scrollView.h <= 0 {
             didScrollHandler?(0)
         } else {
             didScrollHandler?(offset / (scrollView.contentSize.height - scrollView.h))
         }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if fabs(scrollView.contentOffset.y - lastOffsetY) < 500 {
+            return
+        }
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(highlight), userInfo: nil, repeats: false)
+        lastOffsetY = scrollView.contentOffset.y
     }
     
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
@@ -168,7 +193,7 @@ extension TextViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         let text = editView.text ?? ""
 
-        countLabel.text = text.length.toString + " " + /"Characters"
+        countLabel.text = "\(text.count) " + /"Characters"
         if editView.markedTextRange != nil {
             return
         }

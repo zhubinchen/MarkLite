@@ -130,8 +130,8 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         
         emptyView.isHidden = true
 
-        previewVC.url = file.url
-
+        previewVC.prepare(URL(fileURLWithPath: file.path).deletingLastPathComponent())
+            
         textVC.assistBar.file = file
         textVC.textChangedHandler = { [weak self] (text) in
             file.text = text

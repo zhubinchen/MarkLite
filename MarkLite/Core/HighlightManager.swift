@@ -128,15 +128,23 @@ struct MarkdownHighlightManager {
         },//ImplicitCodeBlock4个缩进也算代码块
     ]
 
-    func highlight(_ text: NSTextStorage) {
+    func highlight(_ text: NSTextStorage, visibleRange: NSRange?) {
         let len = (text.string as NSString).length
+        var validRange = NSMakeRange(0, len)
+        if let visibleRange = visibleRange  {
+            let begin = max(visibleRange.location - visibleRange.length * 2, 0)
+            let end = min(visibleRange.location + visibleRange.length * 3, len)
+            validRange.location = begin
+            validRange.length = end - begin
+        }
+        
         let nomarlColor = Configure.shared.theme.value == .black ? rgb(200,200,190) : rgb(54,54,64)
 
         text.setAttributes([NSAttributedStringKey.font : normalFont,
                               NSAttributedStringKey.paragraphStyle : paragraphStyle,
-                              NSAttributedStringKey.foregroundColor : nomarlColor], range: range(0,len))
+                              NSAttributedStringKey.foregroundColor : nomarlColor], range: validRange)
         syntaxArray.forEach { (syntax) in
-            syntax.expression.enumerateMatches(in: text.string, options: .reportCompletion, range: range(0, len), using: { (match, _, _) in
+            syntax.expression.enumerateMatches(in: text.string, options: .reportCompletion, range: validRange, using: { (match, _, _) in
                 if let range = match?.range {
                     text.addAttributes(syntax.style.attrs, range: range)
                 }
