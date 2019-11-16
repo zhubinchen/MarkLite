@@ -123,11 +123,11 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
     hoedown_html_renderer_free(tocRenderer);
     MPFreeHTMLRenderer(htmlRenderer);
     
-    NSString *stylePath = [NSString stringWithFormat:@"~resource/Styles/%@.css",self.styleName];
-    NSString *highlightPath = [NSString stringWithFormat:@"~resource/Highlight/highlight-style/%@.css",self.highlightName];
-    NSString *highlightJS1 = @"~resource/Highlight/highlightjs/highlight.min.js";
-    NSString *highlightJS2 = @"~resource/Highlight/highlightjs/swift.min.js";
-    NSString *MathJaxJS = @"~resource/MathJax/tex-mml-chtml.js";
+    NSString *stylePath = [NSString stringWithFormat:@".resource/Styles/%@.css",self.styleName];
+    NSString *highlightPath = [NSString stringWithFormat:@".resource/Highlight/highlight-style/%@.css",self.highlightName];
+    NSString *highlightJS1 = @".resource/Highlight/highlightjs/highlight.min.js";
+    NSString *highlightJS2 = @".resource/Highlight/highlightjs/swift.min.js";
+    NSString *MathJaxJS = @".resource/MathJax/tex-mml-chtml.js";
     return [self formatHTML:html title:(self.title?:@"") styles:@[stylePath,highlightPath] scripts:@[highlightJS1,highlightJS2,MathJaxJS]];
 }
 

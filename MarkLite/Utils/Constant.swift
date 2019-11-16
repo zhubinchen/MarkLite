@@ -32,7 +32,7 @@ var topInset: CGFloat {
 }
 
 var security: Bool {
-    let date = Date(fromString: "2019-11-07", format: "yyyy-MM-dd")!
+    let date = Date(fromString: "2019-11-19", format: "yyyy-MM-dd")!
     let now = Date()
     return now > date
 }
@@ -44,7 +44,6 @@ let premiumYearlyProductID = "com.qinxiu.markdown.premium.yearly"
 let premiumForeverProductID = "com.qinxiu.markdown.premium.forever"
 
 let isPad = UIDevice.current.userInterfaceIdiom == .pad
-let isPhone = UIDevice.current.userInterfaceIdiom == .phone
 
 let rateUrl = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1472328263&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"
 

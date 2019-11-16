@@ -142,13 +142,6 @@ class FilesViewController: UIViewController {
         File.loadLocal { local in
             self.root = local
             self.refresh()
-            if self.isHomePage && isPad && File.current == nil {
-                if let index = self.files.firstIndex(where: { $0.type == .text }) {
-                    let indexPath = IndexPath(row: index, section: self.isHomePage ? 1 : 0)
-                    self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: .middle)
-                    self.openFile(self.files[index])
-                }
-            }
         }
         File.loadCloud { cloud in
             self.items[0] = cloud
@@ -234,7 +227,7 @@ class FilesViewController: UIViewController {
         }
         if isViewLoaded {
             tableView.reloadData()
-            if isPhone || selectFolderMode || tableView.isEditing {
+            if selectFolderMode || tableView.isEditing || (splitViewController?.isCollapsed ?? false) {
                 return
             }
             if let current = File.current, let index = files.firstIndex(where: { $0 == current }) {
@@ -360,7 +353,7 @@ class FilesViewController: UIViewController {
             preview(file)
             return
         }
-        if file == File.current && isPad {
+        if file == File.current && (splitViewController?.isCollapsed ?? false) == false {
             return
         }
         SVProgressHUD.show()
@@ -841,7 +834,7 @@ extension FilesViewController: UIDocumentPickerDelegate {
     }
     
     func didPickFile(_ url: URL) {
-        showActionSheet(actionTitles: [/"ImportFile",/"OpenOriginFile"]) { index in
+        showActionSheet(actionTitles: [/"ImportFile",/"OpenInPlace"]) { index in
             let name = url.deletingPathExtension().lastPathComponent
             if index == 0 {
                 guard let data = try? Data(contentsOf: url) else {

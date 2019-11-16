@@ -149,7 +149,7 @@ extension UIViewController {
                    message: String? = nil,
                    actionTitle: String? = nil,
                    actionHandler: (() -> Void)?  = nil) -> UIAlertController{
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: isPad ? .alert : .actionSheet)
         alert.addAction(UIAlertAction(title: actionTitle, style: .destructive, handler: { action in
             actionHandler?()
         }))
@@ -184,13 +184,12 @@ extension UIViewController {
         return alert
     }
     
-    func showActionSheet(sender: Any? = nil,
-                         title: String? = nil,
+    func showActionSheet(title: String? = nil,
                          message: String? = nil,
                          actionTitles: [String],
                          actionHandler: ((Int) -> Void)?) {
         
-        let alert = UIAlertController(title: title, message: message, preferredStyle: (sender == nil && isPad) ? .alert : .actionSheet)
+        let alert = UIAlertController(title: title, message: message, preferredStyle: isPad ? .alert : .actionSheet)
         alert.message = message
         for (index, actionTitle) in actionTitles.enumerated() {
             alert.addAction(UIAlertAction(title: actionTitle, style: .default, handler: { action in
@@ -198,16 +197,6 @@ extension UIViewController {
             }))
         }
         alert.addAction(UIAlertAction(title: /"Cancel", style: .cancel, handler: nil))
-        if alert.popoverPresentationController != nil {
-            guard let sender = sender else { return }
-            if let view = sender as? UIView {
-                alert.popoverPresentationController?.sourceView = view
-                alert.popoverPresentationController?.sourceRect = view.bounds
-            }
-            if let barButton = sender as? UIBarButtonItem {
-                alert.popoverPresentationController?.barButtonItem = barButton
-            }
-        }
         present(alert, animated: true, completion: nil)
     }
 }

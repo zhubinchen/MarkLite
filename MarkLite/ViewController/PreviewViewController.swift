@@ -30,7 +30,7 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    var contentHeight: CGFloat = 0 {
+    var contentHeight: CGFloat = windowHeight {
         didSet {
             scrollView.contentSize = CGSize(width: 0,height: contentHeight)
             webView.frame = CGRect(x: 0, y: 0, w: scrollView.w, h: contentHeight)
@@ -39,6 +39,9 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
     
     var keyboardHeight: CGFloat = windowHeight {
         didSet {
+            if keyboardHeight == oldValue {
+                return
+            }
             let h = max(windowHeight - keyboardHeight - bottomInset, 0)
             UIView.animate(withDuration: 0.5, animations: {
                 self.scrollView.h = self.view.size.height - h
@@ -101,7 +104,6 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
         shouldRefresh = true
         let h = max(windowHeight - keyboardHeight - bottomInset, 0)
         scrollView.frame = CGRect(x: 0, y: 0, w: view.w, h: view.h - h)
-        contentHeight = scrollView.h
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -116,7 +118,7 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
         guard let data = html.data(using: .utf8) else {
             return
         }
-        if isLoading {
+        if isLoading || html.length == 0 {
             return
         }
         shouldRefresh = false
@@ -132,8 +134,8 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func prepare(_ parentURL: URL) {
-        htmlURL = parentURL.appendingPathComponent("~temp.html")
-        resURL = parentURL.appendingPathComponent("~resource")
+        htmlURL = parentURL.appendingPathComponent("/.temp.html")
+        resURL = parentURL.appendingPathComponent("/.resource")
         try? FileManager.default.copyItem(at: URL(fileURLWithPath: resourcesPath), to: resURL)
     }
     
@@ -147,9 +149,7 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
 //        }
         
         let offset = scrollView.contentOffset.y
-        if scrollView.contentSize.height - scrollView.h <= 0 {
-            didScrollHandler?(0)
-        } else {
+        if scrollView.contentSize.height - scrollView.h > 0 {
             didScrollHandler?(offset / (scrollView.contentSize.height - scrollView.h))
         }
     }
@@ -163,8 +163,11 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
         webView.stopLoading()
         webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
         removeNotificationObserver()
-        try? FileManager.default.removeItem(at: htmlURL)
-        try? FileManager.default.removeItem(at: resURL)
+        if htmlURL != nil {
+            try? FileManager.default.removeItem(at: htmlURL)
+            try? FileManager.default.removeItem(at: resURL)
+        }
+        
         print("deinit web_vc")
     }
 }

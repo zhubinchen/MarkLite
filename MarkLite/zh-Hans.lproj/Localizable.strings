@@ -16,8 +16,8 @@
 "AddLocationDetail"="「文件」应用";
 "MoveTo"="移动到";
 
-"ImportFile"="创建拷贝";
-"OpenOriginFile"="打开原文件";
+"ImportFile"="拷贝到本地";
+"OpenInPlace"="打开原文件";
 
 "SortByName"="按文件名称排序";
 "SortByType"="按文件类型排序";
@@ -113,6 +113,7 @@
 "NoEditingFile"="没有正在编辑的文档";
 "FileNameError"="请输入正确的文件名(不要包含特殊符号)";
 "FileNamePlaceHolder"="文件名不允许包含特殊符号";
+"ConnectWifiTips"="请先连接Wi-Fi！";
 "UnzipFailed"="解压失败";
 
 "InsertHref"="添加链接";
@@ -133,7 +134,7 @@
 "Blockquote"="引用";
 "Delection"="要删除的文本";
 "EnterCode"="代码";
-"EnterLink"="在这输入链接描述";
+"EnterLink"="在这输入链接标题";
 "Alt"="Alt";
 
 "Clear"="清空";

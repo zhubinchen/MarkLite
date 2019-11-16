@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 import RxSwift
 
 class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -214,7 +215,11 @@ extension SettingsViewController {
 //        let vc = KeyboardBarViewController()
 //        pushVC(vc)
         doIfPro {
-            self.performSegue(withIdentifier: "webdav", sender: nil)
+            if NetworkReachabilityManager()?.isReachableOnEthernetOrWiFi ?? false {
+                self.performSegue(withIdentifier: "webdav", sender: nil)
+            } else {
+                SVProgressHUD.showError(withStatus: /"ConnectWifiTips")
+            }
         }
     }
     

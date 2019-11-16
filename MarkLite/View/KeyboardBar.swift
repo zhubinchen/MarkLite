@@ -10,6 +10,10 @@ import UIKit
 import Alamofire
 import RxSwift
 
+fileprivate var width: CGFloat = {
+    return isPad ? 50 : 40
+}()
+
 protocol ButtonConvertiable {
     func makeButton() -> UIButton
 }
@@ -18,7 +22,7 @@ extension UIImage: ButtonConvertiable {
     func makeButton() -> UIButton {
         let button = UIButton(type: UIButtonType.system)
         button.setImage(self, for: .normal)
-        button.contentEdgeInsets = UIEdgeInsetsMake(15, 15, 15, 15)
+        button.contentEdgeInsets = isPad ? UIEdgeInsetsMake(15, 15, 15, 15) : UIEdgeInsetsMake(12, 12, 12, 12)
         return button
     }
 }
@@ -27,7 +31,7 @@ extension String: ButtonConvertiable {
     func makeButton() -> UIButton {
         let button = UIButton(type: UIButtonType.system)
         button.setTitle(self, for: .normal)
-        button.titleLabel?.font = UIFont.font(ofSize: 18, bold: true)
+        button.titleLabel?.font = UIFont.font(ofSize: isPad ? 18 : 16, bold: true)
         return button
     }
 }
@@ -39,7 +43,7 @@ class KeyboardBar: UIView {
 
     let items: [(ButtonConvertiable,Selector)] = {
         var items: [(ButtonConvertiable,Selector)] = [
-        (#imageLiteral(resourceName: "bar_tab"), #selector(tapTab)),
+        (#imageLiteral(resourceName: "bar_tab"), #selector(tapTab(_:))),
         (#imageLiteral(resourceName: "bar_image"), #selector(tapImage(_:))),
         (#imageLiteral(resourceName: "bar_link"), #selector(tapLink)),
         (#imageLiteral(resourceName: "bar_header"), #selector(tapHeader)),
@@ -69,7 +73,7 @@ class KeyboardBar: UIView {
     var textField: UITextField?
     
     init() {
-        super.init(frame: CGRect(x: 0, y: 0, w: windowWidth, h: 50))
+        super.init(frame: CGRect(x: 0, y: 0, w: windowWidth, h: width))
 
         setBackgroundColor(.tableBackground)
         
@@ -78,10 +82,10 @@ class KeyboardBar: UIView {
             button.addTarget(self, action: item.1, for: .touchUpInside)
             button.tintColor = .gray
             button.tag = index
-            button.frame = CGRect(x: CGFloat(index * 50), y: 0, w: 50, h: 50)
+            button.frame = CGRect(x: CGFloat(index) * width, y: 0, w: width, h: width)
             self.scrollView.addSubview(button)
         }
-        scrollView.contentSize = CGSize(width: items.count * 50, height: 50)
+        scrollView.contentSize = CGSize(width: CGFloat(items.count) * width, height: width)
         addSubview(scrollView)
         
         endButton = #imageLiteral(resourceName: "bar_keyboard").makeButton()
@@ -96,12 +100,14 @@ class KeyboardBar: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        scrollView.frame = CGRect(x: 0, y: 0, w: w - 50, h: 50)
-        endButton.frame = CGRect(x: w - 50, y: 0, w: 50, h: 50)
+        scrollView.frame = CGRect(x: 0, y: 0, w: w - width, h: width)
+        endButton.frame = CGRect(x: w - width, y: 0, w: width, h: width)
+        self.menu?.dismiss(sender: self.menu?.superview as? UIControl)
     }
     
     @objc func hideKeyboard() {
         impactIfAllow()
+        self.menu?.dismiss(sender: self.menu?.superview as? UIControl)
         textView?.resignFirstResponder()
     }
     
@@ -110,8 +116,16 @@ class KeyboardBar: UIView {
         textView?.insertText(char)
     }
     
-    @objc func tapTab() {
-        textView?.insertText("\t")
+    @objc func tapTab(_ sender: UIButton) {
+        self.menu?.dismiss(sender: self.menu?.superview as? UIControl)
+        let pos = sender.superview!.convert(sender.center, to: sender.window)
+        let menu = MenuView(items: [/"&nbsp;",/"&emsp;",/"Tab"].map{($0,false)},
+                 postion: CGPoint(x: pos.x - 20, y: pos.y - 150)) { [weak self] (index) in
+                    let texts = ["&nbsp;","&emsp;","\t"]
+                    self?.textView?.insertText(texts[index])
+        }
+        menu.show()
+        self.menu = menu
     }
 
     @objc func tapImage(_ sender: UIButton) {
@@ -147,6 +161,7 @@ class KeyboardBar: UIView {
     }
     
     @objc func tapLink() {
+        self.menu?.dismiss(sender: self.menu?.superview as? UIControl)
         guard let vc = viewController else { return }
         vc.showAlert(title: /"InsertHref", message: "", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
             textField.placeholder = "http://example.com"
@@ -298,7 +313,7 @@ class KeyboardBar: UIView {
             self.uploadImage(image)
             return
         }
-        viewController?.showActionSheet(sender: nil, title: /"ImageUploadTips", actionTitles: [/"UploadImage",/"LocalReference"]) { [unowned self] (index) in
+        viewController?.showActionSheet(title: /"ImageUploadTips", actionTitles: [/"UploadImage",/"LocalReference"]) { [unowned self] (index) in
             if index == 0 {
                 self.uploadImage(image)
             } else if index == 1 {

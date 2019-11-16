@@ -30,8 +30,8 @@ class TextViewController: UIViewController {
             if y > editView.contentSize.height - editView.h  {
                 y = editView.contentSize.height - editView.h
             }
-            if y < 0 {
-                y = 0
+            if y < 0 || editView.isFirstResponder {
+                return
             }
             editView.contentOffset = CGPoint(x: 0,y: y)
         }
@@ -48,12 +48,14 @@ class TextViewController: UIViewController {
         
     var keyboardHeight: CGFloat = windowHeight {
         didSet {
+            if keyboardHeight == oldValue {
+                return
+            }
+            
             bottomSpace.constant = max(windowHeight - keyboardHeight - 40 - bottomInset,0)
             UIView.animate(withDuration: 0.5, animations: {
                 self.view.layoutIfNeeded()
-            }) { _ in
-                self.editView.scrollRangeToVisible(self.editView.selectedRange)
-            }
+            })
         }
     }
     

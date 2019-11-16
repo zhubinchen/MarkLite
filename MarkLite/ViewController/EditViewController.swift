@@ -96,6 +96,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         emptyImageView.tintImage = emptyImageView.image
         emptyImageView.setTintColor(.secondary)
         emptyLabel.setTextColor(.secondary)
+        emptyLabel.text = /"NoEditingFile"
         view.setBackgroundColor(.background)
         
         addNotificationObserver(Notification.Name.UIApplicationWillChangeStatusBarOrientation.rawValue, selector: #selector(deviceOrientationWillChange))
@@ -112,10 +113,10 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         toggleRightBarButton()
-        if isPad && (splitViewController?.isCollapsed ?? false) == false {
-            navigationItem.leftBarButtonItem = landscape ? fullscreenButton : filelistButton
-        } else {
+        if splitViewController?.isCollapsed ?? false {
             navigationItem.leftBarButtonItem = nil
+        } else {
+            navigationItem.leftBarButtonItem = landscape ? fullscreenButton : filelistButton
         }
     }
     
