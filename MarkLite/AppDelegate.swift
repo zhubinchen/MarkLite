@@ -15,6 +15,8 @@ import StoreKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    let server = GCDWebServer()
+
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -29,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         createFoldersIfNeed()
         checkAppStore()
         setup()
+        startLocalServer()
         _ = IAPHelper.sharedInstance
         return true
     }
@@ -50,6 +53,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         Configure.shared.save()
+    }
+    
+    func startLocalServer() {
+        server.delegate = self
+        server.addGETHandler(forBasePath: "/",
+                             directoryPath: resourcesPath,
+                             indexFilename: nil,
+                             cacheAge: 3600,
+                             allowRangeRequests: true)
+        let options: [String : Any] = [GCDWebServerOption_AutomaticallySuspendInBackground:false,GCDWebServerOption_Port:8080]
+        try? server.start(options: options)
     }
     
     func createFoldersIfNeed() {
@@ -124,7 +138,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
         request(url).responseJSON { response in
-            print(response.result.value ?? "")
+//            print(response.result.value ?? "")
             if let dic = response.result.value as? [String:Any] {
                 self.showNewVersionAlert(requestData: dic)
             }
@@ -166,3 +180,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+extension AppDelegate: GCDWebServerDelegate {
+    
+    func webServerDidStart(_ server: GCDWebServer) {
+        print("webServerDidStart")
+        MarkdownRender.shared()?.resourceURL = "http://localhost:8080/"
+    }
+    
+    func webServerDidCompleteBonjourRegistration(_ server: GCDWebServer) {
+        print("webServerDidCompleteBonjourRegistration")
+    }
+}

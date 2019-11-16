@@ -60,9 +60,7 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
-    
-    var resURL: URL!
-    
+        
     var htmlURL: URL!
     
     var didScrollHandler: ((CGFloat)->Void)?
@@ -133,12 +131,6 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func prepare(_ parentURL: URL) {
-        htmlURL = parentURL.appendingPathComponent("/.temp.html")
-        resURL = parentURL.appendingPathComponent("/.resource")
-        try? FileManager.default.copyItem(at: URL(fileURLWithPath: resourcesPath), to: resURL)
-    }
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        let pan = scrollView.panGestureRecognizer
 //        let velocity = pan.velocity(in: scrollView).y
@@ -163,11 +155,10 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
         webView.stopLoading()
         webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
         removeNotificationObserver()
+        
         if htmlURL != nil {
             try? FileManager.default.removeItem(at: htmlURL)
-            try? FileManager.default.removeItem(at: resURL)
         }
-        
         print("deinit web_vc")
     }
 }
