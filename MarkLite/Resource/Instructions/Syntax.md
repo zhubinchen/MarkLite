@@ -28,13 +28,22 @@ Highlight：
 
 ==Highlight Text==
 
+Deletion：
+
+~~Strikethrough~~
+
 ### Link
 
-[Markdown](https://appsto.re/cn/jK8Cbb.i) is a powerful editor.
+[Markdown](https://apps.apple.com/app/id1472328263) is a powerful editor.
 
 ### Image
 
-![Markdown](https://i.loli.net/2017/08/23/599c5c1dc7226.jpg)
+![Markdown](https://i.loli.net/2019/11/16/h4lWxQbjvUwN7XZ.jpg)
+
+### LaTex
+
+When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
+$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
 
 ### List
 
@@ -50,6 +59,12 @@ Unordered List:
 - Item
 - Item
 
+### Todo List
+
+- [x] Completed 1
+- [x] Completed 2
+- [ ] Uncompleted
+
 ### Quote
 
 > Stay hungry, stay foolish.
@@ -59,6 +74,7 @@ Unordered List:
 Inline Code ：`foo.go()` .
 
 Multiple Line Code：
+
 ```
 let app = "Markdown"
 print("Good")
@@ -72,10 +88,6 @@ This is a normal paragraph.
 
 This is a block
 of code.
-
-### Deleteing
-
-~~Strikethrough~~
 
 ### Separator
 

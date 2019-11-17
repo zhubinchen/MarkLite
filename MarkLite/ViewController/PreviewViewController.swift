@@ -26,7 +26,9 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
             if y < 0 {
                 y = 0
             }
+            scrollView.delegate = nil
             scrollView.contentOffset = CGPoint(x: 0,y: y)
+            scrollView.delegate = self
         }
     }
     
@@ -102,6 +104,9 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
         shouldRefresh = true
         let h = max(windowHeight - keyboardHeight - bottomInset, 0)
         scrollView.frame = CGRect(x: 0, y: 0, w: view.w, h: view.h - h)
+        if fabs(scrollView.w - webView.w) > 10 {
+            webView.frame = scrollView.bounds
+        }
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

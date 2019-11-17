@@ -30,10 +30,12 @@ class TextViewController: UIViewController {
             if y > editView.contentSize.height - editView.h  {
                 y = editView.contentSize.height - editView.h
             }
-            if y < 0 || editView.isFirstResponder {
-                return
+            if y < 0 {
+                y = 0
             }
+            editView.delegate = nil
             editView.contentOffset = CGPoint(x: 0,y: y)
+            editView.delegate = self
         }
     }
     
@@ -164,6 +166,9 @@ extension TextViewController: UITextViewDelegate {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        if editView.text.count < 5000 {
+            return
+        }
         if fabs(scrollView.contentOffset.y - lastOffsetY) < 500 {
             return
         }

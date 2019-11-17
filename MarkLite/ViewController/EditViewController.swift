@@ -56,8 +56,10 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         if Configure.shared.splitOption.value == .never {
             return false
         }
-        return self.view.w > self.view.h * 0.6
+        return self.view.w > self.view.h * 0.8
     }
+    
+    var shouldFullscreen = false
             
     var previewVC: PreviewViewController!
     var textVC: TextViewController!
@@ -175,7 +177,11 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     }
     
     @objc func deviceOrientationWillChange() {
-        splitViewController?.preferredDisplayMode = .automatic
+        if landscape == false && shouldFullscreen {
+            splitViewController?.preferredDisplayMode = .primaryHidden
+        } else {
+            splitViewController?.preferredDisplayMode = .automatic
+        }
     }
     
     @objc func fileLoadFinished(_ noti: Notification) {
@@ -212,9 +218,11 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             if self.splitViewController?.preferredDisplayMode != .primaryHidden {
                 self.splitViewController?.preferredDisplayMode = .primaryHidden
                 self.navigationItem.leftBarButtonItem = self.exitFullscreenButton
+                self.shouldFullscreen = true
             } else {
                 self.splitViewController?.preferredDisplayMode = .allVisible
                 self.navigationItem.leftBarButtonItem = self.fullscreenButton
+                self.shouldFullscreen = false
             }
         }
     }

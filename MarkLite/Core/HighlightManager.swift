@@ -114,7 +114,7 @@ struct MarkdownHighlightManager {
         Syntax("^[ \\t]*(\\>)(.*)\n",.anchorsMatchLines) {
             $0.textColor = rgb(129,140,140)
         },//Blockquotes://引用块
-        Syntax("^[-\\+\\*]{3,}\n", .anchorsMatchLines){
+        Syntax("^([-\\+\\*]\\s?){3,}\n", .anchorsMatchLines){
             $0.bold = true
             $0.textColor = rgb(89,89,184)
         },//Separate://分割线
