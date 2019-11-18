@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import WebKit
 
 enum ExportType: String {
     case pdf
@@ -101,7 +102,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         emptyLabel.text = /"NoEditingFile"
         view.setBackgroundColor(.background)
         
-        addNotificationObserver(Notification.Name.UIApplicationWillChangeStatusBarOrientation.rawValue, selector: #selector(deviceOrientationWillChange))
+        addNotificationObserver(Notification.Name.UIDeviceOrientationDidChange.rawValue, selector: #selector(deviceOrientationDidChange))
         addNotificationObserver(Notification.Name.UIKeyboardWillChangeFrame.rawValue, selector: #selector(keyboardHeightWillChange(_:)))
         addNotificationObserver("FileLoadFinished", selector: #selector(fileLoadFinished(_:)))
     }
@@ -176,14 +177,16 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         previewVC.keyboardHeight = h
     }
     
-    @objc func deviceOrientationWillChange() {
-        if landscape == false && shouldFullscreen {
-            splitViewController?.preferredDisplayMode = .primaryHidden
-        } else {
-            splitViewController?.preferredDisplayMode = .automatic
+    @objc func deviceOrientationDidChange() {
+        DispatchQueue.main.async {
+            if self.landscape {
+                self.splitViewController?.preferredDisplayMode = self.shouldFullscreen ? .primaryHidden : .automatic
+            } else {
+                self.splitViewController?.preferredDisplayMode = .automatic
+            }
         }
     }
-    
+        
     @objc func fileLoadFinished(_ noti: Notification) {
         guard let file = noti.object as? File else { return }
         self.file = file
@@ -249,24 +252,17 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         impactIfAllow()
         textVC.editView.resignFirstResponder()
         
-        let items = [ExportType.markdown,.pdf,.html,.image]
-        var pos = CGPoint(x: windowWidth - 150, y: 45 + topInset)
-        
-        func export(_ index: Int) {
-            guard let url = self.url(for: items[index]) else { return }
-            let vc = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-            vc.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-            self.presentVC(vc)
-        }
-        
-        MenuView(items: items.map{($0.displayName,!($0 == .markdown || Configure.shared.isPro))},
+        let pos = CGPoint(x: windowWidth - 150, y: 45 + topInset)
+        let types = [ExportType.markdown,.pdf,.html,.image]
+
+        MenuView(items: types.map{($0.displayName,!($0 == .markdown || Configure.shared.isPro))},
                  postion: pos) { (index) in
                     if index > 0 {
                         self.doIfPro {
-                            export(index)
+                            self.export(type: types[index], sender: sender)
                         }
                     } else {
-                        export(index)
+                        self.export(type: types[index], sender: sender)
                     }
             }.show()
     }
@@ -287,30 +283,44 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         }
     }
     
-    func url(for type: ExportType) -> URL? {
-        guard let file = self.file else { return nil }
+    func export(type: ExportType, sender: Any) {
+        guard let file = self.file else { return }
+        var item: Any?
         switch type {
         case .pdf:
             let data = pdfRender.render(formatter: self.previewVC.webView.viewPrintFormatter())
             let path = tempPath + "/" + file.displayName + ".pdf"
             try? FileManager.default.removeItem(atPath: path)
             FileManager.default.createFile(atPath: path, contents: data, attributes: nil)
-            let url = URL(fileURLWithPath: path)
-            return url
-        case .image:
-            guard let img = self.previewVC.webView.scrollView.snap, let data = UIImagePNGRepresentation(img) else { return nil }
-            let path = tempPath + "/" + file.displayName + ".png"
-            let url = URL(fileURLWithPath: path)
-            try? data.write(to: url)
-            return url
+            item = URL(fileURLWithPath: path)
         case .markdown:
-            return URL(fileURLWithPath: file.path)
+            item = URL(fileURLWithPath: file.path)
         case .html:
             let path = tempPath + "/" + file.displayName + ".html"
             let url = URL(fileURLWithPath: path)
-            guard let data = previewVC.html.data(using: String.Encoding.utf8) else { return nil }
+            guard let data = previewVC.html.data(using: String.Encoding.utf8) else { return }
             try? data.write(to: url)
-            return url
+            item = url
+        case .image:
+            let originFrame = previewVC.webView.frame
+            previewVC.webView.h = previewVC.webHeight
+            previewVC.webView.reload()
+            SVProgressHUD.show()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+                if let img = self.previewVC.webView.scrollView.snap {
+                    let vc = UIActivityViewController(activityItems: [img], applicationActivities: nil)
+                    vc.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+                    self.presentVC(vc)
+                }
+                self.previewVC.webView.frame = originFrame
+                SVProgressHUD.dismiss()
+            }
+        }
+        
+        if let item = item {
+            let vc = UIActivityViewController(activityItems: [item], applicationActivities: nil)
+            vc.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+            self.presentVC(vc)
         }
     }
     

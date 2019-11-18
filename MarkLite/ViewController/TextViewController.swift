@@ -24,11 +24,15 @@ class TextViewController: UIViewController {
 
     @IBOutlet weak var bottomSpace: NSLayoutConstraint!
     
+    var textHeight: CGFloat {
+        return editView.sizeThatFits(editView.size).height
+    }
+    
     var offset: CGFloat = 0.0 {
         didSet {
-            var y = offset * (editView.contentSize.height - editView.h)
-            if y > editView.contentSize.height - editView.h  {
-                y = editView.contentSize.height - editView.h
+            var y = offset * (textHeight - editView.h)
+            if y > textHeight - editView.h  {
+                y = textHeight - editView.h
             }
             if y < 0 {
                 y = 0
@@ -150,18 +154,9 @@ class TextViewController: UIViewController {
 extension TextViewController: UITextViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let pan = scrollView.panGestureRecognizer
-//        let velocity = pan.velocity(in: scrollView).y
-//        if velocity < -500 {
-//            self.navigationController?.setNavigationBarHidden(true, animated: true)
-//        } else if velocity > 500 {
-//            self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        }
         let offset = scrollView.contentOffset.y
-        if scrollView.contentSize.height - scrollView.h <= 0 {
-            didScrollHandler?(0)
-        } else {
-            didScrollHandler?(offset / (scrollView.contentSize.height - scrollView.h))
+        if textHeight - scrollView.h > 0 {
+            didScrollHandler?(offset / (textHeight - scrollView.h))
         }
     }
     
@@ -177,8 +172,15 @@ extension TextViewController: UITextViewDelegate {
     }
     
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        navigationController?.setNavigationBarHidden(false, animated: true)
         return true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        UIApplication.shared.isIdleTimerDisabled = true
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        UIApplication.shared.isIdleTimerDisabled = false
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

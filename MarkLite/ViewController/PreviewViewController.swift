@@ -19,9 +19,9 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
     
     var offset: CGFloat = 0 {
         didSet {
-            var y = offset * (scrollView.contentSize.height - scrollView.h)
-            if y > contentHeight - scrollView.h  {
-                y = contentHeight - scrollView.h
+            var y = offset * (webHeight - scrollView.h)
+            if y > webHeight - scrollView.h  {
+                y = webHeight - scrollView.h
             }
             if y < 0 {
                 y = 0
@@ -32,10 +32,10 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    var contentHeight: CGFloat = windowHeight {
+    var webHeight: CGFloat = windowHeight {
         didSet {
-            scrollView.contentSize = CGSize(width: 0,height: contentHeight)
-            webView.frame = CGRect(x: 0, y: 0, w: scrollView.w, h: contentHeight)
+            scrollView.contentSize = CGSize(width: 0,height: webHeight)
+            webView.frame = CGRect(x: 0, y: 0, w: scrollView.w, h: webHeight)
         }
     }
     
@@ -72,7 +72,6 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         webView.backgroundColor = .clear
         webView.isOpaque = false
         webView.scrollView.isScrollEnabled = false
@@ -83,12 +82,6 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
         scrollView.maximumZoomScale = 2
         view.addSubview(scrollView)
         scrollView.addSubview(webView)
-        
-        if #available(iOS 11.0, *) {
-            self.scrollView.contentInsetAdjustmentBehavior = .never
-        } else {
-            self.automaticallyAdjustsScrollViewInsets = false
-        }
 
         view.setBackgroundColor(.background)
                 
@@ -101,18 +94,18 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        shouldRefresh = true
         let h = max(windowHeight - keyboardHeight - bottomInset, 0)
         scrollView.frame = CGRect(x: 0, y: 0, w: view.w, h: view.h - h)
         if fabs(scrollView.w - webView.w) > 10 {
-            webView.frame = scrollView.bounds
+            webView.frame = scrollView.frame
+            shouldRefresh = true
         }
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let size = change?[NSKeyValueChangeKey.newKey] as? CGSize {
-            if fabs(self.contentHeight - size.height) > 10 {
-                self.contentHeight = size.height
+            if fabs(self.webHeight - size.height) > 10 {
+                self.webHeight = size.height
             }
         }
     }
@@ -137,17 +130,9 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let pan = scrollView.panGestureRecognizer
-//        let velocity = pan.velocity(in: scrollView).y
-//        if velocity < -10 {
-//            self.navigationController?.setNavigationBarHidden(true, animated: true)
-//        } else if velocity > 10 {
-//            self.navigationController?.setNavigationBarHidden(false, animated: true)
-//        }
-        
         let offset = scrollView.contentOffset.y
-        if scrollView.contentSize.height - scrollView.h > 0 {
-            didScrollHandler?(offset / (scrollView.contentSize.height - scrollView.h))
+        if webHeight - scrollView.h > 0 {
+            didScrollHandler?(offset / (webHeight - scrollView.h))
         }
     }
     

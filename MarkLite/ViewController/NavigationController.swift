@@ -9,12 +9,6 @@
 import UIKit
 
 class NavigationController: UINavigationController, UINavigationBarDelegate {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-//        self.navigationBar.delegate = self
-    }
     
     func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
         DispatchQueue.main.async {

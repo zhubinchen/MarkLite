@@ -342,26 +342,14 @@ extension UIImage {
     }
 }
 
-extension UIScrollView {
+extension UIView {
     
     var snap: UIImage? {
         
-        UIGraphicsBeginImageContextWithOptions(contentSize, isOpaque, 0.0)
+        UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque, 0.0)
         guard let ctx = UIGraphicsGetCurrentContext() else { return nil }
-
-        let savedContentOffset = contentOffset
-        let savedFrame = frame
-        defer {
-            contentOffset = savedContentOffset
-            frame = savedFrame
-        }
-        
-        contentOffset = CGPoint(x: 0, y: 0)
-        let size = CGSize(width: contentSize.width, height: contentSize.height)
-        frame = CGRect(origin: CGPoint(x: 0, y: 0), size: size)
         layer.render(in: ctx)
         let image = UIGraphicsGetImageFromCurrentImageContext()
-        
         return image
     }
 }
