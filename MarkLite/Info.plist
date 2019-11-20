@@ -34,8 +34,6 @@
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>Markdown</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Save image to your Photos</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -72,6 +70,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Take a photo to insert to documents</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Save image to your Photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Pick images from your Photos.</string>
 	<key>NSUbiquitousContainers</key>

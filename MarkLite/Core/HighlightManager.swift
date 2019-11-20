@@ -138,7 +138,7 @@ struct MarkdownHighlightManager {
             validRange.length = end - begin
         }
         
-        let nomarlColor = Configure.shared.theme.value == .black ? rgb(200,200,190) : rgb(54,54,64)
+        let nomarlColor = Configure.shared.theme.value == .black ? rgb(160,160,160) : rgb(54,54,64)
 
         text.setAttributes([NSAttributedStringKey.font : normalFont,
                               NSAttributedStringKey.paragraphStyle : paragraphStyle,

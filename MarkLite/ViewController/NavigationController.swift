@@ -11,10 +11,11 @@ import UIKit
 class NavigationController: UINavigationController, UINavigationBarDelegate {
     
     func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
-        DispatchQueue.main.async {
-            self.popViewController(animated: true)
-        }
         impactIfAllow()
+        guard #available(iOS 13.0, *) else {
+            popViewController(animated: true)
+            return true
+        }
         return true
     }
 
