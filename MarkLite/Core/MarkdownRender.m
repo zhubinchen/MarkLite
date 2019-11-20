@@ -12,6 +12,8 @@
 #import "html.h"
 #import "hoedown_html_patch.h"
 
+#define kResourceURL @"md://local/resource/"
+
 #define kTemplate @"<!DOCTYPE html>\
 <html>\
 <head>\
@@ -135,10 +137,10 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
     NSMutableString *styleSheets = @"".mutableCopy;
     NSMutableString *scriptsString = @"".mutableCopy;
     for (NSString *style in styles) {
-        [styleSheets appendFormat:@"\n<link rel=\"stylesheet\" href=\"%@%@\"/>",self.resourceURL,style];
+        [styleSheets appendFormat:@"\n<link rel=\"stylesheet\" href=\"%@%@\"/>",kResourceURL,style];
     }
     for (NSString *script in scripts) {
-        [scriptsString appendFormat:@"\n<script src=\"%@%@\"></script>",self.resourceURL,script];
+        [scriptsString appendFormat:@"\n<script src=\"%@%@\"></script>",kResourceURL,script];
     }
     return [NSString stringWithFormat:kTemplate,title,styleSheets,scriptsString,body];
 }

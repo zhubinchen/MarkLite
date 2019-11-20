@@ -55,6 +55,8 @@
 		7699B210236ADC3C005F394D /* ExportActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7699B20F236ADC3C005F394D /* ExportActivity.swift */; };
 		76A4D272234EF98200B87A78 /* WebDAVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4D271234EF98200B87A78 /* WebDAVViewController.swift */; };
 		76C0E008236DABD0002F4266 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C0E007236DABD0002F4266 /* NavigationController.swift */; };
+		76C59B3E2384E5D800BE81ED /* NSURLProtocol+WKWebVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C59B3A2384E5D700BE81ED /* NSURLProtocol+WKWebVIew.m */; };
+		76C59B412384E69500BE81ED /* MDURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C59B402384E69500BE81ED /* MDURLProtocol.m */; };
 		76CF5B0823541DC100E87A99 /* 使用教程.md in Resources */ = {isa = PBXBuildFile; fileRef = 76CF5B0723541DC000E87A99 /* 使用教程.md */; };
 		76CF5B0A235425EA00E87A99 /* Syntax.md in Resources */ = {isa = PBXBuildFile; fileRef = 76CF5B09235425EA00E87A99 /* Syntax.md */; };
 		76D7D5F7237930E40007556F /* RecentImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D7D5F6237930E40007556F /* RecentImagesViewController.swift */; };
@@ -128,6 +130,10 @@
 		7699B20F236ADC3C005F394D /* ExportActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportActivity.swift; sourceTree = "<group>"; };
 		76A4D271234EF98200B87A78 /* WebDAVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVViewController.swift; sourceTree = "<group>"; };
 		76C0E007236DABD0002F4266 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		76C59B3A2384E5D700BE81ED /* NSURLProtocol+WKWebVIew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLProtocol+WKWebVIew.m"; sourceTree = "<group>"; };
+		76C59B3C2384E5D800BE81ED /* NSURLProtocol+WKWebVIew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLProtocol+WKWebVIew.h"; sourceTree = "<group>"; };
+		76C59B3F2384E69500BE81ED /* MDURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDURLProtocol.h; sourceTree = "<group>"; };
+		76C59B402384E69500BE81ED /* MDURLProtocol.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDURLProtocol.m; sourceTree = "<group>"; };
 		76C94A6A22EAA43D004CE602 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		76CF5B0723541DC000E87A99 /* 使用教程.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "使用教程.md"; path = "Instructions/使用教程.md"; sourceTree = "<group>"; };
 		76CF5B09235425EA00E87A99 /* Syntax.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = Syntax.md; path = Instructions/Syntax.md; sourceTree = "<group>"; };
@@ -270,6 +276,10 @@
 				07E826FC1F5BF1BA0077A017 /* Localization.swift */,
 				07E826FD1F5BF1BA0077A017 /* Utils.swift */,
 				0724281A1F726B0300C02F87 /* ImagePicker.swift */,
+				76C59B3C2384E5D800BE81ED /* NSURLProtocol+WKWebVIew.h */,
+				76C59B3A2384E5D700BE81ED /* NSURLProtocol+WKWebVIew.m */,
+				76C59B3F2384E69500BE81ED /* MDURLProtocol.h */,
+				76C59B402384E69500BE81ED /* MDURLProtocol.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -477,8 +487,10 @@
 			files = (
 				76DFD721232926AC00F97D56 /* CustomStyleViewController.swift in Sources */,
 				07E8274C1F5BF1BA0077A017 /* Localization.swift in Sources */,
+				76C59B412384E69500BE81ED /* MDURLProtocol.m in Sources */,
 				76C0E008236DABD0002F4266 /* NavigationController.swift in Sources */,
 				76D7D5F7237930E40007556F /* RecentImagesViewController.swift in Sources */,
+				76C59B3E2384E5D800BE81ED /* NSURLProtocol+WKWebVIew.m in Sources */,
 				760C296F2320F3EC002E613E /* escape.c in Sources */,
 				07E827561F5BF1BA0077A017 /* FilesViewController.swift in Sources */,
 				07E827101F5BF1BA0077A017 /* HighlightManager.swift in Sources */,
@@ -671,7 +683,7 @@
 				INFOPLIST_FILE = MarkLite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.7.1;
+				MARKETING_VERSION = 1.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.qinxiu.markdown;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ENABLE_BATCH_MODE = NO;
@@ -693,7 +705,7 @@
 				INFOPLIST_FILE = MarkLite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.7.1;
+				MARKETING_VERSION = 1.7.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.qinxiu.markdown;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ENABLE_BATCH_MODE = NO;

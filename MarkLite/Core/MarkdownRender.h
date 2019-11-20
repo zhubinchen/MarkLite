@@ -10,8 +10,6 @@
 
 @interface MarkdownRender : NSObject
 
-@property (nonatomic,strong) NSString *resourceURL;
-
 @property (nonatomic,strong) NSString *styleName;
 @property (nonatomic,strong) NSString *highlightName;
 @property (nonatomic,strong) NSString *title;

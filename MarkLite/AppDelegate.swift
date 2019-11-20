@@ -14,12 +14,13 @@ import StoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    let server = GCDWebServer()
+    
+    static var shared: AppDelegate!
 
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        AppDelegate.shared = self
         #if DEBUG
 
         #else
@@ -31,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         createFoldersIfNeed()
         checkAppStore()
         setup()
-        startLocalServer()
+        MDURLProtocol.startRegister()
         _ = IAPHelper.sharedInstance
         return true
     }
@@ -53,17 +54,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         Configure.shared.save()
-    }
-    
-    func startLocalServer() {
-        server.delegate = self
-        server.addGETHandler(forBasePath: "/",
-                             directoryPath: resourcesPath,
-                             indexFilename: nil,
-                             cacheAge: 3600,
-                             allowRangeRequests: true)
-        let options: [String : Any] = [GCDWebServerOption_AutomaticallySuspendInBackground:false,GCDWebServerOption_Port:8080]
-        try? server.start(options: options)
     }
     
     func createFoldersIfNeed() {
@@ -177,17 +167,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         alert.addAction(ation)
         alert.addAction(ation1)
         self.window?.rootViewController?.present(alert, animated: true, completion: nil)
-    }
-}
-
-extension AppDelegate: GCDWebServerDelegate {
-    
-    func webServerDidStart(_ server: GCDWebServer) {
-        print("webServerDidStart")
-        MarkdownRender.shared()?.resourceURL = "http://localhost:8080/"
-    }
-    
-    func webServerDidCompleteBonjourRegistration(_ server: GCDWebServer) {
-        print("webServerDidCompleteBonjourRegistration")
     }
 }
