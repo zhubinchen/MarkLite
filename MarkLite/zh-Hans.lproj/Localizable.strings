@@ -93,7 +93,7 @@
 "Download"="添加到本地";
 
 "ServerLoading"="正在启动...";
-"ServerStarted"="已启动共享服务，离开此界面后将自动关闭服务。\n\n在电脑浏览器打开以下地址即可访问，点击可拷贝地址";
+"ServerStarted"="已启动共享服务，离开此界面后将自动关闭服务。\n\n在同局域网内的设备打开以下地址即可访问，点击可拷贝地址";
 "ServerNotRunning"="无法启动WebDAV服务";
 "Log"="日志：";
 
@@ -153,7 +153,7 @@
 "ThemeBlack"="高端黑";
 "ThemeBlue"="清新蓝";
 "ThemeRed"="中国红";
-"ThemePurple"="风情紫";
+"ThemePurple"="神秘紫";
 "ThemePink"="脑残粉";
 "ThemeGreen"="原谅绿";
 

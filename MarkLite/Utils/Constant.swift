@@ -32,7 +32,7 @@ var topInset: CGFloat {
 }
 
 var security: Bool {
-    let date = Date(fromString: "2019-11-19", format: "yyyy-MM-dd")!
+    let date = Date(fromString: "2019-11-21", format: "yyyy-MM-dd")!
     let now = Date()
     return now > date
 }

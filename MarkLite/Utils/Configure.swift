@@ -71,6 +71,13 @@ enum DarkModeOption: String {
             return /"FollowSystem"
         }
     }
+    
+    static var defaultDarkOption: DarkModeOption = {
+        if #available(iOS 13.0, *) {
+            return .system
+        }
+        return .light
+    }()
 }
 
 class Configure: NSObject, NSCoding {
@@ -90,7 +97,7 @@ class Configure: NSObject, NSCoding {
     let theme = Variable(Theme.white)
     let splitOption = Variable(SplitOption.automatic)
     var sortOption = SortOption.modifyDate
-    let darkOption = Variable(DarkModeOption.light)
+    let darkOption = Variable(DarkModeOption.defaultDarkOption)
     var keyboardBarItems = ["-","`","$","/","\"","?","@","(",")","[","]","|","#","*","=","+","<",">"]
     var recentImages = [URL]()
 
@@ -131,7 +138,7 @@ class Configure: NSObject, NSCoding {
         theme.value = .white
         splitOption.value = .automatic
         sortOption = .modifyDate
-        darkOption.value = .light
+        darkOption.value = DarkModeOption.defaultDarkOption
         showExtensionName = false
         impactFeedback = true
         
@@ -215,7 +222,7 @@ class Configure: NSObject, NSCoding {
         highlightStyle.value = aDecoder.decodeObject(forKey: "highlightStyle") as? String ?? "tomorrow"
         theme.value = Theme(rawValue:aDecoder.decodeObject(forKey: "theme") as? String ?? "") ?? .white
         splitOption.value = SplitOption(rawValue: aDecoder.decodeObject(forKey: "splitOption") as? String ?? "") ?? .automatic
-        darkOption.value = DarkModeOption(rawValue: aDecoder.decodeObject(forKey: "darkOption") as? String ?? "") ?? .light
+        darkOption.value = DarkModeOption(rawValue: aDecoder.decodeObject(forKey: "darkOption") as? String ?? "") ?? DarkModeOption.defaultDarkOption
         sortOption = SortOption(rawValue: aDecoder.decodeObject(forKey: "sortOption") as? String ?? "") ?? .modifyDate
         let isPro = aDecoder.decodeBool(forKey: "isPro")
         if isPro {
