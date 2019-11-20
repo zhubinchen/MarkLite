@@ -73,7 +73,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 
         assitBarSwitch.addTarget(self, action: #selector(assistBar(_:)), for: .valueChanged)
         displayOptionSwitch.addTarget(self, action: #selector(displayOption(_:)), for: .valueChanged)
-        impactFeedbackSwitch.addTarget(self, action: #selector(impactFeedback), for: .valueChanged)
+        impactFeedbackSwitch.addTarget(self, action: #selector(impactFeedback(_:)), for: .valueChanged)
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
     }
@@ -130,7 +130,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.deselectRow(at: indexPath, animated: true)
 
         let item = items[indexPath.section].1[indexPath.row]
-        if item.0 == "AssistKeyboard" || item.0 == "ShowExtensionName" {
+        if item.0 == "AssistKeyboard" || item.0 == "ShowExtensionName" || item.0 == "ImpactFeedback" {
             return
         }
         perform(item.2)

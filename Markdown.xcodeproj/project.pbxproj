@@ -54,7 +54,6 @@
 		768762BB22D86D1C00A54EB1 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */; };
 		7699B210236ADC3C005F394D /* ExportActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7699B20F236ADC3C005F394D /* ExportActivity.swift */; };
 		76A4D272234EF98200B87A78 /* WebDAVViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4D271234EF98200B87A78 /* WebDAVViewController.swift */; };
-		76C0E008236DABD0002F4266 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C0E007236DABD0002F4266 /* NavigationController.swift */; };
 		76C59B3E2384E5D800BE81ED /* NSURLProtocol+WKWebVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C59B3A2384E5D700BE81ED /* NSURLProtocol+WKWebVIew.m */; };
 		76C59B412384E69500BE81ED /* MDURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C59B402384E69500BE81ED /* MDURLProtocol.m */; };
 		76CF5B0823541DC100E87A99 /* 使用教程.md in Resources */ = {isa = PBXBuildFile; fileRef = 76CF5B0723541DC000E87A99 /* 使用教程.md */; };
@@ -129,7 +128,6 @@
 		768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		7699B20F236ADC3C005F394D /* ExportActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportActivity.swift; sourceTree = "<group>"; };
 		76A4D271234EF98200B87A78 /* WebDAVViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVViewController.swift; sourceTree = "<group>"; };
-		76C0E007236DABD0002F4266 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		76C59B3A2384E5D700BE81ED /* NSURLProtocol+WKWebVIew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLProtocol+WKWebVIew.m"; sourceTree = "<group>"; };
 		76C59B3C2384E5D800BE81ED /* NSURLProtocol+WKWebVIew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLProtocol+WKWebVIew.h"; sourceTree = "<group>"; };
 		76C59B3F2384E69500BE81ED /* MDURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDURLProtocol.h; sourceTree = "<group>"; };
@@ -300,7 +298,6 @@
 			isa = PBXGroup;
 			children = (
 				07E827081F5BF1BA0077A017 /* FilesViewController.swift */,
-				76C0E007236DABD0002F4266 /* NavigationController.swift */,
 				07E827071F5BF1BA0077A017 /* EditViewController.swift */,
 				07E8270E1F5BF1BA0077A017 /* PreviewViewController.swift */,
 				07E8270D1F5BF1BA0077A017 /* TextViewController.swift */,
@@ -488,7 +485,6 @@
 				76DFD721232926AC00F97D56 /* CustomStyleViewController.swift in Sources */,
 				07E8274C1F5BF1BA0077A017 /* Localization.swift in Sources */,
 				76C59B412384E69500BE81ED /* MDURLProtocol.m in Sources */,
-				76C0E008236DABD0002F4266 /* NavigationController.swift in Sources */,
 				76D7D5F7237930E40007556F /* RecentImagesViewController.swift in Sources */,
 				76C59B3E2384E5D800BE81ED /* NSURLProtocol+WKWebVIew.m in Sources */,
 				760C296F2320F3EC002E613E /* escape.c in Sources */,
@@ -678,7 +674,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Markdown.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = TS5H34GM7Q;
 				INFOPLIST_FILE = MarkLite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -700,7 +696,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Markdown.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = TS5H34GM7Q;
 				INFOPLIST_FILE = MarkLite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;

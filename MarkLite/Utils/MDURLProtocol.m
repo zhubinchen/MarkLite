@@ -25,7 +25,6 @@ static NSString* const MDURLProtocolKey = @"MDURLProtocol";
 }
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
-    NSLog(@"request.URL.absoluteString = %@",request.URL.absoluteString);
     NSString *scheme = [[request URL] scheme];
     if ([scheme caseInsensitiveCompare:@"md"]  == NSOrderedSame) {
         return ![NSURLProtocol propertyForKey:MDURLProtocolKey inRequest:request];
@@ -34,9 +33,7 @@ static NSString* const MDURLProtocolKey = @"MDURLProtocol";
 }
 
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request {
-    NSMutableURLRequest *mutableReqeust = [request mutableCopy];    
-    NSLog(@"url ---[%@]\n\n",request.URL.absoluteString);
-
+    NSMutableURLRequest *mutableReqeust = [request mutableCopy];
     NSString *relativePath = [request.URL.absoluteString stringByReplacingOccurrencesOfString:@"md://local/resource" withString:@""];
     NSString *resPath = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"Resources"];
     NSString *fullPath = [resPath stringByAppendingPathComponent:relativePath];
