@@ -155,15 +155,7 @@ extension SettingsViewController {
     @objc func premium() {
         let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
         let vc = sb.instantiateVC(PurchaseViewController.self)!
-        if security {
-            pushVC(vc)
-            return
-        }
-        dismiss(animated: false) {
-            let nav = UINavigationController(rootViewController: vc)
-            nav.modalPresentationStyle = .fullScreen
-            UIApplication.shared.keyWindow?.rootViewController?.presentVC(nav)
-        }
+        pushVC(vc)
     }
     
     @objc func splitOption() {

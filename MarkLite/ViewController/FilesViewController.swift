@@ -508,11 +508,7 @@ class FilesViewController: UIViewController {
     }
     
     func doIfPro(_ task: (() -> Void)) {
-        if !security {
-            task()
-            return
-        }
-        if Configure.shared.isPro {
+        if Configure.shared.isPro || passedDate.isFuture {
             task()
             return
         }
@@ -634,7 +630,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
             cell.imageView?.tintImage = icon
         }
         
-        cell.needUnlock = isHomePage && indexPath.section == 0 && Configure.shared.isPro == false && security
+        cell.needUnlock = isHomePage && indexPath.section == 0 && Configure.shared.isPro == false && passedDate.isPast
                 
         if selectFolderMode {
             cell.indentationWidth = 10
