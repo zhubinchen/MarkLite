@@ -155,6 +155,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             self?.markdownRenderer?.styleName = style
             let html = self?.markdownRenderer?.renderMarkdown(file.text) ?? ""
             self?.previewVC.html = html
+            self?.previewVC.resetFrame()
         }).disposed(by: bag)
         
         Configure.shared.highlightStyle.asObservable().subscribe(onNext: { [weak self] (style) in
@@ -194,13 +195,29 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     
     @objc func showStylesView(_ sender: UIBarButtonItem) {
         impactIfAllow()
-        guard let styleVC = self.styleVC, let popoverVC = styleVC.popoverPresentationController else {
+        let path = resourcesPath + "/Styles/"
+        
+        guard let subPaths = FileManager.default.subpaths(atPath: path) else { return }
+        
+        let items = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}.sorted(by: >)
+        let index = items.index{ Configure.shared.markdownStyle.value == $0 }
+        let wraper = OptionsWraper(selectedIndex: index, editable: true, title: /"Style", items: items) {
+            Configure.shared.markdownStyle.value = $0.toString
+        }
+
+        let vc = OptionsViewController()
+        vc.options = wraper
+        
+        let nav = UINavigationController(rootViewController: vc)
+        nav.preferredContentSize = CGSize(width:300, height:400)
+        nav.modalPresentationStyle = .popover
+        guard let popoverVC = nav.popoverPresentationController else {
             return
         }
         popoverVC.backgroundColor = UIColor.white
         popoverVC.delegate = self
         popoverVC.barButtonItem = sender
-        present(styleVC, animated: true, completion: nil)
+        present(nav, animated: true, completion: nil)
     }
     
     @objc func preview() {
@@ -390,24 +407,4 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
            return export
        }()
        
-    lazy var styleVC: UIViewController? = {
-           let path = resourcesPath + "/Styles/"
-           
-           guard let subPaths = FileManager.default.subpaths(atPath: path) else { return nil}
-           
-           let items = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}.sorted(by: >)
-           let index = items.index{ Configure.shared.markdownStyle.value == $0 }
-           let wraper = OptionsWraper(selectedIndex: index, editable: true, title: /"Style", items: items) {
-               Configure.shared.markdownStyle.value = $0.toString
-           }
-
-           let vc = OptionsViewController()
-           vc.options = wraper
-           
-           let nav = UINavigationController(rootViewController: vc)
-           nav.preferredContentSize = CGSize(width:300, height:400)
-           nav.modalPresentationStyle = .popover
-
-           return nav
-       }()
 }

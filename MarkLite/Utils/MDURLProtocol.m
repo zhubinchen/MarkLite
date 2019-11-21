@@ -34,7 +34,7 @@ static NSString* const MDURLProtocolKey = @"MDURLProtocol";
 
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request {
     NSMutableURLRequest *mutableReqeust = [request mutableCopy];
-    NSString *relativePath = [request.URL.absoluteString stringByReplacingOccurrencesOfString:@"md://local/resource" withString:@""];
+    NSString *relativePath = [[request.URL.absoluteString stringByReplacingOccurrencesOfString:@"md://local/resource" withString:@""] stringByRemovingPercentEncoding];
     NSString *resPath = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"Resources"];
     NSString *fullPath = [resPath stringByAppendingPathComponent:relativePath];
     NSURL *url = [NSURL fileURLWithPath:fullPath];

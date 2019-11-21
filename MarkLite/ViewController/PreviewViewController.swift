@@ -97,8 +97,7 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
         let h = max(windowHeight - keyboardHeight - bottomInset, 0)
         scrollView.frame = CGRect(x: 0, y: 0, w: view.w, h: view.h - h)
         if fabs(scrollView.w - webView.w) > 10 {
-            webView.frame = scrollView.frame
-            shouldRefresh = true
+            resetFrame()
         }
     }
     
@@ -108,6 +107,11 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
                 self.webHeight = size.height
             }
         }
+    }
+    
+    func resetFrame() {
+        webView.frame = scrollView.frame
+        shouldRefresh = true
     }
     
     func refresh() {
