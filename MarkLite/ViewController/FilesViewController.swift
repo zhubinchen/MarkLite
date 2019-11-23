@@ -349,7 +349,7 @@ class FilesViewController: UIViewController {
             unzip(file)
             return
         }
-        if file.type == .image {
+        if file.type == .image || file.type == .other {
             preview(file)
             return
         }

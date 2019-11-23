@@ -18,6 +18,7 @@ let imageExtName = ["png","jpg","jpeg","bmp","tif","pic","gif","heif","heic"]
 
 enum FileType {
     case text
+    case other
     case archive
     case image
     case folder
@@ -33,7 +34,7 @@ enum FileType {
             return "zip"
         case .location:
             return "link"
-        case .folder:
+        default:
             return ""
         }
     }
@@ -196,16 +197,16 @@ class File {
 
         if (values.isDirectory ?? false) {
             type = .folder
-        }
-        
-        if locationExtName.contains(extensionName) {
+        } else if extensionName.count == 0 || textExtName.contains(extensionName) {
+             type = .text
+        } else if locationExtName.contains(extensionName) {
             type = .location
-        } else if textExtName.contains(extensionName) {
-            type = .text
         } else if archiveExtName.contains(extensionName) {
             type = .archive
         } else if imageExtName.contains(extensionName) {
             type = .image
+        } else {
+            type = .other
         }
         
         guard type == .location || type == .folder else {
