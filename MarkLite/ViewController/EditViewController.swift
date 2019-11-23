@@ -111,10 +111,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         super.viewWillLayoutSubviews()
         textViewWidth.isActive = split
         textVC.seperator.isHidden = split == false
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+
         toggleRightBarButton()
         if splitViewController?.isCollapsed ?? false {
             navigationItem.leftBarButtonItem = nil
@@ -150,6 +147,8 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         previewVC.didScrollHandler = { [weak self] offset in
             self?.textVC.offset = offset
         }
+        
+        textVC.loadText(file.text!)
 
         Configure.shared.markdownStyle.asObservable().subscribe(onNext: { [weak self] (style) in
             self?.markdownRenderer?.styleName = style
@@ -163,12 +162,6 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             let html = self?.markdownRenderer?.renderMarkdown(file.text) ?? ""
             self?.previewVC.html = html
         }).disposed(by: bag)
-             
-        textVC.editView.text = file.text
-        if (file.text?.count ?? 0) == 0 {
-            textVC.editView.becomeFirstResponder()
-        }
-        textVC.textViewDidChange(textVC.editView)
     }
     
     @objc func keyboardHeightWillChange(_ noti: NSNotification) {
