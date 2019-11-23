@@ -90,7 +90,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         Configure.shared.splitOption.asObservable().subscribe(onNext: { [unowned self] _ in
             self.textViewWidth.isActive = self.split
             self.textVC.seperator.isHidden = self.split == false
-            self.toggleRightBarButton()
+            self.toggleBarButton()
         }).disposed(by: bag)
         
         navBar?.setTintColor(.navTint)
@@ -112,7 +112,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         textViewWidth.isActive = split
         textVC.seperator.isHidden = split == false
 
-        toggleRightBarButton()
+        toggleBarButton()
         if splitViewController?.isCollapsed ?? false {
             navigationItem.leftBarButtonItem = nil
         } else {
@@ -186,6 +186,51 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         self.file = file
     }
     
+    @objc func preview() {
+        impactIfAllow()
+        textVC.editView.resignFirstResponder()
+        scrollView.setContentOffset(CGPoint(x:self.view.w , y:0), animated: true)
+        toggleBarButton()
+    }
+    
+    @objc func showFileList() {
+        impactIfAllow()
+        splitViewController?.preferredDisplayMode = .primaryOverlay
+    }
+    
+    @objc func fullscreen() {
+        impactIfAllow()
+        UIView.animate(withDuration: 0.5) {
+            if self.splitViewController?.preferredDisplayMode != .primaryHidden {
+                self.splitViewController?.preferredDisplayMode = .primaryHidden
+                self.navigationItem.leftBarButtonItem = self.exitFullscreenButton
+                self.shouldFullscreen = true
+            } else {
+                self.splitViewController?.preferredDisplayMode = .allVisible
+                self.navigationItem.leftBarButtonItem = self.fullscreenButton
+                self.shouldFullscreen = false
+            }
+        }
+    }
+    
+    func toggleBarButton() {
+        webVisible = scrollView.contentOffset.x > view.w - 10
+        
+        if webVisible && split == false {
+            navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+            navigationController?.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
+        } else {
+            navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+            navigationController?.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        }
+        
+        if webVisible || split {
+            navigationItem.rightBarButtonItems = [exportButton,styleButton]
+        } else {
+            navigationItem.rightBarButtonItems = [previewButton]
+        }
+    }
+    
     @objc func showStylesView(_ sender: UIBarButtonItem) {
         impactIfAllow()
         let path = resourcesPath + "/Styles/"
@@ -211,51 +256,6 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         popoverVC.delegate = self
         popoverVC.barButtonItem = sender
         present(nav, animated: true, completion: nil)
-    }
-    
-    @objc func preview() {
-        impactIfAllow()
-        textVC.editView.resignFirstResponder()
-        scrollView.setContentOffset(CGPoint(x:self.view.w , y:0), animated: true)
-        toggleRightBarButton()
-    }
-    
-    @objc func showFileList() {
-        impactIfAllow()
-        splitViewController?.preferredDisplayMode = .primaryOverlay
-    }
-    
-    @objc func fullscreen() {
-        impactIfAllow()
-        UIView.animate(withDuration: 0.5) {
-            if self.splitViewController?.preferredDisplayMode != .primaryHidden {
-                self.splitViewController?.preferredDisplayMode = .primaryHidden
-                self.navigationItem.leftBarButtonItem = self.exitFullscreenButton
-                self.shouldFullscreen = true
-            } else {
-                self.splitViewController?.preferredDisplayMode = .allVisible
-                self.navigationItem.leftBarButtonItem = self.fullscreenButton
-                self.shouldFullscreen = false
-            }
-        }
-    }
-    
-    func toggleRightBarButton() {
-        webVisible = scrollView.contentOffset.x > view.w - 10
-        
-        if webVisible && split == false {
-            navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-            navigationController?.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        } else {
-            navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-            navigationController?.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        }
-        
-        if webVisible || split {
-            navigationItem.rightBarButtonItems = [exportButton,styleButton]
-        } else {
-            navigationItem.rightBarButtonItems = [previewButton]
-        }
     }
     
     @objc func showExportMenu(_ sender: Any) {
@@ -312,17 +312,13 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             try? data.write(to: url)
             item = url
         case .image:
-            let originFrame = previewVC.webView.frame
-            previewVC.webView.h = previewVC.webHeight
-            previewVC.webView.reload()
             SVProgressHUD.show()
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
-                if let img = self.previewVC.webView.scrollView.snap {
+            previewVC.webView.takeScreenshotOfFullContent { image in
+                if let img = image {
                     let vc = UIActivityViewController(activityItems: [img], applicationActivities: nil)
                     vc.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
                     self.presentVC(vc)
                 }
-                self.previewVC.webView.frame = originFrame
                 SVProgressHUD.dismiss()
             }
         }
@@ -343,12 +339,12 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        toggleRightBarButton()
+        toggleBarButton()
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         impactIfAllow()
-        toggleRightBarButton()
+        toggleBarButton()
     }
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {

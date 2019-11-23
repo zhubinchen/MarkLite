@@ -51,6 +51,8 @@ class TextViewController: UIViewController {
     let bag = DisposeBag()
     let assistBar = KeyboardBar()
     var timer: Timer?
+    
+    var text: String = ""
         
     var keyboardHeight: CGFloat = windowHeight {
         didSet {
@@ -106,6 +108,19 @@ class TextViewController: UIViewController {
             self.highlightmanager = MarkdownHighlightManager()
             self.textViewDidChange(self.editView)
         }).disposed(by: bag)
+    }
+    
+    func loadText(_ text: String) {
+        self.text = text
+        if text.count == 0 {
+            editView.becomeFirstResponder()
+        }
+        editView.text = text
+        textViewDidChange(editView)
+    }
+    
+    func appendText(_ text: String) {
+        
     }
     
     @objc func highlight() {
@@ -200,17 +215,16 @@ extension TextViewController: UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        let text = editView.text ?? ""
-
+        self.text = textView.text
         countLabel.text = "\(text.count) " + /"Characters"
         if editView.markedTextRange != nil {
             return
         }
-        textChangedHandler?(editView.text)
+        textChangedHandler?(text)
         redoButton.isEnabled = self.editView.undoManager?.canRedo ?? false
         undoButton.isEnabled = self.editView.undoManager?.canUndo ?? false
         
         timer?.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(highlight), userInfo: nil, repeats: false)
-    }    
+    }
 }

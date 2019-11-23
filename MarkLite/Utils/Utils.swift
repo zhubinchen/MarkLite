@@ -342,18 +342,6 @@ extension UIImage {
     }
 }
 
-extension UIView {
-    
-    var snap: UIImage? {
-        
-        UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque, 0.0)
-        guard let ctx = UIGraphicsGetCurrentContext() else { return nil }
-        layer.render(in: ctx)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        return image
-    }
-}
-
 extension UITableView {
     func addPullDownView(_ view: UIView, bag: DisposeBag, comletion:@escaping ()->Void) {
         addSubview(view)

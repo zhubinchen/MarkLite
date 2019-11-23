@@ -62,6 +62,7 @@
 		76DFD721232926AC00F97D56 /* CustomStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DFD720232926AC00F97D56 /* CustomStyleViewController.swift */; };
 		76E7F271233CAEE10051DF6A /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E7F270233CAEE10051DF6A /* BaseTableViewCell.swift */; };
 		76E7F275233CB5E30051DF6A /* icon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 76E7F274233CB5E30051DF6A /* icon_logo.png */; };
+		76EC82AC2389196000E26076 /* PNGRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76EC82AB2389196000E26076 /* PNGRender.swift */; };
 		89C305FDB08983CC88E50F5B /* Pods_Markdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CED168CEF9A6EB3A1E2F9CC /* Pods_Markdown.framework */; };
 /* End PBXBuildFile section */
 
@@ -139,6 +140,7 @@
 		76DFD720232926AC00F97D56 /* CustomStyleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStyleViewController.swift; sourceTree = "<group>"; };
 		76E7F270233CAEE10051DF6A /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		76E7F274233CB5E30051DF6A /* icon_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_logo.png; sourceTree = "<group>"; };
+		76EC82AB2389196000E26076 /* PNGRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PNGRender.swift; sourceTree = "<group>"; };
 		8E2576E76534F3FE3E3CAA53 /* Pods-Markdown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Markdown.release.xcconfig"; path = "Pods/Target Support Files/Pods-Markdown/Pods-Markdown.release.xcconfig"; sourceTree = "<group>"; };
 		E32330D5B24C5C34EEE58119 /* Pods-Markdown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Markdown.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Markdown/Pods-Markdown.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -202,6 +204,7 @@
 				762CF0F72322650A00F2FF90 /* MarkdownRender.h */,
 				762CF0F82322650A00F2FF90 /* MarkdownRender.m */,
 				07E826BE1F5BF1BA0077A017 /* PDFRender.swift */,
+				76EC82AB2389196000E26076 /* PNGRender.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -489,6 +492,7 @@
 				76C59B3E2384E5D800BE81ED /* NSURLProtocol+WKWebVIew.m in Sources */,
 				760C296F2320F3EC002E613E /* escape.c in Sources */,
 				07E827561F5BF1BA0077A017 /* FilesViewController.swift in Sources */,
+				76EC82AC2389196000E26076 /* PNGRender.swift in Sources */,
 				07E827101F5BF1BA0077A017 /* HighlightManager.swift in Sources */,
 				07E8275B1F5BF1BA0077A017 /* TextViewController.swift in Sources */,
 				768762BB22D86D1C00A54EB1 /* PurchaseViewController.swift in Sources */,
