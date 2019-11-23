@@ -245,6 +245,12 @@ class Configure: NSObject, NSCoding {
                     completion?(self.isPro)
                 }
             }
+            if let code = statusCode {
+                if code == ReceiptStatus.noRecipt.rawValue {
+                    self.expireDate = Date.longlongAgo()
+                    return
+                }
+            }
             guard let products = products else {
                 return
             }

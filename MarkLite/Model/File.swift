@@ -247,6 +247,22 @@ class File {
         return lhs.path == rhs!.path
     }
     
+    func findChild(_ path: String) -> File? {
+        let searchPath = path.replacingOccurrences(of: "/private/var", with: "/var")
+        let selfPath = self.path.replacingOccurrences(of: "/private/var", with: "/var")
+        if searchPath == selfPath {
+            return self
+        }
+        if searchPath.hasPrefix(selfPath) {
+            for file in _children {
+                if let ret = file.findChild(searchPath) {
+                    return ret
+                }
+            }
+        }
+        return nil
+    }
+    
     func childAtPath(_ path: String) -> File? {
         if self.path == path {
             return self

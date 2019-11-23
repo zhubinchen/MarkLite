@@ -172,12 +172,7 @@ class FilesViewController: UIViewController {
     @objc func inboxChanged(_ noti: Notification) {
         navigationController?.popToRootViewController(animated: true)
         guard let url = noti.object as? URL else { return }
-        if url.path.contains(documentPath) {
-            File.local.reloadChildren()
-            refresh()
-        } else {
-            finishPick(url)
-        }
+        finishPick(url)
     }
     
     @objc func multipleSelect() {
@@ -805,6 +800,10 @@ extension FilesViewController: UIDocumentPickerDelegate {
     }
 
     func finishPick(_ url: URL) {
+        if let file = File.local.findChild(url.path) ?? File.cloud.findChild(url.path) {
+            openFile(file)
+            return
+        }
         SVProgressHUD.show()
         let accessed = url.startAccessingSecurityScopedResource()
         if !accessed {
