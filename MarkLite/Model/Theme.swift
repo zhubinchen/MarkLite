@@ -94,7 +94,7 @@ class ColorCenter {
             primary.value = theme.colors[5]
             secondary.value = theme.colors[6]
             tint.value = theme.colors[7]
-            selectedCell.value = theme == .black ? rgb("151515")! : rgb("e0e0e0")!
+            selectedCell.value = theme == .black ? rgb("303030")! : rgb("e0e0e0")!
         }
     }
     

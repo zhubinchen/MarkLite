@@ -164,17 +164,22 @@
 "PremiumOnly"="Upgrade to Pro to Unlock This Feature";
 "PremiumTips"="Every new user has 3-days free trial";
 "SubscribeNow"="View detail";
+"Valid"="Valid";
 
 "Premium"="Premium";
-"SubscribeMonthly"="Monthly Subscription";
-"SubscribeYearly"="Yearly Subscription";
-"LifetimePremium"="Lifetime Pro";
 "Terms"="Terms Of Use";
 "Privacy"="Privacy Policy";
 
-"SubscriptionPriceMonthly"="Try 3-days for free, then $0.49 USD per month, subscription can be cancelled at any time";
-"SubscriptionPriceYearly"="Try 1 week for free, then $3.99 USD per year, subscription can be cancelled at any time";
-"PremiumPriceLifetime"="Unlock all the features forever with a single In-App purchase of $6.99 USD";
+"SubscribeMonthly"="Monthly Pro: $0.49";
+"SubscribeYearly"="Yearly Pro: $3.99";
+"LifetimePremium"="Lifetime Pro: $6.99";
+
+"Purchase"="Continue";
+
+"MonthlyTips"="Try 3 days for free, then $0.49/month";
+"YearlyTips"="Try 1 week for free, then $3.99/year";
+"ForeverTips"="Unlock all the features forever";
+
 "SubscriptionTitle"="Upgrade to Markdown Pro to unlock all features:\n• 📤Export markdown as PDF,HTML,JPG\n• 💻Share files with PC via Wi-Fi\n• ☁️Sync files between all your devices\n• 🛍️More features in future versions";
 
 "SubscribeTips"="[Pro Subscription]\n\n• The duration of every period of Monthly Subscription is 1 month, The duration of every period of Yearly Subscription is 1 year\n\n• Payment will be charged to iTunes Account at confirmation of purchase\n\n• Subscription automatically renews unless auto-renew is turned off at least 24-hours before the end of the current period\n\n• Account will be charged for renewal within 24-hours prior to the end of the current period, and identify the cost of the renewal\n\n• Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase\n\n• Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable\n\n• The Price of monthly subscription of every period is $0.49 USD, The Price of yearly subscription of every period is $3.99 USD";

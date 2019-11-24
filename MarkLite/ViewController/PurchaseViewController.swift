@@ -10,16 +10,14 @@ import UIKit
 
 class PurchaseViewController: UIViewController {
     
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var purchaseButton: UIButton!
+    @IBOutlet weak var purchaseTipsLabel: UILabel!
+    
     @IBOutlet weak var yearlyButton: UIButton!
     @IBOutlet weak var monthlyButton: UIButton!
     @IBOutlet weak var foreverButton: UIButton!
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var priceYearlyLabel: UILabel!
-    @IBOutlet weak var priceMonthlyLabel: UILabel!
-    @IBOutlet weak var priceForeverLabel: UILabel!
-    @IBOutlet weak var tipsLabel: UILabel!
-    @IBOutlet weak var topSpace: NSLayoutConstraint!
-    
+
     var productId: String?
 
     override func viewDidLoad() {
@@ -39,16 +37,13 @@ class PurchaseViewController: UIViewController {
         navBar?.setTintColor(.navTint)
         navBar?.setBackgroundColor(.navBar)
         navBar?.setTitleColor(.navTitle)
-        yearlyButton.setBackgroundColor(.tint)
-        monthlyButton.setBackgroundColor(.tint)
-        foreverButton.setBackgroundColor(.tint)
+        purchaseButton.setBackgroundColor(.tint)
         titleLabel.setTextColor(.primary)
-        priceYearlyLabel.setTextColor(.primary)
-        priceMonthlyLabel.setTextColor(.primary)
-        priceForeverLabel.setTextColor(.primary)
-        tipsLabel.setTextColor(.secondary)
+        purchaseTipsLabel.setTextColor(.primary)
         view.setBackgroundColor(.background)
         view.setTintColor(.tint)
+        
+        selectedType(yearlyButton)
         
         let paragraphStyle = { () -> NSMutableParagraphStyle in
             let paraStyle = NSMutableParagraphStyle()
@@ -68,22 +63,31 @@ class PurchaseViewController: UIViewController {
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func subscribeMonthly(_ sender: UIButton!) {
+    @IBAction func selectedType(_ sender: UIButton!) {
         impactIfAllow()
-        MobClick.event("begin_purchase_monthly")
-        purchaseProduct(premiumMonthlyProductID)
+        let buttons = [monthlyButton,yearlyButton,foreverButton]
+        buttons.forEach { button in
+            if button == sender {
+                button?.superview?.setBackgroundColor(.selectedCell)
+                button?.superview?.viewWithTag(101)?.setBackgroundColor(.tint)
+                (button?.superview?.viewWithTag(102) as? UILabel)?.setTextColor(.primary)
+            } else {
+                button?.superview?.setBackgroundColor(.background)
+                button?.superview?.viewWithTag(101)?.setBackgroundColor(.background)
+                (button?.superview?.viewWithTag(102) as? UILabel)?.setTextColor(.secondary)
+            }
+        }
+        
+        purchaseTipsLabel.text = [/"MonthlyTips",/"YearlyTips",/"ForeverTips"][sender.tag]
+        purchaseButton.tag = sender.tag
     }
     
-    @IBAction func subscribeYearly(_ sender: UIButton!) {
+    @IBAction func purchase(_ sender: UIButton!) {
         impactIfAllow()
-        MobClick.event("begin_purchase_yearly")
-        purchaseProduct(premiumYearlyProductID)
-    }
-    
-    @IBAction func subscribeLifetime(_ sender: UIButton!) {
-        impactIfAllow()
-        MobClick.event("begin_purchase_forever")
-        purchaseProduct(premiumForeverProductID)
+        let events = ["begin_purchase_monthly","begin_purchase_yearly","begin_purchase_forever"]
+        let products = [premiumMonthlyProductID,premiumYearlyProductID,premiumForeverProductID]
+        MobClick.event(events[sender.tag])
+        purchaseProduct(products[sender.tag])
     }
     
     @IBAction func restore(_ sender: UIButton!) {
@@ -108,22 +112,6 @@ class PurchaseViewController: UIViewController {
             })
             print(identifiers)
         }
-    }
-
-    @IBAction func privacy(_ sender: UIButton!) {
-        let vc = WebViewController()
-        vc.urlString = "http://ivod.site/markdown/privacy.html"
-        vc.title = /"Privacy"
-        let nav = UINavigationController(rootViewController: vc)
-        presentVC(nav)
-    }
-
-    @IBAction func terms(_ sender: UIButton!) {
-        let vc = WebViewController()
-        vc.urlString = "http://ivod.site/markdown/terms.html"
-        vc.title = /"Terms"
-        let nav = UINavigationController(rootViewController: vc)
-        presentVC(nav)
     }
 
     func purchaseProduct(_ identifier: String) {
@@ -161,4 +149,20 @@ class PurchaseViewController: UIViewController {
         }
     }
 
+    @IBAction func privacy(_ sender: UIButton!) {
+        let vc = WebViewController()
+        vc.urlString = "http://ivod.site/markdown/privacy.html"
+        vc.title = /"Privacy"
+        let nav = UINavigationController(rootViewController: vc)
+        presentVC(nav)
+    }
+
+    @IBAction func terms(_ sender: UIButton!) {
+        let vc = WebViewController()
+        vc.urlString = "http://ivod.site/markdown/terms.html"
+        vc.title = /"Terms"
+        let nav = UINavigationController(rootViewController: vc)
+        presentVC(nav)
+    }
+    
 }

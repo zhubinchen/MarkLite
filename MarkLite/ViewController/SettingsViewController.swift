@@ -30,7 +30,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         if isPad {
             section.append(("SplitOptions","",#selector(splitOption)))
         }
-        var items = [
+        let status = Configure.shared.isPro ? "Valid" : "SubscribeNow"
+        let items = [
+            ("高级帐户",[("Premium",status,#selector(premium))]),
             ("共享",[("WebDAV","",#selector(webdav))]),
             ("外观",section),
             ("功能",[
@@ -43,9 +45,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 ("Contact","",#selector(feedback))
                 ])
         ]
-        if !Configure.shared.isPro {
-            items.insert(("高级帐户",[("Premium","",#selector(premium))]), at: 0)
-        }
         return items;
     }
     
@@ -92,7 +91,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = BaseTableViewCell(style: .default, reuseIdentifier: nil)
+        let cell = BaseTableViewCell(style: .value1, reuseIdentifier: nil)
 
         let item = items[indexPath.section].1[indexPath.row]
         cell.textLabel?.text = /(item.0)
