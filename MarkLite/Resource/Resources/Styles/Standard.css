@@ -182,7 +182,7 @@ table {
 img {
   max-width: 100%;
   margin: 0.2em auto;
-  border-radius: 0.5rem;
+  border-radius: 0.1rem;
   display: block;
   box-sizing: border-box;
   height: auto;
