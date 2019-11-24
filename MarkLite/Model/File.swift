@@ -247,9 +247,9 @@ class File {
         return lhs.path == rhs!.path
     }
     
-    func findChild(_ path: String) -> File? {
-        let searchPath = path.replacingOccurrences(of: "/private/var", with: "/var")
-        let selfPath = self.path.replacingOccurrences(of: "/private/var", with: "/var")
+    func findChild(_ childPath: String) -> File? {
+        let searchPath = childPath.replacingOccurrences(of: "/private/var", with: "/var")
+        let selfPath = path.replacingOccurrences(of: "/private/var", with: "/var")
         if searchPath == selfPath {
             return self
         }
@@ -290,7 +290,11 @@ class File {
         guard let subPaths = try? fileManager.contentsOfDirectory(atPath: path) else {
             return
         }
+        let oldChildren = _children
         _children = subPaths.filter{($0.components(separatedBy: ".").first ?? "").count > 0 && !$0.hasPrefix(".") && !$0.hasPrefix("~")}.map{ File(path:path + "/" + $0,parent: self) }
+        _children.forEach { file in
+            file._document = oldChildren.first(where: { $0 == file })?._document
+        }
     }
     
     @discardableResult
