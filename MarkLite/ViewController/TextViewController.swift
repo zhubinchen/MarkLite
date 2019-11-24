@@ -24,9 +24,17 @@ class TextViewController: UIViewController {
 
     @IBOutlet weak var bottomSpace: NSLayoutConstraint!
     
+    var textViewWidth: CGFloat = 0
+    
     var textHeight: CGFloat {
-        return editView.sizeThatFits(editView.size).height
+        if editView.w != textViewWidth {
+            textViewWidth = editView.w
+            _textHeight = editView.sizeThatFits(editView.size).height
+        }
+        return _textHeight
     }
+    
+    var _textHeight: CGFloat = 0
     
     var offset: CGFloat = 0.0 {
         didSet {
@@ -60,7 +68,7 @@ class TextViewController: UIViewController {
                 return
             }
             
-            bottomSpace.constant = max(windowHeight - keyboardHeight - 40 - bottomInset,0)
+            bottomSpace.constant = max(keyboardHeight - bottomInset - 40,0)
             UIView.animate(withDuration: 0.5, animations: {
                 self.view.layoutIfNeeded()
             })
@@ -226,5 +234,6 @@ extension TextViewController: UITextViewDelegate {
         
         timer?.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(highlight), userInfo: nil, repeats: false)
+        textViewWidth = 0
     }
 }

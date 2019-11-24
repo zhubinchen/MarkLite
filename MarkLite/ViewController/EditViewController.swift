@@ -154,7 +154,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             self?.markdownRenderer?.styleName = style
             let html = self?.markdownRenderer?.renderMarkdown(file.text) ?? ""
             self?.previewVC.html = html
-            self?.previewVC.resetFrame()
+            self?.previewVC.webHeight = windowHeight
         }).disposed(by: bag)
         
         Configure.shared.highlightStyle.asObservable().subscribe(onNext: { [weak self] (style) in
@@ -166,7 +166,8 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     
     @objc func keyboardHeightWillChange(_ noti: NSNotification) {
         guard let frame = (noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
-        let h = textVC.editView.isFirstResponder ? frame.y : windowHeight
+        
+        let h = textVC.editView.isFirstResponder ? (windowHeight - frame.y) : 0
         textVC.keyboardHeight = h
         previewVC.keyboardHeight = h
     }

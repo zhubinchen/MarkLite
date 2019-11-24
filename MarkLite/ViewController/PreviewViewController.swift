@@ -39,18 +39,18 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    var keyboardHeight: CGFloat = windowHeight {
+    var keyboardHeight: CGFloat = 0 {
         didSet {
             if keyboardHeight == oldValue {
                 return
             }
-            let h = max(windowHeight - keyboardHeight - bottomInset, 0)
+            let h = view.h - max(keyboardHeight,bottomInset)
             UIView.animate(withDuration: 0.5, animations: {
-                self.scrollView.h = self.view.size.height - h
+                self.scrollView.h = h
             })
         }
     }
-    
+        
     var shouldRefresh = false
     
     var timer: Timer?
@@ -94,24 +94,19 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        let h = max(windowHeight - keyboardHeight - bottomInset, 0)
-        scrollView.frame = CGRect(x: 0, y: 0, w: view.w, h: view.h - h)
+        let h = view.h - max(keyboardHeight,bottomInset)
+        scrollView.frame = CGRect(x: 0, y: 0, w: view.w, h: h)
         if fabs(scrollView.w - webView.w) > 10 {
-            resetFrame()
+            webHeight = windowHeight
         }
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let size = change?[NSKeyValueChangeKey.newKey] as? CGSize {
-            if fabs(self.webHeight - size.height) > 10 {
-                self.webHeight = size.height
+            if fabs(webHeight - size.height) > 10 {
+                webHeight = size.height
             }
         }
-    }
-    
-    func resetFrame() {
-        webView.frame = scrollView.frame
-        shouldRefresh = true
     }
     
     func refresh() {
