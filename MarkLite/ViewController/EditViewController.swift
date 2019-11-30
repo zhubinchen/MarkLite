@@ -314,8 +314,10 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             item = url
         case .image:
             SVProgressHUD.show()
+            let frame = previewVC.webView.frame
             previewVC.webView.frame = previewVC.webView.superview!.bounds
             previewVC.webView.captureScreenShot { image in
+                self.previewVC.webView.frame = frame
                 if let img = image {
                     let vc = UIActivityViewController(activityItems: [img], applicationActivities: nil)
                     vc.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
