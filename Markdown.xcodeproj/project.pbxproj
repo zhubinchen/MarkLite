@@ -40,6 +40,7 @@
 		760C296F2320F3EC002E613E /* escape.c in Sources */ = {isa = PBXBuildFile; fileRef = 760C29662320F3EB002E613E /* escape.c */; };
 		760C29702320F3EC002E613E /* document.c in Sources */ = {isa = PBXBuildFile; fileRef = 760C29672320F3EB002E613E /* document.c */; };
 		760C29732320F3FA002E613E /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 760C29712320F3FA002E613E /* hoedown_html_patch.c */; };
+		7611FFFF2392B83F00343C9E /* WKWebView+ScreenShot.m in Sources */ = {isa = PBXBuildFile; fileRef = 7611FFFD2392B83F00343C9E /* WKWebView+ScreenShot.m */; };
 		7613F11F2325F6FE006EE3B9 /* Resources.zip in Resources */ = {isa = PBXBuildFile; fileRef = 7613F11D2325F6FE006EE3B9 /* Resources.zip */; };
 		7613F1272325F8AF006EE3B9 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1232325F8AF006EE3B9 /* ReadMe.md */; };
 		7613F12A2325FA02006EE3B9 /* 示例文档.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1282325FA02006EE3B9 /* 示例文档.md */; };
@@ -62,7 +63,6 @@
 		76DFD721232926AC00F97D56 /* CustomStyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76DFD720232926AC00F97D56 /* CustomStyleViewController.swift */; };
 		76E7F271233CAEE10051DF6A /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E7F270233CAEE10051DF6A /* BaseTableViewCell.swift */; };
 		76E7F275233CB5E30051DF6A /* icon_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 76E7F274233CB5E30051DF6A /* icon_logo.png */; };
-		76EC82AC2389196000E26076 /* PNGRender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76EC82AB2389196000E26076 /* PNGRender.swift */; };
 		89C305FDB08983CC88E50F5B /* Pods_Markdown.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CED168CEF9A6EB3A1E2F9CC /* Pods_Markdown.framework */; };
 /* End PBXBuildFile section */
 
@@ -113,6 +113,8 @@
 		760C29672320F3EB002E613E /* document.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = document.c; sourceTree = "<group>"; };
 		760C29712320F3FA002E613E /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
 		760C29722320F3FA002E613E /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
+		7611FFFD2392B83F00343C9E /* WKWebView+ScreenShot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKWebView+ScreenShot.m"; sourceTree = "<group>"; };
+		7611FFFE2392B83F00343C9E /* WKWebView+ScreenShot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKWebView+ScreenShot.h"; sourceTree = "<group>"; };
 		7613F11D2325F6FE006EE3B9 /* Resources.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Resources.zip; sourceTree = "<group>"; };
 		7613F1232325F8AF006EE3B9 /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = ReadMe.md; path = Instructions/ReadMe.md; sourceTree = "<group>"; };
 		7613F1282325FA02006EE3B9 /* 示例文档.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "示例文档.md"; path = "Instructions/示例文档.md"; sourceTree = "<group>"; };
@@ -140,7 +142,6 @@
 		76DFD720232926AC00F97D56 /* CustomStyleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStyleViewController.swift; sourceTree = "<group>"; };
 		76E7F270233CAEE10051DF6A /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		76E7F274233CB5E30051DF6A /* icon_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_logo.png; sourceTree = "<group>"; };
-		76EC82AB2389196000E26076 /* PNGRender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PNGRender.swift; sourceTree = "<group>"; };
 		8E2576E76534F3FE3E3CAA53 /* Pods-Markdown.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Markdown.release.xcconfig"; path = "Pods/Target Support Files/Pods-Markdown/Pods-Markdown.release.xcconfig"; sourceTree = "<group>"; };
 		E32330D5B24C5C34EEE58119 /* Pods-Markdown.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Markdown.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Markdown/Pods-Markdown.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -204,7 +205,6 @@
 				762CF0F72322650A00F2FF90 /* MarkdownRender.h */,
 				762CF0F82322650A00F2FF90 /* MarkdownRender.m */,
 				07E826BE1F5BF1BA0077A017 /* PDFRender.swift */,
-				76EC82AB2389196000E26076 /* PNGRender.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -281,6 +281,8 @@
 				76C59B3A2384E5D700BE81ED /* NSURLProtocol+WKWebVIew.m */,
 				76C59B3F2384E69500BE81ED /* MDURLProtocol.h */,
 				76C59B402384E69500BE81ED /* MDURLProtocol.m */,
+				7611FFFE2392B83F00343C9E /* WKWebView+ScreenShot.h */,
+				7611FFFD2392B83F00343C9E /* WKWebView+ScreenShot.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -486,13 +488,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				76DFD721232926AC00F97D56 /* CustomStyleViewController.swift in Sources */,
+				7611FFFF2392B83F00343C9E /* WKWebView+ScreenShot.m in Sources */,
 				07E8274C1F5BF1BA0077A017 /* Localization.swift in Sources */,
 				76C59B412384E69500BE81ED /* MDURLProtocol.m in Sources */,
 				76D7D5F7237930E40007556F /* RecentImagesViewController.swift in Sources */,
 				76C59B3E2384E5D800BE81ED /* NSURLProtocol+WKWebVIew.m in Sources */,
 				760C296F2320F3EC002E613E /* escape.c in Sources */,
 				07E827561F5BF1BA0077A017 /* FilesViewController.swift in Sources */,
-				76EC82AC2389196000E26076 /* PNGRender.swift in Sources */,
 				07E827101F5BF1BA0077A017 /* HighlightManager.swift in Sources */,
 				07E8275B1F5BF1BA0077A017 /* TextViewController.swift in Sources */,
 				768762BB22D86D1C00A54EB1 /* PurchaseViewController.swift in Sources */,
