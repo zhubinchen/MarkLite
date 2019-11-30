@@ -44,7 +44,7 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
             if keyboardHeight == oldValue {
                 return
             }
-            let h = view.h - max(keyboardHeight,bottomInset)
+            let h = view.h - max(keyboardHeight,0)
             UIView.animate(withDuration: 0.5, animations: {
                 self.scrollView.h = h
             })
@@ -94,10 +94,10 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        let h = view.h - max(keyboardHeight,bottomInset)
+        let h = view.h - max(keyboardHeight - 40,0)
         scrollView.frame = CGRect(x: 0, y: 0, w: view.w, h: h)
         if fabs(scrollView.w - webView.w) > 10 {
-            webHeight = windowHeight
+            webHeight = 40
         }
     }
     

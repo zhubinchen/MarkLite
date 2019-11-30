@@ -753,7 +753,9 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
                             SVProgressHUD.dismiss()
                             if success && file.rename(to: name) {
                                 tableView.reloadRows(at: [indexPath], with: .automatic)
-                                self.openFile(file)
+                                if isPad {
+                                     self.openFile(file)
+                                }
                             } else {
                                 SVProgressHUD.showError(withStatus: /"CanNotOperateThisFile")
                             }
