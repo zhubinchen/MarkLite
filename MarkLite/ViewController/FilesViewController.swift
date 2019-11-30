@@ -177,6 +177,7 @@ class FilesViewController: UIViewController {
     
     @objc func multipleSelect() {
         selectFiles = []
+        
         let selected = selectFiles.count > 0
         moveButton.isEnabled = selected
         sendButton.isEnabled = selected
@@ -297,7 +298,7 @@ class FilesViewController: UIViewController {
     @objc func sureMove() {
         impactIfAllow()
         guard let newParent = selectedFolder else { return }
-        selectFiles.forEach { file in
+        filesToMove?.forEach { file in
             file.move(to: newParent)
             if file == File.current  {
                 file.close(nil)
@@ -364,7 +365,7 @@ class FilesViewController: UIViewController {
     }
     
     func editFile(_ file: File?) {
-        if file == nil && File.current == nil {
+        if file == nil && (File.current == nil || isPad == false) {
             return
         }
         guard let parent = file?.parent else {
