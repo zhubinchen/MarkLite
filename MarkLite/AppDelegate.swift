@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         #endif
         
         UIView.initializeOnceMethod()
-        createFoldersIfNeed()
+        initialFolders()
         checkAppStore()
         setup()
         MDURLProtocol.startRegister()
@@ -38,11 +38,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        var fileURL = url
+        if url.path.contains(inboxPath) {
+            let fileName = url.lastPathComponent
+            let newPath = documentPath + "/" + fileName
+            let newURL = URL(fileURLWithPath: newPath.validPath)
+            try! FileManager.default.moveItem(at: url, to: newURL)
+            fileURL = newURL
+        }
         if window?.rootViewController?.isViewLoaded ?? false {
-            NotificationCenter.default.post(name: Notification.Name("InboxChanged"), object: url)
+            NotificationCenter.default.post(name: Notification.Name("RecievedNewFile"), object: fileURL)
         } else {
             Timer.runThisAfterDelay(seconds: 0.5) {
-                NotificationCenter.default.post(name: Notification.Name("InboxChanged"), object: url)
+                NotificationCenter.default.post(name: Notification.Name("RecievedNewFile"), object: fileURL)
             }
         }
         return true
@@ -56,11 +64,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Configure.shared.save()
     }
     
-    func createFoldersIfNeed() {
+    func initialFolders() {
         try? FileManager.default.createDirectory(atPath: externalPath, withIntermediateDirectories: true, attributes: nil)
         try? FileManager.default.createDirectory(atPath: locationPath, withIntermediateDirectories: true, attributes: nil)
         try? FileManager.default.removeItem(atPath: tempPath)
         try? FileManager.default.createDirectory(atPath: tempPath, withIntermediateDirectories: true, attributes: nil)
+        
+        FileManager.default.subpaths(atPath: inboxPath)?.forEach {
+            let url = URL(fileURLWithPath: inboxPath).appendingPathComponent($0)
+            let fileName = url.lastPathComponent
+            let newPath = documentPath + "/" + $0
+            let newURL = URL(fileURLWithPath: newPath.validPath)
+            try? FileManager.default.moveItem(at: url, to: newURL)
+        }
     }
     
     func setup() {

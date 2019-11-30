@@ -134,7 +134,7 @@ class FilesViewController: UIViewController {
     
     func observeChanges() {
         NotificationCenter.default.addObserver(self, selector: #selector(localChanged(_:)), name: Notification.Name("LocalChanged"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(inboxChanged(_:)), name: Notification.Name("InboxChanged"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(recievedNewFile(_:)), name: Notification.Name("RecievedNewFile"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(proStatusChanged(_:)), name: Notification.Name("PremiumStatusChanged"), object: nil)
     }
     
@@ -169,10 +169,11 @@ class FilesViewController: UIViewController {
         }
     }
     
-    @objc func inboxChanged(_ noti: Notification) {
+    @objc func recievedNewFile(_ noti: Notification) {
         navigationController?.popToRootViewController(animated: true)
         guard let url = noti.object as? URL else { return }
-        finishPick(url)
+        File.local.reloadChildren()
+        accessFile(url)
     }
     
     @objc func multipleSelect() {
@@ -800,7 +801,7 @@ extension FilesViewController: UIDocumentPickerDelegate {
         presentVC(picker)
     }
 
-    func finishPick(_ url: URL) {
+    func accessFile(_ url: URL) {
         if let file = File.local.findChild(url.path) ?? File.cloud.findChild(url.path) {
             openFile(file)
             return
@@ -871,12 +872,12 @@ extension FilesViewController: UIDocumentPickerDelegate {
     }
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
-        finishPick(url)
+        accessFile(url)
     }
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         if urls.count > 0 {
-            finishPick(urls.first!)
+            accessFile(urls.first!)
         }
     }
 }

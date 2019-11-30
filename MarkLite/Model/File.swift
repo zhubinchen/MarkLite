@@ -221,7 +221,10 @@ class File {
             accessed = false
             self.externalURL?.stopAccessingSecurityScopedResource()
         }
-        _children = subPaths.filter{($0.components(separatedBy: ".").first ?? "").length > 0 && !$0.hasPrefix(".") && !$0.hasPrefix("~")}.map{ File(path:url.path + "/" + $0,parent: self) }
+        _children = subPaths.filter{!($0.hasPrefix(".") || $0.hasPrefix("~"))}.map{ File(path:url.path + "/" + $0,parent: self) }
+        if path == documentPath {
+            _children.removeAll { $0.path == inboxPath }
+        }
     }
     
     convenience init(path: String, parent: File) {
@@ -291,7 +294,10 @@ class File {
             return
         }
         let oldChildren = _children
-        _children = subPaths.filter{($0.components(separatedBy: ".").first ?? "").count > 0 && !$0.hasPrefix(".") && !$0.hasPrefix("~")}.map{ File(path:path + "/" + $0,parent: self) }
+        _children = subPaths.filter{!($0.hasPrefix(".") || $0.hasPrefix("~"))}.map{ File(path:path + "/" + $0,parent: self) }
+        if path == documentPath {
+            _children.removeAll { $0.path == inboxPath }
+        }
         _children.forEach { file in
             file._document = oldChildren.first(where: { $0 == file })?._document
         }
