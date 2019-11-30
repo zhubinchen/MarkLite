@@ -91,8 +91,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             ColorCenter.shared.theme = theme
             UIApplication.shared.statusBarStyle = theme == .white ? .default : .lightContent
             if theme == .black {
-                Configure.shared.markdownStyle.value = "GitHub Dark"
-                Configure.shared.highlightStyle.value = "tomorrow-night"
+                if Configure.shared.markdownStyle.value == "GitHub" {
+                    Configure.shared.markdownStyle.value = "GitHub Dark"
+                }
+                if Configure.shared.markdownStyle.value == "tomorrow" {
+                    Configure.shared.highlightStyle.value = "tomorrow-night"
+                }
             } else {
                 if Configure.shared.markdownStyle.value == "GitHub Dark" {
                     Configure.shared.markdownStyle.value = "GitHub"
