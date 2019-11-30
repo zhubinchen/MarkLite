@@ -30,9 +30,16 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         if isPad {
             section.append(("SplitOptions","",#selector(splitOption)))
         }
-        let status = Configure.shared.isPro ? "Valid" : "SubscribeNow"
-        let items = [
-            ("高级帐户",[("Premium",status,#selector(premium))]),
+        var status: String? = "SubscribeNow"
+        if Configure.shared.isPro {
+            if Configure.shared.expireDate.daysInBetweenDate(Date()) > 100 {
+                status = nil
+            } else {
+                status = /"Subscribed"
+            }
+        }
+
+        var items = [
             ("共享",[("WebDAV","",#selector(webdav))]),
             ("外观",section),
             ("功能",[
@@ -45,6 +52,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 ("Contact","",#selector(feedback))
                 ])
         ]
+        if let statusString = status {
+            items.insert(("高级帐户",[("Premium",statusString,#selector(premium))]), at: 0)
+        }
         return items;
     }
     
