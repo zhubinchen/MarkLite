@@ -63,7 +63,18 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
         }
     }
         
-    var htmlURL: URL!
+    var htmlURL: URL! {
+        didSet {
+            rootURL = URL(fileURLWithPath: documentPath)
+            if htmlURL.path.hasPrefix(cloudPath) {
+                rootURL = URL(fileURLWithPath: cloudPath)
+            } else if htmlURL.path.hasPrefix(externalPath) {
+                rootURL = URL(fileURLWithPath: externalPath)
+            }
+        }
+    }
+    
+    var rootURL: URL!
     
     var didScrollHandler: ((CGFloat)->Void)?
     
@@ -122,7 +133,7 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
         DispatchQueue.global().async {
             try? data.write(to: self.htmlURL)
             DispatchQueue.main.async {
-                self.webView.loadFileURL(self.htmlURL, allowingReadAccessTo: self.htmlURL.deletingLastPathComponent())
+                self.webView.loadFileURL(self.htmlURL, allowingReadAccessTo: self.rootURL)
                 self.isLoading = false
             }
         }

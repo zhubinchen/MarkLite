@@ -72,7 +72,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FileManager.default.subpaths(atPath: inboxPath)?.forEach {
             let url = URL(fileURLWithPath: inboxPath).appendingPathComponent($0)
-            let fileName = url.lastPathComponent
             let newPath = documentPath + "/" + $0
             let newURL = URL(fileURLWithPath: newPath.validPath)
             try? FileManager.default.moveItem(at: url, to: newURL)

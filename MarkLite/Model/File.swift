@@ -221,10 +221,7 @@ class File {
             accessed = false
             self.externalURL?.stopAccessingSecurityScopedResource()
         }
-        _children = subPaths.filter{!($0.hasPrefix(".") || $0.hasPrefix("~"))}.map{ File(path:url.path + "/" + $0,parent: self) }
-        if path == documentPath {
-            _children.removeAll { $0.path == inboxPath }
-        }
+        setupChildren(subPaths)
     }
     
     convenience init(path: String, parent: File) {
@@ -293,13 +290,17 @@ class File {
         guard let subPaths = try? fileManager.contentsOfDirectory(atPath: path) else {
             return
         }
-        let oldChildren = _children
+        
+        setupChildren(subPaths)
+    }
+    
+    func setupChildren(_ subPaths:[String]) {
         _children = subPaths.filter{!($0.hasPrefix(".") || $0.hasPrefix("~"))}.map{ File(path:path + "/" + $0,parent: self) }
         if path == documentPath {
             _children.removeAll { $0.path == inboxPath }
         }
-        _children.forEach { file in
-            file._document = oldChildren.first(where: { $0 == file })?._document
+        if let current = _children.first(where: {$0 == File.current}) {
+            current._document = File.current?._document
         }
     }
     
