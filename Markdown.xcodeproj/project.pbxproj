@@ -40,6 +40,7 @@
 		760C296F2320F3EC002E613E /* escape.c in Sources */ = {isa = PBXBuildFile; fileRef = 760C29662320F3EB002E613E /* escape.c */; };
 		760C29702320F3EC002E613E /* document.c in Sources */ = {isa = PBXBuildFile; fileRef = 760C29672320F3EB002E613E /* document.c */; };
 		760C29732320F3FA002E613E /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 760C29712320F3FA002E613E /* hoedown_html_patch.c */; };
+		761100012393A36A00343C9E /* StylesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761100002393A36A00343C9E /* StylesViewController.swift */; };
 		7611FFFF2392B83F00343C9E /* WKWebView+ScreenShot.m in Sources */ = {isa = PBXBuildFile; fileRef = 7611FFFD2392B83F00343C9E /* WKWebView+ScreenShot.m */; };
 		7613F11F2325F6FE006EE3B9 /* Resources.zip in Resources */ = {isa = PBXBuildFile; fileRef = 7613F11D2325F6FE006EE3B9 /* Resources.zip */; };
 		7613F1272325F8AF006EE3B9 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1232325F8AF006EE3B9 /* ReadMe.md */; };
@@ -113,6 +114,7 @@
 		760C29672320F3EB002E613E /* document.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = document.c; sourceTree = "<group>"; };
 		760C29712320F3FA002E613E /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
 		760C29722320F3FA002E613E /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
+		761100002393A36A00343C9E /* StylesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylesViewController.swift; sourceTree = "<group>"; };
 		7611FFFD2392B83F00343C9E /* WKWebView+ScreenShot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKWebView+ScreenShot.m"; sourceTree = "<group>"; };
 		7611FFFE2392B83F00343C9E /* WKWebView+ScreenShot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKWebView+ScreenShot.h"; sourceTree = "<group>"; };
 		7613F11D2325F6FE006EE3B9 /* Resources.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Resources.zip; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 				768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */,
 				761F824F22E16D6500C3435C /* WebViewController.swift */,
 				07E8270B1F5BF1BA0077A017 /* OptionsViewController.swift */,
+				761100002393A36A00343C9E /* StylesViewController.swift */,
 				76DFD720232926AC00F97D56 /* CustomStyleViewController.swift */,
 				76A4D271234EF98200B87A78 /* WebDAVViewController.swift */,
 				76D7D5F6237930E40007556F /* RecentImagesViewController.swift */,
@@ -510,6 +513,7 @@
 				760C29692320F3EC002E613E /* html_smartypants.c in Sources */,
 				7635A0AA23790BAA00679C4E /* RecentImageCell.swift in Sources */,
 				07E827551F5BF1BA0077A017 /* EditViewController.swift in Sources */,
+				761100012393A36A00343C9E /* StylesViewController.swift in Sources */,
 				07E8274D1F5BF1BA0077A017 /* Utils.swift in Sources */,
 				07E8271D1F5BF1BA0077A017 /* File.swift in Sources */,
 				07E8274F1F5BF1BA0077A017 /* DottedLineView.swift in Sources */,

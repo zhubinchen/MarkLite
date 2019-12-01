@@ -331,7 +331,7 @@ class KeyboardBar: UIView {
             textField.placeholder = /"FileNamePlaceHolder"
             self.textField = textField
         }) { index in
-            let name = self.textField?.text ?? Date().toString(format: "HH-mm-ss")
+            let name = self.textField?.text ?? Date().toString(format: "HH:mm")
             if index == 2 {
                 return
             }

@@ -102,7 +102,7 @@ struct MarkdownHighlightManager {
             $0.textColor = rgb(139,69,19)
             $0.backgroundColor = Configure.shared.theme.value == .black ? rgb(50,50,50) : rgb(246,246,246)
         },//数学公式
-        Syntax("\\$\\$([^`\\$]+?)[\\s\\S]*?\\$\\$",.anchorsMatchLines) {
+        Syntax("\\$\\$([^`\\$]+?)[\\s\\S]*?\\$\\$[\\s]?",.anchorsMatchLines) {
             $0.textColor = rgb(139,69,19)
             $0.backgroundColor = Configure.shared.theme.value == .black ? rgb(50,50,50) : rgb(246,246,246)
         },//多行数学公式

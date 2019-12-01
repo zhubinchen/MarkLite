@@ -46,7 +46,17 @@ extension String: StringConvertible {
 
 class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var options: OptionsWraper!
+    var options: OptionsWraper! {
+        didSet {
+            title = options.title
+            items = options.items
+            if options.editable {
+                navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCustomStyle))
+            } else {
+                navigationItem.rightBarButtonItem = nil
+            }
+        }
+    }
     var items: [StringConvertible]!
     let table = UITableView(frame: CGRect(), style: .grouped)
     
@@ -66,8 +76,6 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
         navBar?.setTintColor(.navTint)
         navBar?.setBackgroundColor(.navBar)
         navBar?.setTitleColor(.navTitle)
-        title = options.title
-        items = options.items
         
         table.delegate = self
         table.dataSource = self
@@ -76,11 +84,6 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
         table.setSeparatorColor(.primary)
         table.setBackgroundColor(.tableBackground)
         view.addSubview(table)
-        
-        
-        if options.editable {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCustomStyle))
-        }
     }
     
     @objc func addCustomStyle() {
@@ -92,7 +95,7 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let index = options.selectedIndex {
-            table.selectRow(at: IndexPath(row: index, section: 0), animated: true, scrollPosition: .none)
+            table.selectRow(at: IndexPath(row: index, section: 0), animated: true, scrollPosition: .middle)
         }
     }
     

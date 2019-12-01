@@ -234,18 +234,8 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     
     @objc func showStylesView(_ sender: UIBarButtonItem) {
         impactIfAllow()
-        let path = resourcesPath + "/Styles/"
-        
-        guard let subPaths = FileManager.default.subpaths(atPath: path) else { return }
-        
-        let items = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}.sorted(by: >)
-        let index = items.index{ Configure.shared.markdownStyle.value == $0 }
-        let wraper = OptionsWraper(selectedIndex: index, editable: true, title: /"Style", items: items) {
-            Configure.shared.markdownStyle.value = $0.toString
-        }
 
-        let vc = OptionsViewController()
-        vc.options = wraper
+        let vc = StylesViewController()
         
         let nav = UINavigationController(rootViewController: vc)
         nav.preferredContentSize = CGSize(width:300, height:400)

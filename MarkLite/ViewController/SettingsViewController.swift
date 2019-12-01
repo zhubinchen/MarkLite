@@ -32,19 +32,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         }
         var status: String? = "SubscribeNow"
         if Configure.shared.isPro {
-            if Configure.shared.expireDate.daysInBetweenDate(Date()) > 100 {
-                status = nil
-            } else {
-                status = /"Subscribed"
-            }
+            status = nil
         }
 
         var items = [
             ("共享",[("WebDAV","",#selector(webdav))]),
             ("外观",section),
             ("功能",[
-                ("Style","",#selector(style)),
-                ("CodeStyle","",#selector(codeStyle)),
                 ("AssistKeyboard","",#selector(assistBar)),
                 ("ShowExtensionName","",#selector(displayOption)),
                 ]),
@@ -213,8 +207,6 @@ extension SettingsViewController {
     }
     
     @objc func webdav() {
-//        let vc = KeyboardBarViewController()
-//        pushVC(vc)
         doIfPro {
             if NetworkReachabilityManager()?.isReachableOnEthernetOrWiFi ?? false {
                 self.performSegue(withIdentifier: "webdav", sender: nil)
@@ -235,36 +227,4 @@ extension SettingsViewController {
         vc.options = wraper
         pushVC(vc)
     }
-    
-    @objc func style() {
-        let path = resourcesPath + "/Styles/"
-        
-        guard let subPaths = FileManager.default.subpaths(atPath: path) else { return }
-        
-        let items = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}.sorted(by: >)
-        let index = items.index{ Configure.shared.markdownStyle.value == $0 }
-        let wraper = OptionsWraper(selectedIndex: index, editable: true, title: /"Style", items: items) {
-            Configure.shared.markdownStyle.value = $0.toString
-        }
-
-        let vc = OptionsViewController()
-        vc.options = wraper
-        pushVC(vc)
-    }
-    
-    @objc func codeStyle() {
-        let path = resourcesPath + "/Highlight/highlight-style/"
-        
-        guard let subPaths = FileManager.default.subpaths(atPath: path) else { return }
-        
-        let items = subPaths.map{ $0.replacingOccurrences(of: ".css", with: "")}.filter{!$0.hasPrefix(".")}
-        let index = items.index{ Configure.shared.highlightStyle.value == $0 }
-        let wraper = OptionsWraper(selectedIndex: index, editable: false, title: /"CodeStyle", items: items) {
-            Configure.shared.highlightStyle.value = $0.toString
-        }
-        let vc = OptionsViewController()
-        vc.options = wraper
-        pushVC(vc)
-    }
-
 }
