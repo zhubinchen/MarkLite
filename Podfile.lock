@@ -32,7 +32,7 @@ DEPENDENCIES:
   - Zip (~> 1.1)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - Bugly
     - EZSwiftExtensions
@@ -62,4 +62,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 50b6a39973712141c4de45ec6a0946fab720b1a9
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4

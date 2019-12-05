@@ -300,11 +300,11 @@ class FilesViewController: UIViewController {
         impactIfAllow()
         guard let newParent = selectedFolder else { return }
         filesToMove?.forEach { file in
-            file.move(to: newParent)
             if file == File.current  {
                 file.close(nil)
                 self.editFile(nil)
             }
+            file.move(to: newParent)
         }
         moveFrom?.refresh()
         dismiss(animated: true) { }

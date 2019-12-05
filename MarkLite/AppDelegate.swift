@@ -69,13 +69,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         try? FileManager.default.createDirectory(atPath: locationPath, withIntermediateDirectories: true, attributes: nil)
         try? FileManager.default.removeItem(atPath: tempPath)
         try? FileManager.default.createDirectory(atPath: tempPath, withIntermediateDirectories: true, attributes: nil)
-        
-        FileManager.default.subpaths(atPath: inboxPath)?.forEach {
-            let url = URL(fileURLWithPath: inboxPath).appendingPathComponent($0)
-            let newPath = documentPath + "/" + $0
-            let newURL = URL(fileURLWithPath: newPath.validPath)
-            try? FileManager.default.moveItem(at: url, to: newURL)
-        }
     }
     
     func setup() {
