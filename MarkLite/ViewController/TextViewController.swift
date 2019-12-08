@@ -45,9 +45,7 @@ class TextViewController: UIViewController {
             if y < 0 {
                 y = 0
             }
-            editView.delegate = nil
             editView.contentOffset = CGPoint(x: 0,y: y)
-            editView.delegate = self
         }
     }
     
@@ -177,9 +175,11 @@ class TextViewController: UIViewController {
 extension TextViewController: UITextViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offset = scrollView.contentOffset.y
-        if textHeight - scrollView.h > 0 {
-            didScrollHandler?(offset / (textHeight - scrollView.h))
+        if scrollView.isDragging {
+            let offset = scrollView.contentOffset.y
+            if textHeight - scrollView.h > 0 {
+                didScrollHandler?(offset / (textHeight - scrollView.h))
+            }
         }
     }
     

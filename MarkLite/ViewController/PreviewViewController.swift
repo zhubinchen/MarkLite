@@ -26,9 +26,7 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
             if y < 0 {
                 y = 0
             }
-            scrollView.delegate = nil
             scrollView.contentOffset = CGPoint(x: 0,y: y)
-            scrollView.delegate = self
         }
     }
     
@@ -117,9 +115,11 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offset = scrollView.contentOffset.y
-        if webHeight - scrollView.h > 0 {
-            didScrollHandler?(offset / (webHeight - scrollView.h))
+        if scrollView.isDragging {
+            let offset = scrollView.contentOffset.y
+            if webHeight - scrollView.h > 0 {
+                didScrollHandler?(offset / (webHeight - scrollView.h))
+            }
         }
     }
     
