@@ -21,26 +21,26 @@ static NSString* const MDURLProtocolKey = @"MDURLProtocol";
 
 + (void)startRegister {
     [NSURLProtocol registerClass:self];
-    [NSURLProtocol wk_registerScheme:@"md"];
+    [NSURLProtocol wk_registerScheme:@"file"];
 }
 
 + (BOOL)canInitWithRequest:(NSURLRequest *)request {
     NSString *scheme = [[request URL] scheme];
-    if ([scheme caseInsensitiveCompare:@"md"]  == NSOrderedSame) {
+    if ([scheme caseInsensitiveCompare:@"file"]  == NSOrderedSame) {
         return ![NSURLProtocol propertyForKey:MDURLProtocolKey inRequest:request];
     }
     return NO;
 }
 
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request {
-    NSMutableURLRequest *mutableReqeust = [request mutableCopy];
-    NSString *relativePath = [[request.URL.absoluteString stringByReplacingOccurrencesOfString:@"md://local/resource" withString:@""] stringByRemovingPercentEncoding];
-    NSString *resPath = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"Resources"];
-    NSString *fullPath = [resPath stringByAppendingPathComponent:relativePath];
-    NSURL *url = [NSURL fileURLWithPath:fullPath];
-    mutableReqeust.URL = url;
-
-    return mutableReqeust;
+//    NSMutableURLRequest *mutableReqeust = [request mutableCopy];
+//    NSString *relativePath = [[request.URL.absoluteString stringByReplacingOccurrencesOfString:@"md://local/resource" withString:@""] stringByRemovingPercentEncoding];
+//    NSString *resPath = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"Resources"];
+//    NSString *fullPath = [resPath stringByAppendingPathComponent:relativePath];
+//    NSURL *url = [NSURL fileURLWithPath:fullPath];
+//    mutableReqeust.URL = url;
+//    NSLog(@"%@",request.URL);
+    return request;
 }
 
 + (BOOL)requestIsCacheEquivalent:(NSURLRequest *)a toRequest:(NSURLRequest *)b{

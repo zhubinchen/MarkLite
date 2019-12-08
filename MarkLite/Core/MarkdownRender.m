@@ -12,7 +12,7 @@
 #import "html.h"
 #import "hoedown_html_patch.h"
 
-#define kResourceURL @"md://local/resource/"
+#define kResourceURL [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"Resources"]
 
 #define kTemplate @"<!DOCTYPE html>\
 <html>\
@@ -125,11 +125,11 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
     hoedown_html_renderer_free(tocRenderer);
     MPFreeHTMLRenderer(htmlRenderer);
     
-    NSString *stylePath = [NSString stringWithFormat:@"Styles/%@.css",self.styleName];
-    NSString *highlightPath = [NSString stringWithFormat:@"Highlight/highlight-style/%@.css",self.highlightName];
-    NSString *highlightJS1 = @"Highlight/highlightjs/highlight.min.js";
-    NSString *highlightJS2 = @"Highlight/highlightjs/swift.min.js";
-    NSString *MathJaxJS = @"MathJax/tex-mml-chtml.js";
+    NSString *stylePath = [NSString stringWithFormat:@"/Styles/%@.css",self.styleName];
+    NSString *highlightPath = [NSString stringWithFormat:@"/Highlight/highlight-style/%@.css",self.highlightName];
+    NSString *highlightJS1 = @"/Highlight/highlightjs/highlight.min.js";
+    NSString *highlightJS2 = @"/Highlight/highlightjs/swift.min.js";
+    NSString *MathJaxJS = @"/MathJax/tex-mml-chtml.js";
     return [self formatHTML:html title:(self.title?:@"") styles:@[stylePath,highlightPath] scripts:@[highlightJS1,highlightJS2,MathJaxJS]];
 }
 

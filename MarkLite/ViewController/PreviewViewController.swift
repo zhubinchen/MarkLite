@@ -63,23 +63,10 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
         }
     }
         
-    var htmlURL: URL! {
-        didSet {
-            rootURL = URL(fileURLWithPath: documentPath)
-            if htmlURL.path.hasPrefix(cloudPath) {
-                rootURL = URL(fileURLWithPath: cloudPath)
-            } else if htmlURL.path.hasPrefix(externalPath) {
-                rootURL = URL(fileURLWithPath: externalPath)
-            }
-        }
-    }
-    
-    var rootURL: URL!
-    
-    var didScrollHandler: ((CGFloat)->Void)?
-    
-    var isLoading = false
+    var htmlURL: URL!
         
+    var didScrollHandler: ((CGFloat)->Void)?
+            
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -105,10 +92,10 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        let h = view.h - max(keyboardHeight - 40,0)
+        let h = view.h - max(keyboardHeight - bottomInset,0)
         scrollView.frame = CGRect(x: 0, y: 0, w: view.w, h: h)
         if fabs(scrollView.w - webView.w) > 10 {
-            webHeight = 40
+            webHeight = 100
         }
     }
     
@@ -121,22 +108,12 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func refresh() {
-        guard let data = html.data(using: .utf8) else {
-            return
-        }
-        if isLoading || html.length == 0 {
+        if html.length == 0 {
             return
         }
         shouldRefresh = false
-        isLoading = true
         webView.stopLoading()
-        DispatchQueue.global().async {
-            try? data.write(to: self.htmlURL)
-            DispatchQueue.main.async {
-                self.webView.loadFileURL(self.htmlURL, allowingReadAccessTo: self.rootURL)
-                self.isLoading = false
-            }
-        }
+        webView.loadHTMLString(html, baseURL: htmlURL)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -156,9 +133,6 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
         webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
         removeNotificationObserver()
         
-        if htmlURL != nil {
-            try? FileManager.default.removeItem(at: htmlURL)
-        }
         print("deinit web_vc")
     }
 }
