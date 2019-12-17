@@ -464,6 +464,9 @@ extension File {
     
     class func loadCloud(_ completion: @escaping (File)->Void) {
         DispatchQueue.global().async {
+            if fileManager.fileExists(atPath: cloudPath) == false {
+                try? fileManager.createDirectory(atPath: cloudPath, withIntermediateDirectories: true, attributes: nil)
+            }
             let url = URL(fileURLWithPath: cloudPath)
             try? fileManager.startDownloadingUbiquitousItem(at: url)
             let cloud = File(path: cloudPath)
