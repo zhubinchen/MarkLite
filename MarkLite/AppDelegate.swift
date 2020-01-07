@@ -100,9 +100,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         
         _ = Configure.shared.darkOption.asObservable().subscribe(onNext: { (darkOption) in
+            var value = Configure.shared.theme.value
             switch darkOption {
                 case .dark:
-                    Configure.shared.theme.value = .black
+                    value = .black
                 case .light:
                     if Configure.shared.theme.value == .black {
                         Configure.shared.theme.value = .white
@@ -110,13 +111,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 case .system:
                     if #available(iOS 13.0, *) {
                         if UITraitCollection.current.userInterfaceStyle == .dark {
-                            Configure.shared.theme.value = .black
+                            value = .black
                         } else if Configure.shared.theme.value == .black {
-                            Configure.shared.theme.value = .white
+                            value = .white
                         }
                     } else {
                         SVProgressHUD.showError(withStatus: "Only Work on iPad OS / iOS 13")
                     }
+            }
+            if Configure.shared.theme.value != value {
+                Configure.shared.theme.value = value
             }
         })
         
