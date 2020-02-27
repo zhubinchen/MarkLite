@@ -69,7 +69,6 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     let bag = DisposeBag()
     
     let markdownRenderer = MarkdownRender.shared()
-    let highlightmanager = MarkdownHighlightManager()
     let pdfRender = PDFRender()
     
     override func viewDidLoad() {
@@ -228,14 +227,14 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         if webVisible || split {
             navigationItem.rightBarButtonItems = [exportButton,styleButton]
         } else {
-            navigationItem.rightBarButtonItems = [previewButton]
+            navigationItem.rightBarButtonItems = [previewButton,styleButton]
         }
     }
     
     @objc func showStylesView(_ sender: UIBarButtonItem) {
         impactIfAllow()
 
-        let vc = StylesViewController()
+        let vc = StyleViewController()
         
         let nav = UINavigationController(rootViewController: vc)
         nav.preferredContentSize = CGSize(width:300, height:400)

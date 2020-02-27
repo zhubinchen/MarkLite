@@ -67,7 +67,7 @@
 "CopiedAddress"="地址已拷贝到剪切板";
 
 "Settings"="设置";
-"WebDAV"="与电脑共享文件";
+"FileSharing"="与电脑共享文件";
 "ArrangeKeyboardBar"="调整辅助键盘顺序";
 "AssistKeyboard"="启用辅助键盘";
 "ImpactFeedback"="点击振动效果";
@@ -78,6 +78,7 @@
 "Contact"="联系开发者";
 "RateIt"="去App Store评价";
 "Style"="渲染样式";
+"FontSize"="字体大小";
 "CodeStyle"="代码块高亮";
 "CSS"="自定义样式";
 

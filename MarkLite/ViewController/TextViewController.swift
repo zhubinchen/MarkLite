@@ -114,6 +114,13 @@ class TextViewController: UIViewController {
             self.highlightmanager = MarkdownHighlightManager()
             self.textViewDidChange(self.editView)
         }).disposed(by: bag)
+        
+        Configure.shared.fontSize.asObservable().subscribe(onNext: { (size) in
+            HighlightStyle.boldFont = UIFont.monospacedDigitSystemFont(ofSize: CGFloat(size), weight: UIFont.Weight.medium)
+            HighlightStyle.normalFont = UIFont.monospacedDigitSystemFont(ofSize: CGFloat(size), weight: UIFont.Weight.regular)
+            self.highlightmanager = MarkdownHighlightManager()
+            self.textViewDidChange(self.editView)
+        }).disposed(by: bag)
     }
     
     func loadText(_ text: String) {

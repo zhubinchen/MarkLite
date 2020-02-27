@@ -33,6 +33,7 @@ class FilesViewController: UIViewController {
     fileprivate var items = [
         File.cloud,
         File.inbox,
+//        File.webdav,
     ]
     
     var sections: [[File]] {
@@ -216,7 +217,7 @@ class FilesViewController: UIViewController {
                 case .type:
                     return $0.type == .text && $1.type == .folder
                 case .name:
-                    return $0.name > $1.name
+                    return $0.name.localizedCompare($1.name) == .orderedAscending
                 case .modifyDate:
                     return $0.modifyDate > $1.modifyDate
                 }
@@ -434,13 +435,11 @@ class FilesViewController: UIViewController {
     
     func didSelectFile(_ indexPath: IndexPath) {
         let file = sections[indexPath.section][indexPath.row]
-        if file == File.location {
-            addLocation()
-            tableView.deselectRow(at: indexPath, animated: true)
-            return
-        }
         if file == File.inbox && file.children.count == 0 {
             pickFromFiles()
+            return
+        }
+        if file == File.webdav {
             return
         }
         if file.disable {
@@ -613,11 +612,11 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.textLabel?.text = /"ExternalEmpty"
                     cell.detailTextLabel?.text = ""
                 }
-            } else if file == File.location {
-                cell.imageView?.tintImage = #imageLiteral(resourceName: "icon_location")
-                cell.detailTextLabel?.text = ""
             } else if file == File.local {
                 cell.imageView?.tintImage = #imageLiteral(resourceName: "icon_local")
+            } else if file == File.webdav {
+                cell.imageView?.tintImage = #imageLiteral(resourceName: "icon_local")
+                cell.detailTextLabel?.text = ""
             } else {
                 cell.imageView?.tintImage = #imageLiteral(resourceName: "icon_folder")
             }
@@ -792,16 +791,6 @@ extension FilesViewController: UIDocumentPickerDelegate {
         picker.modalPresentationStyle = .formSheet
         presentVC(picker)
     }
-    
-    @objc func addLocation() {
-        let picker = UIDocumentPickerViewController(documentTypes: ["public.folder"], in: .open)
-        picker.delegate = self
-        if #available(iOS 11.0, *) {
-            picker.allowsMultipleSelection = true
-        }
-        picker.modalPresentationStyle = .formSheet
-        presentVC(picker)
-    }
 
     func accessFile(_ url: URL) {
         if let file = File.local.findChild(url.path) ?? File.cloud.findChild(url.path) {
@@ -859,13 +848,6 @@ extension FilesViewController: UIDocumentPickerDelegate {
     }
     
     func didPickFolder(_ url: URL) {
-        let name = url.deletingPathExtension().lastPathComponent
-        guard let data = try? url.bookmarkData(options: .minimalBookmark, includingResourceValuesForKeys: nil, relativeTo: nil) else { return }
-        url.stopAccessingSecurityScopedResource()
-        if let newFile = File.location.createFile(name: name, contents: data, type: .location) {
-            items.insert(newFile, at: 2)
-            tableView.insertRows(at: [IndexPath(row: 2, section: 0)], with: .middle)
-        }
         SVProgressHUD.dismiss()
     }
     

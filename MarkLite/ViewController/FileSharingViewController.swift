@@ -1,5 +1,5 @@
 //
-//  WebDAVViewController.swift
+//  FileSharingViewController.swift
 //  Markdown
 //
 //  Created by 朱炳程 on 2019/10/10.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WebDAVViewController: UIViewController, GCDWebUploaderDelegate {
+class FileSharingViewController: UIViewController, GCDWebUploaderDelegate {
     
     let server = GCDWebUploader(uploadDirectory: documentPath)
     
@@ -23,7 +23,7 @@ class WebDAVViewController: UIViewController, GCDWebUploaderDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "WebDAV"
+        self.title = "FileSharing"
         
         server.title = "Markdown"
         server.allowHiddenItems = false
@@ -107,3 +107,4 @@ class WebDAVViewController: UIViewController, GCDWebUploaderDelegate {
         return path.replacingOccurrences(of: documentPath, with: "")
     }
 }
+

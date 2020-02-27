@@ -363,10 +363,9 @@ class KeyboardBar: UIView {
         }
         
         SVProgressHUD.show()
-
         Alamofire.upload(multipartFormData: { (formData) in
             formData.append(data, withName: "smfile", fileName: "temp", mimeType: "image/jpg")
-        }, to: imageUploadUrl) { (result) in
+        }, to: imageUploadUrl,headers:["Authorization":smKey]) { (result) in
             switch result {
             case .success(let upload,_, _):
                 upload.responseJSON{ (response) in
@@ -377,8 +376,10 @@ class KeyboardBar: UIView {
                         if let data = dict["data"] as? [String:Any] {
                             url = data["url"] as? String
                         }
-                        if let message = dict["message"] as? String {
-                            url = message.firstMatch("https.*jpg")
+                        if url == nil {
+                            if let message = dict["message"] as? String {
+                                url = message.firstMatch("https.*jpg")
+                            }
                         }
                         if let url = url {
                             Configure.shared.recentImages.insert(URL(string: url)!, at: 0)

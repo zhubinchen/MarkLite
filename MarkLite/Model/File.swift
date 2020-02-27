@@ -72,8 +72,8 @@ class File {
 
     fileprivate(set) static var cloud = File.placeholder(name: /"Cloud")
     fileprivate(set) static var local = File.placeholder(name: /"Local")
+    fileprivate(set) static var webdav = File.placeholder(name: /"WebDAV")
     fileprivate(set) static var inbox = File.placeholder(name: /"External")
-    fileprivate(set) static var location = File.placeholder(name: /"AddLocation")
     fileprivate(set) static var empty = File.placeholder(name: /"Empty")
     fileprivate(set) static var current: File?
     
@@ -173,7 +173,7 @@ class File {
             isExternalFile = true
         }
         
-        if path.count == 0 {
+        if path.count == 0 || path.hasPrefix("@/") {
             disable = true
             type = .folder
             return
@@ -230,7 +230,7 @@ class File {
     }
     
     class func placeholder(name: String) -> File {
-        let file = File(path: "")
+        let file = File(path: "@/" + name)
         file.disable = true
         file.name = name
         file._displayName = name
@@ -425,18 +425,6 @@ class File {
 }
 
 extension File {
-    
-    class func loadLocation(_ completion: @escaping (File)->Void) {
-        DispatchQueue.global().async {
-            let location = File(path: locationPath)
-            location._displayName = /"AddLocation"
-            location.name = /"AddLocation"
-            File.location = location
-            DispatchQueue.main.sync {
-                completion(location)
-            }
-        }
-    }
     
     class func loadInbox(_ completion: @escaping (File)->Void) {
         DispatchQueue.global().async {

@@ -36,7 +36,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         }
 
         var items = [
-            ("共享",[("WebDAV","",#selector(webdav))]),
+            ("共享",[("FileSharing","",#selector(webdav))]),
             ("外观",section),
             ("功能",[
                 ("AssistKeyboard","",#selector(assistBar)),
@@ -100,7 +100,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         let item = items[indexPath.section].1[indexPath.row]
         cell.textLabel?.text = /(item.0)
         cell.detailTextLabel?.text = /(item.1)
-        cell.needUnlock = item.0 == "WebDAV" && Configure.shared.isPro == false
+        cell.needUnlock = item.0 == "FileSharing" && Configure.shared.isPro == false
 
         if item.0 == "AssistKeyboard" {
             cell.addSubview(assitBarSwitch)

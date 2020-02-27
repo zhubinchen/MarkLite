@@ -9,7 +9,8 @@
 import UIKit
 
 let itunesSecret = "cf86d5cf3c0e440692140e5e80fd376e"
-let imageUploadUrl = "https://sm.ms/api/upload"
+let imageUploadUrl = "https://sm.ms/api/v2/upload"
+let smKey = "WXABjEOoe8L7NApRlHpkKsglLauJXqXl"
 let umengKey = "5d2594e20cafb28ba1000dbe"
 let buglyId = "57bc8a7c74"
 
@@ -39,7 +40,7 @@ let premiumForeverProductID = "com.qinxiu.markdown.premium.forever"
 
 let isPad = UIDevice.current.userInterfaceIdiom == .pad
 
-let passedDate = Date(fromString: "2019-12-10", format: "yyyy-MM-dd")!
+let passedDate = Date(fromString: "2020-01-11", format: "yyyy-MM-dd")!
  
 let rateUrl = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1472328263&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"
 

@@ -40,6 +40,9 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         SVProgressHUD.dismiss()
+        webView .evaluateJavaScript("document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '140%'") { (_, _) in
+            
+        }
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {

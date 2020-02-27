@@ -71,9 +71,9 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Take a photo to insert to documents</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Save image to your Photos</string>
+	<string>Save the document as image to your Photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Pick images from your Photos.</string>
+	<string>Attach images to this document</string>
 	<key>NSUbiquitousContainers</key>
 	<dict>
 		<key>iCloud.com.qinxiu.MarkLite</key>

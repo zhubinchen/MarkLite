@@ -67,7 +67,7 @@
 "CopiedAddress"="Copied Address";
 
 "Settings"="Settings";
-"WebDAV"="WebDAV";
+"FileSharing"="FileSharing";
 "ArrangeKeyboardBar"="Arrange Keyboard Bar";
 "AssistKeyboard"="Enable Keyboard Bar";
 "ImpactFeedback"="Impact Feedback";
@@ -79,6 +79,7 @@
 "RateIt"="Rate it";
 "Style"="Style";
 "CSS"="Custom Style";
+"FontSize"="Font Size";
 "CodeStyle"="Code Highlight";
 
 "FollowSystem"="Follow System";

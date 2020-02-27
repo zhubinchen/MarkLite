@@ -15,5 +15,5 @@ target 'Markdown' do
   pod 'SVProgressHUD'
   pod 'GCDWebServer/WebUploader', '~> 3.0'
   pod 'Kingfisher'
-  
+
 end

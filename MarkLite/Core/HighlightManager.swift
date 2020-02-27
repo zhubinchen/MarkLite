@@ -8,14 +8,6 @@
 
 import UIKit
 
-let boldFont = { () -> UIFont in
-    return UIFont.monospacedDigitSystemFont(ofSize: 17, weight: UIFont.Weight.medium)
-}()
-
-let normalFont = { () -> UIFont in
-    return UIFont.monospacedDigitSystemFont(ofSize: 17, weight: UIFont.Weight.regular)
-}()
-
 let paragraphStyle = { () -> NSMutableParagraphStyle in
     let paraStyle = NSMutableParagraphStyle()
     paraStyle.maximumLineHeight = 23
@@ -25,6 +17,8 @@ let paragraphStyle = { () -> NSMutableParagraphStyle in
 }()
 
 class HighlightStyle {
+    static var boldFont = UIFont.monospacedDigitSystemFont(ofSize: CGFloat(Configure.shared.fontSize.value), weight: UIFont.Weight.medium)
+    static var normalFont = UIFont.monospacedDigitSystemFont(ofSize: CGFloat(Configure.shared.fontSize.value), weight: UIFont.Weight.regular)
     
     var textColor: UIColor = Configure.shared.theme.value == .black ? rgb(200,200,190) : rgb(54,54,64)
     var backgroundColor: UIColor = .clear
@@ -34,7 +28,7 @@ class HighlightStyle {
 
     var attrs: [NSAttributedStringKey : Any] {
         
-        return [NSAttributedStringKey.font : bold ? boldFont : normalFont,
+        return [NSAttributedStringKey.font : bold ? HighlightStyle.boldFont : HighlightStyle.normalFont,
                 NSAttributedStringKey.obliqueness : italic ? 0.3 : 0,
                 NSAttributedStringKey.foregroundColor : textColor,
                 NSAttributedStringKey.backgroundColor : backgroundColor,
@@ -140,7 +134,7 @@ struct MarkdownHighlightManager {
         
         let nomarlColor = Configure.shared.theme.value == .black ? rgb(160,160,160) : rgb(54,54,64)
 
-        text.setAttributes([NSAttributedStringKey.font : normalFont,
+        text.setAttributes([NSAttributedStringKey.font : HighlightStyle.normalFont,
                               NSAttributedStringKey.paragraphStyle : paragraphStyle,
                               NSAttributedStringKey.foregroundColor : nomarlColor], range: validRange)
         syntaxArray.forEach { (syntax) in

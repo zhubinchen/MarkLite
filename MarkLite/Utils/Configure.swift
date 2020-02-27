@@ -91,6 +91,7 @@ class Configure: NSObject, NSCoding {
     var expireDate = Date.longlongAgo()
     var showExtensionName = false
     var impactFeedback = true
+    let fontSize = Variable(17)
     let isAssistBarEnabled = Variable(true)
     let markdownStyle = Variable("GitHub")
     let highlightStyle = Variable("tomorrow")
@@ -141,6 +142,7 @@ class Configure: NSObject, NSCoding {
         darkOption.value = DarkModeOption.defaultDarkOption
         showExtensionName = false
         impactFeedback = true
+        fontSize.value = 17
         
         let destStylePath = URL(fileURLWithPath: supportPath)
         try! Zip.unzipFile(Bundle.main.url(forResource: "Resources", withExtension: "zip")!, destination: destStylePath, overwrite: true, password: nil, progress: nil)
@@ -200,6 +202,7 @@ class Configure: NSObject, NSCoding {
         aCoder.encode(markdownStyle.value, forKey: "markdownStyle")
         aCoder.encode(highlightStyle.value, forKey: "highlightStyle")
         aCoder.encode(theme.value.rawValue, forKey: "theme")
+        aCoder.encode(fontSize.value, forKey: "fontSize")
         aCoder.encode(splitOption.value.rawValue, forKey: "splitOption")
         aCoder.encode(darkOption.value.rawValue, forKey: "darkOption")
         aCoder.encode(sortOption.rawValue, forKey: "sortOption")
@@ -221,6 +224,8 @@ class Configure: NSObject, NSCoding {
         markdownStyle.value = aDecoder.decodeObject(forKey: "markdownStyle") as? String ?? "GitHub"
         highlightStyle.value = aDecoder.decodeObject(forKey: "highlightStyle") as? String ?? "tomorrow"
         theme.value = Theme(rawValue:aDecoder.decodeObject(forKey: "theme") as? String ?? "") ?? .white
+        let size = aDecoder.decodeInteger(forKey: "fontSize")
+        fontSize.value = size == 0 ? 17 : size
         splitOption.value = SplitOption(rawValue: aDecoder.decodeObject(forKey: "splitOption") as? String ?? "") ?? .automatic
         darkOption.value = DarkModeOption(rawValue: aDecoder.decodeObject(forKey: "darkOption") as? String ?? "") ?? DarkModeOption.defaultDarkOption
         sortOption = SortOption(rawValue: aDecoder.decodeObject(forKey: "sortOption") as? String ?? "") ?? .modifyDate
@@ -231,11 +236,11 @@ class Configure: NSObject, NSCoding {
     }
     
     func checkProAvailable(_ completion:((Bool)->Void)? = nil){
-//        #if DEBUG
-//            self.expireDate = Date.distantFuture
-//            completion?(self.isPro)
-//            return
-//        #endif
+        #if DEBUG
+            self.expireDate = Date.distantFuture
+            completion?(self.isPro)
+            return
+        #endif
 
         IAP.validateReceipt(itunesSecret) { (statusCode, products, json) in
             defer {
