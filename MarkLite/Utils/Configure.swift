@@ -97,7 +97,7 @@ class Configure: NSObject, NSCoding {
     let highlightStyle = Variable("tomorrow")
     let theme = Variable(Theme.white)
     let splitOption = Variable(SplitOption.automatic)
-    var sortOption = SortOption.modifyDate
+    var sortOption = Variable(SortOption.modifyDate)
     let darkOption = Variable(DarkModeOption.defaultDarkOption)
     var keyboardBarItems = ["-","`","$","/","\"","?","@","(",")","[","]","|","#","*","=","+","<",">"]
     var recentImages = [URL]()
@@ -138,7 +138,7 @@ class Configure: NSObject, NSCoding {
         highlightStyle.value = "tomorrow"
         theme.value = .white
         splitOption.value = .automatic
-        sortOption = .modifyDate
+        sortOption.value = .modifyDate
         darkOption.value = DarkModeOption.defaultDarkOption
         showExtensionName = false
         impactFeedback = true
@@ -205,7 +205,7 @@ class Configure: NSObject, NSCoding {
         aCoder.encode(fontSize.value, forKey: "fontSize")
         aCoder.encode(splitOption.value.rawValue, forKey: "splitOption")
         aCoder.encode(darkOption.value.rawValue, forKey: "darkOption")
-        aCoder.encode(sortOption.rawValue, forKey: "sortOption")
+        aCoder.encode(sortOption.value.rawValue, forKey: "sortOption")
         aCoder.encode(rateAlertDate, forKey: "rateAlertDate")
         aCoder.encode(expireDate, forKey: "expireDate")
         aCoder.encode(recentImages, forKey: "recentImages")
@@ -228,7 +228,7 @@ class Configure: NSObject, NSCoding {
         fontSize.value = size == 0 ? 17 : size
         splitOption.value = SplitOption(rawValue: aDecoder.decodeObject(forKey: "splitOption") as? String ?? "") ?? .automatic
         darkOption.value = DarkModeOption(rawValue: aDecoder.decodeObject(forKey: "darkOption") as? String ?? "") ?? DarkModeOption.defaultDarkOption
-        sortOption = SortOption(rawValue: aDecoder.decodeObject(forKey: "sortOption") as? String ?? "") ?? .modifyDate
+        sortOption.value = SortOption(rawValue: aDecoder.decodeObject(forKey: "sortOption") as? String ?? "") ?? .modifyDate
         let isPro = aDecoder.decodeBool(forKey: "isPro")
         if isPro {
             expireDate = Date.distantFuture

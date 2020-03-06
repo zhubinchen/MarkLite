@@ -38,6 +38,12 @@ extension DarkModeOption: StringConvertible {
     }
 }
 
+extension SortOption: StringConvertible {
+    var toString: String {
+        return displayName
+    }
+}
+
 extension String: StringConvertible {
     var toString: String {
         return self

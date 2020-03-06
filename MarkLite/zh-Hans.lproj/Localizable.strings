@@ -19,6 +19,7 @@
 "ImportFile"="拷贝到本地";
 "OpenInPlace"="打开原文件";
 
+"SortOptions"="文件排序方式";
 "SortByName"="按文件名称排序";
 "SortByType"="按文件类型排序";
 "SortByModifyDate"="按修改时间排序";

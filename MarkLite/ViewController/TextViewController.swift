@@ -156,20 +156,23 @@ class TextViewController: UIViewController {
     
     func newLine(_ last: String) -> String {
         if last.hasPrefix("- [x] ") {
-            return "- [x] "
+            return last + "\n- [x] "
         }
         if last.hasPrefix("- [ ] ") {
-            return "- [ ] "
+            return last + "\n- [ ] "
         }
         if let str = last.firstMatch("^[\\s]*(-|\\*|\\+|([0-9]+\\.)) ") {
-            guard let range = str.firstMatchRange("[0-9]+") else { return str }
+            if last.firstMatch("^[\\s]*(-|\\*|\\+|([0-9]+\\.)) +[\\S]+") == nil {
+                return "\n"
+            }
+            guard let range = str.firstMatchRange("[0-9]+") else { return last + "\n" + str }
             let num = str.substring(with: range).toInt() ?? 0
-            return str.replacingCharacters(in: range, with: "\(num+1)")
+            return last + "\n" + str.replacingCharacters(in: range, with: "\(num+1)")
         }
         if let str = last.firstMatch("^( {4}|\\t)+") {
-            return str
+            return last + "\n" + str
         }
-        return ""
+        return last + "\n"
     }
     
     deinit {
@@ -223,7 +226,13 @@ extension TextViewController: UITextViewDelegate {
             if texts.count < 2 {
                 return true
             }
-            textView.insertText("\n"+newLine(texts.last!))
+            let lastLineCount = texts.last!.count
+            let beginning = textView.beginningOfDocument
+            guard let from = textView.position(from: beginning, offset: range.location - lastLineCount), let to = textView.position(from: beginning, offset: range.location), let textRange = textView.textRange(from: from, to: to) else {
+                return true
+            }
+            
+            textView.replace(textRange, withText: newLine(texts.last!))
             return false
         }
         return true

@@ -25,8 +25,6 @@ class FilesViewController: UIViewController {
     @IBOutlet weak var emptyView: UIView!
 
     @IBOutlet weak var oprationViewBottom: NSLayoutConstraint!
-
-    let pulldDownLabel = UILabel()
         
     fileprivate var files = [File]()
     
@@ -88,6 +86,10 @@ class FilesViewController: UIViewController {
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(proStatusChanged(_:)), name: Notification.Name("DisplayOptionChanged"), object: nil)
+        
+        Configure.shared.sortOption.asObservable().subscribe(onNext: { [unowned self] _ in
+            self.refresh()
+        })
         
         refresh()
 
@@ -213,7 +215,7 @@ class FilesViewController: UIViewController {
             files = [File.cloud,File.local]
         } else {
             files = root.children.sorted {
-                switch Configure.shared.sortOption {
+                switch Configure.shared.sortOption.value {
                 case .type:
                     return $0.type == .text && $1.type == .folder
                 case .name:
@@ -532,18 +534,6 @@ class FilesViewController: UIViewController {
         tableView.setBackgroundColor(.tableBackground)
         tableView.setSeparatorColor(.primary)
         emptyView.setBackgroundColor(.background)
-        
-        if !selectFolderMode {
-            pulldDownLabel.text = Configure.shared.sortOption.next.displayName
-            pulldDownLabel.setTextColor(.secondary)
-            pulldDownLabel.font = UIFont.font(ofSize: 14)
-            tableView.addPullDownView(pulldDownLabel, bag: bag) { [unowned self] in
-                Configure.shared.sortOption = Configure.shared.sortOption.next
-                self.pulldDownLabel.text = Configure.shared.sortOption.next.displayName
-                self.refresh()
-                impactIfAllow()
-            }
-        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

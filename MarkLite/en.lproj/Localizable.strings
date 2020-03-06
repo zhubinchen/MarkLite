@@ -19,6 +19,7 @@
 "ImportFile"="Copy to Local";
 "OpenInPlace"="Open In Place";
 
+"SortOptions"="Sort Options";
 "SortByName"="Sort By Name";
 "SortByType"="Sort By Type";
 "SortByModifyDate"="Sort By Modify Date";
