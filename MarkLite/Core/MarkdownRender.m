@@ -27,6 +27,7 @@
 </head>\
 <body>\
   %@\
+<script>window.webkit.messageHandlers.FontHandler.postMessage('TextLoaded')</script>\
 </body>\
 </html>"
 

@@ -12,9 +12,9 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class PreviewViewController: UIViewController, UIScrollViewDelegate {
+class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigationDelegate, WKScriptMessageHandler {
     
-    let webView = WKWebView(frame: CGRect())
+    var webView: WKWebView!
     let scrollView = UIScrollView(frame: CGRect())
     
     var offset: CGFloat = 0 {
@@ -64,12 +64,18 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
     var htmlURL: URL!
         
     var didScrollHandler: ((CGFloat)->Void)?
+    
+    let disposeBag = DisposeBag()
             
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let config = WKWebViewConfiguration()
+        config.userContentController.add(self, name: "FontHandler")
+        webView = WKWebView(frame: CGRect(),configuration: config)
         webView.backgroundColor = .clear
         webView.isOpaque = false
+        webView.navigationDelegate = self
         webView.scrollView.isScrollEnabled = false
         webView.scrollView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
 
@@ -86,6 +92,12 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
                 self?.refresh()
             }
         })
+        
+        Configure.shared.fontSize.asObservable().subscribe(onNext: { value in
+            let scale = CGFloat(value) / 17.0 * 100.0
+            let js = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '\(Int(scale))%'"
+            self.webView.evaluateJavaScript(js)
+            }).disposed(by: disposeBag)
     }
     
     override func viewWillLayoutSubviews() {
@@ -125,6 +137,16 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate {
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return webView
+    }
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+
+    }
+    
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        let scale = CGFloat(Configure.shared.fontSize.value) / 17.0 * 100.0
+        let js = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '\(Int(scale))%'"
+        webView.evaluateJavaScript(js)
     }
     
     deinit {
