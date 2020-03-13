@@ -15,6 +15,7 @@
 "AddLocation"="添加其他位置";
 "AddLocationDetail"="「文件」应用";
 "MoveTo"="移动到";
+"Search"="搜索";
 
 "ImportFile"="拷贝到本地";
 "OpenInPlace"="打开原文件";
@@ -71,7 +72,7 @@
 "FileSharing"="与电脑共享文件";
 "ArrangeKeyboardBar"="调整辅助键盘顺序";
 "AssistKeyboard"="启用辅助键盘";
-"ImpactFeedback"="点击振动效果";
+"ImpactFeedback"="振动反馈";
 "SplitOptions"="编辑预览分屏";
 "ShowExtensionName"="显示文件扩展名";
 "NightMode"="深色模式选项";

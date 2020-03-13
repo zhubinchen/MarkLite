@@ -24,8 +24,10 @@ class FilesViewController: UIViewController {
 
     @IBOutlet weak var emptyView: UIView!
 
-    @IBOutlet weak var oprationViewBottom: NSLayoutConstraint!
-        
+    @IBOutlet weak var bottomBar: UIView!
+    
+    @IBOutlet weak var bottomBarOffset: NSLayoutConstraint!
+
     fileprivate var files = [File]()
     
     fileprivate var items = [
@@ -61,6 +63,8 @@ class FilesViewController: UIViewController {
     
     var previewingFile: File?
     
+    let searchBar = UISearchBar()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -87,10 +91,6 @@ class FilesViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(proStatusChanged(_:)), name: Notification.Name("DisplayOptionChanged"), object: nil)
         
-        Configure.shared.sortOption.asObservable().subscribe(onNext: { [unowned self] _ in
-            self.refresh()
-        })
-        
         refresh()
 
         setupUI()
@@ -111,6 +111,11 @@ class FilesViewController: UIViewController {
         }
         
         tableView.allowsMultipleSelectionDuringEditing = false
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        searchBar.resignFirstResponder()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -191,7 +196,7 @@ class FilesViewController: UIViewController {
         if root == File.inbox {
             return
         }
-        oprationViewBottom.constant = tableView.isEditing ? 0 : -44 - bottomInset
+        bottomBar.isHidden = tableView.isEditing
         UIView.animate(withDuration: 0.5) {
             self.view.layoutIfNeeded()
         }
@@ -214,8 +219,10 @@ class FilesViewController: UIViewController {
         if (selectFolderMode) {
             files = [File.cloud,File.local]
         } else {
-            files = root.children.sorted {
-                switch Configure.shared.sortOption.value {
+            files = root.children.filter {
+                return (self.searchBar.text?.count ?? 0) == 0 || $0.displayName.contains(self.searchBar.text!)
+            }.sorted {
+                switch Configure.shared.sortOption {
                 case .type:
                     return $0.type == .text && $1.type == .folder
                 case .name:
@@ -292,6 +299,34 @@ class FilesViewController: UIViewController {
             self.refresh()
             self.multipleSelect()
         }
+    }
+    
+    @IBAction func searchFiles(_ sender: UIButton) {
+        impactIfAllow()
+        searchBar.superview?.isHidden = false
+        searchBar.becomeFirstResponder()
+    }
+    
+    @IBAction func beginEdit(_ sender: UIButton) {
+        impactIfAllow()
+        multipleSelect()
+    }
+    
+    @IBAction func sortOptions(_ sender: UIButton) {
+        impactIfAllow()
+        let options = [SortOption.name,.type,.modifyDate]
+        let alert = UIAlertController(title: /"SortOptions", message: nil, preferredStyle: isPad ? .alert : .actionSheet)
+        options.forEach { option in
+            let action = UIAlertAction(title: option.displayName, style: .default, handler: { action in
+                Configure.shared.sortOption = option
+                impactIfAllow()
+                self.refresh()
+            })
+            action.isEnabled = Configure.shared.sortOption != option
+            alert.addAction(action)
+        }
+        alert.addAction(UIAlertAction(title: /"Cancel", style: .cancel, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
     @objc func cancel() {
@@ -522,14 +557,32 @@ class FilesViewController: UIViewController {
     }
     
     func setupUI() {
-        DispatchQueue.main.async {
-            self.oprationViewBottom.constant = -44 - bottomInset
+        if selectFolderMode {
+            bottomBarOffset.constant = -44 - bottomInset
+        } else {
+            let barBackground = UIView()
+            barBackground.isHidden = true
+            barBackground.setBackgroundColor(.navBar)
+            navBar?.addSubview(barBackground)
+            barBackground.snp.makeConstraints { maker in
+                maker.edges.equalToSuperview()
+            }
+            barBackground.addSubview(searchBar)
+            searchBar.showsCancelButton = true
+            searchBar.placeholder = /"Search"
+            searchBar.delegate = self
+            searchBar.snp.makeConstraints { maker in
+                maker.top.bottom.equalToSuperview()
+                maker.left.equalToSuperview().offset(12)
+                maker.right.equalToSuperview().offset(-12)
+            }
         }
-                                
+
         navBar?.setTintColor(.navTint)
         navBar?.setBackgroundColor(.navBar)
         navBar?.setTitleColor(.navTitle)
         view.setBackgroundColor(.background)
+        bottomBar.setBackgroundColor(.background)
         view.setTintColor(.navTint)
         tableView.setBackgroundColor(.tableBackground)
         tableView.setSeparatorColor(.primary)
@@ -561,6 +614,22 @@ class FilesViewController: UIViewController {
             vc.file = file
             return
         }
+    }
+}
+
+extension FilesViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        refresh()
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.superview?.isHidden = true
+        searchBar.text = ""
+        refresh()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
 

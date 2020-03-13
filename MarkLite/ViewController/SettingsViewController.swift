@@ -40,7 +40,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             ("外观",section),
             ("功能",[
                 ("AssistKeyboard","",#selector(assistBar)),
-                ("SortOptions","",#selector(sortOption)),
                 ("ShowExtensionName","",#selector(displayOption)),
                 ]),
             ("支持一下",[
@@ -168,18 +167,6 @@ extension SettingsViewController {
 
         let wraper = OptionsWraper(selectedIndex: index, editable: false, title: /"SplitOptions", items: items) {
             Configure.shared.splitOption.value = $0 as! SplitOption
-        }
-        let vc = OptionsViewController()
-        vc.options = wraper
-        pushVC(vc)
-    }
-    
-    @objc func sortOption() {
-        let items = [SortOption.name,.type,.modifyDate]
-        let index = items.index{ Configure.shared.sortOption.value == $0 }
-
-        let wraper = OptionsWraper(selectedIndex: index, editable: false, title: /"SortOptions", items: items) {
-            Configure.shared.sortOption.value = $0 as! SortOption
         }
         let vc = OptionsViewController()
         vc.options = wraper

@@ -15,6 +15,7 @@
 "AddLocation"="Add Locations";
 "AddLocationDetail"="From [Files]";
 "MoveTo"="Move To";
+"Search"="Search";
 
 "ImportFile"="Copy to Local";
 "OpenInPlace"="Open In Place";
