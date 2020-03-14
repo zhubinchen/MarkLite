@@ -1,6 +1,6 @@
 body {
  font-family: "Microsoft Yahei", Helvetica, arial, sans-serif ;
-  font-size: 17px;
+  font-size: 1rem;
   line-height: 1.6;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -8,30 +8,22 @@ body {
   padding: 10px; 
 color: #516272;}
 
-.markdown-here-wrapper {
-  font-size: 17px;
-  line-height: 1.8em;
-  letter-spacing: 0.1em;
-}
 pre, code {
-  font-size: 15px;
+  font-size: 0.9rem;
   font-family: Roboto, 'Courier New', Consolas, Inconsolata, Courier, monospace;
   margin: auto 4px;
 }
 code {
     padding: 2px 4px !important;
-    font-size: 90% !important;
     color: #c7254e !important;
     background-color: #f9f2f4 !important;
 }
 pre {
-  font-size: 16px;
-  line-height: 1.4em;
+  line-height: 1.2em;
   display: block; !important;
- padding: 2px 4px !important;
-    font-size: 90% !important;
-    color: #c7254e !important;
-    background-color: #f9f2f4 !important;
+ 	padding: 2px 4px !important;
+  color: #c7254e !important;
+  background-color: #f9f2f4 !important;
 }
 pre code {
   white-space: pre;
@@ -46,7 +38,7 @@ strong, b{
   color: #c7254e;
   background-color: #f9f2f4;
   border-radius: 4px;
-  font-size: 90%;
+  font-size: 0.9rem;
   font-weight:500;
 } 
 em, i {
@@ -60,7 +52,7 @@ p {
   margin: 1.5em 5px !important;
 }
 table, pre, dl, blockquote, q, ul, ol {
-  margin: 10px 5px;
+  margin: 5px 5px;
 }
 ul, ol {
   padding-left: 16px;
@@ -82,7 +74,7 @@ dl {
   padding: 0;
 }
 dl dt {
-  font-size: 1em;
+  font-size: 1rem;
   font-weight: bold;
   font-style: italic;
 }
@@ -95,15 +87,15 @@ blockquote, q {
   border-right: 1px solid #eee;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
-  padding: 0 10px;
+  padding: 0 5px;
   color: #777;
   quotes: none;
-  font-size:16px;
+  font-size: 0.9rem;
   border-radius: 3px;
 }
 blockquote strong, b{
   color: #aa6708;
-  font-size:17px;
+  font-size: 1rem;
   background:none !important;
 }
 blockquote::before, blockquote::after, q::before, q::after {
@@ -117,31 +109,31 @@ h1, h2, h3, h4, h5, h6 {
   text-align: center !important;
 }
 h1 {
-  font-size: 24px !important;
+  font-size: 1.41rem;
   text-align: left !important;
   border-bottom: 1px solid #ddd !important;
 }
 h2 {
-  font-size: 22px !important;
+  font-size: 1.29rem;
   text-align: left !important;
 }
 h3 {
-  font-size: 20px  !important;
+  font-size: 1.17rem;
   text-align: left !important;
 }
 h4 {
-  font-size: 18px;
+  font-size: 1.05rem;
   text-align: left !important;
 }
 h5 {
-  font-size: 17px;
+  font-size: 1rem;
   text-align: left !important;
 }
 table {
   padding: 0;
   border-collapse: collapse;
   border-spacing: 0;
-  font-size: 12p;
+  font-size: 0.9rem;
   font: inherit;
   border: 0;
   margin: 0 auto;
@@ -162,7 +154,7 @@ table tr:nth-child(2n) {
   background-color: #F8F8F8;
 }
 table tr th, table tr td {
-  font-size: 17px;
+  font-size: 1rem;
   border: 1px solid #CCC;
   margin: 0;
   padding: 5px 10px;

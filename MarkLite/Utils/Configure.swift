@@ -158,7 +158,7 @@ class Configure: NSObject, NSCoding {
         
         setup()
     }
-    
+
     func upgrade() {
         rateAlertDate = Date()
         impactFeedback = true
@@ -167,6 +167,12 @@ class Configure: NSObject, NSCoding {
         try! Zip.unzipFile(Bundle.main.url(forResource: "Resources", withExtension: "zip")!, destination: tempPathURL, overwrite: true, password: nil, progress: nil)
         let tempStylePath = tempPath + "/Resources/Styles"
         let destStylePath = supportPath + "/Resources/Styles"
+        
+        let newPath1 = destStylePath + "/" + "微信公众号.css"
+        try? FileManager.default.removeItem(atPath: newPath1)
+        let newPath2 = destStylePath + "/" + "小清新.css"
+        try? FileManager.default.removeItem(atPath: newPath2)
+        
         FileManager.default.subpaths(atPath: tempStylePath)?.filter{ $0.hasSuffix(".css") }.forEach{ subpath in
             let fullPath = tempStylePath + "/" + subpath
             let newPath = destStylePath + "/" + subpath

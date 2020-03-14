@@ -576,6 +576,14 @@ class FilesViewController: UIViewController {
                 maker.left.equalToSuperview().offset(12)
                 maker.right.equalToSuperview().offset(-12)
             }
+            
+            let line = UIView()
+            line.backgroundColor = rgba("262626",0.4)
+            view.addSubview(line)
+            line.snp.makeConstraints { maker in
+                maker.top.left.right.equalTo(self.bottomBar)
+                maker.height.equalTo(0.3)
+            }
         }
 
         navBar?.setTintColor(.navTint)

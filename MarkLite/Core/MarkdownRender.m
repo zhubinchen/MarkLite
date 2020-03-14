@@ -15,7 +15,7 @@
 #define kResourceURL [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES).firstObject stringByAppendingPathComponent:@"Resources"]
 
 #define kTemplate @"<!DOCTYPE html>\
-<html>\
+<html style='font-size:%ldpx'>\
 <head>\
   <meta charset=UTF-8>\
   <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=no'>\
@@ -114,6 +114,7 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
         self.styleName = @"GitHub";
         self.highlightName = @"tomorrow";
         self.title = @"Title";
+        self.fontSize = 17;
     }
     return self;
 }
@@ -143,7 +144,7 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
     for (NSString *script in scripts) {
         [scriptsString appendFormat:@"\n<script src=\"%@%@\"></script>",kResourceURL,script];
     }
-    return [NSString stringWithFormat:kTemplate,title,styleSheets,scriptsString,body];
+    return [NSString stringWithFormat:kTemplate,self.fontSize - 1,title,styleSheets,scriptsString,body];
 }
 
 - (int)extensionFlags

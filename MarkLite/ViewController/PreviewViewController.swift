@@ -12,9 +12,9 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigationDelegate, WKScriptMessageHandler {
+class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigationDelegate {
     
-    var webView: WKWebView!
+    var webView = WKWebView(frame: CGRect())
     let scrollView = UIScrollView(frame: CGRect())
     
     var offset: CGFloat = 0 {
@@ -70,9 +70,6 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let config = WKWebViewConfiguration()
-        config.userContentController.add(self, name: "FontHandler")
-        webView = WKWebView(frame: CGRect(),configuration: config)
         webView.backgroundColor = .clear
         webView.isOpaque = false
         webView.navigationDelegate = self
@@ -92,12 +89,6 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
                 self?.refresh()
             }
         })
-        
-        Configure.shared.fontSize.asObservable().subscribe(onNext: { value in
-            let scale = CGFloat(value) / 17.0 * 100.0
-            let js = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '\(Int(scale))%'"
-            self.webView.evaluateJavaScript(js)
-            }).disposed(by: disposeBag)
     }
     
     override func viewWillLayoutSubviews() {
@@ -141,12 +132,6 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
 
-    }
-    
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        let scale = CGFloat(Configure.shared.fontSize.value) / 17.0 * 100.0
-        let js = "document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '\(Int(scale))%'"
-        webView.evaluateJavaScript(js)
     }
     
     deinit {

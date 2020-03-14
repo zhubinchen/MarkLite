@@ -105,8 +105,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 case .dark:
                     value = .black
                 case .light:
-                    if Configure.shared.theme.value == .black {
-                        Configure.shared.theme.value = .white
+                    if value == .black {
+                        value = .white
                     }
                 case .system:
                     if #available(iOS 13.0, *) {

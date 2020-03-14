@@ -156,6 +156,13 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             self?.previewVC.webHeight = windowHeight
         }).disposed(by: bag)
         
+        Configure.shared.fontSize.asObservable().subscribe(onNext: { [weak self] fontSize in
+            self?.markdownRenderer?.fontSize = fontSize
+            let html = self?.markdownRenderer?.renderMarkdown(file.text) ?? ""
+            self?.previewVC.html = html
+            self?.previewVC.webHeight = windowHeight
+        }).disposed(by: bag)
+        
         Configure.shared.highlightStyle.asObservable().subscribe(onNext: { [weak self] (style) in
             self?.markdownRenderer?.highlightName = style
             let html = self?.markdownRenderer?.renderMarkdown(file.text) ?? ""
