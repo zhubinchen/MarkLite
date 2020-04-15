@@ -40,7 +40,7 @@ let premiumForeverProductID = "com.qinxiu.markdown.premium.forever"
 
 let isPad = UIDevice.current.userInterfaceIdiom == .pad
 
-let passedDate = Date(fromString: "2020-01-11", format: "yyyy-MM-dd")!
+let passedDate = Date(fromString: "2020-03-17", format: "yyyy-MM-dd")!
  
 let rateUrl = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1472328263&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"
 

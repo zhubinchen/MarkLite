@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 class StyleViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
-    var items = [/"FontSize",/"Style",/"CodeStyle"]
+    var items = [[/"FontSize",/"Style",/"CodeStyle"],[/"ContentInset",/"AutomaticSplit"]]
            
     let table = UITableView(frame: CGRect(), style: .grouped)
        
@@ -71,20 +71,28 @@ class StyleViewController: UIViewController, UITableViewDelegate,UITableViewData
         Configure.shared.fontSize.value = Int(sender.value)
     }
     
+    @objc func insetChanged(_ sender: UISwitch!) {
+        Configure.shared.contentInset.value = sender.isOn
+    }
+    
+    @objc func splitChanged(_ sender: UISwitch!) {
+        Configure.shared.automaticSplit.value = sender.isOn
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.items.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.items[section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = BaseTableViewCell(style: .default, reuseIdentifier: nil)
-        cell.textLabel?.text = self.items[indexPath.section]
+        cell.textLabel?.text = self.items[indexPath.section][indexPath.row]
         cell.accessoryType = .disclosureIndicator
 
-        if indexPath.section == 0 {
+        if indexPath.section == 0 && indexPath.row == 0 {
             cell.accessoryType = .none
             cell.selectionStyle = .none
             let stepper = UIStepper()
@@ -101,21 +109,40 @@ class StyleViewController: UIViewController, UITableViewDelegate,UITableViewData
                 cell.textLabel?.text = /"FontSize" + ": \(size)"
             })
         }
+        if indexPath.section == 1 {
+            cell.accessoryType = .none
+            cell.selectionStyle = .none
+            let insetSwitch = UISwitch()
+            if indexPath.row == 0 {
+                insetSwitch.addTarget(self, action: #selector(insetChanged(_:)), for: .valueChanged)
+                insetSwitch.isOn = Configure.shared.contentInset.value
+            } else {
+                insetSwitch.addTarget(self, action: #selector(splitChanged(_:)), for: .valueChanged)
+                insetSwitch.isOn = Configure.shared.automaticSplit.value
+            }
+            insetSwitch.setTintColor(.tint)
+            cell.addSubview(insetSwitch)
+            
+            insetSwitch.snp.makeConstraints { maker in
+                maker.centerY.equalToSuperview()
+                maker.right.equalToSuperview().offset(-16)
+            }
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         impactIfAllow()
         if indexPath.section == 0 {
-            
-        } else if indexPath.section == 1 {
-            let vc = OptionsViewController()
-            vc.options = styles
-            pushVC(vc)
-        } else if indexPath.section == 2 {
-            let vc = OptionsViewController()
-            vc.options = highlight
-            pushVC(vc)
+            if indexPath.row == 1 {
+               let vc = OptionsViewController()
+               vc.options = styles
+               pushVC(vc)
+            } else if indexPath.row == 2 {
+               let vc = OptionsViewController()
+               vc.options = highlight
+               pushVC(vc)
+            }
         }
     }
  

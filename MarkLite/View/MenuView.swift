@@ -39,7 +39,7 @@ class MenuView: UIView {
         super.init(frame: CGRect(x: postion.x, y: postion.y, width: 140, height: CGFloat(items.count) * cellHeight - 1))
         self.tableView.setBackgroundColor(.tableBackground)
         self.tableView.setSeparatorColor(.primary)
-        self.cornerRadius = 1.5
+        self.cornerRadius = 4
     }
     
     func show(on view: UIView? = nil) {

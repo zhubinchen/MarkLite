@@ -20,7 +20,6 @@
 		07E827491F5BF1BA0077A017 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826F91F5BF1BA0077A017 /* Constant.swift */; };
 		07E8274C1F5BF1BA0077A017 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826FC1F5BF1BA0077A017 /* Localization.swift */; };
 		07E8274D1F5BF1BA0077A017 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E826FD1F5BF1BA0077A017 /* Utils.swift */; };
-		07E8274F1F5BF1BA0077A017 /* DottedLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827001F5BF1BA0077A017 /* DottedLineView.swift */; };
 		07E827521F5BF1BA0077A017 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827031F5BF1BA0077A017 /* MenuView.swift */; };
 		07E827551F5BF1BA0077A017 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827071F5BF1BA0077A017 /* EditViewController.swift */; };
 		07E827561F5BF1BA0077A017 /* FilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E827081F5BF1BA0077A017 /* FilesViewController.swift */; };
@@ -40,7 +39,6 @@
 		760C296F2320F3EC002E613E /* escape.c in Sources */ = {isa = PBXBuildFile; fileRef = 760C29662320F3EB002E613E /* escape.c */; };
 		760C29702320F3EC002E613E /* document.c in Sources */ = {isa = PBXBuildFile; fileRef = 760C29672320F3EB002E613E /* document.c */; };
 		760C29732320F3FA002E613E /* hoedown_html_patch.c in Sources */ = {isa = PBXBuildFile; fileRef = 760C29712320F3FA002E613E /* hoedown_html_patch.c */; };
-		7611FFFF2392B83F00343C9E /* WKWebView+ScreenShot.m in Sources */ = {isa = PBXBuildFile; fileRef = 7611FFFD2392B83F00343C9E /* WKWebView+ScreenShot.m */; };
 		7613F11F2325F6FE006EE3B9 /* Resources.zip in Resources */ = {isa = PBXBuildFile; fileRef = 7613F11D2325F6FE006EE3B9 /* Resources.zip */; };
 		7613F1272325F8AF006EE3B9 /* ReadMe.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1232325F8AF006EE3B9 /* ReadMe.md */; };
 		7613F12A2325FA02006EE3B9 /* 示例文档.md in Resources */ = {isa = PBXBuildFile; fileRef = 7613F1282325FA02006EE3B9 /* 示例文档.md */; };
@@ -57,6 +55,7 @@
 		769E1D24240422640064B822 /* ServerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769E1D23240422640064B822 /* ServerInfo.swift */; };
 		769E1F37240506110064B822 /* StyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769E1F36240506110064B822 /* StyleViewController.swift */; };
 		76A4D272234EF98200B87A78 /* FileSharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4D271234EF98200B87A78 /* FileSharingViewController.swift */; };
+		76AF260A243DA40D002537A1 /* UIScrollView+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AF2609243DA40D002537A1 /* UIScrollView+Snapshot.swift */; };
 		76C59B3E2384E5D800BE81ED /* NSURLProtocol+WKWebVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C59B3A2384E5D700BE81ED /* NSURLProtocol+WKWebVIew.m */; };
 		76C59B412384E69500BE81ED /* MDURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C59B402384E69500BE81ED /* MDURLProtocol.m */; };
 		76CF5B0823541DC100E87A99 /* 使用教程.md in Resources */ = {isa = PBXBuildFile; fileRef = 76CF5B0723541DC000E87A99 /* 使用教程.md */; };
@@ -85,7 +84,6 @@
 		07E826F91F5BF1BA0077A017 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		07E826FC1F5BF1BA0077A017 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		07E826FD1F5BF1BA0077A017 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		07E827001F5BF1BA0077A017 /* DottedLineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DottedLineView.swift; sourceTree = "<group>"; };
 		07E827031F5BF1BA0077A017 /* MenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		07E827071F5BF1BA0077A017 /* EditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		07E827081F5BF1BA0077A017 /* FilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesViewController.swift; sourceTree = "<group>"; };
@@ -115,8 +113,6 @@
 		760C29672320F3EB002E613E /* document.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = document.c; sourceTree = "<group>"; };
 		760C29712320F3FA002E613E /* hoedown_html_patch.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hoedown_html_patch.c; sourceTree = "<group>"; };
 		760C29722320F3FA002E613E /* hoedown_html_patch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hoedown_html_patch.h; sourceTree = "<group>"; };
-		7611FFFD2392B83F00343C9E /* WKWebView+ScreenShot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WKWebView+ScreenShot.m"; sourceTree = "<group>"; };
-		7611FFFE2392B83F00343C9E /* WKWebView+ScreenShot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WKWebView+ScreenShot.h"; sourceTree = "<group>"; };
 		7613F11D2325F6FE006EE3B9 /* Resources.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = Resources.zip; sourceTree = "<group>"; };
 		7613F1232325F8AF006EE3B9 /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = ReadMe.md; path = Instructions/ReadMe.md; sourceTree = "<group>"; };
 		7613F1282325FA02006EE3B9 /* 示例文档.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = "示例文档.md"; path = "Instructions/示例文档.md"; sourceTree = "<group>"; };
@@ -135,6 +131,7 @@
 		769E1D23240422640064B822 /* ServerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerInfo.swift; sourceTree = "<group>"; };
 		769E1F36240506110064B822 /* StyleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleViewController.swift; sourceTree = "<group>"; };
 		76A4D271234EF98200B87A78 /* FileSharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSharingViewController.swift; sourceTree = "<group>"; };
+		76AF2609243DA40D002537A1 /* UIScrollView+Snapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Snapshot.swift"; sourceTree = "<group>"; };
 		76C59B3A2384E5D700BE81ED /* NSURLProtocol+WKWebVIew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLProtocol+WKWebVIew.m"; sourceTree = "<group>"; };
 		76C59B3C2384E5D800BE81ED /* NSURLProtocol+WKWebVIew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLProtocol+WKWebVIew.h"; sourceTree = "<group>"; };
 		76C59B3F2384E69500BE81ED /* MDURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDURLProtocol.h; sourceTree = "<group>"; };
@@ -286,8 +283,7 @@
 				76C59B3A2384E5D700BE81ED /* NSURLProtocol+WKWebVIew.m */,
 				76C59B3F2384E69500BE81ED /* MDURLProtocol.h */,
 				76C59B402384E69500BE81ED /* MDURLProtocol.m */,
-				7611FFFE2392B83F00343C9E /* WKWebView+ScreenShot.h */,
-				7611FFFD2392B83F00343C9E /* WKWebView+ScreenShot.m */,
+				76AF2609243DA40D002537A1 /* UIScrollView+Snapshot.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -296,7 +292,6 @@
 			isa = PBXGroup;
 			children = (
 				766F117B2350803A00E6395E /* KeyboardBar.swift */,
-				07E827001F5BF1BA0077A017 /* DottedLineView.swift */,
 				76E7F270233CAEE10051DF6A /* BaseTableViewCell.swift */,
 				07E827031F5BF1BA0077A017 /* MenuView.swift */,
 				7635A0A923790BAA00679C4E /* RecentImageCell.swift */,
@@ -316,10 +311,10 @@
 				768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */,
 				761F824F22E16D6500C3435C /* WebViewController.swift */,
 				07E8270B1F5BF1BA0077A017 /* OptionsViewController.swift */,
-				76DFD720232926AC00F97D56 /* CustomStyleViewController.swift */,
 				76A4D271234EF98200B87A78 /* FileSharingViewController.swift */,
 				76D7D5F6237930E40007556F /* RecentImagesViewController.swift */,
 				769E1F36240506110064B822 /* StyleViewController.swift */,
+				76DFD720232926AC00F97D56 /* CustomStyleViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -464,6 +459,7 @@
 				"${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
@@ -476,6 +472,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GCDWebServer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
@@ -494,11 +491,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				76DFD721232926AC00F97D56 /* CustomStyleViewController.swift in Sources */,
-				7611FFFF2392B83F00343C9E /* WKWebView+ScreenShot.m in Sources */,
 				07E8274C1F5BF1BA0077A017 /* Localization.swift in Sources */,
 				76C59B412384E69500BE81ED /* MDURLProtocol.m in Sources */,
 				76D7D5F7237930E40007556F /* RecentImagesViewController.swift in Sources */,
 				76C59B3E2384E5D800BE81ED /* NSURLProtocol+WKWebVIew.m in Sources */,
+				76AF260A243DA40D002537A1 /* UIScrollView+Snapshot.swift in Sources */,
 				760C296F2320F3EC002E613E /* escape.c in Sources */,
 				07E827561F5BF1BA0077A017 /* FilesViewController.swift in Sources */,
 				07E827101F5BF1BA0077A017 /* HighlightManager.swift in Sources */,
@@ -518,7 +515,6 @@
 				07E827551F5BF1BA0077A017 /* EditViewController.swift in Sources */,
 				07E8274D1F5BF1BA0077A017 /* Utils.swift in Sources */,
 				07E8271D1F5BF1BA0077A017 /* File.swift in Sources */,
-				07E8274F1F5BF1BA0077A017 /* DottedLineView.swift in Sources */,
 				760C296B2320F3EC002E613E /* autolink.c in Sources */,
 				0724281B1F726B0300C02F87 /* ImagePicker.swift in Sources */,
 				761F825022E16D6500C3435C /* WebViewController.swift in Sources */,

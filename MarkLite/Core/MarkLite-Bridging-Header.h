@@ -16,5 +16,4 @@
 #import <GCDWebServer/GCDWebUploader.h>
 #import "MDURLProtocol.h"
 #import "MarkdownRender.h"
-#import "WKWebView+ScreenShot.h"
 #endif /* Markdown_Bridging_Header_h */

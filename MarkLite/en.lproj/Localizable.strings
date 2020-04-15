@@ -82,7 +82,9 @@
 "Style"="Style";
 "CSS"="Custom Style";
 "FontSize"="Font Size";
+"ContentInset"="Content Inset";
 "CodeStyle"="Code Highlight";
+"AutomaticSplit"="Automatic Split";
 
 "FollowSystem"="Follow System";
 "KeepDarkMode"="Always Dark";
@@ -160,10 +162,6 @@
 "ThemePink"="Pink";
 "ThemeGreen"="Green";
 
-"Automatic"="Automatic";
-"Never"="Never";
-"Always"="Always";
-
 "PremiumOnly"="Upgrade to Pro to Unlock This Feature";
 "PremiumTips"="Every new user has 3-days free trial";
 "SubscribeNow"="View detail";
@@ -196,3 +194,7 @@
 
 "Instructions"="ReadMe";
 "Syntax"="Syntax";
+
+"Tips"="Tips";
+"GotIt"="Got it!";
+"SlideTips"="Slide the edit view left can quick preview your note";

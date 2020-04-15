@@ -80,9 +80,11 @@
 "Contact"="联系开发者";
 "RateIt"="去App Store评价";
 "Style"="渲染样式";
-"FontSize"="字体大小";
-"CodeStyle"="代码块高亮";
 "CSS"="自定义样式";
+"FontSize"="字体大小";
+"ContentInset"="边距留白";
+"CodeStyle"="代码块高亮";
+"AutomaticSplit"="横屏时分屏";
 
 "KeepDarkMode"="深色模式";
 "DisableDarkMode"="浅色模式";
@@ -160,10 +162,6 @@
 "ThemePink"="脑残粉";
 "ThemeGreen"="原谅绿";
 
-"Automatic"="自适应";
-"Never"="永不分屏";
-"Always"="始终分屏";
-
 "PremiumOnly"="该功能需开通高级帐户";
 "PremiumTips"="现在订阅可免费试用3天";
 "SubscribeNow"="了解详情";
@@ -196,3 +194,7 @@
 
 "Instructions"="使用教程";
 "Syntax"="示例文档";
+
+"Tips"="小提示";
+"GotIt"="我知道了!";
+"SlideTips"="左右滑动可快速切换编辑和预览界面";

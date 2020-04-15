@@ -81,8 +81,9 @@
 "RateIt"="Rate it";
 "Style"="Style";
 "CSS"="Custom Style";
-"CodeStyle"="Code Highlight";
 "FontSize"="Font Size";
+"ContentInset"="Content Inset";
+"CodeStyle"="Code Highlight";
 
 "FollowSystem"="Follow System";
 "KeepDarkMode"="Always Dark";
@@ -196,3 +197,6 @@
 
 "Instructions"="ReadMe";
 "Syntax"="Syntax";
+
+"Tips"="Tips";
+"SlideTips"="Slide the edit view left can quick preview your note";

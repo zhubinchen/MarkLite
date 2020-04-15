@@ -5,8 +5,8 @@ target 'Markdown' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
   pod 'Alamofire'
-  pod 'RxSwift'
-  pod 'RxCocoa'
+  pod 'RxSwift', '~> 5'
+  pod 'RxCocoa', '~> 5'
   pod 'EZSwiftExtensions'
   pod 'Zip', '~> 1.1'
   pod 'UMCAnalytics'

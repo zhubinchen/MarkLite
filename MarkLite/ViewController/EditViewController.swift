@@ -37,7 +37,26 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     @IBOutlet weak var emptyImageView: UIImageView!
     @IBOutlet weak var emptyLabel: UILabel!
     
-    @IBOutlet var textViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var undoButton: UIButton!
+    @IBOutlet weak var redoButton: UIButton!
+    @IBOutlet weak var previewButton: UIButton!
+    @IBOutlet weak var bottomBar: UIView!
+    
+    @IBOutlet weak var bottomSpace: NSLayoutConstraint!
+    @IBOutlet var editViewWidth: NSLayoutConstraint!
+
+    var keyboardHeight: CGFloat = windowHeight {
+        didSet {
+            if keyboardHeight == oldValue {
+                return
+            }
+            
+            bottomSpace.constant = max(keyboardHeight - bottomInset - 49,0)
+            UIView.animate(withDuration: 0.5, animations: {
+                self.view.layoutIfNeeded()
+            })
+        }
+    }
     
     var file: File? {
         didSet {
@@ -50,22 +69,11 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         return windowWidth > windowHeight * 0.8
     }
     
-    var split: Bool {
-        if Configure.shared.splitOption.value == .always {
-            return true
-        }
-        if Configure.shared.splitOption.value == .never {
-            return false
-        }
-        return self.view.w > self.view.h * 0.8
-    }
-    
     var shouldFullscreen = false
             
     var previewVC: PreviewViewController!
     var textVC: TextViewController!
 
-    var webVisible = true
     let bag = DisposeBag()
     
     let markdownRenderer = MarkdownRender.shared()
@@ -85,13 +93,9 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         } else {
             setup()
         }
-                
-        Configure.shared.splitOption.asObservable().subscribe(onNext: { [unowned self] _ in
-            self.textViewWidth.isActive = self.split
-            self.textVC.seperator.isHidden = self.split == false
-            self.toggleBarButton()
-        }).disposed(by: bag)
         
+        bottomBar.setBackgroundColor(.background)
+        bottomBar.setTintColor(.tint)
         navBar?.setTintColor(.navTint)
         navBar?.setBackgroundColor(.navBar)
         navBar?.setTitleColor(.navTitle)
@@ -108,14 +112,15 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        textViewWidth.isActive = split
-        textVC.seperator.isHidden = split == false
 
-        toggleBarButton()
         if splitViewController?.isCollapsed ?? false {
             navigationItem.leftBarButtonItem = nil
         } else {
             navigationItem.leftBarButtonItem = landscape ? fullscreenButton : filelistButton
+        }
+        
+        if Configure.shared.automaticSplit.value {
+            editViewWidth.isActive = self.view.w > self.view.h * 0.8
         }
     }
     
@@ -137,6 +142,8 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             file.text = text
             let html = self?.markdownRenderer?.renderMarkdown(text) ?? ""
             self?.previewVC.html = html
+            self?.redoButton.isEnabled = self?.textVC.editView.undoManager?.canRedo ?? false
+            self?.undoButton.isEnabled = self?.textVC.editView.undoManager?.canUndo ?? false
         }
         
         textVC.didScrollHandler = { [weak self] offset in
@@ -153,14 +160,12 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             self?.markdownRenderer?.styleName = style
             let html = self?.markdownRenderer?.renderMarkdown(file.text) ?? ""
             self?.previewVC.html = html
-            self?.previewVC.webHeight = windowHeight
         }).disposed(by: bag)
         
         Configure.shared.fontSize.asObservable().subscribe(onNext: { [weak self] fontSize in
             self?.markdownRenderer?.fontSize = fontSize
             let html = self?.markdownRenderer?.renderMarkdown(file.text) ?? ""
             self?.previewVC.html = html
-            self?.previewVC.webHeight = windowHeight
         }).disposed(by: bag)
         
         Configure.shared.highlightStyle.asObservable().subscribe(onNext: { [weak self] (style) in
@@ -168,14 +173,17 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             let html = self?.markdownRenderer?.renderMarkdown(file.text) ?? ""
             self?.previewVC.html = html
         }).disposed(by: bag)
+        
+        Configure.shared.automaticSplit.asObservable().subscribe(onNext: { [weak self] (split) in
+            guard let this = self else { return }
+            this.editViewWidth.isActive = split ? this.view.w > this.view.h * 0.8 : false
+        }).disposed(by: bag)
     }
     
     @objc func keyboardHeightWillChange(_ noti: NSNotification) {
         guard let frame = (noti.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         
-        let h = textVC.editView.isFirstResponder ? (windowHeight - frame.y) : 0
-        textVC.keyboardHeight = h
-        previewVC.keyboardHeight = h
+        keyboardHeight = textVC.editView.isFirstResponder ? (windowHeight - frame.y) : 0
     }
     
     @objc func deviceOrientationDidChange() {
@@ -191,13 +199,6 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     @objc func fileLoadFinished(_ noti: Notification) {
         guard let file = noti.object as? File else { return }
         self.file = file
-    }
-    
-    @objc func preview() {
-        impactIfAllow()
-        textVC.editView.resignFirstResponder()
-        scrollView.setContentOffset(CGPoint(x:self.view.w , y:0), animated: true)
-        toggleBarButton()
     }
     
     @objc func showFileList() {
@@ -220,25 +221,37 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         }
     }
     
-    func toggleBarButton() {
-        webVisible = scrollView.contentOffset.x > view.w - 10
+    @IBAction func showTocList() {
         
-        if webVisible && split == false {
-            navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-            navigationController?.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
-        } else {
-            navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-            navigationController?.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+    }
+    
+    @IBAction func undo(_ sender: UIButton) {
+        textVC.editView.undoManager?.undo()
+        impactIfAllow()
+    }
+    
+    @IBAction func redo(_ sender: UIButton) {
+        textVC.editView.undoManager?.redo()
+        impactIfAllow()
+    }
+    
+    @IBAction func preview(_ sender: UIButton) {
+        impactIfAllow()
+        if self.view.w != self.textVC.editView.w {
+            return
         }
-        
-        if webVisible || split {
-            navigationItem.rightBarButtonItems = [exportButton,styleButton]
+        if sender.tag == 0 {
+            scrollView.setContentOffset(CGPoint(x:self.view.w , y:0), animated: true)
         } else {
-            navigationItem.rightBarButtonItems = [previewButton,styleButton]
+            scrollView.setContentOffset(CGPoint(), animated: true)
+        }
+        if !Configure.shared.showedTips.contains("1") {
+            showAlert(title: /"Tips", message: /"SlideTips", actionTitles: [/"GotIt"])
+            Configure.shared.showedTips.append("1")
         }
     }
     
-    @objc func showStylesView(_ sender: UIBarButtonItem) {
+    @IBAction func showStylesView(_ sender: UIButton) {
         impactIfAllow()
 
         let vc = StyleViewController()
@@ -251,15 +264,17 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         }
         popoverVC.backgroundColor = UIColor.white
         popoverVC.delegate = self
-        popoverVC.barButtonItem = sender
+        popoverVC.sourceView = sender
+        popoverVC.sourceRect = sender.bounds
         present(nav, animated: true, completion: nil)
     }
     
-    @objc func showExportMenu(_ sender: Any) {
+    @IBAction func showExportMenu(_ sender: UIButton) {
         impactIfAllow()
         textVC.editView.resignFirstResponder()
         
-        let pos = CGPoint(x: windowWidth - 150, y: 45 + topInset)
+        let point = sender.convert(CGPoint(), to: UIApplication.shared.keyWindow)
+        let pos = CGPoint(x: point.x - 100, y: point.y - 170)
         let types = [ExportType.markdown,.pdf,.html,.image]
 
         MenuView(items: types.map{($0.displayName,!($0 == .markdown || Configure.shared.isPro))},
@@ -290,7 +305,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         }
     }
     
-    func export(type: ExportType, sender: Any) {
+    func export(type: ExportType, sender: UIButton) {
         guard let file = self.file else { return }
         var item: Any?
         switch type {
@@ -310,22 +325,23 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             item = url
         case .image:
             SVProgressHUD.show()
-            let frame = previewVC.webView.frame
-            previewVC.webView.frame = previewVC.webView.superview!.bounds
-            previewVC.webView.captureScreenShot { image in
-                self.previewVC.webView.frame = frame
-                if let img = image {
-                    let vc = UIActivityViewController(activityItems: [img], applicationActivities: nil)
-                    vc.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-                    self.presentVC(vc)
-                }
+    
+            previewVC.scrollView.takeSnapshot(delay: 0.3, progress: { percentage in
+                
+            }, completion: {  image in
                 SVProgressHUD.dismiss()
-            }
+                guard let image = image else { return }
+                let vc = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+                vc.popoverPresentationController?.sourceView = sender
+                vc.popoverPresentationController?.sourceRect = sender.bounds
+                self.presentVC(vc)
+            })
         }
         
         if let item = item {
             let vc = UIActivityViewController(activityItems: [item], applicationActivities: nil)
-            vc.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
+            vc.popoverPresentationController?.sourceView = sender
+            vc.popoverPresentationController?.sourceRect = sender.bounds
             self.presentVC(vc)
         }
     }
@@ -339,12 +355,16 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        toggleBarButton()
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = scrollView.contentOffset.x < view.w * 0.5
+        navigationController?.navigationController?.interactivePopGestureRecognizer?.isEnabled = scrollView.contentOffset.x < view.w * 0.5
+        previewButton.tag = scrollView.contentOffset.x < view.w * 0.5 ? 0 : 1
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         impactIfAllow()
-        toggleBarButton()
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = scrollView.contentOffset.x < view.w * 0.5
+        navigationController?.navigationController?.interactivePopGestureRecognizer?.isEnabled = scrollView.contentOffset.x < view.w * 0.5
+        previewButton.tag = scrollView.contentOffset.x < view.w * 0.5 ? 0 : 1
     }
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
@@ -361,21 +381,6 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
                markdownRenderer?.title = title
            }
        }
-       
-    lazy var exportButton: UIBarButtonItem = {
-            let export = UIBarButtonItem(image: #imageLiteral(resourceName: "export"), style: .plain, target: self, action: #selector(showExportMenu(_:)))
-            return export
-        }()
-       
-    lazy var styleButton: UIBarButtonItem = {
-           let export = UIBarButtonItem(image: #imageLiteral(resourceName: "style"), style: .plain, target: self, action: #selector(showStylesView(_:)))
-           return export
-       }()
-       
-    lazy var previewButton: UIBarButtonItem = {
-           let button = UIBarButtonItem(image: #imageLiteral(resourceName: "preview"), style: .plain, target: self, action: #selector(preview))
-           return button
-       }()
        
     lazy var fullscreenButton: UIBarButtonItem = {
            let button = UIBarButtonItem(image: #imageLiteral(resourceName: "fullscreen"), style: .plain, target: self, action: #selector(fullscreen))

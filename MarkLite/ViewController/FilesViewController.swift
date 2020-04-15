@@ -591,6 +591,7 @@ class FilesViewController: UIViewController {
         navBar?.setTitleColor(.navTitle)
         view.setBackgroundColor(.background)
         bottomBar.setBackgroundColor(.background)
+        bottomBar.setTintColor(.tint)
         view.setTintColor(.navTint)
         tableView.setBackgroundColor(.tableBackground)
         tableView.setSeparatorColor(.primary)

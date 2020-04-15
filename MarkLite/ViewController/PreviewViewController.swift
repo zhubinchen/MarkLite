@@ -14,7 +14,7 @@ import SnapKit
 
 class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigationDelegate {
     
-    var webView = WKWebView(frame: CGRect())
+    let webView = WKWebView(frame: CGRect())
     let scrollView = UIScrollView(frame: CGRect())
     
     var offset: CGFloat = 0 {
@@ -32,20 +32,9 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
     
     var webHeight: CGFloat = windowHeight {
         didSet {
-            scrollView.contentSize = CGSize(width: 0,height: webHeight)
-            webView.frame = CGRect(x: 0, y: 0, w: scrollView.w, h: webHeight)
-        }
-    }
-    
-    var keyboardHeight: CGFloat = 0 {
-        didSet {
-            if keyboardHeight == oldValue {
-                return
-            }
-            let h = view.h - max(keyboardHeight,0)
-            UIView.animate(withDuration: 0.5, animations: {
-                self.scrollView.h = h
-            })
+            scrollView.contentSize = CGSize(width: 0, height: webHeight)
+            let inset = Configure.shared.contentInset.value ? max((self.view.w - 500) * 0.2,0) : 0
+            webView.frame = CGRect(x: inset, y: 0, w: scrollView.w - inset * 2, h: webHeight)
         }
     }
         
@@ -89,12 +78,15 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
                 self?.refresh()
             }
         })
+        
+        Configure.shared.contentInset.asObservable().subscribe(onNext: { [unowned self](enable) in
+            self.webHeight += CGFloat.leastNonzeroMagnitude
+        }).disposed(by: disposeBag)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        let h = view.h - max(keyboardHeight - bottomInset,0)
-        scrollView.frame = CGRect(x: 0, y: 0, w: view.w, h: h)
+        scrollView.frame = self.view.bounds
         if fabs(scrollView.w - webView.w) > 10 {
             webHeight = 100
         }
@@ -123,6 +115,14 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
             if webHeight - scrollView.h > 0 {
                 didScrollHandler?(offset / (webHeight - scrollView.h))
             }
+        }
+        
+        let pan = scrollView.panGestureRecognizer
+        let velocity = pan.velocity(in: scrollView).y
+        if velocity < -800 {
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        } else if velocity > 800 {
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
         }
     }
     

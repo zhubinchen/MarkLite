@@ -11,23 +11,6 @@ import RxSwift
 import RxCocoa
 import Zip
 
-enum SplitOption: String {
-    case automatic
-    case never
-    case always
-    
-    var displayName: String {
-        switch self {
-        case .automatic:
-            return /"Automatic"
-        case .never:
-            return /"Never"
-        case .always:
-            return /"Always"
-        }
-    }
-}
-
 enum SortOption: String {
     case modifyDate
     case name
@@ -92,16 +75,18 @@ class Configure: NSObject, NSCoding {
     var showExtensionName = false
     var impactFeedback = true
     let fontSize = Variable(17)
+    let contentInset = Variable(true)
     let isAssistBarEnabled = Variable(true)
     let markdownStyle = Variable("GitHub")
     let highlightStyle = Variable("tomorrow")
     let theme = Variable(Theme.white)
-    let splitOption = Variable(SplitOption.automatic)
     var sortOption = SortOption.modifyDate
     let darkOption = Variable(DarkModeOption.defaultDarkOption)
     var keyboardBarItems = ["-","`","$","/","\"","?","@","(",")","[","]","|","#","*","=","+","<",">"]
     var recentImages = [URL]()
-
+    var showedTips = [String]()
+    let automaticSplit = Variable(true)
+    
     var isPro: Bool {
         return expireDate.isFuture
     }
@@ -137,12 +122,15 @@ class Configure: NSObject, NSCoding {
         markdownStyle.value = "GitHub"
         highlightStyle.value = "tomorrow"
         theme.value = .white
-        splitOption.value = .automatic
         sortOption = .modifyDate
         darkOption.value = DarkModeOption.defaultDarkOption
         showExtensionName = false
         impactFeedback = true
+        contentInset.value = true
+        isAssistBarEnabled.value = true
+        automaticSplit.value = true
         fontSize.value = 17
+        showedTips = []
         
         let destStylePath = URL(fileURLWithPath: supportPath)
         try! Zip.unzipFile(Bundle.main.url(forResource: "Resources", withExtension: "zip")!, destination: destStylePath, overwrite: true, password: nil, progress: nil)
@@ -202,19 +190,21 @@ class Configure: NSObject, NSCoding {
     
     func encode(with aCoder: NSCoder) {
         aCoder.encode(currentVerion, forKey: "currentVersion")
+        aCoder.encode(automaticSplit.value, forKey: "automaticSplit")
         aCoder.encode(impactFeedback, forKey: "impactFeedback")
         aCoder.encode(showExtensionName, forKey: "showExtensionName")
         aCoder.encode(isAssistBarEnabled.value, forKey: "isAssistBarEnabled")
+        aCoder.encode(contentInset.value, forKey: "contentInset")
         aCoder.encode(markdownStyle.value, forKey: "markdownStyle")
         aCoder.encode(highlightStyle.value, forKey: "highlightStyle")
         aCoder.encode(theme.value.rawValue, forKey: "theme")
         aCoder.encode(fontSize.value, forKey: "fontSize")
-        aCoder.encode(splitOption.value.rawValue, forKey: "splitOption")
         aCoder.encode(darkOption.value.rawValue, forKey: "darkOption")
         aCoder.encode(sortOption.rawValue, forKey: "sortOption")
         aCoder.encode(rateAlertDate, forKey: "rateAlertDate")
         aCoder.encode(expireDate, forKey: "expireDate")
         aCoder.encode(recentImages, forKey: "recentImages")
+        aCoder.encode(showedTips, forKey: "showedTips")
         aCoder.encode(false, forKey: "isPro")
     }
     
@@ -224,15 +214,17 @@ class Configure: NSObject, NSCoding {
         rateAlertDate = aDecoder.decodeObject(forKey: "rateAlertDate") as? Date ?? Date().daysAgo(19)
         expireDate = aDecoder.decodeObject(forKey: "expireDate") as? Date ?? Date.longlongAgo()
         recentImages = aDecoder.decodeObject(forKey: "recentImages") as? [URL] ?? []
+        showedTips = aDecoder.decodeObject(forKey: "showedTips") as? [String] ?? []
         impactFeedback = aDecoder.decodeBool(forKey: "impactFeedback")
         showExtensionName = aDecoder.decodeBool(forKey: "showExtensionName")
         isAssistBarEnabled.value = aDecoder.decodeBool(forKey: "isAssistBarEnabled")
+        contentInset.value = aDecoder.decodeBool(forKey: "contentInset")
+        automaticSplit.value = aDecoder.decodeBool(forKey: "automaticSplit")
         markdownStyle.value = aDecoder.decodeObject(forKey: "markdownStyle") as? String ?? "GitHub"
         highlightStyle.value = aDecoder.decodeObject(forKey: "highlightStyle") as? String ?? "tomorrow"
         theme.value = Theme(rawValue:aDecoder.decodeObject(forKey: "theme") as? String ?? "") ?? .white
         let size = aDecoder.decodeInteger(forKey: "fontSize")
         fontSize.value = size == 0 ? 17 : size
-        splitOption.value = SplitOption(rawValue: aDecoder.decodeObject(forKey: "splitOption") as? String ?? "") ?? .automatic
         darkOption.value = DarkModeOption(rawValue: aDecoder.decodeObject(forKey: "darkOption") as? String ?? "") ?? DarkModeOption.defaultDarkOption
         sortOption = SortOption(rawValue: aDecoder.decodeObject(forKey: "sortOption") as? String ?? "") ?? .modifyDate
         let isPro = aDecoder.decodeBool(forKey: "isPro")

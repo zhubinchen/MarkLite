@@ -14,16 +14,7 @@ import EZSwiftExtensions
 class TextViewController: UIViewController {
 
     @IBOutlet weak var editView: UITextView!
-    
-    @IBOutlet weak var countLabel: UILabel!
-    @IBOutlet weak var undoButton: UIButton!
-    @IBOutlet weak var redoButton: UIButton!
-    
-    @IBOutlet weak var bottomView: UIView!
-    @IBOutlet weak var seperator: UIView!
-
-    @IBOutlet weak var bottomSpace: NSLayoutConstraint!
-    
+        
     var textViewWidth: CGFloat = 0
     
     var textHeight: CGFloat {
@@ -45,7 +36,7 @@ class TextViewController: UIViewController {
             if y < 0 {
                 y = 0
             }
-            editView.contentOffset = CGPoint(x: 0,y: y)
+            editView.contentOffset = CGPoint(x: editView.contentOffset.x,y: y)
         }
     }
     
@@ -59,19 +50,6 @@ class TextViewController: UIViewController {
     var timer: Timer?
     
     var text: String = ""
-        
-    var keyboardHeight: CGFloat = windowHeight {
-        didSet {
-            if keyboardHeight == oldValue {
-                return
-            }
-            
-            bottomSpace.constant = max(keyboardHeight - bottomInset - 40,0)
-            UIView.animate(withDuration: 0.5, animations: {
-                self.view.layoutIfNeeded()
-            })
-        }
-    }
     
     var visibleRange: NSRange? {
         let topLeft = CGPoint(x: editView.bounds.minX, y: editView.bounds.minY)
@@ -94,8 +72,11 @@ class TextViewController: UIViewController {
         
         editView.textContainer.lineBreakMode = .byCharWrapping
         view.setBackgroundColor(.background)
-        bottomView.setTintColor(.tint)
-        countLabel.setTextColor(.secondary)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        updateInset()
     }
     
     func setupRx() {
@@ -110,6 +91,10 @@ class TextViewController: UIViewController {
             }
         }).disposed(by: bag)
         
+        Configure.shared.contentInset.asObservable().subscribe(onNext: { [unowned self](enable) in
+            self.updateInset()
+        }).disposed(by: bag)
+        
         Configure.shared.theme.asObservable().subscribe(onNext: { [unowned self] _ in
             self.highlightmanager = MarkdownHighlightManager()
             self.textViewDidChange(self.editView)
@@ -121,6 +106,11 @@ class TextViewController: UIViewController {
             self.highlightmanager = MarkdownHighlightManager()
             self.textViewDidChange(self.editView)
         }).disposed(by: bag)
+    }
+    
+    func updateInset() {
+        let inset = Configure.shared.contentInset.value ? max((self.view.w - 500) * 0.2,0) : 0
+        self.editView.contentInset = UIEdgeInsetsMake(0, inset + 8, 0, inset + 8)
     }
     
     func loadText(_ text: String) {
@@ -142,16 +132,6 @@ class TextViewController: UIViewController {
         } else if let range = self.visibleRange {
             highlightmanager.highlight(editView.textStorage,visibleRange: range)
         }
-    }
-    
-    @IBAction func undo(_ sender: UIButton) {
-        editView.undoManager?.undo()
-        impactIfAllow()
-    }
-    
-    @IBAction func redo(_ sender: UIButton) {
-        editView.undoManager?.redo()
-        impactIfAllow()
     }
     
     func newLine(_ last: String) -> String {
@@ -190,6 +170,13 @@ extension TextViewController: UITextViewDelegate {
             if textHeight - scrollView.h > 0 {
                 didScrollHandler?(offset / (textHeight - scrollView.h))
             }
+        }
+        let pan = scrollView.panGestureRecognizer
+        let velocity = pan.velocity(in: scrollView).y
+        if velocity < -800 {
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        } else if velocity > 800 {
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
         }
     }
     
@@ -240,13 +227,10 @@ extension TextViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         self.text = textView.text
-        countLabel.text = "\(text.count) " + /"Characters"
         if editView.markedTextRange != nil {
             return
         }
         textChangedHandler?(text)
-        redoButton.isEnabled = self.editView.undoManager?.canRedo ?? false
-        undoButton.isEnabled = self.editView.undoManager?.canUndo ?? false
         
         timer?.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(highlight), userInfo: nil, repeats: false)

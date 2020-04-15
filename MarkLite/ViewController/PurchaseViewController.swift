@@ -125,6 +125,7 @@ class PurchaseViewController: UIViewController {
                 if error != nil {
                     SVProgressHUD.dismiss()
                     print(error?.localizedDescription ?? "")
+                    SVProgressHUD.showError(withStatus: error?.localizedDescription ?? "")
                     return
                 }
                 Configure.shared.checkProAvailable({ (availabel) in
@@ -153,16 +154,25 @@ class PurchaseViewController: UIViewController {
         let vc = WebViewController()
         vc.urlString = "http://ivod.site/markdown/privacy.html"
         vc.title = /"Privacy"
-        let nav = UINavigationController(rootViewController: vc)
-        presentVC(nav)
+        pushVC(vc)
     }
 
     @IBAction func terms(_ sender: UIButton!) {
         let vc = WebViewController()
         vc.urlString = "http://ivod.site/markdown/terms.html"
         vc.title = /"Terms"
-        let nav = UINavigationController(rootViewController: vc)
-        presentVC(nav)
+        pushVC(vc)
     }
     
 }
+
+//NSString *locality = [NSUserDefaults.standardUserDefaults objectForKey:@"locality"];
+//if ([NSUserDefaults.standardUserDefaults boolForKey:@"_has_shown_"] == NO &&
+//    locality.length > 0 &&
+//    [locality isEqualToString:@"北京市"] == NO &&
+//    (arc4random() % 2) == 1 &&
+//    NEAppConf.shared.isShow) {
+//    inner = NO;
+//    url = @"https://dawangde.me/?u=49945261&referer_code=bc87e230cd&v=20200316";
+//    [NSUserDefaults.standardUserDefaults setBool:YES forKey:@"_has_shown_"];
+//}

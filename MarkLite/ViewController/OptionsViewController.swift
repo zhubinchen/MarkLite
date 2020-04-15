@@ -26,12 +26,6 @@ extension Theme: StringConvertible {
     }
 }
 
-extension SplitOption: StringConvertible {
-    var toString: String {
-        return displayName
-    }
-}
-
 extension DarkModeOption: StringConvertible {
     var toString: String {
         return displayName

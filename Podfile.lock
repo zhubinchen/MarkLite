@@ -8,9 +8,12 @@ PODS:
   - Kingfisher (5.8.3):
     - Kingfisher/Core (= 5.8.3)
   - Kingfisher/Core (5.8.3)
-  - RxCocoa (4.3.0):
-    - RxSwift (~> 4.0)
-  - RxSwift (4.3.0)
+  - RxCocoa (5.0.1):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxRelay (5.0.1):
+    - RxSwift (~> 5)
+  - RxSwift (5.0.1)
   - SnapKit (4.2.0)
   - SVProgressHUD (2.2.5)
   - UMCAnalytics (6.0.5):
@@ -24,8 +27,8 @@ DEPENDENCIES:
   - EZSwiftExtensions
   - GCDWebServer/WebUploader (~> 3.0)
   - Kingfisher
-  - RxCocoa
-  - RxSwift
+  - RxCocoa (~> 5)
+  - RxSwift (~> 5)
   - SnapKit
   - SVProgressHUD
   - UMCAnalytics
@@ -39,6 +42,7 @@ SPEC REPOS:
     - GCDWebServer
     - Kingfisher
     - RxCocoa
+    - RxRelay
     - RxSwift
     - SnapKit
     - SVProgressHUD
@@ -52,14 +56,15 @@ SPEC CHECKSUMS:
   EZSwiftExtensions: f73648a591e529a1dbd83c22b19fd3e57df6fb7d
   GCDWebServer: ead88cd14596dd4eae4f5830b8877c87c8728990
   Kingfisher: b7e4cb65ff24c264bd2a1284b75b974d907afd94
-  RxCocoa: 71b9cce833fbcb89a8eec11816dd225830c2bd3c
-  RxSwift: a9717a34df3179fe63563f76e046ad345078dd3a
+  RxCocoa: e741b9749968e8a143e2b787f1dfbff2b63d0a5c
+  RxRelay: 89d54507f4fd4d969e6ec1d4bd7f3673640b4640
+  RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   UMCAnalytics: 045be2cd1ec05aa95ad62405a850757f932e2d59
   UMCCommon: c9637200488c482b30cdebebb0bd595b9adf0847
   Zip: 8877eede3dda76bcac281225c20e71c25270774c
 
-PODFILE CHECKSUM: 27c850748143b9fdaba7b6a2063c004187ecbe80
+PODFILE CHECKSUM: 6277df3b595952a1ea9f434061eeee53dd613a01
 
 COCOAPODS: 1.8.4

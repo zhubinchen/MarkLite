@@ -22,14 +22,11 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     let displayOptionSwitch = UISwitch()
 
     var items: [(String,[(String,String,Selector)])] {
-        var section = [
+        let section = [
             ("NightMode","",#selector(darkMode)),
             ("Theme","",#selector(theme)),
             ("ImpactFeedback","",#selector(impactFeedback))
             ]
-        if isPad {
-            section.append(("SplitOptions","",#selector(splitOption)))
-        }
         var status: String? = "SubscribeNow"
         if Configure.shared.isPro {
             status = nil
@@ -158,18 +155,6 @@ extension SettingsViewController {
     @objc func premium() {
         let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
         let vc = sb.instantiateVC(PurchaseViewController.self)!
-        pushVC(vc)
-    }
-    
-    @objc func splitOption() {
-        let items = [SplitOption.automatic,.never,.always]
-        let index = items.index{ Configure.shared.splitOption.value == $0 }
-
-        let wraper = OptionsWraper(selectedIndex: index, editable: false, title: /"SplitOptions", items: items) {
-            Configure.shared.splitOption.value = $0 as! SplitOption
-        }
-        let vc = OptionsViewController()
-        vc.options = wraper
         pushVC(vc)
     }
         
