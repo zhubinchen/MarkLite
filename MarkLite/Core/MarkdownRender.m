@@ -46,9 +46,10 @@ NS_INLINE hoedown_renderer *MPCreateHTMLTOCRenderer()
     return tocRenderer;
 }
 
-NS_INLINE NSString *MPHTMLFromMarkdown(
-                                       NSString *text, int flags, BOOL smartypants,
-                                       hoedown_renderer *htmlRenderer, hoedown_renderer *tocRenderer)
+NS_INLINE NSString *MPHTMLFromMarkdown(NSString *text,
+                                       int flags,
+                                       BOOL smartypants,
+                                       hoedown_renderer *htmlRenderer)
 {
     NSData *inputData = [text dataUsingEncoding:NSUTF8StringEncoding];
     hoedown_document *document = hoedown_document_new(htmlRenderer, flags, SIZE_MAX);
@@ -64,19 +65,6 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
     NSString *result = [NSString stringWithUTF8String:hoedown_buffer_cstr(ob)] ?: @"";
     hoedown_document_free(document);
     hoedown_buffer_free(ob);
-    
-    if (tocRenderer)
-    {
-        document = hoedown_document_new(tocRenderer, flags, SIZE_MAX);
-        ob = hoedown_buffer_new(64);
-        hoedown_document_render(
-                                document, ob, inputData.bytes, inputData.length);
-        NSString *toc = [NSString stringWithUTF8String:hoedown_buffer_cstr(ob)];
-        
-        result = [toc stringByAppendingString:result];
-        hoedown_document_free(document);
-        hoedown_buffer_free(ob);
-    }
     
     return result;
 }
@@ -102,20 +90,35 @@ NS_INLINE NSString *MPHTMLFromMarkdown(
     return self;
 }
 
-- (NSString*)renderMarkdown:(NSString*)markdown {
-    hoedown_renderer *htmlRenderer = MPCreateHTMLRenderer([self rendererFlags]);
+- (NSString *)tocHeader:(NSString *)markdown {
     hoedown_renderer *tocRenderer = MPCreateHTMLTOCRenderer();
     int extensions = [self extensionFlags];
-    NSString *html = MPHTMLFromMarkdown(markdown, extensions, NO, htmlRenderer, tocRenderer);
+
+    NSData *inputData = [markdown dataUsingEncoding:NSUTF8StringEncoding];
+    hoedown_document *document = hoedown_document_new(tocRenderer, extensions, SIZE_MAX);
+    hoedown_buffer *ob = hoedown_buffer_new(64);
+    hoedown_document_render(document, ob, inputData.bytes, inputData.length);
+    
+    NSString *toc = [NSString stringWithUTF8String:hoedown_buffer_cstr(ob)];
+
+    hoedown_document_free(document);
+    hoedown_buffer_free(ob);
     hoedown_html_renderer_free(tocRenderer);
+    return toc;
+}
+
+- (NSString*)renderMarkdown:(NSString*)markdown {
+    hoedown_renderer *htmlRenderer = MPCreateHTMLRenderer([self rendererFlags]);
+    int extensions = [self extensionFlags];
+    NSString *html = MPHTMLFromMarkdown(markdown, extensions, NO, htmlRenderer);
     hoedown_html_renderer_free(htmlRenderer);
 
     NSString *stylePath = [NSString stringWithFormat:@"/Styles/%@.css",self.styleName];
     NSString *highlightPath = [NSString stringWithFormat:@"/Highlight/highlight-style/%@.css",self.highlightName];
     NSString *highlightJS1 = @"/Highlight/highlightjs/highlight.min.js";
     NSString *highlightJS2 = @"/Highlight/highlightjs/swift.min.js";
-//    NSString *mermaid = @"https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js";
     NSString *MathJaxJS = @"/MathJax/tex-mml-chtml.js";
+    //    NSString *mermaid = @"https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js";
     return [self formatHTML:html title:(self.title?:@"") styles:@[stylePath,highlightPath] scripts:@[highlightJS1,highlightJS2,MathJaxJS]];
 }
 

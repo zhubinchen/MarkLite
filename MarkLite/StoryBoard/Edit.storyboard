@@ -223,7 +223,7 @@
                     <navigationItem key="navigationItem" id="tA2-yd-E6o">
                         <barButtonItem key="rightBarButtonItem" image="nav_list" id="5ZK-nG-ahr">
                             <connections>
-                                <action selector="showTocList" destination="kJS-Hc-QJ3" id="S1m-gI-NLU"/>
+                                <action selector="showTocList:" destination="kJS-Hc-QJ3" id="8B0-dq-Zyb"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

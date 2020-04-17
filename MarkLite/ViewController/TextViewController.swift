@@ -108,6 +108,21 @@ class TextViewController: UIViewController {
         }).disposed(by: bag)
     }
     
+    func showTOC(_ toc: TOCItem) {
+        let expStr = "#{\(toc.level)} +\(toc.title)"
+        let exp = try! NSRegularExpression(pattern: expStr, options: .caseInsensitive)
+        let range = exp.rangeOfFirstMatch(in: editView.text, options: .reportCompletion, range: NSRange(location: 0, length: editView.text.count))
+        if range.location == NSNotFound {
+            return
+        }
+        if let position = editView.position(from: editView.beginningOfDocument, offset: range.location) {
+            var rect = editView.caretRect(for: position)
+            rect.origin.y = rect.origin.y - editView.h * 0.4
+            rect.size.height = rect.size.height + editView.h * 0.8
+            editView.scrollRectToVisible(rect, animated: true)
+        }
+    }
+    
     func updateInset() {
         let inset = Configure.shared.contentInset.value ? max((self.view.w - 500) * 0.2,0) : 0
         self.editView.contentInset = UIEdgeInsetsMake(0, inset + 8, 0, inset + 8)

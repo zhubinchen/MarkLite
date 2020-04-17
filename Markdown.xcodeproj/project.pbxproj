@@ -49,6 +49,8 @@
 		7635E5CF234AF3B6008E1DEF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7635E5CE234AF3B6008E1DEF /* Main.storyboard */; };
 		766F117C2350803A00E6395E /* KeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766F117B2350803A00E6395E /* KeyboardBar.swift */; };
 		766F118B2351AB0600E6395E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 766F11892351AB0600E6395E /* LaunchScreen.storyboard */; };
+		76849D1824472CDF00DF0A45 /* TocListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76849D1724472CDF00DF0A45 /* TocListViewController.swift */; };
+		76849D1A24472D7A00DF0A45 /* TOCItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76849D1924472D7A00DF0A45 /* TOCItem.swift */; };
 		768762B922D86CE900A54EB1 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762B822D86CE900A54EB1 /* IAPHelper.swift */; };
 		768762BB22D86D1C00A54EB1 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */; };
 		7699B210236ADC3C005F394D /* ExportActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7699B20F236ADC3C005F394D /* ExportActivity.swift */; };
@@ -125,6 +127,8 @@
 		7635E5CE234AF3B6008E1DEF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		766F117B2350803A00E6395E /* KeyboardBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardBar.swift; sourceTree = "<group>"; };
 		766F118A2351AB0600E6395E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		76849D1724472CDF00DF0A45 /* TocListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocListViewController.swift; sourceTree = "<group>"; };
+		76849D1924472D7A00DF0A45 /* TOCItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOCItem.swift; sourceTree = "<group>"; };
 		768762B822D86CE900A54EB1 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; usesTabs = 0; };
 		768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		7699B20F236ADC3C005F394D /* ExportActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportActivity.swift; sourceTree = "<group>"; };
@@ -243,6 +247,7 @@
 				7635E5C923473212008E1DEF /* Document.swift */,
 				7699B20F236ADC3C005F394D /* ExportActivity.swift */,
 				769E1D23240422640064B822 /* ServerInfo.swift */,
+				76849D1924472D7A00DF0A45 /* TOCItem.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -306,6 +311,7 @@
 				07E827071F5BF1BA0077A017 /* EditViewController.swift */,
 				07E8270E1F5BF1BA0077A017 /* PreviewViewController.swift */,
 				07E8270D1F5BF1BA0077A017 /* TextViewController.swift */,
+				76849D1724472CDF00DF0A45 /* TocListViewController.swift */,
 				07E8270C1F5BF1BA0077A017 /* SettingsViewController.swift */,
 				07E8270F1F5BF1BA0077A017 /* HomeViewController.swift */,
 				768762BA22D86D1C00A54EB1 /* PurchaseViewController.swift */,
@@ -511,10 +517,12 @@
 				07E827521F5BF1BA0077A017 /* MenuView.swift in Sources */,
 				07E827591F5BF1BA0077A017 /* OptionsViewController.swift in Sources */,
 				760C29692320F3EC002E613E /* html_smartypants.c in Sources */,
+				76849D1A24472D7A00DF0A45 /* TOCItem.swift in Sources */,
 				7635A0AA23790BAA00679C4E /* RecentImageCell.swift in Sources */,
 				07E827551F5BF1BA0077A017 /* EditViewController.swift in Sources */,
 				07E8274D1F5BF1BA0077A017 /* Utils.swift in Sources */,
 				07E8271D1F5BF1BA0077A017 /* File.swift in Sources */,
+				76849D1824472CDF00DF0A45 /* TocListViewController.swift in Sources */,
 				760C296B2320F3EC002E613E /* autolink.c in Sources */,
 				0724281B1F726B0300C02F87 /* ImagePicker.swift in Sources */,
 				761F825022E16D6500C3435C /* WebViewController.swift in Sources */,

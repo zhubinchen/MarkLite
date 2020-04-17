@@ -87,6 +87,7 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         scrollView.frame = self.view.bounds
+        offset += CGFloat.leastNonzeroMagnitude
         if fabs(scrollView.w - webView.w) > 10 {
             webHeight = 100
         }
@@ -96,6 +97,26 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
         if let size = change?[NSKeyValueChangeKey.newKey] as? CGSize {
             if fabs(webHeight - size.height) > 10 {
                 webHeight = size.height
+            }
+        }
+    }
+    
+    func showTOC(_ toc: TOCItem) {
+        scrollView.contentOffset = CGPoint()
+        webView.frame = CGRect(x: webView.x, y: 0, w: webView.w, h: scrollView.h)
+        webView.scrollView.isScrollEnabled = true
+        scrollView.isScrollEnabled = false
+        let js = "location.href=\"#toc_\(toc.idx)\""
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.webView.evaluateJavaScript(js) { (_,error) in
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    self.webView.scrollView.isScrollEnabled = false
+                    self.scrollView.isScrollEnabled = true
+                    let offset = self.webView.scrollView.contentOffset
+                    self.scrollView.contentOffset = offset
+                    self.webView.frame = CGRect(x: self.webView.x, y: 0, w: self.webView.w, h: self.webHeight)
+                    print(offset)
+                }
             }
         }
     }

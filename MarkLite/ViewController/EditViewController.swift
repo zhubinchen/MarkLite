@@ -31,7 +31,7 @@ enum ExportType: String {
     }
 }
 
-class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresentationControllerDelegate {
+class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresentationControllerDelegate, TocListDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var emptyImageView: UIImageView!
@@ -221,8 +221,25 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         }
     }
     
-    @IBAction func showTocList() {
+    @IBAction func showTocList(_ sender: UIBarButtonItem) {
+        impactIfAllow()
+
+        guard let toc = markdownRenderer?.tocHeader(file?.text) else { return }
         
+        let vc = TocListViewController()
+        vc.toc = toc
+        vc.delegate = self
+        
+        let nav = UINavigationController(rootViewController: vc)
+        nav.preferredContentSize = CGSize(width:300, height:400)
+        nav.modalPresentationStyle = .popover
+        guard let popoverVC = nav.popoverPresentationController else {
+            return
+        }
+        popoverVC.backgroundColor = UIColor.white
+        popoverVC.delegate = self
+        popoverVC.barButtonItem = sender
+        present(nav, animated: true, completion: nil)
     }
     
     @IBAction func undo(_ sender: UIButton) {
@@ -352,6 +369,11 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         } else if let vc = segue.destination as? PreviewViewController {
             previewVC = vc
         }
+    }
+    
+    func didSelectTOC(_ toc: TOCItem) {
+        textVC.showTOC(toc)
+        previewVC.showTOC(toc)
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {

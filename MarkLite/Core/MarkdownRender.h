@@ -19,4 +19,6 @@
 
 - (NSString*)renderMarkdown:(NSString*)markdown;
 
+- (NSString*)tocHeader:(NSString*)markdown;
+
 @end
