@@ -257,7 +257,7 @@
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="SubscriptionTitle" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8E8-N9-JuN">
                                                         <rect key="frame" x="0.0" y="211" width="374" height="19.5"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <color key="textColor" red="0.1960784314" green="0.1960784314" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -541,6 +541,7 @@
                         <outlet property="monthlyButton" destination="DRo-iy-ALu" id="7c8-oB-5Ae"/>
                         <outlet property="purchaseButton" destination="AoV-7Z-3Hm" id="kKT-Md-jn0"/>
                         <outlet property="purchaseTipsLabel" destination="SeU-kU-t6Y" id="2hv-GI-fUN"/>
+                        <outlet property="scrollView" destination="ZdK-Fp-fMG" id="mKo-d0-b40"/>
                         <outlet property="titleLabel" destination="8E8-N9-JuN" id="dKV-Es-vot"/>
                         <outlet property="yearlyButton" destination="asY-0I-hbM" id="McI-fO-AOv"/>
                     </connections>

@@ -133,7 +133,7 @@ struct MarkdownHighlightManager {
         }
         
         let nomarlColor = Configure.shared.theme.value == .black ? rgb(160,160,160) : rgb(54,54,64)
-
+ 
         text.setAttributes([NSAttributedStringKey.font : HighlightStyle.normalFont,
                               NSAttributedStringKey.paragraphStyle : paragraphStyle,
                               NSAttributedStringKey.foregroundColor : nomarlColor], range: validRange)

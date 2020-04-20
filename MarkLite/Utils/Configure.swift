@@ -86,8 +86,10 @@ class Configure: NSObject, NSCoding {
     var recentImages = [URL]()
     var showedTips = [String]()
     let automaticSplit = Variable(true)
+    let autoHideNavigationBar = Variable(true)
     
     var isPro: Bool {
+        return true
         return expireDate.isFuture
     }
     
@@ -129,6 +131,7 @@ class Configure: NSObject, NSCoding {
         contentInset.value = true
         isAssistBarEnabled.value = true
         automaticSplit.value = true
+        autoHideNavigationBar.value = true
         fontSize.value = 17
         showedTips = []
         
@@ -191,6 +194,7 @@ class Configure: NSObject, NSCoding {
     func encode(with aCoder: NSCoder) {
         aCoder.encode(currentVerion, forKey: "currentVersion")
         aCoder.encode(automaticSplit.value, forKey: "automaticSplit")
+        aCoder.encode(autoHideNavigationBar.value, forKey: "autoHideNavigationBar")
         aCoder.encode(impactFeedback, forKey: "impactFeedback")
         aCoder.encode(showExtensionName, forKey: "showExtensionName")
         aCoder.encode(isAssistBarEnabled.value, forKey: "isAssistBarEnabled")
@@ -219,6 +223,7 @@ class Configure: NSObject, NSCoding {
         showExtensionName = aDecoder.decodeBool(forKey: "showExtensionName")
         isAssistBarEnabled.value = aDecoder.decodeBool(forKey: "isAssistBarEnabled")
         contentInset.value = aDecoder.decodeBool(forKey: "contentInset")
+        autoHideNavigationBar.value = aDecoder.decodeBool(forKey: "autoHideNavigationBar")
         automaticSplit.value = aDecoder.decodeBool(forKey: "automaticSplit")
         markdownStyle.value = aDecoder.decodeObject(forKey: "markdownStyle") as? String ?? "GitHub"
         highlightStyle.value = aDecoder.decodeObject(forKey: "highlightStyle") as? String ?? "tomorrow"
@@ -234,11 +239,11 @@ class Configure: NSObject, NSCoding {
     }
     
     func checkProAvailable(_ completion:((Bool)->Void)? = nil){
-        #if DEBUG
-            self.expireDate = Date.distantFuture
-            completion?(self.isPro)
-            return
-        #endif
+//        #if DEBUG
+//            self.expireDate = Date.distantFuture
+//            completion?(self.isPro)
+//            return
+//        #endif
 
         IAP.validateReceipt(itunesSecret) { (statusCode, products, json) in
             defer {

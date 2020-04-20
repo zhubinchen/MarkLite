@@ -87,8 +87,8 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         scrollView.frame = self.view.bounds
-        offset += CGFloat.leastNonzeroMagnitude
-        if fabs(scrollView.w - webView.w) > 10 {
+        let inset = Configure.shared.contentInset.value ? max((self.view.w - 500) * 0.2,0) : 0
+        if fabs(scrollView.w - webView.w - inset * 2) > 10 {
             webHeight = 100
         }
     }
@@ -136,6 +136,10 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
             if webHeight - scrollView.h > 0 {
                 didScrollHandler?(offset / (webHeight - scrollView.h))
             }
+        }
+        
+        if Configure.shared.autoHideNavigationBar.value == false {
+            return
         }
         
         let pan = scrollView.panGestureRecognizer

@@ -115,7 +115,8 @@ extension String {
     
     func firstMatchRange(_ exp: String) -> NSRange? {
         guard let exp = try? NSRegularExpression(pattern: exp, options: .anchorsMatchLines) else { return nil }
-        guard let range = exp.firstMatch(in: self, options: .anchored, range: NSMakeRange(0, min(20, self.count)))?.range else { return nil }
+        
+        guard let range = exp.firstMatch(in: self, options: .reportCompletion, range: NSRange(startIndex..., in: self))?.range else { return nil }
         if range.location == NSNotFound {
             return nil
         }
@@ -123,21 +124,13 @@ extension String {
     }
     
     func substring(with nsRange: NSRange) -> String {
-        return self.substring(with: rangeFromNSRange(nsRange)!)
+        let str = self as NSString
+        return str.substring(with: nsRange)
     }
     
     func replacingCharacters(in nsRange: NSRange, with newString: String) -> String {
-        return self.replacingCharacters(in: rangeFromNSRange(nsRange)!, with: newString)
-    }
-    
-    func rangeFromNSRange(_ nsRange: NSRange) -> Range<String.Index>? {
-        let from16 = utf16.index(startIndex, offsetBy: nsRange.location)
-        let to16 = index(from16, offsetBy: nsRange.length)
-        if let from = String.Index(from16, within: self),
-            let to = String.Index(to16, within: self) {
-            return from ..< to
-        }
-        return nil
+        let str = self as NSString
+        return str.replacingCharacters(in: nsRange, with: newString)
     }
 }
 

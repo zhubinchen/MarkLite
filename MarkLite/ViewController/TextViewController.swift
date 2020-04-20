@@ -14,24 +14,25 @@ import EZSwiftExtensions
 class TextViewController: UIViewController {
 
     @IBOutlet weak var editView: UITextView!
-        
-    var textViewWidth: CGFloat = 0
-    
-    var textHeight: CGFloat {
-        if editView.w != textViewWidth {
-            textViewWidth = editView.w
-            _textHeight = editView.sizeThatFits(editView.size).height
-        }
-        return _textHeight
+            
+    var contentHeight: CGFloat {
+//        if _textWidth != editView.w {
+//            _textWidth = editView.w
+//            let w = _textWidth - editView.contentInset.left * 2
+//            _textHeight = editView.sizeThatFits(editView.contentSize).height + editView.contentInset.bottom
+//        }
+        return editView.contentSize.height
     }
     
     var _textHeight: CGFloat = 0
     
+    var _textWidth: CGFloat = 0
+    
     var offset: CGFloat = 0.0 {
         didSet {
-            var y = offset * (textHeight - editView.h)
-            if y > textHeight - editView.h  {
-                y = textHeight - editView.h
+            var y = offset * (contentHeight - editView.h)
+            if y > contentHeight - editView.h  {
+                y = contentHeight - editView.h
             }
             if y < 0 {
                 y = 0
@@ -76,7 +77,10 @@ class TextViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        updateInset()
+
+        if _textWidth != editView.w {
+            updateInset()
+        }
     }
     
     func setupRx() {
@@ -109,23 +113,19 @@ class TextViewController: UIViewController {
     }
     
     func showTOC(_ toc: TOCItem) {
-        let expStr = "#{\(toc.level)} +\(toc.title)"
-        let exp = try! NSRegularExpression(pattern: expStr, options: .caseInsensitive)
-        let range = exp.rangeOfFirstMatch(in: editView.text, options: .reportCompletion, range: NSRange(location: 0, length: editView.text.count))
-        if range.location == NSNotFound {
-            return
-        }
+        let expStr = "#+ +\(toc.title)\\s*\n"
+        guard let range = editView.text.firstMatchRange(expStr) else { return }
         if let position = editView.position(from: editView.beginningOfDocument, offset: range.location) {
-            var rect = editView.caretRect(for: position)
-            rect.origin.y = rect.origin.y - editView.h * 0.4
-            rect.size.height = rect.size.height + editView.h * 0.8
-            editView.scrollRectToVisible(rect, animated: true)
+            let rect = editView.caretRect(for: position)
+            let y = max(min(rect.y,editView.contentSize.height - editView.h),0)
+            editView.setContentOffset(CGPoint(x: editView.contentOffset.x, y: y), animated: true)
         }
     }
     
     func updateInset() {
         let inset = Configure.shared.contentInset.value ? max((self.view.w - 500) * 0.2,0) : 0
-        self.editView.contentInset = UIEdgeInsetsMake(0, inset + 8, 0, inset + 8)
+        self.editView.contentInset = UIEdgeInsetsMake(0, inset + 8, 20, inset + 8)
+        _textWidth = 0
     }
     
     func loadText(_ text: String) {
@@ -182,15 +182,18 @@ extension TextViewController: UITextViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.isDragging {
             let offset = scrollView.contentOffset.y
-            if textHeight - scrollView.h > 0 {
-                didScrollHandler?(offset / (textHeight - scrollView.h))
+            if contentHeight - scrollView.h > 0 {
+                didScrollHandler?(offset / (contentHeight - scrollView.h))
             }
+        }
+        if Configure.shared.autoHideNavigationBar.value == false {
+            return
         }
         let pan = scrollView.panGestureRecognizer
         let velocity = pan.velocity(in: scrollView).y
-        if velocity < -800 {
+        if velocity < -600 {
             self.navigationController?.setNavigationBarHidden(true, animated: true)
-        } else if velocity > 800 {
+        } else if velocity > 600 {
             self.navigationController?.setNavigationBarHidden(false, animated: true)
         }
     }
@@ -249,6 +252,6 @@ extension TextViewController: UITextViewDelegate {
         
         timer?.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(highlight), userInfo: nil, repeats: false)
-        textViewWidth = 0
+        _textWidth = 0
     }
 }

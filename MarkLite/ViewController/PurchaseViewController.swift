@@ -17,8 +17,10 @@ class PurchaseViewController: UIViewController {
     @IBOutlet weak var yearlyButton: UIButton!
     @IBOutlet weak var monthlyButton: UIButton!
     @IBOutlet weak var foreverButton: UIButton!
+    
+    @IBOutlet weak var scrollView: UIScrollView!
 
-    var productId: String?
+    var productId: String!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +32,15 @@ class PurchaseViewController: UIViewController {
         if let id = productId {
             MobClick.event("enter_purchase_promote")
             purchaseProduct(id)
+        } else {
+            selectedType(yearlyButton)
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        scrollView.scrollRectToVisible(purchaseButton.frame.insetBy(dx: 0, dy: -40), animated: true)
     }
     
     func setupUI() {
@@ -39,19 +49,17 @@ class PurchaseViewController: UIViewController {
         navBar?.setTitleColor(.navTitle)
         purchaseButton.setBackgroundColor(.tint)
         titleLabel.setTextColor(.primary)
-        purchaseTipsLabel.setTextColor(.primary)
+        purchaseTipsLabel.setTextColor(.secondary)
         view.setBackgroundColor(.background)
         view.setTintColor(.tint)
-        
-        selectedType(yearlyButton)
-        
+                
         let paragraphStyle = { () -> NSMutableParagraphStyle in
             let paraStyle = NSMutableParagraphStyle()
             paraStyle.lineSpacing = 10
             return paraStyle
         }()
         
-        titleLabel.attributedText = NSAttributedString(string: titleLabel.text ?? "", attributes: [NSAttributedStringKey.paragraphStyle : paragraphStyle])
+        titleLabel.attributedText = NSAttributedString(string: titleLabel.text ?? "", attributes: [NSAttributedString.Key.paragraphStyle : paragraphStyle])
         
         if (navigationController?.viewControllers.count ?? 0) == 1 {
             navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
@@ -79,15 +87,13 @@ class PurchaseViewController: UIViewController {
         }
         
         purchaseTipsLabel.text = [/"MonthlyTips",/"YearlyTips",/"ForeverTips"][sender.tag]
-        purchaseButton.tag = sender.tag
+        purchaseButton.setTitle([/"PurchaseMonthly",/"PurchaseYearly",/"PurchaseForever"][sender.tag], for: .normal)
+        productId = [premiumMonthlyProductID,premiumYearlyProductID,premiumForeverProductID][sender.tag]
     }
     
     @IBAction func purchase(_ sender: UIButton!) {
         impactIfAllow()
-        let events = ["begin_purchase_monthly","begin_purchase_yearly","begin_purchase_forever"]
-        let products = [premiumMonthlyProductID,premiumYearlyProductID,premiumForeverProductID]
-        MobClick.event(events[sender.tag])
-        purchaseProduct(products[sender.tag])
+        purchaseProduct(productId)
     }
     
     @IBAction func restore(_ sender: UIButton!) {
@@ -113,8 +119,14 @@ class PurchaseViewController: UIViewController {
             print(identifiers)
         }
     }
-
+    
     func purchaseProduct(_ identifier: String) {
+        let products = [premiumMonthlyProductID,premiumYearlyProductID,premiumForeverProductID]
+        guard let index = products.firstIndex(of: identifier) else { return }
+        let beginEvents = ["begin_purchase_monthly","begin_purchase_yearly","begin_purchase_forever"]
+        let endEvents = ["finish_purchase_monthly","finish_purchase_yearly","finish_purchase_forever"]
+        MobClick.event(beginEvents[index])
+
         SVProgressHUD.show()
         IAP.requestProducts([identifier]) { (response, error) in
             guard let product = response?.products.first else {
@@ -131,13 +143,7 @@ class PurchaseViewController: UIViewController {
                 Configure.shared.checkProAvailable({ (availabel) in
                     SVProgressHUD.dismiss()
                     if availabel {
-                        if identifier == premiumYearlyProductID {
-                            MobClick.event("finish_purchase_yearly")
-                        } else if identifier == premiumMonthlyProductID {
-                            MobClick.event("finish_purchase_monthly")
-                        }else {
-                            MobClick.event("finish_purchase_forever")
-                        }
+                        MobClick.event(endEvents[index])
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "PremiumStatusChanged"), object: nil)
                         self.dismiss(animated: false, completion: nil)
                         SVProgressHUD.showSuccess(withStatus: /"SubscribeSuccess")

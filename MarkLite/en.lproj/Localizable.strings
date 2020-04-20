@@ -85,6 +85,8 @@
 "ContentInset"="Content Inset";
 "CodeStyle"="Code Highlight";
 "AutomaticSplit"="Automatic Split";
+"AutoHideNavigationBar"="Auto Hide Navigation Bar";
+"TOC"="TOC";
 
 "FollowSystem"="Follow System";
 "KeepDarkMode"="Always Dark";
@@ -175,7 +177,9 @@
 "SubscribeYearly"="Yearly Pro: $4.99";
 "LifetimePremium"="Lifetime Pro: $9.99";
 
-"Purchase"="Continue";
+"PurchaseMonthly"="Continue";
+"PurchaseYearly"="Continue";
+"PurchaseForever"="Continue";
 "Subscribed"="Subscribed";
 
 "MonthlyTips"="Try 3 days for free, then $0.99/month";

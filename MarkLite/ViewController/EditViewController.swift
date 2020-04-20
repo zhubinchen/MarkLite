@@ -178,6 +178,12 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             guard let this = self else { return }
             this.editViewWidth.isActive = split ? this.view.w > this.view.h * 0.8 : false
         }).disposed(by: bag)
+        
+        Configure.shared.autoHideNavigationBar.asObservable().subscribe(onNext: { [weak self] (autoHide) in
+            if !autoHide {
+                self?.navigationController?.setNavigationBarHidden(false, animated: true)
+            }
+        }).disposed(by: bag)
     }
     
     @objc func keyboardHeightWillChange(_ noti: NSNotification) {
@@ -371,7 +377,8 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         }
     }
     
-    func didSelectTOC(_ toc: TOCItem) {
+    func didSelectTOC(_ toc: TOCItem, fromListVC: TocListViewController) {
+        fromListVC.dismiss(animated: true, completion: nil)
         textVC.showTOC(toc)
         previewVC.showTOC(toc)
     }

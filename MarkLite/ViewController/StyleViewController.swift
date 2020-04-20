@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 class StyleViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
-    var items = [[/"FontSize",/"Style",/"CodeStyle"],[/"ContentInset",/"AutomaticSplit"]]
+    var items = [[/"FontSize",/"Style",/"CodeStyle"],[/"AutoHideNavigationBar",/"ContentInset",/"AutomaticSplit"]]
            
     let table = UITableView(frame: CGRect(), style: .grouped)
        
@@ -79,6 +79,10 @@ class StyleViewController: UIViewController, UITableViewDelegate,UITableViewData
         Configure.shared.automaticSplit.value = sender.isOn
     }
     
+    @objc func navBarChanged(_ sender: UISwitch!) {
+        Configure.shared.autoHideNavigationBar.value = sender.isOn
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.items.count
     }
@@ -114,6 +118,9 @@ class StyleViewController: UIViewController, UITableViewDelegate,UITableViewData
             cell.selectionStyle = .none
             let insetSwitch = UISwitch()
             if indexPath.row == 0 {
+                insetSwitch.addTarget(self, action: #selector(navBarChanged(_:)), for: .valueChanged)
+                insetSwitch.isOn = Configure.shared.autoHideNavigationBar.value
+            } else if indexPath.row == 1 {
                 insetSwitch.addTarget(self, action: #selector(insetChanged(_:)), for: .valueChanged)
                 insetSwitch.isOn = Configure.shared.contentInset.value
             } else {

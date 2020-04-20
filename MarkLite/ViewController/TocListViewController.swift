@@ -9,7 +9,7 @@
 import UIKit
 
 protocol TocListDelegate: NSObjectProtocol {
-    func didSelectTOC(_ toc: TOCItem)
+    func didSelectTOC(_ toc: TOCItem, fromListVC: TocListViewController)
 }
 
 class TocListViewController: UITableViewController {
@@ -22,8 +22,6 @@ class TocListViewController: UITableViewController {
     
     func parseToc() {
         let list = toc.components(separatedBy: "\n")
-        let exp = try! NSRegularExpression(pattern: ">.+</a>", options: .caseInsensitive)
-
         var level = 0
         for item in list {
             if item.hasPrefix("<ul") {
@@ -34,10 +32,8 @@ class TocListViewController: UITableViewController {
                 let toc = TOCItem()
                 toc.level = level - 1
                 toc.idx = items.count
-                exp.enumerateMatches(in: item, options: .reportCompletion, range: NSRange(location: 0, length: item.count)) { (result, _, _) in
-                    if let range = result?.range {
-                        toc.title = item.substring(with:NSRange(location: range.location + 1, length: range.length-5))
-                    }
+                if let range = item.firstMatchRange(">.+</a>"), range.length > 5 {
+                    toc.title = item.substring(with:NSRange(location: range.location + 1, length: range.length-5))
                 }
                 items.append(toc)
             }
@@ -80,6 +76,6 @@ class TocListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = items[indexPath.row]
-        delegate?.didSelectTOC(item)
+        delegate?.didSelectTOC(item,fromListVC: self)
     }
 }
