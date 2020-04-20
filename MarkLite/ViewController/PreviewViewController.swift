@@ -15,27 +15,24 @@ import SnapKit
 class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigationDelegate {
     
     let webView = WKWebView(frame: CGRect())
-    let scrollView = UIScrollView(frame: CGRect())
+    
+    var contentOffset: CGPoint = CGPoint()
     
     var offset: CGFloat = 0 {
         didSet {
-            var y = offset * (webHeight - scrollView.h)
-            if y > webHeight - scrollView.h  {
-                y = webHeight - scrollView.h
+            var y = offset * (webHeight - webView.h)
+            if y > webHeight - webView.h  {
+                y = webHeight - webView.h
             }
             if y < 0 {
                 y = 0
             }
-            scrollView.contentOffset = CGPoint(x: 0,y: y)
+            webView.scrollView.contentOffset = CGPoint(x: 0,y: y)
         }
     }
     
-    var webHeight: CGFloat = windowHeight {
-        didSet {
-            scrollView.contentSize = CGSize(width: 0, height: webHeight)
-            let inset = Configure.shared.contentInset.value ? max((self.view.w - 500) * 0.2,0) : 0
-            webView.frame = CGRect(x: inset, y: 0, w: scrollView.w - inset * 2, h: webHeight)
-        }
+    var webHeight: CGFloat {
+        return webView.scrollView.contentSize.height
     }
         
     var shouldRefresh = false
@@ -62,14 +59,13 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
         webView.backgroundColor = .clear
         webView.isOpaque = false
         webView.navigationDelegate = self
-        webView.scrollView.isScrollEnabled = false
-        webView.scrollView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
-
-        scrollView.delegate = self
-        scrollView.minimumZoomScale = 1
-        scrollView.maximumZoomScale = 2
-        view.addSubview(scrollView)
-        scrollView.addSubview(webView)
+        webView.scrollView.delegate = self
+        view.addSubview(webView)
+        
+        webView.snp.makeConstraints { maker in
+            maker.centerX.top.bottom.equalToSuperview()
+            maker.left.equalToSuperview()
+        }
 
         view.setBackgroundColor(.background)
                 
@@ -80,44 +76,25 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
         })
         
         Configure.shared.contentInset.asObservable().subscribe(onNext: { [unowned self](enable) in
-            self.webHeight += CGFloat.leastNonzeroMagnitude
+            let inset = enable ? max((self.view.w - 500) * 0.2,0) : 0
+            self.webView.snp.updateConstraints { maker in
+                maker.left.equalTo(inset)
+            }
         }).disposed(by: disposeBag)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        scrollView.frame = self.view.bounds
         let inset = Configure.shared.contentInset.value ? max((self.view.w - 500) * 0.2,0) : 0
-        if fabs(scrollView.w - webView.w - inset * 2) > 10 {
-            webHeight = 100
-        }
-    }
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if let size = change?[NSKeyValueChangeKey.newKey] as? CGSize {
-            if fabs(webHeight - size.height) > 10 {
-                webHeight = size.height
-            }
+        self.webView.snp.updateConstraints { maker in
+            maker.left.equalTo(inset)
         }
     }
     
     func showTOC(_ toc: TOCItem) {
-        scrollView.contentOffset = CGPoint()
-        webView.frame = CGRect(x: webView.x, y: 0, w: webView.w, h: scrollView.h)
-        webView.scrollView.isScrollEnabled = true
-        scrollView.isScrollEnabled = false
         let js = "location.href=\"#toc_\(toc.idx)\""
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.webView.evaluateJavaScript(js) { (_,error) in
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                    self.webView.scrollView.isScrollEnabled = false
-                    self.scrollView.isScrollEnabled = true
-                    let offset = self.webView.scrollView.contentOffset
-                    self.scrollView.contentOffset = offset
-                    self.webView.frame = CGRect(x: self.webView.x, y: 0, w: self.webView.w, h: self.webHeight)
-                    print(offset)
-                }
-            }
+        self.webView.evaluateJavaScript(js) { (_,error) in
+
         }
     }
     
@@ -127,6 +104,12 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
         }
         shouldRefresh = false
         webView.stopLoading()
+        if let snapshot = webView.snapshotView(afterScreenUpdates: true) {
+            snapshot.frame = webView.frame
+            snapshot.tag = 4654
+            view.addSubview(snapshot)
+        }
+        contentOffset = webView.scrollView.contentOffset
         webView.loadHTMLString(html, baseURL: htmlURL)
     }
     
@@ -151,19 +134,17 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
         }
     }
     
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return webView
-    }
-    
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-
+        guard let snapshot = view.viewWithTag(4654) else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            webView.scrollView.contentOffset = self.contentOffset
+            snapshot.removeFromSuperview()
+        }
     }
     
     deinit {
         timer?.invalidate()
         webView.stopLoading()
-        webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
-        removeNotificationObserver()
         
         print("deinit web_vc")
     }

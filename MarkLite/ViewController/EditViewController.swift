@@ -277,7 +277,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     @IBAction func showStylesView(_ sender: UIButton) {
         impactIfAllow()
 
-        let vc = StyleViewController()
+        let vc = AppearanceViewController()
         
         let nav = UINavigationController(rootViewController: vc)
         nav.preferredContentSize = CGSize(width:300, height:400)
@@ -349,7 +349,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         case .image:
             SVProgressHUD.show()
     
-            previewVC.scrollView.takeSnapshot(delay: 0.3, progress: { percentage in
+            previewVC.webView.scrollView.takeSnapshot(delay: 0.3, progress: { percentage in
                 
             }, completion: {  image in
                 SVProgressHUD.dismiss()

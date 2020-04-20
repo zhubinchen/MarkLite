@@ -69,6 +69,7 @@
 "CopiedAddress"="Copied Address";
 
 "Settings"="Settings";
+"Appearance"="Appearance";
 "FileSharing"="File Sharing";
 "ArrangeKeyboardBar"="Arrange Keyboard Bar";
 "AssistKeyboard"="Enable Keyboard Bar";
@@ -79,12 +80,14 @@
 "Theme"="Theme";
 "Contact"="Contact us";
 "RateIt"="Rate it";
-"Style"="Style";
+"Style"="Markdown Style";
 "CSS"="Custom Style";
 "FontSize"="Font Size";
 "ContentInset"="Content Inset";
 "CodeStyle"="Code Highlight";
 "AutomaticSplit"="Automatic Split";
+"AutoHideNavigationBar"="Auto Hide Navigation Bar";
+"TOC"="TOC";
 
 "FollowSystem"="Follow System";
 "KeepDarkMode"="Always Dark";
@@ -175,7 +178,9 @@
 "SubscribeYearly"="Yearly Pro: $4.99";
 "LifetimePremium"="Lifetime Pro: $9.99";
 
-"Purchase"="Continue";
+"PurchaseMonthly"="Continue";
+"PurchaseYearly"="Continue";
+"PurchaseForever"="Continue";
 "Subscribed"="Subscribed";
 
 "MonthlyTips"="Try 3 days for free, then $0.99/month";

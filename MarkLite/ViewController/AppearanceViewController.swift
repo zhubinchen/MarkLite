@@ -1,5 +1,5 @@
 //
-//  StyleViewController.swift
+//  AppearanceViewController.swift
 //  Markdown
 //
 //  Created by 朱炳程 on 2020/2/25.
@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class StyleViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
+class AppearanceViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
     var items = [[/"FontSize",/"Style",/"CodeStyle"],[/"AutoHideNavigationBar",/"ContentInset",/"AutomaticSplit"]]
            
     let table = UITableView(frame: CGRect(), style: .grouped)
@@ -44,7 +44,7 @@ class StyleViewController: UIViewController, UITableViewDelegate,UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        title = /"Settings"
+        title = /"Appearance"
     }
        
     override func viewDidLayoutSubviews() {

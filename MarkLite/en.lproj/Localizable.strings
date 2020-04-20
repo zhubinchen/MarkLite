@@ -69,6 +69,7 @@
 "CopiedAddress"="Copied Address";
 
 "Settings"="Settings";
+"Appearance"="Appearance";
 "FileSharing"="File Sharing";
 "ArrangeKeyboardBar"="Arrange Keyboard Bar";
 "AssistKeyboard"="Enable Keyboard Bar";
@@ -79,7 +80,7 @@
 "Theme"="Theme";
 "Contact"="Contact us";
 "RateIt"="Rate it";
-"Style"="Style";
+"Style"="Markdown Style";
 "CSS"="Custom Style";
 "FontSize"="Font Size";
 "ContentInset"="Content Inset";
