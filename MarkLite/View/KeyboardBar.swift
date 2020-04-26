@@ -405,3 +405,18 @@ class KeyboardBar: UIView {
         }
     }
 }
+
+//extension KeyboardBar {
+//
+//    override var keyCommands: [UIKeyCommand]? {
+//        return [
+//            UIKeyCommand(input: "B", modifierFlags: .command, action: #selector(tapBold), discoverabilityTitle: "Bold"),
+//        UIKeyCommand(input: "I", modifierFlags: .command, action: #selector(tapItalic), discoverabilityTitle: "Italic"),
+//        ]
+//    }
+//    
+//    override var canBecomeFirstResponder: Bool {
+//        return true
+//    }
+//}
+

@@ -127,10 +127,10 @@ class Configure: NSObject, NSCoding {
         darkOption.value = DarkModeOption.defaultDarkOption
         showExtensionName = false
         impactFeedback = true
-        contentInset.value = true
         isAssistBarEnabled.value = true
         automaticSplit.value = true
         autoHideNavigationBar.value = true
+        contentInset.value = true
         fontSize.value = 17
         showedTips = []
         
@@ -151,17 +151,15 @@ class Configure: NSObject, NSCoding {
 
     func upgrade() {
         rateAlertDate = Date()
-        impactFeedback = true
+        
+        automaticSplit.value = false
+        autoHideNavigationBar.value = true
+        contentInset.value = true
 
         let tempPathURL = URL(fileURLWithPath: tempPath)
         try! Zip.unzipFile(Bundle.main.url(forResource: "Resources", withExtension: "zip")!, destination: tempPathURL, overwrite: true, password: nil, progress: nil)
         let tempStylePath = tempPath + "/Resources/Styles"
         let destStylePath = supportPath + "/Resources/Styles"
-        
-        let newPath1 = destStylePath + "/" + "微信公众号.css"
-        try? FileManager.default.removeItem(atPath: newPath1)
-        let newPath2 = destStylePath + "/" + "小清新.css"
-        try? FileManager.default.removeItem(atPath: newPath2)
         
         FileManager.default.subpaths(atPath: tempStylePath)?.filter{ $0.hasSuffix(".css") }.forEach{ subpath in
             let fullPath = tempStylePath + "/" + subpath
@@ -208,7 +206,6 @@ class Configure: NSObject, NSCoding {
         aCoder.encode(expireDate, forKey: "expireDate")
         aCoder.encode(recentImages, forKey: "recentImages")
         aCoder.encode(showedTips, forKey: "showedTips")
-        aCoder.encode(false, forKey: "isPro")
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -231,10 +228,6 @@ class Configure: NSObject, NSCoding {
         fontSize.value = size == 0 ? 17 : size
         darkOption.value = DarkModeOption(rawValue: aDecoder.decodeObject(forKey: "darkOption") as? String ?? "") ?? DarkModeOption.defaultDarkOption
         sortOption = SortOption(rawValue: aDecoder.decodeObject(forKey: "sortOption") as? String ?? "") ?? .modifyDate
-        let isPro = aDecoder.decodeBool(forKey: "isPro")
-        if isPro {
-            expireDate = Date.distantFuture
-        }
     }
     
     func checkProAvailable(_ completion:((Bool)->Void)? = nil){

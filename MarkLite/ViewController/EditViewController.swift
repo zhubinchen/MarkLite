@@ -41,7 +41,8 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     @IBOutlet weak var redoButton: UIButton!
     @IBOutlet weak var previewButton: UIButton!
     @IBOutlet weak var bottomBar: UIView!
-    
+    @IBOutlet weak var seperator: UIView!
+
     @IBOutlet weak var bottomSpace: NSLayoutConstraint!
     @IBOutlet var editViewWidth: NSLayoutConstraint!
 
@@ -121,6 +122,9 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         
         if Configure.shared.automaticSplit.value {
             editViewWidth.isActive = self.view.w > self.view.h * 0.8
+            seperator.isHidden = editViewWidth.isActive.toggled
+        } else {
+            seperator.isHidden = true
         }
         if scrollView.contentOffset.x > 300 {
             scrollView.contentOffset = CGPoint(x: 0, y: 0)
@@ -180,6 +184,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         Configure.shared.automaticSplit.asObservable().subscribe(onNext: { [weak self] (split) in
             guard let this = self else { return }
             this.editViewWidth.isActive = split ? this.view.w > this.view.h * 0.8 : false
+            this.seperator.isHidden = this.editViewWidth.isActive.toggled
         }).disposed(by: bag)
         
         Configure.shared.autoHideNavigationBar.asObservable().subscribe(onNext: { [weak self] (autoHide) in
@@ -187,6 +192,14 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
                 self?.navigationController?.setNavigationBarHidden(false, animated: true)
             }
         }).disposed(by: bag)
+        
+        let line = UIView()
+        line.backgroundColor = rgba("262626",0.4)
+        view.addSubview(line)
+        line.snp.makeConstraints { maker in
+            maker.top.left.right.equalTo(self.bottomBar)
+            maker.height.equalTo(0.3)
+        }
     }
     
     @objc func keyboardHeightWillChange(_ noti: NSNotification) {
@@ -439,15 +452,15 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
 }
 
 
-extension EditViewController {
-
-    override var keyCommands: [UIKeyCommand]? {
-        return [
-            UIKeyCommand(input: "P", modifierFlags: .command, action: #selector(preview(_:)), discoverabilityTitle: "Preview/Edit"),
-        ]
-    }
-    
-    override var canBecomeFirstResponder: Bool {
-        return true
-    }
-}
+//extension EditViewController {
+//
+//    override var keyCommands: [UIKeyCommand]? {
+//        return [
+//            UIKeyCommand(input: "P", modifierFlags: .command, action: #selector(preview(_:)), discoverabilityTitle: "Preview/Edit"),
+//        ]
+//    }
+//    
+//    override var canBecomeFirstResponder: Bool {
+//        return true
+//    }
+//}
