@@ -122,6 +122,9 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         if Configure.shared.automaticSplit.value {
             editViewWidth.isActive = self.view.w > self.view.h * 0.8
         }
+        if scrollView.contentOffset.x > 300 {
+            scrollView.contentOffset = CGPoint(x: 0, y: 0)
+        }
     }
     
     func setup() {
@@ -231,6 +234,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         impactIfAllow()
 
         guard let toc = markdownRenderer?.tocHeader(file?.text) else { return }
+        textVC.editView.resignFirstResponder()
         
         let vc = TocListViewController()
         vc.toc = toc
@@ -258,12 +262,12 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         impactIfAllow()
     }
     
-    @IBAction func preview(_ sender: UIButton) {
+    @IBAction func preview(_ sender: Any) {
         impactIfAllow()
         if self.view.w != self.textVC.editView.w {
             return
         }
-        if sender.tag == 0 {
+        if previewButton.tag == 0 {
             scrollView.setContentOffset(CGPoint(x:self.view.w , y:0), animated: true)
         } else {
             scrollView.setContentOffset(CGPoint(), animated: true)
@@ -347,9 +351,11 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             try? data.write(to: url)
             item = url
         case .image:
+            if self.view.w == self.textVC.editView.w {
+                self.scrollView.setContentOffset(CGPoint(x: self.view.w, y: 0), animated: true)
+            }
             SVProgressHUD.show()
-    
-            previewVC.webView.scrollView.takeSnapshot(delay: 0.3, progress: { percentage in
+            previewVC.webView.takeSnapshot(delay: 0.3, progress: { percentage in
                 
             }, completion: {  image in
                 SVProgressHUD.dismiss()
@@ -430,4 +436,18 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
            return export
        }()
        
+}
+
+
+extension EditViewController {
+
+    override var keyCommands: [UIKeyCommand]? {
+        return [
+            UIKeyCommand(input: "P", modifierFlags: .command, action: #selector(preview(_:)), discoverabilityTitle: "Preview/Edit"),
+        ]
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
 }

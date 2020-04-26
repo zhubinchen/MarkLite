@@ -108,6 +108,9 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
             snapshot.frame = webView.frame
             snapshot.tag = 4654
             view.addSubview(snapshot)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                snapshot.removeFromSuperview()
+            }
         }
         contentOffset = webView.scrollView.contentOffset
         webView.loadHTMLString(html, baseURL: htmlURL)
@@ -140,6 +143,18 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
             webView.scrollView.contentOffset = self.contentOffset
             snapshot.removeFromSuperview()
         }
+    }
+    
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        guard let snapshot = view.viewWithTag(4654) else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            webView.scrollView.contentOffset = self.contentOffset
+            snapshot.removeFromSuperview()
+        }
+    }
+    
+    func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
+        
     }
     
     deinit {

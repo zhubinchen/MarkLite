@@ -27,9 +27,9 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             ("Theme","",#selector(theme)),
             ("ImpactFeedback","",#selector(impactFeedback))
             ]
-        var status: String? = "SubscribeNow"
+        var status: String = "SubscribeNow"
         if Configure.shared.isPro {
-            status = nil
+            status = /"Expire" + " " + Configure.shared.expireDate.readableDate()
         }
 
         var items = [
@@ -43,8 +43,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 ("Contact","",#selector(feedback))
                 ])
         ]
-        if let statusString = status {
-            items.insert(("高级帐户",[("Premium",statusString,#selector(premium))]), at: 0)
+        if Configure.shared.expireDate.timeIntervalSinceNow <= 3600 * 24 * 31  {
+            items.insert(("高级帐户",[("Premium",status,#selector(premium))]), at: 0)
         }
         return items;
     }

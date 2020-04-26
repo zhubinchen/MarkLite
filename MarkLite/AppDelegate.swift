@@ -77,6 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SVProgressHUD.setMinimumDismissTimeInterval(2)
         SVProgressHUD.setMaximumDismissTimeInterval(3)
         SVProgressHUD.setDefaultMaskType(.clear)
+        SVProgressHUD.setGraceTimeInterval(0.1)
         Configure.shared.setup()
         
         _ = Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in

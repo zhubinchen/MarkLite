@@ -12,7 +12,7 @@ import RxCocoa
 import EZSwiftExtensions
 
 class TextViewController: UIViewController {
-
+    
     @IBOutlet weak var editView: UITextView!
             
     var contentHeight: CGFloat {
@@ -215,10 +215,14 @@ extension TextViewController: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         UIApplication.shared.isIdleTimerDisabled = true
+        if Configure.shared.autoHideNavigationBar.value {
+            navigationController?.setNavigationBarHidden(true, animated: true)
+        }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         UIApplication.shared.isIdleTimerDisabled = false
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

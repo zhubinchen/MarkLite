@@ -57,7 +57,7 @@
 		769E1D24240422640064B822 /* ServerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769E1D23240422640064B822 /* ServerInfo.swift */; };
 		769E1F37240506110064B822 /* AppearanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769E1F36240506110064B822 /* AppearanceViewController.swift */; };
 		76A4D272234EF98200B87A78 /* FileSharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4D271234EF98200B87A78 /* FileSharingViewController.swift */; };
-		76AF260A243DA40D002537A1 /* UIScrollView+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AF2609243DA40D002537A1 /* UIScrollView+Snapshot.swift */; };
+		76AF260A243DA40D002537A1 /* WKWebView+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AF2609243DA40D002537A1 /* WKWebView+Snapshot.swift */; };
 		76C59B3E2384E5D800BE81ED /* NSURLProtocol+WKWebVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C59B3A2384E5D700BE81ED /* NSURLProtocol+WKWebVIew.m */; };
 		76C59B412384E69500BE81ED /* MDURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C59B402384E69500BE81ED /* MDURLProtocol.m */; };
 		76CF5B0823541DC100E87A99 /* 使用教程.md in Resources */ = {isa = PBXBuildFile; fileRef = 76CF5B0723541DC000E87A99 /* 使用教程.md */; };
@@ -135,7 +135,7 @@
 		769E1D23240422640064B822 /* ServerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerInfo.swift; sourceTree = "<group>"; };
 		769E1F36240506110064B822 /* AppearanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceViewController.swift; sourceTree = "<group>"; };
 		76A4D271234EF98200B87A78 /* FileSharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSharingViewController.swift; sourceTree = "<group>"; };
-		76AF2609243DA40D002537A1 /* UIScrollView+Snapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Snapshot.swift"; sourceTree = "<group>"; };
+		76AF2609243DA40D002537A1 /* WKWebView+Snapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WKWebView+Snapshot.swift"; sourceTree = "<group>"; };
 		76C59B3A2384E5D700BE81ED /* NSURLProtocol+WKWebVIew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLProtocol+WKWebVIew.m"; sourceTree = "<group>"; };
 		76C59B3C2384E5D800BE81ED /* NSURLProtocol+WKWebVIew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLProtocol+WKWebVIew.h"; sourceTree = "<group>"; };
 		76C59B3F2384E69500BE81ED /* MDURLProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDURLProtocol.h; sourceTree = "<group>"; };
@@ -288,7 +288,7 @@
 				76C59B3A2384E5D700BE81ED /* NSURLProtocol+WKWebVIew.m */,
 				76C59B3F2384E69500BE81ED /* MDURLProtocol.h */,
 				76C59B402384E69500BE81ED /* MDURLProtocol.m */,
-				76AF2609243DA40D002537A1 /* UIScrollView+Snapshot.swift */,
+				76AF2609243DA40D002537A1 /* WKWebView+Snapshot.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -501,7 +501,7 @@
 				76C59B412384E69500BE81ED /* MDURLProtocol.m in Sources */,
 				76D7D5F7237930E40007556F /* RecentImagesViewController.swift in Sources */,
 				76C59B3E2384E5D800BE81ED /* NSURLProtocol+WKWebVIew.m in Sources */,
-				76AF260A243DA40D002537A1 /* UIScrollView+Snapshot.swift in Sources */,
+				76AF260A243DA40D002537A1 /* WKWebView+Snapshot.swift in Sources */,
 				760C296F2320F3EC002E613E /* escape.c in Sources */,
 				07E827561F5BF1BA0077A017 /* FilesViewController.swift in Sources */,
 				07E827101F5BF1BA0077A017 /* HighlightManager.swift in Sources */,
@@ -697,7 +697,7 @@
 				INFOPLIST_FILE = MarkLite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.7.8;
+				MARKETING_VERSION = 1.7.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.qinxiu.markdown;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ENABLE_BATCH_MODE = NO;
@@ -719,7 +719,7 @@
 				INFOPLIST_FILE = MarkLite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.7.8;
+				MARKETING_VERSION = 1.7.9;
 				PRODUCT_BUNDLE_IDENTIFIER = com.qinxiu.markdown;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ENABLE_BATCH_MODE = NO;

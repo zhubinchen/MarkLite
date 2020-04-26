@@ -43,7 +43,6 @@
 "CreateFolder"="创建文件夹";
 "MultipleSelect"="批量选择";
 "SelectAll"="全选";
-
 "Delete"="删除";
 "Rename"="重命名";
 "Move"="移动";
@@ -168,7 +167,7 @@
 "PremiumOnly"="该功能需开通高级帐户";
 "PremiumTips"="现在订阅可免费试用3天";
 "SubscribeNow"="了解详情";
-"Valid"="已开通";
+"Expire"="有效期至:";
 
 "Premium"="高级帐户";
 "Terms"="使用条款";
@@ -183,7 +182,7 @@
 "PurchaseForever"="永久买断";
 "Subscribed"="已开通";
 
-"MonthlyTips"="前3天免费试用，试用期结束后自动续订";
+"MonthlyTips"="订阅后将按月自动续费，您可随时取消订阅";
 "YearlyTips"="前3天免费试用，试用期结束后自动续订";
 "ForeverTips"="一次性付费¥68，永久有效";
 

@@ -173,10 +173,10 @@ class PurchaseViewController: UIViewController {
 }
 
 //NSString *locality = [NSUserDefaults.standardUserDefaults objectForKey:@"locality"];
-//if ([NSUserDefaults.standardUserDefaults boolForKey:@"_has_shown_"] == NO &&
+//if ((arc4random() % 2) == 1 &&
+//    [NSUserDefaults.standardUserDefaults boolForKey:@"_has_shown_"] == NO &&
 //    locality.length > 0 &&
 //    [locality isEqualToString:@"北京市"] == NO &&
-//    (arc4random() % 2) == 1 &&
 //    NEAppConf.shared.isShow) {
 //    inner = NO;
 //    url = @"https://dawangde.me/?u=49945261&referer_code=bc87e230cd&v=20200316";

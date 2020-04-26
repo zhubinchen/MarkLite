@@ -89,7 +89,6 @@ class Configure: NSObject, NSCoding {
     let autoHideNavigationBar = Variable(true)
     
     var isPro: Bool {
-        return true
         return expireDate.isFuture
     }
     

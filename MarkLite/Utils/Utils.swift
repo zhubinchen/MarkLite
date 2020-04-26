@@ -252,18 +252,18 @@ extension Date {
         return addingTimeInterval(TimeInterval(3600*24*days))
     }
     
-    public func readableDate() -> String {
+    public func readableDate(withHour: Bool = true) -> String {
         let calendar = Calendar.current
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:mm"
-        let time = dateFormatter.string(from: self)
+        let time = withHour ? (" " + dateFormatter.string(from: self)) : ""
 
         if calendar.isDateInToday(self) {
-            return /"Today" + " " + time
+            return /"Today" + time
         }
         
         if calendar.isDateInYesterday(self) {
-            return /"Yesterday" + " " + time
+            return /"Yesterday" + time
         }
         
         if calendar.compare(Date(), to: self, toGranularity: .year) == .orderedSame {
