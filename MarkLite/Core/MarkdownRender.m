@@ -49,7 +49,8 @@ NS_INLINE hoedown_renderer *MPCreateHTMLTOCRenderer()
 NS_INLINE NSString *MPHTMLFromMarkdown(NSString *text,
                                        int flags,
                                        BOOL smartypants,
-                                       hoedown_renderer *htmlRenderer)
+                                       hoedown_renderer *htmlRenderer,
+                                       hoedown_renderer *tocRenderer)
 {
     NSData *inputData = [text dataUsingEncoding:NSUTF8StringEncoding];
     hoedown_document *document = hoedown_document_new(htmlRenderer, flags, SIZE_MAX);
@@ -65,7 +66,30 @@ NS_INLINE NSString *MPHTMLFromMarkdown(NSString *text,
     NSString *result = [NSString stringWithUTF8String:hoedown_buffer_cstr(ob)] ?: @"";
     hoedown_document_free(document);
     hoedown_buffer_free(ob);
-    
+    if (tocRenderer) {
+        document = hoedown_document_new(tocRenderer, flags, SIZE_MAX);
+        ob = hoedown_buffer_new(64);
+        hoedown_document_render(
+                                document, ob, inputData.bytes, inputData.length);
+        NSString *toc = [NSString stringWithUTF8String:hoedown_buffer_cstr(ob)];
+        
+        static NSRegularExpression *tocRegex = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            NSString *pattern = @"<p.*?>\\s*\\[TOC\\]\\s*</p>";
+            NSRegularExpressionOptions ops = NSRegularExpressionCaseInsensitive;
+            tocRegex = [[NSRegularExpression alloc] initWithPattern:pattern
+                                                            options:ops
+                                                              error:NULL];
+        });
+        NSRange replaceRange = NSMakeRange(0, result.length);
+        result = [tocRegex stringByReplacingMatchesInString:result options:0
+                                                      range:replaceRange
+                                               withTemplate:toc];
+        hoedown_document_free(document);
+        hoedown_buffer_free(ob);
+    }
+
     return result;
 }
 
@@ -109,9 +133,11 @@ NS_INLINE NSString *MPHTMLFromMarkdown(NSString *text,
 
 - (NSString*)renderMarkdown:(NSString*)markdown {
     hoedown_renderer *htmlRenderer = MPCreateHTMLRenderer([self rendererFlags]);
+    hoedown_renderer *tocRenderer = MPCreateHTMLTOCRenderer();
     int extensions = [self extensionFlags];
-    NSString *html = MPHTMLFromMarkdown(markdown, extensions, NO, htmlRenderer);
+    NSString *html = MPHTMLFromMarkdown(markdown, extensions, NO, htmlRenderer, tocRenderer);
     hoedown_html_renderer_free(htmlRenderer);
+    hoedown_html_renderer_free(tocRenderer);
 
     NSString *stylePath = [NSString stringWithFormat:@"/Styles/%@.css",self.styleName];
     NSString *highlightPath = [NSString stringWithFormat:@"/Highlight/highlight-style/%@.css",self.highlightName];

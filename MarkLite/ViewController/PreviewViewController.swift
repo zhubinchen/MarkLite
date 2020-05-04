@@ -164,7 +164,7 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
             decisionHandler(.allow)
             return
         }
-        if navigationAction.navigationType == .linkActivated {
+        if navigationAction.navigationType == .linkActivated && url.isFileURL == false {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
             decisionHandler(.cancel)
             return

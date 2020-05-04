@@ -85,7 +85,7 @@ class Configure: NSObject, NSCoding {
     var keyboardBarItems = ["-","`","$","/","\"","?","@","(",")","[","]","|","#","*","=","+","<",">"]
     var recentImages = [URL]()
     var showedTips = [String]()
-    let automaticSplit = Variable(true)
+    let automaticSplit = Variable(false)
     let autoHideNavigationBar = Variable(true)
     
     var isPro: Bool {
@@ -128,7 +128,7 @@ class Configure: NSObject, NSCoding {
         showExtensionName = false
         impactFeedback = true
         isAssistBarEnabled.value = true
-        automaticSplit.value = true
+        automaticSplit.value = false
         autoHideNavigationBar.value = true
         contentInset.value = true
         fontSize.value = 17
