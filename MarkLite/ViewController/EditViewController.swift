@@ -126,9 +126,6 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         } else {
             seperator.isHidden = true
         }
-        if scrollView.contentOffset.x > 300 {
-            scrollView.contentOffset = CGPoint(x: 0, y: 0)
-        }
     }
     
     func setup() {

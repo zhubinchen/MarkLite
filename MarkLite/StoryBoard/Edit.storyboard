@@ -58,7 +58,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJa-dk-TN5">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DJa-dk-TN5">
                                 <rect key="frame" x="0.0" y="88" width="375" height="646"/>
                                 <subviews>
                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XJt-c3-kNb">
@@ -107,7 +107,7 @@
                                 <rect key="frame" x="0.0" y="734" width="375" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pfe-pR-4PB">
-                                        <rect key="frame" x="12" y="19" width="44" height="25"/>
+                                        <rect key="frame" x="12" y="0.0" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="44" id="Wrf-mv-mzB"/>
                                         </constraints>
@@ -117,7 +117,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JmJ-ym-sxQ">
-                                        <rect key="frame" x="314" y="19" width="49" height="25"/>
+                                        <rect key="frame" x="314" y="0.0" width="49" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="49" id="ev2-gl-y1W"/>
                                         </constraints>
@@ -127,7 +127,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Afr-vg-UrA">
-                                        <rect key="frame" x="261" y="19" width="49" height="25"/>
+                                        <rect key="frame" x="261" y="0.0" width="49" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="49" id="z6a-oW-sfF"/>
                                         </constraints>
@@ -137,7 +137,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6kY-KC-W7k">
-                                        <rect key="frame" x="208" y="19" width="49" height="25"/>
+                                        <rect key="frame" x="208" y="0.0" width="49" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="49" id="o0r-Y0-7lW"/>
                                         </constraints>
@@ -147,7 +147,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iD8-Ca-y3g">
-                                        <rect key="frame" x="60" y="19" width="49" height="25"/>
+                                        <rect key="frame" x="60" y="0.0" width="49" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="49" id="nWY-Pa-eTK"/>
                                         </constraints>
@@ -165,8 +165,13 @@
                                     <constraint firstAttribute="bottom" secondItem="Afr-vg-UrA" secondAttribute="bottom" id="Egp-K0-a2A"/>
                                     <constraint firstAttribute="height" constant="44" id="HXh-aI-uPk"/>
                                     <constraint firstItem="iD8-Ca-y3g" firstAttribute="leading" secondItem="pfe-pR-4PB" secondAttribute="trailing" constant="4" id="SHz-bj-Z22"/>
+                                    <constraint firstItem="Afr-vg-UrA" firstAttribute="top" secondItem="G7m-Ap-Jqd" secondAttribute="top" id="Ssr-jV-aiQ"/>
+                                    <constraint firstItem="iD8-Ca-y3g" firstAttribute="top" secondItem="G7m-Ap-Jqd" secondAttribute="top" id="Ts2-XA-7lP"/>
                                     <constraint firstItem="JmJ-ym-sxQ" firstAttribute="leading" secondItem="Afr-vg-UrA" secondAttribute="trailing" constant="4" id="WQH-Sz-yP1"/>
+                                    <constraint firstItem="6kY-KC-W7k" firstAttribute="top" secondItem="G7m-Ap-Jqd" secondAttribute="top" id="XUz-wP-NPW"/>
+                                    <constraint firstItem="pfe-pR-4PB" firstAttribute="top" secondItem="G7m-Ap-Jqd" secondAttribute="top" id="bon-O2-MtT"/>
                                     <constraint firstAttribute="bottom" secondItem="pfe-pR-4PB" secondAttribute="bottom" id="l7m-fx-6MP"/>
+                                    <constraint firstItem="JmJ-ym-sxQ" firstAttribute="top" secondItem="G7m-Ap-Jqd" secondAttribute="top" id="mmx-Ac-vtD"/>
                                     <constraint firstAttribute="trailing" secondItem="JmJ-ym-sxQ" secondAttribute="trailing" constant="12" id="u9C-dh-env"/>
                                     <constraint firstItem="pfe-pR-4PB" firstAttribute="leading" secondItem="G7m-Ap-Jqd" secondAttribute="leading" constant="12" id="x4s-Ov-P7q"/>
                                     <constraint firstAttribute="bottom" secondItem="JmJ-ym-sxQ" secondAttribute="bottom" id="y1D-ct-A3W"/>

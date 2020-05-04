@@ -104,7 +104,7 @@
 "ServerNotRunning"="无法启动WebDAV服务";
 "Log"="日志：";
 
-"ContactMessage"="如果你有任何好的建议或者使用遇到问题，你可以关注作者微博，或直接给作者发邮件";
+"ContactMessage"="如果你有任何好的建议或者使用遇到问题，请通过邮件告诉我。";
 "Email"="写邮件";
 
 "OK"="确定";

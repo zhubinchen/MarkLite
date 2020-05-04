@@ -57,6 +57,8 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
         super.viewDidLoad()
         
         webView.backgroundColor = .clear
+        webView.scrollView.alwaysBounceHorizontal = false
+        webView.scrollView.isDirectionalLockEnabled = true
         webView.isOpaque = false
         webView.navigationDelegate = self
         webView.scrollView.delegate = self
@@ -76,7 +78,7 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
         })
         
         Configure.shared.contentInset.asObservable().subscribe(onNext: { [unowned self](enable) in
-            let inset = enable ? max((self.view.w - 500) * 0.2,0) : 0
+            let inset = enable ? max((self.view.w - 500) * 0.3,0) : 0
             self.webView.snp.updateConstraints { maker in
                 maker.left.equalTo(inset)
             }
@@ -85,7 +87,7 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        let inset = Configure.shared.contentInset.value ? max((self.view.w - 500) * 0.2,0) : 0
+        let inset = Configure.shared.contentInset.value ? max((self.view.w - 500) * 0.3,0) : 0
         self.webView.snp.updateConstraints { maker in
             maker.left.equalTo(inset)
         }
@@ -155,6 +157,19 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
     
     func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
         
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        guard let url = navigationAction.request.url else {
+            decisionHandler(.allow)
+            return
+        }
+        if navigationAction.navigationType == .linkActivated {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            decisionHandler(.cancel)
+            return
+        }
+        decisionHandler(.allow)
     }
     
     deinit {

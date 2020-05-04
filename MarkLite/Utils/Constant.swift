@@ -38,9 +38,11 @@ let premiumMonthlyProductID = "com.qinxiu.markdown.premium.monthly"
 let premiumYearlyProductID = "com.qinxiu.markdown.premium.yearly"
 let premiumForeverProductID = "com.qinxiu.markdown.premium.forever"
 
+//itms-services://?action=purchaseIntent&bundleId=com.qinxiu.markdown&productIdentifier=com.qinxiu.markdown.premium.yearly
+
 let isPad = UIDevice.current.userInterfaceIdiom == .pad
 
-let passedDate = Date(fromString: "2020-04-28", format: "yyyy-MM-dd")!
+let passedDate = Date(fromString: "2020-05-06", format: "yyyy-MM-dd")!
  
 let rateUrl = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1472328263&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"
 

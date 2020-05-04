@@ -123,7 +123,7 @@ class TextViewController: UIViewController {
     }
     
     func updateInset() {
-        let inset = Configure.shared.contentInset.value ? max((self.view.w - 500) * 0.2,0) : 0
+        let inset = Configure.shared.contentInset.value ? max((self.view.w - 500) * 0.3,0) : 0
         self.editView.contentInset = UIEdgeInsetsMake(0, inset + 8, 20, inset + 8)
         _textWidth = 0
     }

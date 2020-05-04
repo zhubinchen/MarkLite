@@ -32,6 +32,7 @@ class PurchaseViewController: UIViewController {
         if let id = productId {
             MobClick.event("enter_purchase_promote")
             purchaseProduct(id)
+            selectedType(yearlyButton)
         } else {
             selectedType(yearlyButton)
         }
