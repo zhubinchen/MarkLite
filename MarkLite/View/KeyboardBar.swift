@@ -323,24 +323,26 @@ class KeyboardBar: UIView {
     }
     
     func copyImageToLocal(_ image: UIImage) {
-        guard let textView = self.textView else { return }
-        guard let data = UIImageJPEGRepresentation(image, 0.8) else { return }
+        guard let textView = self.textView, let parent = self.file?.parent, let data = UIImageJPEGRepresentation(image, 0.8) else { return }
+        
         viewController?.showAlert(title: nil, message: /"CreateImageTips", actionTitles: [/"CreateImage",/"Cancel"], textFieldconfigurationHandler: { textField in
             textField.clearButtonMode = .whileEditing
-            textField.text = (self.file?.displayName ?? "") + " " + Date().toString(format: "HH-mm-ss")
+            textField.text = "img-ref"
             textField.placeholder = /"FileNamePlaceHolder"
             self.textField = textField
         }) { index in
-            let name = self.textField?.text ?? Date().toString(format: "HH:mm")
+            let name = self.textField?.text ?? "img-ref"
             if index == 2 {
                 return
             }
-            guard let parent = self.file?.parent, let file = parent.createFile(name: name, contents: data, type: .image) else {
+            let folderName = (self.file?.displayName ?? "")
+            let folder = parent.children.first { $0.name == folderName } ?? parent.createFile(name: folderName, contents: nil, type: .folder)
+            guard let imageFolder = folder, let image = imageFolder.createFile(name: name, contents: data, type: .image) else {
                 return
             }
             let currentRange = textView.selectedRange
             let insertText = /"Alt"
-            textView.insertText("![\(insertText)](\(file.name))")
+            textView.insertText("![\(insertText)](\(imageFolder.name)/\(image.name))")
             textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
         }
     }
