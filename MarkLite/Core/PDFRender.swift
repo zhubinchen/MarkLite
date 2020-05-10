@@ -38,7 +38,7 @@ class PDFRender: UIPrintPageRenderer {
         let data = NSMutableData()
         
         UIGraphicsBeginPDFContextToData(data, CGRect(), nil)
-        prepare(forDrawingPages: NSMakeRange(0, numberOfPages))
+        prepare(forDrawingPages: NSRange(location:0, length: numberOfPages))
         for i in 0..<numberOfPages {
             UIGraphicsBeginPDFPage()
             let bounds = UIGraphicsGetPDFContextBounds()

@@ -13,16 +13,16 @@ private let reuseIdentifier = "Cell"
 
 class RecentImagesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    var items = Configure.shared.recentImages
+    var items = [URL]()
     
     var collectionView: UICollectionView!
     
     var didPickRecentImage: ((URL)->Void)?
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = /"RecentUpload"
+        title = /"Recent"
         
         let layout = UICollectionViewFlowLayout()
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -54,8 +54,8 @@ class RecentImagesViewController: UIViewController, UICollectionViewDataSource, 
     @objc func clear() {
         impactIfAllow()
         showDestructiveAlert(title: nil, message: /"ClearMessage", actionTitle: /"Clear") {
-            Configure.shared.recentImages.removeAll()
-            self.items = []
+//            Configure.shared.recentImages.removeAll()
+//            self.items = []
             self.collectionView.reloadData()
             KingfisherManager.shared.cache.clearDiskCache()
             KingfisherManager.shared.cache.clearMemoryCache()
@@ -73,7 +73,12 @@ class RecentImagesViewController: UIViewController, UICollectionViewDataSource, 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! RecentImageCell
         cell.setBackgroundColor(.background)
-        cell.imageView.kf.setImage(with: items[indexPath.item])
+        let url = items[indexPath.item]
+        if url.isFileURL {
+            cell.imageView.image = UIImage(contentsOfFile: url.path)
+        } else {
+            cell.imageView.kf.setImage(with: items[indexPath.item])
+        }
         return cell
     }
 

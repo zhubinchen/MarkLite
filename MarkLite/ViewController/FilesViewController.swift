@@ -292,7 +292,7 @@ class FilesViewController: UIViewController {
             self.selectFiles.forEach { file in
                 file.trash()
                 if file == File.current  {
-                    file.close(nil)
+                    file.close()
                     self.editFile(nil)
                 }
             }
@@ -339,13 +339,13 @@ class FilesViewController: UIViewController {
         guard let newParent = selectedFolder else { return }
         filesToMove?.forEach { file in
             if file == File.current  {
-                file.close(nil)
+                file.close()
                 self.editFile(nil)
             }
             file.move(to: newParent)
         }
         moveFrom?.refresh()
-        dismiss(animated: true) { }
+        dismiss(animated: true)
     }
     
     @objc func showSettings() {
@@ -388,18 +388,27 @@ class FilesViewController: UIViewController {
             preview(file)
             return
         }
-        if file == File.current && (splitViewController?.isCollapsed ?? false) == false {
-            return
-        }
-        SVProgressHUD.show()
-        file.open { success in
-            SVProgressHUD.dismiss()
-            if success {
-                self.editFile(file)
-            } else {
-                self.editFile(nil)
-                SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
+        func openText() {
+            SVProgressHUD.show()
+            file.open { success in
+                SVProgressHUD.dismiss()
+                if success {
+                    self.editFile(file)
+                } else {
+                    self.editFile(nil)
+                    SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
+                }
             }
+        }
+        if file == File.current {
+            if (splitViewController?.isCollapsed ?? false) == false {
+                return
+            } else {
+                openText()
+            }
+        } else {
+            File.current?.close()
+            openText()
         }
     }
     
@@ -770,7 +779,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
             let deleteAction = UITableViewRowAction(style: .destructive, title: /"Delete") { [unowned self](_, indexPath) in
                 impactIfAllow()
                 if file == File.current {
-                    file.close(nil)
+                    file.close()
                     self.editFile(nil)
                 }
                 file.trash()
@@ -789,7 +798,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
             self.showDestructiveAlert(title: nil, message: /"DeleteMessage", actionTitle: /"Delete") {
                 file.trash()
                 if file == File.current  {
-                    file.close(nil)
+                    file.close()
                     self.editFile(nil)
                 }
                 self.files.remove(at: indexPath.row)

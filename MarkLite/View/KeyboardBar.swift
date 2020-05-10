@@ -63,14 +63,12 @@ class KeyboardBar: UIView {
         return items
     }()
     
-    weak var textView: UITextView?
-    weak var viewController: UIViewController?
+    weak var textView: TextView?
     weak var menu: MenuView?
-    weak var file: File?
-    
+    var textField: UITextField?
+
     let bag = DisposeBag()
     var imagePicker: ImagePicker?
-    var textField: UITextField?
     
     init() {
         super.init(frame: CGRect(x: 0, y: 0, w: windowWidth, h: width))
@@ -130,30 +128,17 @@ class KeyboardBar: UIView {
 
     @objc func tapImage(_ sender: UIButton) {
         self.menu?.dismiss(sender: self.menu?.superview as? UIControl)
-        guard let textView = self.textView, let vc = viewController else { return }
+        guard let textView = self.textView, let vc = textView.viewController else { return }
 
         let pos = sender.superview!.convert(sender.center, to: sender.window)
-        let menu = MenuView(items: [/"PickFromPhotos",/"PickFromCamera",/"RecentUpload"].map{($0,false)},
-                 postion: CGPoint(x: pos.x - 20, y: pos.y - 150)) { [weak self] (index) in
+        let menu = MenuView(items: [/"PickFromPhotos",/"PickFromCamera"].map{($0,false)},
+                 postion: CGPoint(x: pos.x - 20, y: pos.y - 110)) { [weak self] (index) in
                     if index == 0 {
                         self?.imagePicker = ImagePicker(viewController: vc){ self?.didPickImage($0) }
                         self?.imagePicker?.pickFromLibray()
                     } else if index == 1 {
                         self?.imagePicker = ImagePicker(viewController: vc){ self?.didPickImage($0) }
                         self?.imagePicker?.pickFromCamera()
-                    } else {
-                        let vc = RecentImagesViewController()
-                        let nav = UINavigationController(rootViewController: vc)
-                        nav.modalPresentationStyle = .formSheet
-                        vc.didPickRecentImage = { url in
-                            Configure.shared.recentImages.removeAll { $0 == url }
-                            Configure.shared.recentImages.insert(url, at: 0)
-                            let currentRange = textView.selectedRange
-                            let insertText = /"Alt"
-                            textView.insertText("![\(insertText)](\(url))")
-                            textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
-                        }
-                        self?.viewController?.presentVC(nav)
                     }
         }
         menu.show()
@@ -162,26 +147,17 @@ class KeyboardBar: UIView {
     
     @objc func tapLink() {
         self.menu?.dismiss(sender: self.menu?.superview as? UIControl)
-        guard let vc = viewController else { return }
-        vc.showAlert(title: /"InsertHref", message: "", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
+        textView?.viewController?.showAlert(title: /"InsertHref", message: "", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
             textField.placeholder = "http://example.com"
             textField.font = UIFont.font(ofSize: 13)
             textField.setTextColor(.primary)
             self.textField = textField
         }) { (index) in
             if index == 1 {
-                self.insertLink()
+                let link = self.textField?.text ?? ""
+                self.textView?.insertURL(link)
             }
         }
-    }
-    
-    func insertLink() {
-        guard let textView = self.textView else { return }
-        let link = textField?.text ?? ""
-        let currentRange = textView.selectedRange
-        let insertText = /"EnterLink"
-        textView.insertText("[\(insertText)](\(link))")
-        textView.selectedRange = NSMakeRange(currentRange.location + 1, insertText.length)
     }
     
     @objc func tapCode() {
@@ -193,7 +169,7 @@ class KeyboardBar: UIView {
         let insertText = isEmpty ? /"EnterCode": text
         textView.insertText("`\(insertText)`")
         if isEmpty {
-            textView.selectedRange = NSMakeRange(currentRange.location + 1, insertText.length)
+            textView.selectedRange = NSRange(location:currentRange.location + 1, length: insertText.length)
         }
     }
     
@@ -207,7 +183,7 @@ class KeyboardBar: UIView {
                     let currentRange = textView.selectedRange
                     let insertText = "- [\(index == 0 ? "x" : " ")] item"
                     textView.insertText("\n\(insertText)")
-                    textView.selectedRange = NSMakeRange(currentRange.location + 7, (/"item").length)
+                    textView.selectedRange = NSRange(location:currentRange.location + 7, length: (/"item").length)
         }
         menu.show()
         self.menu = menu
@@ -219,7 +195,7 @@ class KeyboardBar: UIView {
         let currentRange = textView.selectedRange
         let insertText = "* item"
         textView.insertText("\n\(insertText)")
-        textView.selectedRange = NSMakeRange(currentRange.location + 3, (/"item").length)
+        textView.selectedRange = NSRange(location:currentRange.location + 3, length: (/"item").length)
     }
     
     @objc func tapOList() {
@@ -228,7 +204,7 @@ class KeyboardBar: UIView {
         let currentRange = textView.selectedRange
         let insertText = "1. item"
         textView.insertText("\n\(insertText)")
-        textView.selectedRange = NSMakeRange(currentRange.location + 4, (/"item").length)
+        textView.selectedRange = NSRange(location:currentRange.location + 4, length: (/"item").length)
     }
     
     @objc func tapHeader(_ sender: UIButton) {
@@ -240,7 +216,7 @@ class KeyboardBar: UIView {
                     let currentRange = textView.selectedRange
                     let insertText = ("#" * (index+1)) + " " + /"Header"
                     textView.insertText("\n\(insertText)")
-                    textView.selectedRange = NSMakeRange(currentRange.location + index + 3, (/"Header").length)
+                    textView.selectedRange = NSRange(location:currentRange.location + index + 3, length: (/"Header").length)
         }
         menu.show()
         self.menu = menu
@@ -255,7 +231,7 @@ class KeyboardBar: UIView {
         let insertText = isEmpty ? /"Delection": text
         textView.insertText("~~\(insertText)~~")
         if isEmpty {
-            textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
+            textView.selectedRange = NSRange(location:currentRange.location + 2, length: insertText.length)
         }
     }
     
@@ -265,7 +241,7 @@ class KeyboardBar: UIView {
         let currentRange = textView.selectedRange
         let insertText = /"Blockquote"
         textView.insertText("\n> \(insertText)\n")
-        textView.selectedRange = NSMakeRange(currentRange.location + 3, insertText.length)
+        textView.selectedRange = NSRange(location:currentRange.location + 3, length: insertText.length)
     }
     
     @objc func tapHighliht() {
@@ -277,7 +253,7 @@ class KeyboardBar: UIView {
         let insertText = isEmpty ? /"Highlight": text
         textView.insertText("==\(insertText)==")
         if isEmpty {
-            textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
+            textView.selectedRange = NSRange(location:currentRange.location + 2, length: insertText.length)
         }
     }
     
@@ -290,7 +266,7 @@ class KeyboardBar: UIView {
         let insertText = isEmpty ? /"StrongText": text
         textView.insertText("**\(insertText)**")
         if isEmpty {
-            textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
+            textView.selectedRange = NSRange(location:currentRange.location + 2, length: insertText.length)
         }
     }
     
@@ -303,108 +279,13 @@ class KeyboardBar: UIView {
         let insertText = isEmpty ? /"EmphasizedText": text
         textView.insertText("*\(insertText)*")
         if isEmpty {
-            textView.selectedRange = NSMakeRange(currentRange.location + 1, insertText.length)
+            textView.selectedRange = NSRange(location:currentRange.location + 1, length: insertText.length)
         }
     }
     
     func didPickImage(_ image: UIImage) {
         imagePicker = nil
-        guard (self.file?.parent) != nil else {
-            self.uploadImage(image)
-            return
-        }
-        viewController?.showActionSheet(title: /"ImageUploadTips", actionTitles: [/"UploadImage",/"LocalReference"]) { [unowned self] (index) in
-            if index == 0 {
-                self.uploadImage(image)
-            } else if index == 1 {
-                self.copyImageToLocal(image)
-            }
-        }
-    }
-    
-    func copyImageToLocal(_ image: UIImage) {
-        guard let textView = self.textView, let parent = self.file?.parent, let data = UIImageJPEGRepresentation(image, 0.8) else { return }
-        
-        viewController?.showAlert(title: nil, message: /"CreateImageTips", actionTitles: [/"CreateImage",/"Cancel"], textFieldconfigurationHandler: { textField in
-            textField.clearButtonMode = .whileEditing
-            textField.text = "img-ref"
-            textField.placeholder = /"FileNamePlaceHolder"
-            self.textField = textField
-        }) { index in
-            let name = self.textField?.text ?? "img-ref"
-            if index == 2 {
-                return
-            }
-            let folderName = (self.file?.displayName ?? "")
-            let folder = parent.children.first { $0.name == folderName } ?? parent.createFile(name: folderName, contents: nil, type: .folder)
-            guard let imageFolder = folder, let image = imageFolder.createFile(name: name, contents: data, type: .image) else {
-                return
-            }
-            let currentRange = textView.selectedRange
-            let insertText = /"Alt"
-            textView.insertText("![\(insertText)](\(imageFolder.name)/\(image.name))")
-            textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
-        }
-    }
-    
-    func uploadImage(_ image: UIImage) {
-        guard let textView = self.textView else { return }
-        
-        guard var data = UIImageJPEGRepresentation(image, 0.8) else { return }
-        
-        if data.count > 1 * 1024 * 1024 {
-            if let newData = UIImageJPEGRepresentation(image, 0.6) {
-                data = newData
-            }
-        }
-        
-        if data.count > 1 * 1024 * 1024 {
-            if let newData = UIImageJPEGRepresentation(image, 0.4) {
-                data = newData
-            }
-        }
-        
-        SVProgressHUD.show()
-        Alamofire.upload(multipartFormData: { (formData) in
-            formData.append(data, withName: "smfile", fileName: "temp", mimeType: "image/jpg")
-        }, to: imageUploadUrl,headers:["Authorization":smKey]) { (result) in
-            switch result {
-            case .success(let upload,_, _):
-                upload.responseJSON{ (response) in
-                    if case .success(let json) = response.result {
-                        SVProgressHUD.dismiss()
-                        let dict = json as? [String:Any] ?? [:]
-                        var url: String? = nil
-                        if let data = dict["data"] as? [String:Any] {
-                            url = data["url"] as? String
-                        }
-                        if url == nil {
-                            if let message = dict["message"] as? String {
-                                url = message.firstMatch("https.*jpg")
-                            }
-                        }
-                        if let url = url {
-                            Configure.shared.recentImages.insert(URL(string: url)!, at: 0)
-                            if Configure.shared.recentImages.count > 20 {
-                                Configure.shared.recentImages.removeLast(Configure.shared.recentImages.count - 20)
-                            }
-                            let currentRange = textView.selectedRange
-                            let insertText = /"Alt"
-                            textView.insertText("![\(insertText)](\(url))")
-                            textView.selectedRange = NSMakeRange(currentRange.location + 2, insertText.length)
-                        } else if let message = dict["message"] as? String {
-                            SVProgressHUD.showError(withStatus: message)
-                        }
-                    } else if case .failure(let error) = response.result {
-                        SVProgressHUD.dismiss()
-                        SVProgressHUD.showError(withStatus: error.localizedDescription)
-                    }
-                }
-            case .failure(let error):
-                SVProgressHUD.dismiss()
-                SVProgressHUD.showError(withStatus: error.localizedDescription)
-            }
-        }
+        textView?.insertImage(image)
     }
 }
 

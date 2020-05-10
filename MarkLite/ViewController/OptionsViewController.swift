@@ -38,6 +38,12 @@ extension SortOption: StringConvertible {
     }
 }
 
+extension ImageStorageOption: StringConvertible {
+    var toString: String {
+        return displayName
+    }
+}
+
 extension String: StringConvertible {
     var toString: String {
         return self

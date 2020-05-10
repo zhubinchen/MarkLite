@@ -124,7 +124,7 @@ struct MarkdownHighlightManager {
 
     func highlight(_ text: NSTextStorage, visibleRange: NSRange?) {
         let len = (text.string as NSString).length
-        var validRange = NSMakeRange(0, len)
+        var validRange = NSRange(location:0, length: len)
         if let visibleRange = visibleRange  {
             let begin = max(visibleRange.location - visibleRange.length * 2, 0)
             let end = min(visibleRange.location + visibleRange.length * 3, len)

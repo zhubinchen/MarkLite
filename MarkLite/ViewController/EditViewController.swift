@@ -104,6 +104,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         emptyImageView.setTintColor(.secondary)
         emptyLabel.setTextColor(.secondary)
         emptyLabel.text = /"NoEditingFile"
+        emptyView.setBackgroundColor(.background)
         view.setBackgroundColor(.background)
         
         addNotificationObserver(Notification.Name.UIDeviceOrientationDidChange.rawValue, selector: #selector(deviceOrientationDidChange))
@@ -141,7 +142,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
 
         previewVC.htmlURL = URL(fileURLWithPath: file.path).deletingLastPathComponent().appendingPathComponent(".\(file.displayName).html")
             
-        textVC.assistBar.file = file
+        textVC.editView.file = file
         textVC.textChangedHandler = { [weak self] (text) in
             file.text = text
             let html = self?.markdownRenderer?.renderMarkdown(text) ?? ""

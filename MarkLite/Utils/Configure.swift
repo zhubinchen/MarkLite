@@ -63,6 +63,24 @@ enum DarkModeOption: String {
     }()
 }
 
+enum ImageStorageOption: String {
+    case local
+    case remote
+    case ask
+
+    var displayName: String {
+        switch self {
+        case .local:
+            return /"ImageStorageLocal"
+        case .remote:
+            return /"ImageStorageRemote"
+        case .ask:
+            return /"ImageStorageAsk"
+        }
+    }
+    
+}
+
 class Configure: NSObject, NSCoding {
     
     static let configureFile = configPath + "/Configure.plist"
@@ -81,14 +99,16 @@ class Configure: NSObject, NSCoding {
     let highlightStyle = Variable("tomorrow")
     let theme = Variable(Theme.white)
     var sortOption = SortOption.modifyDate
+    var imageStorage = ImageStorageOption.ask
     let darkOption = Variable(DarkModeOption.defaultDarkOption)
     var keyboardBarItems = ["-","`","$","/","\"","?","@","(",")","[","]","|","#","*","=","+","<",">"]
-    var recentImages = [URL]()
+    var imageCaches = [String:String]()
     var showedTips = [String]()
     let automaticSplit = Variable(false)
     let autoHideNavigationBar = Variable(true)
     
     var isPro: Bool {
+        return true
         return expireDate.isFuture
     }
     
@@ -125,6 +145,7 @@ class Configure: NSObject, NSCoding {
         theme.value = .white
         sortOption = .modifyDate
         darkOption.value = DarkModeOption.defaultDarkOption
+        imageStorage = .ask
         showExtensionName = false
         impactFeedback = true
         isAssistBarEnabled.value = true
@@ -202,9 +223,10 @@ class Configure: NSObject, NSCoding {
         aCoder.encode(fontSize.value, forKey: "fontSize")
         aCoder.encode(darkOption.value.rawValue, forKey: "darkOption")
         aCoder.encode(sortOption.rawValue, forKey: "sortOption")
+        aCoder.encode(imageStorage.rawValue, forKey: "imageStorage")
         aCoder.encode(rateAlertDate, forKey: "rateAlertDate")
         aCoder.encode(expireDate, forKey: "expireDate")
-        aCoder.encode(recentImages, forKey: "recentImages")
+        aCoder.encode(imageCaches, forKey: "imageCaches")
         aCoder.encode(showedTips, forKey: "showedTips")
     }
     
@@ -213,7 +235,7 @@ class Configure: NSObject, NSCoding {
         currentVerion = aDecoder.decodeObject(forKey: "currentVersion") as? String
         rateAlertDate = aDecoder.decodeObject(forKey: "rateAlertDate") as? Date ?? Date().daysAgo(19)
         expireDate = aDecoder.decodeObject(forKey: "expireDate") as? Date ?? Date.longlongAgo()
-        recentImages = aDecoder.decodeObject(forKey: "recentImages") as? [URL] ?? []
+        imageCaches = aDecoder.decodeObject(forKey: "imageCaches") as? [String:String] ?? [:]
         showedTips = aDecoder.decodeObject(forKey: "showedTips") as? [String] ?? []
         impactFeedback = aDecoder.decodeBool(forKey: "impactFeedback")
         showExtensionName = aDecoder.decodeBool(forKey: "showExtensionName")
@@ -228,6 +250,7 @@ class Configure: NSObject, NSCoding {
         fontSize.value = size == 0 ? 17 : size
         darkOption.value = DarkModeOption(rawValue: aDecoder.decodeObject(forKey: "darkOption") as? String ?? "") ?? DarkModeOption.defaultDarkOption
         sortOption = SortOption(rawValue: aDecoder.decodeObject(forKey: "sortOption") as? String ?? "") ?? .modifyDate
+        imageStorage = ImageStorageOption(rawValue: aDecoder.decodeObject(forKey: "imageStorage") as? String ?? "") ?? .ask
     }
     
     func checkProAvailable(_ completion:((Bool)->Void)? = nil){

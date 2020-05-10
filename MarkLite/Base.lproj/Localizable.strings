@@ -58,9 +58,8 @@
 "Redo"="Redo";
 "Characters"="Characters";
 
-"LocalReference"="Local Reference";
-"UploadImage"="Upload Image";
-"ImageUploadTips"="Choose the reference type of image";
+"ImageUploadTips"="Choose the reference method of image";
+"ImageStorageTips"="You can save your method of inserting images in [Settings]";
 
 "PDF"="PDF";
 "WebPage"="HTML";
@@ -76,6 +75,7 @@
 "ImpactFeedback"="Impact Feedback";
 "ShowExtensionName"="Show File's Extension";
 "SplitOptions"="Split Options";
+"ImageStorage"="Image Storage";
 "NightMode"="Dark Mode Options";
 "Theme"="Theme";
 "Contact"="Contact us";
@@ -88,6 +88,10 @@
 "AutomaticSplit"="Automatic Split";
 "AutoHideNavigationBar"="Auto Hide Navigation Bar";
 "TOC"="TOC";
+
+"ImageStorageLocal"="Local Reference";
+"ImageStorageRemote"="Upload Image";
+"ImageStorageAsk"="Ask Each Time";
 
 "FollowSystem"="Follow System";
 "KeepDarkMode"="Always Dark";
@@ -146,7 +150,7 @@
 "Alt"="Alt";
 
 "Clear"="Clear";
-"RecentUpload"="Recent Upload";
+"Recent"="Recents";
 "PickFromPhotos"="Open Photos";
 "PickFromCamera"="Open Camera";
 "Completed"="Completed";

@@ -143,11 +143,11 @@ class File {
         return URL(fileURLWithPath: path)
     }
     
-    var document: Document? {
+    var document: Document! {
         if _document == nil && url != nil {
             _document = Document(fileURL: url!)
         }
-        return _document
+        return _document!
     }
     
     fileprivate var _children = [File]()
@@ -295,13 +295,14 @@ class File {
     }
     
     func setupChildren(_ subPaths:[String]) {
-        _children = subPaths.filter{!($0.hasPrefix(".") || $0.hasPrefix("~"))}.map{ File(path:path + "/" + $0,parent: self) }
+        var newChildren = subPaths.filter{!($0.hasPrefix(".") || $0.hasPrefix("~"))}.map{ File(path:path + "/" + $0,parent: self) }
         if path == documentPath {
-            _children.removeAll { $0.path == inboxPath }
+            newChildren.removeAll { $0.path == inboxPath }
         }
-        if let current = _children.first(where: {$0 == File.current}) {
-            current._document = File.current?._document
+        newChildren.forEach { child in
+            child._document = _children.first(where: {$0 == child})?._document
         }
+        _children = newChildren
     }
     
     @discardableResult
@@ -375,7 +376,7 @@ class File {
         return true
     }
     
-    func close(_ completion:((Bool)->Void)?) {
+    func close(_ completion:((Bool)->Void)? = nil) {
         if changed {
             modifyDate = Date()
             if let data = text?.data(using: .utf8) {
@@ -383,43 +384,38 @@ class File {
             }
             changed = false
         }
-        if self == File.current {
-            document?.close{ successed in
-                if successed {
-                    print("close successed")
-                    File.current = nil
-                } else {
-                    print("close failed")
-                }
-                completion?(successed)
-            }
-        } else {
+        if document.documentState.contains(.closed) {
+            File.current = nil
             completion?(true)
+        }
+        document.close { successed in
+            if successed {
+                print("close successed")
+                if self == File.current {
+                    File.current = nil
+                }
+            } else {
+                print("close failed")
+            }
+            completion?(successed)
         }
     }
     
-    func open(_ completion:((Bool)->Void)?) {
-        if self == File.current {
+    func open(_ completion:((Bool)->Void)? = nil) {
+        if document.documentState == .normal {
+            File.current = self
             completion?(true)
             return
         }
-        File.current?.close(nil)
         
-        if document == nil {
-            File.current = nil
-            completion?(false)
-            return
-        }
-        document?.open { successed in
+        document.open { successed in
             if successed {
                 print("open successed")
                 File.current = self
-                completion?(true)
             } else {
                 print("open failed")
-                File.current = nil
-                completion?(false)
             }
+            completion?(successed)
         }
     }
 }

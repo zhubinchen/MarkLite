@@ -57,9 +57,8 @@
 "Redo"="重做";
 "Characters"="字符";
 
-"LocalReference"="本地引用";
-"UploadImage"="上传图片";
 "ImageUploadTips"="本地引用不需要网络即可完成，但是相对路径改变时会无法加载图片";
+"ImageStorageTips"="在【设置】中可以保存插入图片方式，保存设置后插入图片时将不再询问";
 
 "PDF"="PDF文档";
 "WebPage"="HTML";
@@ -75,6 +74,7 @@
 "ImpactFeedback"="振动反馈";
 "SplitOptions"="编辑预览分屏";
 "ShowExtensionName"="显示文件扩展名";
+"ImageStorage"="图片引用选项";
 "NightMode"="深色模式选项";
 "Theme"="主题色";
 "Contact"="联系开发者";
@@ -87,6 +87,10 @@
 "AutomaticSplit"="横屏时分屏";
 "TOC"="目录";
 "AutoHideNavigationBar"="自动隐藏标题栏";
+
+"ImageStorageLocal"="保存在本地";
+"ImageStorageRemote"="上传至图床";
+"ImageStorageAsk"="每次询问";
 
 "KeepDarkMode"="深色模式";
 "DisableDarkMode"="浅色模式";
@@ -145,7 +149,7 @@
 "Alt"="Alt";
 
 "Clear"="清空";
-"RecentUpload"="最近上传";
+"Recent"="最近使用";
 "PickFromPhotos"="从相册选取";
 "PickFromCamera"="打开相机";
 "Completed"="已完成";

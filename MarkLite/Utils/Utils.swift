@@ -40,20 +40,39 @@ func impactIfAllow() {
     impactGenerator.impactOccurred()
 }
 
+extension Data {
+    func hexString() -> String {
+        var t = ""
+        let ts = [UInt8](self)
+        for one in ts {
+            t.append(String.init(format: "%02x", one))
+        }
+        return t
+    }
+    
+    func md5() -> String {
+        let data = Data(count: Int(CC_MD5_DIGEST_LENGTH))
+        let unsafe = [UInt8](self)
+        return data.withUnsafeBytes { (bytes) -> Data in
+            let b = bytes.baseAddress!.bindMemory(to: UInt8.self, capacity: 4).predecessor()
+            let mb = UnsafeMutablePointer(mutating: b)
+            CC_MD5(unsafe, CC_LONG(count),mb)
+            return data
+        }.hexString()
+    }
+}
+
+extension UIImage {
+    func md5() -> String {
+        let data = UIImageJPEGRepresentation(self, 1) ?? UIImagePNGRepresentation(self)
+        return data?.md5() ?? ""
+    }
+}
+
 extension String {
     
-    func md5() ->String!{
-        let str = cString(using: .utf8)
-        let strLen = CUnsignedInt(lengthOfBytes(using: .utf8))
-        let digestLen = CC_MD5_DIGEST_LENGTH
-        let result = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: Int(digestLen))
-        CC_MD5(str!, strLen, result)
-        let hash = NSMutableString()
-        for i in 0 ..< digestLen {
-            hash.appendFormat("%02x", result[Int(i)])
-        }
-        result.deallocate()
-        return String(format: hash as String)
+    func md5() -> String {
+        return data(using: .utf8)?.md5() ?? ""
     }
     
     func stringByDeleteLastPath() -> String {
@@ -62,12 +81,18 @@ extension String {
         return paths.joined(separator: "/")
     }
     
+    func stringByAppendingPath(_ path: String) -> String {
+        var paths = self.components(separatedBy: "/")
+        paths.append(path.trimmingCharacters(in: CharacterSet(charactersIn: "/")))
+        return paths.joined(separator: "/")
+    }
+    
     fileprivate func pathByAppendingNumber() -> String {
         if self.length < 3 {
             return self + "(1)"
         }
         
-        guard let range = try? NSRegularExpression(pattern: "\\([0-9]+\\)", options: .caseInsensitive).rangeOfFirstMatch(in: self, options: .reportCompletion, range: NSMakeRange(0, self.length)) else {
+        guard let range = try? NSRegularExpression(pattern: "\\([0-9]+\\)", options: .caseInsensitive).rangeOfFirstMatch(in: self, options: .reportCompletion, range: NSRange(location:0, length: self.length)) else {
                 return self + "(1)"
         }
                 
@@ -121,6 +146,11 @@ extension String {
             return nil
         }
         return range
+    }
+    
+    func matchsCount(_ exp: String) -> Int {
+        guard let exp = try? NSRegularExpression(pattern: exp, options: .caseInsensitive) else { return 0 }
+        return exp.matches(in: self, options: .reportCompletion, range: NSRange(startIndex..., in: self)).count
     }
     
     func substring(with nsRange: NSRange) -> String {
@@ -302,7 +332,7 @@ func *(color: UIColor, alpha: CGFloat) -> UIColor {
 }
 
 func range(_ loc: Int, _ len: Int) -> NSRange {
-    return NSMakeRange(loc, len)
+    return NSRange(location:loc, length: len)
 }
 
 extension UIImage {

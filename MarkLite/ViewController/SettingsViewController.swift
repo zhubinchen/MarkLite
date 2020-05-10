@@ -34,11 +34,12 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 
         var items = [
             ("共享",[("FileSharing","",#selector(webdav))]),
-            ("外观",section),
             ("功能",[
+                ("ImageStorage","",#selector(imageStorage)),
                 ("AssistKeyboard","",#selector(assistBar)),
                 ("ShowExtensionName","",#selector(displayOption)),
                 ]),
+            ("外观",section),
             ("支持一下",[
                 ("Contact","",#selector(feedback))
                 ])
@@ -212,4 +213,17 @@ extension SettingsViewController {
         vc.options = wraper
         pushVC(vc)
     }
+    
+    @objc func imageStorage() {
+        let items = [ImageStorageOption.ask,.local,.remote]
+        let index = items.index{ Configure.shared.imageStorage == $0 }
+
+        let wraper = OptionsWraper(selectedIndex: index, editable: false, title: /"ImageStorage", items: items) {
+            Configure.shared.imageStorage = $0 as! ImageStorageOption
+        }
+        let vc = OptionsViewController()
+        vc.options = wraper
+        pushVC(vc)
+    }
+
 }
