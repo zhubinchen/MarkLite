@@ -13,7 +13,7 @@ import EZSwiftExtensions
 
 class TextViewController: UIViewController {
     
-    @IBOutlet weak var editView: UITextView!
+    @IBOutlet weak var editView: TextView!
             
     var contentHeight: CGFloat {
 //        if _textWidth != editView.w {
@@ -71,6 +71,7 @@ class TextViewController: UIViewController {
         
         setupRx()
         
+        editView.viewController = self
         editView.textContainer.lineBreakMode = .byCharWrapping
         view.setBackgroundColor(.background)
     }
@@ -88,7 +89,6 @@ class TextViewController: UIViewController {
         Configure.shared.isAssistBarEnabled.asObservable().subscribe(onNext: { [unowned self](enable) in
             if enable {
                 self.assistBar.textView = self.editView
-                self.assistBar.viewController = self
                 self.editView.inputAccessoryView = self.assistBar
             } else {
                 self.editView.inputAccessoryView = nil
@@ -230,7 +230,7 @@ extension TextViewController: UITextViewDelegate {
             let begin = max(range.location - 100, 0)
             let len = range.location - begin
             let nsString = textView.text! as NSString
-            let nearText = nsString.substring(with: NSMakeRange(begin, len))
+            let nearText = nsString.substring(with: NSRange(location:begin, length: len))
             let texts = nearText.components(separatedBy: "\n")
             if texts.count < 2 {
                 return true
