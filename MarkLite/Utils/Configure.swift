@@ -78,7 +78,20 @@ enum ImageStorageOption: String {
             return /"ImageStorageAsk"
         }
     }
-    
+}
+
+enum FileOpenOption: String {
+    case edit
+    case preview
+
+    var displayName: String {
+        switch self {
+        case .edit:
+            return /"FileOpenOptionEdit"
+        case .preview:
+            return /"FileOpenOptionPreview"
+        }
+    }
 }
 
 class Configure: NSObject, NSCoding {
@@ -100,6 +113,7 @@ class Configure: NSObject, NSCoding {
     let theme = Variable(Theme.white)
     var sortOption = SortOption.modifyDate
     var imageStorage = ImageStorageOption.ask
+    var openOption = FileOpenOption.edit
     let darkOption = Variable(DarkModeOption.defaultDarkOption)
     var keyboardBarItems = ["-","`","$","/","\"","?","@","(",")","[","]","|","#","*","=","+","<",">"]
     var imageCaches = [String:String]()
@@ -146,6 +160,7 @@ class Configure: NSObject, NSCoding {
         sortOption = .modifyDate
         darkOption.value = DarkModeOption.defaultDarkOption
         imageStorage = .ask
+        openOption = .edit
         showExtensionName = false
         impactFeedback = true
         isAssistBarEnabled.value = true
@@ -224,6 +239,7 @@ class Configure: NSObject, NSCoding {
         aCoder.encode(darkOption.value.rawValue, forKey: "darkOption")
         aCoder.encode(sortOption.rawValue, forKey: "sortOption")
         aCoder.encode(imageStorage.rawValue, forKey: "imageStorage")
+        aCoder.encode(openOption.rawValue, forKey: "openOption")
         aCoder.encode(rateAlertDate, forKey: "rateAlertDate")
         aCoder.encode(expireDate, forKey: "expireDate")
         aCoder.encode(imageCaches, forKey: "imageCaches")
@@ -251,6 +267,7 @@ class Configure: NSObject, NSCoding {
         darkOption.value = DarkModeOption(rawValue: aDecoder.decodeObject(forKey: "darkOption") as? String ?? "") ?? DarkModeOption.defaultDarkOption
         sortOption = SortOption(rawValue: aDecoder.decodeObject(forKey: "sortOption") as? String ?? "") ?? .modifyDate
         imageStorage = ImageStorageOption(rawValue: aDecoder.decodeObject(forKey: "imageStorage") as? String ?? "") ?? .ask
+        openOption = FileOpenOption(rawValue: aDecoder.decodeObject(forKey: "openOption") as? String ?? "") ?? .edit
     }
     
     func checkProAvailable(_ completion:((Bool)->Void)? = nil){

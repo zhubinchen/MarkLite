@@ -32,6 +32,12 @@ extension DarkModeOption: StringConvertible {
     }
 }
 
+extension FileOpenOption: StringConvertible {
+    var toString: String {
+        return displayName
+    }
+}
+
 extension SortOption: StringConvertible {
     var toString: String {
         return displayName

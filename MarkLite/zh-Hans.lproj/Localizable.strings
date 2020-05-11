@@ -59,6 +59,7 @@
 
 "ImageUploadTips"="本地引用不需要网络即可完成，但是相对路径改变时会无法加载图片";
 "ImageStorageTips"="在【设置】中可以保存插入图片方式，保存设置后插入图片时将不再询问";
+"FileOpenTips"="当前打开文件默认进入编辑界面，在设置页可以修改此设定";
 
 "PDF"="PDF文档";
 "WebPage"="HTML";
@@ -76,6 +77,7 @@
 "ShowExtensionName"="显示文件扩展名";
 "ImageStorage"="图片引用选项";
 "NightMode"="深色模式选项";
+"FileOpenOption"="打开文件进入";
 "Theme"="主题色";
 "Contact"="联系开发者";
 "RateIt"="去App Store评价";
@@ -87,6 +89,9 @@
 "AutomaticSplit"="横屏时分屏";
 "TOC"="目录";
 "AutoHideNavigationBar"="自动隐藏标题栏";
+
+"FileOpenOptionEdit"="编辑";
+"FileOpenOptionPreview"="预览";
 
 "ImageStorageLocal"="保存在本地";
 "ImageStorageRemote"="上传至图床";

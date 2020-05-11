@@ -71,6 +71,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     }
     
     var shouldFullscreen = false
+    var isInitial = true
             
     var previewVC: PreviewViewController!
     var textVC: TextViewController!
@@ -126,6 +127,11 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             seperator.isHidden = editViewWidth.isActive.toggled
         } else {
             seperator.isHidden = true
+        }
+
+        if editViewWidth.isActive.toggled && isInitial && Configure.shared.openOption == .preview {
+            scrollView.setContentOffset(CGPoint(x:self.view.w , y:0), animated: false)
+            isInitial = false
         }
     }
     
@@ -401,15 +407,11 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = scrollView.contentOffset.x < view.w * 0.5
-        navigationController?.navigationController?.interactivePopGestureRecognizer?.isEnabled = scrollView.contentOffset.x < view.w * 0.5
         previewButton.tag = scrollView.contentOffset.x < view.w * 0.5 ? 0 : 1
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         impactIfAllow()
-        navigationController?.interactivePopGestureRecognizer?.isEnabled = scrollView.contentOffset.x < view.w * 0.5
-        navigationController?.navigationController?.interactivePopGestureRecognizer?.isEnabled = scrollView.contentOffset.x < view.w * 0.5
         previewButton.tag = scrollView.contentOffset.x < view.w * 0.5 ? 0 : 1
     }
     

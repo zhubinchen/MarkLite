@@ -60,6 +60,7 @@
 
 "ImageUploadTips"="Choose the reference method of image";
 "ImageStorageTips"="You can save your method of inserting images in [Settings]";
+"FileOpenTips"="You can custom open file mode(edit/preview) in [Settings]";
 
 "PDF"="PDF";
 "WebPage"="HTML";
@@ -77,6 +78,7 @@
 "SplitOptions"="Split Options";
 "ImageStorage"="Image Storage";
 "NightMode"="Dark Mode Options";
+"FileOpenOption"="File Open Mode";
 "Theme"="Theme";
 "Contact"="Contact us";
 "RateIt"="Rate it";
@@ -88,6 +90,9 @@
 "AutomaticSplit"="Automatic Split";
 "AutoHideNavigationBar"="Auto Hide Navigation Bar";
 "TOC"="TOC";
+
+"FileOpenOptionEdit"="Edit";
+"FileOpenOptionPreview"="Preview";
 
 "ImageStorageLocal"="Local Reference";
 "ImageStorageRemote"="Upload Image";

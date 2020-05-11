@@ -23,7 +23,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 
     var items: [(String,[(String,String,Selector)])] {
         let section = [
-            ("NightMode","",#selector(darkMode)),
+            ("NightMode",Configure.shared.darkOption.value.displayName,#selector(darkMode)),
             ("Theme","",#selector(theme)),
             ("ImpactFeedback","",#selector(impactFeedback))
             ]
@@ -35,7 +35,8 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         var items = [
             ("共享",[("FileSharing","",#selector(webdav))]),
             ("功能",[
-                ("ImageStorage","",#selector(imageStorage)),
+                ("ImageStorage",Configure.shared.imageStorage.displayName,#selector(imageStorage)),
+                ("FileOpenOption",Configure.shared.openOption.displayName,#selector(fileOpenOption)),
                 ("AssistKeyboard","",#selector(assistBar)),
                 ("ShowExtensionName","",#selector(displayOption)),
                 ]),
@@ -220,6 +221,18 @@ extension SettingsViewController {
 
         let wraper = OptionsWraper(selectedIndex: index, editable: false, title: /"ImageStorage", items: items) {
             Configure.shared.imageStorage = $0 as! ImageStorageOption
+        }
+        let vc = OptionsViewController()
+        vc.options = wraper
+        pushVC(vc)
+    }
+    
+    @objc func fileOpenOption() {
+        let items = [FileOpenOption.edit,.preview]
+        let index = items.index{ Configure.shared.openOption == $0 }
+
+        let wraper = OptionsWraper(selectedIndex: index, editable: false, title: /"FileOpenOption", items: items) {
+            Configure.shared.openOption = $0 as! FileOpenOption
         }
         let vc = OptionsViewController()
         vc.options = wraper
