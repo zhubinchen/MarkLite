@@ -128,8 +128,11 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         } else {
             seperator.isHidden = true
         }
-
-        if editViewWidth.isActive.toggled && isInitial && Configure.shared.openOption == .preview {
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if isInitial && editViewWidth.isActive.toggled && Configure.shared.openOption == .preview && (file?.text?.length ?? 0) > 0 {
             scrollView.setContentOffset(CGPoint(x:self.view.w , y:0), animated: false)
             isInitial = false
         }

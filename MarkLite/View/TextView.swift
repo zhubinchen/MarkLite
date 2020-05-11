@@ -83,9 +83,11 @@ class TextView: UITextView, UIDropInteractionDelegate {
     func dropInteraction(_ interaction: UIDropInteraction, item: UIDragItem, willAnimateDropWith animator: UIDragAnimating) {
         
     }
+    
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
     }
+    
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if action == #selector(UIResponderStandardEditActions.paste(_:)) {
             return true
@@ -146,6 +148,7 @@ class TextView: UITextView, UIDropInteractionDelegate {
         } else if Configure.shared.imageStorage == .remote {
             uploadImage(image)
         } else {
+            resignFirstResponder()
             viewController?.showActionSheet(title: /"ImageUploadTips", actionTitles: [/"ImageStorageRemote",/"ImageStorageLocal"]) { [unowned self] (index) in
                 if index == 0 {
                     self.uploadImage(image)
@@ -169,6 +172,7 @@ class TextView: UITextView, UIDropInteractionDelegate {
         let text = /"Alt"
         self.insertText("![\(text)](\(path))")
         self.selectedRange = NSRange(location: currentRange.location + 2, length: text.length)
+        self.becomeFirstResponder()
     }
     
     func copyImageToLocal(_ image: UIImage) {

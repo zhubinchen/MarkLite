@@ -136,9 +136,11 @@ class KeyboardBar: UIView {
                     if index == 0 {
                         self?.imagePicker = ImagePicker(viewController: vc){ self?.didPickImage($0) }
                         self?.imagePicker?.pickFromLibray()
+                        self?.textView?.resignFirstResponder()
                     } else if index == 1 {
                         self?.imagePicker = ImagePicker(viewController: vc){ self?.didPickImage($0) }
                         self?.imagePicker?.pickFromCamera()
+                        self?.textView?.resignFirstResponder()
                     }
         }
         menu.show()

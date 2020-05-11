@@ -57,7 +57,7 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
                 }
                 if shouldRefresh {
                     delayTimer?.invalidate()
-                    delayTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in
+                    delayTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
                         if self.isLoading == false && self.shouldRefresh {
                             self.isLoading = true
                         }
@@ -129,7 +129,9 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
         super.viewDidLayoutSubviews()
         if initialed == false {
             initialed = true
-            refresh()
+            if html.length > 0 {
+                refresh()
+            }
         }
     }
     

@@ -205,7 +205,10 @@ extension TextViewController: UITextViewDelegate {
         if fabs(scrollView.contentOffset.y - lastOffsetY) < 500 {
             return
         }
-        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(highlight), userInfo: nil, repeats: false)
+        timer?.invalidate()
+        let contentOffset = editView.contentOffset
+        highlight()
+        editView.contentOffset = contentOffset
         lastOffsetY = scrollView.contentOffset.y
     }
     
