@@ -209,9 +209,6 @@ extension TextViewController: UITextViewDelegate {
         lastOffsetY = scrollView.contentOffset.y
     }
     
-    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        return true
-    }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         UIApplication.shared.isIdleTimerDisabled = true

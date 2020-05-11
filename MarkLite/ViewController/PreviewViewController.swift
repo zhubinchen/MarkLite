@@ -34,15 +34,53 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
     var webHeight: CGFloat {
         return webView.scrollView.contentSize.height
     }
-        
+    
+    var isLoading = false {
+        didSet {
+            if isLoading {
+                if let snapshot = webView.snapshotView(afterScreenUpdates: true) {
+                    snapshot.frame = webView.frame
+                    snapshot.tag = 4654
+                    view.addSubview(snapshot)
+                }
+                if webView.scrollView.contentOffset.y > 10 {
+                    contentOffset = webView.scrollView.contentOffset
+                }
+                webView.stopLoading()
+                webView.loadHTMLString(html, baseURL: htmlURL)
+                shouldRefresh = false
+            } else {
+                if let snapshot = view.viewWithTag(4654) {
+                    webView.scrollView.contentOffset = self.contentOffset
+                    snapshot.tag = 0
+                    snapshot.removeFromSuperview()
+                }
+                if shouldRefresh {
+                    delayTimer?.invalidate()
+                    delayTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { _ in
+                        if self.isLoading == false && self.shouldRefresh {
+                            self.isLoading = true
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    var delayTimer: Timer?
+    
     var shouldRefresh = false
     
-    var timer: Timer?
-
+    var initialed = false
+            
     var html: String = "" {
         didSet {
-            if html != oldValue {
-                shouldRefresh = true
+            if html == oldValue {
+                return
+            }
+                
+            if html.length > 0 && initialed {
+                refresh()
             }
         }
     }
@@ -52,7 +90,7 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
     var didScrollHandler: ((CGFloat)->Void)?
     
     let disposeBag = DisposeBag()
-            
+                
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,16 +104,10 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
         
         webView.snp.makeConstraints { maker in
             maker.centerX.top.bottom.equalToSuperview()
-            maker.left.equalToSuperview()
+            maker.left.equalTo(0)
         }
 
         view.setBackgroundColor(.background)
-                
-        timer = Timer.runThisEvery(seconds: 0.5, handler: { [weak self] _ in
-            if self?.shouldRefresh ?? false {
-                self?.refresh()
-            }
-        })
         
         Configure.shared.contentInset.asObservable().subscribe(onNext: { [unowned self](enable) in
             let inset = enable ? max((self.view.w - 500) * 0.3,0) : 0
@@ -93,6 +125,14 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if initialed == false {
+            initialed = true
+            refresh()
+        }
+    }
+    
     func showTOC(_ toc: TOCItem) {
         let js = "location.href=\"#toc_\(toc.idx)\""
         self.webView.evaluateJavaScript(js) { (_,error) in
@@ -101,21 +141,11 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
     }
     
     func refresh() {
-        if html.length == 0 {
-            return
+        if isLoading == false {
+            isLoading = true
+        } else {
+            shouldRefresh = true
         }
-        shouldRefresh = false
-        webView.stopLoading()
-        if let snapshot = webView.snapshotView(afterScreenUpdates: true) {
-            snapshot.frame = webView.frame
-            snapshot.tag = 4654
-            view.addSubview(snapshot)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                snapshot.removeFromSuperview()
-            }
-        }
-        contentOffset = webView.scrollView.contentOffset
-        webView.loadHTMLString(html, baseURL: htmlURL)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -140,18 +170,14 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        guard let snapshot = view.viewWithTag(4654) else { return }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            webView.scrollView.contentOffset = self.contentOffset
-            snapshot.removeFromSuperview()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.isLoading = false
         }
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        guard let snapshot = view.viewWithTag(4654) else { return }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-            webView.scrollView.contentOffset = self.contentOffset
-            snapshot.removeFromSuperview()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.isLoading = false
         }
     }
     
@@ -173,9 +199,8 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
     }
     
     deinit {
-        timer?.invalidate()
         webView.stopLoading()
-        
+        delayTimer?.invalidate()
         print("deinit web_vc")
     }
 }

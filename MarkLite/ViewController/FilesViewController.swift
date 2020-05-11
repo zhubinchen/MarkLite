@@ -409,9 +409,10 @@ class FilesViewController: UIViewController {
         } else {
             File.current?.close()
             if !Configure.shared.showedTips.contains("4") {
-                showAlert(title: /"Tips", message: /"FileOpenTips", actionTitles: [/"GotIt"])
+                showAlert(title: /"Tips", message: /"FileOpenTips", actionTitles: [/"GotIt"], textFieldconfigurationHandler: nil) { _ in
+                    openText()
+                }
                 Configure.shared.showedTips.append("4")
-                openText()
             } else {
                 openText()
             }
