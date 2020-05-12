@@ -105,6 +105,7 @@ class Configure: NSObject, NSCoding {
     var expireDate = Date.longlongAgo()
     var showExtensionName = false
     var impactFeedback = true
+    var darkAppIcon = false
     let fontSize = Variable(17)
     let contentInset = Variable(true)
     let isAssistBarEnabled = Variable(true)
@@ -229,6 +230,7 @@ class Configure: NSObject, NSCoding {
         aCoder.encode(automaticSplit.value, forKey: "automaticSplit")
         aCoder.encode(autoHideNavigationBar.value, forKey: "autoHideNavigationBar")
         aCoder.encode(impactFeedback, forKey: "impactFeedback")
+        aCoder.encode(darkAppIcon, forKey: "darkAppIcon")
         aCoder.encode(showExtensionName, forKey: "showExtensionName")
         aCoder.encode(isAssistBarEnabled.value, forKey: "isAssistBarEnabled")
         aCoder.encode(contentInset.value, forKey: "contentInset")
@@ -254,6 +256,7 @@ class Configure: NSObject, NSCoding {
         imageCaches = aDecoder.decodeObject(forKey: "imageCaches") as? [String:String] ?? [:]
         showedTips = aDecoder.decodeObject(forKey: "showedTips") as? [String] ?? []
         impactFeedback = aDecoder.decodeBool(forKey: "impactFeedback")
+        darkAppIcon = aDecoder.decodeBool(forKey: "darkAppIcon")
         showExtensionName = aDecoder.decodeBool(forKey: "showExtensionName")
         isAssistBarEnabled.value = aDecoder.decodeBool(forKey: "isAssistBarEnabled")
         contentInset.value = aDecoder.decodeBool(forKey: "contentInset")

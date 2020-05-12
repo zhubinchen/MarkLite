@@ -60,6 +60,7 @@
 		769E1D24240422640064B822 /* ServerInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769E1D23240422640064B822 /* ServerInfo.swift */; };
 		769E1F37240506110064B822 /* AppearanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769E1F36240506110064B822 /* AppearanceViewController.swift */; };
 		76A4D272234EF98200B87A78 /* FileSharingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76A4D271234EF98200B87A78 /* FileSharingViewController.swift */; };
+		76A847C6246AA4200031A6E6 /* icon_logo_dark@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76A847C5246AA4200031A6E6 /* icon_logo_dark@3x.png */; };
 		76AF260A243DA40D002537A1 /* WKWebView+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76AF2609243DA40D002537A1 /* WKWebView+Snapshot.swift */; };
 		76C59B3E2384E5D800BE81ED /* NSURLProtocol+WKWebVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C59B3A2384E5D700BE81ED /* NSURLProtocol+WKWebVIew.m */; };
 		76C59B412384E69500BE81ED /* MDURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C59B402384E69500BE81ED /* MDURLProtocol.m */; };
@@ -140,6 +141,7 @@
 		769E1D23240422640064B822 /* ServerInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerInfo.swift; sourceTree = "<group>"; };
 		769E1F36240506110064B822 /* AppearanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppearanceViewController.swift; sourceTree = "<group>"; };
 		76A4D271234EF98200B87A78 /* FileSharingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSharingViewController.swift; sourceTree = "<group>"; };
+		76A847C5246AA4200031A6E6 /* icon_logo_dark@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_logo_dark@3x.png"; sourceTree = "<group>"; };
 		76AF2609243DA40D002537A1 /* WKWebView+Snapshot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WKWebView+Snapshot.swift"; sourceTree = "<group>"; };
 		76C59B3A2384E5D700BE81ED /* NSURLProtocol+WKWebVIew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLProtocol+WKWebVIew.m"; sourceTree = "<group>"; };
 		76C59B3C2384E5D800BE81ED /* NSURLProtocol+WKWebVIew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLProtocol+WKWebVIew.h"; sourceTree = "<group>"; };
@@ -259,6 +261,7 @@
 		07E826C31F5BF1BA0077A017 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				76A847C5246AA4200031A6E6 /* icon_logo_dark@3x.png */,
 				76E7F274233CB5E30051DF6A /* icon_logo.png */,
 				76CF5B0723541DC000E87A99 /* 使用教程.md */,
 				7613F1282325FA02006EE3B9 /* 示例文档.md */,
@@ -433,6 +436,7 @@
 				07E8269D1F5BF0F20077A017 /* Assets.xcassets in Resources */,
 				766F118B2351AB0600E6395E /* LaunchScreen.storyboard in Resources */,
 				7635E5CF234AF3B6008E1DEF /* Main.storyboard in Resources */,
+				76A847C6246AA4200031A6E6 /* icon_logo_dark@3x.png in Resources */,
 				07E827651F5BF24B0077A017 /* Localizable.strings in Resources */,
 				76CF5B0A235425EA00E87A99 /* Syntax.md in Resources */,
 			);

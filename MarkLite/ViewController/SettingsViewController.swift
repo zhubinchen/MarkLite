@@ -20,10 +20,12 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     let assitBarSwitch = UISwitch()
     let impactFeedbackSwitch = UISwitch()
     let displayOptionSwitch = UISwitch()
+    let darkAppIconSwitch = UISwitch()
 
     var items: [(String,[(String,String,Selector)])] {
         let section = [
-            ("NightMode",Configure.shared.darkOption.value.displayName,#selector(darkMode)),
+            ("DarkAppIcon","",#selector(darkAppIcon)),
+    ("NightMode",Configure.shared.darkOption.value.displayName,#selector(darkMode)),
             ("Theme","",#selector(theme)),
             ("ImpactFeedback","",#selector(impactFeedback))
             ]
@@ -68,11 +70,14 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         assitBarSwitch.setTintColor(.tint)
         displayOptionSwitch.setTintColor(.tint)
         impactFeedbackSwitch.setTintColor(.tint)
+        darkAppIconSwitch.setTintColor(.tint)
 
         assitBarSwitch.isOn = Configure.shared.isAssistBarEnabled.value
+        darkAppIconSwitch.isOn = Configure.shared.darkAppIcon
         displayOptionSwitch.isOn = Configure.shared.showExtensionName
         impactFeedbackSwitch.isOn = Configure.shared.impactFeedback
 
+        darkAppIconSwitch.addTarget(self, action: #selector(darkAppIcon(_:)), for: .valueChanged)
         assitBarSwitch.addTarget(self, action: #selector(assistBar(_:)), for: .valueChanged)
         displayOptionSwitch.addTarget(self, action: #selector(displayOption(_:)), for: .valueChanged)
         impactFeedbackSwitch.addTarget(self, action: #selector(impactFeedback(_:)), for: .valueChanged)
@@ -122,6 +127,13 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 maker.centerY.equalToSuperview()
                 maker.right.equalToSuperview().offset(-20)
             }
+        } else if item.0 == "DarkAppIcon" {
+            cell.addSubview(darkAppIconSwitch)
+            cell.accessoryType = .none
+            darkAppIconSwitch.snp.makeConstraints { maker in
+                maker.centerY.equalToSuperview()
+                maker.right.equalToSuperview().offset(-20)
+            }
         } else {
             cell.accessoryType = .disclosureIndicator
         }
@@ -132,7 +144,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.deselectRow(at: indexPath, animated: true)
 
         let item = items[indexPath.section].1[indexPath.row]
-        if item.0 == "AssistKeyboard" || item.0 == "ShowExtensionName" || item.0 == "ImpactFeedback" {
+        if item.0 == "AssistKeyboard" || item.0 == "ShowExtensionName" || item.0 == "ImpactFeedback" || item.0 == "DarkAppIcon" {
             return
         }
         perform(item.2)
@@ -191,6 +203,14 @@ extension SettingsViewController {
     
     @objc func impactFeedback(_ sender: UISwitch) {
         Configure.shared.impactFeedback = sender.isOn
+    }
+    
+    @objc func darkAppIcon(_ sender: UISwitch) {
+        UIApplication.shared.setAlternateIconName(sender.isOn ? "icon_logo_dark" : nil) { error in
+            if error == nil {
+                Configure.shared.darkAppIcon = sender.isOn
+            }
+        }
     }
     
     @objc func webdav() {

@@ -439,7 +439,7 @@ class FilesViewController: UIViewController {
         previewingFile = file
         let vc = QLPreviewController()
         vc.dataSource = self
-        vc.modalPresentationStyle = .formSheet
+        vc.modalPresentationStyle = .pageSheet
         vc.currentPreviewItemIndex = 0
         presentVC(vc)
     }
