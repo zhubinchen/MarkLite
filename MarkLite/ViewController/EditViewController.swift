@@ -374,11 +374,11 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             if self.view.w == self.textVC.editView.w {
                 self.scrollView.setContentOffset(CGPoint(x: self.view.w, y: 0), animated: true)
             }
-            SVProgressHUD.show()
+            ActivityIndicator.show()
             previewVC.webView.takeSnapshot(delay: 0.3, progress: { percentage in
                 
             }, completion: {  image in
-                SVProgressHUD.dismiss()
+                ActivityIndicator.dismiss()
                 guard let image = image else { return }
                 let vc = UIActivityViewController(activityItems: [image], applicationActivities: nil)
                 vc.popoverPresentationController?.sourceView = sender

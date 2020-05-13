@@ -50,6 +50,7 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
                 webView.loadHTMLString(html, baseURL: htmlURL)
                 shouldRefresh = false
             } else {
+                ActivityIndicator.dismissOnView(self.view)
                 if let snapshot = view.viewWithTag(4654) {
                     webView.scrollView.contentOffset = self.contentOffset
                     snapshot.tag = 0
@@ -131,6 +132,7 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
             initialed = true
             if html.length > 0 {
                 refresh()
+                ActivityIndicator.show(on: self.view)
             }
         }
     }

@@ -12,7 +12,6 @@
 #import <Foundation/Foundation.h>
 #import <UMCommon/UMCommon.h>
 #import <UMAnalytics/MobClick.h>
-#import <SVProgressHUD/SVProgressHUD.h>
 #import <GCDWebServer/GCDWebUploader.h>
 #import "MDURLProtocol.h"
 #import "MarkdownRender.h"

@@ -222,7 +222,7 @@ class TextView: UITextView, UIDropInteractionDelegate {
             return
         }
         
-        SVProgressHUD.show()
+        ActivityIndicator.show()
         Alamofire.upload(multipartFormData: { (formData) in
             formData.append(data!, withName: "smfile", fileName: "temp", mimeType: "image/jpg")
         }, to: imageUploadUrl,headers:["Authorization":smKey]) { (result) in
@@ -230,7 +230,7 @@ class TextView: UITextView, UIDropInteractionDelegate {
             case .success(let upload,_, _):
                 upload.responseJSON{ (response) in
                     if case .success(let json) = response.result {
-                        SVProgressHUD.dismiss()
+                        ActivityIndicator.dismiss()
                         let dict = json as? [String:Any] ?? [:]
                         var url: String? = nil
                         if let data = dict["data"] as? [String:Any] {
@@ -245,16 +245,16 @@ class TextView: UITextView, UIDropInteractionDelegate {
                             Configure.shared.imageCaches[image.md5()] = url
                             self.insertImagePath(url)
                         } else if let message = dict["message"] as? String {
-                            SVProgressHUD.showError(withStatus: message)
+                            ActivityIndicator.showError(withStatus: message)
                         }
                     } else if case .failure(let error) = response.result {
-                        SVProgressHUD.dismiss()
-                        SVProgressHUD.showError(withStatus: error.localizedDescription)
+                        ActivityIndicator.dismiss()
+                        ActivityIndicator.showError(withStatus: error.localizedDescription)
                     }
                 }
             case .failure(let error):
-                SVProgressHUD.dismiss()
-                SVProgressHUD.showError(withStatus: error.localizedDescription)
+                ActivityIndicator.dismiss()
+                ActivityIndicator.showError(withStatus: error.localizedDescription)
             }
         }
     }

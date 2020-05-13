@@ -25,7 +25,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         self.webView.load(URLRequest(url: url))
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action:#selector(close))
         
-        SVProgressHUD.show()
+        ActivityIndicator.show()
     }
     
     @objc func close() {
@@ -39,13 +39,13 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        SVProgressHUD.dismiss()
+        ActivityIndicator.dismiss()
         webView .evaluateJavaScript("document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '140%'") { (_, _) in
             
         }
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-        SVProgressHUD.dismiss()
+        ActivityIndicator.dismiss()
     }
 }

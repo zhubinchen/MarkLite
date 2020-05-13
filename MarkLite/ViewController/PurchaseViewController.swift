@@ -99,22 +99,22 @@ class PurchaseViewController: UIViewController {
     
     @IBAction func restore(_ sender: UIButton!) {
         impactIfAllow()
-        SVProgressHUD.show()
+        ActivityIndicator.show()
 
         IAP.restorePurchases { (identifiers, error) in
             if let err = error {
-                SVProgressHUD.dismiss()
+                ActivityIndicator.dismiss()
                 print(err.localizedDescription)
-                SVProgressHUD.showError(withStatus: /"RestoreFailed")
+                ActivityIndicator.showError(withStatus: /"RestoreFailed")
                 return
             }
             Configure.shared.checkProAvailable({ (availabel) in
-                SVProgressHUD.dismiss()
+                ActivityIndicator.dismiss()
                 if availabel {
-                    SVProgressHUD.showSuccess(withStatus: /"RestoreSuccess")
+                    ActivityIndicator.showSuccess(withStatus: /"RestoreSuccess")
                     self.dismiss(animated: true, completion: nil)
                 } else {
-                    SVProgressHUD.showError(withStatus: /"RestoreFailed")
+                    ActivityIndicator.showError(withStatus: /"RestoreFailed")
                 }
             })
             print(identifiers)
@@ -128,29 +128,29 @@ class PurchaseViewController: UIViewController {
         let endEvents = ["finish_purchase_monthly","finish_purchase_yearly","finish_purchase_forever"]
         MobClick.event(beginEvents[index])
 
-        SVProgressHUD.show()
+        ActivityIndicator.show()
         IAP.requestProducts([identifier]) { (response, error) in
             guard let product = response?.products.first else {
-                SVProgressHUD.dismiss()
+                ActivityIndicator.dismiss()
                 return
             }
             IAP.purchaseProduct(product.productIdentifier, handler: { (identifier, error) in
                 if error != nil {
-                    SVProgressHUD.dismiss()
+                    ActivityIndicator.dismiss()
                     print(error?.localizedDescription ?? "")
-                    SVProgressHUD.showError(withStatus: error?.localizedDescription ?? "")
+                    ActivityIndicator.showError(withStatus: error?.localizedDescription ?? "")
                     return
                 }
                 Configure.shared.checkProAvailable({ (availabel) in
-                    SVProgressHUD.dismiss()
+                    ActivityIndicator.dismiss()
                     if availabel {
                         MobClick.event(endEvents[index])
                         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "PremiumStatusChanged"), object: nil)
                         self.dismiss(animated: false, completion: nil)
-                        SVProgressHUD.showSuccess(withStatus: /"SubscribeSuccess")
+                        ActivityIndicator.showSuccess(withStatus: /"SubscribeSuccess")
                     } else {
                         MobClick.event("failed_purchase")
-                        SVProgressHUD.showError(withStatus: /"SubscribeFailed")
+                        ActivityIndicator.showError(withStatus: /"SubscribeFailed")
                     }
                 })
             })

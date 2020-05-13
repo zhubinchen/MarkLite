@@ -59,7 +59,7 @@
 "Characters"="字符";
 
 "ImageUploadTips"="本地引用不需要网络即可完成，但是相对路径改变时会无法加载图片";
-"ImageStorageTips"="在【设置】中可以保存插入图片方式，保存设置后插入图片时将不再询问";
+"ImageStorageTips"="在【设置】中设置插入图片方式后将不再弹窗询问";
 "FileOpenTips"="当前打开文件默认进入编辑界面，在【设置】中可以修改此设定";
 
 "PDF"="PDF文档";

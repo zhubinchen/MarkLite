@@ -38,33 +38,33 @@ class CustomStyleViewController: UITableViewController {
     
     func _downloadCSS() {
         if (nameTextfield.text?.trimmed().length ?? 0) < 1 {
-            SVProgressHUD.showError(withStatus: /"InvalidStyleName")
+            ActivityIndicator.showError(withStatus: /"InvalidStyleName")
             return
         }
         if (urlTextfield.text?.trimmed().length ?? 0) < 1 {
-            SVProgressHUD.showError(withStatus: /"InvalidStyleURL")
+            ActivityIndicator.showError(withStatus: /"InvalidStyleURL")
             return
         }
         
         let name = nameTextfield.text?.trimmed() ?? "Custom"
         let destPath = resourcesPath + "/Styles/" + name + ".css"
         if FileManager.default.fileExists(atPath: destPath) {
-            SVProgressHUD.showError(withStatus: /"DumplicatedName")
+            ActivityIndicator.showError(withStatus: /"DumplicatedName")
             return
         }
 
         guard let url = try? urlTextfield.text?.trimmed().asURL() else { return }
         guard url != nil else { return }
-        SVProgressHUD.show()
+        ActivityIndicator.show()
         request(url!).responseData { resp in
             print(resp)
             guard resp.error == nil else {
-                SVProgressHUD.showError(withStatus: resp.error?.localizedDescription ?? "")
+                ActivityIndicator.showError(withStatus: resp.error?.localizedDescription ?? "")
                 return
             }
             guard let data = resp.data else { return }
             FileManager.default.createFile(atPath: destPath, contents: data, attributes: nil)
-            SVProgressHUD.dismiss()
+            ActivityIndicator.dismiss()
         }
     }
     

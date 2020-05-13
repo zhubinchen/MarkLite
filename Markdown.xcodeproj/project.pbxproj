@@ -49,6 +49,7 @@
 		7635E5CF234AF3B6008E1DEF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7635E5CE234AF3B6008E1DEF /* Main.storyboard */; };
 		76485ACC2466608D00437411 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76485ACB2466608D00437411 /* TextView.swift */; };
 		76485ACE2466A86700437411 /* RecentImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76485ACD2466A86700437411 /* RecentImagesViewController.swift */; };
+		7655B51B246BCA520043EA43 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7655B51A246BCA520043EA43 /* ActivityIndicator.swift */; };
 		7655DD8B2455AB00006D7D65 /* Seperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7655DD8A2455AB00006D7D65 /* Seperator.swift */; };
 		766F117C2350803A00E6395E /* KeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766F117B2350803A00E6395E /* KeyboardBar.swift */; };
 		766F118B2351AB0600E6395E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 766F11892351AB0600E6395E /* LaunchScreen.storyboard */; };
@@ -130,6 +131,7 @@
 		7635E5CE234AF3B6008E1DEF /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		76485ACB2466608D00437411 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		76485ACD2466A86700437411 /* RecentImagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentImagesViewController.swift; sourceTree = "<group>"; };
+		7655B51A246BCA520043EA43 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 		7655DD8A2455AB00006D7D65 /* Seperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seperator.swift; sourceTree = "<group>"; };
 		766F117B2350803A00E6395E /* KeyboardBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardBar.swift; sourceTree = "<group>"; };
 		766F118A2351AB0600E6395E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 				76C59B3F2384E69500BE81ED /* MDURLProtocol.h */,
 				76C59B402384E69500BE81ED /* MDURLProtocol.m */,
 				76AF2609243DA40D002537A1 /* WKWebView+Snapshot.swift */,
+				7655B51A246BCA520043EA43 /* ActivityIndicator.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -477,7 +480,6 @@
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Zip/Zip.framework",
 			);
@@ -490,7 +492,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Zip.framework",
 			);
@@ -542,6 +543,7 @@
 				07E8271B1F5BF1BA0077A017 /* PDFRender.swift in Sources */,
 				769E1D24240422640064B822 /* ServerInfo.swift in Sources */,
 				766F117C2350803A00E6395E /* KeyboardBar.swift in Sources */,
+				7655B51B246BCA520043EA43 /* ActivityIndicator.swift in Sources */,
 				760C296E2320F3EC002E613E /* html_blocks.c in Sources */,
 				07E827491F5BF1BA0077A017 /* Constant.swift in Sources */,
 				07E827481F5BF1BA0077A017 /* Configure.swift in Sources */,

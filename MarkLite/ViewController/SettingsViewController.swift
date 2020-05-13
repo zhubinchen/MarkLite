@@ -218,7 +218,7 @@ extension SettingsViewController {
             if NetworkReachabilityManager()?.isReachableOnEthernetOrWiFi ?? false {
                 self.performSegue(withIdentifier: "webdav", sender: nil)
             } else {
-                SVProgressHUD.showError(withStatus: /"ConnectWifiTips")
+                ActivityIndicator.showError(withStatus: /"ConnectWifiTips")
             }
         }
     }

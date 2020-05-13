@@ -365,7 +365,7 @@ class FilesViewController: UIViewController {
                 return
             }
             if !name.isValidFileName {
-                SVProgressHUD.showError(withStatus: /"FileNameError")
+                ActivityIndicator.showError(withStatus: /"FileNameError")
                 return
             }
             guard let file = self.root.createFile(name: name, type: index == 0 ? .text : .folder) else {
@@ -389,14 +389,14 @@ class FilesViewController: UIViewController {
             return
         }
         func openText() {
-            SVProgressHUD.show()
+            ActivityIndicator.show()
             file.open { success in
-                SVProgressHUD.dismiss()
+                ActivityIndicator.dismiss()
                 if success {
                     self.editFile(file)
                 } else {
                     self.editFile(nil)
-                    SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
+                    ActivityIndicator.showError(withStatus: /"CanNotAccesseThisFile")
                 }
             }
         }
@@ -433,7 +433,7 @@ class FilesViewController: UIViewController {
     
     func preview(_ file: File) {
         guard let url = file.url as NSURL?, QLPreviewController.canPreview(url) else {
-            SVProgressHUD.showError(withStatus: /"CanNotPreviewThisFile")
+            ActivityIndicator.showError(withStatus: /"CanNotPreviewThisFile")
             return
         }
         previewingFile = file
@@ -446,7 +446,7 @@ class FilesViewController: UIViewController {
     
     func unzip(_ file: File) {
         guard let url = file.url, let destURL = root.url else { return }
-        SVProgressHUD.show()
+        ActivityIndicator.show()
         DispatchQueue.global().async {
             do {
                 try Zip.unzipFile(url, destination: destURL, overwrite: true, password: nil, progress: { progress in
@@ -455,12 +455,12 @@ class FilesViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.root.reloadChildren()
                     self.refresh()
-                    SVProgressHUD.dismiss()
+                    ActivityIndicator.dismiss()
                 }
             } catch {
                 DispatchQueue.main.async {
-                    SVProgressHUD.dismiss()
-                    SVProgressHUD.showError(withStatus: /"UnzipFailed")
+                    ActivityIndicator.dismiss()
+                    ActivityIndicator.showError(withStatus: /"UnzipFailed")
                 }
             }
         }
@@ -496,7 +496,7 @@ class FilesViewController: UIViewController {
             return
         }
         if file.disable {
-            SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
+            ActivityIndicator.showError(withStatus: /"CanNotAccesseThisFile")
             return
         }
         
@@ -816,7 +816,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
         let renameAction = UITableViewRowAction(style: .default, title: /"Rename") { [unowned self](_, indexPath) in
             impactIfAllow()
             if file.disable {
-                SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
+                ActivityIndicator.showError(withStatus: /"CanNotAccesseThisFile")
                 return
             }
             self.showAlert(title: nil, message: /"RenameTips", actionTitles: [/"Cancel",/"OK"], textFieldconfigurationHandler: { (textField) in
@@ -831,27 +831,27 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 if name.isValidFileName {
                     if file == File.current {
-                        SVProgressHUD.show()
+                        ActivityIndicator.show()
                         file.close { success in
-                            SVProgressHUD.dismiss()
+                            ActivityIndicator.dismiss()
                             if success && file.rename(to: name) {
                                 tableView.reloadRows(at: [indexPath], with: .automatic)
                                 if isPad {
                                      self.openFile(file)
                                 }
                             } else {
-                                SVProgressHUD.showError(withStatus: /"CanNotOperateThisFile")
+                                ActivityIndicator.showError(withStatus: /"CanNotOperateThisFile")
                             }
                         }
                     } else {
                         if file.rename(to: name) {
                             tableView.reloadRows(at: [indexPath], with: .automatic)
                         } else {
-                            SVProgressHUD.showError(withStatus: /"CanNotOperateThisFile")
+                            ActivityIndicator.showError(withStatus: /"CanNotOperateThisFile")
                         }
                     }
                 } else {
-                    SVProgressHUD.showError(withStatus: /"FileNameError")
+                    ActivityIndicator.showError(withStatus: /"FileNameError")
                 }
             })
         }
@@ -881,11 +881,11 @@ extension FilesViewController: UIDocumentPickerDelegate {
             openFile(file)
             return
         }
-        SVProgressHUD.show()
+        ActivityIndicator.show()
         let accessed = url.startAccessingSecurityScopedResource()
         if !accessed {
-            SVProgressHUD.dismiss()
-            SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
+            ActivityIndicator.dismiss()
+            ActivityIndicator.showError(withStatus: /"CanNotAccesseThisFile")
             return
         }
         var error: NSError? = nil
@@ -893,8 +893,8 @@ extension FilesViewController: UIDocumentPickerDelegate {
             print(newURL)
             guard let values = try? url.resourceValues(forKeys: [URLResourceKey.isDirectoryKey]) else {
                 url.stopAccessingSecurityScopedResource()
-                SVProgressHUD.dismiss()
-                SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
+                ActivityIndicator.dismiss()
+                ActivityIndicator.showError(withStatus: /"CanNotAccesseThisFile")
                 return
             }
             if values.isDirectory ?? false {
@@ -910,7 +910,7 @@ extension FilesViewController: UIDocumentPickerDelegate {
             let name = url.deletingPathExtension().lastPathComponent
             if index == 0 {
                 guard let data = try? Data(contentsOf: url) else {
-                    SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
+                    ActivityIndicator.showError(withStatus: /"CanNotAccesseThisFile")
                     return
                 }
                 url.stopAccessingSecurityScopedResource()
@@ -919,7 +919,7 @@ extension FilesViewController: UIDocumentPickerDelegate {
                 }
             } else {
                 guard let data = try? url.bookmarkData(options: .minimalBookmark, includingResourceValuesForKeys: nil, relativeTo: nil) else {
-                    SVProgressHUD.showError(withStatus: /"CanNotAccesseThisFile")
+                    ActivityIndicator.showError(withStatus: /"CanNotAccesseThisFile")
                     return
                 }
                 url.stopAccessingSecurityScopedResource()
@@ -928,11 +928,11 @@ extension FilesViewController: UIDocumentPickerDelegate {
                 }
             }
         }
-        SVProgressHUD.dismiss()
+        ActivityIndicator.dismiss()
     }
     
     func didPickFolder(_ url: URL) {
-        SVProgressHUD.dismiss()
+        ActivityIndicator.dismiss()
     }
     
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
