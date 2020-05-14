@@ -76,7 +76,7 @@
 "ImpactFeedback"="振动反馈";
 "SplitOptions"="编辑预览分屏";
 "ShowExtensionName"="显示文件扩展名";
-"ImageStorage"="图片引用选项";
+"ImageStorage"="图片插入方式;
 "NightMode"="深色模式选项";
 "DarkAppIcon"="使用深色App图标";
 "FileOpenOption"="打开文件进入";

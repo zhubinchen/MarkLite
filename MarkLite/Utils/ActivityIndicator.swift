@@ -102,9 +102,7 @@ class ActivityIndicator {
         let lineSize = size.width / 9
         let x = (layer.bounds.size.width - size.width) / 2
         let y = (layer.bounds.size.height - size.height) / 2
-        let duration: CFTimeInterval = 1
-        let beginTime = CACurrentMediaTime()
-        let beginTimes = [0, 0.1, 0.2, 0.3, 0.4]
+        
         let timingFunction = CAMediaTimingFunction(controlPoints: 0.2, 0.68, 0.18, 1.08)
 
         // Animation
@@ -113,7 +111,7 @@ class ActivityIndicator {
         animation.keyTimes = [0, 0.5, 1]
         animation.timingFunctions = [timingFunction, timingFunction]
         animation.values = [1, 0.4, 1]
-        animation.duration = duration
+        animation.duration = 1
         animation.repeatCount = HUGE
         animation.isRemovedOnCompletion = false
 
@@ -129,7 +127,7 @@ class ActivityIndicator {
             line.path = path.cgPath
             line.frame = CGRect(x: x + lineSize * 2 * CGFloat(i), y: y, width: size.width, height: size.height)
 
-            animation.beginTime = beginTime + beginTimes[i]
+            animation.beginTime = Double(integerLiteral: Int64(i)) * 0.1 + CACurrentMediaTime()
             line.add(animation, forKey: "animation")
             layer.addSublayer(line)
         }
