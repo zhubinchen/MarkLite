@@ -23,12 +23,14 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     let darkAppIconSwitch = UISwitch()
 
     var items: [(String,[(String,String,Selector)])] {
-        let section = [
-            ("DarkAppIcon","",#selector(darkAppIcon)),
+        var section = [
     ("NightMode",Configure.shared.darkOption.value.displayName,#selector(darkMode)),
             ("Theme","",#selector(theme)),
             ("ImpactFeedback","",#selector(impactFeedback))
             ]
+        if UIApplication.shared.supportsAlternateIcons {
+            section.insert(("DarkAppIcon","",#selector(darkAppIcon)), at: 0)
+        }
         var status: String = "SubscribeNow"
         if Configure.shared.isPro {
             status = /"Expire" + " " + Configure.shared.expireDate.readableDate()
@@ -206,7 +208,8 @@ extension SettingsViewController {
     }
     
     @objc func darkAppIcon(_ sender: UISwitch) {
-        UIApplication.shared.setAlternateIconName(sender.isOn ? "icon_logo_dark" : nil) { error in
+        let name = sender.isOn ? "icon_logo_dark" : nil
+        UIApplication.shared.setAlternateIconName(name) { error in
             if error == nil {
                 Configure.shared.darkAppIcon = sender.isOn
             }

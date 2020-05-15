@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import WebKit
+import Bugly
 
 enum ExportType: String {
     case pdf
@@ -75,6 +76,8 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             
     var previewVC: PreviewViewController!
     var textVC: TextViewController!
+    
+    var autoSaveTimer: Timer?
 
     let bag = DisposeBag()
     
@@ -138,6 +141,22 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         }
     }
     
+    @objc func autoSave() {
+        file?.reopen { success in
+            if success {
+                
+            } else {
+                self.autoSaveTimer?.invalidate()
+                let exception = NSException(name: NSExceptionName(rawValue: "Auto Save Failed!") , reason: "Auto Save Failed!", userInfo: nil)
+                Bugly.report(exception)
+                self.showAlert(title: "Auto Save Failed!", message: /"AutoSaveFailedTips", actionTitles: [
+                    /"Restart"]) { index in
+                        exit(0)
+                }
+            }
+        }
+    }
+    
     func setup() {
         guard let file = self.file else {
             return
@@ -146,6 +165,8 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         if isViewLoaded == false {
             return
         }
+        
+        autoSaveTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(autoSave), userInfo: nil, repeats: true)
         
         emptyView.isHidden = true
 
@@ -423,6 +444,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     }
         
     deinit {
+        autoSaveTimer?.invalidate()
         removeNotificationObserver()
         print("deinit edit_vc")
     }

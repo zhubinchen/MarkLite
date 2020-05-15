@@ -61,6 +61,7 @@
 "ImageUploadTips"="本地引用不需要网络即可完成，但是相对路径改变时会无法加载图片";
 "ImageStorageTips"="在【设置】中设置插入图片方式后将不再弹窗询问";
 "FileOpenTips"="当前打开文件默认进入编辑界面，在【设置】中可以修改此设定";
+"AutoSaveFailedTips"="文件保存出错，为避免文件丢失，已经将当前的编辑内容拷贝到剪切板，请在重新打开后粘贴回来，如果经常出现此错误，请联系开发者";
 
 "PDF"="PDF文档";
 "WebPage"="HTML";
@@ -76,7 +77,7 @@
 "ImpactFeedback"="振动反馈";
 "SplitOptions"="编辑预览分屏";
 "ShowExtensionName"="显示文件扩展名";
-"ImageStorage"="图片插入方式;
+"ImageStorage"="图片插入方式";
 "NightMode"="深色模式选项";
 "DarkAppIcon"="使用深色App图标";
 "FileOpenOption"="打开文件进入";
@@ -212,4 +213,5 @@
 
 "Tips"="小提示";
 "GotIt"="我知道了!";
+"Restart"="重新打开APP";
 "SlideTips"="左右滑动可快速切换编辑和预览界面";

@@ -20,7 +20,7 @@
                                 <rect key="frame" x="0.0" y="44" width="187.66666666666666" height="602"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="Thonburi" family="Thonburi" pointSize="17"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="yes" spellCheckingType="yes"/>
                                 <connections>
                                     <outlet property="delegate" destination="CPR-Rc-22a" id="tWk-Qb-oGh"/>
                                 </connections>

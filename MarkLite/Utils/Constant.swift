@@ -42,7 +42,7 @@ let premiumForeverProductID = "com.qinxiu.markdown.premium.forever"
 
 let isPad = UIDevice.current.userInterfaceIdiom == .pad
 
-let passedDate = Date(fromString: "2020-05-15", format: "yyyy-MM-dd")!
+let passedDate = Date(fromString: "2020-05-16", format: "yyyy-MM-dd")!
  
 let rateUrl = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1472328263&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"
 
@@ -57,7 +57,6 @@ let configPath = supportPath
 let resourcesPath = supportPath + "/Resources"
 let tempPath = supportPath + "/Temp"
 let externalPath = supportPath + "/Inbox"
-let locationPath = supportPath + "/Location"
 let inboxPath = documentPath + "/Inbox"
 
 let cloudPath: String = {

@@ -376,7 +376,7 @@ class FilesViewController: UIViewController {
     }
     
     func openFile(_ file: File) {
-        if file.type == .folder || file.type == .location {
+        if file.type == .folder {
             performSegue(withIdentifier: "file", sender: file)
             return
         }
@@ -467,7 +467,7 @@ class FilesViewController: UIViewController {
     }
     
     func goToRoot(_ root: File) {
-        guard root.type == .folder || root.type == .location else {
+        guard root.type == .folder else {
             return
         }
         if root == self.root {
@@ -680,12 +680,12 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "item", for: indexPath) as! BaseTableViewCell
         let file = sections[indexPath.section][indexPath.row]
         
-        if file.type == .location || Configure.shared.showExtensionName == false {
+        if Configure.shared.showExtensionName == false {
             cell.textLabel?.text = file.displayName
         } else {
             cell.textLabel?.text = file.name
         }
-        if file.type == .folder || file.type == .location {
+        if file.type == .folder {
             let count = file.children.count
             cell.detailTextLabel?.text = count == 0 ? /"Empty" : "\(file.children.count) " + /"Children"
             if file == File.cloud {

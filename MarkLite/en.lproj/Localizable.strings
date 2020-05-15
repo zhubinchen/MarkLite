@@ -61,6 +61,7 @@
 "ImageUploadTips"="Choose the reference method of image";
 "ImageStorageTips"="You can save your method of inserting images in [Settings]";
 "FileOpenTips"="You can custom open file mode(edit/preview) in [Settings]";
+"AutoSaveFailedTips"="Can save to file now, file content have been copied to pasteboard.";
 
 "PDF"="PDF";
 "WebPage"="HTML";
@@ -212,4 +213,5 @@
 
 "Tips"="Tips";
 "GotIt"="Got it!";
+"Restart"="Restart APP";
 "SlideTips"="Slide the edit view left can quick preview your note";

@@ -133,6 +133,9 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
             if html.length > 0 {
                 refresh()
                 ActivityIndicator.show(on: self.view)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                    ActivityIndicator.dismissOnView(self.view)
+                }
             }
         }
     }

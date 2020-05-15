@@ -105,7 +105,7 @@ class PurchaseViewController: UIViewController {
             if let err = error {
                 ActivityIndicator.dismiss()
                 print(err.localizedDescription)
-                ActivityIndicator.showError(withStatus: /"RestoreFailed")
+                ActivityIndicator.showError(withStatus: error?.localizedDescription)
                 return
             }
             Configure.shared.checkProAvailable({ (availabel) in
@@ -131,7 +131,10 @@ class PurchaseViewController: UIViewController {
         ActivityIndicator.show()
         IAP.requestProducts([identifier]) { (response, error) in
             guard let product = response?.products.first else {
-                ActivityIndicator.dismiss()
+                DispatchQueue.main.async {
+                    ActivityIndicator.dismiss()
+                    ActivityIndicator.showError(withStatus: error?.localizedDescription ?? "")
+                }
                 return
             }
             IAP.purchaseProduct(product.productIdentifier, handler: { (identifier, error) in

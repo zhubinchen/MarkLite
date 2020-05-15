@@ -11,7 +11,6 @@ import EZSwiftExtensions
 import RxSwift
 import RxCocoa
 
-let locationExtName = ["link"]
 let textExtName = ["txt","md"]
 let archiveExtName = ["zip"]
 let imageExtName = ["png","jpg","jpeg","bmp","tif","pic","gif","heif","heic"]
@@ -22,7 +21,6 @@ enum FileType {
     case archive
     case image
     case folder
-    case location
     
     var defaultExtName: String {
         switch self {
@@ -32,8 +30,6 @@ enum FileType {
             return "png"
         case .archive:
             return "zip"
-        case .location:
-            return "link"
         default:
             return ""
         }
@@ -169,7 +165,7 @@ class File {
         self.path = path
         self.name = path.components(separatedBy: "/").last ?? ""
         
-        if (path.hasPrefix(externalPath) && path != externalPath) || (path.hasPrefix(locationPath) && path != locationPath) {
+        if (path.hasPrefix(externalPath) && path != externalPath) {
             isExternalFile = true
         }
         
@@ -194,13 +190,13 @@ class File {
             disable = true
             return
         }
+        
+        self.name = url.lastPathComponent
 
         if (values.isDirectory ?? false) {
             type = .folder
         } else if extensionName.count == 0 || textExtName.contains(extensionName) {
              type = .text
-        } else if locationExtName.contains(extensionName) {
-            type = .location
         } else if archiveExtName.contains(extensionName) {
             type = .archive
         } else if imageExtName.contains(extensionName) {
@@ -209,7 +205,7 @@ class File {
             type = .other
         }
         
-        guard type == .location || type == .folder else {
+        guard type == .folder else {
             modifyDate = values.contentModificationDate ?? Date()
             size = values.fileSize ?? 0
             return
@@ -376,6 +372,21 @@ class File {
         return true
     }
     
+    func reopen(_ completion:((Bool)->Void)? = nil) {
+        if changed == false {
+            completion?(true)
+            return
+        }
+        
+        document.close { successed in
+            if successed {
+                self.document.open(completionHandler: completion)
+            } else {
+                completion?(false)
+            }
+        }
+    }
+    
     func close(_ completion:((Bool)->Void)? = nil) {
         if changed {
             modifyDate = Date()
@@ -418,6 +429,7 @@ class File {
             completion?(successed)
         }
     }
+    
 }
 
 extension File {
