@@ -37,7 +37,7 @@ extension Theme {
         case .white:
             return [rgb("ffffff")!,rgb("161616")!,rgb("4b5cc4")!,rgb("ffffff")!,rgb("F2F2F6")!,rgb("161616")!,rgba("161616", 0.5)!,rgb("4b5cc4")!]
         case .black:
-            return [rgb("161616")!,rgb("cccccc")!,rgb("4b5cc4")!,rgb("161616")!,rgb("000000")!,rgb("cccccc")!,rgba("cccccc", 0.5)!,rgb("4b5cc4")!]
+            return [rgb("161616")!,rgb("eeeeee")!,rgb("4b5cc4")!,rgb("161616")!,rgb("000000")!,rgb("eeeeee")!,rgba("eeeeee", 0.5)!,rgb("4b5cc4")!]
         case .blue:
             return [rgb("0291D4")!,rgb("ffffff")!,rgb("ffffff")!,rgb("ffffff")!,rgb("F2F2F6")!,rgb("0291D4")!,rgba("0291D4", 0.5)!,rgb("0291D4")!]
         case .purple:

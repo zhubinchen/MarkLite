@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 class AppearanceViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
-    var items = [[/"FontSize",/"Style",/"CodeStyle"],[/"AutoHideNavigationBar",/"ContentInset",/"AutomaticSplit"]]
+    var items = [[/"FontSize",/"Style",/"CodeStyle"],[/"AssistKeyboard",/"AutoHideNavigationBar",/"AutomaticSplit"]]
            
     let table = UITableView(frame: CGRect(), style: .grouped)
        
@@ -71,8 +71,8 @@ class AppearanceViewController: UIViewController, UITableViewDelegate,UITableVie
         Configure.shared.fontSize.value = Int(sender.value)
     }
     
-    @objc func insetChanged(_ sender: UISwitch!) {
-        Configure.shared.contentInset.value = sender.isOn
+    @objc func assistBarChanged(_ sender: UISwitch!) {
+        Configure.shared.isAssistBarEnabled.value = sender.isOn
     }
     
     @objc func splitChanged(_ sender: UISwitch!) {
@@ -121,8 +121,8 @@ class AppearanceViewController: UIViewController, UITableViewDelegate,UITableVie
                 insetSwitch.addTarget(self, action: #selector(navBarChanged(_:)), for: .valueChanged)
                 insetSwitch.isOn = Configure.shared.autoHideNavigationBar.value
             } else if indexPath.row == 1 {
-                insetSwitch.addTarget(self, action: #selector(insetChanged(_:)), for: .valueChanged)
-                insetSwitch.isOn = Configure.shared.contentInset.value
+                insetSwitch.addTarget(self, action: #selector(assistBarChanged(_:)), for: .valueChanged)
+                insetSwitch.isOn = Configure.shared.isAssistBarEnabled.value
             } else {
                 insetSwitch.addTarget(self, action: #selector(splitChanged(_:)), for: .valueChanged)
                 insetSwitch.isOn = Configure.shared.automaticSplit.value

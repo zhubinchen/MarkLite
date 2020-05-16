@@ -47,7 +47,7 @@ class TocListViewController: UITableViewController {
         
         parseToc()
         
-
+        setupUI()
         tableView.reloadData()
     }
     

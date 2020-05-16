@@ -21,6 +21,23 @@ class HomeViewController: UISplitViewController, UISplitViewControllerDelegate {
         super.viewDidLoad()
         
         self.delegate = self
+        view.setBackgroundColor(.tableBackground)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if #available(iOS 13.0, *) {
+            if previousTraitCollection == nil
+                || traitCollection.userInterfaceStyle == previousTraitCollection!.userInterfaceStyle
+                || Configure.shared.darkOption.value != .system {
+                return
+            }
+            if traitCollection.userInterfaceStyle == .dark && Configure.shared.theme.value != .black {
+                Configure.shared.theme.value = .black
+            } else if traitCollection.userInterfaceStyle == .light && Configure.shared.theme.value == .black {
+                Configure.shared.theme.value = .white
+            }
+        }
     }
     
     public func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {

@@ -27,7 +27,7 @@
 </head>\
 <body>\
   %@\
-<script>window.webkit.messageHandlers.FontHandler.postMessage('TextLoaded')</script>\
+<script>window.webkit.messageHandlers.TextLoaded.postMessage('TextLoaded')</script>\
 </body>\
 </html>"
 
@@ -157,7 +157,7 @@ NS_INLINE NSString *MPHTMLFromMarkdown(NSString *text,
     for (NSString *script in scripts) {
         [scriptsString appendFormat:@"\n<script src=\"%@%@\"></script>",kResourceURL,script];
     }
-    return [NSString stringWithFormat:kTemplate,self.fontSize - 1,title,styleSheets,scriptsString,body];
+    return [NSString stringWithFormat:kTemplate,self.fontSize,title,styleSheets,scriptsString,body];
 }
 
 - (int)extensionFlags

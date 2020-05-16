@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigationDelegate {
+class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigationDelegate, WKScriptMessageHandler {
     
     let webView = WKWebView(frame: CGRect())
     
@@ -50,7 +50,6 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
                 webView.loadHTMLString(html, baseURL: htmlURL)
                 shouldRefresh = false
             } else {
-                ActivityIndicator.dismissOnView(self.view)
                 if let snapshot = view.viewWithTag(4654) {
                     webView.scrollView.contentOffset = self.contentOffset
                     snapshot.tag = 0
@@ -95,6 +94,7 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        webView.configuration.userContentController.add(self, name: "TextLoaded")
         webView.backgroundColor = .clear
         webView.scrollView.alwaysBounceHorizontal = false
         webView.scrollView.isDirectionalLockEnabled = true
@@ -110,17 +110,11 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
 
         view.setBackgroundColor(.background)
         
-        Configure.shared.contentInset.asObservable().subscribe(onNext: { [unowned self](enable) in
-            let inset = enable ? max((self.view.w - 500) * 0.3,0) : 0
-            self.webView.snp.updateConstraints { maker in
-                maker.left.equalTo(inset)
-            }
-        }).disposed(by: disposeBag)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        let inset = Configure.shared.contentInset.value ? max((self.view.w - 500) * 0.3,0) : 0
+        let inset = max((self.view.w - 500) * 0.3,0)
         self.webView.snp.updateConstraints { maker in
             maker.left.equalTo(inset)
         }
@@ -188,8 +182,18 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
         }
     }
     
+    func webViewWebContentProcessDidLoadText(_ webView: WKWebView) {
+        ActivityIndicator.dismissOnView(self.view)
+    }
+
     func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
         
+    }
+    
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        if message.name == "TextLoaded" && message.webView != nil {
+            self.webViewWebContentProcessDidLoadText(message.webView!)
+        }
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {

@@ -17,7 +17,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
 
     var textField: UITextField?
     
-    let assitBarSwitch = UISwitch()
     let impactFeedbackSwitch = UISwitch()
     let displayOptionSwitch = UISwitch()
     let darkAppIconSwitch = UISwitch()
@@ -41,7 +40,6 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
             ("功能",[
                 ("ImageStorage",Configure.shared.imageStorage.displayName,#selector(imageStorage)),
                 ("FileOpenOption",Configure.shared.openOption.displayName,#selector(fileOpenOption)),
-                ("AssistKeyboard","",#selector(assistBar)),
                 ("ShowExtensionName","",#selector(displayOption)),
                 ]),
             ("外观",section),
@@ -69,18 +67,15 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.setBackgroundColor(.tableBackground)
         tableView.setSeparatorColor(.primary)
 
-        assitBarSwitch.setTintColor(.tint)
         displayOptionSwitch.setTintColor(.tint)
         impactFeedbackSwitch.setTintColor(.tint)
         darkAppIconSwitch.setTintColor(.tint)
 
-        assitBarSwitch.isOn = Configure.shared.isAssistBarEnabled.value
         darkAppIconSwitch.isOn = Configure.shared.darkAppIcon
         displayOptionSwitch.isOn = Configure.shared.showExtensionName
         impactFeedbackSwitch.isOn = Configure.shared.impactFeedback
 
         darkAppIconSwitch.addTarget(self, action: #selector(darkAppIcon(_:)), for: .valueChanged)
-        assitBarSwitch.addTarget(self, action: #selector(assistBar(_:)), for: .valueChanged)
         displayOptionSwitch.addTarget(self, action: #selector(displayOption(_:)), for: .valueChanged)
         impactFeedbackSwitch.addTarget(self, action: #selector(impactFeedback(_:)), for: .valueChanged)
 
@@ -108,14 +103,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         cell.detailTextLabel?.text = /(item.1)
         cell.needUnlock = item.0 == "FileSharing" && Configure.shared.isPro == false
 
-        if item.0 == "AssistKeyboard" {
-            cell.addSubview(assitBarSwitch)
-            cell.accessoryType = .none
-            assitBarSwitch.snp.makeConstraints { maker in
-                maker.centerY.equalToSuperview()
-                maker.right.equalToSuperview().offset(-20)
-            }
-        } else if item.0 == "ShowExtensionName" {
+        if item.0 == "ShowExtensionName" {
             cell.addSubview(displayOptionSwitch)
             cell.accessoryType = .none
             displayOptionSwitch.snp.makeConstraints { maker in
@@ -146,7 +134,7 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.deselectRow(at: indexPath, animated: true)
 
         let item = items[indexPath.section].1[indexPath.row]
-        if item.0 == "AssistKeyboard" || item.0 == "ShowExtensionName" || item.0 == "ImpactFeedback" || item.0 == "DarkAppIcon" {
+        if item.0 == "ShowExtensionName" || item.0 == "ImpactFeedback" || item.0 == "DarkAppIcon" {
             return
         }
         perform(item.2)
@@ -192,10 +180,6 @@ extension SettingsViewController {
         let vc = OptionsViewController()
         vc.options = wraper
         pushVC(vc)
-    }
-    
-    @objc func assistBar(_ sender: UISwitch) {
-        Configure.shared.isAssistBarEnabled.value = sender.isOn
     }
     
     @objc func displayOption(_ sender: UISwitch) {

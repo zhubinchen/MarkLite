@@ -107,7 +107,6 @@ class Configure: NSObject, NSCoding {
     var impactFeedback = true
     var darkAppIcon = false
     let fontSize = Variable(17)
-    let contentInset = Variable(true)
     let isAssistBarEnabled = Variable(true)
     let markdownStyle = Variable("GitHub")
     let highlightStyle = Variable("tomorrow")
@@ -166,7 +165,6 @@ class Configure: NSObject, NSCoding {
         isAssistBarEnabled.value = true
         automaticSplit.value = false
         autoHideNavigationBar.value = true
-        contentInset.value = true
         fontSize.value = 17
         showedTips = []
         
@@ -190,7 +188,6 @@ class Configure: NSObject, NSCoding {
         
         automaticSplit.value = false
         autoHideNavigationBar.value = true
-        contentInset.value = true
 
         let tempPathURL = URL(fileURLWithPath: tempPath)
         try! Zip.unzipFile(Bundle.main.url(forResource: "Resources", withExtension: "zip")!, destination: tempPathURL, overwrite: true, password: nil, progress: nil)
@@ -232,7 +229,6 @@ class Configure: NSObject, NSCoding {
         aCoder.encode(darkAppIcon, forKey: "darkAppIcon")
         aCoder.encode(showExtensionName, forKey: "showExtensionName")
         aCoder.encode(isAssistBarEnabled.value, forKey: "isAssistBarEnabled")
-        aCoder.encode(contentInset.value, forKey: "contentInset")
         aCoder.encode(markdownStyle.value, forKey: "markdownStyle")
         aCoder.encode(highlightStyle.value, forKey: "highlightStyle")
         aCoder.encode(theme.value.rawValue, forKey: "theme")
@@ -258,7 +254,6 @@ class Configure: NSObject, NSCoding {
         darkAppIcon = aDecoder.decodeBool(forKey: "darkAppIcon")
         showExtensionName = aDecoder.decodeBool(forKey: "showExtensionName")
         isAssistBarEnabled.value = aDecoder.decodeBool(forKey: "isAssistBarEnabled")
-        contentInset.value = aDecoder.decodeBool(forKey: "contentInset")
         autoHideNavigationBar.value = aDecoder.decodeBool(forKey: "autoHideNavigationBar")
         automaticSplit.value = aDecoder.decodeBool(forKey: "automaticSplit")
         markdownStyle.value = aDecoder.decodeObject(forKey: "markdownStyle") as? String ?? "GitHub"

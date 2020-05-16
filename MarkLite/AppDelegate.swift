@@ -77,19 +77,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         _ = Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in
             ColorCenter.shared.theme = theme
+            self.window?.tintColor = ColorCenter.shared.tint.value
             if theme == .black {
                 if Configure.shared.markdownStyle.value == "GitHub" {
                     Configure.shared.markdownStyle.value = "GitHub Dark"
                 }
-                if Configure.shared.markdownStyle.value == "tomorrow" {
+                if Configure.shared.highlightStyle.value == "tomorrow" {
                     Configure.shared.highlightStyle.value = "tomorrow-night"
                 }
             } else {
                 if Configure.shared.markdownStyle.value == "GitHub Dark" {
                     Configure.shared.markdownStyle.value = "GitHub"
                 }
-                if Configure.shared.markdownStyle.value == "tomorrow-night" {
-                    Configure.shared.markdownStyle.value = "tomorrow"
+                if Configure.shared.highlightStyle.value == "tomorrow-night" {
+                    Configure.shared.highlightStyle.value = "tomorrow"
                 }
             }
         })

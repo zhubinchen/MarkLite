@@ -84,6 +84,10 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     let markdownRenderer = MarkdownRender.shared()
     let pdfRender = PDFRender()
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return Configure.shared.theme.value == .white ? .default : .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -137,8 +141,8 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         super.viewDidLayoutSubviews()
         if isInitial && editViewWidth.isActive.toggled && Configure.shared.openOption == .preview && (file?.text?.length ?? 0) > 0 {
             scrollView.setContentOffset(CGPoint(x:self.view.w , y:0), animated: false)
-            isInitial = false
         }
+        isInitial = false
     }
     
     @objc func autoSave() {

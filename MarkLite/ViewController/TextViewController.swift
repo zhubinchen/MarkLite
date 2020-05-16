@@ -84,6 +84,17 @@ class TextViewController: UIViewController {
         }
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+            guard let this = self else { return }
+            let offset = this.editView.contentOffset.y
+            if this.contentHeight - this.editView.h > 0 {
+                this.didScrollHandler?(offset / (this.contentHeight - this.editView.h))
+            }
+        }
+    }
+    
     func setupRx() {
         
         Configure.shared.isAssistBarEnabled.asObservable().subscribe(onNext: { [unowned self](enable) in
@@ -93,10 +104,6 @@ class TextViewController: UIViewController {
             } else {
                 self.editView.inputAccessoryView = nil
             }
-        }).disposed(by: bag)
-        
-        Configure.shared.contentInset.asObservable().subscribe(onNext: { [unowned self](enable) in
-            self.updateInset()
         }).disposed(by: bag)
         
         Configure.shared.theme.asObservable().subscribe(onNext: { [unowned self] _ in
@@ -123,8 +130,8 @@ class TextViewController: UIViewController {
     }
     
     func updateInset() {
-        let inset = Configure.shared.contentInset.value ? max((self.view.w - 500) * 0.3,0) : 0
-        self.editView.contentInset = UIEdgeInsetsMake(0, inset + 8, 20, inset + 8)
+        let inset = max((self.view.w - 500) * 0.3,0) + 8
+        self.editView.contentInset = UIEdgeInsetsMake(0, inset + 8, 20, inset)
         _textWidth = 0
     }
     

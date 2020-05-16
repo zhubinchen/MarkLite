@@ -48,7 +48,7 @@ class MenuView: UIView {
             return
         }
         let control = UIControl(superView: superView, padding: 0)
-        control.backgroundColor = UIColor(white: 0, alpha: 0.1)
+        control.backgroundColor = Configure.shared.theme.value == .black ? UIColor(white: 1, alpha: 0.1) : UIColor(white: 0, alpha: 0.1)
         control.addTarget(self, action: #selector(dismiss(sender:)), for: .touchDown)
         control.addSubview(self)
         

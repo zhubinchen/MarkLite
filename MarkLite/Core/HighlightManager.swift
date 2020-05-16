@@ -54,15 +54,15 @@ struct MarkdownHighlightManager {
     let syntaxArray: [Syntax] = [
         Syntax("^#{1,6} .*", .anchorsMatchLines) {
             $0.bold = true
-            $0.textColor = rgb(89,89,184)
+            $0.textColor = Configure.shared.theme.value == .black ? rgb(240,240,240) : rgb(89,89,184)
         },//header
         Syntax("^.*\\n={2,}$", .anchorsMatchLines) {
             $0.bold = true
-            $0.textColor = rgb(89,89,184)
+            $0.textColor = Configure.shared.theme.value == .black ? rgb(240,240,240) : rgb(89,89,184)
         },//Title1
         Syntax("^.*\\n-{2,}$", .anchorsMatchLines) {
             $0.bold = true
-            $0.textColor = rgb(89,89,184)
+            $0.textColor = Configure.shared.theme.value == .black ? rgb(240,240,240) : rgb(89,89,184)
         },//Title2
         Syntax("^[\\s]*(-|\\*|\\+|([0-9]+\\.)) ", .anchorsMatchLines){
             $0.textColor = rgb(236,90,103)
