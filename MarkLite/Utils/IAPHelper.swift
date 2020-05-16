@@ -131,7 +131,7 @@ extension IAPHelper: SKPaymentTransactionObserver {
         let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
         let vc = sb.instantiateVC(PurchaseViewController.self)!
         vc.productId = product.productIdentifier
-        let nav = UINavigationController(rootViewController: vc)
+        let nav = NavigationViewController(rootViewController: vc)
         nav.modalPresentationStyle = .fullScreen
         UIApplication.shared.keyWindow?.rootViewController?.presentVC(nav)
         return false

@@ -65,6 +65,10 @@ class FilesViewController: UIViewController {
     
     let searchBar = UISearchBar()
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return Configure.shared.theme.value == .white ? .default : .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -561,11 +565,11 @@ class FilesViewController: UIViewController {
             task()
             return
         }
-        showAlert(title: /"PremiumOnly", message: /"PremiumTips", actionTitles: [/"SubscribeNow",/"Cancel"], textFieldconfigurationHandler: nil) { [unowned self](index) in
+        showAlert(title: /"PremiumOnly", message: /"PremiumTips", actionTitles: [/"SubscribeNow",/"Cancel"], textFieldconfigurationHandler: nil) { (index) in
             if index == 0 {
                 let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
                 let vc = sb.instantiateVC(PurchaseViewController.self)!
-                let nav = UINavigationController(rootViewController: vc)
+                let nav = NavigationViewController(rootViewController: vc)
                 nav.modalPresentationStyle = .formSheet
                 self.presentVC(nav)
             }

@@ -73,7 +73,7 @@ class CustomStyleViewController: UITableViewController {
             task()
             return
         }
-        showAlert(title: /"PremiumOnly", message: /"PremiumTips", actionTitles: [/"SubscribeNow",/"Cancel"], textFieldconfigurationHandler: nil) { [unowned self](index) in
+        showAlert(title: /"PremiumOnly", message: /"PremiumTips", actionTitles: [/"SubscribeNow",/"Cancel"], textFieldconfigurationHandler: nil) { (index) in
             if index == 0 {
                 self.premium()
             }
@@ -84,7 +84,7 @@ class CustomStyleViewController: UITableViewController {
         let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
         let vc = sb.instantiateVC(PurchaseViewController.self)!
         dismiss(animated: false) {
-            let nav = UINavigationController(rootViewController: vc)
+            let nav = NavigationViewController(rootViewController: vc)
             nav.modalPresentationStyle = .formSheet
             UIApplication.shared.keyWindow?.rootViewController?.presentVC(nav)
         }

@@ -50,6 +50,7 @@
 		76485ACC2466608D00437411 /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76485ACB2466608D00437411 /* TextView.swift */; };
 		76485ACE2466A86700437411 /* RecentImagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76485ACD2466A86700437411 /* RecentImagesViewController.swift */; };
 		7655B51B246BCA520043EA43 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7655B51A246BCA520043EA43 /* ActivityIndicator.swift */; };
+		7655B53F246FC17D0043EA43 /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7655B53E246FC17D0043EA43 /* NavigationViewController.swift */; };
 		7655DD8B2455AB00006D7D65 /* Seperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7655DD8A2455AB00006D7D65 /* Seperator.swift */; };
 		766F117C2350803A00E6395E /* KeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766F117B2350803A00E6395E /* KeyboardBar.swift */; };
 		766F118B2351AB0600E6395E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 766F11892351AB0600E6395E /* LaunchScreen.storyboard */; };
@@ -132,6 +133,7 @@
 		76485ACB2466608D00437411 /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		76485ACD2466A86700437411 /* RecentImagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentImagesViewController.swift; sourceTree = "<group>"; };
 		7655B51A246BCA520043EA43 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		7655B53E246FC17D0043EA43 /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		7655DD8A2455AB00006D7D65 /* Seperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seperator.swift; sourceTree = "<group>"; };
 		766F117B2350803A00E6395E /* KeyboardBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardBar.swift; sourceTree = "<group>"; };
 		766F118A2351AB0600E6395E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 				769E1F36240506110064B822 /* AppearanceViewController.swift */,
 				76DFD720232926AC00F97D56 /* CustomStyleViewController.swift */,
 				76485ACD2466A86700437411 /* RecentImagesViewController.swift */,
+				7655B53E246FC17D0043EA43 /* NavigationViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -510,6 +513,7 @@
 				76DFD721232926AC00F97D56 /* CustomStyleViewController.swift in Sources */,
 				07E8274C1F5BF1BA0077A017 /* Localization.swift in Sources */,
 				76C59B412384E69500BE81ED /* MDURLProtocol.m in Sources */,
+				7655B53F246FC17D0043EA43 /* NavigationViewController.swift in Sources */,
 				76C59B3E2384E5D800BE81ED /* NSURLProtocol+WKWebVIew.m in Sources */,
 				76AF260A243DA40D002537A1 /* WKWebView+Snapshot.swift in Sources */,
 				760C296F2320F3EC002E613E /* escape.c in Sources */,

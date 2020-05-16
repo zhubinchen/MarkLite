@@ -149,7 +149,7 @@ class TextView: UITextView, UIDropInteractionDelegate {
             uploadImage(image)
         } else {
             resignFirstResponder()
-            viewController?.showActionSheet(title: /"ImageUploadTips", actionTitles: [/"ImageStorageRemote",/"ImageStorageLocal"]) { [unowned self] (index) in
+            viewController?.showActionSheet(title: /"ImageUploadTips", actionTitles: [/"ImageStorageRemote",/"ImageStorageLocal"]) { (index) in
                 if index == 0 {
                     self.uploadImage(image)
                 } else if index == 1 {
@@ -207,9 +207,9 @@ class TextView: UITextView, UIDropInteractionDelegate {
             return
         }
         var data: Data? = nil
-        if var jpegData = UIImageJPEGRepresentation(image, 0.9) {
+        if var jpegData = UIImageJPEGRepresentation(image, 0.8) {
             if jpegData.count > 1 * 1024 * 1024 {
-                if let newData = UIImageJPEGRepresentation(image, 0.8) {
+                if let newData = UIImageJPEGRepresentation(image, 0.6) {
                     jpegData = newData
                 }
             }
@@ -225,7 +225,7 @@ class TextView: UITextView, UIDropInteractionDelegate {
         ActivityIndicator.show()
         Alamofire.upload(multipartFormData: { (formData) in
             formData.append(data!, withName: "smfile", fileName: "temp", mimeType: "image/jpg")
-        }, to: imageUploadUrl,headers:["Authorization":smKey]) { (result) in
+        }, to: imageUploadUrl,headers:["Authorization":smKey]) { [weak self] (result) in
             switch result {
             case .success(let upload,_, _):
                 upload.responseJSON{ (response) in
@@ -243,7 +243,7 @@ class TextView: UITextView, UIDropInteractionDelegate {
                         }
                         if let url = url {
                             Configure.shared.imageCaches[image.md5()] = url
-                            self.insertImagePath(url)
+                            self?.insertImagePath(url)
                         } else if let message = dict["message"] as? String {
                             ActivityIndicator.showError(withStatus: message)
                         }

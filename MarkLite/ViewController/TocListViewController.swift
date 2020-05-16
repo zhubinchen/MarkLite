@@ -47,10 +47,20 @@ class TocListViewController: UITableViewController {
         
         parseToc()
         
-        tableView.register(BaseTableViewCell.self, forCellReuseIdentifier: "item")
-        tableView.rowHeight = 45
-        tableView.estimatedRowHeight = 45
+
         tableView.reloadData()
+    }
+    
+    func setupUI() {
+        navBar?.setTintColor(.navTint)
+        navBar?.setBackgroundColor(.navBar)
+        navBar?.setTitleColor(.navTitle)
+        
+        tableView.register(BaseTableViewCell.self, forCellReuseIdentifier: "item")
+        tableView.rowHeight = 48
+        tableView.estimatedRowHeight = 48
+        tableView.setSeparatorColor(.primary)
+        tableView.setBackgroundColor(.tableBackground)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

@@ -135,15 +135,16 @@ class OptionsViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let deleteAction = UITableViewRowAction(style: .destructive, title: /"Delete") { [unowned self](_, indexPath) in
-            self.showAlert(title: /"DeleteMessage", message: nil, actionTitles: [/"Cancel",/"Delete"], textFieldconfigurationHandler: nil, actionHandler: { (index) in
+        let deleteAction = UITableViewRowAction(style: .destructive, title: /"Delete") { [weak self](_, indexPath) in
+            guard let this = self else { return }
+            this.showAlert(title: /"DeleteMessage", message: nil, actionTitles: [/"Cancel",/"Delete"], textFieldconfigurationHandler: nil, actionHandler: { (index) in
                 if index == 0 {
                     return
                 }
-                let name = self.items[indexPath.row].toString
+                let name = this.items[indexPath.row].toString
                 let path = resourcesPath + "/Styles/" + name + ".css"
                 try? FileManager.default.removeItem(atPath: path)
-                self.items.remove(at: indexPath.row)
+                this.items.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .middle)
             })
         }

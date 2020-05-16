@@ -12,6 +12,10 @@ import RxSwift
 class HomeViewController: UISplitViewController, UISplitViewControllerDelegate {
 
     let bag = DisposeBag()
+    
+    override var childViewControllerForStatusBarStyle: UIViewController? {
+        return self.viewControllers.first
+    }
             
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -77,7 +77,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         _ = Configure.shared.theme.asObservable().subscribe(onNext: { (theme) in
             ColorCenter.shared.theme = theme
-            UIApplication.shared.statusBarStyle = theme == .white ? .default : .lightContent
             if theme == .black {
                 if Configure.shared.markdownStyle.value == "GitHub" {
                     Configure.shared.markdownStyle.value = "GitHub Dark"

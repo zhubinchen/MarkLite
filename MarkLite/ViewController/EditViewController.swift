@@ -281,7 +281,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         vc.toc = toc
         vc.delegate = self
         
-        let nav = UINavigationController(rootViewController: vc)
+        let nav = NavigationViewController(rootViewController: vc)
         nav.preferredContentSize = CGSize(width:300, height:400)
         nav.modalPresentationStyle = .popover
         guard let popoverVC = nav.popoverPresentationController else {
@@ -324,7 +324,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
 
         let vc = AppearanceViewController()
         
-        let nav = UINavigationController(rootViewController: vc)
+        let nav = NavigationViewController(rootViewController: vc)
         nav.preferredContentSize = CGSize(width:300, height:400)
         nav.modalPresentationStyle = .popover
         guard let popoverVC = nav.popoverPresentationController else {
@@ -362,11 +362,11 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             task()
             return
         }
-        showAlert(title: /"PremiumOnly", message: /"PremiumTips", actionTitles: [/"SubscribeNow",/"Cancel"], textFieldconfigurationHandler: nil) { [unowned self](index) in
+        showAlert(title: /"PremiumOnly", message: /"PremiumTips", actionTitles: [/"SubscribeNow",/"Cancel"], textFieldconfigurationHandler: nil) { (index) in
             if index == 0 {
                 let sb = UIStoryboard(name: "Settings", bundle: Bundle.main)
                 let vc = sb.instantiateVC(PurchaseViewController.self)!
-                let nav = UINavigationController(rootViewController: vc)
+                let nav = NavigationViewController(rootViewController: vc)
                 nav.modalPresentationStyle = .formSheet
                 self.presentVC(nav)
             }
