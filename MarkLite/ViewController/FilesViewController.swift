@@ -376,6 +376,7 @@ class FilesViewController: UIViewController {
             return
         }
         func openText() {
+            print("file \(file.displayName) tap open")
             ActivityIndicator.show()
             file.open { success in
                 ActivityIndicator.dismiss()

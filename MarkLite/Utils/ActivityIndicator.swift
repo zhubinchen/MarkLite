@@ -62,13 +62,15 @@ class ActivityIndicator {
     class func show(on parent: UIView? = UIApplication.shared.keyWindow) {
         guard let v = parent else { return }
         let container = UIView()
-        container.isHidden = true
+        container.backgroundColor = .clear
+        container.frame = v.bounds
         v.addSubview(container)
         container.snp.makeConstraints { maker in
             maker.edges.equalToSuperview()
         }
         
         let loadingView = UIView()
+        loadingView.isHidden = true
         let size = CGSize(width: 30, height: 30)
         container.addSubview(loadingView)
         loadingView.snp.makeConstraints { maker in
@@ -77,25 +79,30 @@ class ActivityIndicator {
         }
         
         if v == UIApplication.shared.keyWindow {
-            container.backgroundColor = UIColor(white: 0, alpha: 0.2)
             setUpAnimation(in: loadingView.layer, size: size, color: ColorCenter.shared.secondary.value)
         } else {
             setUpAnimation(in: loadingView.layer, size: size, color: ColorCenter.shared.secondary.value)
         }
-        shared.inticators.append(container)
+        ActivityIndicator.shared.inticators.append(container)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            container.isHidden = false
+            loadingView.isHidden = false
+            if v == UIApplication.shared.keyWindow {
+                container.backgroundColor = UIColor(white: 0, alpha: 0.2)
+            }
         }
+        print("ActivityIndicator add\(ActivityIndicator.shared.inticators.count)")
     }
     
     class func dismiss() {
-        shared.inticators.removeLast().removeFromSuperview()
+        guard let v = UIApplication.shared.keyWindow else { return }
+        dismissOnView(v)
     }
     
     class func dismissOnView(_ view: UIView) {
-        guard let v = shared.inticators.first(where: { $0.superview == view }) else { return }
+        guard let v = ActivityIndicator.shared.inticators.first(where: { $0.superview == view }) else { return }
         v.removeFromSuperview()
-        shared.inticators.removeFirst(v)
+        ActivityIndicator.shared.inticators = ActivityIndicator.shared.inticators.filter{ $0.window != nil }
+        print("ActivityIndicator remove\(ActivityIndicator.shared.inticators.count)")
     }
     
     class func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor) {

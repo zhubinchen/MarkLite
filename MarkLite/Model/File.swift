@@ -151,6 +151,8 @@ class File {
     fileprivate var _document: Document?
     
     fileprivate var _displayName: String?
+    
+    fileprivate var _isOpening = false
 
     fileprivate lazy var externalURL: URL? = {
         guard let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else {
@@ -401,12 +403,12 @@ class File {
         }
         document.close { successed in
             if successed {
-                print("close successed")
+                print("file \(self.displayName) close successed")
                 if self == File.current {
                     File.current = nil
                 }
             } else {
-                print("close failed")
+                print("file \(self.displayName) close failed")
             }
             completion?(successed)
         }
@@ -418,13 +420,19 @@ class File {
             completion?(true)
             return
         }
-        
+        if _isOpening {
+            completion?(false)
+            return
+        }
+        _isOpening = true
+        print("file \(self.displayName) start open")
         document.open { successed in
+            self._isOpening = false
             if successed {
-                print("open successed")
+                print("file \(self.displayName) open successed")
                 File.current = self
             } else {
-                print("open failed")
+                print("file \(self.displayName) open failed")
             }
             completion?(successed)
         }
