@@ -98,6 +98,9 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
         webView.scrollView.alwaysBounceHorizontal = false
         webView.scrollView.isDirectionalLockEnabled = true
         webView.isOpaque = false
+        if #available(iOS 13.0, *) {
+            webView.configuration.defaultWebpagePreferences.preferredContentMode = .mobile
+        }
         webView.navigationDelegate = self
         webView.scrollView.delegate = self
         view.addSubview(webView)

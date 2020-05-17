@@ -152,8 +152,8 @@ class TextViewController: UIViewController {
             }
         } else {
             editView.text = text
+            textViewDidChange(editView)
         }
-        textViewDidChange(editView)
     }
     
     func appendText(_ text: String) {

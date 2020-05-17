@@ -25,7 +25,7 @@
 "SortByType"="Sort By Type";
 "SortByModifyDate"="Sort By Modify Date";
 
-"EmptyFolder"="There is no file in current folder";
+"EmptyFolder"="There folder is empty";
 "EmptyInbox"="Files from other app will show here\n you can import files by click the top-right button";
 
 "Today"="Today";
@@ -194,7 +194,7 @@
 "PurchaseForever"="Continue";
 "Subscribed"="Subscribed";
 
-"MonthlyTips"="Try 3 days for free, then $0.99/month";
+"MonthlyTips"="Subscription can be canceled at any time";
 "YearlyTips"="Try 1 week for free, then $4.99/year";
 "ForeverTips"="Unlock all the features forever";
 

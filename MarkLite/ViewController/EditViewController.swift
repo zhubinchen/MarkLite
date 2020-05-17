@@ -99,7 +99,9 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
                 shouldRender = false
             } else {
                 if shouldRender {
-                    self.isRendering = true
+                    DispatchQueue.main.async {
+                        self.isRendering = true
+                    }
                 }
             }
         }
@@ -208,10 +210,6 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             self?.redoButton.isEnabled = self?.textVC.editView.undoManager?.canRedo ?? false
             self?.undoButton.isEnabled = self?.textVC.editView.undoManager?.canUndo ?? false
             self?.render()
-            self?.autoSaveTimer?.invalidate()
-            self?.autoSaveTimer = Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { _ in
-                self?.autoSave()
-            }
         }
         
         textVC.didScrollHandler = { [weak self] offset in

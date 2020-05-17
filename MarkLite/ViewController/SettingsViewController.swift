@@ -55,6 +55,10 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     let bag = DisposeBag()
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return Configure.shared.theme.value == .white ? .default : .lightContent
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

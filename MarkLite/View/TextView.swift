@@ -137,24 +137,22 @@ class TextView: UITextView, UIDropInteractionDelegate {
                 } else if index == 1 {
                     self.copyImageToLocal(image)
                 }
-                if !Configure.shared.showedTips.contains("2") {
-                    self.viewController?.showAlert(title: /"Tips", message: /"ImageStorageTips", actionTitles: [/"GotIt"])
-                    Configure.shared.showedTips.append("2")
-                }
                 if !Configure.shared.showedTips.contains("3") {
-                    self.viewController?.showAlert(title: /"Tips", message: /"ImageStorageTips", actionTitles: [/"GotIt"])
                     Configure.shared.showedTips.append("3")
+                    DispatchQueue.main.async {
+                        self.viewController?.showAlert(title: /"Tips", message: /"ImageStorageTips", actionTitles: [/"GotIt"])
+                    }
                 }
             }
         }
     }
     
     func insertImagePath(_ path: String) {
+        self.becomeFirstResponder()
         let currentRange = self.selectedRange
         let text = /"Alt"
         self.insertText("![\(text)](\(path))")
         self.selectedRange = NSRange(location: currentRange.location + 2, length: text.length)
-        self.becomeFirstResponder()
     }
     
     func copyImageToLocal(_ image: UIImage) {
