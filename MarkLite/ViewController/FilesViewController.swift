@@ -813,7 +813,7 @@ extension FilesViewController: UITableViewDelegate, UITableViewDataSource {
                 self.textField = textField
             }, actionHandler: { (index) in
                 let name = (self.textField?.text ?? "").trimmed()
-                if index == 0 || name.count == 0 {
+                if index == 0 || name.count == 0 || name == file.displayName {
                     return
                 }
                 if name.isValidFileName {

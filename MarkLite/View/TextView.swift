@@ -98,24 +98,6 @@ class TextView: UITextView, UIDropInteractionDelegate {
     
     override func paste(_ sender: Any?) {
         for item in UIPasteboard.general.items {
-            if let rtfd = item["com.apple.flat-rtfd"] as? Data {
-                if let attributedString = try? NSAttributedString(data: rtfd, options: [NSAttributedString.DocumentReadingOptionKey.documentType : NSAttributedString.DocumentType.rtfd], documentAttributes: nil) {
-
-                    let attributedString = NSMutableAttributedString(attributedString: attributedString)
-                    
-                    let newRange = NSRange(location: selectedRange.location, length: attributedString.length)
-
-                    if let selTextRange = selectedTextRange, let undoManager = undoManager {
-                        undoManager.beginUndoGrouping()
-                        self.replace(selTextRange, withText: attributedString.string)
-                        self.textStorage.replaceCharacters(in: newRange, with: attributedString)
-                        undoManager.endUndoGrouping()
-                    }
-
-                    self.layoutManager.invalidateDisplay(forCharacterRange: NSRange(location: 0, length: self.textStorage.length))
-                    return
-                }
-            }
 
             if let image = item["public.jpeg"] as? UIImage {
                 insertImage(image)

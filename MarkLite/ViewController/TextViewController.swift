@@ -111,7 +111,7 @@ class TextViewController: UIViewController {
             self.textViewDidChange(self.editView)
         }).disposed(by: bag)
         
-        Configure.shared.fontSize.asObservable().subscribe(onNext: { (size) in
+        Configure.shared.fontSize.asObservable().subscribe(onNext: { [unowned self] (size) in
             HighlightStyle.boldFont = UIFont.monospacedDigitSystemFont(ofSize: CGFloat(size), weight: UIFont.Weight.medium)
             HighlightStyle.normalFont = UIFont.monospacedDigitSystemFont(ofSize: CGFloat(size), weight: UIFont.Weight.regular)
             self.highlightmanager = MarkdownHighlightManager()
@@ -139,8 +139,20 @@ class TextViewController: UIViewController {
         self.text = text
         if text.count == 0 {
             editView.becomeFirstResponder()
+            return
         }
-        editView.text = text
+        if text.length > 800 {
+            editView.text = text[0..<800]
+            ActivityIndicator.show(on: self.editView)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+                guard let this = self else { return }
+                this.editView.text = text
+                this.textViewDidChange(this.editView)
+                ActivityIndicator.dismissOnView(this.editView)
+            }
+        } else {
+            editView.text = text
+        }
         textViewDidChange(editView)
     }
     

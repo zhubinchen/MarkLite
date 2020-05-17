@@ -12,7 +12,7 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigationDelegate, WKScriptMessageHandler {
+class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigationDelegate {
     
     let webView = WKWebView(frame: CGRect())
     
@@ -94,7 +94,6 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        webView.configuration.userContentController.add(self, name: "TextLoaded")
         webView.backgroundColor = .clear
         webView.scrollView.alwaysBounceHorizontal = false
         webView.scrollView.isDirectionalLockEnabled = true
@@ -109,7 +108,6 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
         }
 
         view.setBackgroundColor(.background)
-        
     }
     
     override func viewWillLayoutSubviews() {
@@ -126,10 +124,11 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
             initialed = true
             if html.length > 0 {
                 refresh()
-                ActivityIndicator.show(on: self.view)
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                    ActivityIndicator.dismissOnView(self.view)
-                }
+            }
+            ActivityIndicator.show(on: self.view)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+                guard let this = self else { return }
+                ActivityIndicator.dismissOnView(this.view)
             }
         }
     }
@@ -181,19 +180,9 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
             self.isLoading = false
         }
     }
-    
-    func webViewWebContentProcessDidLoadText(_ webView: WKWebView) {
-        ActivityIndicator.dismissOnView(self.view)
-    }
 
     func webViewWebContentProcessDidTerminate(_ webView: WKWebView) {
         
-    }
-    
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        if message.name == "TextLoaded" && message.webView != nil {
-            self.webViewWebContentProcessDidLoadText(message.webView!)
-        }
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {

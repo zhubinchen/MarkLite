@@ -132,6 +132,9 @@ NS_INLINE NSString *MPHTMLFromMarkdown(NSString *text,
 }
 
 - (NSString*)renderMarkdown:(NSString*)markdown {
+    if (markdown.length == 0) {
+        return @"";
+    }
     hoedown_renderer *htmlRenderer = MPCreateHTMLRenderer([self rendererFlags]);
     hoedown_renderer *tocRenderer = MPCreateHTMLTOCRenderer();
     int extensions = [self extensionFlags];

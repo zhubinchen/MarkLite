@@ -240,6 +240,9 @@
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <state key="normal" title="Terms"/>
+                                                        <connections>
+                                                            <action selector="terms:" destination="SRW-gL-EDK" eventType="touchUpInside" id="vGK-aX-vLW"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H1C-Vm-bPt">
                                                         <rect key="frame" x="0.0" y="563" width="53" height="29"/>
@@ -248,6 +251,9 @@
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <state key="normal" title="Privacy"/>
+                                                        <connections>
+                                                            <action selector="privacy:" destination="SRW-gL-EDK" eventType="touchUpInside" id="6Cb-YL-oXu"/>
+                                                        </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SubscribeTips" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nAC-eJ-otG">
                                                         <rect key="frame" x="0.0" y="526" width="374" height="17"/>

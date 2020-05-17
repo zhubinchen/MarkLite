@@ -84,6 +84,27 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     let markdownRenderer = MarkdownRender.shared()
     let pdfRender = PDFRender()
     
+    var shouldRender = false
+    
+    var isRendering = false {
+        didSet {
+            if isRendering {
+                DispatchQueue.global().async { [weak self] in
+                    let html = self?.markdownRenderer?.renderMarkdown(self?.file?.text) ?? ""
+                    DispatchQueue.main.async {
+                        self?.previewVC.html = html
+                        self?.isRendering = false
+                    }
+                }
+                shouldRender = false
+            } else {
+                if shouldRender {
+                    self.isRendering = true
+                }
+            }
+        }
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return Configure.shared.theme.value == .white ? .default : .lightContent
     }
@@ -117,7 +138,6 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         
         addNotificationObserver(Notification.Name.UIDeviceOrientationDidChange.rawValue, selector: #selector(deviceOrientationDidChange))
         addNotificationObserver(Notification.Name.UIKeyboardWillChangeFrame.rawValue, selector: #selector(keyboardHeightWillChange(_:)))
-        addNotificationObserver("FileLoadFinished", selector: #selector(fileLoadFinished(_:)))
     }
     
     override func viewWillLayoutSubviews() {
@@ -145,12 +165,11 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         isInitial = false
     }
     
-    @objc func autoSave() {
+    func autoSave() {
         file?.reopen { success in
             if success {
                 
             } else {
-                self.autoSaveTimer?.invalidate()
                 let exception = NSException(name: NSExceptionName(rawValue: "Auto Save Failed!") , reason: "Auto Save Failed!", userInfo: nil)
                 Bugly.report(exception)
                 self.showAlert(title: "Auto Save Failed!", message: /"AutoSaveFailedTips", actionTitles: [
@@ -158,6 +177,14 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
                         exit(0)
                 }
             }
+        }
+    }
+    
+    func render() {
+        if isRendering == false {
+            isRendering = true
+        } else {
+            shouldRender = true
         }
     }
     
@@ -169,20 +196,22 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         if isViewLoaded == false {
             return
         }
-        
-        autoSaveTimer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(autoSave), userInfo: nil, repeats: true)
-        
+                
         emptyView.isHidden = true
 
         previewVC.htmlURL = URL(fileURLWithPath: file.path).deletingLastPathComponent().appendingPathComponent(".\(file.displayName).html")
             
         textVC.editView.file = file
+        
         textVC.textChangedHandler = { [weak self] (text) in
             file.text = text
-            let html = self?.markdownRenderer?.renderMarkdown(text) ?? ""
-            self?.previewVC.html = html
             self?.redoButton.isEnabled = self?.textVC.editView.undoManager?.canRedo ?? false
             self?.undoButton.isEnabled = self?.textVC.editView.undoManager?.canUndo ?? false
+            self?.render()
+            self?.autoSaveTimer?.invalidate()
+            self?.autoSaveTimer = Timer.scheduledTimer(withTimeInterval: 10, repeats: false) { _ in
+                self?.autoSave()
+            }
         }
         
         textVC.didScrollHandler = { [weak self] offset in
@@ -193,24 +222,19 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             self?.textVC.offset = offset
         }
         
-        textVC.loadText(file.text!)
-
         Configure.shared.markdownStyle.asObservable().subscribe(onNext: { [weak self] (style) in
             self?.markdownRenderer?.styleName = style
-            let html = self?.markdownRenderer?.renderMarkdown(file.text) ?? ""
-            self?.previewVC.html = html
+            self?.render()
         }).disposed(by: bag)
         
         Configure.shared.fontSize.asObservable().subscribe(onNext: { [weak self] fontSize in
             self?.markdownRenderer?.fontSize = fontSize
-            let html = self?.markdownRenderer?.renderMarkdown(file.text) ?? ""
-            self?.previewVC.html = html
+            self?.render()
         }).disposed(by: bag)
         
         Configure.shared.highlightStyle.asObservable().subscribe(onNext: { [weak self] (style) in
             self?.markdownRenderer?.highlightName = style
-            let html = self?.markdownRenderer?.renderMarkdown(file.text) ?? ""
-            self?.previewVC.html = html
+            self?.render()
         }).disposed(by: bag)
         
         Configure.shared.automaticSplit.asObservable().subscribe(onNext: { [weak self] (split) in
@@ -232,6 +256,8 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
             maker.top.left.right.equalTo(self.bottomBar)
             maker.height.equalTo(0.3)
         }
+        
+        textVC.loadText(file.text!)
     }
     
     @objc func keyboardHeightWillChange(_ noti: NSNotification) {

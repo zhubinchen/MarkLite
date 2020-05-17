@@ -97,9 +97,7 @@ enum FileOpenOption: String {
 class Configure: NSObject, NSCoding {
     
     static let configureFile = configPath + "/Configure.plist"
-    
-    var newVersionAvaliable = false
-        
+            
     var currentVerion: String?
     var rateAlertDate = Date().daysAgo(19)
     var expireDate = Date.longlongAgo()
@@ -150,8 +148,6 @@ class Configure: NSObject, NSCoding {
     }
     
     func reset() {
-        rateAlertDate = Date().daysAgo(19)
-        expireDate = Date.longlongAgo()
         currentVerion = appVersion
         markdownStyle.value = "GitHub"
         highlightStyle.value = "tomorrow"
@@ -184,10 +180,6 @@ class Configure: NSObject, NSCoding {
     }
 
     func upgrade() {
-        rateAlertDate = Date()
-        
-        automaticSplit.value = false
-        autoHideNavigationBar.value = true
 
         let tempPathURL = URL(fileURLWithPath: tempPath)
         try! Zip.unzipFile(Bundle.main.url(forResource: "Resources", withExtension: "zip")!, destination: tempPathURL, overwrite: true, password: nil, progress: nil)
