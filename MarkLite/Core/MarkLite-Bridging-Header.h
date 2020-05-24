@@ -15,4 +15,6 @@
 #import <GCDWebServer/GCDWebUploader.h>
 #import "MDURLProtocol.h"
 #import "MarkdownRender.h"
+#import "NSData+MD5.h"
+
 #endif /* Markdown_Bridging_Header_h */

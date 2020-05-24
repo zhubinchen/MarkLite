@@ -55,6 +55,7 @@
 		7655DD8B2455AB00006D7D65 /* Seperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7655DD8A2455AB00006D7D65 /* Seperator.swift */; };
 		766F117C2350803A00E6395E /* KeyboardBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766F117B2350803A00E6395E /* KeyboardBar.swift */; };
 		766F118B2351AB0600E6395E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 766F11892351AB0600E6395E /* LaunchScreen.storyboard */; };
+		767162EF247AC76500C00D86 /* NSData+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 767162EE247AC76500C00D86 /* NSData+MD5.m */; };
 		76849D1824472CDF00DF0A45 /* TocListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76849D1724472CDF00DF0A45 /* TocListViewController.swift */; };
 		76849D1A24472D7A00DF0A45 /* TOCItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76849D1924472D7A00DF0A45 /* TOCItem.swift */; };
 		768762B922D86CE900A54EB1 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768762B822D86CE900A54EB1 /* IAPHelper.swift */; };
@@ -139,6 +140,8 @@
 		7655DD8A2455AB00006D7D65 /* Seperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seperator.swift; sourceTree = "<group>"; };
 		766F117B2350803A00E6395E /* KeyboardBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardBar.swift; sourceTree = "<group>"; };
 		766F118A2351AB0600E6395E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		767162ED247AC76500C00D86 /* NSData+MD5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+MD5.h"; sourceTree = "<group>"; };
+		767162EE247AC76500C00D86 /* NSData+MD5.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+MD5.m"; sourceTree = "<group>"; };
 		76849D1724472CDF00DF0A45 /* TocListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocListViewController.swift; sourceTree = "<group>"; };
 		76849D1924472D7A00DF0A45 /* TOCItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOCItem.swift; sourceTree = "<group>"; };
 		768762B822D86CE900A54EB1 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; usesTabs = 0; };
@@ -221,6 +224,8 @@
 				07E826BD1F5BF1BA0077A017 /* MarkLite-Bridging-Header.h */,
 				762CF0F72322650A00F2FF90 /* MarkdownRender.h */,
 				762CF0F82322650A00F2FF90 /* MarkdownRender.m */,
+				767162ED247AC76500C00D86 /* NSData+MD5.h */,
+				767162EE247AC76500C00D86 /* NSData+MD5.m */,
 				07E826BE1F5BF1BA0077A017 /* PDFRender.swift */,
 			);
 			path = Core;
@@ -545,6 +550,7 @@
 				760C296B2320F3EC002E613E /* autolink.c in Sources */,
 				0724281B1F726B0300C02F87 /* ImagePicker.swift in Sources */,
 				761F825022E16D6500C3435C /* WebViewController.swift in Sources */,
+				767162EF247AC76500C00D86 /* NSData+MD5.m in Sources */,
 				07E8275C1F5BF1BA0077A017 /* PreviewViewController.swift in Sources */,
 				760C29682320F3EC002E613E /* stack.c in Sources */,
 				760C296C2320F3EC002E613E /* version.c in Sources */,
@@ -714,12 +720,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Markdown.entitlements;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = TS5H34GM7Q;
 				INFOPLIST_FILE = MarkLite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.8.1;
+				MARKETING_VERSION = 1.8.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.qinxiu.markdown;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ENABLE_BATCH_MODE = NO;
@@ -737,12 +743,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Markdown.entitlements;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = TS5H34GM7Q;
 				INFOPLIST_FILE = MarkLite/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.8.1;
+				MARKETING_VERSION = 1.8.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.qinxiu.markdown;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ENABLE_BATCH_MODE = NO;

@@ -157,11 +157,10 @@ class TextView: UITextView, UIDropInteractionDelegate {
     
     func copyImageToLocal(_ image: UIImage) {
         let pixelCount = image.size.width * image.size.height
-        let scale = max(min(1024 * 1024 / pixelCount,0.8),0.4)
-        
+        let scale = max(min(1024 * 1024 / pixelCount,1.0),0.8)
         guard let data = image.data(scale) else { return }
         let md5 = data.md5()
-        
+
         let cachePath = Configure.shared.imageCaches[md5] ?? ""
         if self.imageFolder != nil &&
             cachePath.hasPrefix(self.imageFolder!.displayName) &&
@@ -170,7 +169,7 @@ class TextView: UITextView, UIDropInteractionDelegate {
             return
         }
         guard let parent = self.file?.parent else { return }
-        
+
         let folderName = self.file?.displayName ?? ""
         if imageFolder == nil {
             imageFolder = parent.createFile(name: folderName, contents: nil, type: .folder)
@@ -188,8 +187,8 @@ class TextView: UITextView, UIDropInteractionDelegate {
     
     func uploadImage(_ image: UIImage) {
         let pixelCount = image.size.width * image.size.height
-        let scale = max(min(1024 * 1024 / pixelCount,0.8),0.4)
-        
+        let scale = max(min(1024 * 1024 / pixelCount,1.0),0.6)
+
         guard let data = image.data(scale) else { return }
         let md5 = data.md5()
         let cachePath = Configure.shared.imageCaches[md5] ?? ""

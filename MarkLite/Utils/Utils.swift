@@ -9,7 +9,6 @@
 import UIKit
 import EZSwiftExtensions
 import RxSwift
-import CommonCrypto
 
 func *(string: String, repeatCount: Int) -> String {
     var ret = ""
@@ -51,14 +50,7 @@ extension Data {
     }
     
     func md5() -> String {
-        let data = Data(count: Int(CC_MD5_DIGEST_LENGTH))
-        let unsafe = [UInt8](self)
-        return data.withUnsafeBytes { (bytes) -> Data in
-            let b = bytes.baseAddress!.bindMemory(to: UInt8.self, capacity: 4).predecessor()
-            let mb = UnsafeMutablePointer(mutating: b)
-            CC_MD5(unsafe, CC_LONG(count),mb)
-            return data
-        }.hexString()
+        return (self as NSData).md5()
     }
 }
 
