@@ -38,31 +38,36 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
     var isLoading = false {
         didSet {
             if isLoading {
-                if let snapshot = webView.snapshotView(afterScreenUpdates: true) {
-                    snapshot.frame = webView.frame
-                    snapshot.tag = 4654
-                    view.addSubview(snapshot)
+                if initialed {
+                    if let snapshot = webView.snapshotView(afterScreenUpdates: true) {
+                        snapshot.frame = webView.frame
+                        snapshot.tag = 4654
+                        view.addSubview(snapshot)
+                    }
+                    webView.stopLoading()
                 }
                 if webView.scrollView.contentOffset.y > 10 {
                     contentOffset = webView.scrollView.contentOffset
                 }
-                webView.stopLoading()
                 webView.loadHTMLString(html, baseURL: htmlURL)
                 shouldRefresh = false
-            } else {
-                if let snapshot = view.viewWithTag(4654) {
-                    webView.scrollView.contentOffset = self.contentOffset
-                    snapshot.tag = 0
-                    snapshot.removeFromSuperview()
-                }
-                if shouldRefresh {
-                    delayTimer?.invalidate()
-                    delayTimer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false) { _ in
-                        if self.isLoading == false && self.shouldRefresh {
-                            self.isLoading = true
-                        }
+                delayTimer?.invalidate()
+                delayTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false) { _ in
+                    if self.isLoading == true {
+                        self.isLoading = false
                     }
                 }
+            } else {
+                DispatchQueue.main.async {
+                    if let snapshot = self.view.viewWithTag(4654) {
+                        snapshot.tag = 0
+                        snapshot.removeFromSuperview()
+                    }
+                    if self.isLoading == false && self.shouldRefresh {
+                        self.isLoading = true
+                    }
+                }
+                webView.scrollView.contentOffset = self.contentOffset
             }
         }
     }
@@ -79,7 +84,7 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
                 return
             }
                 
-            if html.length > 0 && initialed {
+            if html.length > 0 {
                 refresh()
             }
         }
@@ -111,6 +116,13 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
         }
 
         view.setBackgroundColor(.background)
+        
+        ActivityIndicator.show(on: self.view)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            guard let this = self else { return }
+            ActivityIndicator.dismissOnView(this.view)
+            this.initialed = true
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -118,21 +130,6 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
         let inset = max((self.view.w - 500) * 0.3,0)
         self.webView.snp.updateConstraints { maker in
             maker.left.equalTo(inset)
-        }
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if initialed == false {
-            initialed = true
-            if html.length > 0 {
-                refresh()
-            }
-            ActivityIndicator.show(on: self.view)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-                guard let this = self else { return }
-                ActivityIndicator.dismissOnView(this.view)
-            }
         }
     }
     
@@ -149,6 +146,7 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
         } else {
             shouldRefresh = true
         }
+        
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
