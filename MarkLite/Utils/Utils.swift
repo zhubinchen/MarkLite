@@ -63,10 +63,11 @@ extension Data {
 }
 
 extension UIImage {
-    func md5() -> String {
-        let data = UIImageJPEGRepresentation(self, 1) ?? UIImagePNGRepresentation(self)
-        return data?.md5() ?? ""
+    
+    func data(_ compressionQuality: CGFloat = 1) -> Data? {
+        return UIImageJPEGRepresentation(self, compressionQuality) ?? UIImagePNGRepresentation(self)
     }
+    
 }
 
 extension String {

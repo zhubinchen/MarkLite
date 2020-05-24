@@ -156,9 +156,12 @@ class TextView: UITextView, UIDropInteractionDelegate {
     }
     
     func copyImageToLocal(_ image: UIImage) {
-        guard let data = UIImageJPEGRepresentation(image, 0.9) ?? UIImagePNGRepresentation(image) else { return }
+        let pixelCount = image.size.width * image.size.height
+        let scale = max(min(1024 * 1024 / pixelCount,0.8),0.4)
+        
+        guard let data = image.data(scale) else { return }
         let md5 = data.md5()
-
+        
         let cachePath = Configure.shared.imageCaches[md5] ?? ""
         if self.imageFolder != nil &&
             cachePath.hasPrefix(self.imageFolder!.displayName) &&
@@ -184,7 +187,10 @@ class TextView: UITextView, UIDropInteractionDelegate {
     }
     
     func uploadImage(_ image: UIImage) {
-        guard let data = UIImageJPEGRepresentation(image, 0.8) ?? UIImagePNGRepresentation(image) else { return }
+        let pixelCount = image.size.width * image.size.height
+        let scale = max(min(1024 * 1024 / pixelCount,0.8),0.4)
+        
+        guard let data = image.data(scale) else { return }
         let md5 = data.md5()
         let cachePath = Configure.shared.imageCaches[md5] ?? ""
         if cachePath.hasPrefix("http") {
