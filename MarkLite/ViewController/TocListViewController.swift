@@ -12,11 +12,15 @@ protocol TocListDelegate: NSObjectProtocol {
     func didSelectTOC(_ toc: TOCItem, fromListVC: TocListViewController)
 }
 
-class TocListViewController: UITableViewController {
+class TocListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var items = [TOCItem]()
     
     var toc = ""
+    
+    var textCount = 0
+    
+    let tableView = UITableView(frame: CGRect.zero)
     
     weak var delegate: TocListDelegate?
     
@@ -44,6 +48,9 @@ class TocListViewController: UITableViewController {
         super.viewDidLoad()
 
         title = /"TOC"
+        if textCount > 0 {
+            title = "\(textCount)" + " " + /"Characters"
+        }
         
         parseToc()
         
@@ -56,22 +63,45 @@ class TocListViewController: UITableViewController {
         navBar?.setBackgroundColor(.navBar)
         navBar?.setTitleColor(.navTitle)
         
+        view.setBackgroundColor(.tableBackground)
+
         tableView.register(BaseTableViewCell.self, forCellReuseIdentifier: "item")
         tableView.rowHeight = 48
         tableView.estimatedRowHeight = 48
         tableView.setSeparatorColor(.primary)
         tableView.setBackgroundColor(.tableBackground)
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints { (maker) in
+            maker.edges.equalToSuperview()
+        }
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        if items.count == 0 {
+            tableView.isHidden = true
+            let emptyLabel = UILabel(frame: CGRect.zero)
+            emptyLabel.setBackgroundColor(.tableBackground)
+            view.addSubview(emptyLabel)
+            emptyLabel.setTextColor(.secondary)
+            emptyLabel.textAlignment = .center
+            emptyLabel.numberOfLines = 0
+            emptyLabel.text = /"EmptyTableOfContents"
+            emptyLabel.snp.makeConstraints { (maker) in
+                maker.edges.equalTo(UIEdgeInsetsMake(20, 20, 100, 20))
+            }
+        }
     }
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return items.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "item", for: indexPath) as! BaseTableViewCell
         let item = items[indexPath.row]
         cell.textLabel?.text = item.title
@@ -79,12 +109,12 @@ class TocListViewController: UITableViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, indentationLevelForRowAt indexPath: IndexPath) -> Int {
+    func tableView(_ tableView: UITableView, indentationLevelForRowAt indexPath: IndexPath) -> Int {
         let item = items[indexPath.row]
         return item.level
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = items[indexPath.row]
         delegate?.didSelectTOC(item,fromListVC: self)
     }

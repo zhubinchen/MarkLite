@@ -57,6 +57,7 @@
 "Undo"="撤销";
 "Redo"="重做";
 "Characters"="字符";
+"EmptyTableOfContents"="文档中如果存在##标题，将自动整理出目录大纲展示在这里";
 
 "ImageUploadTips"="本地引用不需要网络即可完成，但是相对路径改变时会无法加载图片";
 "ImageStorageTips"="在【设置】中设置插入图片方式后将不再弹窗询问";
@@ -153,7 +154,7 @@
 "Blockquote"="引用";
 "Delection"="要删除的文本";
 "EnterCode"="代码";
-"EnterLink"="在这输入链接标题";
+"EnterLink"="链接标题";
 "Alt"="Alt";
 
 "Clear"="清空";

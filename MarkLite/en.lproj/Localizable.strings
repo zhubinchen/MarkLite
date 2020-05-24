@@ -57,6 +57,7 @@
 "Undo"="Undo";
 "Redo"="Redo";
 "Characters"="Characters";
+"EmptyTableOfContents"="Table of contents will display here, if ##header exist in document";
 
 "ImageUploadTips"="Choose the reference method of image";
 "ImageStorageTips"="You can save your method of inserting images in [Settings]";

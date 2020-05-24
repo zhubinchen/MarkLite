@@ -156,14 +156,17 @@ class TextView: UITextView, UIDropInteractionDelegate {
     }
     
     func copyImageToLocal(_ image: UIImage) {
-        let cachePath = Configure.shared.imageCaches[image.md5()] ?? ""
+        guard let data = UIImageJPEGRepresentation(image, 0.9) ?? UIImagePNGRepresentation(image) else { return }
+        let md5 = data.md5()
+
+        let cachePath = Configure.shared.imageCaches[md5] ?? ""
         if self.imageFolder != nil &&
             cachePath.hasPrefix(self.imageFolder!.displayName) &&
             FileManager.default.fileExists(atPath: self.imageFolder!.path.stringByDeleteLastPath().stringByAppendingPath(cachePath)) {
             self.insertImagePath(cachePath)
             return
         }
-        guard let parent = self.file?.parent, let data = UIImageJPEGRepresentation(image, 0.9) ?? UIImagePNGRepresentation(image) else { return }
+        guard let parent = self.file?.parent else { return }
         
         let folderName = self.file?.displayName ?? ""
         if imageFolder == nil {
@@ -177,34 +180,21 @@ class TextView: UITextView, UIDropInteractionDelegate {
         }
         let path = "\(imageFolder.name)/\(imageFile.name)"
         insertImagePath(path)
-        Configure.shared.imageCaches[image.md5()] = path
+        Configure.shared.imageCaches[md5] = path
     }
     
     func uploadImage(_ image: UIImage) {
-        let cachePath = Configure.shared.imageCaches[image.md5()] ?? ""
+        guard let data = UIImageJPEGRepresentation(image, 0.8) ?? UIImagePNGRepresentation(image) else { return }
+        let md5 = data.md5()
+        let cachePath = Configure.shared.imageCaches[md5] ?? ""
         if cachePath.hasPrefix("http") {
             self.insertImagePath(cachePath)
-            return
-        }
-        var data: Data? = nil
-        if var jpegData = UIImageJPEGRepresentation(image, 0.8) {
-            if jpegData.count > 1 * 1024 * 1024 {
-                if let newData = UIImageJPEGRepresentation(image, 0.6) {
-                    jpegData = newData
-                }
-            }
-            data = jpegData
-        } else {
-            data = UIImagePNGRepresentation(image)
-        }
-        
-        if data == nil {
             return
         }
         
         ActivityIndicator.show()
         Alamofire.upload(multipartFormData: { (formData) in
-            formData.append(data!, withName: "smfile", fileName: "temp", mimeType: "image/jpg")
+            formData.append(data, withName: "smfile", fileName: "temp", mimeType: "image/jpg")
         }, to: imageUploadUrl,headers:["Authorization":smKey]) { [weak self] (result) in
             switch result {
             case .success(let upload,_, _):
@@ -222,7 +212,7 @@ class TextView: UITextView, UIDropInteractionDelegate {
                             }
                         }
                         if let url = url {
-                            Configure.shared.imageCaches[image.md5()] = url
+                            Configure.shared.imageCaches[md5] = url
                             self?.insertImagePath(url)
                         } else if let message = dict["message"] as? String {
                             ActivityIndicator.showError(withStatus: message)

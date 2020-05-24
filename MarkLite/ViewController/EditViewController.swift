@@ -307,6 +307,7 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
         
         let vc = TocListViewController()
         vc.toc = toc
+        vc.textCount = ((file?.text ?? "") as NSString).length
         vc.delegate = self
         
         let nav = NavigationViewController(rootViewController: vc)
@@ -469,6 +470,11 @@ class EditViewController: UIViewController, UIScrollViewDelegate,UIPopoverPresen
     
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
         return .none
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        autoSave()
     }
         
     deinit {

@@ -97,7 +97,7 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
         webView.backgroundColor = .clear
         webView.scrollView.alwaysBounceHorizontal = false
         webView.scrollView.isDirectionalLockEnabled = true
-        webView.isOpaque = false
+        webView.setBackgroundColor(.background)
         if #available(iOS 13.0, *) {
             webView.configuration.defaultWebpagePreferences.preferredContentMode = .mobile
         }
