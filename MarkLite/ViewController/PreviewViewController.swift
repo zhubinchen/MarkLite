@@ -42,6 +42,13 @@ class PreviewViewController: UIViewController, UIScrollViewDelegate, WKNavigatio
                     snapshot.frame = webView.frame
                     snapshot.tag = 4654
                     view.addSubview(snapshot)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        if let snapshot = self.view.viewWithTag(4654) {
+                            self.webView.scrollView.contentOffset = self.contentOffset
+                            snapshot.tag = 0
+                            snapshot.removeFromSuperview()
+                        }
+                    }
                 }
                 if webView.scrollView.contentOffset.y > 10 {
                     contentOffset = webView.scrollView.contentOffset
